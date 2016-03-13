@@ -70,20 +70,20 @@ public class RoomBasedDungeon : Dungeon
 
     private void CreateSections()
     {
-        _sections = new DungeonSection[horizontalSectionsCount, verticalSectionsCount]; //iniatlly every area is disconnected and, therefore, contains a single section
+        _sections = new DungeonSection[verticalSectionsCount, horizontalSectionsCount]; //iniatlly every area is disconnected and, therefore, contains a single section
 
-        //define the best dimensions for the area sections
-        int areaWidht = (width - 2 * horizontalPadding) / horizontalSectionsCount;
-        int areaHeight = (height - 2 * verticalPadding) / verticalSectionsCount;
+        //define the best dimensions for the sections
+        int sectionWidht = (width - 2 * horizontalPadding) / horizontalSectionsCount;
+        int ectionHeight = (height - 2 * verticalPadding) / verticalSectionsCount;
 
-        //iterate through the dungeon, moving from area to area
+        //iterate through the dungeon, moving from section to section
         for (var row = 0; row < verticalSectionsCount; row++)
         {
             for (var col = 0; col < horizontalSectionsCount; col++)
             {
                 //Create a new area and make a section within it
                 var area = ScriptableObject.CreateInstance<DungeonSection>();
-                area.CreateRoom(fillRate, col, row, areaWidht, areaHeight);
+                area.CreateRoom(fillRate, col, row, sectionWidht, ectionHeight);
                 _sections[row, col] = area;
             }
         }
@@ -110,37 +110,29 @@ public class RoomBasedDungeon : Dungeon
         }
     }
 
-    private DungeonSection GetRandomAdjacentSection(DungeonSection[,] areas, int col, int row)
+    private DungeonSection GetSection(int row, int col)
     {
-        DungeonSection section = default(DungeonSection);
-        switch (random.Next(0, 4))
-        {
-            case 0:
-                if (row > 0 && areas[row, col]) //tries to get the section above
-                {
-                    section = areas[row - 1, col];
-                }
-                break;
-            case 1:
+        if (row >= 0 && row < _sections.GetLength(0) && col >= 0 && col < _sections.GetLength(1))
+            return _sections[row, col];
+        return null;
+    }
 
-                if (row < verticalSectionsCount) //tries to get the section below
-                {
-                    section = areas[row + 1, col];
-                }
-                break;
-            case 2:
-                if (col > 0) //tries to get the section to the left
-                {
-                    section = areas[row, col - 1];
-                }
-                break;
-            case 3:
-                if (col < horizontalSectionsCount) //tries to get the section to the right
-                {
-                    section = areas[row, col + 1];
-                }
-                break;
+    private DungeonSection GetRandomAdjacentSection(DungeonSection[,] sections, int col, int row)
+    {
+        DungeonSection section = null;
+        int randomValue = random.Next(0, 4);
+        int offset = (int)(randomValue / 2) * 2 - 1; //0 and 1 results in -1, 2 and 3 results in 1
+
+        //will be true only if randomValue is 0 or 2
+        if((int)(randomValue/2) * 2 == randomValue)
+        {
+            section = GetSection(row + offset, col); //look above or below the given coordinates
         }
+        else
+        {
+            section = GetSection(row, col + offset); //look to the left or right of the given coordinates
+        }
+
         return section;
     }
 
