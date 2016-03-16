@@ -5,32 +5,25 @@ using Rdm = UnityEngine.Random;
 
 internal class DungeonSection : ScriptableObject
 {
-
-    public enum CellType
-    {
-        UNMARKED = 0,
-        MARKED = 1,
-        WALL = 2
-    }
-
-    private SortedDictionary<UnityEngine.Vector2, CellType[,]> _rooms;
+    private HashSet<DungeonRoom> _rooms;
 
     public int RoomsCount { get { return _rooms.Count; } }
 
     public DungeonSection()
     {
-        _rooms = new SortedDictionary<UnityEngine.Vector2, CellType[,]>();
+        _rooms = new HashSet<DungeonRoom>(new DungeonRoomComparer());
     }
 
-    //Makes a section based off of another
-    private DungeonSection(DungeonSection other)
+    //Initializes a section based off of another
+    public void Init(DungeonSection other)
     {
-        _rooms = new SortedDictionary<UnityEngine.Vector2, CellType[,]>(other._rooms);
+        _rooms = new HashSet<DungeonRoom>(other._rooms, new DungeonRoomComparer());
     }
 
     public static DungeonSection Merge(DungeonSection a, DungeonSection b)
     {
-        DungeonSection result = new DungeonSection(a);
+        DungeonSection result = ScriptableObject.CreateInstance<DungeonSection>();
+        result.Init(a);
         result.Merge(b);
         return result;
     }
@@ -44,85 +37,113 @@ internal class DungeonSection : ScriptableObject
     //Unify the "rooms" list of this section and another one
     public void Merge(DungeonSection other)
     {
-        foreach(UnityEngine.Vector2 key in other._rooms.Keys)
+        foreach(DungeonRoom room in other._rooms)
         {
-            if (!_rooms.ContainsKey(key))
+            if (!_rooms.Contains(room))
             {
-                _rooms.Add(key, other._rooms[key]);
+                _rooms.Add(room);
             }
         }
 
         EnsureConnectivity(_rooms);
     }
 
-    private void EnsureConnectivity(SortedDictionary<Vector2, CellType[,]> _rooms)
+    //Returns true only if both rooms are different and are not further than 1 unit from each other on both axis
+    private bool CheckAdjacency(DungeonRoom roomA, DungeonRoom roomB)
     {
-        foreach (UnityEngine.Vector2 roomCoords in _rooms.Keys)
+        return  !(roomA.Equals(roomB)) 
+                && (Mathf.Abs(roomA.X - roomB.X) < 2) 
+                && (Mathf.Abs(roomA.Y - roomB.Y) < 2);
+    }
+
+    private void EnsureConnectivity(HashSet<DungeonRoom> rooms)
+    {
+        foreach(DungeonRoom roomA in rooms)
         {
-            foreach (UnityEngine.Vector2 otherRoomCoords in _rooms.Keys)
+            foreach (DungeonRoom roomB in rooms)
             {
-                int xDifference = (int)Mathf.Abs(roomCoords.x - otherRoomCoords.x);
-                int yDifference = (int)Mathf.Abs(roomCoords.y - otherRoomCoords.y);
+                if (!CheckAdjacency(roomA, roomB))
+                    continue;
+                ConnectRooms(roomA, roomB);
+            }
+        }
+    }
 
-                //if the two rooms are not the same nor diagonal from each other, but still are adjacent
-                if ((xDifference != 0 || yDifference != 0) && xDifference != yDifference && xDifference < 2 && yDifference < 2)
-                {
-                    if (roomCoords.x < otherRoomCoords.x) //make sure the right of the room at "coords" connects to the left of the room at "other coords"
-                    {
+    internal void ConnectRooms(DungeonRoom roomA, DungeonRoom roomB)
+    {
 
-                    } else if(roomCoords.x > otherRoomCoords.x) //make sure the left of the room at "coords" connects to the right of the room at "other coords"
-                    {
+        int xDiff = roomA.X - roomB.X;
+        int yDiff = roomA.Y - roomB.Y;
 
-                    } else if(roomCoords.y < otherRoomCoords.y) //make sure the bottom of the room at "coords" connects to the top of the room at "other coords"
-                    {
+        int startingRowA = 0, startingRowB = 0;
+        int startingColumnA = 0, startingColumnB = 0;
 
-                    } else if(roomCoords.y > otherRoomCoords.y) //make sure the top of the room at "coords" connects to the bottom of the room at "other coords"
-                    {
+        if (xDiff == -1)
+        {
+            //B is to the right of A
+            startingColumnA = roomA.Width - 1;
+        }
+        else if (xDiff == 1)
+        {
+            //B is to the left of A
+            startingColumnB = roomB.Width - 1;
+        }
+        if (yDiff == -1)
+        {
+            //B is below A
+            startingRowA = roomA.Height - 1;
+        }
+        else if (yDiff == 1)
+        {
+            //B is above A
+            startingRowB = roomB.Height - 1;
+        }
 
-                    }
-                }
+        for (int row = startingRowA; row < roomA.Height; row++)
+        {
+            for (int col = startingColumnA; col < roomA.Width; col++)
+            {
+
             }
         }
     }
 
     //creates a room within this section
-    internal void CreateRoom(float fillRate, int col, int row, int areaWidht, int areaHeight)
+    internal void CreateRoom(float fillRate, int col, int row, int width, int height)
     {
-        CellType[,] room = new CellType[areaWidht, areaHeight];
-        UnityEngine.Vector2 coords = new UnityEngine.Vector2(col, row);
-
-        _rooms.Add(coords, room);
+        DungeonRoom room = ScriptableObject.CreateInstance<DungeonRoom>();
+        room.Init(width, height, col, row);
+        _rooms.Add(room);
 
         CarveRoom(fillRate, room);
     }
 
-    private void CarveRoom(float fillRate, CellType[,] cells)
+    private void CarveRoom(float fillRate, DungeonRoom room)
     {
-        int Width = cells.GetLength(0);
-        int Height = cells.GetLength(1);
+        int width = room.Width;
+        int height = room.Height;
         float filled = 0;
 
-        for (int tries = 0; tries < 10000 && filled / (Width * Height) < fillRate; tries++)
+        for (int tries = 0; tries < 10000 && filled / (width * height) < fillRate; tries++)
         {
-            int x = Rdm.Range(0, Width);
-            int y = Rdm.Range(0, Height);
-            int w = Rdm.Range(0, Width - x);
-            int h = Rdm.Range(0, Height - y);
+            int x = Rdm.Range(0, width);
+            int y = Rdm.Range(0, height);
+            int w = Rdm.Range(0, width - x);
+            int h = Rdm.Range(0, height - y);
 
-            filled += MarkCells(x, y, w, h, cells);
+            filled += MarkCells(x, y, w, h, room);
         }
     }
 
-    private int MarkCells(int x, int y, int w, int h, CellType[,] room)
+    private int MarkCells(int x, int y, int w, int h, DungeonRoom room)
     {
         int markedCells = 0;
         for (int row = y; row < y + h; row++)
         {
             for (int col = x; col < x + w; col++)
             {
-                if (room[row, col] == CellType.UNMARKED)
+                if (room.MarkCell(col, row))
                 {
-                    room[row, col] = CellType.MARKED;
                     markedCells++;
                 }
             }

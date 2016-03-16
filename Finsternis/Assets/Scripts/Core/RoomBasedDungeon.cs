@@ -15,7 +15,6 @@ public class RoomBasedDungeon : Dungeon
     public int horizontalPadding = 4;
     public int verticalPadding = 4;
 
-
     [Header("Section settings")]
     //How many areas should be generated
     public int horizontalSectionsCount = 4;
@@ -33,11 +32,6 @@ public class RoomBasedDungeon : Dungeon
     float fillRate = 0.5f;
 
     private DungeonSection[,] _sections;
-
-    // Use this for initialization
-    void Start()
-    {
-    }
 
     public override void Generate()
     {
@@ -77,9 +71,9 @@ public class RoomBasedDungeon : Dungeon
         int ectionHeight = (height - 2 * verticalPadding) / verticalSectionsCount;
 
         //iterate through the dungeon, moving from section to section
-        for (var row = 0; row < verticalSectionsCount; row++)
+        for (int row = 0; row < verticalSectionsCount; row++)
         {
-            for (var col = 0; col < horizontalSectionsCount; col++)
+            for (int col = 0; col < horizontalSectionsCount; col++)
             {
                 //Create a new area and make a section within it
                 var area = ScriptableObject.CreateInstance<DungeonSection>();
@@ -92,9 +86,9 @@ public class RoomBasedDungeon : Dungeon
     private void MergeSections()
     {
         //iterate through the dungeon, moving from area to area
-        for (var row = 0; row < verticalSectionsCount; row++)
+        for (int row = 0; row < verticalSectionsCount; row++)
         {
-            for (var col = 0; col < horizontalSectionsCount; col++)
+            for (int col = 0; col < horizontalSectionsCount; col++)
             {
                 DungeonSection section = _sections[col, row];
 
@@ -138,7 +132,13 @@ public class RoomBasedDungeon : Dungeon
 
     private void ExpandDungeon()
     {
+        for (int row = 0; row < verticalSectionsCount; row++)
+        {
+            for (int col = 0; col < horizontalSectionsCount; col++)
+            {
 
+            }
+        }
     }
 
     private void MakeCorridors()
