@@ -17,6 +17,11 @@ public class DungeonRoom : ScriptableObject
     public int Width { get { return cells.GetLength(1); } }
     public int Height { get { return cells.GetLength(0); } }
 
+    public bool this[int row, int col]
+    {
+        get { return IsMarked(col, row); }
+    }
+
     //Since directly instantiating a ScriptableObject is not recomended, this Init method is used
     public void Init(int width, int height, int x = 0, int y = 0)
     {

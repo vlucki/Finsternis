@@ -69,6 +69,7 @@ internal class DungeonSection : ScriptableObject
         }
     }
 
+    //Connect the rooms if that is not already the case
     internal void ConnectRooms(DungeonRoom roomA, DungeonRoom roomB)
     {
 
@@ -99,13 +100,69 @@ internal class DungeonSection : ScriptableObject
             startingRowB = roomB.Height - 1;
         }
 
-        for (int row = startingRowA; row < roomA.Height; row++)
+        //if rooms are diagonal, move on - for now
+        if (xDiff != 0 && yDiff != 0)
         {
-            for (int col = startingColumnA; col < roomA.Width; col++)
+            return;
+        }
+
+        //stores every pair of cells that should be merged
+        List<int[]> toMerge = new List<int[]>();
+
+        for (int rowA = startingRowA, rowB = startingRowB; rowA < roomA.Height && rowB < roomB.Height; rowA++, rowB++)
+        {
+            for (int colA = startingColumnA, colB = startingColumnB; colA < roomA.Width && colB < roomB.Width; colA++, colB++)
             {
 
+                //if the rooms are touching already, no need to keep checking
+                if (roomA[rowA, colA] && roomB[rowB, colB])
+                {
+                    return;
+                }
+
+                int[] cellPair = GetNearestCellPair(roomA, roomB, xDiff, yDiff); //x and y of first cell, x and y of second cell and distance between both
             }
         }
+    }
+
+    private int[] GetCellNearestToEdge(DungeonRoom room, int xIncrement, int yIncrement)
+    {
+        int startingCol = xIncrement < 0 ? 0 : room.Width - 1;
+        int endingCol = xIncrement < 0 ? room.Width - 1 : 0;
+        int startingRow = yIncrement < 0 ? 0 : room.Height - 1;
+        int endingRow = yIncrement < 0 ? room.Height - 1 : 0;
+        int distanceTravelled = 0;
+
+        //either the outer or the inner loop should ALWAYS run only once
+        do
+        {
+            do
+            {
+                distanceTravelled++; //add 1 to the distance, since we are moving away from the edge
+
+                if (room[startingRow, startingCol])
+                {
+                    //found the closest marked cell to the border on this row or column
+                    return new int[3] { startingRow, startingCol, distanceTravelled };
+                }
+
+                startingCol += xIncrement;
+
+            } while (startingCol != endingCol && xIncrement != 0);
+
+            startingRow += yIncrement;
+        } while (startingRow != endingRow && yIncrement != 0);
+        
+        //finished scanning the whole row or column without finding a marked cell
+        return null;
+    }
+
+    private int[] GetNearestCellPair(DungeonRoom roomA, DungeonRoom roomB, int xDiff, int yDiff)
+    {
+        int[] cellPair = new int[5];
+
+
+        return cellPair;
     }
 
     //creates a room within this section
