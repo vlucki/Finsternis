@@ -19,20 +19,20 @@ public class DungeonRoom : ScriptableObject
 
     public bool this[int row, int col]
     {
-        get { return IsMarked(col, row); }
-    }
-
-    //Since directly instantiating a ScriptableObject is not recomended, this Init method is used
-    public void Init(int width, int height, int x = 0, int y = 0)
-    {
-        X = x;
-        Y = y;
-        cells = new CellType[height, width];
+        get { return IsMarked(row, col); }
     }
 
     public bool Initialized
     {
         get { return cells != null; }
+    }
+
+    //Since directly instantiating a ScriptableObject is not recomended, this Init method is used
+    public void Init(int width, int height, int y = 0, int x = 0)
+    {
+        X = x;
+        Y = y;
+        cells = new CellType[height, width];
     }
 
     internal void InitializationCheck()
@@ -42,7 +42,7 @@ public class DungeonRoom : ScriptableObject
     }
 
     //Makes sure a cell is marked and return whether it was already marked or not
-    public bool MarkCell(int col, int row)
+    public bool MarkCell(int row, int col)
     {
         InitializationCheck();
 
@@ -54,12 +54,11 @@ public class DungeonRoom : ScriptableObject
         return false;
     }
 
-    public bool IsMarked(int col, int row)
+    public bool IsMarked(int row, int col)
     {
         InitializationCheck();
 
         return cells[row, col] == CellType.MARKED;
     }
-
 
 }

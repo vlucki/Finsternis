@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomBasedDungeon : Dungeon
@@ -23,11 +24,11 @@ public class RoomBasedDungeon : Dungeon
     //How many sections may be merged together at once
     public int maxSectionMerges = 2;
 
-    [Range(0, 1)]
+    [Range(0.0f, 1.0f)]
     [Tooltip("Chance of an attempt to merge sections happening.")]
     public float mergeThreshold;
 
-    [Range(0, 1)]
+    [Range(0.5f, 1.0f)]
     [Tooltip("Percentage of each section that must be filled before being considered done")]
     float fillRate = 0.5f;
 
@@ -77,7 +78,7 @@ public class RoomBasedDungeon : Dungeon
             {
                 //Create a new area and make a section within it
                 var area = ScriptableObject.CreateInstance<DungeonSection>();
-                area.CreateRoom(fillRate, col, row, sectionWidht, ectionHeight);
+                area.CreateRoom(fillRate, row, col, sectionWidht, ectionHeight);
                 _sections[row, col] = area;
             }
         }
@@ -90,28 +91,23 @@ public class RoomBasedDungeon : Dungeon
         {
             for (int col = 0; col < horizontalSectionsCount; col++)
             {
-                DungeonSection section = _sections[col, row];
+                DungeonSection section = _sections[row, col];
 
                 if (section.RoomsCount < maxSectionMerges && random.NextDouble() < mergeThreshold)
                 {
-                    DungeonSection toMerge = GetRandomAdjacentSection(_sections, col, row);
+                    int tmpCol = col, tmpRow = row;
+                    DungeonSection toMerge = GetRandomAdjacentSection(_sections, ref tmpRow, ref tmpCol);
                     if (toMerge && toMerge != section)
                     {
                         section += toMerge;
+                        _sections[tmpRow, tmpCol] = section; //replace the random section that was merged for the current section
                     }
                 }
             }
         }
     }
 
-    private DungeonSection GetSection(int row, int col)
-    {
-        if (row >= 0 && row < _sections.GetLength(0) && col >= 0 && col < _sections.GetLength(1))
-            return _sections[row, col];
-        return null;
-    }
-
-    private DungeonSection GetRandomAdjacentSection(DungeonSection[,] sections, int col, int row)
+    private DungeonSection GetRandomAdjacentSection(DungeonSection[,] sections, ref int row, ref int col)
     {
         DungeonSection section = null;
         int randomValue = random.Next(0, 4);
@@ -130,13 +126,26 @@ public class RoomBasedDungeon : Dungeon
         return section;
     }
 
+    private DungeonSection GetSection(int row, int col)
+    {
+        if (row >= 0 && row < _sections.GetLength(0) && col >= 0 && col < _sections.GetLength(1))
+            return _sections[row, col];
+        return null;
+    }
+
     private void ExpandDungeon()
     {
+        HashSet<DungeonSection> moved = new HashSet<DungeonSection>();
         for (int row = 0; row < verticalSectionsCount; row++)
         {
             for (int col = 0; col < horizontalSectionsCount; col++)
             {
+                DungeonSection section = _sections[row, col];
+                if (moved.Contains(section))
+                    continue;
 
+                moved.Add(section);
+                section.MoveAwayFrom(verticalSectionsCount / 2, horizontalSectionsCount / 2, verticalPadding, horizontalPadding);
             }
         }
     }
