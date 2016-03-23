@@ -8,7 +8,7 @@ internal class DungeonSection : ScriptableObject
 
     private HashSet<DungeonRoom> _rooms;
 
-    private struct CellInfo
+    private class CellInfo
     {
         private int row;
         private int column;
@@ -23,6 +23,11 @@ internal class DungeonSection : ScriptableObject
             this.row = row;
             this.column = column;
             this.distanceFromEdge = distanceFromEdge;
+        }
+
+        public static implicit operator bool(CellInfo info)
+        {
+            return info != null;
         }
     }
 
@@ -101,16 +106,16 @@ internal class DungeonSection : ScriptableObject
         int rowA = 0, rowB = 0;
         int colA = 0, colB = 0;
 
-        if (xDiff == -1)        { colA = roomA.Width - 1; } //B is to the right of A
-        else if (xDiff == 1)    { colB = roomB.Width - 1; } //B is to the left of A
+        if (xDiff == -1)     { colA = roomA.Width - 1; } //B is to the right of A
+        else if (xDiff == 1) { colB = roomB.Width - 1; } //B is to the left of A
 
-        if (yDiff == -1)        { rowA = roomA.Height - 1; } //B is below A
-        else if (yDiff == 1)    { rowB = roomB.Height - 1; } //B is above A
+        if (yDiff == -1)     { rowA = roomA.Height - 1; } //B is below A
+        else if (yDiff == 1) { rowB = roomB.Height - 1; } //B is above A
 
         //stores every pair of cells that should be merged
         List<CellInfo[]> toMerge = new List<CellInfo[]>();
 
-        while(rowA < roomA.Height && rowB < roomB.Height)
+        while (rowA < roomA.Height && rowB < roomB.Height)
         {
             while (colA < roomA.Width && colB < roomB.Width)
             {
@@ -120,90 +125,129 @@ internal class DungeonSection : ScriptableObject
                     return;
                 }
 
-                CellInfo[] cellPair = GetNearestCellPair(roomA, roomB, xDiff, yDiff); //x, y and distance from border of first cell followed by the same info for second cell
+                CellInfo nearestCellInA = GetCellNearestToEdge(roomA, xDiff, yDiff, rowA, colA);
 
-                if (cellPair == null) //nothing to do here
+                CellInfo nearestCellInB = GetCellNearestToEdge(roomA, xDiff, yDiff, rowB, colB);
+
+                if (!nearestCellInA && !nearestCellInB) //nothing to do here
                     continue;
 
-                int distanceBetweenPair = cellPair[0].DistanceFromEdge + cellPair[1].DistanceFromEdge;
-                //empty the list if the newly found cells are closer to each other
-                if (toMerge.Count != 0 && toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge > distanceBetweenPair)
+                bool resortingToDiagonalMerge = !nearestCellInA || !nearestCellInB; //if any of the cells was not found, try to get the closest diagonal cells
+
+                //brefore actually trying to find diagonal cells, check if cells to connect weren't found already
+                if(resortingToDiagonalMerge 
+                    && toMerge.Count > 0 ){
+                    continue;
+                }
+
+                //if there is a cell right at the edge of room A, but no corresponding onde was found in B
+                if (!nearestCellInB && nearestCellInA.DistanceFromEdge == 0) 
                 {
-                    toMerge.Clear();
+                    nearestCellInB = GetDiagonalCell(roomB, -xDiff, -yDiff, rowB, colB);
+                }
+                //if there is a cell right at the edge of room B, but no corresponding onde was found in A
+                else if (!nearestCellInA && nearestCellInB.DistanceFromEdge == 0)
+                {
+                    nearestCellInA = GetDiagonalCell(roomA, xDiff, yDiff, rowA, colA);
+                }
+
+                int distanceBetweenPair = nearestCellInA.DistanceFromEdge + nearestCellInB.DistanceFromEdge;
+                //if the list of cells to be merged is not empty
+                if (toMerge.Count != 0)
+                {
+                    //and the cells on the list are further apart from eachother than the newly found pair
+                    if (toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge > distanceBetweenPair)
+                    {
+                        toMerge.Clear();
+                    }
                 }
 
                 //add the new cells if none were found yet or if they are as distant from each other as the ones found previously
                 if (toMerge.Count == 0 || toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge == distanceBetweenPair)
                 {
-                    toMerge.Add(cellPair);
+                    toMerge.Add(new CellInfo[2] { nearestCellInA, nearestCellInB });
                 }
 
-                colA++;
-                colB++;
+                colA += xDiff;
+                colB -= xDiff; //goes to the opposite side of A
             }
-            rowA++;
-            rowB++;
+            rowA += yDiff;
+            rowB -= yDiff; //goes to the opposite side of A
         }
 
         //make a line connecting every cell pair
-        foreach(CellInfo[] cells in toMerge)
+        foreach (CellInfo[] cells in toMerge)
         {
             ExtendCell(cells[0], roomA, xDiff, yDiff);
-            ExtendCell(cells[1], roomB, xDiff, yDiff);
+            ExtendCell(cells[1], roomB, -xDiff, -yDiff);
         }
     }
 
+    //marks every cell on the same row or column as the provided cell
     private void ExtendCell(CellInfo cell, DungeonRoom room, int xDiff, int yDiff)
     {
+        //at first, the method doesn't know if it should mark cells horizontally or vertically
         int w = 1;
         int h = 1;
         int x = cell.Column;
-        int y = cell.Column;
+        int y = cell.Row;
 
-        if(xDiff < 0)
+        if(xDiff < 0) //every cell to the left of "cell" should be marked
         {
-            w = cell.Column;
-            x = 0;
+            x = 0; //from 0
+            w = cell.Column; //to the current cell position
         }
-        else if (xDiff > 0)
-        { w = room.Width - cell.Column; }
+        else if (xDiff > 0) //every cell to the right of "cell" should be marked
+        { w = room.Width - cell.Column; } //from the current cell position to the last one in the row
 
-        if (yDiff > 0)
+        if (yDiff > 0) //every cell above "cell" should be marked
         {
-            h = cell.Row;
-            y = 0;
+            y = 0; //from 0
+            h = cell.Row; //to the current cell position
         }
-        else if (yDiff < 0)
-        { h = room.Height - cell.Row; }
+        else if (yDiff < 0) //evey cell below "cell" should be marked
+        { h = room.Height - cell.Row; } //from the current cell position to the last one in the column
 
         MarkCells(x, y, w, h, room);
     }
 
-    //tries to get the nearest cells on two rooms that are row-aligned (if both rooms are side by side) or column-aligned (if the rooms are on top of each other)
-    private CellInfo[] GetNearestCellPair(DungeonRoom roomA, DungeonRoom roomB, int xDiff, int yDiff)
+    ///<summary>
+    ///Iterates through every column in a row or every row in a column, looking for a marked cell within the room.
+    ///</summary>
+    ///<param name="room">The room that is being checked.</param>
+    ///<param name='xOffset'>Whether the cells will be checked left to right or right to left.</param> 
+    ///<param name="yOffset">Whether the cells will be checket from top down or bottom up.</param>
+    ///<param name="row">Row being checked.</param>
+    ///<param name="col">Column being checked.</param>
+    private CellInfo GetCellNearestToEdge(DungeonRoom room, int xOffset, int yOffset, int row, int col)
     {
-        CellInfo? cellA = GetCellNearestToEdge(roomA, xDiff, yDiff);
+        //If xOffset is 0, the first and last column will be the same (the rows are the ones that will be changed when checking)
+        //The same applies to yOffset and the columns changing while the rows remain the same.
 
-        if (cellA == null)
-            return null;
+        int firstCol = col;
+        int lastCol = col;
 
-        CellInfo? cellB = GetCellNearestToEdge(roomB, -xDiff, -yDiff);
+        if (xOffset < 0) //check to the left of "col" - so start at the leftmost cell
+        {
+            firstCol = 0;
+        }
+        else if (xOffset > 0) //check to the right of "col" - so end at the rightmost cell
+        {
+            lastCol = room.Width - 1;
+        }
 
-        if (cellB == null)
-            return null;
 
-        return new CellInfo[] { (CellInfo)cellA, (CellInfo)cellB };
-    }
+        int firstRow = row;
+        int lastRow = row;
 
-    //iterates through every column in a row or every row in a column, looking for a marked cell within the room
-    private CellInfo? GetCellNearestToEdge(DungeonRoom room, int xIncrement, int yIncrement)
-    {
-        //determines whether the loop should be left-right or right-left
-        int firstCol =  xIncrement < 0 ? room.Width - 1 : 0;
-        int lastCol =   xIncrement > 0 ? room.Width - 1 : 0;
-
-        int firstRow =  yIncrement < 0 ? room.Height - 1 : 0;
-        int lastRow =   yIncrement > 0 ? room.Height - 1 : 0;
+        if (yOffset > 0) //check below "row" - so start at the topmost cell
+        {
+            firstRow = 0;
+        }
+        else if (yOffset < 0) //check above "row" - so stop at the bottommost cell
+        {
+            lastRow = room.Height - 1;
+        }
 
         int distanceTravelled = 0;
 
@@ -216,53 +260,112 @@ internal class DungeonSection : ScriptableObject
                 }
 
                 distanceTravelled++; //add 1 to the distance, since we are moving away from the edge
-                firstCol += xIncrement;
+                firstCol += xOffset;
 
-            } while (firstCol != lastCol + xIncrement); //keep looping through every column (or stop immediately if iterating only through rows)
+            } while (firstCol != lastCol + xOffset); //keep looping through every column (or stop immediately if iterating only through rows)
 
-            firstRow += yIncrement;
-        } while (firstRow != lastRow + yIncrement);  //keep looping through every row (or stop immediately if iterating only through columns)
+            firstRow += yOffset;
+        } while (firstRow != lastRow + yOffset);  //keep looping through every row (or stop immediately if iterating only through columns)
 
         //finished scanning the whole row or column without finding a marked cell
         return null;
     }
 
-
-    //move every room away from the given center
-    internal void MoveAwayFrom(int centerY, int centerX, int amountY, int amountX)
+    /// <summary>
+    /// Tries to get a marked cell to the left or right of a given unmarked cell that is on the edge of a room.
+    /// Such cell would be diagonal to a marked cell on the edge of an adjacent room.
+    /// </summary>
+    /// <param name="room">Where the cell is being searched.</param>
+    /// <param name="xOffset">Whether this room is to the left (-1) or right (1) from another one.</param>
+    /// <param name="yOffset">Whether this room is above (-1) or below (1) another one.</param>
+    /// <param name="row">The row of the starting point (the unmarked cell).</param>
+    /// <param name="col">The column of the starting point (the unmarked cell).</param>
+    /// <returns></returns>
+    private CellInfo GetDiagonalCell(DungeonRoom room, int xOffset, int yOffset, int row, int col)
     {
-        int avgX = 0, avgY = 0;
+        CellInfo cell = null;
+        //try to get a cell on a given room that is right at the edge too, but diagonal from the cell
+        int absoluteYOffset = Mathf.Abs(yOffset); //1 if the room being checked is above or below (the other one)
+        int absoluteXOffset = Mathf.Abs(xOffset); //1 if the room being checked is to the right or left
+        
+        //check if the column to the right or the row below is marked
+        if (col + absoluteYOffset < room.Width - 1 
+            && row + absoluteXOffset < room.Height - 1 
+            && room[row + absoluteXOffset, col + absoluteYOffset])
+        {
+            cell = new CellInfo(row + absoluteXOffset, col + absoluteYOffset, 0);
+        }
+        //check if the column to the left or the row above is marked
+        else if (col - absoluteYOffset >= 0 && room[row, col - absoluteYOffset]
+            && row - absoluteXOffset >= 0
+            && room[row - absoluteXOffset, col - absoluteYOffset])
+        {
+            cell = new CellInfo(row - absoluteXOffset, col - absoluteYOffset, 0);
+        }
+        
+        return cell;
+    }
+
+    /// <summary>
+    /// Pushes every room away from the center of an ellipse.
+    /// </summary>
+    /// <param name="centerY">The y coordinate of the cell in the center of the "repulsion ellipse".</param>
+    /// <param name="centerX">The x coordinate of the cell in the center of the "repulsion ellipse".</param>
+    /// <param name="verticalDiameter">The vertical diameter of the "repulsion ellipse".</param>
+    /// <param name="horizontalDiameter">The horizontal diameter of the "repulsion ellipse".</param>
+    internal void MoveAwayFrom(int centerY, int centerX, int verticalDiameter, int horizontalDiameter)
+    {
+        Vector2 averageCenter = GetAverageCenter();
+
+        float ratioX = averageCenter.x / centerX;
+        float ratioY = averageCenter.y / centerY;
+
+        if (averageCenter.x != centerX)
+        {
+            horizontalDiameter = Mathf.CeilToInt(horizontalDiameter * (ratioX - 1));
+        }
+
+        if (averageCenter.y != centerY)
+        {
+            verticalDiameter = Mathf.CeilToInt(verticalDiameter * (ratioY - 1));
+        }
+
         foreach (DungeonRoom room in _rooms)
         {
-            avgX += room.X;
-            avgY += room.Y;
-        }
-
-        avgX = Mathf.CeilToInt((float)avgX / _rooms.Count);
-        avgY = Mathf.CeilToInt((float)avgY / _rooms.Count);
-
-        float ratioX = (float)avgX / centerX;
-        float ratioY = (float)avgY / centerY;
-
-        if (avgX != centerX)
-        {
-            amountX = Mathf.CeilToInt(amountX * (ratioX - 1));
-        }
-
-        if (avgY != centerY)
-        {
-            amountY = Mathf.CeilToInt(amountY * (ratioY - 1));
-        }
-
-        foreach (DungeonRoom room in _rooms)
-        {
-            room.X += amountX;
-            room.Y += amountY;
+            room.X += horizontalDiameter;
+            room.Y += verticalDiameter;
         }
     }
 
-    //creates a room within this section
-    internal void CreateRoom(float fillRate, int row, int col, int width, int height)
+    /// <summary>
+    /// Calculates the center of this section, taking in account every room whithin it.
+    /// </summary>
+    /// <returns>The coordinates of the center of this section.</returns>
+    private Vector2 GetAverageCenter()
+    {
+        Vector2 center = Vector2.zero;
+
+        foreach (DungeonRoom room in _rooms)
+        {
+            center.x += room.X;
+            center.y += room.Y;
+        }
+
+        center.x = Mathf.CeilToInt(center.x / _rooms.Count);
+        center.y = Mathf.CeilToInt(center.y / _rooms.Count);
+
+        return center;
+    }
+
+    /// <summary>
+    /// Creates a room whithin this section.
+    /// </summary>
+    /// <param name="fillRate">The percentage of cells that must be marked before a room can be considered complete.</param>
+    /// <param name="row">The y coordinate of the room (in dungeon cells).</param>
+    /// <param name="col">The x coordinate of the room (in dungeon cells).</param>
+    /// <param name="width">The width of the room (in dungeon cells).</param>
+    /// <param name="height">The height of the room (in dungeon cells).</param>
+    public void CreateRoom(float fillRate, int row, int col, int width, int height)
     {
         DungeonRoom room = ScriptableObject.CreateInstance<DungeonRoom>();
         room.Init(width, height, row, col);
@@ -270,9 +373,13 @@ internal class DungeonSection : ScriptableObject
 
         CarveRoom(fillRate, room);
     }
-
-    //Shapes up the given room, making it take up at least a certain percentage (fillRate) of its total area
-    private void CarveRoom(float fillRate, DungeonRoom room)
+    
+    /// <summary>
+    /// Shapes up the given room.
+    /// </summary>
+    /// <param name="fillRate">The percentage of cells that must be marked before a room can be considered complete.</param>
+    /// <param name="room">The room that is to be carved.</param>
+    internal void CarveRoom(float fillRate, DungeonRoom room)
     {
         int width = room.Width;
         int height = room.Height;
@@ -290,7 +397,16 @@ internal class DungeonSection : ScriptableObject
         }
     }
 
-    private int MarkCells(int startingRow, int startingCol, int width, int height, DungeonRoom room)
+    /// <summary>
+    /// Marks every cell on the given room.
+    /// </summary>
+    /// <param name="startingRow">The row where the marking of cells will start.</param>
+    /// <param name="startingCol">The column where the marking of cells will start.</param>
+    /// <param name="width">How many cells to mark horizontally.</param>
+    /// <param name="height">How many cells to mark vertically.</param>
+    /// <param name="room">The room whose cells will be marked.</param>
+    /// <returns></returns>
+    internal int MarkCells(int startingRow, int startingCol, int width, int height, DungeonRoom room)
     {
         int markedCells = 0;
         for (int row = startingRow; row < startingRow + height && row < room.Height; row++)

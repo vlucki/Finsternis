@@ -77,9 +77,9 @@ public class RoomBasedDungeon : Dungeon
             for (int col = 0; col < horizontalSectionsCount; col++)
             {
                 //Create a new area and make a section within it
-                var area = ScriptableObject.CreateInstance<DungeonSection>();
-                area.CreateRoom(fillRate, row, col, sectionWidht, ectionHeight);
-                _sections[row, col] = area;
+                var section = ScriptableObject.CreateInstance<DungeonSection>();
+                section.CreateRoom(fillRate, row, col, sectionWidht, ectionHeight);
+                _sections[row, col] = section;
             }
         }
     }
@@ -95,12 +95,12 @@ public class RoomBasedDungeon : Dungeon
 
                 if (section.RoomsCount < maxSectionMerges && random.NextDouble() < mergeThreshold)
                 {
-                    int tmpCol = col, tmpRow = row;
-                    DungeonSection toMerge = GetRandomAdjacentSection(_sections, ref tmpRow, ref tmpCol);
+                    int randomCellCol = col, randomCellRow = row;
+                    DungeonSection toMerge = GetRandomAdjacentSection(_sections, ref randomCellRow, ref randomCellCol);
                     if (toMerge && toMerge != section)
                     {
                         section += toMerge;
-                        _sections[tmpRow, tmpCol] = section; //replace the random section that was merged for the current section
+                        _sections[randomCellRow, randomCellCol] = section; //replace the random section that was merged for the current section
                     }
                 }
             }
@@ -130,18 +130,20 @@ public class RoomBasedDungeon : Dungeon
     {
         if (row >= 0 && row < _sections.GetLength(0) && col >= 0 && col < _sections.GetLength(1))
             return _sections[row, col];
+
         return null;
     }
 
     private void ExpandDungeon()
     {
-        HashSet<DungeonSection> moved = new HashSet<DungeonSection>();
+        HashSet<DungeonSection> moved = new HashSet<DungeonSection>(); //stores the sections that were moved already (needed since a section may ocupy more than one spot on the grid after the merges)
+
         for (int row = 0; row < verticalSectionsCount; row++)
         {
             for (int col = 0; col < horizontalSectionsCount; col++)
             {
                 DungeonSection section = _sections[row, col];
-                if (moved.Contains(section))
+                if (moved.Contains(section)) //if this section was already moved, ignore it
                     continue;
 
                 moved.Add(section);
