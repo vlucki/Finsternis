@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RoomBasedDungeon : Dungeon
 {
-
-    private static readonly uint MinumumBrushWeight = 2;
-
     [Header("Dungeon Dimensions")]
     //Dungeon dimensions, in cells (each cell represents 1 Unity cube)
     public int width = 32;
@@ -21,12 +18,12 @@ public class RoomBasedDungeon : Dungeon
     public int horizontalSectionsCount = 4;
     public int verticalSectionsCount = 4;
 
-    //How many sections may be merged together at once
+    [Tooltip("How many sections may be merged together at once")]
     public int maxSectionMerges = 2;
 
     [Range(0.0f, 1.0f)]
     [Tooltip("Chance of an attempt to merge sections happening.")]
-    public float mergeThreshold;
+    public float mergeThreshold = 0.5f;
 
     [Range(0.5f, 1.0f)]
     [Tooltip("Percentage of each section that must be filled before being considered done")]
@@ -48,6 +45,21 @@ public class RoomBasedDungeon : Dungeon
         MergeSections();
         ExpandDungeon();
         MakeCorridors();
+
+        //TODO: remove temporary method!
+        DisplayDungeon();
+    }
+
+    private void DisplayDungeon()
+    {
+        HashSet<DungeonSection> displayed = new HashSet<DungeonSection>();
+        foreach(DungeonSection section in _sections)
+        {
+            if (displayed.Add(section))
+            {
+                section.DisplayRooms();
+            }
+        }
     }
 
     //Assure both the dungeon and the random generator have the same seed (this way the seed may be changed at any time without messing the generation up)
@@ -55,10 +67,6 @@ public class RoomBasedDungeon : Dungeon
     {
         if (random == null || (random.Seed != Seed))
         {
-            if (Seed == null)
-            {
-                Seed = System.DateTime.Now.Millisecond;
-            }
             random = new DungeonRandom((int)Seed);
         }
     }
@@ -78,6 +86,7 @@ public class RoomBasedDungeon : Dungeon
             {
                 //Create a new area and make a section within it
                 var section = ScriptableObject.CreateInstance<DungeonSection>();
+                section.Init(random);
                 section.CreateRoom(fillRate, row, col, sectionWidht, ectionHeight);
                 _sections[row, col] = section;
             }
@@ -110,7 +119,7 @@ public class RoomBasedDungeon : Dungeon
     private DungeonSection GetRandomAdjacentSection(DungeonSection[,] sections, ref int row, ref int col)
     {
         DungeonSection section = null;
-        int randomValue = random.Next(0, 4);
+        float randomValue = random.Next(0, 4);
         int offset = (int)(randomValue / 2) * 2 - 1; //0 and 1 results in -1, 2 and 3 results in 1
 
         //will be true only if randomValue is 0 or 2

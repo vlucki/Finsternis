@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Rdm = UnityEngine.Random;
 
 internal class DungeonSection : ScriptableObject
 {
 
     private HashSet<DungeonRoom> _rooms;
+    private DungeonRandom _random;
 
     private class CellInfo
     {
@@ -29,19 +29,33 @@ internal class DungeonSection : ScriptableObject
         {
             return info != null;
         }
+
+        public override string ToString()
+        {
+            return "CellInfo (column: " + column + ", row: " + row + ", distance: " + distanceFromEdge + ") -" + base.ToString();
+        }
     }
 
     public int RoomsCount { get { return _rooms.Count; } }
 
-    public DungeonSection()
+    /// <summary>
+    /// Initializes the section with a given random generator.
+    /// </summary>
+    /// <param name="random">The section to be used as a base.</param>
+    public void Init(DungeonRandom random)
     {
         _rooms = new HashSet<DungeonRoom>(new DungeonRoomComparer());
+        this._random = random;
     }
 
-    //Initializes a section based off of another
+    /// <summary>
+    /// Initializes a section based off of another
+    /// </summary>
+    /// <param name="other">The section to be used as a base.</param>
     public void Init(DungeonSection other)
     {
         _rooms = new HashSet<DungeonRoom>(other._rooms, new DungeonRoomComparer());
+        this._random = other._random;
     }
 
     public static DungeonSection Merge(DungeonSection a, DungeonSection b)
@@ -57,8 +71,11 @@ internal class DungeonSection : ScriptableObject
     {
         return DungeonSection.Merge(left, right);
     }
-
-    //Unify the "rooms" of this section and another
+    
+    /// <summary>
+    /// Adds every room from another section to this one.
+    /// </summary>
+    /// <param name="other">The section whose rooms shall be merged.</param>
     public void Merge(DungeonSection other)
     {
         foreach(DungeonRoom room in other._rooms)
@@ -69,14 +86,17 @@ internal class DungeonSection : ScriptableObject
             }
         }
 
-        EnsureConnectivity(_rooms);
+        EnsureConnectivity();
     }
 
-    private void EnsureConnectivity(HashSet<DungeonRoom> rooms)
+    /// <summary>
+    /// Makes sure every room in this section is connected - that is, that it is possible to walk to every room from every room.
+    /// </summary>
+    private void EnsureConnectivity()
     {
-        foreach(DungeonRoom roomA in rooms)
+        foreach (DungeonRoom roomA in _rooms)
         {
-            foreach (DungeonRoom roomB in rooms)
+            foreach (DungeonRoom roomB in _rooms)
             {
                 if (!CheckAdjacency(roomA, roomB))
                     continue;
@@ -86,62 +106,105 @@ internal class DungeonSection : ScriptableObject
         }
     }
 
-    //Returns true only if both rooms are different and are not further than 1 unit from each other on both axis
+    /// <summary>
+    /// Verifies whether two rooms are adjacent or not.
+    /// </summary>
+    /// <param name="roomA">One of the rooms to be checked.</param>
+    /// <param name="roomB">One of the rooms to be checked.</param>
+    /// <returns>True only if both rooms are different and are not further than 1 unit from each other on both axis</returns>
     private bool CheckAdjacency(DungeonRoom roomA, DungeonRoom roomB)
     {
         return !(roomA.Equals(roomB))
                 && (Mathf.Abs(roomA.X - roomB.X) < 2)
                 && (Mathf.Abs(roomA.Y - roomB.Y) < 2);
     }
-
-    //Connect the rooms horizontally or vertically
+    
+    /// <summary>
+    /// Connects two rooms, ensuring there is a path of marked cells that goes from one to the other.
+    /// </summary>
+    /// <param name="roomA">One of the rooms to be connected.</param>
+    /// <param name="roomB">One of the rooms to be connected.</param>
     internal void ConnectRooms(DungeonRoom roomA, DungeonRoom roomB)
     {
+        Debug.Log("Connecting A: " + roomA + " to B: " + roomB);
+
         int xDiff = roomA.X - roomB.X;
         int yDiff = roomA.Y - roomB.Y;
 
+        Debug.Log("Offset = (x:" + xDiff + ", y:" + yDiff + ")");
+
         //if rooms are diagonal, move on - for now
         if (xDiff != 0 && yDiff != 0) return;
+        else if(xDiff == 0 && yDiff == 0) throw new ArgumentException("Trying to connect a room to itself - which should not happen!");
 
-        int rowA = 0, rowB = 0;
-        int colA = 0, colB = 0;
+        int startingRowA = 0, startingRowB = 0;
+        int startingColumnA = 0, startingColumnB = 0;
 
-        if (xDiff == -1)     { colA = roomA.Width - 1; } //B is to the right of A
-        else if (xDiff == 1) { colB = roomB.Width - 1; } //B is to the left of A
+        if (xDiff == -1)     { startingColumnA = roomA.Width - 1; } //B is to the right of A
+        else if (xDiff == 1) { startingColumnB = roomB.Width - 1; } //B is to the left of A
 
-        if (yDiff == -1)     { rowA = roomA.Height - 1; } //B is below A
-        else if (yDiff == 1) { rowB = roomB.Height - 1; } //B is above A
+        if (yDiff == -1)     { startingRowA = roomA.Height - 1; } //B is below A
+        else if (yDiff == 1) { startingRowB = roomB.Height - 1; } //B is above A
+
+        Debug.Log("startingColumnA: " + startingColumnA + ", startingColumnB: " + startingColumnB);
+        Debug.Log("startingRowA: " + startingRowA + ", startingRowB: " + startingRowB);
 
         //stores every pair of cells that should be merged
-        List<CellInfo[]> toMerge = new List<CellInfo[]>();
+        List<CellInfo[]> toConnect = FindConenctionPoints(roomA, roomB, startingColumnA, startingColumnB, startingRowA, startingRowB, xDiff, yDiff);
 
-        while (rowA < roomA.Height && rowB < roomB.Height)
+        ConnectCells(toConnect, roomA, roomB, xDiff, yDiff);
+    }
+
+    private List<CellInfo[]> FindConenctionPoints(DungeonRoom roomA, DungeonRoom roomB, int startingColumnA, int startingColumnB, int startingRowA, int startingRowB, int xDiff, int yDiff)
+    {
+        List<CellInfo[]> toConnect = new List<CellInfo[]>();
+        int rowA = startingRowA, rowB = startingRowB;
+        int colA = startingColumnA, colB = startingColumnB;
+
+        while (rowA < roomA.Height && rowB < roomB.Height && colA < roomA.Width && colB < roomB.Width)
         {
             while (colA < roomA.Width && colB < roomB.Width)
             {
                 //if the rooms are touching already, no need to keep checking
-                if (roomA[rowA, colA] && roomB[rowA, colB])
+                if (roomA[rowA, colA] && roomB[rowB, colB])
                 {
-                    return;
+                    return toConnect;
                 }
 
                 CellInfo nearestCellInA = GetCellNearestToEdge(roomA, xDiff, yDiff, rowA, colA);
 
-                CellInfo nearestCellInB = GetCellNearestToEdge(roomA, xDiff, yDiff, rowB, colB);
+                CellInfo nearestCellInB = GetCellNearestToEdge(roomB, -xDiff, -yDiff, rowB, colB);
 
-                if (!nearestCellInA && !nearestCellInB) //nothing to do here
-                    continue;
+                if (!nearestCellInA && !nearestCellInB) //no cells to connect
+                {
+                    if (UpdateColumns(ref colA, ref colB, startingColumnA, startingColumnB, yDiff))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
 
                 bool resortingToDiagonalMerge = !nearestCellInA || !nearestCellInB; //if any of the cells was not found, try to get the closest diagonal cells
 
                 //brefore actually trying to find diagonal cells, check if cells to connect weren't found already
-                if(resortingToDiagonalMerge 
-                    && toMerge.Count > 0 ){
-                    continue;
+                if (resortingToDiagonalMerge
+                    && toConnect.Count > 0)
+                {
+                    if (UpdateColumns(ref colA, ref colB, startingColumnA, startingColumnB, yDiff))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 //if there is a cell right at the edge of room A, but no corresponding onde was found in B
-                if (!nearestCellInB && nearestCellInA.DistanceFromEdge == 0) 
+                if (!nearestCellInB && nearestCellInA.DistanceFromEdge == 0)
                 {
                     nearestCellInB = GetDiagonalCell(roomB, -xDiff, -yDiff, rowB, colB);
                 }
@@ -150,36 +213,123 @@ internal class DungeonSection : ScriptableObject
                 {
                     nearestCellInA = GetDiagonalCell(roomA, xDiff, yDiff, rowA, colA);
                 }
-
-                int distanceBetweenPair = nearestCellInA.DistanceFromEdge + nearestCellInB.DistanceFromEdge;
-                //if the list of cells to be merged is not empty
-                if (toMerge.Count != 0)
+                
+                if (!nearestCellInA || !nearestCellInB) //no cells to connect, even diagonally
                 {
-                    //and the cells on the list are further apart from eachother than the newly found pair
-                    if (toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge > distanceBetweenPair)
+                    if (UpdateColumns(ref colA, ref colB, startingColumnA, startingColumnB, yDiff))
                     {
-                        toMerge.Clear();
+                        continue;
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
 
+                int distanceBetweenPair = nearestCellInA.DistanceFromEdge + nearestCellInB.DistanceFromEdge;
+
+                Debug.Log("nearest cell in A: " + nearestCellInA);
+                Debug.Log("nearest cell in B: " + nearestCellInB);
+                Debug.Log("distance between pair: " + distanceBetweenPair);
+
+                SetupList(toConnect, distanceBetweenPair, resortingToDiagonalMerge);
+
                 //add the new cells if none were found yet or if they are as distant from each other as the ones found previously
-                if (toMerge.Count == 0 || toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge == distanceBetweenPair)
+                if (toConnect.Count == 0 || toConnect[0][0].DistanceFromEdge + toConnect[0][1].DistanceFromEdge == distanceBetweenPair)
                 {
-                    toMerge.Add(new CellInfo[2] { nearestCellInA, nearestCellInB });
+                    toConnect.Add(new CellInfo[2] { nearestCellInA, nearestCellInB });
                 }
 
-                colA += xDiff;
-                colB -= xDiff; //goes to the opposite side of A
+                if(!UpdateColumns(ref colA, ref colB, startingColumnA, startingColumnB, yDiff))
+                {
+                    break;
+                }
             }
-            rowA += yDiff;
-            rowB -= yDiff; //goes to the opposite side of A
+
+            //if the rows are being checked (column by column), go the next row
+            if(yDiff == 0)
+            {
+                rowA++;
+                rowB++;
+            }
         }
 
-        //make a line connecting every cell pair
-        foreach (CellInfo[] cells in toMerge)
+        return toConnect;
+    }
+
+    private bool UpdateColumns(ref int colA, ref int colB, int startingColumnA, int startingColumnB, int yDiff)
+    {
+        //if the columns are being checked (row by row), go to the next one
+        if (yDiff != 0)
         {
-            ExtendCell(cells[0], roomA, xDiff, yDiff);
-            ExtendCell(cells[1], roomB, -xDiff, -yDiff);
+            colA++;
+            colB++;
+            return true;
+        }
+        else //if not, reset the columns and go to the next row
+        {
+            colA = startingColumnA;
+            colB = startingColumnB;
+            return false;
+        }
+    }
+
+    private void ConnectCells(List<CellInfo[]> toConnect, DungeonRoom roomA, DungeonRoom roomB, int xDiff, int yDiff)
+    {
+        //make a line connecting every cell pair
+        foreach (CellInfo[] cells in toConnect)
+        {
+            //if the cells are not diagonal, just extend them normally
+            if (cells[0].Column == cells[1].Column || cells[0].Row == cells[1].Row)
+            {
+                ExtendCell(cells[0], roomA, xDiff, yDiff);
+                ExtendCell(cells[1], roomB, -xDiff, -yDiff);
+            }
+            else //otherwise, mark the neighbors of the cells
+            {
+                MarkNeighbors(cells, roomA, roomB, xDiff, yDiff);
+            }
+        }
+    }
+
+    private void SetupList(List<CellInfo[]> toMerge, int distanceBetweenPair, bool resortingToDiagonalMerge)
+    {
+        //if the list of cells to be merged is not empty
+        if (toMerge.Count != 0)
+        {
+            //and the cells on the list are further apart from eachother than the newly found pair
+            if (toMerge[0][0].DistanceFromEdge + toMerge[0][1].DistanceFromEdge > distanceBetweenPair
+                //or the cells on the list are diagonal from each other while the newly found ones aren't
+                || (!resortingToDiagonalMerge && toMerge[0][0].Column != toMerge[0][1].Column && toMerge[0][0].Row != toMerge[0][1].Row))
+            {
+                //throw the previously found cells away
+                toMerge.Clear();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Mark the cells that are around the given cell pair.
+    /// </summary>
+    /// <param name="cells">The cell pair to be used as reference.</param>
+    /// <param name="roomA">The room from the first cell.</param>
+    /// <param name="roomB">The room from the second cell.</param>
+    /// <param name="xDiff">Horizontal offset between the rooms.</param>
+    /// <param name="yDiff">Vertical offset between the rooms.</param>
+    private void MarkNeighbors(CellInfo[] cells, DungeonRoom roomA, DungeonRoom roomB, int xDiff, int yDiff)
+    {
+        for(int i = -2; i < 3; i ++)
+        {
+            for(int j = -2; j < 3; j++)
+            {
+                //Ignore cells that are 2 units away from each other both horizontally and vertically.
+                //Also, ignore the cells 0 units away (since they are the ones that were passed to the methdo)
+                if (i == j && (i == 0 || Mathf.Abs(i) == 2))
+                    continue;
+
+                roomA.MarkCell(cells[0].Row + i, cells[0].Column + j);
+                roomB.MarkCell(cells[1].Row + i, cells[1].Column + j);
+            }
         }
     }
 
@@ -221,33 +371,39 @@ internal class DungeonSection : ScriptableObject
     ///<param name="col">Column being checked.</param>
     private CellInfo GetCellNearestToEdge(DungeonRoom room, int xOffset, int yOffset, int row, int col)
     {
+        Debug.Log("Getting nearest cell to edge in " + room);
+        Debug.Log("Offset = (x:" + xOffset + ", y:" + yOffset + ")");
+        Debug.Log("Starting point = (column:" + col + ", row:" + row + ")");
+
         //If xOffset is 0, the first and last column will be the same (the rows are the ones that will be changed when checking)
         //The same applies to yOffset and the columns changing while the rows remain the same.
 
         int firstCol = col;
         int lastCol = col;
 
-        if (xOffset < 0) //check to the left of "col" - so start at the leftmost cell
+        if (xOffset < 0) //check to the left of "col" - so stop at the leftmost cell
         {
-            firstCol = 0;
+            lastCol = 0;
         }
         else if (xOffset > 0) //check to the right of "col" - so end at the rightmost cell
         {
             lastCol = room.Width - 1;
         }
 
-
         int firstRow = row;
         int lastRow = row;
 
-        if (yOffset > 0) //check below "row" - so start at the topmost cell
-        {
-            firstRow = 0;
-        }
-        else if (yOffset < 0) //check above "row" - so stop at the bottommost cell
+        if (yOffset > 0) //check below "row" - so stop at the bottomost cell
         {
             lastRow = room.Height - 1;
         }
+        else if (yOffset < 0) //check above "row" - so stop at the topmost cell
+        {
+            lastRow = 0;
+        }
+
+        Debug.Log("firstCol: " + firstCol + ", firstRow: " + firstRow);
+        Debug.Log("lastCol: " + lastCol + ", lastRow: " + lastRow);
 
         int distanceTravelled = 0;
 
@@ -311,29 +467,32 @@ internal class DungeonSection : ScriptableObject
     /// </summary>
     /// <param name="centerY">The y coordinate of the cell in the center of the "repulsion ellipse".</param>
     /// <param name="centerX">The x coordinate of the cell in the center of the "repulsion ellipse".</param>
-    /// <param name="verticalDiameter">The vertical diameter of the "repulsion ellipse".</param>
-    /// <param name="horizontalDiameter">The horizontal diameter of the "repulsion ellipse".</param>
-    internal void MoveAwayFrom(int centerY, int centerX, int verticalDiameter, int horizontalDiameter)
+    /// <param name="verticalAmount">The vertical diameter of the "repulsion ellipse".</param>
+    /// <param name="horizontalAmount">The horizontal diameter of the "repulsion ellipse".</param>
+    internal void MoveAwayFrom(int centerY, int centerX, int verticalAmount, int horizontalAmount)
     {
         Vector2 averageCenter = GetAverageCenter();
 
         float ratioX = averageCenter.x / centerX;
         float ratioY = averageCenter.y / centerY;
 
+        //if this section is not centered horizontally, calculate how much left of right it should move
         if (averageCenter.x != centerX)
         {
-            horizontalDiameter = Mathf.CeilToInt(horizontalDiameter * (ratioX - 1));
+            horizontalAmount = Mathf.CeilToInt(horizontalAmount * (ratioX - 1));
         }
 
+        //if this section is not centered vertically, calculate how much up or down it should move
         if (averageCenter.y != centerY)
         {
-            verticalDiameter = Mathf.CeilToInt(verticalDiameter * (ratioY - 1));
+            verticalAmount = Mathf.CeilToInt(verticalAmount * (ratioY - 1));
         }
 
+        //move every room whithin this section
         foreach (DungeonRoom room in _rooms)
         {
-            room.X += horizontalDiameter;
-            room.Y += verticalDiameter;
+            room.X += horizontalAmount;
+            room.Y += verticalAmount;
         }
     }
 
@@ -388,10 +547,10 @@ internal class DungeonSection : ScriptableObject
         //keeps marking cells at random locations within the room, until a certain percentage is reached or until the maximum tries is reached
         for (int tries = 0; tries < 10000 && filled / (width * height) < fillRate; tries++)
         {
-            int x = Rdm.Range(0, width);
-            int y = Rdm.Range(0, height);
-            int w = Rdm.Range(0, width - x);
-            int h = Rdm.Range(0, height - y);
+            int x = _random.Next(0, width);
+            int y = _random.Next(0, height);
+            int w = _random.Next(0, width - x);
+            int h = _random.Next(0, height - y);
 
             filled += MarkCells(y, x, w, h, room);
         }
@@ -422,4 +581,15 @@ internal class DungeonSection : ScriptableObject
 
         return markedCells;
     }
+
+
+    //TODO: remove temporaty method!
+    internal void DisplayRooms()
+    {
+        foreach(DungeonRoom room in _rooms)
+        {
+            room.Display();
+        }
+    }
+
 }

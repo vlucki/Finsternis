@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class DungeonRoom : ScriptableObject
 {
@@ -58,7 +59,7 @@ public class DungeonRoom : ScriptableObject
         if (!Initialized)
             throw new System.InvalidOperationException("Tried to execute a method without initializing object");
     }
-    
+
     /// <summary>
     /// Marks a cell, if it wasn't already.
     /// </summary>
@@ -68,6 +69,9 @@ public class DungeonRoom : ScriptableObject
     public bool MarkCell(int row, int col)
     {
         InitializationCheck();
+
+        if (row < 0 || row >= Height || col < 0 || col >= Width)
+            return false;
 
         if (!this[row, col])
         {
@@ -86,8 +90,29 @@ public class DungeonRoom : ScriptableObject
     public bool IsMarked(int row, int col)
     {
         InitializationCheck();
-
+        if (row < 0 || row >= Width)
+            throw new IndexOutOfRangeException("Trying to check cell whithin a room at invalid location (" + row + "," + col + ")");
         return cells[row, col] == CellType.MARKED;
     }
 
+    public override string ToString()
+    {
+        return "Room (x:" + X + ", y:" + Y + ", w:" + Width + ", h:" + Height + ") - " + base.ToString();
+    }
+
+    //TODO: remove temporary method!
+    internal void Display()
+    {
+        for(int row = 0; row < Height; row++)
+        {
+            for(int col = 0; col < Width; col++)
+            {
+                if(!this[row, col])
+                {
+                    GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    wall.transform.position = new Vector3(X + col, 0, Y + row);
+                }
+            }
+        }
+    }
 }

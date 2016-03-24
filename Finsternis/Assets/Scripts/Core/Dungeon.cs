@@ -7,11 +7,11 @@ using System;
 public abstract class Dungeon : MonoBehaviour
 {
     [SerializeField]
-    private int? seed;
+    private int seed;
 
     protected DungeonRandom random;
 
-    public int? Seed
+    public int Seed
     {
         get { return seed; }
         set
