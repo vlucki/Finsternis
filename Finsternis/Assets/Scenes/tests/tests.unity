@@ -268,7 +268,6 @@ GameObject:
   - 124: {fileID: 774785460}
   - 81: {fileID: 774785459}
   - 114: {fileID: 774785464}
-  - 114: {fileID: 774785465}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -360,17 +359,6 @@ MonoBehaviour:
   target: {fileID: 0}
   range: 0
   closeRange: 2
---- !u!114 &774785465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 774785458}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6205b169bbb57d94698dff6eee4d881d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1251735279
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +367,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1251735281}
+  - 114: {fileID: 1251735280}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -386,6 +375,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1251735280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251735279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbed09a8fd2d564d83b2e0db55203a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 0
+  dungeonWidth: 15
+  dungeonHeight: 15
+  totalRooms: 5
+  maximumTries: 1
+  minimumRoomWidth: 3
+  minimumRoomHeight: 3
+  maximumRoomWidth: 8
+  maximumRoomHeight: 8
+  minimumCorridorLength: 1
+  maximumCorridorLength: 5
 --- !u!4 &1251735281
 Transform:
   m_ObjectHideFlags: 0
