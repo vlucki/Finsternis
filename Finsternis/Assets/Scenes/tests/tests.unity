@@ -386,17 +386,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbed09a8fd2d564d83b2e0db55203a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 999
-  dungeonWidth: 15
-  dungeonHeight: 15
-  totalRooms: 10
-  maximumTries: 1
-  minimumRoomWidth: 3
-  minimumRoomHeight: 3
-  maximumRoomWidth: 8
-  maximumRoomHeight: 8
+  seed: 666
+  dungeonWidth: 26
+  dungeonHeight: 26
+  totalRooms: 6
+  maximumTries: 3
+  minimumRoomWidth: 2
+  minimumRoomHeight: 2
+  maximumRoomWidth: 10
+  maximumRoomHeight: 10
   minimumCorridorLength: 1
-  maximumCorridorLength: 5
+  maximumCorridorLength: 4
 --- !u!4 &1251735281
 Transform:
   m_ObjectHideFlags: 0
