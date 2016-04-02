@@ -11,6 +11,7 @@ public class DungeonGeneratorEditor : Editor {
         DungeonDrawer tgt = target as DungeonDrawer;
         if(tgt)
         {
+
             if (GUILayout.Button("Clear"))
                 tgt.Clear();
         }

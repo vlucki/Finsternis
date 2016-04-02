@@ -1,51 +1,104 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 using System.Collections.Generic;
 
 public class DungeonDrawer : MonoBehaviour
 {
     public int mergeThreshold = 1000;
-    private GameObject floor;
+    public Vector3 scale = Vector3.one;
+    public Material defaultWallMaterial;
+    public PhysicMaterial defaultWallPhysicMaterial;
+    public Material defaultFloorMaterial;
+    public PhysicMaterial defaultFloorPhysicMaterial;
 
-    public void DrawFromGrid<T>(T[,] grid, T wall)
+    public GameObject[] walls;
+
+    private GameObject _floor;
+
+    public void DrawFromGrid<T>(T[,] grid, T wall, bool ignoreIsolatedWalls = true)
     {
         Clear();
 
-        int width = grid.GetLength(0);
-        int height = grid.GetLength(1);
+        int width = grid.GetLength(1);
+        int height = grid.GetLength(0);
 
         MakeFloor(width, height);
-        string gridString = "";
 
-        for (int cellY = 0; cellY < height; cellY++)
+        for (int cellY = -1; cellY <= height; cellY++)
         {
-            string row = "|";
-            for (int cellX = 0; cellX < width; cellX++)
+            for (int cellX = -1; cellX <= width; cellX++)
             {
-                row += grid[cellX, cellY] + "|";
-                if (ShouldMakeWall<T>(grid, cellX, cellY, wall))
+                if (cellY < 0 || cellY == height || cellX < 0 || cellX == width || ShouldMakeWall<T>(grid, cellX, cellY, wall, ignoreIsolatedWalls))
                 {
                     MakeWall(cellX, cellY);
                 }
+                else if(ShouldMakeWall<T>(grid, cellX, cellY, wall, false))
+                {
+                    MakeCeiling(cellX, cellY);
+                }
             }
-            gridString += row + "\n";
         }
 
-        Debug.Log(gridString);
-        MergeMeshes();
+        //MergeMeshes();
     }
 
     private void MakeWall(int cellX, int cellY)
     {
-        GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject wall;
+        Vector3 wallPosition = new Vector3(cellX*scale.x, 0, -cellY*scale.y); ;
+        if (walls != null && walls.Length > 0)
+        {
+            wall = walls[Random.Range(0, walls.Length)];
+        }
+        else
+        {
+            wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            wall.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
+            wall.GetComponent<BoxCollider>().sharedMaterial = defaultWallPhysicMaterial;
+            wallPosition = new Vector3(cellX*scale.x + scale.x / 2, scale.y / 2, -cellY*scale.z - scale.z / 2);
+            wall.name = "Wall";
+        }
+        wall.transform.localScale = scale;
+        wall.transform.position = wallPosition;
         wall.transform.SetParent(gameObject.transform);
-        wall.transform.position = new Vector3(cellX + 0.5f, 0.5f, - cellY - 0.5f);
     }
 
-    private bool ShouldMakeWall<T>(T[,] grid, int cellX, int cellY, T wall)
+    private void MakeCeiling(int cellX, int cellY)
     {
-        return EqualityComparer<T>.Default.Equals(grid[cellX, cellY], wall);
+        GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        ceiling.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
+        ceiling.transform.localScale = new Vector3(scale.x, scale.z, 1);
+        ceiling.transform.Rotate(Vector3.right * 90);
+        ceiling.transform.position = new Vector3(cellX * scale.x + scale.x / 2, scale.y, -cellY * scale.z - scale.z / 2);
+        ceiling.transform.SetParent(gameObject.transform);
+        ceiling.name = "Ceiling";
+    }
+
+    private bool ShouldMakeWall<T>(T[,] grid, int cellX, int cellY, T wall, bool ignoreIsolatedWalls)
+    {
+        return EqualityComparer<T>.Default.Equals(grid[cellY, cellX], wall) && (!ignoreIsolatedWalls || !IsWallIsolated(grid, cellX, cellY, wall));
+    }
+
+    private bool IsWallIsolated<T>(T[,] grid, int cellX, int cellY, T wall)
+    {
+        for(int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                if (Mathf.Abs(i) == Mathf.Abs(j))
+                    continue;
+                
+                int x = cellX + j;
+                int y = cellY + i;
+
+                if(x >= 0 && x < grid.GetLength(1) && y >= 0 && y < grid.GetLength(0) 
+                    && !EqualityComparer<T>.Default.Equals(grid[y, x], wall))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private void MergeMeshes()
@@ -60,7 +113,7 @@ public class DungeonDrawer : MonoBehaviour
             if (j >= combine.Length)
             {
                 AddSection(j, combine);
-                combine = new CombineInstance[Math.Min(meshFilters.Length - i, mergeThreshold)];
+                combine = new CombineInstance[Mathf.Min(meshFilters.Length - i, mergeThreshold)];
                 j = 0;
                 combined = true;
             }
@@ -74,7 +127,7 @@ public class DungeonDrawer : MonoBehaviour
                 combine[j].transform = meshFilters[meshFilters.Length - 1 - i].transform.localToWorldMatrix;
                 j++;
             }
-            catch (IndexOutOfRangeException ex)
+            catch (System.IndexOutOfRangeException ex)
             {
                 Debug.Log(ex);
                 Debug.Log(j);
@@ -82,7 +135,7 @@ public class DungeonDrawer : MonoBehaviour
                 Debug.Log(i - j * meshFilters.Length);
                 Debug.Log(meshFilters.Length);
                 Debug.Log(combine.Length);
-                throw new Exception();
+                throw new System.Exception();
             }
             i++;
         }
@@ -107,9 +160,9 @@ public class DungeonDrawer : MonoBehaviour
         MeshRenderer r = sectionContainer.GetComponent<MeshRenderer>();
         if (!r)
             r = sectionContainer.AddComponent<MeshRenderer>();
-        Shader s = Shader.Find("Custom/myShader");
-        Material mat = new Material(s);
-        r.material = mat;
+        //Shader s = Shader.Find("Custom/myShader");
+        //Material mat = new Material(s);
+        r.material = defaultWallMaterial;
 
         sectionContainer.AddComponent<MeshCollider>();
     }
@@ -124,14 +177,17 @@ public class DungeonDrawer : MonoBehaviour
     }
 
 
-    private void MakeFloor(int width, int height)
+    private void MakeFloor(float width, float height)
     {
-        floor = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        floor.name = "floor";
-        floor.transform.localScale = new Vector3(width, height, 1);
-        floor.transform.position = new Vector3(width / 2, 0f, - height / 2);
-        floor.GetComponent<MeshRenderer>().sharedMaterial.color = Color.green;
-        floor.transform.SetParent(gameObject.transform);
-        floor.transform.up = Vector3.forward;
+        width *= scale.x;
+        height *= scale.z;
+        _floor = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        _floor.name = "floor";
+        _floor.transform.localScale = new Vector3(width, height, 1);
+        _floor.transform.position = new Vector3(width / 2, 0f, - height / 2);
+        _floor.GetComponent<MeshRenderer>().sharedMaterial = defaultFloorMaterial;
+        _floor.GetComponent<Collider>().sharedMaterial = defaultFloorPhysicMaterial;
+        _floor.transform.SetParent(gameObject.transform);
+        _floor.transform.up = Vector3.forward;
     }
 }

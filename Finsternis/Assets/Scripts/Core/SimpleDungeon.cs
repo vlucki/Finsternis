@@ -127,6 +127,7 @@ public class SimpleDungeon : Dungeon
 
         //TODO: debug only code - REMOVE
         DisplayDungeon();
+        GetComponent<DungeonDrawer>().DrawFromGrid<CellType>(_dungeon, CellType.empty);
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
@@ -448,8 +449,7 @@ public class SimpleDungeon : Dungeon
         pos.x -= offset.y;
         pos.y -= offset.x;
         roomBounds = new Rect(pos, Vector2.zero);
-
-        //TODO: do a better checking in order to fit rooms
+        
         //if there is apparently no horizontal space for the room
         if (pos.x + minSize.x > dungeonWidth)
         {
@@ -550,9 +550,13 @@ public class SimpleDungeon : Dungeon
             roomBounds.yMax = dungeonHeight;
 
         if (roomCarved)
+        {
             Debug.Log("<color=purple>Carved room: " + roomBounds + "</color>");
+        }
         else
+        {
             Debug.Log("<color=purple>Failed to carve room</color>");
+        }
 
         return roomCarved;
     }

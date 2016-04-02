@@ -10,12 +10,12 @@ public class Movement : MonoBehaviour
             Also, in order to avoid the gameobject from flying around at lightspeed, just set a top speed
         */
     [SerializeField]
-    [Range(0, 10000)]
-    private float speed = 500;
+    [Range(0, 1000)]
+    private float speed = 3;
     [SerializeField]
     private Vector2 maxVelocity = new Vector2(3, 3);
     [SerializeField]
-    protected Rigidbody body;
+    protected Rigidbody rigidBody;
 
     private Vector3 direction;
     private Vector3 lastVelocity;
@@ -28,21 +28,21 @@ public class Movement : MonoBehaviour
     // Use this for initialization
     protected virtual void Start()
     {
-        if(!body)
-            body = GetComponent<Rigidbody>();
+        if(!rigidBody)
+            rigidBody = GetComponent<Rigidbody>();
     }
 
     private void GenerateRigidBody()
     {
-        body = gameObject.AddComponent<Rigidbody>();
-        body.drag = 1f;
+        rigidBody = gameObject.AddComponent<Rigidbody>();
+        rigidBody.drag = 1f;
     }
 
     protected virtual void FixedUpdate()
     {
         if (direction != Vector3.zero)
         {
-            body.AddForce(direction * speed);
+            rigidBody.AddForce(direction * speed, ForceMode.VelocityChange);
         }
 
         LimitVelocity();
@@ -50,23 +50,23 @@ public class Movement : MonoBehaviour
 
     private void LimitVelocity()
     {
-        float velX = Mathf.Abs(body.velocity.x);
-        float velZ = Mathf.Abs(body.velocity.z);
+        float velX = Mathf.Abs(rigidBody.velocity.x);
+        float velZ = Mathf.Abs(rigidBody.velocity.z);
         Vector2 acceleration = GetAcceleration();
 
         if (velX > maxVelocity.x || velZ > maxVelocity.y)
         {
-            velX = GetFinalValue(velX, body.velocity.x, maxVelocity.x);
-            velZ = GetFinalValue(velZ, body.velocity.z, maxVelocity.y);
-            body.velocity = new Vector3(velX, body.velocity.y, velZ);
-            body.AddForce(-acceleration);
+            velX = GetFinalValue(velX, rigidBody.velocity.x, maxVelocity.x);
+            velZ = GetFinalValue(velZ, rigidBody.velocity.z, maxVelocity.y);
+            rigidBody.velocity = new Vector3(velX, rigidBody.velocity.y, velZ);
+            rigidBody.AddForce(-acceleration);
         }
-        lastVelocity = body.velocity;
+        lastVelocity = rigidBody.velocity;
     }
 
     private Vector2 GetAcceleration()
     {
-        return (body.velocity - lastVelocity) / Time.fixedDeltaTime;
+        return (rigidBody.velocity - lastVelocity) / Time.fixedDeltaTime;
     }
 
     //checks whether the new absolute velocity in a given axis is greater than the top speed of that axis picking the top speed if that is the case
