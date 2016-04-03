@@ -4,15 +4,18 @@ using System.Collections;
 public abstract class AttributeConstraint
 {
     protected EntityAttribute attribute;
+    private string _name;
+
+    public string Name { get { return _name; } }
 
     public EntityAttribute Attribute
     {
         get { return attribute; }
     }
 
-    public AttributeConstraint() { }
+    public AttributeConstraint(string name = null) { this._name = name; }
 
-    public AttributeConstraint(EntityAttribute attribute)
+    public AttributeConstraint(EntityAttribute attribute, string name = null) : this(name)
     {
         this.attribute = attribute;
     }
@@ -26,7 +29,7 @@ public abstract class AttributeConstraint
 
     public override int GetHashCode()
     {
-        return base.GetHashCode();
+        return attribute.GetHashCode() * (!System.String.IsNullOrEmpty(_name) ? 97 : _name.GetHashCode());
     }
 
     public override bool Equals(object obj)

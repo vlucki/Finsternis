@@ -4,16 +4,24 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
-    public Character character;
+    public GameObject character;
     public Text txtName;
     public Text txtLvl;
     public Text txtHP;
     public Text txtMP;
 
+    private RangedValueAttribute health;
+    private RangedValueAttribute mana;
+    private AttributeTable table;
+
     public void Start()
     {
         ValidateState();
         txtName.text = character.name;
+
+        table = character.GetComponent<AttributeTable>();
+
+        UpdateHud();
     }
 
     void Update()
@@ -23,7 +31,20 @@ public class HUDController : MonoBehaviour
 
     private void UpdateHud()
     {
-        
+        UpdateRangedField("health", health, txtHP);
+        UpdateRangedField("mana", mana, txtMP);
+    }
+
+    private void UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
+    {
+        if (attribute == null)
+        {
+            attribute = table.GetAttribute(name) as RangedValueAttribute;
+        }
+        if (attribute != null)
+        {
+            textField.text = attribute.Value + "/" + attribute.Max;
+        }
     }
 
     private void ValidateState()

@@ -18,7 +18,7 @@ public class AttributeTable : MonoBehaviour
         if (constraints != null)
             a.AddConstraints(constraints);
         if (!a.SetValue(defaultValue))
-            throw new ArgumentException("Invalid value (" + defaultValue + ") for attribute " + name);
+            throw new ArgumentException("Invalid default value (" + defaultValue + ") for attribute " + a);
         AddAttribute(a);
     }
 

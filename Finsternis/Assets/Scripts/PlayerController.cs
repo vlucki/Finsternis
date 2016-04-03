@@ -20,14 +20,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        _characterMovement.Direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        bool walking = _characterMovement.Direction != Vector3.zero;
-
-        _characterAnimator.SetBool("walking", walking);
-        if (walking && !Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetAxis("Jump") != 0)
         {
-            facingDirection = GetDirectionFaced();
-            _characterPrefab.transform.LookAt(facingDirection);
+            _characterAnimator.SetBool("attacking", true);
+            _characterMovement.Direction = Vector3.zero;
+        }
+
+        if (!_characterAnimator.GetBool("attacking"))
+        {
+            _characterMovement.Direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            bool walking = _characterMovement.Direction != Vector3.zero;
+
+            _characterAnimator.SetBool("walking", walking);
+            if (walking && !Input.GetKey(KeyCode.LeftShift))
+            {
+                facingDirection = GetDirectionFaced();
+                _characterPrefab.transform.LookAt(facingDirection);
+            }
         }
     }
 

@@ -2,10 +2,16 @@
 using System.Collections;
 using System;
 
-[RequireComponent (typeof(Inventory), typeof(Movement))]
-[RequireComponent (typeof(AttributeTable))]
+[RequireComponent (typeof(Inventory), typeof(AttributeTable), typeof(Movement))]
 public class Character : MonoBehaviour
 {
+    [Header("BASIC ATTRIBUTES")]
+    [Tooltip("min | current | max")]
+    public Vector3 health;
+    [Tooltip("min | current | max")]
+    public Vector3 mana;
+    public float damage;
+
     //EVERY character has an inventory - even enemies
     private Inventory inventory;
     private AttributeTable attributes;
@@ -19,6 +25,8 @@ public class Character : MonoBehaviour
 
     private void AddBaseAttributes()
     {
-        attributes.AddAttribute<float>("health", 10, new ValueConstraint(0, ">="), new ValueConstraint(10, "<="));
+        attributes.AddAttribute(new RangedValueAttribute("health", health.x, health.z, health.y));
+        attributes.AddAttribute(new RangedValueAttribute("mana", mana.x, mana.z, mana.y));
+        attributes.AddAttribute<float>("damage", damage);
     }
 }
