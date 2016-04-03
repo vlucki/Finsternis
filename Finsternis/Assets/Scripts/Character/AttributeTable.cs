@@ -7,30 +7,26 @@ public class AttributeTable : MonoBehaviour
 {
     private Dictionary<string, EntityAttribute> attributes;
 
-    public void AddAttribute<T>(List<AttributeConstraint> constraints = null)
+    public AttributeTable()
     {
-        EntityAttribute<T> a = ScriptableObject.CreateInstance<EntityAttribute<T>>();
+        attributes = new Dictionary<string, EntityAttribute>();
+    }
+
+    public void AddAttribute<T>(string name, T defaultValue, params AttributeConstraint[] constraints)
+    {
+        EntityAttribute<T> a = new EntityAttribute<T>(name);
         if (constraints != null)
             a.AddConstraints(constraints);
+        if (!a.SetValue(defaultValue))
+            throw new ArgumentException("Invalid value (" + defaultValue + ") for attribute " + name);
+        AddAttribute(a);
     }
 
     public void AddAttribute(EntityAttribute att)
     {
-
-    }
-
-    public void AddAttribute<T>(string name, float? min = null, float? max = null)
-    {
-        EntityAttribute<T> a = ScriptableObject.CreateInstance<EntityAttribute<T>>();
-        if (min != null)
+        if (!attributes.ContainsKey(att.Name))
         {
-
-        }
-
-
-        if (!attributes.ContainsKey(name))
-        {
-            attributes.Add(name, a);
+            attributes.Add(att.Name, att);
         }
     }
 

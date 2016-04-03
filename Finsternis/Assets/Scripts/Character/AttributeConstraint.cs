@@ -3,7 +3,24 @@ using System.Collections;
 
 public abstract class AttributeConstraint
 {
-    EntityAttribute attribute;
+    protected EntityAttribute attribute;
+
+    public EntityAttribute Attribute
+    {
+        get { return attribute; }
+    }
+
+    public AttributeConstraint() { }
+
+    public AttributeConstraint(EntityAttribute attribute)
+    {
+        this.attribute = attribute;
+    }
+
+    public virtual void SetAttribute(EntityAttribute attribute)
+    {
+        this.attribute = attribute;
+    }
 
     public abstract bool Check();
 

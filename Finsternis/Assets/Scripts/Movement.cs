@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 [RequireComponent (typeof(Rigidbody))]
+
 public class Movement : MonoBehaviour
 {
     /*NOTES:
@@ -10,15 +11,12 @@ public class Movement : MonoBehaviour
             Also, in order to avoid the gameobject from flying around at lightspeed, just set a top speed
         */
     [SerializeField]
-    [Range(0, 1000)]
-    private float speed = 3;
-    [SerializeField]
-    private Vector2 maxVelocity = new Vector2(3, 3);
+    [Range(0, 1f)]
+    private float speed = 0.175f;
     [SerializeField]
     protected Rigidbody rigidBody;
 
     private Vector3 direction;
-    private Vector3 lastVelocity;
 
     public Vector3 Direction
     {
@@ -44,29 +42,6 @@ public class Movement : MonoBehaviour
         {
             rigidBody.AddForce(direction * speed, ForceMode.VelocityChange);
         }
-
-        LimitVelocity();
-    }
-
-    private void LimitVelocity()
-    {
-        float velX = Mathf.Abs(rigidBody.velocity.x);
-        float velZ = Mathf.Abs(rigidBody.velocity.z);
-        Vector2 acceleration = GetAcceleration();
-
-        if (velX > maxVelocity.x || velZ > maxVelocity.y)
-        {
-            velX = GetFinalValue(velX, rigidBody.velocity.x, maxVelocity.x);
-            velZ = GetFinalValue(velZ, rigidBody.velocity.z, maxVelocity.y);
-            rigidBody.velocity = new Vector3(velX, rigidBody.velocity.y, velZ);
-            rigidBody.AddForce(-acceleration);
-        }
-        lastVelocity = rigidBody.velocity;
-    }
-
-    private Vector2 GetAcceleration()
-    {
-        return (rigidBody.velocity - lastVelocity) / Time.fixedDeltaTime;
     }
 
     //checks whether the new absolute velocity in a given axis is greater than the top speed of that axis picking the top speed if that is the case

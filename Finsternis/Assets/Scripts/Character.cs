@@ -19,6 +19,6 @@ public class Character : MonoBehaviour
 
     private void AddBaseAttributes()
     {
-        attributes.AddAttribute<HeaderAttribute>("health");
+        attributes.AddAttribute<float>("health", 10, new ValueConstraint(0, ">="), new ValueConstraint(10, "<="));
     }
 }
