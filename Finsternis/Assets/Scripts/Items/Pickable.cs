@@ -2,7 +2,7 @@
 using System.Collections;
 
 //Items that are on the floor
-public class Pickable : Entity
+public class Pickable : MonoBehaviour
 {
     public Item item;
 

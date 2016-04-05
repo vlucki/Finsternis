@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
-    public GameObject character;
+    public Character character;
     public Text txtName;
     public Text txtLvl;
     public Text txtHP;
@@ -19,7 +19,7 @@ public class HUDController : MonoBehaviour
         ValidateState();
         txtName.text = character.name;
 
-        table = character.GetComponent<AttributeTable>();
+        table = character.Attributes;
 
         UpdateHud();
     }
@@ -31,11 +31,11 @@ public class HUDController : MonoBehaviour
 
     private void UpdateHud()
     {
-        UpdateRangedField("health", health, txtHP);
-        UpdateRangedField("mana", mana, txtMP);
+        UpdateRangedField("health", ref health, txtHP);
+        UpdateRangedField("mana", ref mana, txtMP);
     }
 
-    private void UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
+    private void UpdateRangedField(string name, ref RangedValueAttribute attribute, Text textField)
     {
         if (attribute == null)
         {
