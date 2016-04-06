@@ -16,6 +16,8 @@ public class Follow
     void FixedUpdate()
     {
         Vector3 idealPosition = target.position - offset;
-        transform.position = Vector3.Lerp(transform.position, idealPosition, interpolation);
+        float dist = Vector3.Distance(idealPosition, transform.position);
+        if (dist > interpolation)
+            transform.position = Vector3.Slerp(transform.position, idealPosition, interpolation);
     }
 }

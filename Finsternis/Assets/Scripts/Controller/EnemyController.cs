@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Movement), typeof(Animator))]
 public class EnemyController : MonoBehaviour {
 
     public float aggroRange = 2f;
@@ -16,17 +17,31 @@ public class EnemyController : MonoBehaviour {
     {
         _characterMovement = GetComponent<Movement>();
         _characterAnimator = GetComponent<Animator>();
+        GetComponent<Character>().death += EnemyController_death;
         target = GameObject.FindGameObjectWithTag("Player");
     }
-    
+
+    private void EnemyController_death()
+    {
+        _characterAnimator.SetBool("dying", true);
+    }
+
     void Update()
     {
-        targetOnRange = Vector3.Distance(transform.position, target.transform.position) <= aggroRange;
-        if (targetOnRange)
+        if (!_characterAnimator.GetBool("dead"))
         {
-            transform.LookAt(target.transform);
-            //Quaternion v = Quaternion.Slerp(transform.rotation, Quaternion.FromToRotation(transform.forward, (target.transform.position - transform.position).normalized), 0.25f);
-            //transform.rotation = v;
+            if (!_characterAnimator.GetBool("dying"))
+            {
+                targetOnRange = Vector3.Distance(transform.position, target.transform.position) <= aggroRange;
+                if (targetOnRange)
+                {
+                    transform.LookAt(target.transform);
+                }
+            }
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }

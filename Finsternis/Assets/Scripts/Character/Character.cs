@@ -6,6 +6,8 @@ using System.Collections.Generic;
 [RequireComponent (typeof(Inventory))]
 public class Character : MonoBehaviour
 {
+    public delegate void OnDeath();
+    public event OnDeath death;
 
     [SerializeField]
     public RangedValueAttribute health = new RangedValueAttribute("health", 0, 10, 10);
@@ -20,14 +22,14 @@ public class Character : MonoBehaviour
     public RangedValueAttribute defense = new RangedValueAttribute("defense", 0, 100, 1);
 
     [SerializeField]
-    private AttributeTable _attributes = new AttributeTable();
+    private AttributeTable _attributeTable = new AttributeTable();
 
     //EVERY character has an inventory - even enemies
     private Inventory inventory;
 
     public AttributeTable Attributes
     {
-        get { return _attributes; }
+        get { return _attributeTable; }
     }
 
     protected virtual void Start()
@@ -38,9 +40,21 @@ public class Character : MonoBehaviour
 
     private void AddBaseAttributes()
     {
-        _attributes.AddAttribute(health);
-        _attributes.AddAttribute(mana);
-        _attributes.AddAttribute(damage);
-        _attributes.AddAttribute(defense);
+        _attributeTable.AddAttribute(health);
+        _attributeTable.AddAttribute(mana);
+        _attributeTable.AddAttribute(damage);
+        _attributeTable.AddAttribute(defense);
+    }
+
+    void Update()
+    {
+        if (health.Value == 0)
+        {
+            if (death != null)
+            {
+                death();
+                death = null;
+            }
+        }
     }
 }

@@ -16,6 +16,8 @@ public class CharacterEditor : Editor
     RangedValueAttribute dmg;
     RangedValueAttribute def;
 
+    AttributeTable table;
+
     public void OnEnable()
     {
         alignCenter.alignment = TextAnchor.MiddleCenter;
@@ -23,7 +25,7 @@ public class CharacterEditor : Editor
         alignLeft.alignment = TextAnchor.MiddleLeft;
 
         alignRight.alignment = TextAnchor.MiddleRight;
-
+        table = ((Character)target).Attributes;
         hp = ((Character)target).health;
         mp = ((Character)target).mana;
         dmg = ((Character)target).damage;
@@ -45,7 +47,6 @@ public class CharacterEditor : Editor
         DrawMinMaxValue(mp);
         DrawRangedValue(dmg);
         DrawRangedValue(def);
-
         EditorGUILayout.EndVertical();
 
         serializedObject.ApplyModifiedProperties();

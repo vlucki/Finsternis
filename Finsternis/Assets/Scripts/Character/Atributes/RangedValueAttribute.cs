@@ -38,5 +38,10 @@ public class RangedValueAttribute : EntityAttribute<float>
         AddConstraint(_max);
         SetValue(defaultValue == null ? max : (float)defaultValue);
     }
+
+    public override bool SetValue(float newValue)
+    {
+        return base.SetValue(Mathf.Clamp(newValue, Min, Max));
+    }
 }
 

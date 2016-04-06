@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleDungeon : Dungeon
 {
 
+    System.Diagnostics.Stopwatch profilingTimer;
     public class Corridor
     {
         public Vector2 Direction { get; set; }
@@ -22,6 +23,7 @@ public class SimpleDungeon : Dungeon
         }
     }
 
+    [SerializeField]
     public enum CellType
     {
         empty = 0,
@@ -29,6 +31,7 @@ public class SimpleDungeon : Dungeon
         corridor = 20
     }
 
+    [SerializeField]
     private CellType[,] _dungeon;
 
     [Header("Dungeon dimensions")]
@@ -76,8 +79,11 @@ public class SimpleDungeon : Dungeon
     [Range(1, 1000000)]
     private int maximumCorridorLength = 5;
 
+    public CellType[,] GetDungeon() { return _dungeon.Clone() as CellType[,]; }
+
     public override void Generate()
     {
+        profilingTimer = new System.Diagnostics.Stopwatch();
         Debug.Log("<b>GENERATING DUNGEON</b>");
         base.Generate();
 
@@ -87,47 +93,60 @@ public class SimpleDungeon : Dungeon
         
         Vector2 maximumRoomSize = new Vector2(maximumRoomWidth, maximumRoomHeight);
         Vector2 minimumRoomSize = new Vector2(minimumRoomWidth, minimumRoomHeight);
-
+        long lastElapsedTime = 0;
         int roomCount = 0;
         do
         {
 
-            DisplayDungeon();
+            //DisplayDungeon();
             if (roomCount == 0) //carve the very first room
             {
-                Debug.Log("<b>Creating first room</b>");
+                //Debug.Log("<b>Creating first room</b>");
+                profilingTimer.Start();
                 Rect room;
                 if (CarveRoom(Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, out room))
                     hangingRooms.Enqueue(room);
                 else
                     throw new System.InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
-                Debug.Log("<b>Finished creating first room</b>");
+                profilingTimer.Stop();
+                Debug.Log("<b>Finished creating first room <color=red>(" + (profilingTimer.ElapsedMilliseconds - lastElapsedTime) + "ms)</color></b>");
+                lastElapsedTime = profilingTimer.ElapsedMilliseconds;
                 roomCount++;
             }
             else
             {
 
-                Debug.Log("<b>Creating corridors</b>");
+                //Debug.Log("<b>Creating corridors</b>");
+                profilingTimer.Start();
                 hangingCorridors = GenerateCorridors(hangingRooms);
-                Debug.Log("<b>Finished creating corridors</b>");
+                profilingTimer.Stop();
+                Debug.Log("<b>Finished creating corridors <color=red>(" + (profilingTimer.ElapsedMilliseconds - lastElapsedTime) + "ms)<color></b>");
+                lastElapsedTime = profilingTimer.ElapsedMilliseconds;
 
-                DisplayDungeon();
+                //DisplayDungeon();
 
-                Debug.Log("<b>Creating rooms</b>");
+                //Debug.Log("<b>Creating rooms</b>");
+                profilingTimer.Start();
                 GenerateRooms(hangingRooms, hangingCorridors, minimumRoomSize, maximumRoomSize, ref roomCount);
-                Debug.Log("<b>Finished creating rooms</b>");
+                profilingTimer.Stop();
+                Debug.Log("<b>Finished creating rooms <color=red>(" + (profilingTimer.ElapsedMilliseconds - lastElapsedTime) + "ms)</color></b>");
+                lastElapsedTime = profilingTimer.ElapsedMilliseconds;
             }
             
         } while (roomCount < totalRooms  //keep going until the desired number of rooms was generated
                 && (hangingRooms.Count > 0 || hangingCorridors.Count > 0)); //or until no more rooms or corridors can be generated
 
+        //Debug.Log("<b>Connecting leftover corridors</b>");
+        profilingTimer.Start();
         ConnectLeftoverCorridors(hangingCorridors);
-
-        Debug.Log("<b>DUNGEON GENERATED</b>");
+        profilingTimer.Stop();
+        Debug.Log("<b>Finished making connections <color=red>(" + (profilingTimer.ElapsedMilliseconds - lastElapsedTime) + "ms)</color></b>");
+        
+        Debug.Log("<b>DUNGEON GENERATED <color=red>(" + profilingTimer.ElapsedMilliseconds + "ms)</color></b>");
 
         //TODO: debug only code - REMOVE
-        DisplayDungeon();
-        GetComponent<DungeonDrawer>().DrawFromGrid<CellType>(_dungeon, CellType.empty);
+        //DisplayDungeon();
+        GetComponent<SimpleDungeonDrawer>().Draw();//.DrawFromGrid<CellType>(_dungeon, CellType.empty);
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
@@ -259,7 +278,7 @@ public class SimpleDungeon : Dungeon
 
     private bool ExtendCorridor(Corridor corridor)
     {
-        Debug.Log("<b>Extending corridor: </b>" + corridor);
+        //Debug.Log("<b>Extending corridor: </b>" + corridor);
         Vector2 newCorridorEnd = corridor.Bounds.max;
 
         while(newCorridorEnd.x < dungeonWidth 
@@ -275,13 +294,13 @@ public class SimpleDungeon : Dungeon
             && _dungeon[(int)(newCorridorEnd.y - corridor.Direction.x), (int)(newCorridorEnd.x - corridor.Direction.y)] != CellType.empty)
         {
             corridor.Bounds = new Rect(corridor.Bounds.x, corridor.Bounds.y, newCorridorEnd.x - corridor.Bounds.xMin, newCorridorEnd.y - corridor.Bounds.yMin);
-            Debug.Log("Corridor successfully extended - " + corridor);
+            //Debug.Log("Corridor successfully extended - " + corridor);
             MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
             return true;
         }
         else
         {
-            Debug.Log("Impossible to extend the corridor from " + corridor.Bounds.max + " - stopped at " + newCorridorEnd);
+            Debug.LogWarning("Impossible to extend the corridor from " + corridor.Bounds.max + " - stopped at " + newCorridorEnd);
             return false;
         }
     }
@@ -362,7 +381,7 @@ public class SimpleDungeon : Dungeon
     /// <returns>True if a corridor was created without any intersections.</returns>
     private bool CarveCorridor(Rect roomBounds, Vector2 direction, out Rect corridor)
     {
-        Debug.Log("<color=#2a2>CarveCorridor(" + roomBounds + ", " + direction + ",  out Rect corridor)</color>");
+        //Debug.Log("<color=#2a2>CarveCorridor(" + roomBounds + ", " + direction + ",  out Rect corridor)</color>");
 
         corridor = new Rect();
 
@@ -379,10 +398,10 @@ public class SimpleDungeon : Dungeon
 
         Vector2 corridorStart;
 
-        Debug.Log("Trying to get random room cell - " + roomBounds);
+        //Debug.Log("Trying to get random room cell - " + roomBounds);
         if(!GetRandomRoomCell(roomBounds, (int)(roomBounds.width * roomBounds.height), out corridorStart))
         {
-            Debug.Log("Random search failed - falling back to linear search.");
+            //Debug.Log("Random search failed - falling back to linear search.");
             corridorStart = GetRoomEdgeCell(roomBounds, direction);
         }
 
@@ -390,7 +409,7 @@ public class SimpleDungeon : Dungeon
         while (corridorStart.x < dungeonWidth && corridorStart.y < dungeonHeight && _dungeon[(int)corridorStart.y, (int)corridorStart.x] != CellType.empty)
             corridorStart += direction;
 
-        Debug.Log("Corridor start: " + corridorStart);
+        //Debug.Log("Corridor start: " + corridorStart);
 
         corridor.position = corridorStart;
 
@@ -418,18 +437,18 @@ public class SimpleDungeon : Dungeon
 
         if (corridor.size.x == 0 && corridor.size.y == 0)
         {
-            Debug.Log("No use creating a corridor with 0 length.");
+            Debug.LogWarning("No use creating a corridor with 0 length (" + roomBounds +")");
             return false;
         }
 
-        Debug.Log("Intended corridor end: " + corridor.max);
-        Debug.Log("Intended corridor: " + corridor);
+        //Debug.Log("Intended corridor end: " + corridor.max);
+        //Debug.Log("Intended corridor: " + corridor);
 
         Vector2 predefinedSize = corridor.size;
 
         corridor.max = MarkCells(corridor.position, corridor.size, CellType.corridor, false);        
 
-        Debug.Log("<color=#22f>Carved corridor = " + corridor + "</color> -> returning " + (predefinedSize == corridor.size));
+        //Debug.Log("<color=#22f>Carved corridor = " + corridor + "</color> -> returning " + (predefinedSize == corridor.size));
 
         return predefinedSize == corridor.size;
     }
@@ -443,7 +462,7 @@ public class SimpleDungeon : Dungeon
     /// <returns>True if the room was created.</returns>
     private bool CarveRoom(Vector2 corridorEnd, Vector2 minSize, Vector2 maxSize, Vector2 offset, out Rect roomBounds)
     {
-        Debug.Log("<color=#f22>CarveRoom(" + corridorEnd + ", " + minSize + ", " + maxSize + ", " + offset + ")</color>");
+        //Debug.Log("<color=#f22>CarveRoom(" + corridorEnd + ", " + minSize + ", " + maxSize + ", " + offset + ")</color>");
         
         Vector2 pos = corridorEnd;
         pos.x -= offset.y;
@@ -457,7 +476,7 @@ public class SimpleDungeon : Dungeon
                 pos.x = dungeonWidth - minSize.x; //move the room left
             else
             {
-                Debug.Log("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's width.</color>");
+                Debug.LogWarning("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's width.</color>");
                 return false;
             }
         }
@@ -469,7 +488,7 @@ public class SimpleDungeon : Dungeon
                 pos.y = dungeonHeight - minSize.y; //move the room up
             else
             {
-                Debug.Log("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's height.</color>");
+                Debug.LogWarning("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's height.</color>");
                 return false;
             }
         }
@@ -480,7 +499,7 @@ public class SimpleDungeon : Dungeon
                 && ((offset.y != 0 && pos.x + minSize.x >= roomBounds.x) //and it can be moved to the left
                 || (offset.x != 0 && pos.y + minSize.y >= roomBounds.y)))//or up
         {
-            Debug.Log("<color=#522>Room at " + pos + " intersects with a corridor.</color>");
+            //Debug.Log("<color=#522>Room at " + pos + " intersects with a corridor.</color>");
             //move the room and check again
             pos.x -= offset.y;
             pos.y -= offset.x;
@@ -489,7 +508,7 @@ public class SimpleDungeon : Dungeon
 
         if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
         {
-            Debug.Log("<color=#fff>Impossible to fit a room at " + pos + " due to an intersection with a corridor.</color>");
+            Debug.LogWarning("<color=#fff>Impossible to fit a room at " + pos + " due to an intersection with a corridor.</color>");
             return false;
         }
         bool roomCarved = false;
@@ -501,7 +520,7 @@ public class SimpleDungeon : Dungeon
             size.x = (int)Random.Range(minSize.x, maxSize.x - pos.x + corridorEnd.x + 1);
             size.y = (int)Random.Range(minSize.y, maxSize.y - pos.y + corridorEnd.y + 1);
 
-            Debug.Log("Try #" + (tries + 1) + ": position = " + pos + ", size = " + size + ", room = " + roomBounds);
+            //Debug.Log("Try #" + (tries + 1) + ": position = " + pos + ", size = " + size + ", room = " + roomBounds);
 
             if (SearchInArea(pos, size, CellType.corridor))
                 continue;
@@ -516,7 +535,7 @@ public class SimpleDungeon : Dungeon
             if (pos.y + size.y > roomBounds.yMax)
                 roomBounds.yMax = pos.y + size.y;
 
-            Debug.Log("new room = " + roomBounds);
+            //Debug.Log("new room = " + roomBounds);
 
             MarkCells(pos, size);
 
@@ -549,14 +568,14 @@ public class SimpleDungeon : Dungeon
         if (roomBounds.yMax > dungeonHeight)
             roomBounds.yMax = dungeonHeight;
 
-        if (roomCarved)
-        {
-            Debug.Log("<color=purple>Carved room: " + roomBounds + "</color>");
-        }
-        else
-        {
-            Debug.Log("<color=purple>Failed to carve room</color>");
-        }
+        //if (roomCarved)
+        //{
+        //    Debug.Log("<color=purple>Carved room: " + roomBounds + "</color>");
+        //}
+        //else
+        //{
+        //    Debug.Log("<color=purple>Failed to carve room</color>");
+        //}
 
         return roomCarved;
     }

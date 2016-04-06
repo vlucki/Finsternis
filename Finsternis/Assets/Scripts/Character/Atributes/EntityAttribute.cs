@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public abstract class EntityAttribute
+public abstract class EntityAttribute 
 {
     [SerializeField]
     private string _name;
@@ -97,7 +97,7 @@ public class EntityAttribute<T> : EntityAttribute
         get { return this.value; }
     }
 
-    public bool SetValue(T newValue)
+    public virtual bool SetValue(T newValue)
     {
         T oldValue = value;
         value = newValue;

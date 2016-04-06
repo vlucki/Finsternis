@@ -34,7 +34,21 @@ public class PhysicalAttackHandler : MonoBehaviour
         {
             Vector3 dir = (other.transform.position - owner.transform.position);
             body.AddForce(dir * impactMultiplier.x + Vector3.up * impactMultiplier.y, modeOnImpact);
-            other.transform.LookAt(owner.transform);
+            Vector3 target = owner.transform.position;
+            target.y = other.transform.position.y;
+            other.transform.LookAt(target);
+            Character otherChar = other.GetComponent<Character>();
+
+            Animator a = other.GetComponent<Animator>();
+            if (a){
+                a.SetBool("beingHit", true);
+            }
+            if (otherChar)
+            {
+                RangedValueAttribute health = otherChar.health;
+                
+                (health).SetValue(health.Value - GetComponentInParent<Character>().damage.Value);
+            }
         }
     }
 
