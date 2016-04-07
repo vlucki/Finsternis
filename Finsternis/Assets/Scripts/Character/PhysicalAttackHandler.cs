@@ -26,7 +26,7 @@ public class PhysicalAttackHandler : MonoBehaviour
             if (ignoreList.Contains(other))
                 return;
 
-        if (!owner.GetComponent<Animator>().GetBool("attacking"))
+        if (!owner.GetComponent<CharacterController>().IsAttacking())
             return;
 
         Rigidbody body = other.GetComponent<Rigidbody>();
@@ -38,13 +38,11 @@ public class PhysicalAttackHandler : MonoBehaviour
             target.y = other.transform.position.y;
             other.transform.LookAt(target);
             Character otherChar = other.GetComponent<Character>();
+            
+            if (otherChar){
 
-            Animator a = other.GetComponent<Animator>();
-            if (a){
-                a.SetBool("beingHit", true);
-            }
-            if (otherChar)
-            {
+                other.GetComponent<CharacterController>().Hit();
+
                 RangedValueAttribute health = otherChar.health;
                 
                 (health).SetValue(health.Value - GetComponentInParent<Character>().damage.Value);

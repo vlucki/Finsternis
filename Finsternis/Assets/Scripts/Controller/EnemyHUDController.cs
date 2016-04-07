@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHUDController : Follow
+public class EnemyHUDController : MonoBehaviour
 {
 
     [SerializeField]
@@ -9,23 +9,48 @@ public class EnemyHUDController : Follow
     [SerializeField]
     private GameObject hpMeter;
 
+    [SerializeField]
+    private Text txtName;
+
+    [SerializeField]
     private Character enemy;
 
-    void Start()
+    void Awake()
     {
         if(!mainCamera)
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        enemy = target.GetComponent<Character>();
+
+        enemy = GetComponentInParent<Character>();
         enemy.death += Enemy_death;
-        Image[] children = GetComponentsInChildren<Image>();
-        foreach(Image child in children)
+
+        if (!hpMeter)
         {
-            if(child.name.Equals("HpMeter"))
+            Image[] children = GetComponentsInChildren<Image>();
+            foreach (Image child in children)
             {
-                hpMeter = child.gameObject;
-                break;
+                if (child.name.Equals("HpMeter"))
+                {
+                    hpMeter = child.gameObject;
+                    break;
+                }
             }
         }
+
+        if (!txtName)
+        {
+            Text[] children = GetComponentsInChildren<Text>();
+            foreach (Text child in children)
+            {
+                if (child.name.Equals("Name"))
+                {
+                    txtName = child;
+                    break;
+                }
+            }
+        }
+
+
+        txtName.text = enemy.name;
     }
 
     private void Enemy_death()
@@ -35,8 +60,7 @@ public class EnemyHUDController : Follow
 
     void Update()
     {
-        offset.x = Mathf.Clamp((mainCamera.transform.position.x - target.position.x) / 10, -0.5f, 0.5f);
-        transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
+        transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position, Vector3.up);
 
         RangedValueAttribute health = enemy.Attributes.GetAttribute("health") as RangedValueAttribute;
         hpMeter.transform.localScale = new Vector3(health.Value / health.Max, 1, 1);

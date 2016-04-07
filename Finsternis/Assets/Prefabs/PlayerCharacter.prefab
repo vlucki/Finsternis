@@ -205,8 +205,8 @@ GameObject:
   - 4: {fileID: 420432}
   - 95: {fileID: 9557328}
   - 54: {fileID: 5427750}
-  - 114: {fileID: 11468726}
   - 136: {fileID: 13609500}
+  - 114: {fileID: 11468726}
   - 114: {fileID: 11479850}
   - 114: {fileID: 11409130}
   - 114: {fileID: 11445578}
@@ -2022,7 +2022,7 @@ Animator:
   m_GameObject: {fileID: 124572}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dfa9dd007e9fedc4b869bfd63bb3b284, type: 3}
-  m_Controller: {fileID: 9100000, guid: adb501fd7a3fb3b41a546c3976383676, type: 2}
+  m_Controller: {fileID: 9100000, guid: d8fc317f1ce207e44bae50c9b325d892, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

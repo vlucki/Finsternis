@@ -175,8 +175,8 @@ GameObject:
   - 4: {fileID: 410052}
   - 95: {fileID: 9504520}
   - 54: {fileID: 5402140}
-  - 114: {fileID: 11400726}
   - 136: {fileID: 13655184}
+  - 114: {fileID: 11400726}
   - 114: {fileID: 11474452}
   - 114: {fileID: 11472778}
   m_Layer: 0
@@ -1991,7 +1991,7 @@ Animator:
   m_GameObject: {fileID: 122038}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: dfa9dd007e9fedc4b869bfd63bb3b284, type: 3}
-  m_Controller: {fileID: 9100000, guid: adb501fd7a3fb3b41a546c3976383676, type: 2}
+  m_Controller: {fileID: 9100000, guid: d8fc317f1ce207e44bae50c9b325d892, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2042,6 +2042,15 @@ MonoBehaviour:
       _value: 5
   damage:
     _name: damage
+    value: 1
+    _min:
+      _name: min
+      _value: 0
+    _max:
+      _name: max
+      _value: 100
+  defense:
+    _name: defense
     value: 1
     _min:
       _name: min

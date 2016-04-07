@@ -23,6 +23,7 @@ public class Movement : MonoBehaviour
         get { return direction; }
         set { direction = value.normalized; }
     }
+
     // Use this for initialization
     protected virtual void Start()
     {
@@ -44,10 +45,8 @@ public class Movement : MonoBehaviour
         }
     }
 
-    //checks whether the new absolute velocity in a given axis is greater than the top speed of that axis picking the top speed if that is the case
-    //then, if the old value was negative, multiply the new one by -1 so it stays negative (and the body doesn't start switching directions when it shouldn't)
-    float GetFinalValue(float newAbsoluteValue, float oldSignaledValue, float limit)
+    public float GetSpeed()
     {
-        return Mathf.Min(newAbsoluteValue, limit) * (oldSignaledValue < 0 ? -1 : 1);
+        return body.velocity.magnitude;
     }
 }
