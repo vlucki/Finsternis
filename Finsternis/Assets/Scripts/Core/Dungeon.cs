@@ -8,6 +8,8 @@ public abstract class Dungeon : MonoBehaviour
     [SerializeField]
     private int seed;
 
+    public bool customSeed = true;
+
     public int Seed
     {
         get { return seed; }
@@ -20,7 +22,12 @@ public abstract class Dungeon : MonoBehaviour
     public virtual void Generate()
     {
         if (this.seed != Random.seed)
-            Random.seed = this.seed;
+        {
+            if (customSeed)
+                Random.seed = this.seed;
+            else
+                this.seed = Random.seed;
+        }
     }
 }
 

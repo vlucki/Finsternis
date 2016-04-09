@@ -34,8 +34,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
         Clear();
 
         CellType[,] grid = _dungeon.GetDungeon();
-        int width = grid.GetLength(1);
-        int height = grid.GetLength(0);
+        int width = _dungeon.Width;
+        int height = _dungeon.Height;
 
 
         for (int cellY = -1; cellY <= height; cellY++)
@@ -56,8 +56,28 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private void MakeFloor(int cellX, int cellY, CellType[,] grid)
     {
+
         Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
-        MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, defaultFloorMaterial, "Floor (" + cellX + ";" + cellY + ")").transform.SetParent(gameObject.transform);
+        GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, defaultFloorMaterial, grid[cellY, cellX] + " (" + cellX + ";" + cellY + ")");
+        floor.transform.SetParent(gameObject.transform);
+         
+        if (cellX == (int)_dungeon.End.x && cellY == (int)_dungeon.End.y)
+        {
+            floor.GetComponent<MeshRenderer>().enabled = false;
+#if UNITY_EDITOR
+            DestroyImmediate(floor.GetComponent<MeshCollider>());
+#else
+            Destroy(floor.GetComponent<MeshCollider());
+#endif
+            BoxCollider collider = floor.AddComponent<BoxCollider>();
+            collider.isTrigger = true;
+            collider.size = new Vector3(1, 1, 1);
+            collider.center = Vector3.forward / 2;
+
+            return;
+        }
+
+
         Vector2 direction;
         if (doorways != null && doorways.Length > 0 && CanMakeDoorway(cellX, cellY, grid, out direction))
         {
@@ -190,13 +210,13 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private GameObject MakePlane(Vector3 pos, Vector3 scale, Vector3 rotation, Material mat, string name = "Ceiling")
     {
-        GameObject ceiling = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        ceiling.GetComponent<MeshRenderer>().sharedMaterial = mat;
-        ceiling.transform.localScale = scale;
-        ceiling.transform.rotation = Quaternion.Euler(rotation);
-        ceiling.transform.position = pos;
-        ceiling.name = name;
-        return ceiling;
+        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        plane.GetComponent<MeshRenderer>().sharedMaterial = mat;
+        plane.transform.localScale = scale;
+        plane.transform.rotation = Quaternion.Euler(rotation);
+        plane.transform.position = pos;
+        plane.name = name;
+        return plane;
     }
 
     private bool ShouldMakeWall<T>(T[,] grid, int cellX, int cellY, T wall, bool ignoreIsolatedWalls)
