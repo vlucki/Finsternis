@@ -9,6 +9,10 @@ public class PlayerController : CharacterController
     public override void Update()
     {
         base.Update();
+
+        if (locked)
+            return;
+
         if (Input.GetAxis("Jump") != 0 && !IsAttacking())
         {
             Attack();

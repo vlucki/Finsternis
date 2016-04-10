@@ -92,29 +92,79 @@ public class SimpleDungeon : Dungeon
     private int _maximumCorridorLength = 5;
 
     [SerializeField]
-    private Vector2 _start;
+    private Vector2 _entrance;
 
     [SerializeField]
     private Vector2 _exit;
 
     private Rect _lastRoom;
 
-    public Vector2 Start { get { return _start; } }
-    public Vector2 End { get { return _exit; } }
+    public Vector2 Entrance { get { return _entrance; } }
+    public Vector2 Exit { get { return _exit; } }
 
     public int Width { get { return _dungeonWidth; } }
     public int Height { get { return _dungeonHeight; } }
 
     public CellType[,] GetDungeon() { return _dungeon.Clone() as CellType[,]; }
 
+
+
+    //TODO: debug only code - REMOVE
+    private void DisplayDungeon()
+    {
+
+        string dungeon = "";
+        for (int row = -1; row < _dungeonHeight; row++)
+        {
+            if (row >= 0)
+                dungeon += (row > 9 ? "" : "0") + row;
+            else
+                dungeon += "---";
+
+            for (int col = 0; col < _dungeonWidth; col++)
+            {
+                dungeon += "|";
+
+                if (row < 0)
+                {
+                    dungeon += (col % 2 != 0 ? " " : "") + (col > 9 ? "" : "0") + col;
+                }
+                else
+                {
+                    switch (_dungeon[row, col])
+                    {
+                        case CellType.empty:
+                            dungeon += " <color=red>X</color> ";
+                            break;
+                        case CellType.room:
+                            dungeon += " <color=cyan>R</color> ";
+                            break;
+                        case CellType.corridor:
+                            dungeon += "    ";
+                            break;
+                    }
+                }
+            }
+            dungeon += "|\n";
+        }
+        dungeon += "";
+        Debug.Log(dungeon);
+
+    }
+
+    public void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public override void Generate()
     {
         if (profilingOn) profilingTimer = new System.Diagnostics.Stopwatch();
-        if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("<b>GENERATING DUNGEON</b>");        
-
-        base.Generate();
-
-        if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("Current seed = " + Random.seed);
+        if (debugLevel >= DebugLevel.MINIMAL)
+        {
+            Debug.Log("<b>GENERATING DUNGEON</b>");
+            Debug.Log("Current seed = " + Random.seed);
+        }
 
         _dungeon = new CellType[_dungeonHeight, _dungeonWidth];
         Queue<Corridor> hangingCorridors = null;
@@ -138,8 +188,8 @@ public class SimpleDungeon : Dungeon
                 if (CarveRoom(Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, out room))
                 {
                     hangingRooms.Enqueue(room);
-                    if (!GetRandomRoomCell(room, 1, out _start))
-                        _start = GetRoomEdgeCell(room, Random.value <= 0.5f? Vector2.right : Vector2.up);
+                    if (!GetRandomRoomCell(room, 1, out _entrance))
+                        _entrance = GetRoomEdgeCell(room, Random.value <= 0.5f? Vector2.right : Vector2.up);
                 }
                 else
                     throw new System.InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
@@ -198,7 +248,7 @@ public class SimpleDungeon : Dungeon
 
         if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("Dungeon exit = " + _exit);
 
-        GetComponent<SimpleDungeonDrawer>().Draw();
+        //GetComponent<SimpleDungeonDrawer>().Draw();
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
@@ -231,6 +281,10 @@ public class SimpleDungeon : Dungeon
         }
     }
 
+    /// <summary>
+    /// Reduces the length of a corridor in order for it not to be a dead end.
+    /// </summary>
+    /// <param name="corridor">Corridor to be reduced.</param>
     private void TrimCorridor(Corridor corridor)
     {
         if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<b>Trimming corridor: " + corridor + "</b>");
@@ -266,49 +320,6 @@ public class SimpleDungeon : Dungeon
             if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("Trimming corridor " + trimEnd + " - " + bounds.max);
             MarkCells(trimEnd, bounds.max - trimEnd, CellType.empty);
         }
-    }
-
-    //TODO: debug only code - REMOVE
-    private void DisplayDungeon()
-    {
-        
-        string dungeon = "";
-        for(int row = -1; row < _dungeonHeight; row++)
-        {
-            if (row >= 0)
-                dungeon += (row > 9 ? "" : "0") + row;
-            else
-                dungeon += "---";
-
-            for (int col = 0; col < _dungeonWidth; col++)
-            {
-                dungeon += "|";
-
-                if (row < 0)
-                {
-                    dungeon += (col % 2 != 0? " " : "") + (col > 9 ? "" : "0") + col;
-                }
-                else
-                {
-                    switch (_dungeon[row, col])
-                    {
-                        case CellType.empty:
-                            dungeon += " <color=red>X</color> ";
-                            break;
-                        case CellType.room:
-                            dungeon += " <color=cyan>R</color> ";
-                            break;
-                        case CellType.corridor:
-                            dungeon += "    ";
-                            break;
-                    }
-                }
-            }
-            dungeon += "|\n";
-        }
-        dungeon += "";
-        Debug.Log(dungeon);
-
     }
 
     /// <summary>
@@ -348,6 +359,11 @@ public class SimpleDungeon : Dungeon
         return roomCount;
     }
 
+    /// <summary>
+    /// Extends a corridor until it reaches a room or another corridor.
+    /// </summary>
+    /// <param name="corridor">Corridor to be extended.</param>
+    /// <returns>True if the corridor was succesfully extended.</returns>
     private bool ExtendCorridor(Corridor corridor)
     {
         if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<b>Extending corridor: </b>" + corridor);
@@ -470,12 +486,12 @@ public class SimpleDungeon : Dungeon
         corridor = new Rect();
 
         if (direction.y != 0 //if the corridor is vertical
-            && roomBounds.yMax >= _dungeonHeight - 1) //but there isn't space for a small (1 cell) corridor below the given room
+            && roomBounds.yMax >= _dungeonHeight - _minimumCorridorLength) //but there isn't space for the smalles corridor allowed below the given room
         {
             return false;
         }
         else if (direction.x != 0 //if the corridor is horizontal
-            && roomBounds.xMax >= _dungeonWidth - 1) //but there isn't space for a small (1 cell) corridor to the right of the given room
+            && roomBounds.xMax >= _dungeonWidth - _minimumCorridorLength) //but there isn't space for the smalles corridor allowed to the right of the given room
         {
             return false;
         }

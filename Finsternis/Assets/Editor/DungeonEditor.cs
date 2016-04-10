@@ -14,7 +14,9 @@ public class DungeonEditor : Editor
         {
             if (GUILayout.Button("Generate"))
             {
+                tgt.Awake();
                 tgt.Generate();
+                tgt.GetComponent<SimpleDungeonDrawer>().Draw();
             }
         }
     }

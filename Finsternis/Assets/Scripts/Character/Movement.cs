@@ -49,4 +49,9 @@ public class Movement : MonoBehaviour
     {
         return body.velocity.magnitude;
     }
+
+    internal float GetHorizontalSpeed()
+    {
+        return Mathf.Pow(body.velocity.x, 2) + Mathf.Pow(body.velocity.z, 2);
+    }
 }

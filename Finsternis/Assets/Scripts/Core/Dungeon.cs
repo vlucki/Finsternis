@@ -15,19 +15,22 @@ public abstract class Dungeon : MonoBehaviour
         get { return seed; }
         set
         {
-            seed = value;
+            if (customSeed)
+            {
+                Random.seed = this.seed;
+                seed = value;
+            }
         }
     }
 
-    public virtual void Generate()
+    public void Awake()
     {
-        if (this.seed != Random.seed)
+        if (customSeed)
         {
-            if (customSeed)
-                Random.seed = this.seed;
-            else
-                this.seed = Random.seed;
+            Random.seed = this.seed;
         }
     }
+
+    public abstract void Generate();
 }
 

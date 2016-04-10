@@ -60,8 +60,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
         Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
         GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, defaultFloorMaterial, grid[cellY, cellX] + " (" + cellX + ";" + cellY + ")");
         floor.transform.SetParent(gameObject.transform);
+        floor.layer = LayerMask.NameToLayer("Floor");
          
-        if (cellX == (int)_dungeon.End.x && cellY == (int)_dungeon.End.y)
+        if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
         {
             floor.GetComponent<MeshRenderer>().enabled = false;
 #if UNITY_EDITOR
@@ -70,6 +71,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
             Destroy(floor.GetComponent<MeshCollider());
 #endif
             BoxCollider collider = floor.AddComponent<BoxCollider>();
+            floor.AddComponent<Exit>();
             collider.isTrigger = true;
             collider.size = new Vector3(1, 1, 1);
             collider.center = Vector3.forward / 2;
@@ -250,7 +252,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     private void MergeMeshes(GameObject parent, bool nameAfterParent = false, int mergeThreshold = 5)
     {
         MeshFilter[] meshFilters = parent.GetComponentsInChildren<MeshFilter>();
-        if (meshFilters.Length < 2)
+        if (meshFilters.Length < 1)
             return;
 
         CombineInstance[] combine = new CombineInstance[System.Math.Min(meshFilters.Length, mergeThreshold)];
