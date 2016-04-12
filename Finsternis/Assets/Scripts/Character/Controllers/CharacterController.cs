@@ -2,7 +2,8 @@
 using System.Collections;
 
 [RequireComponent(typeof(Character), typeof(Movement), typeof(Animator))]
-public abstract class CharacterController : MonoBehaviour {
+public abstract class CharacterController : MonoBehaviour
+{
 
     protected Animator _characterAnimator;
     protected Movement _characterMovement;
@@ -36,7 +37,7 @@ public abstract class CharacterController : MonoBehaviour {
 
     }
 
-    public virtual void Awake ()
+    public virtual void Awake()
     {
         locked = false;
         _characterMovement = GetComponent<Movement>();
@@ -49,7 +50,7 @@ public abstract class CharacterController : MonoBehaviour {
         RaycastHit hit;
         int mask = (1 << LayerMask.NameToLayer("Floor"));
         bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
-        if (floorBelow && locked)
+        if (floorBelow && locked && _characterAnimator.GetBool(FallingBool))
         {
             _characterAnimator.SetBool(FallingBool, false);
             Unlock();
@@ -98,6 +99,7 @@ public abstract class CharacterController : MonoBehaviour {
     public void Lock()
     {
         locked = true;
+        _characterAnimator.SetFloat(SpeedFloat, 0);
         _characterMovement.Direction = Vector2.zero;
     }
 

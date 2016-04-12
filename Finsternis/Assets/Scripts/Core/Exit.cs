@@ -59,7 +59,7 @@ public class Exit : MonoBehaviour
     private IEnumerator EndLevel()
     {
         _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
-
+        _player.transform.forward = -Vector3.forward;
         yield return new WaitForSeconds(1);
 
         _dungeon.Generate();

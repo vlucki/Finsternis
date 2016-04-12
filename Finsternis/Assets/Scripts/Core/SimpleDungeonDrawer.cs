@@ -60,8 +60,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
         GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, defaultFloorMaterial, grid[cellY, cellX] + " (" + cellX + ";" + cellY + ")");
         floor.transform.SetParent(gameObject.transform);
-        floor.layer = LayerMask.NameToLayer("Floor");
-         
+
         if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
         {
             floor.GetComponent<MeshRenderer>().enabled = false;
@@ -77,6 +76,23 @@ public class SimpleDungeonDrawer : MonoBehaviour
             collider.center = Vector3.forward / 2;
 
             return;
+        }
+        else
+        {
+            floor.layer = LayerMask.NameToLayer("Floor");
+            if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
+            {
+                GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                pedestal.name = "Entrance";
+                pedestal.transform.SetParent(floor.transform);
+                pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
+                pedestal.transform.localPosition = Vector3.zero;
+#if UNITY_EDITOR
+                DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
+#else
+                Destroy(pedestal.GetComponent<CapsuleCollider());
+#endif
+            }
         }
 
 
