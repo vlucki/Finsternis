@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(SimpleDungeon))]
 public class SimpleDungeonDrawer : MonoBehaviour
@@ -21,6 +22,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private GameObject _floor;
 
+    public UnityEvent onDrawBegin;
+    public UnityEvent onDrawEnd;
+
     [SerializeField]
     private SimpleDungeon _dungeon;
 
@@ -31,6 +35,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     public void Draw()
     {
+        onDrawBegin.Invoke();
+
         Clear();
 
         CellType[,] grid = _dungeon.GetDungeon();
@@ -52,6 +58,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 }
             }
         }
+
+
+        onDrawEnd.Invoke();
     }
 
     private void MakeFloor(int cellX, int cellY, CellType[,] grid)
@@ -63,18 +72,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
         if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
         {
-            floor.GetComponent<MeshRenderer>().enabled = false;
-#if UNITY_EDITOR
-            DestroyImmediate(floor.GetComponent<MeshCollider>());
-#else
-            Destroy(floor.GetComponent<MeshCollider());
-#endif
-            BoxCollider collider = floor.AddComponent<BoxCollider>();
+            floor.name = "Exit " + floor.name.Remove(0, floor.name.IndexOf('('));
+            floor.tag = "Exit";
             floor.AddComponent<Exit>();
-            collider.isTrigger = true;
-            collider.size = new Vector3(1, 1, 1);
-            collider.center = Vector3.forward / 2;
-
             return;
         }
         else
@@ -90,7 +90,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
 #if UNITY_EDITOR
                 DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
 #else
-                Destroy(pedestal.GetComponent<CapsuleCollider());
+                Destroy(pedestal.GetComponent<CapsuleCollider>());
 #endif
             }
         }

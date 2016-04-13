@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Exit : MonoBehaviour
@@ -10,8 +11,16 @@ public class Exit : MonoBehaviour
 
     [SerializeField]
     private GameObject _player;
+
+    [SerializeField]
     private GameObject _camera;
+
+    [SerializeField]
     private SimpleDungeon _dungeon;
+
+    public UnityEvent onUnlock;
+
+    private bool _locked;
     
     private bool _triggered;
 
@@ -20,16 +29,25 @@ public class Exit : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
-        _triggered = false;
 
         if(!(_collider = GetComponent<BoxCollider>())){
             _collider = gameObject.AddComponent<BoxCollider>();
         }
+        _collider.isTrigger = true;
+        _collider.size = new Vector3(1, 1, 1);
+        _collider.center = Vector3.forward / 2;
+        _collider.enabled = false;
+        _locked = true;
+
+        _triggered = false;
+
     }
 
-    void Start()
+    public void Unlock()
     {
-        _collider.isTrigger = true;
+        GetComponent<MeshCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        _collider.enabled = true;
     }
 
     void OnTriggerEnter(Collider other)

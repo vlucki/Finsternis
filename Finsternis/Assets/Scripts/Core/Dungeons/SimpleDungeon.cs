@@ -159,6 +159,8 @@ public class SimpleDungeon : Dungeon
 
     public override void Generate()
     {
+        base.Generate();
+
         if (profilingOn) profilingTimer = new System.Diagnostics.Stopwatch();
         if (debugLevel >= DebugLevel.MINIMAL)
         {
@@ -249,6 +251,8 @@ public class SimpleDungeon : Dungeon
         if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("Dungeon exit = " + _exit);
 
         //GetComponent<SimpleDungeonDrawer>().Draw();
+
+        onGenerationEnd.Invoke();
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)

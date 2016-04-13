@@ -2,11 +2,15 @@
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Dungeon : MonoBehaviour
 {
     [SerializeField]
     private int seed;
+
+    public UnityEvent onGenerationBegin;
+    public UnityEvent onGenerationEnd;
 
     public bool customSeed = true;
 
@@ -31,6 +35,9 @@ public abstract class Dungeon : MonoBehaviour
         }
     }
 
-    public abstract void Generate();
+    public virtual void Generate()
+    {
+        onGenerationBegin.Invoke();
+    }
 }
 
