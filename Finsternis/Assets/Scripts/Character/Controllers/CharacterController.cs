@@ -8,7 +8,7 @@ public abstract class CharacterController : MonoBehaviour
     protected Animator _characterAnimator;
     protected Movement _characterMovement;
 
-    protected bool locked;
+    private bool _locked;
 
     public static readonly int AttackState;
     public static readonly int AttackBool;
@@ -23,6 +23,10 @@ public abstract class CharacterController : MonoBehaviour
     [SerializeField]
     [Range(0, -1)]
     private float _fallSpeedThreshold = -0.2f;
+
+    private int _unlockDelay;
+
+    public bool Locked { get { return _locked || _unlockDelay > 0; } }
 
     static CharacterController()
     {
@@ -39,7 +43,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void Awake()
     {
-        locked = false;
+        _locked = false;
         _characterMovement = GetComponent<Movement>();
         _characterAnimator = GetComponent<Animator>();
         GetComponent<Character>().death += CharacterController_death;
@@ -47,22 +51,28 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void Update()
     {
+        if(_unlockDelay > 0)
+        {
+            _unlockDelay--;
+            return;
+        }
+
         RaycastHit hit;
         int mask = (1 << LayerMask.NameToLayer("Floor"));
         bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
-        if (floorBelow && locked && _characterAnimator.GetBool(FallingBool))
+        if (floorBelow && _locked && _characterAnimator.GetBool(FallingBool))
         {
             _characterAnimator.SetBool(FallingBool, false);
             Unlock();
         }
-        else if (!floorBelow && !locked)
+        else if (!floorBelow && !_locked)
         {
             Lock();
             _characterAnimator.SetBool(FallingBool, true);
             _characterAnimator.SetFloat(SpeedFloat, 0);
         }
 
-        if (!locked)
+        if (!_locked)
             _characterAnimator.SetFloat(SpeedFloat, _characterMovement.GetHorizontalSpeed());
     }
 
@@ -98,14 +108,17 @@ public abstract class CharacterController : MonoBehaviour
 
     public void Lock()
     {
-        locked = true;
+        _locked = true;
         _characterAnimator.SetFloat(SpeedFloat, 0);
         _characterMovement.Direction = Vector2.zero;
     }
 
-    public void Unlock()
+    public void Unlock(int delay = 0)
     {
-        locked = false;
+        if (delay > 0)
+            _unlockDelay = delay;
+        
+        _locked = false;
     }
 
     protected virtual void CharacterController_death()

@@ -10,7 +10,7 @@ public class PlayerController : CharacterController
     {
         base.Update();
 
-        if (locked)
+        if (Locked)
             return;
 
         if (Input.GetAxis("Jump") != 0 && !IsAttacking())

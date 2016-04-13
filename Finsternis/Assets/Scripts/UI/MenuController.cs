@@ -1,116 +1,150 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Canvas), typeof(Follow))]
+[RequireComponent(typeof(Canvas), typeof(Follow), typeof(Selectable))]
 public class MenuController : MonoBehaviour
 {
+    [SerializeField]
+    private GameController _gameController;
 
     [SerializeField]
     private Canvas _canvas;
 
+    [SerializeField]
+    private GameObject _optionsContainer;
+
+    [SerializeField]
     private Follow _followBehaviour;
-    
-    private MenuItem[] _items;
 
-    private int _selectedItem;
+    private Button[] _options;
 
-    [Range(0, 1)]
-    public float itemChangeDelay = 0.25f;
+    private Selectable _selectable;
 
-    private float _elapsedTime;
+    private bool _isToggleButtonDown;
 
-    public bool Active {
+    public bool Active
+    {
         get { return _canvas.enabled; }
         set
         {
             _canvas.enabled = value;
             _followBehaviour.enabled = value;
+            _optionsContainer.SetActive(value);
         }
     }
 
     void Awake()
     {
-        if (!this._canvas)
-            this._canvas = GetComponent<Canvas>();
+        if (!_gameController)
+            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
-        _followBehaviour = GetComponent<Follow>();
+        if (!_canvas)
+            _canvas = GetComponent<Canvas>();
 
-        _items = GetComponentsInChildren<MenuItem>();
+        if (!_selectable)
+            _selectable = GetComponent<Selectable>();
+
+        if (!_optionsContainer)
+        {
+            foreach (Transform t in transform)
+            {
+                if (t.name.Equals("OptionsContainer"))
+                {
+                    _optionsContainer = t.gameObject;
+                    break;
+                }
+            }
+        }
+
+        if (!_followBehaviour)
+            _followBehaviour = GetComponent<Follow>();
+
+        if (_options == null)
+            _options = GetComponentsInChildren<Button>();
     }
 
-    // Use this for initialization
     void Start()
     {
         ToggleMenu();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        //if (_remainingTime > 0)
+        //{
+        //    _remainingTime -= Time.deltaTime;
+        //}
+        //else
+        if (Input.GetAxis("Cancel") > 0)
         {
-            ToggleMenu();
+            if (!_isToggleButtonDown)
+            {
+                if (!Active)
+                    Open();
+                _isToggleButtonDown = true;
+            }
         }
+        else if (_isToggleButtonDown)
+        {
+            _isToggleButtonDown = false;
+        }
+    }
 
-        if (Active)
-        {
-            HandleInput();
-        }
+    public void Test()
+    {
+        Debug.Log("TEST");
     }
 
     public void ToggleMenu()
     {
-        Active = !Active;
-        if (Active)
-        {
-            _followBehaviour.target.GetComponent<CharacterController>().Lock();
+        if (!Active)
+            Open();
+        else
+            Close();
+    }
 
-            SetSelectedItem(0);
-            
-            this.transform.position = this._followBehaviour.target.transform.position - 2 * this._followBehaviour.offset;
+    public void Open()
+    {
+        Active = true;
+
+        _followBehaviour.target.GetComponent<CharacterController>().Lock();
+
+        _selectable.Select();
+        _options[0].Select();
+
+        this.transform.position = this._followBehaviour.target.transform.position - 2 * this._followBehaviour.offset;
+    }
+
+    public void Close(bool usedToggleButton = false)
+    {
+        _isToggleButtonDown = usedToggleButton;
+        _followBehaviour.target.GetComponent<CharacterController>().Unlock(8);
+
+        Active = false;
+    }
+
+    public void MainMenu(bool askForConfirmation = true)
+    {
+        if (askForConfirmation)
+        {
+            ConfirmationDialog.Show<bool>("Are you sure you wish to quit the game?", MainMenu, false, _options[2].Select);
         }
         else
         {
-            _followBehaviour.target.GetComponent<CharacterController>().Unlock();
+            _gameController.GoTo("main_menu");
         }
     }
 
-    private void SetSelectedItem(int v)
+    public void Exit(bool askForConfirmation = true)
     {
-        if (v < 0)
-            v = _items.Length - 1;
-        else if (v >= _items.Length)
-            v = 0;
-
-        _items[_selectedItem].GetComponent<Image>().color = Color.gray; //gray out last selection
-        _selectedItem = v;
-        _items[_selectedItem].GetComponent<Image>().color = Color.white; //highlight current selection
-    }
-
-    private void HandleInput()
-    {
-        if (_items == null || _items.Length == 0)
-            return;
-
-        int f = Input.GetKey(KeyCode.W) ? -1 : Input.GetKey(KeyCode.S) ? 1 : 0;
-
-        if(f == 0)
+        if (askForConfirmation)
         {
-            _elapsedTime = itemChangeDelay;
-        } else if(_elapsedTime < itemChangeDelay)
-        {
-            _elapsedTime += Time.deltaTime;
-        } else
-        {
-            _elapsedTime = 0;
-            SetSelectedItem(_selectedItem + f);        
+            ConfirmationDialog.Show<bool>("Are you sure you wish to quit the game?", Exit, false, _options[3].Select);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        else
         {
-            _items[_selectedItem].activate.Invoke();
-        }    
+            _gameController.Exit();
+        }
     }
 }
