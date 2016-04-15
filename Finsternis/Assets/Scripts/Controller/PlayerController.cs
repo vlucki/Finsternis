@@ -4,14 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class PlayerController : CharacterController
 {
-    private Vector3 facingDirection;
+    private Vector3 _directionFaced;
 
     public override void Update()
     {
         base.Update();
 
-        if (Locked)
+        if (Locked || IsDead() || IsDying())
+        {
+            if(IsDead())
+                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GameOver();
             return;
+        }
 
         if (Input.GetAxis("Jump") != 0 && !IsAttacking())
         {
@@ -20,10 +24,10 @@ public class PlayerController : CharacterController
 
         if (!IsAttacking())
         {
-            _characterMovement.Direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            characterMovement.Direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-            facingDirection = GetDirectionFaced();
-            transform.LookAt(facingDirection);
+            _directionFaced = GetDirectionFaced();
+            transform.LookAt(_directionFaced);
 
         }
     }
@@ -40,7 +44,7 @@ public class PlayerController : CharacterController
         if (Input.GetKey(KeyCode.DownArrow))
             dir.z--;
         if (dir == Vector3.zero)
-            dir = _characterMovement.Direction;
+            dir = characterMovement.Direction;
         return transform.position + dir;
     }
 
@@ -56,24 +60,16 @@ public class PlayerController : CharacterController
                     continue;
                 else
                 {
-                    Character character = col.GetComponent<Character>();
-                    if (character)
+                    Character characterHit = col.GetComponent<Character>();
+                    if (characterHit)
                     {
-                        col.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
-                        col.GetComponent<CharacterController>().Hit();
-
-                        RangedValueAttribute health = character.health;
-
-                        (health).SetValue(health.Value - GetComponentInParent<Character>().damage.Value);
+                        characterHit.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
+                        characterHit.GetComponent<CharacterController>().Hit();
+                        this.character.Attack(characterHit);
                     }
                 }
             }
         }
         base.Attack(type, lockMovement);
-    }
-
-    protected override void CharacterController_death()
-    {
-        base.CharacterController_death();
     }
 }

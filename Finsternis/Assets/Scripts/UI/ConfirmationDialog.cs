@@ -16,10 +16,10 @@ public class ConfirmationDialog : MonoBehaviour
     private EventSystem _evtSystem;
 
     [SerializeField]
-    private GameObject yes;
+    private GameObject _yes;
 
     [SerializeField]
-    private GameObject no;
+    private GameObject _no;
 
     private static ConfirmationDialog _this;
 
@@ -41,16 +41,16 @@ public class ConfirmationDialog : MonoBehaviour
         foreach(Button b in transform.GetComponentsInChildren<Button>())
         {
             if (b.name.Equals("Yes"))
-                yes = b.gameObject;
+                _yes = b.gameObject;
             else if (b.name.Equals("No"))
-                no = b.gameObject;
+                _no = b.gameObject;
         }
     }
 
     void Update()
     {
-        if (_evtSystem.currentSelectedGameObject != yes && _evtSystem.currentSelectedGameObject != no)
-            _evtSystem.SetSelectedGameObject(yes);
+        if (_evtSystem.currentSelectedGameObject != _yes && _evtSystem.currentSelectedGameObject != _no)
+            _evtSystem.SetSelectedGameObject(_yes);
     }
     
     public void Confirm()

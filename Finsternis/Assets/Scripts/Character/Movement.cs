@@ -6,22 +6,18 @@ using System;
 
 public class Movement : MonoBehaviour
 {
-    /*NOTES:
-            The BEST way to achieve a "smooth stop" effect is to set a high(ish) LINEAR DRAG and then just crank up the speed modifier.
-            Also, in order to avoid the gameobject from flying around at lightspeed, just set a top speed
-        */
     [SerializeField]
     [Range(0, 1f)]
-    private float speed = 0.175f;
+    private float _speed = 0.175f;
+
+    private Vector3 _direction;
 
     protected Rigidbody body;
 
-    private Vector3 direction;
-
     public Vector3 Direction
     {
-        get { return direction; }
-        set { direction = value.normalized; }
+        get { return _direction; }
+        set { _direction = value.normalized; }
     }
 
     // Use this for initialization
@@ -39,9 +35,9 @@ public class Movement : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (direction != Vector3.zero)
+        if (_direction != Vector3.zero)
         {
-            body.AddForce(direction * speed, ForceMode.VelocityChange);
+            body.AddForce(_direction * _speed, ForceMode.VelocityChange);
         }
     }
 

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public abstract class EntityAttribute 
+public abstract class EntityAttribute
 {
     [SerializeField]
     private string _name;

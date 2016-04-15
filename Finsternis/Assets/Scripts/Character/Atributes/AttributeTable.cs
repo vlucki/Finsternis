@@ -7,10 +7,15 @@ using System;
 public class AttributeTable
 {
     [SerializeField]
-    private List<EntityAttribute> attributes = new List<EntityAttribute>();
-    //private Dictionary<string, EntityAttribute> attributes = new Dictionary<string, EntityAttribute>();
+    private List<EntityAttribute> _attributes = new List<EntityAttribute>();
 
-    public List<EntityAttribute> Attributes { get { return attributes; } }
+    public List<EntityAttribute> Attributes { get { return _attributes; } }
+
+    public AttributeTable(params EntityAttribute[] attributes)
+    {
+        if (attributes != null)
+            this._attributes.AddRange(attributes);
+    }
 
     public void AddAttribute<T>(string name, T defaultValue, params AttributeConstraint[] constraints)
     {
@@ -24,22 +29,27 @@ public class AttributeTable
 
     public void AddAttribute(EntityAttribute att)
     {
-        if (attributes.FindIndex(attribute => attribute.Name.Equals(att.Name)) == -1)
-            attributes.Add(att);
+        if (_attributes.FindIndex(attribute => attribute.Name.Equals(att.Name)) == -1)
+            _attributes.Add(att);
     }
 
     public EntityAttribute<T> GetAttribute<T>()
     {
-        return attributes.Find(attribute => attribute.GetType().GetGenericTypeDefinition().Equals(typeof(T))) as EntityAttribute<T>;
+        return _attributes.Find(attribute => attribute.GetType().GetGenericTypeDefinition().Equals(typeof(T))) as EntityAttribute<T>;
     }
 
     public List<EntityAttribute<T>> GetAttributes<T>()
     {
-        return attributes.FindAll(attribute => attribute.GetType().GetGenericTypeDefinition().Equals(typeof(T))) as List<EntityAttribute<T>>;
+        return _attributes.FindAll(attribute => attribute.GetType().GetGenericTypeDefinition().Equals(typeof(T))) as List<EntityAttribute<T>>;
     }
 
     public EntityAttribute GetAttribute(string name)
     {
-        return attributes.Find(attribute => attribute.Name.Equals(name));
+        return _attributes.Find(attribute => attribute.Name.Equals(name));
+    }
+
+    public EntityAttribute this[string name]
+    {
+        get { return GetAttribute(name); }
     }
 }

@@ -13,6 +13,7 @@ public class FloatValueConstraint : AttributeConstraint
     private byte _comparisonType;
 
     [SerializeField]
+    [Range(-999, 999)]
     private float _value;
 
     public float Value { get { return _value; } }

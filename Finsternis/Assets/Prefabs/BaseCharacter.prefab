@@ -2022,8 +2022,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   health:
-    _name: health
+    _name: hp
     value: 10
     _min:
       _name: min
@@ -2032,7 +2037,7 @@ MonoBehaviour:
       _name: max
       _value: 10
   mana:
-    _name: mana
+    _name: mp
     value: 5
     _min:
       _name: min
@@ -2041,7 +2046,7 @@ MonoBehaviour:
       _name: max
       _value: 5
   damage:
-    _name: damage
+    _name: dmg
     value: 1
     _min:
       _name: min
@@ -2050,7 +2055,16 @@ MonoBehaviour:
       _name: max
       _value: 100
   defense:
-    _name: defense
+    _name: def
+    value: 1
+    _min:
+      _name: min
+      _value: 0
+    _max:
+      _name: max
+      _value: 100
+  magicResistence:
+    _name: mDef
     value: 1
     _min:
       _name: min

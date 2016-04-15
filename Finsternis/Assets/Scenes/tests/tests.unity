@@ -6607,6 +6607,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11469566, guid: fbec58e61a4ebc945bb4b590501b47ac, type: 2}
+      propertyPath: _dungeonGoal
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fbec58e61a4ebc945bb4b590501b47ac, type: 2}
   m_IsPrefabParent: 0
@@ -8789,10 +8793,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-      propertyPath: health.value
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 9582006, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_Controller
       value: 
@@ -8807,8 +8807,20 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-      propertyPath: health._max._value
-      value: 15
+      propertyPath: health._name
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: mana._name
+      value: mp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: damage._name
+      value: dmg
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: defense._name
+      value: def
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
@@ -18565,11 +18577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761426bae2b86b8409a58614c2b2f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1993748563}
-  txtName: {fileID: 1918811920}
-  txtLvl: {fileID: 1937747650}
-  txtHP: {fileID: 206168700}
-  txtMP: {fileID: 1573959135}
 --- !u!114 &444334525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20190,6 +20197,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11450916, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: _slots.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 474256, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 10.26
@@ -20230,10 +20241,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-      propertyPath: health.value
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 9582006, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_Controller
       value: 
@@ -20248,8 +20255,28 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-      propertyPath: health._max._value
-      value: 7
+      propertyPath: health._name
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: mana._name
+      value: mp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: damage._name
+      value: dmg
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: defense._name
+      value: def
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: defense.value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: health.value
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
@@ -27424,10 +27451,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719d2bc59a9d45248b548038303cf64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 774785458}
-  hpMeter: {fileID: 265582833}
-  txtName: {fileID: 0}
-  enemy: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _hpMeter: {fileID: 0}
+  _txtName: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!114 &666461437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47408,7 +47435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ffaef35e643ec4eb743e1f36dc845f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: -226930463
+  _seed: 0
   onGenerationBegin:
     m_PersistentCalls:
       m_Calls:
@@ -47423,11 +47450,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1384962291}
+        m_MethodName: IncreaseDungeonCount
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onGenerationEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1251735282}
+        m_MethodName: Draw
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   customSeed: 1
@@ -48216,6 +48265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3955da5f93e554b45b11a5875465b656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dungeon: {fileID: 1251735280}
   scale: {x: 2, y: 2.5, z: 2}
   defaultWallMaterial: {fileID: 2100000, guid: 31ce6f0a8f921c8498054e61be27e460, type: 2}
   defaultWallPhysicMaterial: {fileID: 13400000, guid: 81fbc45ea39fd2c488a0dcab688d127e,
@@ -48250,7 +48300,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _dungeon: {fileID: 1251735280}
 --- !u!43 &1254121202
 Mesh:
   m_ObjectHideFlags: 0
@@ -60690,6 +60739,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 420432, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
       propertyPath: m_LocalPosition.x
       value: 10.5
@@ -60728,7 +60781,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
       propertyPath: damage.value
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 10897136, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
       propertyPath: m_Range
@@ -60769,6 +60822,50 @@ Prefab:
     - target: {fileID: 11479850, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
       propertyPath: _fallSpeedThreshold
       value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: health.value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: health._name
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: mana._name
+      value: mp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: damage._name
+      value: dmg
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: defense._name
+      value: def
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: health._max._value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1384962291}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
@@ -63170,10 +63267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719d2bc59a9d45248b548038303cf64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 774785458}
-  hpMeter: {fileID: 1741525858}
-  txtName: {fileID: 0}
-  enemy: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _hpMeter: {fileID: 0}
+  _txtName: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!1 &1634454255
 GameObject:
   m_ObjectHideFlags: 0
@@ -70032,7 +70129,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1812269165}
-  m_LocalRotation: {x: 0.03257058, y: 0.34502319, z: -0.78124803, w: 0.5191816}
+  m_LocalRotation: {x: 0.032570582, y: 0.3450232, z: -0.78124815, w: 0.51918167}
   m_LocalPosition: {x: 24.44075, y: 2.387066, z: -16.58463}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -71303,10 +71400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719d2bc59a9d45248b548038303cf64e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 774785458}
-  hpMeter: {fileID: 301326800}
-  txtName: {fileID: 0}
-  enemy: {fileID: 0}
+  _mainCamera: {fileID: 0}
+  _hpMeter: {fileID: 0}
+  _txtName: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!114 &1852835484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72854,7 +72951,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474256, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 160680, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_Name
@@ -72863,10 +72960,6 @@ Prefab:
     - target: {fileID: 160680, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-      propertyPath: health.value
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9582006, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_Controller
@@ -72880,6 +72973,22 @@ Prefab:
     - target: {fileID: 9582006, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: health._name
+      value: hp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: mana._name
+      value: mp
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: damage._name
+      value: dmg
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428532, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+      propertyPath: defense._name
+      value: def
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
@@ -75922,7 +76031,7 @@ RectTransform:
   m_Children:
   - {fileID: 146315747}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 11.73, y: 0.14}
@@ -76335,12 +76444,6 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 420432, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
   m_PrefabInternal: {fileID: 1565918908}
---- !u!114 &1993748563 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11445578, guid: 164a6daa482f5e24bb696fb3e18884d9,
-    type: 2}
-  m_PrefabInternal: {fileID: 1565918908}
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
 --- !u!1 &1993892288
 GameObject:
   m_ObjectHideFlags: 0
@@ -78454,8 +78557,8 @@ MonoBehaviour:
       PublicKeyToken=null
   _messageField: {fileID: 0}
   _evtSystem: {fileID: 0}
-  yes: {fileID: 0}
-  no: {fileID: 0}
+  _yes: {fileID: 0}
+  _no: {fileID: 0}
 --- !u!114 &2051178557
 MonoBehaviour:
   m_ObjectHideFlags: 0

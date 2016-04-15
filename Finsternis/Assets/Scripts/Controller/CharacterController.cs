@@ -4,11 +4,9 @@ using System.Collections;
 [RequireComponent(typeof(Character), typeof(Movement), typeof(Animator))]
 public abstract class CharacterController : MonoBehaviour
 {
-
-    protected Animator _characterAnimator;
-    protected Movement _characterMovement;
-
-    private bool _locked;
+    protected Character character;
+    protected Animator characterAnimator;
+    protected Movement characterMovement;
 
     public static readonly int AttackState;
     public static readonly int AttackBool;
@@ -24,6 +22,7 @@ public abstract class CharacterController : MonoBehaviour
     [Range(0, -1)]
     private float _fallSpeedThreshold = -0.2f;
 
+    private bool _locked;
     private int _unlockDelay;
 
     public bool Locked { get { return _locked || _unlockDelay > 0; } }
@@ -44,56 +43,64 @@ public abstract class CharacterController : MonoBehaviour
     public virtual void Awake()
     {
         _locked = false;
-        _characterMovement = GetComponent<Movement>();
-        _characterAnimator = GetComponent<Animator>();
-        GetComponent<Character>().death += CharacterController_death;
+        characterMovement = GetComponent<Movement>();
+        characterAnimator = GetComponent<Animator>();
+        character = GetComponent<Character>();
+    }
+
+    public virtual void Start()
+    {
+        character.OnDeath.AddListener(CharacterController_death);
     }
 
     public virtual void Update()
     {
-        if(_unlockDelay > 0)
+        if (!IsDead() && !IsDying())
         {
-            _unlockDelay--;
-            return;
-        }
+            if (_unlockDelay > 0)
+            {
+                _unlockDelay--;
+                return;
+            }
 
-        RaycastHit hit;
-        int mask = (1 << LayerMask.NameToLayer("Floor"));
-        bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
-        if (floorBelow && _locked && _characterAnimator.GetBool(FallingBool))
-        {
-            _characterAnimator.SetBool(FallingBool, false);
-            Unlock();
-        }
-        else if (!floorBelow && !_locked)
-        {
-            Lock();
-            _characterAnimator.SetBool(FallingBool, true);
-            _characterAnimator.SetFloat(SpeedFloat, 0);
-        }
+            RaycastHit hit;
+            int mask = (1 << LayerMask.NameToLayer("Floor"));
+            bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
+            if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
+            {
+                characterAnimator.SetBool(FallingBool, false);
+                Unlock();
+            }
+            else if (!floorBelow && !_locked)
+            {
+                Lock();
+                characterAnimator.SetBool(FallingBool, true);
+                characterAnimator.SetFloat(SpeedFloat, 0);
+            }
 
-        if (!_locked)
-            _characterAnimator.SetFloat(SpeedFloat, _characterMovement.GetHorizontalSpeed());
+            if (!_locked)
+                characterAnimator.SetFloat(SpeedFloat, characterMovement.GetHorizontalSpeed());
+        }
     }
 
     public bool IsAttacking()
     {
-        return _characterAnimator.GetBool(AttackBool);
+        return characterAnimator.GetBool(AttackBool);
     }
 
     public bool IsDying()
     {
-        return _characterAnimator.GetBool(DyingBool);
+        return characterAnimator.GetBool(DyingBool);
     }
 
     public bool IsDead()
     {
-        return _characterAnimator.GetBool(DeadBool);
+        return characterAnimator.GetBool(DeadBool);
     }
 
     public bool ShouldWalk()
     {
-        return _characterMovement.Direction != Vector3.zero;
+        return characterMovement.Direction != Vector3.zero;
     }
 
     public virtual void Hit(int type = 0, bool lockMovement = true)
@@ -109,8 +116,8 @@ public abstract class CharacterController : MonoBehaviour
     public void Lock()
     {
         _locked = true;
-        _characterAnimator.SetFloat(SpeedFloat, 0);
-        _characterMovement.Direction = Vector2.zero;
+        characterAnimator.SetFloat(SpeedFloat, 0);
+        characterMovement.Direction = Vector2.zero;
     }
 
     public void Unlock(int delay = 0)
@@ -123,17 +130,17 @@ public abstract class CharacterController : MonoBehaviour
 
     protected virtual void CharacterController_death()
     {
-        GetComponent<Character>().death -= CharacterController_death;
-        _characterAnimator.SetBool(DyingBool, true);
+        characterAnimator.SetBool(DyingBool, true);
+        characterMovement.Direction = Vector2.zero;
     }
 
     private void ActivateBoolean(int booleanHash, int intHash, int type = 0, bool lockMovement = true)
     {
-        _characterAnimator.SetBool(booleanHash, true);
-        _characterAnimator.SetInteger(intHash, type);
+        characterAnimator.SetBool(booleanHash, true);
+        characterAnimator.SetInteger(intHash, type);
 
         if (lockMovement)
-            _characterMovement.Direction = Vector3.zero;
+            characterMovement.Direction = Vector3.zero;
     }
 
 }

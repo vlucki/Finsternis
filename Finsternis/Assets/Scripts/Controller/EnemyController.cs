@@ -4,30 +4,32 @@ using System.Collections;
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class EnemyController : CharacterController {
 
+    [SerializeField]
     [Range(1, 10)]
-    public float aggroRange = 2f;
+    private float _aggroRange = 2f;
 
     [SerializeField]
-    private GameObject target;
+    private GameObject _target;
 
     bool targetOnRange = false;
 
     public override void Awake()
     {
         base.Awake();
-        target = GameObject.FindGameObjectWithTag("Player");
+        _target = GameObject.FindGameObjectWithTag("Player");
     }
 
     public override void Update()
     {
+        base.Update();
         if (!IsDead())
         {
             if (!IsDying())
             {
-                targetOnRange = Vector3.Distance(transform.position, target.transform.position) <= aggroRange;
+                targetOnRange = Vector3.Distance(transform.position, _target.transform.position) <= _aggroRange;
                 if (targetOnRange)
                 {
-                    transform.LookAt(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z));
+                    transform.LookAt(new Vector3(_target.transform.position.x, transform.position.y, _target.transform.position.z));
                 }
             }
             else
@@ -35,10 +37,6 @@ public class EnemyController : CharacterController {
                 GetComponent<Collider>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = true;
             }
-        }
-        else
-        {
-            //Destroy(gameObject);
         }
     }
 

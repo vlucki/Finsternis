@@ -2,59 +2,75 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 [RequireComponent (typeof(Inventory))]
 public class Character : MonoBehaviour
 {
-    public delegate void OnDeath();
-    public event OnDeath death;
+    public UnityEvent OnDeath;
 
     [SerializeField]
-    public RangedValueAttribute health = new RangedValueAttribute("health", 0, 10, 10);
+    private RangedValueAttribute _health = new RangedValueAttribute("hp", 0, 10, 10);
 
     [SerializeField]
-    public RangedValueAttribute mana = new RangedValueAttribute("mana", 0, 5, 5);
+    private RangedValueAttribute _mana = new RangedValueAttribute("mp", 0, 5, 5);
 
     [SerializeField]
-    public RangedValueAttribute damage = new RangedValueAttribute("damage", 0, 100, 1);
+    private RangedValueAttribute _damage = new RangedValueAttribute("dmg", 0, 100, 1);
 
     [SerializeField]
-    public RangedValueAttribute defense = new RangedValueAttribute("defense", 0, 100, 1);
+    private RangedValueAttribute _defense = new RangedValueAttribute("def", 0, 100, 1);
 
     [SerializeField]
-    private AttributeTable _attributeTable = new AttributeTable();
+    private RangedValueAttribute _magicResistence = new RangedValueAttribute("mDef", 0, 100, 1);
+    
+    private AttributeTable _attributeTable;
 
     //EVERY character has an inventory - even enemies
-    private Inventory inventory;
+    private Inventory _inventory;
+
+    private bool _dead;
+
+    public bool Dead { get { return _dead; } }
 
     public AttributeTable Attributes
     {
         get { return _attributeTable; }
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
-        inventory = GetComponent<Inventory>();
-        AddBaseAttributes();
+        _inventory = GetComponent<Inventory>();
+        CreateAttributesTable();
     }
 
-    private void AddBaseAttributes()
+    private void CreateAttributesTable()
     {
-        _attributeTable.AddAttribute(health);
-        _attributeTable.AddAttribute(mana);
-        _attributeTable.AddAttribute(damage);
-        _attributeTable.AddAttribute(defense);
+        _attributeTable = new AttributeTable(_health, _mana, _damage, _defense);
     }
 
     void Update()
     {
-        if (health.Value == 0)
+        if (!_dead && _health.Value == 0)
         {
-            if (death != null)
-            {
-                death();
-                death = null;
-            }
+            Die();
         }
+    }
+
+    public virtual void Attack(Character target)
+    {
+        target.Damage(new DamageInfo(DamageInfo.DamageType.physical, _damage.IntValue, gameObject));
+    }
+
+    public virtual void Damage(DamageInfo info)
+    {
+        _health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? _defense.Value : _magicResistence.Value)));
+    }
+
+    private void Die()
+    {
+        _dead = true;
+        OnDeath.Invoke();
+        OnDeath.RemoveAllListeners();
     }
 }

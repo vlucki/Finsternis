@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class SimpleDungeonDrawer : MonoBehaviour
 {
 
+    [SerializeField]
+    private SimpleDungeon _dungeon;
     public Vector3 scale = Vector3.one;
     public Material defaultWallMaterial;
     public PhysicMaterial defaultWallPhysicMaterial;
@@ -15,9 +17,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public Vector3 overallOffset = Vector3.zero;
 
     public GameObject[] walls;
-
     public GameObject[] doorways;
-
     public GameObject[] floors;
 
     private GameObject _floor;
@@ -25,8 +25,6 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public UnityEvent onDrawBegin;
     public UnityEvent onDrawEnd;
 
-    [SerializeField]
-    private SimpleDungeon _dungeon;
 
     public void Start()
     {

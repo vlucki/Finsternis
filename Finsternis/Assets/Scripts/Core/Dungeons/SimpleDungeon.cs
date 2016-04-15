@@ -152,11 +152,6 @@ public class SimpleDungeon : Dungeon
 
     }
 
-    public void Start()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     public override void Generate()
     {
         base.Generate();

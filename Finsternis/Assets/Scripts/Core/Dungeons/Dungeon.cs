@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public abstract class Dungeon : MonoBehaviour
 {
     [SerializeField]
-    private int seed;
+    private int _seed;
 
     public UnityEvent onGenerationBegin;
     public UnityEvent onGenerationEnd;
@@ -16,13 +16,13 @@ public abstract class Dungeon : MonoBehaviour
 
     public int Seed
     {
-        get { return seed; }
+        get { return _seed; }
         set
         {
             if (customSeed)
             {
-                Random.seed = this.seed;
-                seed = value;
+                Random.seed = this._seed;
+                _seed = value;
             }
         }
     }
@@ -31,7 +31,7 @@ public abstract class Dungeon : MonoBehaviour
     {
         if (customSeed)
         {
-            Random.seed = this.seed;
+            Random.seed = this._seed;
         }
     }
 

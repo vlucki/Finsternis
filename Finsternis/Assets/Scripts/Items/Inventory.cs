@@ -6,8 +6,6 @@ using System;
 public class Inventory : MonoBehaviour
 {
 
-    #region Slot
-    [Serializable]
     //stores the itens and their quantity
     private class InventorySlot : ScriptableObject
     {
@@ -50,7 +48,6 @@ public class Inventory : MonoBehaviour
         }
 
     }
-    #endregion
 
     //every inventory has a fixed number of item slots
     private InventorySlot[] _slots;

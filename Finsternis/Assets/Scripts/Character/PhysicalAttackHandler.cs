@@ -11,7 +11,7 @@ public class PhysicalAttackHandler : MonoBehaviour
     public Vector2 executionMultiplier = new Vector2(10, 2);
     public ForceMode modeOnExecution = ForceMode.Impulse;
 
-    void Start()
+    void Awake()
     {
         if (!owner)
         {
@@ -20,6 +20,7 @@ public class PhysicalAttackHandler : MonoBehaviour
                 throw new System.InvalidOperationException("Attack handler needs an owner!");
         }
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (ignoreList != null)
@@ -42,17 +43,14 @@ public class PhysicalAttackHandler : MonoBehaviour
             if (otherChar){
 
                 other.GetComponent<CharacterController>().Hit();
-
-                RangedValueAttribute health = otherChar.health;
-                
-                (health).SetValue(health.Value - GetComponentInParent<Character>().damage.Value);
+                owner.Attack(otherChar);
             }
         }
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (!owner.GetComponent<Animator>().GetBool("attacking"))
+        if (!owner.GetComponent<CharacterController>().IsAttacking())
             return;
 
         if (ignoreList != null)

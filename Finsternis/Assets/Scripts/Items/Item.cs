@@ -13,23 +13,23 @@ public class Item : ScriptableObject
         godlike
     };
 
-    private RARITY rarity;
+    private RARITY _rarity;
 
-    private int weight;
+    private int _cost;
 
     public RARITY Rarity
     {
-        get { return rarity; }
+        get { return _rarity; }
     }
 
-    public int Weight
+    public int Cost
     {
-        get { return weight; }
+        get { return _cost; }
     }
 
-    public void Init(RARITY r, int weight)
+    public void Init(RARITY rarity, int cost)
     {
-        this.rarity = r;
-        this.weight = weight;
+        _rarity = rarity;
+        _cost = cost;
     }
 }

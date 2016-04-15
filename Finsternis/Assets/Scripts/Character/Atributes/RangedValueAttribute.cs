@@ -12,6 +12,8 @@ public class RangedValueAttribute : EntityAttribute<float>
     public float Min { get { return _min.Value; } }
     public float Max { get { return _max.Value; } }
 
+    public int IntValue { get { return (int)Value; } }
+
     public void SetMin(float min)
     {
         RemoveConstraintByName("min");
@@ -42,6 +44,16 @@ public class RangedValueAttribute : EntityAttribute<float>
     public override bool SetValue(float newValue)
     {
         return base.SetValue(Mathf.Clamp(newValue, Min, Max));
+    }
+
+    public void Subtract(float value)
+    {
+        SetValue(Value - value);
+    }
+
+    public void Add(float value)
+    {
+        SetValue(Value + value);
     }
 }
 
