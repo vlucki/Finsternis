@@ -100,15 +100,13 @@ public class SimpleDungeonDrawer : MonoBehaviour
         Vector2 direction;
         if (doorways != null && doorways.Length > 0 && CanMakeDoorway(cellX, cellY, grid, out direction))
         {
-            GameObject doorway = GameObject.Instantiate<GameObject>(doorways[Random.Range(0, doorways.Length)]);
-            doorway.transform.localRotation = Quaternion.Euler(Vector3.up * direction.x);
 
             if (direction.x == 90 || direction.x == 270)
                 pos.x += scale.x / 2.5f * direction.y;
             else
                 pos.z -= scale.z / 2.5f * direction.y;
 
-            doorway.transform.position = pos;
+            GameObject doorway = Instantiate(doorways[Random.Range(0, doorways.Length)], pos, Quaternion.Euler(Vector3.up * direction.x)) as GameObject;
             doorway.name += "(" + cellX + ";" + cellY + ")";
             doorway.transform.SetParent(gameObject.transform);
         }

@@ -63,7 +63,8 @@ public class GameController : MonoBehaviour
             _cheatCodes = new KeyCode[][] {
                 new KeyCode[]{ KeyCode.E, KeyCode.X, KeyCode.I, KeyCode.T },
                 new KeyCode[] { KeyCode.D, KeyCode.I, KeyCode.E },
-                new KeyCode[] { KeyCode.W, KeyCode.I, KeyCode.N }
+                new KeyCode[] { KeyCode.W, KeyCode.I, KeyCode.N },
+                new KeyCode[] { KeyCode.N, KeyCode.E, KeyCode.X, KeyCode.T }
             };
         }
 
@@ -107,14 +108,20 @@ public class GameController : MonoBehaviour
                             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
                             {
                                 obj.GetComponent<Exit>().Unlock();
-                                _currentCodeLetter = 0;
                             }
+                            _currentCodeLetter = 0;
                             break;
                         case 1:
                             ((RangedValueAttribute)_player.Attributes["hp"]).SetValue(0);
+                            _currentCodeLetter = 0;
                             break;
                         case 2:
                             DungeonCount = _dungeonGoal+1;
+                            _currentCodeLetter = 0;
+                            break;
+                        case 3:
+                            _dungeon.Generate();
+                            //_currentCodeLetter = 0;
                             break;
                     }
                 }

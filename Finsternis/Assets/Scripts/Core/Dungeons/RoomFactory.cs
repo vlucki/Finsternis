@@ -1,59 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
+using Room = Dungeon.Room;
 
-public class RoomFactory
+public static class RoomFactory
 {
-    public class Room
+
+    public static bool CarveRoom(SimpleDungeon dungeon, Vector2 startingPosition, Vector2 minSize, Vector2 maxSize, Vector2 offset, int _maximumTries, out Room room)
     {
-        private List<Vector2> _cells;
-        private Rect _bounds;
+        room = new Room(startingPosition);
 
-        public List<Vector2> Cells { get { return _cells; } }
-        public Rect Bounds { get { return _bounds; } }
-
-        public Room(Vector2 position)
-        {
-            _bounds = new Rect(position, Vector2.zero);
-            _cells = new List<Vector2>();
-        }
-
-        private void AdjustSize(Vector2 pos)
-        {
-            if (pos.x < _bounds.x)
-                _bounds.x = pos.x;
-            else if (pos.x > _bounds.xMax)
-                _bounds.xMax = pos.x;
-
-            if (pos.y < _bounds.y)
-                _bounds.y = pos.y;
-            else if (pos.y > _bounds.yMax)
-                _bounds.yMax = pos.y;
-        }
-
-        public void AddCell(float x, float y)
-        {
-            AddCell(new Vector2(x, y));
-        }
-
-        public void AddCell(Vector2 pos)
-        {
-            _cells.Add(pos);
-            AdjustSize(pos);
-        }
-
-        public Vector2 GetRandomCell()
-        {
-            return _cells[Random.Range(0, _cells.Count)];
-        }
-
-    }
-
-    public static bool CarveRoom(SimpleDungeon dungeon, Vector2 corridorEnd, Vector2 minSize, Vector2 maxSize, Vector2 offset, int _maximumTries, out Room room)
-    {
-        room = new Room(corridorEnd);
-
-        Vector2 pos = corridorEnd;
+        Vector2 pos = startingPosition;
         pos.x -= offset.y;
         pos.y -= offset.x;
 
@@ -87,8 +44,8 @@ public class RoomFactory
         {
             //make sure a segment with the given dimensions won't go over the room bounds
             Vector2 size = new Vector2();
-            size.x = Mathf.RoundToInt(Random.Range(minSize.x, maxSize.x - pos.x + corridorEnd.x + 1));
-            size.y = Mathf.RoundToInt(Random.Range(minSize.y, maxSize.y - pos.y + corridorEnd.y + 1));
+            size.x = Mathf.RoundToInt(Random.Range(minSize.x, maxSize.x - pos.x + startingPosition.x + 1));
+            size.y = Mathf.RoundToInt(Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y + 1));
 
             if (dungeon.SearchInArea(pos, size, CellType.corridor))
             {
@@ -110,7 +67,7 @@ public class RoomFactory
                 }
             }
 
-            int modifier = (Random.value <= 0.5 ? -1 : 0);
+            int modifier = (Random.value <= 0.5 ? -1 : 1);
 
             pos.x += Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
             pos.y += Random.Range(1f, size.y * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
@@ -123,10 +80,10 @@ public class RoomFactory
             pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - size.y);
 
             //and that they are not too further left or above what they could 
-            if (offset.y == 0 && pos.x < corridorEnd.x)
-                pos.x = (int)corridorEnd.x;
-            if (offset.x == 0 && pos.y < corridorEnd.y)
-                pos.y = (int)corridorEnd.y;
+            if (offset.y == 0 && pos.x < startingPosition.x)
+                pos.x = (int)startingPosition.x;
+            if (offset.x == 0 && pos.y < startingPosition.y)
+                pos.y = (int)startingPosition.y;
         }
         
 

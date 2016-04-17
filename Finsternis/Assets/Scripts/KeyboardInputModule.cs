@@ -170,7 +170,7 @@
             bool allow = Input.GetButtonDown(m_HorizontalAxis);
             allow |= Input.GetButtonDown(m_VerticalAxis);
             allow |= (time > m_NextAction);
-            return allow;
+            return allow && eventSystem.sendNavigationEvents;
         }
 
         private Vector2 GetRawMoveVector()
