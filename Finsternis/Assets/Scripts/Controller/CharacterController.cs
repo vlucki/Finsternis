@@ -50,7 +50,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void Start()
     {
-        character.OnDeath.AddListener(CharacterController_death);
+        character.onDeath.AddListener(CharacterController_death);
     }
 
     public virtual void Update()

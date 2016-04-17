@@ -4,21 +4,49 @@ using UnityEngine.UI;
 
 public class PlayerHUDController : MonoBehaviour
 {
+    [SerializeField]
     private Character _character;
+
+    [SerializeField]
     private Text _txtName;
+
+    [SerializeField]
     private Text _txtLvl;
+
+    [SerializeField]
     private Text _txtHP;
+
+    [SerializeField]
     private Text _txtMP;
 
     private RangedValueAttribute _health;
     private RangedValueAttribute _mana;
     private AttributeTable _table;
 
+    void Awake()
+    {
+        if(!_txtName || !_txtLvl || !_txtHP || !_txtMP)
+        {
+            Text[] fields = GetComponentsInChildren<Text>();
+            foreach(Text field in fields)
+            {
+                if (field.name.Equals("txtName"))
+                    _txtName = field;
+                else if (field.name.Equals("txtLvl"))
+                    _txtLvl = field;
+                else if (field.name.Equals("txtHP"))
+                    _txtHP = field;
+                else if(field.name.Equals("txtMP"))
+                    _txtMP = field;
+            }
+        }
+
+        ValidateState();
+    }
+
     public void Start()
     {
-        ValidateState();
         _txtName.text = _character.name;
-
         _table = _character.Attributes;
 
         UpdateHud();

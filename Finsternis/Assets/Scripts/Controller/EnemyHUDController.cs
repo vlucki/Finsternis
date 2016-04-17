@@ -52,7 +52,7 @@ public class EnemyHUDController : MonoBehaviour
     void Start()
     {
         _txtName.text = _enemy.name;
-        _enemy.OnDeath.AddListener(Enemy_death);
+        _enemy.onDeath.AddListener(Enemy_death);
         _health = _enemy.Attributes["hp"] as RangedValueAttribute;
     }
 

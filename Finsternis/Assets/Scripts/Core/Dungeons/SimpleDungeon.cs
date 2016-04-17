@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Room = RoomFactory.Room;
 
 public class SimpleDungeon : Dungeon
 {
@@ -38,7 +39,7 @@ public class SimpleDungeon : Dungeon
     [SerializeField]
     public enum CellType
     {
-        empty = 0,
+        wall = 0,
         room = 10,
         corridor = 20
     }
@@ -97,7 +98,7 @@ public class SimpleDungeon : Dungeon
     [SerializeField]
     private Vector2 _exit;
 
-    private Rect _lastRoom;
+    private Room _lastRoom;
 
     public Vector2 Entrance { get { return _entrance; } }
     public Vector2 Exit { get { return _exit; } }
@@ -107,7 +108,10 @@ public class SimpleDungeon : Dungeon
 
     public CellType[,] GetDungeon() { return _dungeon.Clone() as CellType[,]; }
 
-
+    public CellType this[int y, int x]
+    {
+        get { return _dungeon[y, x]; }
+    }
 
     //TODO: debug only code - REMOVE
     private void DisplayDungeon()
@@ -133,7 +137,7 @@ public class SimpleDungeon : Dungeon
                 {
                     switch (_dungeon[row, col])
                     {
-                        case CellType.empty:
+                        case CellType.wall:
                             dungeon += " <color=red>X</color> ";
                             break;
                         case CellType.room:
@@ -165,7 +169,7 @@ public class SimpleDungeon : Dungeon
 
         _dungeon = new CellType[_dungeonHeight, _dungeonWidth];
         Queue<Corridor> hangingCorridors = null;
-        Queue<Rect> hangingRooms = new Queue<Rect>();
+        Queue<Room> hangingRooms = new Queue<Room>();
         
         Vector2 maximumRoomSize = new Vector2(_maximumRoomWidth, _maximumRoomHeight);
         Vector2 minimumRoomSize = new Vector2(_minimumRoomWidth, _minimumRoomHeight);
@@ -175,18 +179,16 @@ public class SimpleDungeon : Dungeon
         int roomCount = 0;
         do
         {
-
             if (roomCount == 0) //carve the very first room
             {
                 if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("<b>Creating first room</b>");
                 if (profilingOn) profilingTimer.Start();
 
-                Rect room;
+                Room room;
                 if (CarveRoom(Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, out room))
                 {
                     hangingRooms.Enqueue(room);
-                    if (!GetRandomRoomCell(room, 1, out _entrance))
-                        _entrance = GetRoomEdgeCell(room, Random.value <= 0.5f? Vector2.right : Vector2.up);
+                    _entrance = room.GetRandomCell();
                 }
                 else
                     throw new System.InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
@@ -239,13 +241,9 @@ public class SimpleDungeon : Dungeon
             Debug.Log("<b>DUNGEON GENERATED <color=red>(" + profilingTimer.ElapsedMilliseconds + "ms)</color></b>");
         }
 
-
-        if(!GetRandomRoomCell(_lastRoom, 1000, out _exit))
-            _exit = GetRoomEdgeCell(_lastRoom, Random.value <= 0.5f ? Vector2.right : Vector2.up);
+        _exit = _lastRoom.GetRandomCell();
 
         if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("Dungeon exit = " + _exit);
-
-        //GetComponent<SimpleDungeonDrawer>().Draw();
 
         onGenerationEnd.Invoke();
     }
@@ -317,7 +315,7 @@ public class SimpleDungeon : Dungeon
         if(trimEnd != bounds.max)
         {
             if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("Trimming corridor " + trimEnd + " - " + bounds.max);
-            MarkCells(trimEnd, bounds.max - trimEnd, CellType.empty);
+            MarkCells(trimEnd, bounds.max - trimEnd, CellType.wall);
         }
     }
 
@@ -329,7 +327,7 @@ public class SimpleDungeon : Dungeon
     /// <param name="minimumRoomSize">Minimum width and height for the rooms.</param>
     /// <param name="maximumRoomSize">Maximum width and height for the rooms.</param>
     /// <returns>How many rooms were created.</returns>
-    public int GenerateRooms(Queue<Rect> hangingRooms, Queue<Corridor> hangingCorridors, Vector2 minimumRoomSize, Vector2 maximumRoomSize, int roomCount)
+    public int GenerateRooms(Queue<Room> hangingRooms, Queue<Corridor> hangingCorridors, Vector2 minimumRoomSize, Vector2 maximumRoomSize, int roomCount)
     {
 
         if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("<b>Creating rooms</b>");
@@ -338,7 +336,7 @@ public class SimpleDungeon : Dungeon
         while (hangingCorridors.Count > 0 && roomCount < _totalRooms)
         {
             //make a room at the end of a corridor and add it to the queue of rooms without corridors
-            Rect room;
+            Room room;
             Corridor corridor = hangingCorridors.Dequeue();
 
             if (CarveRoom(corridor.Bounds.max, minimumRoomSize, maximumRoomSize, corridor.Direction, out room))
@@ -371,7 +369,7 @@ public class SimpleDungeon : Dungeon
 
         while(newCorridorEnd.x < _dungeonWidth 
             && newCorridorEnd.y < _dungeonHeight
-            && _dungeon[(int)(newCorridorEnd.y - corridor.Direction.x), (int)(newCorridorEnd.x - corridor.Direction.y)] == CellType.empty)
+            && _dungeon[(int)(newCorridorEnd.y - corridor.Direction.x), (int)(newCorridorEnd.x - corridor.Direction.y)] == CellType.wall)
         {
             newCorridorEnd += corridor.Direction;
         }
@@ -379,7 +377,7 @@ public class SimpleDungeon : Dungeon
         if (newCorridorEnd != corridor.Bounds.max
             && newCorridorEnd.x < _dungeonWidth
             && newCorridorEnd.y < _dungeonHeight
-            && _dungeon[(int)(newCorridorEnd.y - corridor.Direction.x), (int)(newCorridorEnd.x - corridor.Direction.y)] != CellType.empty)
+            && _dungeon[(int)(newCorridorEnd.y - corridor.Direction.x), (int)(newCorridorEnd.x - corridor.Direction.y)] != CellType.wall)
         {
             corridor.Bounds = new Rect(corridor.Bounds.x, corridor.Bounds.y, newCorridorEnd.x - corridor.Bounds.xMin, newCorridorEnd.y - corridor.Bounds.yMin);
 
@@ -400,7 +398,7 @@ public class SimpleDungeon : Dungeon
     /// </summary>
     /// <param name="hangingRooms">Rooms without corridors going out of them.</param>
     /// <returns>Every corridor generated.</returns>
-    private Queue<Corridor> GenerateCorridors(Queue<Rect> hangingRooms)
+    private Queue<Corridor> GenerateCorridors(Queue<Room> hangingRooms)
     {
         if (debugLevel >= DebugLevel.MINIMAL) Debug.Log("<b>Creating corridors</b>");
 
@@ -409,7 +407,7 @@ public class SimpleDungeon : Dungeon
         //until every room has a corridor going out of it, make corridors
         while (hangingRooms.Count > 0)
         {
-            Rect room = hangingRooms.Dequeue();
+            Rect room = hangingRooms.Dequeue().Bounds;
 
             Rect rightCorridor;
             if (CarveCorridor(room, Vector2.right, out rightCorridor))
@@ -507,7 +505,7 @@ public class SimpleDungeon : Dungeon
         }
 
         //move the corridor starting point outside the room
-        while (corridorStart.x < _dungeonWidth && corridorStart.y < _dungeonHeight && _dungeon[(int)corridorStart.y, (int)corridorStart.x] != CellType.empty)
+        while (corridorStart.x < _dungeonWidth && corridorStart.y < _dungeonHeight && _dungeon[(int)corridorStart.y, (int)corridorStart.x] != CellType.wall)
             corridorStart += direction;
 
         if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("Corridor start: " + corridorStart);
@@ -563,143 +561,15 @@ public class SimpleDungeon : Dungeon
     /// <param name="maxSize">Maximum width and height the room could possibly have.</param>
     /// <param name="offset">If the room can go above (y != 0) or to the left of (x != 0) the starting coordinates</param>
     /// <returns>True if the room was created.</returns>
-    private bool CarveRoom(Vector2 corridorEnd, Vector2 minSize, Vector2 maxSize, Vector2 offset, out Rect roomBounds)
+    private bool CarveRoom(Vector2 corridorEnd, Vector2 minSize, Vector2 maxSize, Vector2 offset, out Room r)
     {
-        if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#f22>CarveRoom(" + corridorEnd + ", " + minSize + ", " + maxSize + ", " + offset + ")</color>");
-        
-        Vector2 pos = corridorEnd;
-        pos.x -= offset.y;
-        pos.y -= offset.x;
-        roomBounds = new Rect(pos, Vector2.zero);
-        
-        //if there is apparently no horizontal space for the room
-        if (pos.x + minSize.x > _dungeonWidth)
+        if(RoomFactory.CarveRoom(this, corridorEnd, minSize, maxSize, offset, _maximumTries, out r))
         {
-            if (offset.x == 0) //and the corridor it's connected to is above it
-                pos.x = _dungeonWidth - minSize.x; //move the room left
-            else
-            {
-                Debug.LogWarning("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's width.</color>");
-                return false;
-            }
+            foreach (Vector2 v in r.Cells)
+                _dungeon[(int)v.y, (int)v.x] = CellType.room;
+            return true;
         }
-
-        //if there is apparently no vertical space for the room
-        if (pos.y + minSize.y > _dungeonHeight)
-        {
-            if(offset.y == 0) //and the corridor it's connected to is to its left
-                pos.y = _dungeonHeight - minSize.y; //move the room up
-            else
-            {
-                Debug.LogWarning("<color=#fff>Impossible to fit a room at " + pos + " due to the dungeon's height.</color>");
-                return false;
-            }
-        }
-
-        bool enoughSpaceForRoom = !SearchInArea(pos, minSize, CellType.corridor);
-
-        while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
-                && ((offset.y != 0 && pos.x + minSize.x >= roomBounds.x) //and it can be moved to the left
-                || (offset.x != 0 && pos.y + minSize.y >= roomBounds.y)))//or up
-        {
-            if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#522>Room at " + pos + " intersects with a corridor.</color>");
-
-            //move the room and check again
-            pos.x -= offset.y;
-            pos.y -= offset.x;
-            enoughSpaceForRoom = !SearchInArea(pos, minSize, CellType.corridor);
-        } 
-
-        if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
-        {
-            if(debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#fff>Impossible to fit a room at " + pos + " due to an intersection with a corridor.</color>");
-            return false;
-        }
-
-        bool roomCarved = false;
-
-        //mark cells at random locations within the room, until the maximum tries is reached
-        for (int tries = 0; tries < _maximumTries; tries++)
-        {
-            //make sure a segment with the given dimensions won't go over the room bounds
-            Vector2 size = new Vector2();
-            size.x = Mathf.RoundToInt(Random.Range(minSize.x, maxSize.x - pos.x + corridorEnd.x + 1));
-            size.y = Mathf.RoundToInt(Random.Range(minSize.y, maxSize.y - pos.y + corridorEnd.y + 1));
-
-            if (debugLevel >= DebugLevel.COMPLETE) Debug.Log("Try #" + (tries + 1) + ": position = " + pos + ", size = " + size + ", room = " + roomBounds);
-            
-            if (pos.x < roomBounds.x)
-                roomBounds.x = pos.x;
-            if (pos.y < roomBounds.y)
-                roomBounds.y = pos.y;
-
-            if(SearchInArea(pos, size, CellType.corridor))
-            {
-                size = minSize;
-            }
-
-            if (!SearchInArea(pos, size, CellType.corridor))
-            {
-                if (pos.x + size.x > roomBounds.xMax)
-                    roomBounds.xMax = pos.x + size.x;
-                if (pos.y + size.y > roomBounds.yMax)
-                    roomBounds.yMax = pos.y + size.y;
-
-                MarkCells(pos, size);
-
-                roomCarved = true;
-
-                if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("new room = " + roomBounds);
-            }
-            else
-            {
-
-                if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("room overlaps corridor, so it was not carved.");
-            }
-
-            int modifier = (Random.value <= 0.5 ? -1 : 0);
-
-            if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("modifier = " + modifier + "; offset = " + offset + "; pos = " + pos);
-
-            pos.x += Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-            pos.y += Random.Range(1f, size.y * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
-
-            pos.x = Mathf.RoundToInt(pos.x);
-            pos.y = Mathf.RoundToInt(pos.y);
-
-            if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#f00>new pos</color> = " + pos);
-
-            //ensure the new coordinates are withing the dungeon
-            pos.x = Mathf.Clamp(pos.x, 0, _dungeonWidth - size.x);
-            pos.y = Mathf.Clamp(pos.y, 0, _dungeonHeight - size.y);
-
-            if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#a00>pos after first correction</color> = " + pos);
-
-            //and that they are not too further left or above what they could 
-            if (offset.y == 0 && pos.x < corridorEnd.x)
-                pos.x = (int)corridorEnd.x;
-            if (offset.x == 0 && pos.y < corridorEnd.y)
-                pos.y = (int)corridorEnd.y;
-
-            if (debugLevel >= DebugLevel.IN_DEPTH) Debug.Log("<color=#600>pos after second checking</color> = " + pos);
-
-            if (roomBounds.xMax > _dungeonWidth)
-                roomBounds.xMax = _dungeonWidth;
-
-            if (roomBounds.yMax > _dungeonHeight)
-                roomBounds.yMax = _dungeonHeight;
-        }
-
-
-        if (debugLevel >= DebugLevel.MINIMAL)
-        {
-            if (roomCarved)
-                Debug.Log("<color=purple>Carved room: " + roomBounds + "</color>");
-            else
-                Debug.Log("<color=purple>Failed to carve room</color>");           
-        }
-
-        return roomCarved;
+        return false;
     }
 
     /// <summary>
@@ -709,7 +579,7 @@ public class SimpleDungeon : Dungeon
     /// <param name="size">The width and height of the search area.</param>
     /// <param name="type">The type of cell that is being searched.</param>
     /// <returns></returns>
-    private bool SearchInArea(Vector2 pos, Vector2 size, CellType type)
+    public bool SearchInArea(Vector2 pos, Vector2 size, CellType type)
     {
         for(int row = (int)pos.y; row < _dungeonHeight && row < pos.y + size.y; row++)
         {
@@ -743,7 +613,7 @@ public class SimpleDungeon : Dungeon
 
                 if(y >= 0 && y < _dungeon.GetLength(0)
                     && x >= 0 && x < _dungeon.GetLength(1)
-                    && _dungeon[y, x] == CellType.empty)
+                    && _dungeon[y, x] == CellType.wall)
                 {
                     //if this cell is within the dungeon and have at least one unmarked cell adjacent to it, then it is at the edge of a room
                     return true;
@@ -769,7 +639,7 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)start.x; col < (int)(start.x + size.x) && col < _dungeonWidth; col++)
             {
-                if (_dungeon[row, col] != CellType.empty && !ignoreIntersection)
+                if (_dungeon[row, col] != CellType.wall && !ignoreIntersection)
                     return new Vector2(col, row);
 
                 _dungeon[row, col] = type;

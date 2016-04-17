@@ -9,10 +9,10 @@ public abstract class Dungeon : MonoBehaviour
     [SerializeField]
     private int _seed;
 
+    public bool customSeed = true;
+
     public UnityEvent onGenerationBegin;
     public UnityEvent onGenerationEnd;
-
-    public bool customSeed = true;
 
     public int Seed
     {

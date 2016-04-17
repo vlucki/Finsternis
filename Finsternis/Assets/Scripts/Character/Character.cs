@@ -7,7 +7,11 @@ using UnityEngine.Events;
 [RequireComponent (typeof(Inventory))]
 public class Character : MonoBehaviour
 {
-    public UnityEvent OnDeath;
+    public UnityEvent onDeath;
+
+    public UnityEvent onDamageTaken;
+
+    public Character lastAttacker;
 
     [SerializeField]
     private RangedValueAttribute _health = new RangedValueAttribute("hp", 0, 10, 10);
@@ -59,18 +63,20 @@ public class Character : MonoBehaviour
 
     public virtual void Attack(Character target)
     {
-        target.Damage(new DamageInfo(DamageInfo.DamageType.physical, _damage.IntValue, gameObject));
+        target.Damage(new DamageInfo(DamageInfo.DamageType.physical, _damage.IntValue, this));
     }
 
     public virtual void Damage(DamageInfo info)
     {
         _health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? _defense.Value : _magicResistence.Value)));
+        onDamageTaken.Invoke();
+        lastAttacker = info.Source;
     }
 
     private void Die()
     {
         _dead = true;
-        OnDeath.Invoke();
-        OnDeath.RemoveAllListeners();
+        onDeath.Invoke();
+        onDeath.RemoveAllListeners();
     }
 }

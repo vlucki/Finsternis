@@ -38,13 +38,17 @@ public class PhysicalAttackHandler : MonoBehaviour
             Vector3 target = owner.transform.position;
             target.y = other.transform.position.y;
             other.transform.LookAt(target);
-            Character otherChar = other.GetComponent<Character>();
-            
-            if (otherChar){
+        }
 
-                other.GetComponent<CharacterController>().Hit();
-                owner.Attack(otherChar);
-            }
+        Character otherChar = other.GetComponent<Character>();
+        if (!otherChar)
+            otherChar = other.GetComponentInParent<Character>();
+
+        if (otherChar)
+        {
+            CharacterController controller = other.GetComponent<CharacterController>();
+            if(controller) controller.Hit();
+            owner.Attack(otherChar);
         }
     }
 
