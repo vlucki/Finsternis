@@ -44,15 +44,10 @@ public static class CorridorFactory
         corridorStart = room.GetRandomCell();
 
         //move the corridor starting point outside the room
-        while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && dungeon[(int)corridorStart.y, (int)corridorStart.x] != CellType.wall)
+        while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && dungeon[corridorStart] != CellType.wall)
             corridorStart += direction;
 
         bounds.position = corridorStart;
-
-        if (bounds.x == 8 && bounds.y == 18)
-        {
-            int a = 0;
-        }
 
         //if there would be no space for the smallest room after making a corridor with the minimum length, no use creating one
         if ((direction.x != 0 && bounds.x + minRoomDimensions.x >= dungeon.Width)
@@ -95,7 +90,7 @@ public static class CorridorFactory
         {
             for (int col = (int)corridorStart.x; col < (int)(corridorStart.x + predefinedSize.x) && col < dungeon.Width; col++)
             {
-                if (dungeon[row, col] != CellType.wall)
+                if (dungeon[col, row] != CellType.wall)
                 {
                     return actualSize;
                 }

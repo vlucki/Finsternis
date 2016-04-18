@@ -68,8 +68,40 @@ public class SimpleDungeon : Dungeon
 
     public CellType this[int x, int y]
     {
-        get { return _dungeon[x, y]; }
-        private set { _dungeon[x, y] = value; }
+        get
+        {
+            try
+            {
+                return _dungeon[x, y];
+            }
+            catch (System.IndexOutOfRangeException ex)
+            {
+                throw new System.IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+            }
+        }
+        private set
+        {
+            try
+            {
+                _dungeon[x, y] = value;
+            }
+            catch (System.IndexOutOfRangeException ex)
+            {
+                throw new System.IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+            }
+        }
+    }
+
+    public CellType this[float x, float y]
+    {
+        get { return this[(int)x, (int)y]; }
+        private set { this[(int)x, (int)y] = value; }
+    }
+
+    public CellType this[Vector2 pos]
+    {
+        get { return this[(int)pos.x, (int)pos.y]; }
+        private set { this[(int)pos.x, (int)pos.y] = value; }
     }
 
     public override void Generate()
@@ -84,8 +116,9 @@ public class SimpleDungeon : Dungeon
         Vector2 minimumRoomSize = new Vector2(_minimumRoomWidth, _minimumRoomHeight);
 
         Room room;
-        if (CarveRoom(Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, out room))
+        if (RoomFactory.CarveRoom(this, Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, _maximumTries, out room))
         {
+            room.Cells.ForEach(cell => this[cell] = CellType.room);
             hangingRooms.Enqueue(room);
             entrance = room.GetRandomCell();
         }
@@ -140,18 +173,17 @@ public class SimpleDungeon : Dungeon
     /// <returns>True if the corridor was succesfully extended.</returns>
     private bool ExtendCorridor(Corridor corridor)
     {
-        Vector2 newCorridorEnd = corridor.Bounds.max;
         int oldLength = corridor.Length;
-
-        while (corridor.Bounds.xMax < Width - _minimumRoomWidth
-            && corridor.Bounds.yMax < Height - _minimumRoomHeight
-            && this[(int)(corridor.LastCell.y), (int)(corridor.LastCell.x)] == CellType.wall)
+        
+        while (corridor.Bounds.xMax < Width - _minimumRoomWidth * corridor.Direction.x
+            && corridor.Bounds.yMax < Height - _minimumRoomHeight * corridor.Direction.y
+            && this[corridor.LastCell + corridor.Direction] == CellType.wall)
         {
             corridor.Length++;
         }
 
         if (oldLength != corridor.Length
-            && this[(int)(corridor.LastCell.y), (int)(corridor.LastCell.x)] != CellType.wall)
+            && this[corridor.LastCell] != CellType.wall)
         {
             MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
             return true;
@@ -173,11 +205,6 @@ public class SimpleDungeon : Dungeon
 
         bool intersectionFound = false;
 
-        if (corridor.Bounds.x == 8 && corridor.Bounds.y == 18)
-        {
-            int a = 0;
-        }
-
         while(corridor.Length > 0 && !intersectionFound)
         {
             Vector2 offset = new Vector2(corridor.Direction.y, corridor.Direction.x);
@@ -189,7 +216,7 @@ public class SimpleDungeon : Dungeon
                 if (adjacentCell.x >= 0 && adjacentCell.x < Width && adjacentCell.y >= 0 && adjacentCell.y < Height)
                 {
                     //if an adjacent corridor was found, stop searching
-                    if (this[(int)adjacentCell.y, (int)adjacentCell.x] == CellType.corridor)
+                    if (this[adjacentCell] == CellType.corridor)
                     {
                         intersectionFound = true;
                         break;
@@ -223,8 +250,9 @@ public class SimpleDungeon : Dungeon
             Room room;
             Corridor corridor = hangingCorridors.Dequeue();
 
-            if (CarveRoom(corridor.Bounds.max, minimumRoomSize, maximumRoomSize, corridor.Direction, out room))
+            if (RoomFactory.CarveRoom(this, corridor, minimumRoomSize, maximumRoomSize, _maximumTries, out room))
             {
+                room.Cells.ForEach(cell => this[cell] = CellType.room);
                 hangingRooms.Enqueue(room);
 
                 _lastRoom = room;
@@ -273,24 +301,6 @@ public class SimpleDungeon : Dungeon
     }
 
     /// <summary>
-    /// Creates a room with a random shape.
-    /// </summary>
-    /// <param name="corridorEnd">Starting point for the generation of the room.</param>
-    /// <param name="maxSize">Maximum width and height the room could possibly have.</param>
-    /// <param name="offset">If the room can go above (y != 0) or to the left of (x != 0) the starting coordinates</param>
-    /// <returns>True if the room was created.</returns>
-    private bool CarveRoom(Vector2 corridorEnd, Vector2 minSize, Vector2 maxSize, Vector2 offset, out Room r)
-    {
-        if(RoomFactory.CarveRoom(this, corridorEnd, minSize, maxSize, offset, _maximumTries, out r))
-        {
-            foreach (Vector2 v in r.Cells)
-                this[(int)v.y, (int)v.x] = CellType.room;
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
     /// Searches a given area for a given cell type;
     /// </summary>
     /// <param name="pos">The area starting point.</param>
@@ -303,7 +313,7 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
             {
-                if (this[row, col] == type)
+                if (this[col, row] == type)
                     return true;
             }
         }
@@ -329,8 +339,8 @@ public class SimpleDungeon : Dungeon
                 int y = (int)(cell.y + i);
                 int x = (int)(cell.x + j);
 
-                if(y >= 0 && y < _dungeon.GetLength(0)
-                    && x >= 0 && x < _dungeon.GetLength(1)
+                if(y >= 0 && y < Height
+                    && x >= 0 && x < Width
                     && this[x, y] == CellType.wall)
                 {
                     //if this cell is within the dungeon and have at least one unmarked cell adjacent to it, then it is at the edge of a room
@@ -357,10 +367,10 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)start.x; col < start.x + size.x && col < Width; col++)
             {
-                if (this[row, col] != CellType.wall && !ignoreIntersection)
+                if (this[col, row] != CellType.wall && !ignoreIntersection)
                     return new Vector2(col, row);
 
-                this[row, col] = type;                
+                this[col, row] = type;                
             }
         }
 

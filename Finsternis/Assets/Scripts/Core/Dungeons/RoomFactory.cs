@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
 using Room = Dungeon.Room;
+using Corridor = Dungeon.Corridor;
 
 public static class RoomFactory
 {
+    public static bool CarveRoom(SimpleDungeon dungeon, Corridor corridor, Vector2 minSize, Vector2 maxSize, int _maximumTries, out Room room)
+    {
+        return CarveRoom(dungeon, corridor.Bounds.max, minSize, maxSize, corridor.Direction, _maximumTries, out room);
+    }
 
     public static bool CarveRoom(SimpleDungeon dungeon, Vector2 startingPosition, Vector2 minSize, Vector2 maxSize, Vector2 offset, int _maximumTries, out Room room)
     {

@@ -69,7 +69,7 @@ public abstract class Dungeon : MonoBehaviour
             get { return _bounds; }
             set {
                 _bounds = value;
-                _length = Mathf.RoundToInt((_bounds.size.x * _direction.y + _direction.x) + (_bounds.size.y * _direction.x + _direction.y));
+                _length = Mathf.RoundToInt((_bounds.size.x * _direction.x + _direction.y) + (_bounds.size.y * _direction.y + _direction.x));
             }
         }
 
@@ -81,7 +81,7 @@ public abstract class Dungeon : MonoBehaviour
                 if (value > 0)
                 {
                     _length = value;
-                    _bounds.size = new Vector2(value * _direction.y + _direction.x, value * _direction.x + _direction.y);
+                    _bounds.size = new Vector2(value * _direction.x + _direction.y, value * _direction.y + _direction.x);
                 }
                 else
                 {
@@ -102,17 +102,9 @@ public abstract class Dungeon : MonoBehaviour
             Bounds = bounds;
         }
 
-        public void SetLength(int length)
-        {
-            if(_direction.x == 1)
-                _bounds.xMax = _bounds.x + length;
-            else
-                _bounds.yMax = _bounds.y + length;
-        }
-
         public override string ToString()
         {
-            return "Corridor[bounds:" + Bounds + "; directions:" + Direction + "]";
+            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: "+_length +"]";
         }
     }
 
