@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(SimpleDungeon))]
 public class SimpleDungeonDrawer : MonoBehaviour
 {
+    public Material corridorMaterial;
 
     [SerializeField]
     private SimpleDungeon _dungeon;
@@ -34,13 +34,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public void Draw()
     {
         onDrawBegin.Invoke();
-
-        if (_dungeon.customSeed)
-            Random.seed = _dungeon.Seed;
-
         Clear();
-
-        CellType[,] grid = _dungeon.GetDungeon();
+        
         int width = _dungeon.Width;
         int height = _dungeon.Height;
 
@@ -49,26 +44,73 @@ public class SimpleDungeonDrawer : MonoBehaviour
         {
             for (int cellX = -1; cellX <= width; cellX++)
             {
-                if (cellY < 0 || cellY == height || cellX < 0 || cellX == width || ShouldMakeWall<CellType>(grid, cellX, cellY, CellType.wall, false))
+                if (cellY < 0 || cellY == height || cellX < 0 || cellX == width || ShouldMakeWall(cellX, cellY, false))
                 {
-                    MakeWall(cellX, cellY, grid);
+                    MakeWall(cellX, cellY);
                 }
                 else
                 {
-                    MakeFloor(cellX, cellY, grid);
+                    MakeFloor(cellX, cellY);
                 }
             }
         }
 
+        foreach(Dungeon.Corridor corridor in _dungeon.Corridors)
+        {
+            if(corridor.Length > 1)
+            {
+                Vector2 direction = corridor.Direction;
+                direction.y -= direction.x;
+                direction.x *= 90;
+
+                GameObject prefab = doorways[Random.Range(0, doorways.Length)];
+
+                for (int i = 0; i < 2; i++)
+                {
+                    Vector3 pos;
+                    if(i == 0)  pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
+                    else        pos = new Vector3(corridor.LastCell.x, 0, corridor.LastCell.y);
+                    string name = pos.x.ToString("F0") + ";" + pos.z.ToString("F0");
+
+                    if (CanMakeDoorway((int)pos.x, (int)pos.z))
+                    {
+                        pos.x *= scale.x;
+                        pos.x += scale.x / 2;
+
+                        pos.z *= -scale.z;
+                        pos.z -= scale.z / 2;
+
+
+                        if (direction.x == 90 || direction.x == 270)
+                        {
+                            pos.x += scale.x / 2.5f * direction.y;
+                            if (direction.x == 270)
+                                pos.x += (scale.x * 0.8f);
+                        }
+                        else
+                        {
+                            pos.z -= scale.z / 2.5f * direction.y;
+                            if (direction.x == 0)
+                                pos.z += (scale.z * 0.8f);
+                        }
+
+                        GameObject doorway = Instantiate(prefab, pos, Quaternion.Euler(Vector3.up * -direction.x)) as GameObject;
+                        doorway.name += "(" + name + ")";
+                        doorway.transform.SetParent(gameObject.transform);
+                    }
+                    direction.x += 180;
+                }
+            }
+        }
 
         onDrawEnd.Invoke();
     }
 
-    private void MakeFloor(int cellX, int cellY, CellType[,] grid)
+    private void MakeFloor(int cellX, int cellY)
     {
 
         Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
-        GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, defaultFloorMaterial, grid[cellY, cellX] + " (" + cellX + ";" + cellY + ")");
+        GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial, (CellType)_dungeon[cellX, cellY] + " (" + cellX + ";" + cellY + ")");
         floor.transform.SetParent(gameObject.transform);
 
         if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
@@ -95,27 +137,13 @@ public class SimpleDungeonDrawer : MonoBehaviour
 #endif
             }
         }
-
-
-        Vector2 direction;
-        if (doorways != null && doorways.Length > 0 && CanMakeDoorway(cellX, cellY, grid, out direction))
-        {
-
-            if (direction.x == 90 || direction.x == 270)
-                pos.x += scale.x / 2.5f * direction.y;
-            else
-                pos.z -= scale.z / 2.5f * direction.y;
-
-            GameObject doorway = Instantiate(doorways[Random.Range(0, doorways.Length)], pos, Quaternion.Euler(Vector3.up * direction.x)) as GameObject;
-            doorway.name += "(" + cellX + ";" + cellY + ")";
-            doorway.transform.SetParent(gameObject.transform);
-        }
     }
 
-    private bool CanMakeDoorway(int cellX, int cellY, CellType[,] grid, out Vector2 direction)
+    private bool CanMakeDoorway(int cellX, int cellY)
     {
-        direction = Vector2.zero;
-        Vector2 offset = Vector2.zero;
+        if (_dungeon[cellX, cellY] < (int)CellType.corridor)
+            return false;
+        
         int wallsAround = 0;
         for (int i = -1; i < 2; i++)
         {
@@ -125,65 +153,46 @@ public class SimpleDungeonDrawer : MonoBehaviour
                     continue;
                 int x = cellX + j;
                 int y = cellY + i;
-                bool isMapEdge = x < 0 || y < 0 || x == grid.GetLength(1) || y == grid.GetLength(0);
-                if (isMapEdge || grid[y, x].Equals(CellType.wall))
+                bool isMapEdge = x < 0 || y < 0 || x == _dungeon.Width || y == _dungeon.Height;
+
+                if (isMapEdge || _dungeon[x, y] == (int)(CellType.wall))
                 {
                     wallsAround++;
-
-                    if(!isMapEdge && Mathf.Abs(i) == Mathf.Abs(j))
-                    {
-                        offset.x += j;
-                        offset.y += i;
-                    }
                 }
             }
         }
 
-        offset.x = Mathf.Clamp(offset.x, -1, 1);
-        offset.y = Mathf.Clamp(offset.y, -1, 1);
-
         if (wallsAround >= 2 && wallsAround < 6)
         {
-            bool wallToTheLeft = (cellX - 1 < 0 || CellType.wall.Equals(grid[cellY, cellX - 1]));
-            bool wallToTheRight = (cellX + 1 == grid.GetLength(1) || CellType.wall.Equals(grid[cellY, cellX + 1]));
+            bool wallToTheLeft = (cellX - 1 < 0 || _dungeon[cellX - 1, cellY] == (int)CellType.wall);
+            bool wallToTheRight = (cellX + 1 == _dungeon.Width || _dungeon[cellX + 1, cellY] == (int)CellType.wall);
 
-            bool wallAbove = (cellY - 1 < 0 || CellType.wall.Equals(grid[cellY - 1, cellX]));
-            bool wallBelow = (cellY + 1 == grid.GetLength(0) || CellType.wall.Equals(grid[cellY + 1, cellX]));
+            bool wallAbove = (cellY - 1 < 0 || _dungeon[cellX, cellY - 1] == (int)CellType.wall);
+            bool wallBelow = (cellY + 1 == _dungeon.Height || _dungeon[cellX, cellY + 1] == (int)CellType.wall);
 
             if ((wallAbove && wallBelow) | (wallToTheLeft && wallToTheRight))
             {
-                if (wallAbove && wallBelow)
-                {
-                    direction.y = -offset.x;
-                    direction.x = (RotateDoorway(cellX, cellY, 0, 1, grid) >= 0) ? 90 : 270;
-                }
-                else if (wallToTheLeft && wallToTheRight)
-                {
-                    direction.y = -offset.y;
-                    direction.x = (RotateDoorway(cellX, cellY, 1, 0, grid) >= 0) ? 180 : 0;
-                }
-
                 return true;
             }
         }
         return false;
     }
 
-    private int RotateDoorway(int x, int y, int xModifier, int yModifier, CellType[,] grid)
+    private int RotateDoorway(int x, int y, int xModifier, int yModifier)
     {
         int roomCellsCount = 0;
 
         for (int i = -1; i < 2; i++)
         {
-            int newX = x + i * xModifier;// - yModifier;
-            int newY = y + i * yModifier;// - xModifier;
+            int newX = x + i * xModifier;
+            int newY = y + i * yModifier;
             if ((yModifier == 1 && newY >= 0 && newY < _dungeon.Height)
                 || (xModifier == 1 && newX >= 0 && newX < _dungeon.Width))
             {
-                if (newX - yModifier >= 0 && newY - xModifier >= 0 && grid[newY - xModifier, newX - yModifier] >= CellType.room) //check left/above
+                if (newX - yModifier >= 0 && newY - xModifier >= 0 && _dungeon[newX - yModifier, newY - xModifier] >= (int)CellType.room) //check left/above
                     roomCellsCount--;
 
-                if (newX + yModifier < _dungeon.Width && newY + xModifier < _dungeon.Height && grid[newY + xModifier, newX + yModifier] >= CellType.room) //check right/below
+                if (newX + yModifier < _dungeon.Width && newY + xModifier < _dungeon.Height && _dungeon[newX + yModifier, newY + xModifier] >= (int)CellType.room) //check right/below
                     roomCellsCount++;
             }
         }
@@ -191,9 +200,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
         return roomCellsCount;
     }
 
-    private void MakeWall(int cellX, int cellY, CellType[,] grid)
+    private void MakeWall(int cellX, int cellY)
     {
-        CellType wallType = CellType.wall;
+        int wallType = (int)CellType.wall;
         GameObject wall;
         Vector3 wallPosition = new Vector3(cellX*scale.x, 0, -cellY*scale.y); ;
         if (walls != null && walls.Length > 0)
@@ -214,10 +223,10 @@ public class SimpleDungeonDrawer : MonoBehaviour
                         continue;
                     int x = cellX + j;
                     int y = cellY + i;
-                    if (x < 0 || y < 0 || y >= grid.GetLength(0) || x >= grid.GetLength(1))
+                    if (x < 0 || y < 0 || y >= _dungeon.Height || x >= _dungeon.Width)
                         continue;
 
-                    if(!wallType.Equals(grid[y, x]))
+                    if(wallType != (_dungeon[x, y]))
                     {
                         float angle = 0;
                         if (x < cellX)
@@ -254,12 +263,12 @@ public class SimpleDungeonDrawer : MonoBehaviour
         return plane;
     }
 
-    private bool ShouldMakeWall<T>(T[,] grid, int cellX, int cellY, T wall, bool ignoreIsolatedWalls)
+    private bool ShouldMakeWall(int cellX, int cellY, bool ignoreIsolatedWalls)
     {
-        return EqualityComparer<T>.Default.Equals(grid[cellY, cellX], wall) && (!ignoreIsolatedWalls || !IsWallIsolated(grid, cellX, cellY, wall));
+        return (_dungeon[cellX, cellY] == (int)CellType.wall) && (!ignoreIsolatedWalls || !IsWallIsolated(cellX, cellY));
     }
 
-    private bool IsWallIsolated<T>(T[,] grid, int cellX, int cellY, T wall)
+    private bool IsWallIsolated(int cellX, int cellY)
     {
         for(int i = -1; i < 2; i++)
         {
@@ -271,8 +280,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 int x = cellX + j;
                 int y = cellY + i;
 
-                if(x >= 0 && x < grid.GetLength(1) && y >= 0 && y < grid.GetLength(0) 
-                    && !EqualityComparer<T>.Default.Equals(grid[y, x], wall))
+                if(x >= 0 && x < _dungeon.Width && y >= 0 && y < _dungeon.Height 
+                    && _dungeon[x, y] != (int)CellType.wall)
                 {
                     return false;
                 }

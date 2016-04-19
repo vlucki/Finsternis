@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
 using Room = Dungeon.Room;
 using Corridor = Dungeon.Corridor;
@@ -80,15 +79,15 @@ public static class RoomFactory
             pos.x = Mathf.RoundToInt(pos.x);
             pos.y = Mathf.RoundToInt(pos.y);
 
-            //ensure the new coordinates are within the dungeon
-            pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - size.x);
-            pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - size.y);
-
             //and that they are not too further left or above what they could 
             if (offset.y == 0 && pos.x < startingPosition.x)
                 pos.x = (int)startingPosition.x;
             if (offset.x == 0 && pos.y < startingPosition.y)
                 pos.y = (int)startingPosition.y;
+
+            //ensure the new coordinates are within the dungeon
+            pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - size.x);
+            pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - size.y);
         }
         
 

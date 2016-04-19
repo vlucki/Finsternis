@@ -44,7 +44,7 @@ public static class CorridorFactory
         corridorStart = room.GetRandomCell();
 
         //move the corridor starting point outside the room
-        while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && dungeon[corridorStart] != CellType.wall)
+        while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && dungeon[corridorStart] > (int)CellType.wall && dungeon[corridorStart] < (int)CellType.corridor)
             corridorStart += direction;
 
         bounds.position = corridorStart;
@@ -90,7 +90,7 @@ public static class CorridorFactory
         {
             for (int col = (int)corridorStart.x; col < (int)(corridorStart.x + predefinedSize.x) && col < dungeon.Width; col++)
             {
-                if (dungeon[col, row] != CellType.wall)
+                if (dungeon[col, row] != (int)CellType.wall)
                 {
                     return actualSize;
                 }

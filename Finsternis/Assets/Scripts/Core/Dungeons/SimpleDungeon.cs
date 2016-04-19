@@ -11,8 +11,12 @@ public class SimpleDungeon : Dungeon
         corridor = 20
     }
 
+    private List<Corridor> _corridors;
+
+    public bool allowDeadEnds = false;
+
     [SerializeField]
-    private CellType[,] _dungeon;
+    private int[,] _dungeon;
 
     [Header("Dungeon dimensions")]
     [SerializeField]
@@ -61,12 +65,12 @@ public class SimpleDungeon : Dungeon
 
     private Room _lastRoom;
 
-    public int Width { get { return _dungeon.GetLength(1); } }
-    public int Height { get { return _dungeon.GetLength(0); } }
+    public int Width { get { return _dungeon.GetLength(0); } }
+    public int Height { get { return _dungeon.GetLength(1); } }
 
-    public CellType[,] GetDungeon() { return _dungeon.Clone() as CellType[,]; }
+    public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
-    public CellType this[int x, int y]
+    public int this[int x, int y]
     {
         get
         {
@@ -92,23 +96,35 @@ public class SimpleDungeon : Dungeon
         }
     }
 
-    public CellType this[float x, float y]
+    public int this[float x, float y]
     {
         get { return this[(int)x, (int)y]; }
         private set { this[(int)x, (int)y] = value; }
     }
 
-    public CellType this[Vector2 pos]
+    public int this[Vector2 pos]
     {
         get { return this[(int)pos.x, (int)pos.y]; }
         private set { this[(int)pos.x, (int)pos.y] = value; }
     }
 
+    public List<Corridor> Corridors { get { return _corridors; } }
+
     public override void Generate()
     {
         base.Generate();
 
-        _dungeon = new CellType[_dungeonWidth, _dungeonHeight];
+        _dungeon = new int[_dungeonWidth, _dungeonHeight];
+        _corridors = new List<Corridor>();
+
+        _maximumRoomHeight  = Mathf.Clamp(_maximumRoomHeight, 0, Height);
+        _maximumRoomWidth   = Mathf.Clamp(_maximumRoomWidth, 0, Width);
+        _minimumRoomHeight  = Mathf.Clamp(_minimumRoomHeight, 0, _maximumRoomHeight);
+        _minimumRoomWidth   = Mathf.Clamp(_minimumRoomWidth, 0, _maximumRoomWidth);
+
+        _maximumCorridorLength = Mathf.Clamp(_maximumCorridorLength, 0, Mathf.Min(Height, Width));
+        _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
+
         Queue<Corridor> hangingCorridors = null;
         Queue<Room> hangingRooms = new Queue<Room>();
         
@@ -118,7 +134,7 @@ public class SimpleDungeon : Dungeon
         Room room;
         if (RoomFactory.CarveRoom(this, Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, _maximumTries, out room))
         {
-            room.Cells.ForEach(cell => this[cell] = CellType.room);
+            room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
             hangingRooms.Enqueue(room);
             entrance = room.GetRandomCell();
         }
@@ -134,11 +150,79 @@ public class SimpleDungeon : Dungeon
             roomCount = GenerateRooms(hangingRooms, hangingCorridors, minimumRoomSize, maximumRoomSize, roomCount);            
         } 
 
-        ConnectLeftoverCorridors(hangingCorridors);
+        if(!allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors);
+
+        CleanUp();
 
         exit = _lastRoom.GetRandomCell();
 
         onGenerationEnd.Invoke();
+    }
+
+    public bool IsWithinDungeon(Vector2 cell)
+    {
+        return IsWithinDungeon(cell.x, cell.y);
+    }
+
+    public bool IsWithinDungeon(float x, float y)
+    {
+        return x >= 0
+            && x < Width
+            && y >= 0
+            && y < Height;
+    }
+
+    private void CleanUp()
+    {
+        List<Corridor> toAdd = new List<Corridor>();
+
+        foreach(Corridor c in _corridors)
+        {
+            Corridor inUse = c;
+            int originalLength = c.Length;
+            bool haveToSplit = false;
+            for(int i = 1; i <= originalLength; i++)
+            {
+                Vector2 offset = new Vector2(inUse.Direction.y, inUse.Direction.x);
+                Vector2 cell = inUse[originalLength - i];
+                if (    (!IsWithinDungeon(cell + offset) || this[cell + offset] == (int)CellType.wall) 
+                     && (!IsWithinDungeon(cell - offset) || this[cell - offset] == (int)CellType.wall))
+                {
+                    haveToSplit = true;
+                }
+                else
+                {
+                    this[inUse[originalLength - i]] = (int)CellType.room;
+                    if(!haveToSplit)
+                        inUse.Length--;
+                    else
+                    {
+                        Corridor[] parts = inUse.RemoveAt(originalLength - i);
+                        toAdd.Remove(inUse);
+                        inUse.Length = 0;
+
+                        if (parts[1] != null)
+                        {
+                            toAdd.Add(parts[1]);
+                        }
+
+                        if(parts[0] != null)
+                        {
+                            toAdd.Add(parts[0]);
+                            inUse = parts[0];
+                            haveToSplit = false;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                            
+                    }
+                }
+            }
+        }
+        toAdd.ForEach(corridor => _corridors.Add(corridor));
+        _corridors.RemoveAll(corridor => corridor.Length <= 0);
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
@@ -155,7 +239,7 @@ public class SimpleDungeon : Dungeon
             if (!ExtendCorridor(corridor)) //first of all, try to extend the corridor untils it intersects something
             {
                 //if it fails, them remove every corridor that is not connected to another one
-                corridorsStillHanging.Enqueue(corridor);
+                if(!allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
             }
         }
 
@@ -177,13 +261,13 @@ public class SimpleDungeon : Dungeon
         
         while (corridor.Bounds.xMax < Width - _minimumRoomWidth * corridor.Direction.x
             && corridor.Bounds.yMax < Height - _minimumRoomHeight * corridor.Direction.y
-            && this[corridor.LastCell + corridor.Direction] == CellType.wall)
+            && this[corridor.LastCell + corridor.Direction] == (int)CellType.wall)
         {
             corridor.Length++;
         }
 
         if (oldLength != corridor.Length
-            && this[corridor.LastCell] != CellType.wall)
+            && this[corridor.LastCell] != (int)CellType.wall)
         {
             MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
             return true;
@@ -201,35 +285,40 @@ public class SimpleDungeon : Dungeon
     /// <param name="corridor">Corridor to be reduced.</param>
     private void TrimCorridor(Corridor corridor)
     {
-        Rect original = corridor.Bounds;
+        int originalLength = corridor.Length;
 
         bool intersectionFound = false;
 
+        Vector2 offset = new Vector2(corridor.Direction.y, corridor.Direction.x);
+
         while(corridor.Length > 0 && !intersectionFound)
         {
-            Vector2 offset = new Vector2(corridor.Direction.y, corridor.Direction.x);
-
             //look around the last cell of the corridor
             for (int i = -1; i < 2; i += 2)
             {
                 Vector2 adjacentCell = corridor.LastCell + offset * i;
-                if (adjacentCell.x >= 0 && adjacentCell.x < Width && adjacentCell.y >= 0 && adjacentCell.y < Height)
+                if (IsWithinDungeon(adjacentCell))
                 {
                     //if an adjacent corridor was found, stop searching
-                    if (this[adjacentCell] == CellType.corridor)
+                    if (this[adjacentCell] == (int)CellType.corridor)
                     {
                         intersectionFound = true;
                         break;
                     }
                 }
             }
-            corridor.Length--;
+            if (!intersectionFound)
+            {
+                //Remove "excess cells" from the corridor
+                this[corridor.LastCell] = (int)CellType.wall;
+                corridor.Length--;
+            }
         }
 
-        //Remove "excess cells" from the corridor
-        if(corridor.Bounds.size != original.size)
+        if(corridor.Length != originalLength)
         {
-            MarkCells(corridor.LastCell, original.size - corridor.Bounds.size, CellType.wall);
+            if(corridor.Length == 0)
+                _corridors.Remove(corridor);
         }
     }
 
@@ -252,8 +341,8 @@ public class SimpleDungeon : Dungeon
 
             if (RoomFactory.CarveRoom(this, corridor, minimumRoomSize, maximumRoomSize, _maximumTries, out room))
             {
-                room.Cells.ForEach(cell => this[cell] = CellType.room);
                 hangingRooms.Enqueue(room);
+                room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
 
                 _lastRoom = room;
 
@@ -276,7 +365,7 @@ public class SimpleDungeon : Dungeon
     /// <returns>Every corridor generated.</returns>
     private Queue<Corridor> GenerateCorridors(Queue<Room> hangingRooms)
     {
-        Queue<Corridor> corridors = new Queue<Corridor>(hangingRooms.Count); //assume at least one corridor per room at first
+        Queue<Corridor> hangingCorridors = new Queue<Corridor>(hangingRooms.Count); //assume at least one corridor per room at first
 
         //until every room has a corridor going out of it, make corridors
         while (hangingRooms.Count > 0)
@@ -286,18 +375,20 @@ public class SimpleDungeon : Dungeon
             Corridor corridor;
             if (CorridorFactory.CarveCorridor(this, room, Vector2.right, new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
             {
-                corridors.Enqueue(corridor);
+                hangingCorridors.Enqueue(corridor);
+                _corridors.Add(corridor);
                 MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor, false);
             }
 
             if (CorridorFactory.CarveCorridor(this, room, Vector2.up, new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
             {
-                corridors.Enqueue(corridor);
+                hangingCorridors.Enqueue(corridor);
+                _corridors.Add(corridor);
                 MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor, false);
             }
         }
 
-        return corridors;
+        return hangingCorridors;
     }
 
     /// <summary>
@@ -313,7 +404,7 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
             {
-                if (this[col, row] == type)
+                if (this[col, row] == (int)type)
                     return true;
             }
         }
@@ -339,11 +430,9 @@ public class SimpleDungeon : Dungeon
                 int y = (int)(cell.y + i);
                 int x = (int)(cell.x + j);
 
-                if(y >= 0 && y < Height
-                    && x >= 0 && x < Width
-                    && this[x, y] == CellType.wall)
+                if(IsWithinDungeon(x, y)
+                    && this[x, y] == (int)CellType.wall)
                 {
-                    //if this cell is within the dungeon and have at least one unmarked cell adjacent to it, then it is at the edge of a room
                     return true;
                 }
 
@@ -367,10 +456,10 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)start.x; col < start.x + size.x && col < Width; col++)
             {
-                if (this[col, row] != CellType.wall && !ignoreIntersection)
+                if (this[col, row] != (int)CellType.wall && !ignoreIntersection)
                     return new Vector2(col, row);
 
-                this[col, row] = type;                
+                this[col, row] = (int)type;                
             }
         }
 
