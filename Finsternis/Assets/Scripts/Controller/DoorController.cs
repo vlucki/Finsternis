@@ -6,7 +6,7 @@ public class DoorController : MonoBehaviour
 
     public void Open()
     {
-        Vector3 damageSource = transform.position - GetComponent<Character>().lastAttacker.transform.position;
+        Vector3 damageSource = transform.position - GetComponent<Entity>().lastDamageSource.transform.position;
 
         Animator anim = GetComponent<Animator>();
         anim.SetTrigger("opening");

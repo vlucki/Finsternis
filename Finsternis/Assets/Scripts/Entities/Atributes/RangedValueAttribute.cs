@@ -3,10 +3,8 @@
 [System.Serializable]
 public class RangedValueAttribute : EntityAttribute<float>
 {
-    [SerializeField]
     private FloatValueConstraint _min;
-
-    [SerializeField]
+    
     private FloatValueConstraint _max;
 
     public float Min { get { return _min.Value; } }

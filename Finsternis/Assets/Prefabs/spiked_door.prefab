@@ -27,8 +27,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 488770}
   - 95: {fileID: 9579714}
-  - 114: {fileID: 11458200}
-  - 114: {fileID: 11486278}
+  - 114: {fileID: 11451728}
   - 114: {fileID: 11445622}
   m_Layer: 0
   m_Name: spiked_door
@@ -274,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f602eebf3a264db2a68aa26fbe3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11458200
+--- !u!114 &11451728
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -282,18 +281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 146556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 916d930ad8c2bb5449778b4f7f0d0ad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11486278
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 146556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
+  m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onDeath:
@@ -320,6 +308,15 @@ MonoBehaviour:
   lastAttacker: {fileID: 0}
   _health:
     _name: hp
+    value: 10
+    _min:
+      _name: min
+      _value: 0
+    _max:
+      _name: max
+      _value: 10
+  _mana:
+    _name: mp
     value: 5
     _min:
       _name: min
@@ -327,15 +324,6 @@ MonoBehaviour:
     _max:
       _name: max
       _value: 5
-  _mana:
-    _name: mp
-    value: 0
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 0
   _damage:
     _name: dmg
     value: 1

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Collider))]
 public class PhysicalAttackHandler : MonoBehaviour
 {
-    public Character owner;
+    public Entity owner;
     public List<Collider> ignoreList;
     public Vector2 impactMultiplier = new Vector2(2, 3);
     public ForceMode modeOnImpact = ForceMode.VelocityChange;
@@ -15,7 +15,7 @@ public class PhysicalAttackHandler : MonoBehaviour
     {
         if (!owner)
         {
-            owner = GetComponentInParent<Character>();
+            owner = GetComponentInParent<Entity>();
             if (!owner)
                 throw new System.InvalidOperationException("Attack handler needs an owner!");
         }
@@ -40,15 +40,15 @@ public class PhysicalAttackHandler : MonoBehaviour
             other.transform.LookAt(target);
         }
 
-        Character otherChar = other.GetComponent<Character>();
+        Entity otherChar = other.GetComponent<Entity>();
         if (!otherChar)
-            otherChar = other.GetComponentInParent<Character>();
+            otherChar = other.GetComponentInParent<Entity>();
 
         if (otherChar)
         {
             CharacterController controller = other.GetComponent<CharacterController>();
             if(controller) controller.Hit();
-            owner.Attack(otherChar);
+            owner.DoDamage(otherChar);
         }
     }
 

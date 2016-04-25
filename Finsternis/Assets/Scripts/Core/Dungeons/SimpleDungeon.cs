@@ -8,9 +8,11 @@ public class SimpleDungeon : Dungeon
     {
         wall = 0,
         room = 10,
-        corridor = 20
+        corridor = 20,
+        trappedFloor = 30
     }
 
+    private List<Corridor> _rooms;
     private List<Corridor> _corridors;
 
     public bool allowDeadEnds = false;
@@ -377,14 +379,20 @@ public class SimpleDungeon : Dungeon
             {
                 hangingCorridors.Enqueue(corridor);
                 _corridors.Add(corridor);
-                MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor, false);
+                MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
+                if (Random.value > 0.8f)
+                    this[corridor.Pos + corridor.Direction * Random.Range(0, corridor.Length)] = (int)CellType.trappedFloor;
+
             }
 
             if (CorridorFactory.CarveCorridor(this, room, Vector2.up, new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
             {
                 hangingCorridors.Enqueue(corridor);
                 _corridors.Add(corridor);
-                MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor, false);
+                MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
+                if (Random.value > 0.8f)
+                    this[corridor.Pos + corridor.Direction * Random.Range(0, corridor.Length)] = (int)CellType.trappedFloor;
+
             }
         }
 

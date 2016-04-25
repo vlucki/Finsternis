@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using CellType = SimpleDungeon.CellType;
-using Room = Dungeon.Room;
-using Corridor = Dungeon.Corridor;
 
 public static class RoomFactory
 {

@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     private SimpleDungeonDrawer _drawer;
 
     [SerializeField]
-    private Character _player;
+    private Entity _player;
 
     [SerializeField]
     [Range(1, 99)]
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
             }
 
             if(!_player)
-                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
 
             _dungeonCount = -1;
 
@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour
 
         if (controller)
         {
-            ((RangedValueAttribute)controller.GetComponent<Character>().Attributes["hp"]).SetValue(0);
+            ((RangedValueAttribute)controller.GetComponent<Entity>().Attributes["hp"]).SetValue(0);
         }
         else
         {

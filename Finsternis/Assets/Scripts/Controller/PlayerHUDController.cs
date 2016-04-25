@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerHUDController : MonoBehaviour
 {
     [SerializeField]
-    private Character _character;
+    private Entity _character;
 
     [SerializeField]
     private Text _txtName;

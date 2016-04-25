@@ -12,13 +12,13 @@ public sealed class DamageInfo
 
     private DamageType _type;
     private int _amount;
-    private Character _source;
+    private Entity _source;
 
     public DamageType Type { get { return _type; } }
     public int Amount { get { return _amount; } }
-    public Character Source { get { return _source; } }
+    public Entity Source { get { return _source; } }
 
-    public DamageInfo(DamageType type, int amount, Character source)
+    public DamageInfo(DamageType type, int amount, Entity source)
     {
         _type = type;
         _amount = amount;

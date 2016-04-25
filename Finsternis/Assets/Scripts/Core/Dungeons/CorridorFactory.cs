@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using CellType = SimpleDungeon.CellType;
-using Room = Dungeon.Room;
-using Corridor = Dungeon.Corridor;
 
 public static class CorridorFactory
 {

@@ -11,7 +11,7 @@ public class EnemyHUDController : MonoBehaviour
     [SerializeField]
     private Text _txtName;
     [SerializeField]
-    private Character _enemy;
+    private Entity _enemy;
 
 
     private RangedValueAttribute _health;
@@ -20,7 +20,7 @@ public class EnemyHUDController : MonoBehaviour
         if(!_mainCamera)
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        _enemy = GetComponentInParent<Character>();
+        _enemy = GetComponentInParent<Entity>();
 
         if (!_hpMeter)
         {

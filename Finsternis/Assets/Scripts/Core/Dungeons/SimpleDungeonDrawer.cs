@@ -18,7 +18,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     public GameObject[] walls;
     public GameObject[] doorways;
-    public GameObject[] floors;
+    public GameObject[] floorTiles;
+    public GameObject[] floorTraps;
 
     private GameObject _floor;
 
@@ -55,7 +56,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
             }
         }
 
-        foreach(Dungeon.Corridor corridor in _dungeon.Corridors)
+        foreach(Corridor corridor in _dungeon.Corridors)
         {
             if(corridor.Length > 1)
             {
@@ -108,34 +109,57 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private void MakeFloor(int cellX, int cellY)
     {
-
+        GameObject floor = null;
+        string nameSuffix = " (" + cellX + ";" + cellY + ")";
         Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
-        GameObject floor = MakePlane(pos, new Vector3(scale.x, scale.z, 1), Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial, (CellType)_dungeon[cellX, cellY] + " (" + cellX + ";" + cellY + ")");
-        floor.transform.SetParent(gameObject.transform);
+        if (_dungeon[cellX, cellY] < (int)CellType.trappedFloor)
+        {
+            floor = MakePlane(pos, 
+                new Vector3(scale.x, scale.z, 1), 
+                Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial, 
+                (CellType)_dungeon[cellX, cellY] + nameSuffix);
 
-        if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
-        {
-            floor.name = "Exit " + floor.name.Remove(0, floor.name.IndexOf('('));
-            floor.tag = "Exit";
-            floor.AddComponent<Exit>();
-            return;
-        }
-        else
-        {
-            floor.layer = LayerMask.NameToLayer("Floor");
-            if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
+            if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
             {
-                GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                pedestal.name = "Entrance";
-                pedestal.transform.SetParent(floor.transform);
-                pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
-                pedestal.transform.localPosition = Vector3.zero;
+                floor.name = "Exit " + nameSuffix;
+                floor.tag = "Exit";
+                floor.AddComponent<Exit>();
+            }
+            else
+            {
+                if (floorTiles != null && floorTiles.Length > 0 && Random.value > 0.5f)
+                {
+                    floor = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+                    floor.transform.localScale = scale;
+                }
+                if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
+                {
+                    GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    pedestal.name = "Entrance";
+                    pedestal.transform.SetParent(floor.transform);
+                    pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
+                    pedestal.transform.localPosition = Vector3.zero;
 #if UNITY_EDITOR
-                DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
+                    DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
 #else
                 Destroy(pedestal.GetComponent<CapsuleCollider>());
 #endif
+                }
             }
+        }
+        else
+        {
+            if (floorTraps != null && floorTraps.Length > 0)
+            {
+                floor = Instantiate(floorTraps[Random.Range(0, floorTraps.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+                floor.transform.name += nameSuffix;
+                floor.transform.localScale = scale;
+            }
+        }
+        if (floor)
+        {
+            floor.layer = LayerMask.NameToLayer("Floor");
+            floor.transform.SetParent(gameObject.transform);
         }
     }
 

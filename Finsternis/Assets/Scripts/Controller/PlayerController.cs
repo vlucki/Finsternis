@@ -60,12 +60,12 @@ public class PlayerController : CharacterController
                     continue;
                 else
                 {
-                    Character characterHit = col.GetComponent<Character>();
+                    Entity characterHit = col.GetComponent<Entity>();
                     if (characterHit)
                     {
                         characterHit.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
                         characterHit.GetComponent<CharacterController>().Hit();
-                        this.character.Attack(characterHit);
+                        this.character.DoDamage(characterHit);
                     }
                 }
             }
