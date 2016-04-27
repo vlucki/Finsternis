@@ -71,11 +71,6 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        //if (_remainingTime > 0)
-        //{
-        //    _remainingTime -= Time.deltaTime;
-        //}
-        //else
         if (Input.GetAxis("Cancel") > 0)
         {
             if (!_isToggleButtonDown)
@@ -89,11 +84,6 @@ public class MenuController : MonoBehaviour
         {
             _isToggleButtonDown = false;
         }
-    }
-
-    public void Test()
-    {
-        Debug.Log("TEST");
     }
 
     public void ToggleMenu()
@@ -113,7 +103,7 @@ public class MenuController : MonoBehaviour
         _selectable.Select();
         _options[0].Select();
 
-        this.transform.position = this._followBehaviour.target.transform.position - 2 * this._followBehaviour.offset;
+        this.transform.position = this._followBehaviour.target.transform.position + 2 * this._followBehaviour.offset;
     }
 
     public void Close(bool usedToggleButton = false)

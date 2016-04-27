@@ -12,7 +12,7 @@ public class SimpleDungeon : Dungeon
         trappedFloor = 30
     }
 
-    private List<Corridor> _rooms;
+    private List<Room> _rooms;
     private List<Corridor> _corridors;
 
     public bool allowDeadEnds = false;
@@ -118,6 +118,7 @@ public class SimpleDungeon : Dungeon
 
         _dungeon = new int[_dungeonWidth, _dungeonHeight];
         _corridors = new List<Corridor>();
+        _rooms = new List<Room>();
 
         _maximumRoomHeight  = Mathf.Clamp(_maximumRoomHeight, 0, Height);
         _maximumRoomWidth   = Mathf.Clamp(_maximumRoomWidth, 0, Width);
@@ -136,8 +137,9 @@ public class SimpleDungeon : Dungeon
         Room room;
         if (RoomFactory.CarveRoom(this, Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, _maximumTries, out room))
         {
-            room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
+            MarkCells(room);
             hangingRooms.Enqueue(room);
+            _rooms.Add(room);
             entrance = room.GetRandomCell();
         }
         else
@@ -225,6 +227,23 @@ public class SimpleDungeon : Dungeon
         }
         toAdd.ForEach(corridor => _corridors.Add(corridor));
         _corridors.RemoveAll(corridor => corridor.Length <= 0);
+
+        //TODO: look into this and see if there's a problem here
+        for (int i = _rooms.Count - 1; i > 0; i--)
+        {
+            Room roomA = _rooms[i];
+            for (int j = i - 1; j >= 0; j--)
+            {
+                Room roomB = _rooms[j];
+                if (roomA.Overlaps(roomB))
+                {
+                    roomA.Merge(roomB);
+                    _rooms.RemoveAt(j);
+                    i--;
+                    j--;
+                }
+            }
+        }
     }
 
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
@@ -344,8 +363,8 @@ public class SimpleDungeon : Dungeon
             if (RoomFactory.CarveRoom(this, corridor, minimumRoomSize, maximumRoomSize, _maximumTries, out room))
             {
                 hangingRooms.Enqueue(room);
-                room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
-
+                MarkCells(room);
+                _rooms.Add(room);
                 _lastRoom = room;
 
                 roomCount++;
@@ -472,5 +491,15 @@ public class SimpleDungeon : Dungeon
         }
 
         return start+size;
+    }
+
+    private void MarkCells(Room room)
+    {
+        room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
+    }
+
+    private void MarkCells(Corridor corridor)
+    {
+        MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
     }
 }

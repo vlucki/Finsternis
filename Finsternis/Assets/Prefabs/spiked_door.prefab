@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3318118}
   - 23: {fileID: 2335186}
   - 65: {fileID: 6523070}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: leftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 95: {fileID: 9579714}
   - 114: {fileID: 11451728}
   - 114: {fileID: 11445622}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: spiked_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - 33: {fileID: 3390458}
   - 23: {fileID: 2322516}
   - 65: {fileID: 6594524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: rightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - 4: {fileID: 458554}
   - 33: {fileID: 3315206}
   - 23: {fileID: 2370198}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,52 +305,26 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  lastAttacker: {fileID: 0}
-  _health:
+  lastDamageSource: {fileID: 0}
+  _invincibleFrames: 20
+  health:
     _name: hp
-    value: 10
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 10
-  _mana:
+    value: 1
+  mana:
     _name: mp
     value: 5
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 5
-  _damage:
+  damage:
     _name: dmg
     value: 1
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 100
-  _defense:
-    _name: def
+  speed:
+    _name: spd
     value: 1
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 100
-  _magicResistence:
+  magicResistence:
     _name: mDef
     value: 1
-    _min:
-      _name: min
-      _value: 0
-    _max:
-      _name: max
-      _value: 100
+  defense:
+    _name: def
+    value: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

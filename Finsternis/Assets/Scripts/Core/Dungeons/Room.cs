@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Room : DungeonSection
 {
+    private HashSet<Vector2> _cellsMirror;
     private List<Vector2> _cells;
 
     public List<Vector2> Cells { get { return _cells; } }
@@ -11,43 +12,41 @@ public class Room : DungeonSection
     {
         _bounds = new Rect(position, Vector2.zero);
         _cells = new List<Vector2>();
+        _cellsMirror = new HashSet<Vector2>();
     }
 
-    private void AdjustSize(Vector2 pos)
+    public Room(Room baseRoom)
     {
-        if (pos.x < _bounds.x)
-            _bounds.x = pos.x;
-        else if (pos.x > _bounds.xMax)
-            _bounds.xMax = pos.x;
-
-        if (pos.y < _bounds.y)
-            _bounds.y = pos.y;
-        else if (pos.y > _bounds.yMax)
-            _bounds.yMax = pos.y;
+        _bounds = baseRoom._bounds;
+        _cells = new List<Vector2>(baseRoom._cells);
+        _cellsMirror = new HashSet<Vector2>(baseRoom._cells);
     }
 
-    public void Merge(Room other)
+    public static Room operator +(Room roomA, Room roomB)
     {
-        _cells.AddRange(other._cells);
-        _bounds.xMin = Mathf.Min(_bounds.xMin, other._bounds.xMin);
-        _bounds.yMin = Mathf.Min(_bounds.yMin, other._bounds.yMin);
-        _bounds.xMax = Mathf.Max(_bounds.xMax, other._bounds.xMax);
-        _bounds.yMax = Mathf.Max(_bounds.yMax, other._bounds.yMax);
+        Room mergedRooms = new Room(roomA);
+        mergedRooms.Merge(roomB);
+
+        return mergedRooms;
     }
 
-    public bool Intersects(Room other)
+    public void Merge(params Room[] others)
     {
-        if (other._bounds.Overlaps(other._bounds))
+        foreach (Room other in others)
         {
             foreach(Vector2 cell in other._cells)
             {
-                if (_cells.Contains(cell))
-                {
-                    return true;
-                }
+                if (_cellsMirror.Add(cell))
+                    _cells.Add(cell);
             }
+            _bounds.min = Vector2.Min(_bounds.min, other._bounds.min);
+            _bounds.max = Vector2.Max(_bounds.max, other._bounds.max);
         }
-        return false;
+    }
+
+    public bool Overlaps(Room other)
+    {
+        return other._bounds.Overlaps(other._bounds) && _cellsMirror.Overlaps(other._cellsMirror);
     }
 
     public void AddCell(float x, float y)
@@ -55,10 +54,19 @@ public class Room : DungeonSection
         AddCell(new Vector2(x, y));
     }
 
-    public void AddCell(Vector2 pos)
+    public void AddCell(Vector2 newCell)
     {
-        _cells.Add(pos);
-        AdjustSize(pos);
+        if (_cellsMirror.Add(newCell))
+        {
+            _cells.Add(newCell);
+            AdjustSize(newCell);
+        }
+    }
+
+    private void AdjustSize(Vector2 newCell)
+    {
+        _bounds.min = Vector2.Min(_bounds.min, newCell);
+        _bounds.max = Vector2.Max(_bounds.max, newCell + Vector2.one);
     }
 
     public Vector2 GetRandomCell()

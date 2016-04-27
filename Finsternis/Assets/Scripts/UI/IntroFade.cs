@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class IntroFade : MonoBehaviour {
 
     [Range(0, 10)]
-    public float fadeOutTime = 5;
+    public float fadeOutTime = 3;
     public bool skippable = true;
     public KeyCode skipKey = KeyCode.Escape;
     public Image imageToFade;
@@ -19,11 +19,11 @@ public class IntroFade : MonoBehaviour {
         {
             imageToFade.CrossFadeAlpha(0, fadeOutTime / 2, false);
         }
-        StartCoroutine("countDown");
+        StartCoroutine(CountDown());
 	}
 
-    private IEnumerator countDown(){
-        yield return new WaitForSeconds(5);
+    private IEnumerator CountDown(){
+        yield return new WaitForSeconds(fadeOutTime);
         LoadNextScene();
     }
 

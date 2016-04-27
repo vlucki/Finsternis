@@ -98,6 +98,11 @@ public abstract class CharacterController : MonoBehaviour
         return characterAnimator.GetBool(DeadBool);
     }
 
+    public bool IsFalling()
+    {
+        return characterAnimator.GetBool(FallingBool);
+    }
+
     public bool ShouldWalk()
     {
         return characterMovement.Direction != Vector3.zero;

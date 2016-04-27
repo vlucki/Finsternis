@@ -59,7 +59,7 @@ public class Entity : MonoBehaviour
         attributeTable = new AttributeTable(health, mana, damage, defense, magicResistence, speed);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (!_dead)
         {

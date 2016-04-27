@@ -9,7 +9,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     [SerializeField]
     private SimpleDungeon _dungeon;
-    public Vector3 scale = Vector3.one;
+    [Tooltip("Only of walls and floors generated through primitives.")]
+    public Vector3 overallScale = Vector3.one;
+    public float extraWallHeight = 3;
     public Material defaultWallMaterial;
     public PhysicMaterial defaultWallPhysicMaterial;
     public Material defaultFloorMaterial;
@@ -75,24 +77,24 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
                     if (CanMakeDoorway((int)pos.x, (int)pos.z))
                     {
-                        pos.x *= scale.x;
-                        pos.x += scale.x / 2;
+                        pos.x *= overallScale.x;
+                        pos.x += overallScale.x / 2;
 
-                        pos.z *= -scale.z;
-                        pos.z -= scale.z / 2;
+                        pos.z *= -overallScale.z;
+                        pos.z -= overallScale.z / 2;
 
 
                         if (direction.x == 90 || direction.x == 270)
                         {
-                            pos.x += scale.x / 2.5f * direction.y;
+                            pos.x += overallScale.x / 2.5f * direction.y;
                             if (direction.x == 270)
-                                pos.x += (scale.x * 0.8f);
+                                pos.x += (overallScale.x * 0.8f);
                         }
                         else
                         {
-                            pos.z -= scale.z / 2.5f * direction.y;
+                            pos.z -= overallScale.z / 2.5f * direction.y;
                             if (direction.x == 0)
-                                pos.z += (scale.z * 0.8f);
+                                pos.z += (overallScale.z * 0.8f);
                         }
 
                         GameObject doorway = Instantiate(prefab, pos, Quaternion.Euler(Vector3.up * -direction.x)) as GameObject;
@@ -111,11 +113,11 @@ public class SimpleDungeonDrawer : MonoBehaviour
     {
         GameObject floor = null;
         string nameSuffix = " (" + cellX + ";" + cellY + ")";
-        Vector3 pos = new Vector3(cellX * scale.x + scale.x / 2, 0, -cellY * scale.z - scale.z / 2);
+        Vector3 pos = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
         if (_dungeon[cellX, cellY] < (int)CellType.trappedFloor)
         {
             floor = MakePlane(pos, 
-                new Vector3(scale.x, scale.z, 1), 
+                new Vector3(overallScale.x, overallScale.z, 1), 
                 Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial, 
                 (CellType)_dungeon[cellX, cellY] + nameSuffix);
 
@@ -130,7 +132,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 if (floorTiles != null && floorTiles.Length > 0 && Random.value > 0.5f)
                 {
                     floor = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                    floor.transform.localScale = scale;
+                    floor.transform.localScale = overallScale;
                 }
                 if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
                 {
@@ -151,9 +153,11 @@ public class SimpleDungeonDrawer : MonoBehaviour
         {
             if (floorTraps != null && floorTraps.Length > 0)
             {
-                floor = Instantiate(floorTraps[Random.Range(0, floorTraps.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+                floor = Instantiate<GameObject>(floorTraps[_dungeon[cellX, cellY] - (int)CellType.trappedFloor]);
+                floor.GetComponent<Trap>().Init(new Vector2(cellX, cellY));
+                floor.transform.position = pos;
                 floor.transform.name += nameSuffix;
-                floor.transform.localScale = scale;
+                floor.transform.localScale = overallScale;
             }
         }
         if (floor)
@@ -228,7 +232,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     {
         int wallType = (int)CellType.wall;
         GameObject wall;
-        Vector3 wallPosition = new Vector3(cellX*scale.x, 0, -cellY*scale.y); ;
+        Vector3 wallPosition = new Vector3(cellX*overallScale.x, 0, -cellY*overallScale.y); ;
         if (walls != null && walls.Length > 0)
         {
             wall = walls[Random.Range(0, walls.Length)];
@@ -267,8 +271,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 }
             }
 
-            wall.transform.localScale = scale;
-            wallPosition = new Vector3(cellX * scale.x + scale.x/2, 0, -cellY * scale.z - scale.z/2);
+            wall.transform.localScale = new Vector3(overallScale.x, overallScale.y + extraWallHeight, overallScale.z);
+            wallPosition = new Vector3(cellX * overallScale.x + overallScale.x/2, 0, -cellY * overallScale.z - overallScale.z/2);
         }
 
         wall.transform.position = wallPosition;
@@ -396,8 +400,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private void MakeFloor(float width, float height)
     {
-        width *= scale.x;
-        height *= scale.z;
+        width *= overallScale.x;
+        height *= overallScale.z;
         _floor = GameObject.CreatePrimitive(PrimitiveType.Quad);
         _floor.name = "floor";
         _floor.transform.localScale = new Vector3(width, height, 1);

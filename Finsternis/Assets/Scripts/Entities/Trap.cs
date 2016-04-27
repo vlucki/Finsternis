@@ -1,0 +1,76 @@
+﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class Trap : Entity
+{
+
+    public float damageModifierOnTouch = 2;
+    public float damageModifierOnStay = 1;
+
+    protected float baseDamage;
+
+    public HashSet<Entity> entitiesInContact;
+
+    protected SimpleDungeon dungeon;
+
+    protected Vector2 coordinates = -Vector2.one;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        entitiesInContact = new HashSet<Entity>();
+        baseDamage = damage.Value;
+    }
+
+    public void Init(Vector2 coordinates)
+    {
+        if (this.coordinates == -Vector2.one)
+            this.coordinates = coordinates;
+        Align();
+    }
+
+    protected virtual void Align()
+    {
+        dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
+        Vector2 corridorDir = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates)).Direction;
+        transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
+    }
+
+    public virtual IEnumerator OnContinuousTouch(Entity e)
+    {
+        yield return new WaitForEndOfFrame();
+        while (entitiesInContact.Contains(e))
+        {
+            damage.SetValue(baseDamage + damageModifierOnStay);
+            DoDamage(e);
+            damage.SetValue(baseDamage);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public virtual void OnTouch(Trigger source)
+    {
+        Entity e = source.ObjectEntered.GetComponentInParent<Entity>();
+        if (e)
+        {
+            if (!entitiesInContact.Contains(e))
+            {
+                damage.SetValue(baseDamage + damageModifierOnTouch);
+                DoDamage(e);
+                damage.SetValue(baseDamage);
+                entitiesInContact.Add(e);
+                StartCoroutine(OnContinuousTouch(e));
+            }
+        }
+    }
+
+    public virtual void OnExit(Trigger source)
+    {
+        Entity e = source.ObjectExited.GetComponentInParent<Entity>();
+        if (e)
+        {
+            entitiesInContact.Remove(e);
+        }
+    }
+}
