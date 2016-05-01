@@ -155,9 +155,11 @@ public class SimpleDungeonDrawer : MonoBehaviour
             {
                 floor = Instantiate<GameObject>(floorTraps[_dungeon[cellX, cellY] - (int)CellType.trappedFloor]);
                 floor.GetComponent<Trap>().Init(new Vector2(cellX, cellY));
-                floor.transform.position = pos;
-                floor.transform.name += nameSuffix;
-                floor.transform.localScale = overallScale;
+                if (floor)
+                {
+                    floor.transform.position = pos;
+                    floor.transform.name += nameSuffix;
+                }
             }
         }
         if (floor)
@@ -276,8 +278,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
         }
 
         wall.transform.position = wallPosition;
+        wall.layer = LayerMask.NameToLayer("Wall");
         MergeMeshes(wall, true);
-        wall.transform.SetParent(gameObject.transform);
+        DestroyImmediate(wall);
     }
 
     private GameObject MakePlane(Vector3 pos, Vector3 scale, Vector3 rotation, Material mat, string name = "Ceiling")
@@ -333,7 +336,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         {
             if (j >= combine.Length)
             {
-                AddSection(j, combine);
+                AddSection(j, combine, parent, nameAfterParent ? parent.name : null);
                 combine = new CombineInstance[Mathf.Min(meshFilters.Length - i, mergeThreshold)];
                 j = 0;
                 combined = true;
@@ -363,7 +366,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
         if (!combined)
         {
-            AddSection(j, combine, nameAfterParent ? parent.name : null);
+            AddSection(j, combine, parent, nameAfterParent ? parent.name : null);
         }
 
         foreach (MeshFilter m in meshFilters)
@@ -371,21 +374,26 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     }
 
-    private void AddSection(int j, CombineInstance[] combine, string name = "")
+    private void AddSection(int j, CombineInstance[] combine, GameObject original, string name = null)
     {
         if (System.String.IsNullOrEmpty(name))
             name = "section" + j;
+
         GameObject sectionContainer = new GameObject(name);
-        sectionContainer.transform.SetParent(transform);
+
         Mesh m = new Mesh();
         m.CombineMeshes(combine);
         sectionContainer.AddComponent<MeshFilter>().mesh = m;
+
         MeshRenderer r = sectionContainer.GetComponent<MeshRenderer>();
         if (!r)
             r = sectionContainer.AddComponent<MeshRenderer>();
+
         r.material = defaultWallMaterial;
         
         sectionContainer.AddComponent<MeshCollider>().sharedMaterial = defaultWallPhysicMaterial;
+        sectionContainer.transform.SetParent(transform);
+        sectionContainer.layer = original.layer;
     }
 
     public void Clear()

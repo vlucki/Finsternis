@@ -33,8 +33,17 @@ public class Trap : Entity
     protected virtual void Align()
     {
         dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
-        Vector2 corridorDir = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates)).Direction;
-        transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
+        try
+        {
+            Corridor corridor = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates));
+            Vector2 corridorDir = corridor.Direction;
+            transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
+        }
+        catch (System.NullReferenceException ex)
+        {
+            Debug.LogError("Failed to find corridor containing the coordinate " + coordinates);
+            GameObject.DestroyImmediate(this.gameObject);
+        }
     }
 
     public virtual IEnumerator OnContinuousTouch(Entity e)

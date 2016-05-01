@@ -176,6 +176,10 @@ public class SimpleDungeon : Dungeon
             && y < Height;
     }
 
+
+    /// <summary>
+    /// Removes corridors that don't really look like corridors (eg. have walls only on one side)
+    /// </summary>
     private void CleanUp()
     {
         List<Corridor> toAdd = new List<Corridor>();
@@ -189,8 +193,9 @@ public class SimpleDungeon : Dungeon
             {
                 Vector2 offset = new Vector2(inUse.Direction.y, inUse.Direction.x);
                 Vector2 cell = inUse[originalLength - i];
-                if (    (!IsWithinDungeon(cell + offset) || this[cell + offset] == (int)CellType.wall) 
-                     && (!IsWithinDungeon(cell - offset) || this[cell - offset] == (int)CellType.wall))
+                if (this[cell] == (int)CellType.corridor    
+                    && (!IsWithinDungeon(cell + offset) || this[cell + offset] == (int)CellType.wall) 
+                    && (!IsWithinDungeon(cell - offset) || this[cell - offset] == (int)CellType.wall))
                 {
                     haveToSplit = true;
                 }
@@ -225,8 +230,21 @@ public class SimpleDungeon : Dungeon
                 }
             }
         }
-        toAdd.ForEach(corridor => _corridors.Add(corridor));
+        _corridors.AddRange(toAdd);
         _corridors.RemoveAll(corridor => corridor.Length <= 0);
+
+        for(int i = _corridors.Count - 1; i >= 0; i--)
+        {
+            Corridor corridor = Corridors[i];
+
+            if (corridor.Length <= 0)
+                _corridors.RemoveAt(i);
+            else if (corridor.Length != 2 && Random.value >= 0.8f)
+            {
+                Vector2 extra = (corridor.Length == 1 ? Vector2.zero : corridor.Direction * Random.Range(1, corridor.Length - 2));
+                this[corridor.Pos + extra] = (int)CellType.trappedFloor + Random.Range(0, 2);
+            }
+        }
 
         //TODO: look into this and see if there's a problem here
         for (int i = _rooms.Count - 1; i > 0; i--)
@@ -246,6 +264,10 @@ public class SimpleDungeon : Dungeon
         }
     }
 
+    /// <summary>
+    /// Tries to connect every corridor that still isn't connected to something.
+    /// </summary>
+    /// <param name="hangingCorridors">The corridors that still are not attached to another room section (ie. have a dead end)</param>
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
     {
         if(hangingCorridors.Count == 0)
@@ -288,7 +310,7 @@ public class SimpleDungeon : Dungeon
         }
 
         if (oldLength != corridor.Length
-            && this[corridor.LastCell] != (int)CellType.wall)
+            && this[corridor.LastCell + corridor.Direction] != (int)CellType.wall)
         {
             MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
             return true;
@@ -394,24 +416,14 @@ public class SimpleDungeon : Dungeon
             Room room = hangingRooms.Dequeue();
 
             Corridor corridor;
-            if (CorridorFactory.CarveCorridor(this, room, Vector2.right, new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
+            for(int i = 0; i < 2; i++)
             {
-                hangingCorridors.Enqueue(corridor);
-                _corridors.Add(corridor);
-                MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
-                if (Random.value > 0.8f)
-                    this[corridor.Pos + corridor.Direction * Random.Range(0, corridor.Length)] = (int)CellType.trappedFloor;
-
-            }
-
-            if (CorridorFactory.CarveCorridor(this, room, Vector2.up, new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
-            {
-                hangingCorridors.Enqueue(corridor);
-                _corridors.Add(corridor);
-                MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
-                if (Random.value > 0.8f)
-                    this[corridor.Pos + corridor.Direction * Random.Range(0, corridor.Length)] = (int)CellType.trappedFloor;
-
+                if (CorridorFactory.CarveCorridor(this, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
+                {
+                    hangingCorridors.Enqueue(corridor);
+                    _corridors.Add(corridor);
+                    MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
+                }
             }
         }
 

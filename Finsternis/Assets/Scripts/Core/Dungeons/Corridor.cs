@@ -37,11 +37,7 @@ public class Corridor : DungeonSection
 
     public Vector2 LastCell
     {
-        get
-        {
-
-            return _length > 0 ? _bounds.max - Vector2.one : _bounds.position;
-        }
+        get { return _length > 0 ? _bounds.max - Vector2.one : _bounds.position; }
     }
 
     public Vector2 this[int index]
@@ -94,6 +90,5 @@ public class Corridor : DungeonSection
             result[1] = new Corridor(this[index + 1], _length - index - 1, _direction);
 
         return result;
-
     }
 }

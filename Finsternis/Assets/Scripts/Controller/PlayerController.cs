@@ -4,7 +4,19 @@ using UnityEngine;
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class PlayerController : CharacterController
 {
-    private Vector3 _directionFaced;
+
+
+    [SerializeField]
+    [Tooltip("Wheter the usual WASD should respond according to the direction faced by the character.")]
+    private bool _adjustControls = true;
+
+    [Range(0, 1)]
+    private float _turningSpeed = 0.05f;
+
+    public override void Awake()
+    {
+        base.Awake();
+    }
 
     public override void Update()
     {
@@ -24,28 +36,17 @@ public class PlayerController : CharacterController
 
         if (!IsAttacking())
         {
-            characterMovement.Direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            if (_adjustControls)
+            {
+                movement = transform.right * movement.x + transform.forward * movement.z;
+            }
 
-            _directionFaced = GetDirectionFaced();
-            transform.LookAt(_directionFaced);
+            characterMovement.Direction = movement;
+
+            transform.forward = Vector3.Slerp(transform.forward, characterMovement.Direction, _turningSpeed);
 
         }
-    }
-
-    private Vector3 GetDirectionFaced()
-    {
-        Vector3 dir = Vector3.zero;
-        if (Input.GetKey(KeyCode.LeftArrow))
-            dir.x--;
-        if (Input.GetKey(KeyCode.RightArrow))
-            dir.x++;
-        if (Input.GetKey(KeyCode.UpArrow))
-            dir.z++;
-        if (Input.GetKey(KeyCode.DownArrow))
-            dir.z--;
-        if (dir == Vector3.zero)
-            dir = characterMovement.Direction;
-        return transform.position + dir;
     }
 
     public override void Attack(int type = 0, bool lockMovement = true)

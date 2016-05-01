@@ -321,10 +321,10 @@ MonoBehaviour:
     value: 1
   magicResistence:
     _name: mDef
-    value: 1
+    value: 0
   defense:
     _name: def
-    value: 1
+    value: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

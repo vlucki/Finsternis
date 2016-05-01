@@ -2123,7 +2123,7 @@ MonoBehaviour:
     value: 5
   damage:
     _name: dmg
-    value: 1
+    value: 3
   speed:
     _name: spd
     value: 1
