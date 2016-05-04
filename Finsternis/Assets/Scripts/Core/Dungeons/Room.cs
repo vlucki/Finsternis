@@ -8,16 +8,16 @@ public class Room : DungeonSection
 
     public List<Vector2> Cells { get { return _cells; } }
 
-    public Room(Vector2 position)
+    public Room(Vector2 position) : base()
     {
-        _bounds = new Rect(position, Vector2.zero);
+        bounds = new Rect(position, Vector2.zero);
         _cells = new List<Vector2>();
         _cellsMirror = new HashSet<Vector2>();
     }
 
-    public Room(Room baseRoom)
+    public Room(Room baseRoom) : base()
     {
-        _bounds = baseRoom._bounds;
+        bounds = baseRoom.bounds;
         _cells = new List<Vector2>(baseRoom._cells);
         _cellsMirror = new HashSet<Vector2>(baseRoom._cells);
     }
@@ -39,14 +39,18 @@ public class Room : DungeonSection
                 if (_cellsMirror.Add(cell))
                     _cells.Add(cell);
             }
-            _bounds.min = Vector2.Min(_bounds.min, other._bounds.min);
-            _bounds.max = Vector2.Max(_bounds.max, other._bounds.max);
+            foreach(DungeonSection section in other.connections)
+            {
+                AddConnection(section, true);
+            }
+            bounds.min = Vector2.Min(bounds.min, other.bounds.min);
+            bounds.max = Vector2.Max(bounds.max, other.bounds.max);
         }
     }
 
     public bool Overlaps(Room other)
     {
-        return other._bounds.Overlaps(other._bounds) && _cellsMirror.Overlaps(other._cellsMirror);
+        return other.bounds.Overlaps(other.bounds) && _cellsMirror.Overlaps(other._cellsMirror);
     }
 
     public void AddCell(float x, float y)
@@ -65,13 +69,18 @@ public class Room : DungeonSection
 
     private void AdjustSize(Vector2 newCell)
     {
-        _bounds.min = Vector2.Min(_bounds.min, newCell);
-        _bounds.max = Vector2.Max(_bounds.max, newCell + Vector2.one);
+        bounds.min = Vector2.Min(bounds.min, newCell);
+        bounds.max = Vector2.Max(bounds.max, newCell + Vector2.one);
     }
 
     public Vector2 GetRandomCell()
     {
         return _cells[Random.Range(0, _cells.Count)];
+    }
+
+    public bool ContainsCell(Vector2 cell)
+    {
+        return bounds.Contains(cell) && _cellsMirror.Contains(cell);
     }
 
     public override string ToString()
@@ -81,4 +90,11 @@ public class Room : DungeonSection
         return cells.ToString(0, cells.Length - 2);
     }
 
+    internal void Disconnect()
+    {
+        foreach(DungeonSection section in connections)
+        {
+            section.RemoveConnection(this);
+        }
+    }
 }

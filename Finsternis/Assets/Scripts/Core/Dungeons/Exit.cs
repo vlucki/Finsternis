@@ -46,8 +46,9 @@ public class Exit : MonoBehaviour
 
     public void Unlock()
     {
-        GetComponent<MeshCollider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        //GetComponent<MeshCollider>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        onUnlock.Invoke();
         _collider.enabled = true;
     }
 
@@ -85,7 +86,7 @@ public class Exit : MonoBehaviour
 
         Vector3 currOffset = _player.transform.position - _camera.transform.position;
         _player.transform.position = new Vector3((int) (_dungeon.Entrance.x * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x) + _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x/2, 30, (int)- ( _dungeon.Entrance.y * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z) - _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z/2);
-        
+
         _camera.transform.position = _player.transform.position - currOffset;
 
     }

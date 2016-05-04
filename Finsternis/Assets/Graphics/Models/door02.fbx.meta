@@ -1,27 +1,16 @@
 fileFormatVersion: 2
-guid: 001ca415387d4f3438537ae4ed4b74cd
-timeCreated: 1460841481
+guid: f44c14cb0ec1c6f40b66cd5dff596143
+timeCreated: 1459933087
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: pCube31
-    100002: polySurface79
-    100004: polySurface80
-    100006: //RootNode
-    400000: pCube31
-    400002: polySurface79
-    400004: polySurface80
-    400006: //RootNode
-    2300000: pCube31
-    2300002: polySurface79
-    2300004: polySurface80
-    3300000: pCube31
-    3300002: polySurface79
-    3300004: polySurface80
-    4300000: pCube31
-    4300002: polySurface79
-    4300004: polySurface80
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: polySurface40
+    4300002: frame
     9500000: //RootNode
   materials:
     importMaterials: 1

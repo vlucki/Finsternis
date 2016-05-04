@@ -16,9 +16,9 @@ public class SimpleDungeon : Dungeon
     private List<Corridor> _corridors;
 
     public bool allowDeadEnds = false;
-
-    [SerializeField]
+    
     private int[,] _dungeon;
+    private DungeonSection[,] _sections;
 
     [Header("Dungeon dimensions")]
     [SerializeField]
@@ -72,6 +72,8 @@ public class SimpleDungeon : Dungeon
 
     public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
+    //public DungeonSection this[Vector2 cell] { get { return _sections[(int)cell.x, (int)cell.y]; } }
+
     public int this[int x, int y]
     {
         get
@@ -111,22 +113,28 @@ public class SimpleDungeon : Dungeon
     }
 
     public List<Corridor> Corridors { get { return _corridors; } }
+    public List<Room> Rooms { get { return _rooms; } }
+
+    private void Init()
+    {
+        _dungeon = new int[_dungeonWidth, _dungeonHeight];
+        _sections = new DungeonSection[_dungeonWidth, _dungeonHeight];
+        _corridors = new List<Corridor>();
+        _rooms = new List<Room>();
+
+        _maximumRoomHeight = Mathf.Clamp(_maximumRoomHeight, 0, Height);
+        _maximumRoomWidth = Mathf.Clamp(_maximumRoomWidth, 0, Width);
+        _minimumRoomHeight = Mathf.Clamp(_minimumRoomHeight, 0, _maximumRoomHeight);
+        _minimumRoomWidth = Mathf.Clamp(_minimumRoomWidth, 0, _maximumRoomWidth);
+        _maximumCorridorLength = Mathf.Clamp(_maximumCorridorLength, 0, Mathf.Min(Height, Width));
+        _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
+    }
 
     public override void Generate()
     {
         base.Generate();
 
-        _dungeon = new int[_dungeonWidth, _dungeonHeight];
-        _corridors = new List<Corridor>();
-        _rooms = new List<Room>();
-
-        _maximumRoomHeight  = Mathf.Clamp(_maximumRoomHeight, 0, Height);
-        _maximumRoomWidth   = Mathf.Clamp(_maximumRoomWidth, 0, Width);
-        _minimumRoomHeight  = Mathf.Clamp(_minimumRoomHeight, 0, _maximumRoomHeight);
-        _minimumRoomWidth   = Mathf.Clamp(_minimumRoomWidth, 0, _maximumRoomWidth);
-
-        _maximumCorridorLength = Mathf.Clamp(_maximumCorridorLength, 0, Mathf.Min(Height, Width));
-        _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
+        Init();
 
         Queue<Corridor> hangingCorridors = null;
         Queue<Room> hangingRooms = new Queue<Room>();
@@ -193,16 +201,20 @@ public class SimpleDungeon : Dungeon
             {
                 Vector2 offset = new Vector2(inUse.Direction.y, inUse.Direction.x);
                 Vector2 cell = inUse[originalLength - i];
+                Vector2 offsetCellA = cell + offset;
+                Vector2 offsetCellB = cell - offset;
                 if (this[cell] == (int)CellType.corridor    
-                    && (!IsWithinDungeon(cell + offset) || this[cell + offset] == (int)CellType.wall) 
-                    && (!IsWithinDungeon(cell - offset) || this[cell - offset] == (int)CellType.wall))
+                    && (!IsWithinDungeon(offsetCellA) || this[offsetCellA] == (int)CellType.wall) 
+                    && (!IsWithinDungeon(offsetCellB) || this[offsetCellB] == (int)CellType.wall))
                 {
                     haveToSplit = true;
                 }
                 else
                 {
-                    this[inUse[originalLength - i]] = (int)CellType.room;
-                    if(!haveToSplit)
+                    this[cell] = (int)CellType.room;
+                    _sections[(int)cell.x, (int)cell.y] = (IsWithinDungeon(offsetCellA) && this[offsetCellA] != (int)CellType.wall) ? _sections[(int)offsetCellA.x, (int)offsetCellA.y] : _sections[(int)offsetCellB.x, (int)offsetCellB.y];
+                    ((Room)(_sections[(int)cell.x, (int)cell.y])).AddCell(cell);
+                    if (!haveToSplit)
                         inUse.Length--;
                     else
                     {
@@ -213,12 +225,14 @@ public class SimpleDungeon : Dungeon
                         if (parts[1] != null)
                         {
                             toAdd.Add(parts[1]);
+                            parts[1].AddConnection(_sections[(int)cell.x, (int)cell.y]);
                         }
 
                         if(parts[0] != null)
                         {
                             toAdd.Add(parts[0]);
                             inUse = parts[0];
+                            parts[0].AddConnection(_sections[(int)cell.x, (int)cell.y]);
                             haveToSplit = false;
                         }
                         else
@@ -231,7 +245,6 @@ public class SimpleDungeon : Dungeon
             }
         }
         _corridors.AddRange(toAdd);
-        _corridors.RemoveAll(corridor => corridor.Length <= 0);
 
         for(int i = _corridors.Count - 1; i >= 0; i--)
         {
@@ -244,6 +257,7 @@ public class SimpleDungeon : Dungeon
                 Vector2 extra = (corridor.Length == 1 ? Vector2.zero : corridor.Direction * Random.Range(1, corridor.Length - 2));
                 this[corridor.Pos + extra] = (int)CellType.trappedFloor + Random.Range(0, 2);
             }
+            corridor.UpdateConnections();
         }
 
         //TODO: look into this and see if there's a problem here
@@ -256,6 +270,7 @@ public class SimpleDungeon : Dungeon
                 if (roomA.Overlaps(roomB))
                 {
                     roomA.Merge(roomB);
+                    roomB.Disconnect();
                     _rooms.RemoveAt(j);
                     i--;
                     j--;
@@ -422,6 +437,8 @@ public class SimpleDungeon : Dungeon
                 {
                     hangingCorridors.Enqueue(corridor);
                     _corridors.Add(corridor);
+                    corridor.AddConnection(room);
+                    MarkCells(corridor);
                     MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
                 }
             }
@@ -507,11 +524,22 @@ public class SimpleDungeon : Dungeon
 
     private void MarkCells(Room room)
     {
-        room.Cells.ForEach(cell => this[cell] = (int)CellType.room);
+        room.Cells.ForEach(
+            cell =>
+            {
+                this[cell] = (int)CellType.room;
+                _sections[(int)cell.x, (int)cell.y] = room;
+            }
+            );
     }
 
     private void MarkCells(Corridor corridor)
     {
-        MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
+        for(int i = 0; i < corridor.Length; i++)
+        {
+            Vector2 cell = corridor[i];
+            this[cell] = (int)CellType.corridor;
+            _sections[(int)cell.x, (int)cell.y] = corridor;
+        }
     }
 }

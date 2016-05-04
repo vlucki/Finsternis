@@ -9,8 +9,8 @@ public class DoorController : MonoBehaviour
         Vector3 damageSource = transform.position - GetComponent<Entity>().lastDamageSource.transform.position;
 
         Animator anim = GetComponent<Animator>();
-        anim.SetTrigger("opening");
         anim.SetInteger("direction", (Vector3.Angle(transform.forward, damageSource) < 90) ? 1 : -1);
+        anim.SetTrigger("opening");
     }
 
 }

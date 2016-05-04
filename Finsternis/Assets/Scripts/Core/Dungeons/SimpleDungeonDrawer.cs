@@ -22,6 +22,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public GameObject[] doorways;
     public GameObject[] floorTiles;
     public GameObject[] floorTraps;
+    public GameObject[] exits;
 
     private GameObject _floor;
 
@@ -38,11 +39,60 @@ public class SimpleDungeonDrawer : MonoBehaviour
     {
         onDrawBegin.Invoke();
         Clear();
-        
+
+
+        MakeDungeon();
+
+        //TODO: fix connections
+
+        //foreach (Room room in _dungeon.Rooms)
+        //{
+        //    foreach (Vector2 cell in room.Cells)
+        //    {
+        //        MakeFloor((int)cell.x, (int)cell.y);
+        //    }
+        //    foreach (Corridor section in room.Connections)
+        //    {
+        //        for (int i = 0; i < section.Length; i++)
+        //            MakeFloor((int)section[i].x, (int)section[i].y);
+        //    }
+        //}
+
+        //foreach (Corridor corridor in _dungeon.Corridors)
+        //{
+        //    for (int i = 0; i < corridor.Length; i++)
+        //        MakeFloor((int)corridor[i].x, (int)corridor[i].y);
+
+        //    foreach (DungeonSection section in corridor.Connections)
+        //    {
+        //        if (section is Corridor)
+        //        {
+        //            Corridor c = (Corridor)section;
+        //            for (int i = 0; i < c.Length; i++)
+        //                MakeFloor((int)c[i].x, (int)c[i].y);
+        //        }
+        //        else
+        //        {
+        //            Room room = (Room)section;
+        //            foreach (Vector2 cell in room.Cells)
+        //            {
+        //                MakeFloor((int)cell.x, (int)cell.y);
+        //            }
+        //        }
+        //    }
+        //}
+
+        MakeDoors();
+
+
+        onDrawEnd.Invoke();
+    }
+
+    private void MakeDungeon()
+    {
+
         int width = _dungeon.Width;
         int height = _dungeon.Height;
-
-
         for (int cellY = -1; cellY <= height; cellY++)
         {
             for (int cellX = -1; cellX <= width; cellX++)
@@ -57,10 +107,13 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 }
             }
         }
+    }
 
-        foreach(Corridor corridor in _dungeon.Corridors)
+    private void MakeDoors()
+    {
+        foreach (Corridor corridor in _dungeon.Corridors)
         {
-            if(corridor.Length > 1)
+            if (corridor.Length > 1)
             {
                 Vector2 direction = corridor.Direction;
                 direction.y -= direction.x;
@@ -71,8 +124,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     Vector3 pos;
-                    if(i == 0)  pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
-                    else        pos = new Vector3(corridor.LastCell.x, 0, corridor.LastCell.y);
+                    if (i == 0) pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
+                    else pos = new Vector3(corridor.LastCell.x, 0, corridor.LastCell.y);
                     string name = pos.x.ToString("F0") + ";" + pos.z.ToString("F0");
 
                     if (CanMakeDoorway((int)pos.x, (int)pos.z))
@@ -105,8 +158,6 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 }
             }
         }
-
-        onDrawEnd.Invoke();
     }
 
     private void MakeFloor(int cellX, int cellY)
@@ -123,9 +174,17 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
             if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
             {
-                floor.name = "Exit " + nameSuffix;
-                floor.tag = "Exit";
-                floor.AddComponent<Exit>();
+                if (exits != null && exits.Length > 0)
+                {
+                    DestroyImmediate(floor);
+                    floor = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
+                }
+                else
+                {
+                    floor.name = "Exit " + nameSuffix;
+                    floor.tag = "Exit";
+                    floor.AddComponent<Exit>();
+                }
             }
             else
             {
@@ -403,20 +462,5 @@ public class SimpleDungeonDrawer : MonoBehaviour
             GameObject g = transform.GetChild(i).gameObject;
             DestroyImmediate(g);
         }
-    }
-
-
-    private void MakeFloor(float width, float height)
-    {
-        width *= overallScale.x;
-        height *= overallScale.z;
-        _floor = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        _floor.name = "floor";
-        _floor.transform.localScale = new Vector3(width, height, 1);
-        _floor.transform.position = new Vector3(width / 2, 0f, - height / 2);
-        _floor.GetComponent<MeshRenderer>().sharedMaterial = defaultFloorMaterial;
-        _floor.GetComponent<Collider>().sharedMaterial = defaultFloorPhysicMaterial;
-        _floor.transform.SetParent(gameObject.transform);
-        _floor.transform.up = Vector3.forward;
     }
 }

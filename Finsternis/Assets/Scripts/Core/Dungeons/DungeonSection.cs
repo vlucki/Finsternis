@@ -1,19 +1,46 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public abstract class DungeonSection
 {
-    protected Rect _bounds;
+    protected Rect bounds;
+    protected HashSet<DungeonSection> connections;
 
-    public Vector2 Pos { get { return _bounds.position;} }
-    public Vector2 Size { get { return _bounds.size; } }
-    public float Width { get { return _bounds.width; } }
-    public float Height { get { return _bounds.height; } }
+    public HashSet<DungeonSection> Connections { get { return connections; } }
+    public Vector2 Pos { get { return bounds.position;} }
+    public Vector2 Size { get { return bounds.size; } }
+    public float Width { get { return bounds.width; } }
+    public float Height { get { return bounds.height; } }
     public virtual Rect Bounds {
-        get { return _bounds; }
+        get { return bounds; }
         set { }
     }
 
-    public DungeonSection() { _bounds = new Rect(); }
-    public DungeonSection(Rect bounds) { _bounds = bounds; }
+    public static implicit operator bool(DungeonSection section)
+    {
+        return section != null;
+    } 
+
+
+    public DungeonSection() : this(new Rect()) { }
+
+    public DungeonSection(Rect bounds)
+    {
+        this.bounds = bounds;
+        connections = new HashSet<DungeonSection>();
+    }
+
+    public void AddConnection(DungeonSection connection, bool addToConnection = false)
+    {
+        connections.Add(connection);
+        if (addToConnection)
+            connection.AddConnection(this);
+    }
+
+    public void RemoveConnection(DungeonSection connection)
+    {
+        connections.Remove(connection);
+    }
+
 }
 
