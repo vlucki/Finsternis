@@ -86,6 +86,9 @@ public class Corridor : DungeonSection
 
     public Corridor[] RemoveAt(int index)
     {
+        if (index < 0 || index >= Length)
+            throw new System.ArgumentOutOfRangeException("index", "Value should be in the range 0 " + Length);
+
         Corridor[] result = new Corridor[2];
 
         if (index > 0)

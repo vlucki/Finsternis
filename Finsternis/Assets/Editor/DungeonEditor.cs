@@ -7,8 +7,6 @@ public class DungeonEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
-
         Dungeon tgt = target as Dungeon;
         if (tgt)
         {
@@ -19,5 +17,6 @@ public class DungeonEditor : Editor
                 tgt.GetComponent<SimpleDungeonDrawer>().Draw();
             }
         }
+        DrawDefaultInspector();
     }
 }

@@ -97,26 +97,45 @@ public class Room : DungeonSection
         }
     }
 
+    bool SearchCellsTouching(Room other)
+    {
+        foreach (Vector2 cell in other)
+        {
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    if (i != j && ContainsCell(new Vector2(cell.x + i, cell.y + j)))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
     internal bool IsTouching(Room roomB)
     {
         if (Overlaps(roomB))
             return true;
 
-        for(int x = (int)Pos.x; x < Bounds.xMax; x++)
-        {
-            if ((roomB.ContainsCell(new Vector2(x, Pos.y - 1)) && ContainsCell(new Vector2(x, Pos.y)))
-                || (roomB.ContainsCell(new Vector2(x, Bounds.yMax)) && ContainsCell(new Vector2(x, Bounds.yMax-1))))
-                return true;
-        }
+        if (roomB.Cells.Count < Cells.Count)
+            return SearchCellsTouching(roomB);
+        else
+            return roomB.SearchCellsTouching(this);
 
-        for (int y = (int)Pos.y; y < Bounds.yMax; y++)
-        {
-            if ((roomB.ContainsCell(new Vector2(Pos.x - 1, y)) && ContainsCell(new Vector2(Pos.x, y)))
-                || (roomB.ContainsCell(new Vector2(Bounds.xMax, y))) && ContainsCell(new Vector2(Bounds.xMax-1, y)))
-                return true;
-        }
+        //for(int x = (int)Pos.x; x < Bounds.xMax; x++)
+        //{
+        //    if ((roomB.ContainsCell(new Vector2(x, Pos.y - 1)) && ContainsCell(new Vector2(x, Pos.y)))
+        //        || (roomB.ContainsCell(new Vector2(x, Bounds.yMax)) && ContainsCell(new Vector2(x, Bounds.yMax-1))))
+        //        return true;
+        //}
 
-        return false;
+        //for (int y = (int)Pos.y; y < Bounds.yMax; y++)
+        //{
+        //    if ((roomB.ContainsCell(new Vector2(Pos.x - 1, y)) && ContainsCell(new Vector2(Pos.x, y)))
+        //        || (roomB.ContainsCell(new Vector2(Bounds.xMax, y))) && ContainsCell(new Vector2(Bounds.xMax-1, y)))
+        //        return true;
+        //}
     }
 
     public override IEnumerator<Vector2> GetEnumerator()

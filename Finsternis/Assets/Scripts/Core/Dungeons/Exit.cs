@@ -46,8 +46,6 @@ public class Exit : MonoBehaviour
 
     public void Unlock()
     {
-        //GetComponent<MeshCollider>().enabled = false;
-        //GetComponent<MeshRenderer>().enabled = false;
         onUnlock.Invoke();
         _collider.enabled = true;
     }
