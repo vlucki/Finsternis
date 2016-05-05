@@ -22,6 +22,10 @@ public abstract class CharacterController : MonoBehaviour
     [Range(0, -1)]
     private float _fallSpeedThreshold = -0.2f;
 
+    [Range(0, 1)]
+    [SerializeField]
+    private float _turningSpeed = 0.05f;
+
     private bool _locked;
     private int _unlockDelay;
 
@@ -81,6 +85,11 @@ public abstract class CharacterController : MonoBehaviour
             if (!_locked)
                 characterAnimator.SetFloat(SpeedFloat, characterMovement.GetHorizontalSpeed());
         }
+    }
+
+    protected virtual void Move()
+    {
+        transform.forward = Vector3.Slerp(transform.forward, characterMovement.Direction, _turningSpeed);
     }
 
     public bool IsAttacking()

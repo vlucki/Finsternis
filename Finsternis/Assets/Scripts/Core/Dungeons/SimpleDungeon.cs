@@ -184,9 +184,10 @@ public class SimpleDungeon : Dungeon
             && y < Height;
     }
 
-
+    //TODO: fix room merge (sometimes they don't) and fix corridor split (it's leaving holes in the dungeon!)
     /// <summary>
-    /// Removes corridors that don't really look like corridors (eg. have walls only on one side)
+    /// Removes corridors that don't really look like corridors (eg. have walls only on one side) 
+    /// and merge rooms that overlap or don't have walls between one or more cells
     /// </summary>
     private void CleanUp()
     {
@@ -212,8 +213,15 @@ public class SimpleDungeon : Dungeon
                 else
                 {
                     this[cell] = (int)CellType.room;
-                    _sections[(int)cell.x, (int)cell.y] = (IsWithinDungeon(offsetCellA) && this[offsetCellA] != (int)CellType.wall) ? _sections[(int)offsetCellA.x, (int)offsetCellA.y] : _sections[(int)offsetCellB.x, (int)offsetCellB.y];
-                    ((Room)(_sections[(int)cell.x, (int)cell.y])).AddCell(cell);
+                    if (IsWithinDungeon(offsetCellA) && this[offsetCellA] != (int)CellType.wall)
+                        _sections[(int)cell.x, (int)cell.y] = _sections[(int)offsetCellA.x, (int)offsetCellA.y];
+                    else if(IsWithinDungeon(offsetCellB) && this[offsetCellB] != (int)CellType.wall)
+                        _sections[(int)cell.x, (int)cell.y] = _sections[(int)offsetCellB.x, (int)offsetCellB.y];
+
+                    DungeonSection section = _sections[(int)cell.x, (int)cell.y];
+                    if(section)
+                        ((Room)section).AddCell(cell);
+
                     if (!haveToSplit)
                         inUse.Length--;
                     else
@@ -225,14 +233,16 @@ public class SimpleDungeon : Dungeon
                         if (parts[1] != null)
                         {
                             toAdd.Add(parts[1]);
-                            parts[1].AddConnection(_sections[(int)cell.x, (int)cell.y]);
+                            if(section)
+                                parts[1].AddConnection(section);
                         }
 
                         if(parts[0] != null)
                         {
                             toAdd.Add(parts[0]);
                             inUse = parts[0];
-                            parts[0].AddConnection(_sections[(int)cell.x, (int)cell.y]);
+                            if (section)
+                                parts[0].AddConnection(section);
                             haveToSplit = false;
                         }
                         else
@@ -260,20 +270,18 @@ public class SimpleDungeon : Dungeon
             corridor.UpdateConnections();
         }
 
-        //TODO: look into this and see if there's a problem here
         for (int i = _rooms.Count - 1; i > 0; i--)
         {
             Room roomA = _rooms[i];
             for (int j = i - 1; j >= 0; j--)
             {
                 Room roomB = _rooms[j];
-                if (roomA.Overlaps(roomB))
+                if (roomA.IsTouching(roomB))
                 {
                     roomA.Merge(roomB);
                     roomB.Disconnect();
                     _rooms.RemoveAt(j);
                     i--;
-                    j--;
                 }
             }
         }
@@ -403,7 +411,7 @@ public class SimpleDungeon : Dungeon
                 MarkCells(room);
                 _rooms.Add(room);
                 _lastRoom = room;
-
+                corridor.AddConnection(room);
                 roomCount++;
             }
             else

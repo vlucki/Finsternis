@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DungeonSection
+public abstract class DungeonSection : IEnumerable<Vector2>
 {
     protected Rect bounds;
     protected HashSet<DungeonSection> connections;
@@ -30,10 +32,10 @@ public abstract class DungeonSection
         connections = new HashSet<DungeonSection>();
     }
 
-    public void AddConnection(DungeonSection connection, bool addToConnection = false)
+    public void AddConnection(DungeonSection connection, bool updateNewConennection = false)
     {
         connections.Add(connection);
-        if (addToConnection)
+        if (updateNewConennection)
             connection.AddConnection(this);
     }
 
@@ -42,5 +44,11 @@ public abstract class DungeonSection
         connections.Remove(connection);
     }
 
+    public abstract IEnumerator<Vector2> GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }
 

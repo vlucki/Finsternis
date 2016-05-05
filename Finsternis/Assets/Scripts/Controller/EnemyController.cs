@@ -27,9 +27,9 @@ public class EnemyController : CharacterController {
             if (!IsDying())
             {
                 targetOnRange = Vector3.Distance(transform.position, _target.transform.position) <= _aggroRange;
-                if (targetOnRange)
+                if (targetOnRange && !IsAttacking())
                 {
-                    transform.LookAt(new Vector3(_target.transform.position.x, transform.position.y, _target.transform.position.z));
+                    Move();
                 }
             }
             else
@@ -38,6 +38,13 @@ public class EnemyController : CharacterController {
                 GetComponent<Rigidbody>().isKinematic = true;
             }
         }
+    }
+
+    protected override void Move()
+    {
+        GetComponent<Movement>().Direction = (_target.transform.position - transform.position).normalized;
+
+        base.Move();
     }
 
 }

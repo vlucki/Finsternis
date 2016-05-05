@@ -85,9 +85,8 @@ public class Room : DungeonSection
 
     public override string ToString()
     {
-        System.Text.StringBuilder cells = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ");
-        _cells.ForEach(cell => cells.Append(cell).Append("; "));
-        return cells.ToString(0, cells.Length - 2);
+        System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(_cells.ToString());
+        return builder.ToString();
     }
 
     internal void Disconnect()
@@ -96,5 +95,33 @@ public class Room : DungeonSection
         {
             section.RemoveConnection(this);
         }
+    }
+
+    internal bool IsTouching(Room roomB)
+    {
+        if (Overlaps(roomB))
+            return true;
+
+        for(int x = (int)Pos.x; x < Bounds.xMax; x++)
+        {
+            if ((roomB.ContainsCell(new Vector2(x, Pos.y - 1)) && ContainsCell(new Vector2(x, Pos.y)))
+                || (roomB.ContainsCell(new Vector2(x, Bounds.yMax)) && ContainsCell(new Vector2(x, Bounds.yMax-1))))
+                return true;
+        }
+
+        for (int y = (int)Pos.y; y < Bounds.yMax; y++)
+        {
+            if ((roomB.ContainsCell(new Vector2(Pos.x - 1, y)) && ContainsCell(new Vector2(Pos.x, y)))
+                || (roomB.ContainsCell(new Vector2(Bounds.xMax, y))) && ContainsCell(new Vector2(Bounds.xMax-1, y)))
+                return true;
+        }
+
+        return false;
+    }
+
+    public override IEnumerator<Vector2> GetEnumerator()
+    {
+        foreach (Vector2 cell in _cells)
+            yield return cell;
     }
 }

@@ -10,9 +10,6 @@ public class PlayerController : CharacterController
     [Tooltip("Wheter the usual WASD should respond according to the direction faced by the character.")]
     private bool _adjustControls = true;
 
-    [Range(0, 1)]
-    private float _turningSpeed = 0.05f;
-
     public override void Awake()
     {
         base.Awake();
@@ -36,17 +33,21 @@ public class PlayerController : CharacterController
 
         if (!IsAttacking())
         {
-            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            if (_adjustControls)
-            {
-                movement = transform.right * movement.x + transform.forward * movement.z;
-            }
-
-            characterMovement.Direction = movement;
-
-            transform.forward = Vector3.Slerp(transform.forward, characterMovement.Direction, _turningSpeed);
-
+            Move();
         }
+    }
+
+    protected override void Move()
+    {
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        if (_adjustControls)
+        {
+            movement = transform.right * movement.x + transform.forward * movement.z;
+        }
+
+        characterMovement.Direction = movement;
+
+        base.Move();
     }
 
     public override void Attack(int type = 0, bool lockMovement = true)
@@ -64,8 +65,12 @@ public class PlayerController : CharacterController
                     Entity characterHit = col.GetComponent<Entity>();
                     if (characterHit)
                     {
-                        characterHit.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
-                        characterHit.GetComponent<CharacterController>().Hit();
+                        CharacterController controller = characterHit.GetComponent<CharacterController>();
+                        if (controller)
+                        {
+                            characterHit.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
+                            controller.Hit();
+                        }
                         this.character.DoDamage(characterHit);
                     }
                 }

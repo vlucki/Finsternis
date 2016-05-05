@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 public class Corridor : DungeonSection
 {
     private Vector2 _direction;
     private int _length;
-    //private DungeonSection[] _connections;
 
     public Vector2 Direction { get { return _direction; } set { _direction = value; } }
     public override Rect Bounds
@@ -54,7 +54,6 @@ public class Corridor : DungeonSection
     {
         _direction = direction;
         Bounds = bounds;
-        //_connections = new DungeonSection[2];
     }
 
     public Corridor(Vector2 position, int length, Vector2 direction) : 
@@ -64,33 +63,9 @@ public class Corridor : DungeonSection
 
     public void UpdateConnections()
     {
-        //if (_connections[0] != null)
-        //    if (_connections[0].GetType().Equals(typeof(Corridor)))
-        //        ((Corridor)_connections[0]).AddConnection(this, Pos);
-        //    else
-        //        ((Room)_connections[0]).AddConnection(this);
-
+        foreach (DungeonSection connection in connections)
+            connection.AddConnection(this);
     }
-
-    //private void UpdateConnection(int index = 0)
-    //{
-    //    if (_connections[index].GetType().Equals(typeof(Corridor)))
-    //        ((Corridor)_connections[index]).AddConnection(this, index == 0 ? Pos : this[Length-1]);
-    //    else
-    //        ((Room)_connections[index]).AddConnection(this);
-    //}
-
-    //public void AddConnection(DungeonSection section, Vector2 position)
-    //{
-    //    bool atStart = (position.x < Pos.x && Direction.x == 1) || (position.y < Pos.y && Direction.y == 1);
-
-    //    this.AddConnection(section, atStart);
-    //}
-
-    //public void AddConnection(DungeonSection section, bool atStart = true)
-    //{
-    //    _connections[atStart ? 0 : 1] = section;
-    //}
 
     public override string ToString()
     {
@@ -129,5 +104,11 @@ public class Corridor : DungeonSection
             connection.RemoveConnection(this);
         }
         return result;
+    }
+
+    public override IEnumerator<Vector2> GetEnumerator()
+    {
+        for (int i = 0; i < _length; i++)
+            yield return this[i];
     }
 }

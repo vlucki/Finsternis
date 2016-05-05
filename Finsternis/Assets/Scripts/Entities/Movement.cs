@@ -10,17 +10,26 @@ public class Movement : MonoBehaviour
     [Range(0, 1f)]
     private float _speed = 0.175f;
 
+    [SerializeField]
+    [Range(1, 10)]
+    private float _maxVelocity = 2;
+
     private Vector3 _direction;
 
     protected Rigidbody body;
+
+    public float Speed
+    {
+        get { return _speed; }
+        set { _speed = Mathf.Max(0, value); }
+    }
 
     public Vector3 Direction
     {
         get { return _direction; }
         set { _direction = value.normalized; }
     }
-
-    // Use this for initialization
+    
     protected virtual void Start()
     {
         if(!body)
@@ -38,6 +47,8 @@ public class Movement : MonoBehaviour
         if (_direction != Vector3.zero)
         {
             body.AddForce(_direction * _speed, ForceMode.VelocityChange);
+            if (GetHorizontalSpeed() > _maxVelocity)
+                body.AddForce(-_direction * Speed, ForceMode.VelocityChange);
         }
     }
 
