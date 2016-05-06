@@ -83,7 +83,10 @@ public class SimpleDungeonDrawer : MonoBehaviour
             {
                 if (cellY < 0 || cellY == height || cellX < 0 || cellX == width || ShouldMakeWall(cellX, cellY))
                 {
-                    MakeWall(cellX, cellY).transform.SetParent(wallsContainer.transform);
+                    GameObject wall = MakeWall(cellX, cellY);
+                    if (cellX >= 0 && cellX < _dungeon.Width && cellY > 0 && _dungeon[cellX, cellY - 1] != (int)CellType.wall)
+                        wall.AddComponent<Wall>();
+                    wall.transform.SetParent(wallsContainer.transform);
                 }
             }
         }
@@ -275,6 +278,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private GameObject[] MergeMeshes(GameObject parent, bool nameAfterParent = false, int mergeThreshold = 5)
     {
+        Vector3 originalPos = parent.transform.position;
+        parent.transform.position = Vector3.zero;
         List<GameObject> sections = new List<GameObject>(1);
         MeshFilter[] meshFilters = parent.GetComponentsInChildren<MeshFilter>();
         if (meshFilters.Length < 1)
@@ -328,6 +333,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
             DestroyImmediate(m.gameObject);
 
         DestroyImmediate(parent);
+        foreach (GameObject section in sections)
+            section.transform.Translate(originalPos);
 
         return sections.ToArray();
     }
@@ -347,7 +354,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         if (!r)
             r = sectionContainer.AddComponent<MeshRenderer>();
 
-        r.material = defaultWallMaterial;
+        r.material = Material.Instantiate<Material>(defaultWallMaterial);
 
         if (useBoxCollider)
             sectionContainer.AddComponent <BoxCollider> ().sharedMaterial = defaultWallPhysicMaterial;

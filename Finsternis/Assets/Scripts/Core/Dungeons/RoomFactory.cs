@@ -85,8 +85,8 @@ public static class RoomFactory
                 pos.y = (int)startingPosition.y;
 
             //ensure the new coordinates are within the dungeon
-            pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - size.x);
-            pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - size.y);
+            pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - minSize.x);
+            pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - minSize.y);
         }
         
 

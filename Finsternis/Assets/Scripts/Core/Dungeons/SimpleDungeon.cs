@@ -360,9 +360,9 @@ public class SimpleDungeon : Dungeon
     private bool ExtendCorridor(Corridor corridor)
     {
         int oldLength = corridor.Length;
-        
-        while (corridor.Bounds.xMax < Width - _minimumRoomWidth * corridor.Direction.x
-            && corridor.Bounds.yMax < Height - _minimumRoomHeight * corridor.Direction.y
+
+        while (corridor.Bounds.xMax < Width - corridor.Direction.x
+            && corridor.Bounds.yMax < Height - corridor.Direction.y
             && this[corridor.LastCell + corridor.Direction] == (int)CellType.wall)
         {
             corridor.Length++;
@@ -371,7 +371,7 @@ public class SimpleDungeon : Dungeon
         if (oldLength != corridor.Length
             && this[corridor.LastCell + corridor.Direction] != (int)CellType.wall)
         {
-            MarkCells(corridor.Bounds.position, corridor.Bounds.size, CellType.corridor);
+            MarkCells(corridor);
             return true;
         }
         else

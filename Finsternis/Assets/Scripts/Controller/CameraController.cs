@@ -15,7 +15,11 @@ public class CameraController : MonoBehaviour
 
     private bool shaking;
 
-    public GameObject _occludingObject;
+    public bool occludeWalls = false;
+    [SerializeField]
+    private GameObject _occludingObject;
+
+    public GameObject OccludingObject { get { return _occludingObject; } }
 
     void Awake()
     {
@@ -70,12 +74,12 @@ public class CameraController : MonoBehaviour
                     if (_occludingObject)
                         _occludingObject.layer = LayerMask.NameToLayer("Wall");
                     _occludingObject = occludingObject;
-                    _occludingObject.layer = LayerMask.NameToLayer("Invisible");
+                    //_occludingObject.layer = LayerMask.NameToLayer("Invisible");
                 }
             }
         } else if (_occludingObject)
         {
-            _occludingObject.layer = LayerMask.NameToLayer("Wall");
+            //_occludingObject.layer = LayerMask.NameToLayer("Wall");
             _occludingObject = null;
         }
     }
