@@ -255,7 +255,6 @@ public class SimpleDungeon : Dungeon
         }
     }
 
-    //TODO: fix room merge (sometimes they don't) 
     /// <summary>
     /// Removes corridors that don't really look like corridors (eg. have walls only on one side) 
     /// and merge rooms that overlap or don't have walls between one or more cells
@@ -297,17 +296,14 @@ public class SimpleDungeon : Dungeon
             for (int j = i - 1; j >= 0; j--)
             {
                 Room roomB = _rooms[j];
-                if (roomA.Pos == new Vector2(0, 10) || roomB.Pos == new Vector2(0, 10)
-                    || roomA.Pos == new Vector2(8, 15) || roomB.Pos == new Vector2(8, 15))
-                {
-                    int a = 0;
-                }
+
                 if (roomA.IsTouching(roomB))
                 {
                     roomA.Merge(roomB);
                     roomB.Disconnect();
                     _rooms.RemoveAt(j);
-                    i--;
+                    i = _rooms.Count;
+                    break;
                 }
             }
         }
@@ -504,7 +500,7 @@ public class SimpleDungeon : Dungeon
         {
             for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
             {
-                if (this[col, row] == (int)type)
+                if (IsWithinDungeon(col, row) && this[col, row] == (int)type)
                     return true;
             }
         }
@@ -568,13 +564,11 @@ public class SimpleDungeon : Dungeon
 
     private void MarkCells(Room room)
     {
-        room.Cells.ForEach(
-            cell =>
-            {
-                this[cell] = (int)CellType.room;
-                _sections[(int)cell.x, (int)cell.y] = room;
-            }
-            );
+        foreach(Vector2 cell in room)
+        {
+            this[cell] = (int)CellType.room;
+            _sections[(int)cell.x, (int)cell.y] = room;
+        }
     }
 
     private void MarkCells(Corridor corridor)

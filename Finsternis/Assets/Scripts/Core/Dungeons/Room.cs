@@ -1,25 +1,21 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Room : DungeonSection
 {
-    private HashSet<Vector2> _cellsMirror;
     private List<Vector2> _cells;
-
-    public List<Vector2> Cells { get { return _cells; } }
 
     public Room(Vector2 position) : base()
     {
         bounds = new Rect(position, Vector2.zero);
         _cells = new List<Vector2>();
-        _cellsMirror = new HashSet<Vector2>();
     }
 
     public Room(Room baseRoom) : base()
     {
         bounds = baseRoom.bounds;
         _cells = new List<Vector2>(baseRoom._cells);
-        _cellsMirror = new HashSet<Vector2>(baseRoom._cells);
     }
 
     public static Room operator +(Room roomA, Room roomB)
@@ -35,14 +31,10 @@ public class Room : DungeonSection
         foreach (Room other in others)
         {
             foreach(Vector2 cell in other._cells)
-            {
-                if (_cellsMirror.Add(cell))
-                    _cells.Add(cell);
-            }
+                AddCell(cell);
             foreach(DungeonSection section in other.connections)
-            {
                 AddConnection(section, true);
-            }
+
             bounds.min = Vector2.Min(bounds.min, other.bounds.min);
             bounds.max = Vector2.Max(bounds.max, other.bounds.max);
         }
@@ -50,7 +42,47 @@ public class Room : DungeonSection
 
     public bool Overlaps(Room other)
     {
-        return other.bounds.Overlaps(other.bounds) && _cellsMirror.Overlaps(other._cellsMirror);
+        if (this.bounds.Overlaps(other.bounds))
+        {
+            foreach(Vector2 cell in other)
+            {
+                if (this.Contains(cell))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private bool Contains(Vector2 otherCell)
+    {
+        return Search(otherCell)[0] >= 0;
+    }
+
+    public int[] Search(Vector2 otherCell)
+    {
+        int[] result = { -1, -1 };
+
+        if (_cells.Count > 0)
+        {
+            int l = 0;
+            int r = _cells.Count;
+            int m;
+
+            do
+            {
+                m = (l + r) / 2;
+                if (_cells[m] == otherCell)
+                    result[0] = m;
+                else if (otherCell.y > _cells[m].y || (otherCell.y == _cells[m].y && otherCell.x > _cells[m].x))
+                    l = m + 1;
+                else
+                    r = m;
+            } while (l < r && result[0] < 0);
+            
+
+            result[1] = l;
+        }
+        return result;
     }
 
     public void AddCell(float x, float y)
@@ -58,13 +90,25 @@ public class Room : DungeonSection
         AddCell(new Vector2(x, y));
     }
 
-    public void AddCell(Vector2 newCell)
+    public void AddCell(Vector2 otherCell)
     {
-        if (_cellsMirror.Add(newCell))
+        if (_cells.Count == 0)
+            _cells.Add(otherCell);
+        else
         {
-            _cells.Add(newCell);
-            AdjustSize(newCell);
+            int[] result = Search(otherCell);
+            if (result[0] >= 0)
+                return;
+
+            int l = result[1];
+
+            if (l == _cells.Count)
+                _cells.Add(otherCell);
+            else
+                _cells.Insert(l, otherCell);
         }
+
+        AdjustSize(otherCell);
     }
 
     private void AdjustSize(Vector2 newCell)
@@ -80,7 +124,7 @@ public class Room : DungeonSection
 
     public bool ContainsCell(Vector2 cell)
     {
-        return bounds.Contains(cell) && _cellsMirror.Contains(cell);
+        return bounds.Contains(cell) && Contains(cell);
     }
 
     public override string ToString()
@@ -101,13 +145,12 @@ public class Room : DungeonSection
     {
         foreach (Vector2 cell in other)
         {
-            for (int i = -1; i < 2; i++)
+            if(     this.ContainsCell(new Vector2(cell.x - 1, cell.y))
+                ||  this.ContainsCell(new Vector2(cell.x + 1, cell.y))
+                ||  this.ContainsCell(new Vector2(cell.x, cell.y - 1))
+                ||  this.ContainsCell(new Vector2(cell.x, cell.y + 1)))
             {
-                for (int j = -1; j < 2; j++)
-                {
-                    if (i != j && ContainsCell(new Vector2(cell.x + i, cell.y + j)))
-                        return true;
-                }
+                return true;
             }
         }
         return false;
@@ -115,27 +158,14 @@ public class Room : DungeonSection
 
     internal bool IsTouching(Room roomB)
     {
-        if (Overlaps(roomB))
+        if (this.Overlaps(roomB))
             return true;
 
-        if (roomB.Cells.Count < Cells.Count)
+        if(     Pos.x <= roomB.bounds.xMax && bounds.xMax >= roomB.Pos.x
+            &&  Pos.y <= roomB.bounds.yMax && bounds.yMax >= roomB.Pos.y)
             return SearchCellsTouching(roomB);
-        else
-            return roomB.SearchCellsTouching(this);
 
-        //for(int x = (int)Pos.x; x < Bounds.xMax; x++)
-        //{
-        //    if ((roomB.ContainsCell(new Vector2(x, Pos.y - 1)) && ContainsCell(new Vector2(x, Pos.y)))
-        //        || (roomB.ContainsCell(new Vector2(x, Bounds.yMax)) && ContainsCell(new Vector2(x, Bounds.yMax-1))))
-        //        return true;
-        //}
-
-        //for (int y = (int)Pos.y; y < Bounds.yMax; y++)
-        //{
-        //    if ((roomB.ContainsCell(new Vector2(Pos.x - 1, y)) && ContainsCell(new Vector2(Pos.x, y)))
-        //        || (roomB.ContainsCell(new Vector2(Bounds.xMax, y))) && ContainsCell(new Vector2(Bounds.xMax-1, y)))
-        //        return true;
-        //}
+        return false;
     }
 
     public override IEnumerator<Vector2> GetEnumerator()

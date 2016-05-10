@@ -17,7 +17,9 @@ public static class RoomFactory
         pos.x -= offset.y;
         pos.y -= offset.x;
 
-        if (!VerifyAxis(offset.x, minSize.x, dungeon.Width, ref pos.x) || !VerifyAxis(offset.y, minSize.y, dungeon.Height, ref pos.y))
+        if (pos.x < 0 || pos.y < 0
+            || !VerifyAxis(offset.x, minSize.x, dungeon.Width, ref pos.x) 
+            || !VerifyAxis(offset.y, minSize.y, dungeon.Height, ref pos.y))
         {
             return false;
         }
@@ -25,8 +27,8 @@ public static class RoomFactory
         bool enoughSpaceForRoom = !dungeon.SearchInArea(pos, minSize, CellType.corridor);
 
         while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
-                && ((offset.y != 0 && pos.x + minSize.x >= room.Bounds.x) //and it can be moved to the left (orUp) 
-                || (offset.x != 0 && pos.y + minSize.y >= room.Bounds.y)))//while still being attached to the corridor
+                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x >= room.Bounds.x) //and it can be moved to the left (orUp) 
+                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y >= room.Bounds.y)))//while still being attached to the corridor
         {
 
             //move the room and check again
@@ -36,9 +38,7 @@ public static class RoomFactory
         }
 
         if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
-        {
             return false;
-        }
 
         bool roomCarved = false;
 
