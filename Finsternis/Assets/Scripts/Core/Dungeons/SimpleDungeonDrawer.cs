@@ -190,12 +190,18 @@ public class SimpleDungeonDrawer : MonoBehaviour
         {
             if (floorTraps != null && floorTraps.Length > 0)
             {
-                floor = Instantiate<GameObject>(floorTraps[_dungeon[cellX, cellY] - (int)CellType.trappedFloor]);
-                floor.GetComponent<Trap>().Init(new Vector2(cellX, cellY));
-                if (floor)
+                try
                 {
-                    floor.transform.position = pos;
-                    floor.transform.name += nameSuffix;
+                    floor = Instantiate<GameObject>(floorTraps[_dungeon[cellX, cellY] - (int)CellType.trappedFloor]);
+                    floor.GetComponent<Trap>().Init(new Vector2(cellX, cellY));
+                    if (floor)
+                    {
+                        floor.transform.position = pos;
+                        floor.transform.name += nameSuffix;
+                    }
+                } catch(System.IndexOutOfRangeException ex)
+                {
+                    throw new System.IndexOutOfRangeException("Trying to access cell (" + cellX + "; " + cellY + ")", ex);
                 }
             }
         }

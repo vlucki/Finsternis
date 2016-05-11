@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class Room : DungeonSection
 {
     private List<Vector2> _cells;
+    private MTRandom _random;
 
-    public Room(Vector2 position) : base()
+    public Room(Vector2 position, MTRandom random) : base()
     {
         bounds = new Rect(position, Vector2.zero);
         _cells = new List<Vector2>();
+        _random = random;
     }
 
     public Room(Room baseRoom) : base()
     {
         bounds = baseRoom.bounds;
         _cells = new List<Vector2>(baseRoom._cells);
+        _random = baseRoom._random;
     }
 
     public static Room operator +(Room roomA, Room roomB)
@@ -119,7 +121,7 @@ public class Room : DungeonSection
 
     public Vector2 GetRandomCell()
     {
-        return _cells[Random.Range(0, _cells.Count)];
+        return _cells[_random.Range(0, _cells.Count, false)];
     }
 
     public bool ContainsCell(Vector2 cell)

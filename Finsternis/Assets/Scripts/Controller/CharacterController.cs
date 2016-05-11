@@ -67,23 +67,26 @@ public abstract class CharacterController : MonoBehaviour
                 return;
             }
 
-            RaycastHit hit;
-            int mask = (1 << LayerMask.NameToLayer("Floor"));
-            bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
-            if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
-            {
-                characterAnimator.SetBool(FallingBool, false);
-                Unlock();
-            }
-            else if (!floorBelow && !_locked)
-            {
-                Lock();
-                characterAnimator.SetBool(FallingBool, true);
-                characterAnimator.SetFloat(SpeedFloat, 0);
-            }
-
             if (!_locked)
                 characterAnimator.SetFloat(SpeedFloat, characterMovement.GetHorizontalSpeed());
+        }
+    }
+
+    public virtual void FixedUpdate()
+    {
+        RaycastHit hit;
+        int mask = (1 << LayerMask.NameToLayer("Floor"));
+        bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
+        if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
+        {
+            characterAnimator.SetBool(FallingBool, false);
+            Unlock();
+        }
+        else if (!floorBelow && !_locked)
+        {
+            Lock();
+            characterAnimator.SetBool(FallingBool, true);
+            characterAnimator.SetFloat(SpeedFloat, 0);
         }
     }
 
@@ -119,7 +122,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void Hit(int type = 0, bool lockMovement = true)
     {
-        ActivateBoolean(HitBool, HitType, type, lockMovement);
+        ActivateTrigger(HitBool, HitType, type, lockMovement);
     }
 
     public virtual void Attack(int type = 0, bool lockMovement = true)
@@ -146,6 +149,13 @@ public abstract class CharacterController : MonoBehaviour
     {
         characterAnimator.SetBool(DyingBool, true);
         characterMovement.Direction = Vector2.zero;
+    }
+
+    public void ActivateTrigger(int hash, int intHash, int type = 0, bool lockMovement = true)
+    {
+        characterAnimator.SetTrigger(hash);
+        if (lockMovement)
+            characterMovement.Direction = Vector3.zero;
     }
 
     private void ActivateBoolean(int booleanHash, int intHash, int type = 0, bool lockMovement = true)

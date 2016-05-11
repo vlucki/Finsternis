@@ -5,11 +5,15 @@ using System.Collections;
 public class Wall : MonoBehaviour
 {
     [Range(1, 200)]
-    public float distanceThreshold = 20;
+    public float distanceThreshold = 4;
+    [Range(1, 100)]
+    public float fadeModifier = 20;
+
     Material m;
     Renderer r;
     GameObject player;
     CameraController mainCamera;
+
 
     void Awake()
     {
@@ -24,14 +28,13 @@ public class Wall : MonoBehaviour
 
     void Update()
     {
-
         Color c = m.color;
         float newAlpha = 1;
-        if (mainCamera.OccludingObject != null && transform.position.z < player.transform.position.z)
+        if (mainCamera.OccludingObject != null && transform.position.z == mainCamera.OccludingObject.transform.position.z)
         {
             float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-            if(dist <= 4)
-                newAlpha = Mathf.Clamp(dist*dist / distanceThreshold, 0.1f, 1);
+            if(dist <= distanceThreshold)
+                newAlpha = Mathf.Clamp(dist*dist / fadeModifier, 0.1f, 1);
         }
 
         if (!Mathf.Approximately(newAlpha, c.a))

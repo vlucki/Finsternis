@@ -56,8 +56,8 @@ public static class CorridorFactory
         while ((direction.x != 0 && bounds.xMax < room.Bounds.xMax) || (direction.y != 0 && bounds.yMax < room.Bounds.yMax))
             bounds.max += direction;
 
-        bounds.max += new Vector2(Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y + 1) * direction.x + direction.y,
-                                    Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y + 1) * direction.y + direction.x);
+        bounds.max += new Vector2(dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y) * direction.x + direction.y,
+                                    dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y) * direction.y + direction.x);
 
         //reduce the corridor until it is too small or until a room can fit at it's end
         while (bounds.min != bounds.max

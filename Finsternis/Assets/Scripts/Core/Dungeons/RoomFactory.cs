@@ -11,69 +11,82 @@ public static class RoomFactory
 
     public static bool CarveRoom(SimpleDungeon dungeon, Vector2 startingPosition, Vector2 minSize, Vector2 maxSize, Vector2 offset, int _maximumTries, out Room room)
     {
-        room = new Room(startingPosition);
 
         Vector2 pos = startingPosition;
+        
+        //move the room one up or to the left so it aligns properly to the corridor
         pos.x -= offset.y;
         pos.y -= offset.x;
 
+        room = new Room(pos, dungeon.Random);
+
         if (pos.x < 0 || pos.y < 0
-            || !VerifyAxis(offset.x, minSize.x, dungeon.Width, ref pos.x) 
-            || !VerifyAxis(offset.y, minSize.y, dungeon.Height, ref pos.y))
+            || !AdjustCoordinate(offset.x, minSize.x, dungeon.Width, ref pos.x) 
+            || !AdjustCoordinate(offset.y, minSize.y, dungeon.Height, ref pos.y))
         {
             return false;
         }
 
-        bool enoughSpaceForRoom = !dungeon.SearchInArea(pos, minSize, CellType.corridor);
+        bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);// !dungeon.SearchInArea(pos, minSize, CellType.corridor);
 
         while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
-                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x >= room.Bounds.x) //and it can be moved to the left (orUp) 
-                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y >= room.Bounds.y)))//while still being attached to the corridor
+                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x >= room.Bounds.x)  //and it can be moved to the left (orUp) 
+                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y >= room.Bounds.y))) //while still being attached to the corridor
         {
 
             //move the room and check again
             pos.x -= offset.y;
             pos.y -= offset.x;
-            enoughSpaceForRoom = !dungeon.SearchInArea(pos, minSize, CellType.corridor);
+            enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);//!dungeon.SearchInArea(pos, minSize, CellType.corridor);
         }
 
         if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
             return false;
 
-        bool roomCarved = false;
+        pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width);
+        pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height);
 
+        bool roomCarved = false;
         //mark cells at random locations within the room, until the maximum tries is reached
         for (int tries = 0; tries < _maximumTries; tries++)
         {
             //make sure a segment with the given dimensions won't go over the room bounds
             Vector2 size = new Vector2();
-            size.x = Mathf.RoundToInt(Random.Range(minSize.x, maxSize.x - pos.x + startingPosition.x + 1));
-            size.y = Mathf.RoundToInt(Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y + 1));
+            size.x = Mathf.RoundToInt(dungeon.Random.Range(minSize.x, maxSize.x - pos.x + startingPosition.x));
+            size.y = Mathf.RoundToInt(dungeon.Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y));
 
-            if (dungeon.SearchInArea(pos, size, CellType.corridor))
+            //make sure this new part will be connected to the room!
+            while(room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos, size)))
             {
-                size = minSize;
+                size.x += offset.y;
+                size.y += offset.x;
             }
 
-            if (!dungeon.SearchInArea(pos, size, CellType.corridor))
+            //make sure this new part won't go over a corridor!
+            while (size.x > minSize.x && size.y > minSize.y && dungeon.OverlapsCorridor(pos, size))
             {
+                size.x -= offset.y;
+                size.y -= offset.x;
+            }
 
+            if (!dungeon.OverlapsCorridor(pos, size))
+            {
                 roomCarved = true;
 
-                for(int i = (int)pos.y; i < pos.y + size.y; i++)
+                for(int i = (int)pos.y; i <= pos.y + size.y; i++)
                 {
-                    for (int j = (int)pos.x; j < pos.x + size.x; j++)
+                    for (int j = (int)pos.x; j <= pos.x + size.x; j++)
                     {
-                        if(j < dungeon.Height && i < dungeon.Width)
+                        if(j < dungeon.Width && i < dungeon.Height)
                             room.AddCell(j, i);
                     }
                 }
             }
 
-            int modifier = (Random.value <= 0.5 ? -1 : 1);
+            int modifier = (dungeon.Random.value() <= 0.5 ? -1 : 1);
 
-            pos.x += Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-            pos.y += Random.Range(1f, size.y * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
+            pos.x += dungeon.Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
+            pos.y += dungeon.Random.Range(1f, size.y * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
 
             pos.x = Mathf.RoundToInt(pos.x);
             pos.y = Mathf.RoundToInt(pos.y);
@@ -88,17 +101,27 @@ public static class RoomFactory
             pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - minSize.x);
             pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - minSize.y);
         }
-        
+
+        if (room.Pos.x < 0 || room.Pos.y < 0)
+            throw new System.ArgumentOutOfRangeException("Room was carved outsid of dungeon!\n" + room);
 
         return roomCarved;
     }
 
-    private static bool VerifyAxis(float offset, float minSize, float limit, ref float axis)
+    /// <summary>
+    /// Tries to adjust a given coordinate so it respects a given limit.
+    /// </summary>
+    /// <param name="axisOffset">Whether this coordinate can be adjusted or not.</param>
+    /// <param name="adjustment">By how much the coordinate may be shifted.</param>
+    /// <param name="limit">An upper (exclusive) limit for 'coordinate'.</param>
+    /// <param name="coordinate">The X or Y coordinate that is being adjusted.</param>
+    /// <returns>True if the adjustment was possible.</returns>
+    private static bool AdjustCoordinate(float axisOffset, float adjustment, float limit, ref float coordinate)
     {
-        if (axis + minSize > limit)
+        if (coordinate + adjustment > limit)
         {
-            if (offset == 0) //and the corridor it's connected to is above it
-                axis = limit - minSize; //move the room left
+            if (axisOffset == 0)
+                coordinate = limit - adjustment;
             else
                 return false;
         }

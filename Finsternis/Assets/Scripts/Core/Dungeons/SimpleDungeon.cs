@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleDungeon : Dungeon
@@ -72,8 +73,6 @@ public class SimpleDungeon : Dungeon
 
     public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
-    //public DungeonSection this[Vector2 cell] { get { return _sections[(int)cell.x, (int)cell.y]; } }
-
     public int this[int x, int y]
     {
         get
@@ -132,6 +131,10 @@ public class SimpleDungeon : Dungeon
 
     public override void Generate()
     {
+#if UNITY_EDITOR
+        base.Awake();
+#endif
+
         base.Generate();
 
         Init();
@@ -167,6 +170,8 @@ public class SimpleDungeon : Dungeon
         CleanUp();
 
         exit = _lastRoom.GetRandomCell();
+
+        Seed = random.Range(0, 0xFFF);
 
         onGenerationEnd.Invoke();
     }
@@ -277,10 +282,15 @@ public class SimpleDungeon : Dungeon
 
             if (corridor.Length <= 0)
                 _corridors.RemoveAt(i);
-            else if (corridor.Length != 2 && Random.value >= 0.8f)
+            else if (corridor.Length != 2 && Random.value() >= 0.8f)
             {
-                Vector2 extra = (corridor.Length == 1 ? Vector2.zero : corridor.Direction * Random.Range(1, corridor.Length - 2));
-                this[corridor.Pos + extra] = (int)CellType.trappedFloor + Random.Range(0, 2);
+                Vector2 extra = Vector2.zero;
+                if (corridor.Length == 3)
+                    extra = corridor.Direction;
+                else if(corridor.Length > 3)
+                    extra = corridor.Direction * Random.Range(1, corridor.Length - 2, false);
+
+                this[corridor.Pos + extra] = (int)CellType.trappedFloor + Random.Range(0, 2, false);
             }
             corridor.UpdateConnections();
         }
@@ -307,16 +317,6 @@ public class SimpleDungeon : Dungeon
                 }
             }
         }
-    }
-
-    private bool IsOfAnyType(Vector2 cell, params CellType[] types)
-    {
-        foreach(CellType type in types)
-        {
-            if (this[cell] == (int)type)
-                return true;
-        }
-        return false;
     }
 
     /// <summary>
@@ -492,19 +492,48 @@ public class SimpleDungeon : Dungeon
     /// </summary>
     /// <param name="pos">The area starting point.</param>
     /// <param name="size">The width and height of the search area.</param>
-    /// <param name="type">The type of cell that is being searched.</param>
+    /// <param name="types">The types of cell that are being searched.</param>
     /// <returns></returns>
-    public bool SearchInArea(Vector2 pos, Vector2 size, CellType type)
+    public bool SearchInArea(Vector2 pos, Vector2 size, params CellType[] types)
     {
         for(int row = (int)pos.y; row < Height && row < pos.y + size.y; row++)
         {
             for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
             {
-                if (IsWithinDungeon(col, row) && this[col, row] == (int)type)
+                Vector2 cell = new Vector2(col, row);
+                if (IsWithinDungeon(cell) && IsOfAnyType(cell, types))
                     return true;
             }
         }
 
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if a given rectangle overlaps a corridor
+    /// </summary>
+    /// <param name="pos">Upper left corner of the rectangle.</param>
+    /// <param name="size">Dimenstions of the rectangle.</param>
+    /// <returns>True if it does overlap.</returns>
+    internal bool OverlapsCorridor(Vector2 pos, Vector2 size)
+    {
+        Rect r = new Rect(pos, size);
+
+        foreach (Corridor c in _corridors)
+        {
+            if (c.Bounds.Overlaps(r))
+                return true;
+        }
+        return false;
+    }
+
+    private bool IsOfAnyType(Vector2 cell, params CellType[] types)
+    {
+        foreach (CellType type in types)
+        {
+            if (this[cell] == (int)type)
+                return true;
+        }
         return false;
     }
 

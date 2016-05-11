@@ -20,6 +20,10 @@ public abstract class Dungeon : MonoBehaviour
     [SerializeField]
     protected Vector2 exit;
 
+    protected MTRandom random;
+
+    public MTRandom Random { get { return random; } }
+
     public int Seed
     {
         get { return _seed; }
@@ -27,7 +31,8 @@ public abstract class Dungeon : MonoBehaviour
         {
             if (customSeed)
             {
-                Random.seed = this._seed;
+                //Random.seed = this._seed;
+                random = new MTRandom(value);
                 _seed = value;
             }
         }
@@ -40,7 +45,8 @@ public abstract class Dungeon : MonoBehaviour
     {
         if (customSeed)
         {
-            Random.seed = this._seed;
+            random = new MTRandom(this._seed);
+            //Random.seed = this._seed;
         }
     }
 

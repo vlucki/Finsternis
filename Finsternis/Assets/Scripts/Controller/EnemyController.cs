@@ -5,12 +5,18 @@ using System.Collections;
 public class EnemyController : CharacterController {
 
     [SerializeField]
-    [Range(1, 10)]
+    [Range(1, 50)]
     private float _aggroRange = 2f;
+
+
+    [SerializeField]
+    [Range(0, 10)]
+    private float _reach = 0.5f;
 
     [SerializeField]
     private GameObject _target;
 
+    bool followTarget = false;
     bool targetOnRange = false;
 
     public override void Awake()
@@ -26,11 +32,26 @@ public class EnemyController : CharacterController {
         {
             if (!IsDying())
             {
-                targetOnRange = Vector3.Distance(transform.position, _target.transform.position) <= _aggroRange;
-                if (targetOnRange && !IsAttacking())
+                float dist = Vector3.Distance(transform.position, _target.transform.position);
+                followTarget = dist <= _aggroRange;
+                if (followTarget)
                 {
-                    Move();
+                    targetOnRange = dist <= _reach;
+                    if (!IsAttacking())
+                    {
+                        float angle = Vector3.Angle(transform.forward, (_target.transform.position - transform.position));
+
+                        if (targetOnRange && angle < 30f)
+                        {
+                            Attack();
+                        }
+                        else
+                        {
+                            Move();
+                        }
+                    }
                 }
+                
             }
             else
             {
