@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Renderer))]
 public class Wall : MonoBehaviour
@@ -13,10 +13,16 @@ public class Wall : MonoBehaviour
     Renderer r;
     GameObject player;
     CameraController mainCamera;
+    Wall notifier;
+    public List<Wall> neighbours;
 
+    float targetAlpha = 1f;
+    float fadeAlpha = 0.1f;
+    int waitFrames = 0;
 
     void Awake()
     {
+        neighbours = new List<Wall>();
         r = GetComponent<Renderer>();
         m = r.material;
         if(!player)
@@ -26,21 +32,58 @@ public class Wall : MonoBehaviour
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
     }
 
+    void Start()
+    {
+        
+        Collider[] colliders = Physics.OverlapBox(transform.position, r.bounds.size + Vector3.one/2, Quaternion.identity, 1 << LayerMask.NameToLayer("Wall"));
+        if (colliders != null && colliders.Length > 0)
+        {
+            foreach (Collider collider in colliders)
+            {
+                GameObject neighbour = collider.gameObject;
+                if (neighbour != this.gameObject && neighbour != notifier)
+                {
+                    Wall w = neighbour.GetComponent<Wall>();
+                    if (w)
+                        neighbours.Add(w);
+                }
+            }
+        }
+    }
+
+    public void FadeOut(Wall notifier = null)
+    {
+        targetAlpha = fadeAlpha;
+        waitFrames = 1;
+        foreach (Wall neighbour in neighbours)
+            if (notifier != neighbour)
+                neighbour.FadeOut(this);
+    }
+
     void Update()
     {
         Color c = m.color;
-        float newAlpha = 1;
-        if (mainCamera.OccludingObject != null && transform.position.z == mainCamera.OccludingObject.transform.position.z)
-        {
-            float dist = Mathf.Abs(transform.position.x - player.transform.position.x);
-            if(dist <= distanceThreshold)
-                newAlpha = Mathf.Clamp(dist*dist / fadeModifier, 0.1f, 1);
-        }
 
-        if (!Mathf.Approximately(newAlpha, c.a))
+        if(!Mathf.Approximately(targetAlpha, c.a))
         {
-            c.a = Mathf.Lerp(c.a, newAlpha, 0.05f);
+            c.a = Mathf.Lerp(c.a, targetAlpha, 0.05f);
             m.color = c;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (waitFrames < 0)
+        {
+            if (notifier)
+            {
+                notifier = null;
+            }
+            targetAlpha = 1;
+        }
+        else
+        {
+            waitFrames--;
         }
     }
 }

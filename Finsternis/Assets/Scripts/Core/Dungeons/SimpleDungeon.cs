@@ -68,6 +68,8 @@ public class SimpleDungeon : Dungeon
 
     private Room _lastRoom;
 
+    public int killsUntilNext = 0;
+
     public int Width { get { return _dungeon.GetLength(0); } }
     public int Height { get { return _dungeon.GetLength(1); } }
 
@@ -113,6 +115,16 @@ public class SimpleDungeon : Dungeon
 
     public List<Corridor> Corridors { get { return _corridors; } }
     public List<Room> Rooms { get { return _rooms; } }
+
+    public Room GetRandomRoom()
+    {
+        return _rooms[random.Range(0, _rooms.Count, false)];
+    }
+
+    public void EnemyKilled()
+    {
+        killsUntilNext--;
+    }
 
     private void Init()
     {

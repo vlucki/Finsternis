@@ -28,3 +28,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/Finsternis/Assets/MTRandom/readme.pdf.meta
+/Finsternis/Assets/MTRandom/readme.pdf
+/Finsternis/Assets/MTRandom/README.md.meta
+/Finsternis/Assets/MTRandom/README.md
+/Finsternis/Assets/MTRandom/MTRandomDocs.pdf.meta
+/Finsternis/Assets/MTRandom/MTRandomDocs.pdf
+/Finsternis/Assets/Editor/HiddenObjectExplorer.cs.meta
+/Finsternis/Assets/Editor/HiddenObjectExplorer.cs

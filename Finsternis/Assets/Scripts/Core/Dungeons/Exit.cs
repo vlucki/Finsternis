@@ -44,6 +44,12 @@ public class Exit : MonoBehaviour
         _triggered = false;
     }
 
+    void Update()
+    {
+        if (_dungeon.killsUntilNext <= 0 && !_collider.enabled)
+            Unlock();
+    }
+
     public void Unlock()
     {
         onUnlock.Invoke();

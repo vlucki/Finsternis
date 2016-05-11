@@ -20,7 +20,8 @@ public class EnemyHUDController : MonoBehaviour
         if(!_mainCamera)
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        _enemy = GetComponentInParent<Entity>();
+        if(!_enemy)
+           _enemy = GetComponentInParent<Entity>();
 
         if (!_hpMeter)
         {
@@ -51,9 +52,13 @@ public class EnemyHUDController : MonoBehaviour
 
     void Start()
     {
-        _txtName.text = _enemy.name;
-        _enemy.onDeath.AddListener(Enemy_death);
-        _health = _enemy.Attributes["hp"] as RangedValueAttribute;
+        if (_enemy)
+        {
+            transform.position = _enemy.transform.position + new Vector3(0, 2, 0.2f);
+            _txtName.text = _enemy.name;
+            _enemy.onDeath.AddListener(Enemy_death);
+            _health = _enemy.Attributes["hp"] as RangedValueAttribute;
+        }
     }
 
     private void Enemy_death()
@@ -63,6 +68,11 @@ public class EnemyHUDController : MonoBehaviour
 
     void Update()
     {
+        if (!_enemy)
+        {
+            _enemy = GetComponentInParent<Entity>();
+            Start();
+        }
         transform.rotation = Quaternion.LookRotation(transform.position - _mainCamera.transform.position, Vector3.up);
         _hpMeter.transform.localScale = new Vector3(_health.Value / _health.Max, 1, 1);
     }

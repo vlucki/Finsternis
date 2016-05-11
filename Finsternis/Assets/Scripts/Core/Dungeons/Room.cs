@@ -6,6 +6,8 @@ public class Room : DungeonSection
     private List<Vector2> _cells;
     private MTRandom _random;
 
+    public int CellCount { get { return _cells.Count; } }
+
     public Room(Vector2 position, MTRandom random) : base()
     {
         bounds = new Rect(position, Vector2.zero);

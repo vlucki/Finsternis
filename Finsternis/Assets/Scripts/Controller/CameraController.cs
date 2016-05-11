@@ -64,22 +64,17 @@ public class CameraController : MonoBehaviour
             QueryTriggerInteraction.Ignore))
         {
             occludingObject = hit.collider.gameObject;
-            MeshRenderer renderer = occludingObject.GetComponentInParent<MeshRenderer>();
-            if (!renderer)
-                renderer = occludingObject.GetComponentInChildren<MeshRenderer>();
-            if (renderer)
+            if (occludingObject)
             {
-                if (occludingObject != _occludingObject)
+                Wall wall = occludingObject.GetComponent<Wall>();
+                if (wall)
                 {
-                    if (_occludingObject)
-                        _occludingObject.layer = LayerMask.NameToLayer("Wall");
                     _occludingObject = occludingObject;
-                    //_occludingObject.layer = LayerMask.NameToLayer("Invisible");
+                    wall.FadeOut();
                 }
             }
         } else if (_occludingObject)
         {
-            //_occludingObject.layer = LayerMask.NameToLayer("Wall");
             _occludingObject = null;
         }
     }
