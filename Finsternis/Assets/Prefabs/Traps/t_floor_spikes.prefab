@@ -222,6 +222,8 @@ GameObject:
   - 95: {fileID: 9575590}
   - 65: {fileID: 6522632}
   - 114: {fileID: 11449388}
+  - 114: {fileID: 11404476}
+  - 114: {fileID: 11488180}
   m_Layer: 8
   m_Name: t_floor_spikes
   m_TagString: Untagged
@@ -1064,6 +1066,17 @@ MonoBehaviour:
   layerToCheck:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &11404476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11409298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1317,24 +1330,6 @@ MonoBehaviour:
       PublicKeyToken=null
   lastDamageSource: {fileID: 0}
   _invincibleFrames: 20
-  health:
-    _name: hp
-    value: 10
-  mana:
-    _name: mp
-    value: 5
-  damage:
-    _name: dmg
-    value: 1
-  speed:
-    _name: spd
-    value: 1
-  magicResistence:
-    _name: mDef
-    value: 1
-  defense:
-    _name: def
-    value: 1
   damageModifierOnTouch: 2
   damageModifierOnStay: 1
 --- !u!114 &11450488
@@ -1475,6 +1470,26 @@ MonoBehaviour:
   layerToCheck:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &11488180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
+  attributeName: dmg
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _min: 0
+  _max: 10
 --- !u!114 &11494892
 MonoBehaviour:
   m_ObjectHideFlags: 1

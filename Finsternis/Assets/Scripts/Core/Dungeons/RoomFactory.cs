@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using CellType = SimpleDungeon.CellType;
 
 //TODO: REVIEW GENERATION (it is creating chunks that are not connected!)
@@ -13,7 +14,7 @@ public static class RoomFactory
     {
 
         Vector2 pos = startingPosition;
-        
+
         //move the room one up or to the left so it aligns properly to the corridor
         pos.x -= offset.y;
         pos.y -= offset.x;
@@ -21,13 +22,13 @@ public static class RoomFactory
         room = new Room(pos, dungeon.Random);
 
         if (pos.x < 0 || pos.y < 0
-            || !AdjustCoordinate(offset.x, minSize.x, dungeon.Width, ref pos.x) 
+            || !AdjustCoordinate(offset.x, minSize.x, dungeon.Width, ref pos.x)
             || !AdjustCoordinate(offset.y, minSize.y, dungeon.Height, ref pos.y))
         {
             return false;
         }
 
-        bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);// !dungeon.SearchInArea(pos, minSize, CellType.corridor);
+        bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);
 
         while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
                 && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x >= room.Bounds.x)  //and it can be moved to the left (orUp) 
@@ -56,7 +57,7 @@ public static class RoomFactory
             size.y = Mathf.RoundToInt(dungeon.Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y));
 
             //make sure this new part will be connected to the room!
-            while(room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos, size)))
+            while (room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos, size)))
             {
                 size.x += offset.y;
                 size.y += offset.x;
@@ -69,20 +70,14 @@ public static class RoomFactory
                 size.y -= offset.x;
             }
 
+            size.x = Mathf.Min(size.x, maxSize.x);
+            size.y = Mathf.Min(size.y, maxSize.y);
+
             if (!dungeon.OverlapsCorridor(pos, size))
             {
                 roomCarved = true;
-
-                for(int i = (int)pos.y; i <= pos.y + size.y; i++)
-                {
-                    for (int j = (int)pos.x; j <= pos.x + size.x; j++)
-                    {
-                        if(j < dungeon.Width && i < dungeon.Height)
-                            room.AddCell(j, i);
-                    }
-                }
+                AddCells(pos, size, dungeon, room);
             }
-
             int modifier = (dungeon.Random.value() <= 0.5 ? -1 : 1);
 
             pos.x += dungeon.Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
@@ -103,9 +98,21 @@ public static class RoomFactory
         }
 
         if (room.Pos.x < 0 || room.Pos.y < 0)
-            throw new System.ArgumentOutOfRangeException("Room was carved outsid of dungeon!\n" + room);
+            throw new ArgumentOutOfRangeException("Room was carved outside of dungeon!\n" + room);
 
         return roomCarved;
+    }
+
+    private static void AddCells(Vector2 pos, Vector2 size, SimpleDungeon dungeon, Room room)
+    {
+        for (int y = (int)pos.y; y < pos.y + size.y; y++)
+        {
+            for (int x = (int)pos.x; x < pos.x + size.x; x++)
+            {
+                if (x < dungeon.Width && y < dungeon.Height)
+                    room.AddCell(x, y);
+            }
+        }
     }
 
     /// <summary>

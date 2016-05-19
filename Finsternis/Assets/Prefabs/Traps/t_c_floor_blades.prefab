@@ -51,6 +51,8 @@ GameObject:
   - 95: {fileID: 9599646}
   - 114: {fileID: 11421364}
   - 65: {fileID: 6570028}
+  - 114: {fileID: 11406570}
+  - 114: {fileID: 11429684}
   m_Layer: 8
   m_Name: t_c_floor_blades
   m_TagString: Untagged
@@ -325,6 +327,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11406570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11410828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,24 +407,6 @@ MonoBehaviour:
       PublicKeyToken=null
   lastDamageSource: {fileID: 0}
   _invincibleFrames: 20
-  health:
-    _name: hp
-    value: 99
-  mana:
-    _name: mp
-    value: 5
-  damage:
-    _name: dmg
-    value: 2
-  speed:
-    _name: spd
-    value: 1
-  magicResistence:
-    _name: mDef
-    value: 1
-  defense:
-    _name: def
-    value: 1
   damageModifierOnTouch: 2
   damageModifierOnStay: 1
 --- !u!114 &11423866
@@ -460,6 +455,26 @@ MonoBehaviour:
   layerToCheck:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &11429684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
+  attributeName: dmg
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _min: 0
+  _max: 10
 --- !u!114 &11496398
 MonoBehaviour:
   m_ObjectHideFlags: 1

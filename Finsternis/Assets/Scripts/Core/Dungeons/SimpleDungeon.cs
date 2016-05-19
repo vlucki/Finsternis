@@ -282,9 +282,7 @@ public class SimpleDungeon : Dungeon
 
         foreach(Corridor c in _corridors)
         {
-            Corridor inUse = c;
-            CheckCorridor(c, toAdd);
-            
+            CheckCorridor(c, toAdd);            
         }
         _corridors.AddRange(toAdd);
 

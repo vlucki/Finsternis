@@ -28,6 +28,7 @@ public abstract class CharacterController : MonoBehaviour
 
     private bool _locked;
     private int _unlockDelay;
+    private Vector3 LastDirection;
 
     public bool Locked { get { return _locked || _unlockDelay > 0; } }
 
@@ -74,25 +75,33 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        RaycastHit hit;
-        int mask = (1 << LayerMask.NameToLayer("Floor"));
-        bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.5f, mask);
-        if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
+        if (!IsDead())
         {
-            characterAnimator.SetBool(FallingBool, false);
-            Unlock();
-        }
-        else if (!floorBelow && !_locked)
-        {
-            Lock();
-            characterAnimator.SetBool(FallingBool, true);
-            characterAnimator.SetFloat(SpeedFloat, 0);
+            RaycastHit hit;
+            int mask = (1 << LayerMask.NameToLayer("Floor"));
+            bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
+            if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
+            {
+                characterAnimator.SetBool(FallingBool, false);
+                Unlock();
+            }
+            else if (!floorBelow && !_locked)
+            {
+                Lock();
+                characterAnimator.SetBool(FallingBool, true);
+                characterAnimator.SetFloat(SpeedFloat, 0);
+            }
         }
     }
 
     protected virtual void Move()
     {
-        transform.forward = Vector3.Slerp(transform.forward, characterMovement.Direction, _turningSpeed);
+        Vector3 dir = characterMovement.Direction;
+        if (dir == Vector3.zero)
+            dir = LastDirection;
+        else
+            LastDirection = dir;
+        transform.forward = Vector3.Slerp(transform.forward, dir, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, characterMovement.Direction)/720));
     }
 
     public bool IsAttacking()

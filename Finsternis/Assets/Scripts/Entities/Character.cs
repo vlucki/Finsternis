@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [RequireComponent (typeof(Inventory))]
 public class Character : Entity

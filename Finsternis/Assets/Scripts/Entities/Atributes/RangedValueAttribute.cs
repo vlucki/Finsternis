@@ -1,47 +1,48 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class RangedValueAttribute : EntityAttribute<float>
 {
-    private FloatValueConstraint _min;
-    
-    private FloatValueConstraint _max;
+    [SerializeField]
+    [Range(0, 100)]
+    private float _min;
+    [SerializeField]
+    [Range(0, 100)]
+    private float _max;
 
-    public float Min { get { return _min.Value; } }
-    public float Max { get { return _max.Value; } }
+    public float Min { get { return _min; } }
+    public float Max { get { return _max; } }
 
     public int IntValue { get { return (int)Value; } }
 
-    public void SetMin(float min)
-    {
-        RemoveConstraintByName("min");
-        _max = new FloatValueConstraint(min, ">=", "min");
-        AddConstraint(_min);
-        if (Value < Min)
-            SetValue(Min);
-    }
-
-    public void SetMax(float max)
-    {
-        RemoveConstraintByName("max");
-        _max = new FloatValueConstraint(max, "<=", "max");
-        AddConstraint(_max);
-        if (Value > Max)
-            SetValue(Max);
-    }
-
-    public RangedValueAttribute(string name, float min, float max, float? defaultValue = null) : base(name)
-    {
-        _min = new FloatValueConstraint(min, ">=", "min");
-        AddConstraint(_min);
-        _max = new FloatValueConstraint(max, "<=", "max");
-        AddConstraint(_max);
-        SetValue(defaultValue == null ? max : (float)defaultValue);
-    }
-
     public override bool SetValue(float newValue)
     {
-        return base.SetValue(Mathf.Clamp(newValue, Min, Max));
+        return base.SetValue(Mathf.Clamp(newValue, _min, _max));
+    }
+
+    public void SetMax(float max, bool pushMin = false)
+    {
+        if (!pushMin)
+            _max = Mathf.Max(max, _min);
+        else
+        {
+            _max = max;
+            _min = Mathf.Min(_min, _max);
+        }
+        SetValue(value);
+    }
+
+    public void SetMin(float min, bool pushMax = false)
+    {
+        if (!pushMax)
+            _min = Mathf.Min(min, _max);
+        else
+        {
+            _min = min;
+            _max = Mathf.Max(_min, _max);
+        }
+        SetValue(value);
     }
 
     public void Subtract(float value)

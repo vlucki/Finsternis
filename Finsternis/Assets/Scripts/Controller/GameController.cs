@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
                 _currentCodeLetter = 0;
                 break;
             case 1:
-                ((RangedValueAttribute)_player.Attributes["hp"]).SetValue(0);
+                Kill(_player);
                 _currentCodeLetter = 0;
                 break;
             case 2:
@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour
 
         if (controller)
         {
-            ((RangedValueAttribute)controller.GetComponent<Entity>().Attributes["hp"]).SetValue(0);
+            Kill(controller.GetComponent<Entity>());
         }
         else
         {
@@ -178,6 +178,11 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         GoTo("main_menu");
+    }
+
+    public void Kill(Entity entity)
+    {
+        ((RangedValueAttribute)entity.GetAttribute("hp")).SetValue(0);
     }
 
 }

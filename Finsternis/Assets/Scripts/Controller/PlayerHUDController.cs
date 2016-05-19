@@ -21,7 +21,6 @@ public class PlayerHUDController : MonoBehaviour
 
     private RangedValueAttribute _health;
     private RangedValueAttribute _mana;
-    private AttributeTable _table;
 
     void Awake()
     {
@@ -47,8 +46,6 @@ public class PlayerHUDController : MonoBehaviour
     public void Start()
     {
         _txtName.text = _character.name;
-        _table = _character.Attributes;
-
         UpdateHud();
     }
 
@@ -59,17 +56,17 @@ public class PlayerHUDController : MonoBehaviour
 
     private void UpdateHud()
     {
-        UpdateRangedField("hp", ref _health, _txtHP);
-        UpdateRangedField("mp", ref _mana, _txtMP);
+        UpdateRangedField("hp", _health, _txtHP);
+        UpdateRangedField("mp", _mana, _txtMP);
     }
 
-    private void UpdateRangedField(string name, ref RangedValueAttribute attribute, Text textField)
+    private void UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
     {
-        if (attribute == null)
+        if (!attribute)
         {
-            attribute = _table[name] as RangedValueAttribute;
+            attribute = _character.GetAttribute(name);
         }
-        if (attribute != null)
+        if (attribute)
         {
             textField.text = attribute.Value + "/" + attribute.Max;
         }

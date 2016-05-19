@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class HitAnimationController : StateMachineBehaviour {
-    
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.SetBool("hit", false);
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        animator.SetBool(CharacterController.AttackBool, false);
     }
 }

@@ -10,6 +10,7 @@ public class PhysicalAttackHandler : MonoBehaviour
     public ForceMode modeOnImpact = ForceMode.VelocityChange;
     public Vector2 executionMultiplier = new Vector2(10, 2);
     public ForceMode modeOnExecution = ForceMode.Impulse;
+    public bool ActiveOnDeath = false;
 
     void Awake()
     {
@@ -19,6 +20,12 @@ public class PhysicalAttackHandler : MonoBehaviour
             if (!owner)
                 throw new System.InvalidOperationException("Attack handler needs an owner!");
         }
+    }
+
+    void Update()
+    {
+        if (owner.Dead && !ActiveOnDeath)
+            this.enabled = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -48,7 +55,7 @@ public class PhysicalAttackHandler : MonoBehaviour
         {
             CharacterController controller = other.GetComponent<CharacterController>();
             if(controller) controller.Hit();
-            owner.DoDamage(otherChar);
+            owner.GetComponent<AttackAction>().Perform(otherChar);
         }
     }
 

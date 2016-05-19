@@ -71,7 +71,7 @@ public class PlayerController : CharacterController
                             characterHit.GetComponent<Rigidbody>().AddExplosionForce(200, transform.position, 20, 5, ForceMode.Impulse);
                             controller.Hit();
                         }
-                        this.character.DoDamage(characterHit);
+                        this.character.GetComponent<AttackAction>().Perform(characterHit);
                     }
                 }
             }

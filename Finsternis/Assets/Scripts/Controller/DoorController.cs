@@ -6,10 +6,16 @@ public class DoorController : MonoBehaviour
 
     public void Open()
     {
-        Vector3 damageSource = transform.position - GetComponent<Entity>().lastDamageSource.transform.position;
-
         Animator anim = GetComponent<Animator>();
-        anim.SetInteger("direction", (Vector3.Angle(transform.forward, damageSource) < 90) ? 1 : -1);
+        int dir = (int)-transform.forward.z;
+
+        if (GetComponent<Entity>().lastDamageSource)
+        {
+            Vector3 damageSource = transform.position - GetComponent<Entity>().lastDamageSource.transform.position;
+            dir = (Vector3.Angle(transform.forward, damageSource) < 90) ? 1 : -1;
+        }
+
+        anim.SetInteger("direction", dir);
         anim.SetTrigger("opening");
     }
 

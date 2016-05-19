@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Collections;
 
+[RequireComponent(typeof(AttackAction))]
 public class Trap : Entity
 {
-
     public float damageModifierOnTouch = 2;
     public float damageModifierOnStay = 1;
-
-    protected float baseDamage;
 
     public HashSet<Entity> entitiesInContact;
 
@@ -16,11 +14,14 @@ public class Trap : Entity
 
     protected Vector2 coordinates = -Vector2.one;
 
+    protected AttackAction attack;
+
     protected override void Awake()
     {
         base.Awake();
         entitiesInContact = new HashSet<Entity>();
-        baseDamage = damage.Value;
+        if (!attack)
+            attack = GetComponent<AttackAction>();
     }
 
     public void Init(Vector2 coordinates)
@@ -51,9 +52,7 @@ public class Trap : Entity
         yield return new WaitForEndOfFrame();
         while (entitiesInContact.Contains(e))
         {
-            damage.SetValue(baseDamage + damageModifierOnStay);
-            DoDamage(e);
-            damage.SetValue(baseDamage);
+            attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnStay);
             yield return new WaitForEndOfFrame();
         }
     }
@@ -65,9 +64,7 @@ public class Trap : Entity
         {
             if (!entitiesInContact.Contains(e))
             {
-                damage.SetValue(baseDamage + damageModifierOnTouch);
-                DoDamage(e);
-                damage.SetValue(baseDamage);
+                attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnTouch);
                 entitiesInContact.Add(e);
                 StartCoroutine(OnContinuousTouch(e));
             }

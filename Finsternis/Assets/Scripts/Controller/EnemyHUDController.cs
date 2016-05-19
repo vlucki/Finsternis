@@ -11,7 +11,7 @@ public class EnemyHUDController : MonoBehaviour
     [SerializeField]
     private Text _txtName;
     [SerializeField]
-    private Entity _enemy;
+    private Character _enemy;
 
 
     private RangedValueAttribute _health;
@@ -21,7 +21,7 @@ public class EnemyHUDController : MonoBehaviour
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
         if(!_enemy)
-           _enemy = GetComponentInParent<Entity>();
+           _enemy = GetComponentInParent<Character>();
 
         if (!_hpMeter)
         {
@@ -57,7 +57,7 @@ public class EnemyHUDController : MonoBehaviour
             transform.position = _enemy.transform.position + new Vector3(0, 2, 0.2f);
             _txtName.text = _enemy.name;
             _enemy.onDeath.AddListener(Enemy_death);
-            _health = _enemy.Attributes["hp"] as RangedValueAttribute;
+            _health = _enemy.GetAttribute("hp") as RangedValueAttribute;
         }
     }
 
@@ -70,11 +70,12 @@ public class EnemyHUDController : MonoBehaviour
     {
         if (!_enemy)
         {
-            _enemy = GetComponentInParent<Entity>();
+            _enemy = GetComponentInParent<Character>();
             Start();
         }
         transform.rotation = Quaternion.LookRotation(transform.position - _mainCamera.transform.position, Vector3.up);
-        _hpMeter.transform.localScale = new Vector3(_health.Value / _health.Max, 1, 1);
+        if(_health)
+            _hpMeter.transform.localScale = new Vector3(_health.Value / _health.Max, 1, 1);
     }
 }
    

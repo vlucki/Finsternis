@@ -48,6 +48,7 @@ GameObject:
   - 114: {fileID: 11405996}
   - 114: {fileID: 11452854}
   - 65: {fileID: 6575378}
+  - 114: {fileID: 11438700}
   m_Layer: 0
   m_Name: door01
   m_TagString: Untagged
@@ -4104,24 +4105,26 @@ MonoBehaviour:
       PublicKeyToken=null
   lastDamageSource: {fileID: 0}
   _invincibleFrames: 0
-  health:
-    _name: hp
-    value: 1
-  mana:
-    _name: mp
-    value: 5
-  damage:
-    _name: dmg
-    value: 1
-  speed:
-    _name: spd
-    value: 1
-  magicResistence:
-    _name: mDef
-    value: 0
-  defense:
-    _name: def
-    value: 0
+--- !u!114 &11438700
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
+  attributeName: hp
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _min: 0
+  _max: 1
 --- !u!114 &11452854
 MonoBehaviour:
   m_ObjectHideFlags: 1

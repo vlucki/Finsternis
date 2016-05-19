@@ -16,47 +16,44 @@ public class Entity : MonoBehaviour
     [Range(0, 20)]
     private int _invincibleFrames = 20;
 
-    private int _remainingInvincibility = 0;
+    private RangedValueAttribute health;
+    private RangedValueAttribute defense;
+    private RangedValueAttribute magicResistance;
 
-    private float _elapsedAttackTime = 0;
-
-    [SerializeField]
-    protected RangedValueAttribute health = new RangedValueAttribute("hp", 0, 10, 10);
-
-    [SerializeField]
-    protected RangedValueAttribute mana = new RangedValueAttribute("mp", 0, 5, 5);
-
-    [SerializeField]
-    protected RangedValueAttribute damage = new RangedValueAttribute("dmg", 0, 100, 1);
-
-    [SerializeField]
-    protected RangedValueAttribute speed = new RangedValueAttribute("spd", 0, 100, 1);
-
-    [SerializeField]
-    protected RangedValueAttribute magicResistence = new RangedValueAttribute("mDef", 0, 100, 1);
-
-    [SerializeField]
-    protected RangedValueAttribute defense = new RangedValueAttribute("def", 0, 100, 1);
-
-    protected AttributeTable attributeTable;
+    private int _remainingInvincibility = 0;    
 
     private bool _dead;
 
     public bool Dead { get { return _dead; } }
 
-    public AttributeTable Attributes
-    {
-        get { return attributeTable; }
-    }
-
     protected virtual void Awake()
     {
-        CreateAttributesTable();
+        health = CheckAttribute(health, "hp");
+        defense = CheckAttribute(defense, "def");
+        magicResistance = CheckAttribute(magicResistance, "mdef");
     }
 
-    private void CreateAttributesTable()
+    private RangedValueAttribute CheckAttribute(RangedValueAttribute attribute, string name)
     {
-        attributeTable = new AttributeTable(health, mana, damage, defense, magicResistence, speed);
+
+        if (!attribute)
+            attribute = ((RangedValueAttribute)GetAttribute(name));
+        if (!attribute)
+        {
+            attribute = gameObject.AddComponent<RangedValueAttribute>();
+            attribute.attributeName = name;
+        }
+
+        return attribute;
+    }
+
+    public RangedValueAttribute GetAttribute(string name)
+    {
+        RangedValueAttribute[] attributes = GetComponents<RangedValueAttribute>();
+        foreach (RangedValueAttribute attribute in attributes)
+            if (attribute.attributeName.Equals(name))
+                return attribute;
+        return null;
     }
 
     protected virtual void Update()
@@ -70,22 +67,12 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public virtual void DoDamage(Entity target)
-    {
-        DoDamage(target, DamageInfo.DamageType.physical);
-    }
-
-    public virtual void DoDamage(Entity target, DamageInfo.DamageType damageType)
-    {
-        target.ReceiveDamage(new DamageInfo(damageType, damage.IntValue, this));
-    }
-
     public virtual void ReceiveDamage(DamageInfo info)
     {
         if (_remainingInvincibility == 0)
         {
             _remainingInvincibility = _invincibleFrames;
-            health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? defense.Value : magicResistence.Value)));
+            health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? defense.Value : magicResistance.Value)));
             onDamageTaken.Invoke();
             lastDamageSource = info.Source;
         }
