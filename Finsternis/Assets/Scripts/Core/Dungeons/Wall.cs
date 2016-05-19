@@ -44,7 +44,7 @@ public class Wall : MonoBehaviour
                 if (neighbour != this.gameObject && neighbour != notifier)
                 {
                     Wall w = neighbour.GetComponent<Wall>();
-                    if (w)
+                    if (w && w.transform.position.z == transform.position.z)
                         neighbours.Add(w);
                 }
             }

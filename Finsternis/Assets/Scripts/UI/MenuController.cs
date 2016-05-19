@@ -76,7 +76,7 @@ public class MenuController : MonoBehaviour
             if (!_isToggleButtonDown)
             {
                 if (!Active)
-                    Open();
+                    Show();
                 _isToggleButtonDown = true;
             }
         }
@@ -89,12 +89,12 @@ public class MenuController : MonoBehaviour
     public void ToggleMenu()
     {
         if (!Active)
-            Open();
+            Show();
         else
-            Close();
+            Hide();
     }
 
-    public void Open()
+    public void Show()
     {
         Active = true;
 
@@ -106,7 +106,7 @@ public class MenuController : MonoBehaviour
         this.transform.position = this._followBehaviour.target.transform.position + 2 * this._followBehaviour.offset;
     }
 
-    public void Close(bool usedToggleButton = false)
+    public void Hide(bool usedToggleButton = false)
     {
         _isToggleButtonDown = usedToggleButton;
         _followBehaviour.target.GetComponent<CharacterController>().Unlock(8);

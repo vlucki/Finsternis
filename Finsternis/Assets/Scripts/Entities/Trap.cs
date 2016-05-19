@@ -43,6 +43,7 @@ public class Trap : Entity
         catch (System.NullReferenceException ex)
         {
             Debug.LogError("Failed to find corridor containing the coordinate " + coordinates);
+            Debug.LogError(ex.Message);
             GameObject.DestroyImmediate(this.gameObject);
         }
     }
