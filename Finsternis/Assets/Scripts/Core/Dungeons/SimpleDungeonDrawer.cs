@@ -1,7 +1,10 @@
-﻿using UnityEngine;
-using CellType = SimpleDungeon.CellType;
-using UnityEngine.Events;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+using CellType = SimpleDungeon.CellType;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SimpleDungeon))]
 public class SimpleDungeonDrawer : MonoBehaviour
@@ -10,25 +13,28 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     [SerializeField]
     private SimpleDungeon _dungeon;
-    [Tooltip("Only of walls and floors generated through primitives.")]
+    [Header("Scaling parameters")]
+    [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
     public Vector3 overallScale = Vector3.one;
     public float extraWallHeight = 3;
+    [Header("Materials")]
     public Material defaultWallMaterial;
     public PhysicMaterial defaultWallPhysicMaterial;
     public Material defaultFloorMaterial;
     public PhysicMaterial defaultFloorPhysicMaterial;
-    public Vector3 overallOffset = Vector3.zero;
 
+    [Header("Prefabs")]
     public GameObject[] walls;
     public GameObject[] doorways;
     public GameObject[] floorTiles;
     public GameObject[] floorTraps;
     public GameObject[] exits;
 
-    HashSet<Vector2> wallsCreated;
-
+    [Header("Events")]
     public UnityEvent onDrawBegin;
     public UnityEvent onDrawEnd;
+
+    private HashSet<Vector2> wallsCreated;
 
 
     public void Start()
@@ -58,7 +64,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private void MakeSection(DungeonSection section)
     {
-        System.Type type = section.GetType(); 
+        Type type = section.GetType(); 
         GameObject sectionObj = new GameObject(type.ToString() + " " + section.Pos.ToString("F0"));
         sectionObj.transform.position = new Vector3(section.Bounds.center.x * overallScale.x, 0, -section.Bounds.center.y * overallScale.z);
         sectionObj.transform.SetParent(transform);
@@ -81,7 +87,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         {
             for (int cellX = -1; cellX <= width; cellX++)
             {
-                if (cellY < 0 || cellY == height || cellX < 0 || cellX == width || ShouldMakeWall(cellX, cellY))
+                if (ShouldMakeWall(cellX, cellY))
                 {
                     GameObject wall = MakeWall(cellX, cellY);
                     if (cellX >= 0 && cellX < _dungeon.Width && cellY > 0 && _dungeon[cellX, cellY - 1] != (int)CellType.wall)
@@ -145,7 +151,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         Vector3 pos = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
         if (_dungeon[cellX, cellY] < (int)CellType.trappedFloor)
         {
-            floor = MakePlane(pos,
+            floor = MakeQuad(pos,
                 new Vector3(overallScale.x, overallScale.z, 1),
                 Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial,
                 (CellType)_dungeon[cellX, cellY] + nameSuffix);
@@ -226,7 +232,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         else
         {
             wall = new GameObject("Wall (" + cellX + ";" + cellY + ")");
-            GameObject top = MakePlane(Vector3.up, Vector3.one, Vector3.right * 90, defaultWallMaterial, "WallTop");
+            GameObject top = MakeQuad(Vector3.up, Vector3.one, Vector3.right * 90, defaultWallMaterial, "WallTop");
             top.transform.SetParent(wall.transform);
 
             for (int i = -1; i < 2; i++)
@@ -249,7 +255,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
                             angle = -90;
                         else if (y < cellY)
                             angle = 180; //make wall face away the camera
-                        GameObject side = MakePlane(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSide");
+                        GameObject side = MakeQuad(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSide");
                         side.GetComponent<Collider>().sharedMaterial = defaultWallPhysicMaterial;
                         side.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
                         side.transform.SetParent(wall.transform);
@@ -266,7 +272,16 @@ public class SimpleDungeonDrawer : MonoBehaviour
         return MergeMeshes(wall, true)[0];
     }
 
-    private GameObject MakePlane(Vector3 pos, Vector3 scale, Vector3 rotation, Material mat, string name = "Ceiling")
+    /// <summary>
+    /// Creates a game object with a primitive quad mesh.
+    /// </summary>
+    /// <param name="pos">Position where the quad should be.</param>
+    /// <param name="scale">Scale of the resulting quad.</param>
+    /// <param name="rotation">Rotation of the resulting quad.</param>
+    /// <param name="mat">Material to be used on the resulting quad.</param>
+    /// <param name="name">Name of the resulting gameobject.</param>
+    /// <returns></returns>
+    private GameObject MakeQuad(Vector3 pos, Vector3 scale, Vector3 rotation, Material mat, string name = "Ceiling")
     {
         GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Quad);
         plane.GetComponent<MeshRenderer>().sharedMaterial = mat;
@@ -277,11 +292,24 @@ public class SimpleDungeonDrawer : MonoBehaviour
         return plane;
     }
 
+    /// <summary>
+    /// Checks if a wall should be made at a given position in the dungeon.
+    /// </summary>
+    /// <param name="cellX">Column being checked.</param>
+    /// <param name="cellY">Row being checked.</param>
+    /// <returns>True if the given coordinates are outside the dungeon or represent a wall within it.</returns>
     private bool ShouldMakeWall(int cellX, int cellY)
     {
-        return (cellX < 0 || cellX >= _dungeon.Width || cellY < 0 || cellY >= _dungeon.Height || _dungeon[cellX, cellY] == (int)CellType.wall);
+        return (!_dungeon.IsWithinDungeon(cellX, cellY) || _dungeon[cellX, cellY] == (int)CellType.wall);
     }
 
+    /// <summary>
+    /// Merge every mesh within a game object and its children.
+    /// </summary>
+    /// <param name="parent">Game object containing the mesh and/or children with meshes.</param>
+    /// <param name="nameAfterParent">Should the merged mesh have the same name as the parent mesh?</param>
+    /// <param name="mergeThreshold">How many meshes may be combined at once?</param>
+    /// <returns></returns>
     private GameObject[] MergeMeshes(GameObject parent, bool nameAfterParent = false, int mergeThreshold = 5)
     {
         Vector3 originalPos = parent.transform.position;
@@ -317,15 +345,15 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 combine[j].transform = meshFilters[meshFilters.Length - 1 - i].transform.localToWorldMatrix;
                 j++;
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
-                Debug.Log(ex);
-                Debug.Log(j);
-                Debug.Log(i);
-                Debug.Log(i - j * meshFilters.Length);
-                Debug.Log(meshFilters.Length);
-                Debug.Log(combine.Length);
-                throw new System.Exception();
+                Debug.Log(
+                    "j = " + j +
+                    "\ni = " + i +
+                    "\nmeshFilters.Length = " + meshFilters.Length +
+                    "\ncombine.Length = " + combine.Length
+                    );
+                throw new IndexOutOfRangeException(ex.Message);
             }
             i++;
         }
@@ -347,7 +375,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private GameObject CreateSection(int j, CombineInstance[] combine, GameObject original, string name = null, bool useBoxCollider = true)
     {
-        if (System.String.IsNullOrEmpty(name))
+        if (String.IsNullOrEmpty(name))
             name = "section" + j;
 
         GameObject sectionContainer = new GameObject(name);

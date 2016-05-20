@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class AttackAction : EntityAction
+public class Attack : EntityAction
 {
     RangedValueAttribute damage;
 

@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Canvas), typeof(Follow), typeof(Selectable))]
+[RequireComponent(typeof(Canvas), typeof(CanvasGroup), typeof(Selectable))]
+[RequireComponent(typeof(Follow))]
 public class MenuController : MonoBehaviour
 {
     [SerializeField]
@@ -22,6 +23,12 @@ public class MenuController : MonoBehaviour
     private Selectable _selectable;
 
     private bool _isToggleButtonDown;
+
+    float _targetAlpha = 0;
+    [SerializeField]
+    [Range(0, 1)]
+    float fadeSpeed = 0.2f;
+    private CanvasGroup _group;
 
     public bool Active
     {
@@ -44,6 +51,11 @@ public class MenuController : MonoBehaviour
 
         if (!_selectable)
             _selectable = GetComponent<Selectable>();
+
+        if (!_group)
+            _group = GetComponent<CanvasGroup>();
+
+        _group.alpha = 0;
 
         if (!_optionsContainer)
         {
@@ -84,6 +96,12 @@ public class MenuController : MonoBehaviour
         {
             _isToggleButtonDown = false;
         }
+
+        if(!Mathf.Approximately(_group.alpha, _targetAlpha))
+            _group.alpha = Mathf.Lerp(_group.alpha, _targetAlpha, fadeSpeed);
+
+        if(Active && _group.alpha < 0.1f)
+            Active = false;
     }
 
     public void ToggleMenu()
@@ -97,7 +115,8 @@ public class MenuController : MonoBehaviour
     public void Show()
     {
         Active = true;
-
+        _followBehaviour.ResetOffset();
+        _targetAlpha = 1;
         _followBehaviour.target.GetComponent<CharacterController>().Lock();
 
         _selectable.Select();
@@ -110,8 +129,8 @@ public class MenuController : MonoBehaviour
     {
         _isToggleButtonDown = usedToggleButton;
         _followBehaviour.target.GetComponent<CharacterController>().Unlock(8);
-
-        Active = false;
+        _targetAlpha = 0;
+        _followBehaviour.offset.x *= -1;
     }
 
     public void MainMenu(bool askForConfirmation = true)

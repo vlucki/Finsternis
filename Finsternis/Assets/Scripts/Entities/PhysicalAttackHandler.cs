@@ -55,7 +55,7 @@ public class PhysicalAttackHandler : MonoBehaviour
         {
             CharacterController controller = other.GetComponent<CharacterController>();
             if(controller) controller.Hit();
-            owner.GetComponent<AttackAction>().Perform(otherChar);
+            owner.GetComponent<Attack>().Perform(otherChar);
         }
     }
 
