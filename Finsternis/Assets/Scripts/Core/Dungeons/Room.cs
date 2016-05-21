@@ -62,6 +62,14 @@ public class Room : DungeonSection
         return Search(otherCell)[0] >= 0;
     }
 
+    public void LockDown()
+    {
+        foreach(Corridor corridor in Connections)
+        {
+            corridor.Lock(this);
+        }
+    }
+
     public int[] Search(Vector2 otherCell)
     {
         int[] result = { -1, -1 };

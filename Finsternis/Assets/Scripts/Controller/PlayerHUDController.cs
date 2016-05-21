@@ -45,7 +45,6 @@ public class PlayerHUDController : MonoBehaviour
 
     public void Start()
     {
-        _txtName.text = _character.name;
         UpdateHud();
     }
 
@@ -56,11 +55,17 @@ public class PlayerHUDController : MonoBehaviour
 
     private void UpdateHud()
     {
-        UpdateRangedField("hp", _health, _txtHP);
-        UpdateRangedField("mp", _mana, _txtMP);
+        if (_character)
+        {
+            if (String.IsNullOrEmpty(_txtName.text))
+                _txtName.text = _character.name;
+
+            _health = UpdateRangedField("hp", _health, _txtHP);
+            _mana = UpdateRangedField("mp", _mana, _txtMP);
+        }
     }
 
-    private void UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
+    private RangedValueAttribute UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
     {
         if (!attribute)
         {
@@ -70,6 +75,7 @@ public class PlayerHUDController : MonoBehaviour
         {
             textField.text = attribute.Value + "/" + attribute.Max;
         }
+        return attribute;
     }
 
     private void ValidateState()

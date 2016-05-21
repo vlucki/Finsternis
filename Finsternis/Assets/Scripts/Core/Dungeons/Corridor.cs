@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 public class Corridor : DungeonSection
 {
@@ -65,6 +66,11 @@ public class Corridor : DungeonSection
     {
         foreach (DungeonSection connection in connections)
             connection.AddConnection(this);
+    }
+
+    public void Lock(Room room)
+    {
+        //check if room contains a cell at the begining and/or end of corridor and lock that connection
     }
 
     public override string ToString()

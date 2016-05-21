@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(SimpleDungeon))]
 public class SimpleDungeonDrawer : MonoBehaviour
 {
-    public Material corridorMaterial;
 
     [SerializeField]
     private SimpleDungeon _dungeon;
@@ -22,6 +21,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public PhysicMaterial defaultWallPhysicMaterial;
     public Material defaultFloorMaterial;
     public PhysicMaterial defaultFloorPhysicMaterial;
+    public Material corridorMaterial;
 
     [Header("Prefabs")]
     public GameObject[] walls;
@@ -33,8 +33,6 @@ public class SimpleDungeonDrawer : MonoBehaviour
     [Header("Events")]
     public UnityEvent onDrawBegin;
     public UnityEvent onDrawEnd;
-
-    private HashSet<Vector2> wallsCreated;
 
 
     public void Start()
@@ -70,7 +68,8 @@ public class SimpleDungeonDrawer : MonoBehaviour
         sectionObj.transform.SetParent(transform);
         foreach (Vector2 cell in section)
         {
-            MakeFloor((int)cell.x, (int)cell.y).transform.SetParent(sectionObj.transform);
+            GameObject floor = MakeFloor((int)cell.x, (int)cell.y);
+            floor.transform.SetParent(sectionObj.transform);
         }
 
         if(type.Equals(typeof(Corridor)))

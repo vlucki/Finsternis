@@ -41,7 +41,7 @@ public class Entity : MonoBehaviour
         if (!attribute)
         {
             attribute = gameObject.AddComponent<RangedValueAttribute>();
-            attribute.attributeName = name;
+            attribute.AttributeName = name;
         }
 
         return attribute;
@@ -51,7 +51,7 @@ public class Entity : MonoBehaviour
     {
         RangedValueAttribute[] attributes = GetComponents<RangedValueAttribute>();
         foreach (RangedValueAttribute attribute in attributes)
-            if (attribute.attributeName.Equals(name))
+            if (attribute.AttributeName.Equals(name))
                 return attribute;
         return null;
     }
