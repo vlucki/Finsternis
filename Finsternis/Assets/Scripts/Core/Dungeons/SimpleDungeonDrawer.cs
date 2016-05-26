@@ -89,12 +89,27 @@ public class SimpleDungeonDrawer : MonoBehaviour
                 if (ShouldMakeWall(cellX, cellY))
                 {
                     GameObject wall = MakeWall(cellX, cellY);
-                    if (cellX >= 0 && cellX < _dungeon.Width && cellY > 0 && _dungeon[cellX, cellY - 1] != (int)CellType.wall)
+                    bool mayBlockPlayer = ShouldAddScript(cellX, cellY);
+                    if (mayBlockPlayer 
+                        || ShouldAddScript(cellX, cellY - 1) 
+                        || ShouldAddScript(cellX - 1, cellY - 1)
+                        || ShouldAddScript(cellX + 1, cellY - 1))
+                    {
                         wall.AddComponent<Wall>();
+                        wall.GetComponent<Wall>().canFadeCompletely = mayBlockPlayer;
+                    }
                     wall.transform.SetParent(wallsContainer.transform);
                 }
             }
         }
+    }
+
+    private bool ShouldAddScript(int cellX, int cellY)
+    {
+        return (cellX >= 0 
+            && cellX < _dungeon.Width 
+            && cellY > 0 
+            && _dungeon[cellX, cellY - 1] != (int)CellType.wall);
     }
 
     private void MakeDoors(Corridor corridor, GameObject parent = null)

@@ -14,28 +14,32 @@ public class Wall : MonoBehaviour
     GameObject player;
     CameraController mainCamera;
     Wall notifier;
+    bool shouldFadeCompletely = true;
+    public bool canFadeCompletely = false;
     public List<Wall> neighbours;
 
     float targetAlpha = 1f;
     float fadeAlpha = 0.1f;
+    float currentAlpha = 1f;
     int waitFrames = 0;
+    private Wall lastNotifier;
 
     void Awake()
     {
         neighbours = new List<Wall>();
         r = GetComponent<Renderer>();
         m = r.material;
-        if(!player)
+        if (!player)
             player = GameObject.FindGameObjectWithTag("Player");
 
-        if(!mainCamera)
+        if (!mainCamera)
             mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
     }
 
     void Start()
     {
-        
-        Collider[] colliders = Physics.OverlapBox(transform.position, r.bounds.size + Vector3.one/2, Quaternion.identity, 1 << LayerMask.NameToLayer("Wall"));
+
+        Collider[] colliders = Physics.OverlapBox(transform.position, r.bounds.size + Vector3.one / 2, Quaternion.identity, 1 << LayerMask.NameToLayer("Wall"));
         if (colliders != null && colliders.Length > 0)
         {
             foreach (Collider collider in colliders)
@@ -44,7 +48,7 @@ public class Wall : MonoBehaviour
                 if (neighbour != this.gameObject && neighbour != notifier)
                 {
                     Wall w = neighbour.GetComponent<Wall>();
-                    if (w && w.transform.position.z == transform.position.z)
+                    if (w)
                         neighbours.Add(w);
                 }
             }
@@ -55,19 +59,48 @@ public class Wall : MonoBehaviour
     {
         targetAlpha = fadeAlpha;
         waitFrames = 1;
-        foreach (Wall neighbour in neighbours)
-            if (notifier != neighbour)
-                neighbour.FadeOut(this);
+
+        if (notifier)
+            shouldFadeCompletely = canFadeCompletely && notifier.transform.position.z == transform.position.z;
+        else if (canFadeCompletely)
+            shouldFadeCompletely = true;
+
+        if (shouldFadeCompletely)
+        {
+            foreach (Wall neighbour in neighbours)
+            {
+                if (notifier != neighbour)
+                    neighbour.FadeOut(this);
+            }
+        }
+        else if (!lastNotifier || notifier.transform.position.x == transform.position.x)
+        {
+            m.SetVector("_FadePoint", notifier.transform.position + (transform.position - notifier.transform.position) / 2);
+            Vector3 axis = (notifier.transform.position - transform.position);
+            axis.x = Mathf.Abs(axis.x);
+            axis.y = Mathf.Abs(axis.y);
+            axis.z = Mathf.Abs(axis.z);
+            m.SetVector("_FadeAxis", axis);
+            lastNotifier = notifier;
+        }
     }
 
     void Update()
     {
-        Color c = m.color;
 
-        if(!Mathf.Approximately(targetAlpha, c.a))
+        if (!Mathf.Approximately(targetAlpha, currentAlpha))
         {
-            c.a = Mathf.Lerp(c.a, targetAlpha, 0.05f);
-            m.color = c;
+            currentAlpha = Mathf.Lerp(currentAlpha, targetAlpha, 0.05f);
+            if (shouldFadeCompletely)
+            {
+                Color c = m.color;
+                c.a = currentAlpha;
+                m.color = c;
+            }
+            else
+            {
+                m.SetFloat("_FadeAlpha", currentAlpha);
+            }
         }
     }
 
@@ -75,10 +108,8 @@ public class Wall : MonoBehaviour
     {
         if (waitFrames < 0)
         {
-            if (notifier)
-            {
-                notifier = null;
-            }
+            notifier = null;
+            lastNotifier = null;
             targetAlpha = 1;
         }
         else
