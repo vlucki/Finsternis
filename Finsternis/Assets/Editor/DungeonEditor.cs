@@ -13,16 +13,19 @@ public class DungeonEditor : Editor
             GUILayout.BeginHorizontal();
             GUILayout.Label("Fixed seed:");
             seed = GUILayout.TextField(seed);
-            GUILayout.EndHorizontal();
             if (GUILayout.Button("Generate"))
             {
                 tgt.Awake();
-                int dungeonSeed = tgt.Seed;
-                if (int.TryParse(seed, out dungeonSeed))
-                    tgt.Seed = dungeonSeed;
+                if (!string.IsNullOrEmpty(seed))
+                {
+                    int dungeonSeed = tgt.Seed;
+                    if (int.TryParse(seed, out dungeonSeed))
+                        tgt.Seed = dungeonSeed;
+                }
                 tgt.Generate();
                 tgt.GetComponent<SimpleDungeonDrawer>().Draw();
             }
+            GUILayout.EndHorizontal();
         }
         DrawDefaultInspector();
     }

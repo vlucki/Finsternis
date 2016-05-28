@@ -57,7 +57,7 @@ public static class RoomFactory
             size.y = Mathf.RoundToInt(dungeon.Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y));
 
             //make sure this new part will be connected to the room!
-            while (room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos, size)))
+            while (room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos-Vector2.one, size+2*Vector2.one)))
             {
                 size.x += offset.y;
                 size.y += offset.x;

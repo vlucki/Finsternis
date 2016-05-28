@@ -73,7 +73,7 @@ public class Wall : MonoBehaviour
                     neighbour.FadeOut(this);
             }
         }
-        else if (!lastNotifier || notifier.transform.position.x == transform.position.x)
+        else if (notifier && (!lastNotifier || notifier.transform.position.x == transform.position.x))
         {
             m.SetVector("_FadePoint", notifier.transform.position + (transform.position - notifier.transform.position) / 2);
             Vector3 axis = (notifier.transform.position - transform.position);
