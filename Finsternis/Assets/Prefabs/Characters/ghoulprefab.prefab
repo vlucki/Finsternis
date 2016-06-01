@@ -2303,10 +2303,12 @@ MonoBehaviour:
   _fallSpeedThreshold: -0.2
   _turningSpeed: 0.05
   _aggroRange: 4
-  _trackingIgnoreWalls: 0
+  _wanderCycle: 2
+  wanderFrequency: 0.5
+  _ignoreWalls: 0
   _reach: 1
   _target: {fileID: 0}
-  interestPersistence: 2
+  interestPersistence: 5
 --- !u!114 &11428532
 MonoBehaviour:
   m_ObjectHideFlags: 1

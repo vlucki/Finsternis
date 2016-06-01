@@ -5,11 +5,6 @@ using UnityEngine;
 public class PlayerController : CharacterController
 {
 
-
-    [SerializeField]
-    [Tooltip("Wheter the usual WASD should respond according to the direction faced by the character.")]
-    private bool _adjustControls = true;
-
     public override void Awake()
     {
         base.Awake();
@@ -33,21 +28,8 @@ public class PlayerController : CharacterController
 
         if (!IsAttacking())
         {
-            Move();
+            Move(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
         }
-    }
-
-    protected override void Move()
-    {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (_adjustControls)
-        {
-            movement = transform.right * movement.x + transform.forward * movement.z;
-        }
-
-        characterMovement.Direction = movement;
-
-        base.Move();
     }
 
     public override void Attack(int type = 0, bool lockMovement = true)

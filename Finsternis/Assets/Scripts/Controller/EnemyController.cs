@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System;
+using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class EnemyController : CharacterController
@@ -11,7 +13,15 @@ public class EnemyController : CharacterController
     private float _aggroRange = 2f;
 
     [SerializeField]
-    private bool _trackingIgnoreWalls = false;
+    [Range(1, 50)]
+    private float _wanderCycle = 1f;
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float wanderFrequency = 0.5f;
+
+    [SerializeField]
+    private bool _ignoreWalls = false;
 
     [SerializeField]
     [Range(0, 10)]
@@ -24,6 +34,7 @@ public class EnemyController : CharacterController
     private float interestPersistence = 2f;
 
     private float timeSinceLastSawTarget = 0;
+    private float timeSinceLastWander = 0;
 
     private Vector3 _targetLocation;
 
@@ -65,7 +76,7 @@ public class EnemyController : CharacterController
                     }
                     else if (hasTarget && transform.position != _targetLocation - GetOffset(_targetLocation))
                     {
-                        Move();
+                        Move((_target.transform.position - transform.position).normalized);
                     }
                     else
                     {
@@ -75,7 +86,10 @@ public class EnemyController : CharacterController
                 }
 
                 if (!canSeeTarget && !hasTarget)
-                    GetComponent<Movement>().Direction = Vector2.zero;
+                {
+                    timeSinceLastSawTarget = 0;
+                    Wander();
+                }
 
             }
             else
@@ -84,6 +98,35 @@ public class EnemyController : CharacterController
                 GetComponent<Rigidbody>().isKinematic = true;
             }
         }
+    }
+
+    private void Wander()
+    {
+        timeSinceLastWander += Time.deltaTime;
+        if (timeSinceLastWander >= _wanderCycle)
+        {
+            Move(GetWanderingDirection());
+            timeSinceLastWander = 0;
+        }
+        else
+        {
+            Move(GetComponent<Movement>().Direction);
+        }
+    }
+
+    private Vector3 GetWanderingDirection()
+    {
+        Vector3 dir = Vector3.zero;
+        float value = Random.value;
+        if (value > wanderFrequency)
+            dir = new Vector3(Random.value*10, 0, Random.value*10);
+
+        if (Random.value > 0.5f)
+            dir.x *= -1;
+        if (Random.value > 0.5f)
+            dir.z *= -1;
+
+        return dir;
     }
 
     private bool CheckRange()
@@ -95,7 +138,7 @@ public class EnemyController : CharacterController
     {
         bool canSeeTarget = false;
         Vector3 oldTargetLocation = _targetLocation;
-        if (!_trackingIgnoreWalls)
+        if (!_ignoreWalls)
         {
             RaycastHit hit;
             if (Physics.Raycast(
@@ -124,13 +167,6 @@ public class EnemyController : CharacterController
         Vector3 offset = (transform.position - position).normalized * _reach;
         offset.y = 0;
         return offset;
-    }
-
-    protected override void Move()
-    {
-        GetComponent<Movement>().Direction = (_target.transform.position - transform.position).normalized;
-
-        base.Move();
     }
 
 }

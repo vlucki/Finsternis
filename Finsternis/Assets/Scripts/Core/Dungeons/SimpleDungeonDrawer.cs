@@ -126,6 +126,10 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
             for (int i = 0; i < 2; i++)
             {
+                if (i == 0 && _dungeon[corridor[0] - corridor.Direction] == (int)CellType.wall)
+                    continue;
+                else if (i == 1 && _dungeon[corridor.LastCell + corridor.Direction] == (int)CellType.wall)
+                    continue;
                 Vector3 pos;
                 if (i == 0) pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
                 else pos = new Vector3(corridor.LastCell.x, 0, corridor.LastCell.y);

@@ -94,14 +94,15 @@ public abstract class CharacterController : MonoBehaviour
         }
     }
 
-    protected virtual void Move()
+    protected virtual void Move(Vector3 direction)
     {
-        Vector3 dir = characterMovement.Direction;
-        if (dir == Vector3.zero)
+        Vector3 dir = direction;
+        if (direction == Vector3.zero)
             dir = LastDirection;
         else
             LastDirection = dir;
-        transform.forward = Vector3.Slerp(transform.forward, dir, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, characterMovement.Direction)/720));
+        transform.forward = Vector3.Slerp(transform.forward, dir, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, direction) / 720));
+        GetComponent<Movement>().Direction = direction;
     }
 
     public bool IsAttacking()
