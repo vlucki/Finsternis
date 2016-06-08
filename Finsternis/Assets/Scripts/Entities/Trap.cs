@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 
-[RequireComponent(typeof(Attack))]
+[RequireComponent(typeof(AttackAction))]
 public class Trap : Entity
 {
     public float damageModifierOnTouch = 2;
@@ -14,14 +14,14 @@ public class Trap : Entity
 
     protected Vector2 coordinates = -Vector2.one;
 
-    protected Attack attack;
+    protected AttackAction attack;
 
     protected override void Awake()
     {
         base.Awake();
         entitiesInContact = new HashSet<Entity>();
         if (!attack)
-            attack = GetComponent<Attack>();
+            attack = GetComponent<AttackAction>();
     }
 
     public void Init(Vector2 coordinates)

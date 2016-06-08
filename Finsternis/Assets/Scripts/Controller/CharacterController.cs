@@ -96,6 +96,10 @@ public abstract class CharacterController : MonoBehaviour
 
     protected virtual void Move(Vector3 direction)
     {
+        if (IsStaggered())
+            return;
+
+        direction.y = 0;
         Vector3 dir = direction;
         if (direction == Vector3.zero)
             dir = LastDirection;
@@ -123,6 +127,11 @@ public abstract class CharacterController : MonoBehaviour
     public bool IsFalling()
     {
         return characterAnimator.GetBool(FallingBool);
+    }
+
+    public bool IsStaggered()
+    {
+        return characterAnimator.GetBool(HitBool);
     }
 
     public bool ShouldWalk()

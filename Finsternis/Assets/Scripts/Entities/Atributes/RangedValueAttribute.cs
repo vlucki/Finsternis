@@ -5,11 +5,11 @@ using UnityEngine.Events;
 public class RangedValueAttribute : EntityAttribute<float>
 {
     [SerializeField]
-    [Range(0, 100)]
-    private float _min;
+    [Range(0, 999)]
+    private float _min = 0;
     [SerializeField]
-    [Range(0, 100)]
-    private float _max;
+    [Range(0, 999)]
+    private float _max = 999;
 
     public float Min { get { return _min; } }
     public float Max { get { return _max; } }

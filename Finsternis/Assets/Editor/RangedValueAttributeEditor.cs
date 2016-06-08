@@ -5,7 +5,7 @@ using System;
 [CustomEditor(typeof(RangedValueAttribute))]
 public class RangedValueAttributeEditor : Editor
 {
-
+    MonoScript script;
     RangedValueAttribute tgt;
     GUIStyle style;
     SerializedProperty attributeName;
@@ -15,6 +15,7 @@ public class RangedValueAttributeEditor : Editor
     void OnEnable()
     {
         tgt = target as RangedValueAttribute;
+        script = MonoScript.FromMonoBehaviour(tgt);
         style = new GUIStyle();
         style.margin = new RectOffset(2, 2, 2, 0);
         style.fontStyle = FontStyle.Bold;
@@ -27,6 +28,8 @@ public class RangedValueAttributeEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+
+        script = EditorGUILayout.ObjectField("Script:", script, typeof(MonoScript), false) as MonoScript;
 
         style.alignment = TextAnchor.MiddleLeft;
 

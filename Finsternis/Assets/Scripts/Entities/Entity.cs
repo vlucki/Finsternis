@@ -35,7 +35,6 @@ public class Entity : MonoBehaviour
 
     private RangedValueAttribute CheckAttribute(RangedValueAttribute attribute, string name)
     {
-
         if (!attribute)
             attribute = ((RangedValueAttribute)GetAttribute(name));
         if (!attribute)

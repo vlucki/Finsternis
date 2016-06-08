@@ -36,12 +36,6 @@ public class Movement : MonoBehaviour
             body = GetComponent<Rigidbody>();
     }
 
-    private void GenerateRigidBody()
-    {
-        body = gameObject.AddComponent<Rigidbody>();
-        body.drag = 1f;
-    }
-
     protected virtual void FixedUpdate()
     {
         if (_direction != Vector3.zero)
