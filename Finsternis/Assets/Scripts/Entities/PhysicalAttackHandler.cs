@@ -31,7 +31,12 @@ public class PhysicalAttackHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        SimulateImpact(other, impactMultiplier);
+
+        if (ignoreList != null && ignoreList.Contains(other))
+            return;
+
+        if (!owner.GetComponent<CharacterController>().IsAttacking())
+            return;
 
         Entity otherChar = other.GetComponentInParent<Entity>();
 
@@ -41,25 +46,22 @@ public class PhysicalAttackHandler : MonoBehaviour
             if(controller) controller.Hit();
             owner.GetComponent<AttackAction>().Perform(otherChar);
         }
+        SimulateImpact(other, impactMultiplier, true);
     }
 
-    private void SimulateImpact(Collider other, Vector2 multiplier)
+    private void SimulateImpact(Collider other, Vector2 multiplier, bool zeroVelocity = false)
     {
-        if (ignoreList != null && ignoreList.Contains(other))
-            return;
-
-        if (!owner.GetComponent<CharacterController>().IsAttacking())
-            return;
-
         Rigidbody body = other.GetComponentInParent<Rigidbody>();
         if (body)
         {
-            Vector3 dir = (other.transform.position - owner.transform.position);
+            if(zeroVelocity)
+                body.velocity = Vector3.zero;
+
+            Vector3 dir = owner.transform.forward;
 
             RangedValueAttribute str = owner.GetAttribute("str");
 
-            float strModifier = str ? str.Value : 1; 
-
+            float strModifier = str ? str.Value : 1;
             body.AddForce((dir * multiplier.x + Vector3.up * multiplier.y) * strModifier, modeOnImpact);
             Vector3 target = owner.transform.position;
             target.y = other.transform.position.y;

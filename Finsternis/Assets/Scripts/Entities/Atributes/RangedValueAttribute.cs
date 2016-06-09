@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 [System.Serializable]
 public class RangedValueAttribute : EntityAttribute<float>

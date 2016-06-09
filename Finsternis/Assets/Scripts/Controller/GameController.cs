@@ -111,7 +111,14 @@ public class GameController : MonoBehaviour
             case 0:
                 foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
                 {
-                    obj.GetComponent<Exit>().Unlock();
+                    try
+                    {
+                        obj.GetComponent<Exit>().Unlock();
+                    } catch(NullReferenceException ex)
+                    {
+                        Debug.LogError(obj);
+                        throw ex;
+                    }
                 }
                 _currentCodeLetter = 0;
                 break;

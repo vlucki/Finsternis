@@ -43,6 +43,9 @@ public class Entity : MonoBehaviour
             attribute.AttributeName = name;
         }
 
+        if (!attribute)
+            throw new NullReferenceException("Could not load attribute " + name + "\nMaybe it was not set in the inspector?");
+
         return attribute;
     }
 
@@ -59,9 +62,7 @@ public class Entity : MonoBehaviour
     {
         if (!_dead)
         {
-            if (health.Value == 0)
-                Die();
-            else if (_remainingInvincibility > 0)
+            if (_remainingInvincibility > 0)
                 _remainingInvincibility--;
         }
     }
@@ -70,11 +71,25 @@ public class Entity : MonoBehaviour
     {
         if (_remainingInvincibility == 0)
         {
+            lastDamageSource = info.Source;
             _remainingInvincibility = _invincibleFrames;
             health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? defense.Value : magicResistance.Value)));
             onDamageTaken.Invoke();
-            lastDamageSource = info.Source;
         }
+    }
+
+
+    internal void AtributeUpdated(EntityAttribute attribute)
+    {
+        if (attribute == health)
+            CheckHealth();
+    }
+
+
+    private void CheckHealth()
+    {
+        if (health.Value <= 0 && !_dead)
+            Die();
     }
 
     private void Die()

@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 428726}
   - 33: {fileID: 3330160}
   - 23: {fileID: 2354014}
-  - 64: {fileID: 6447424}
+  - 65: {fileID: 6573164}
   m_Layer: 0
   m_Name: rightDoor
   m_TagString: Untagged
@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 442940}
   - 33: {fileID: 3305978}
   - 23: {fileID: 2368350}
-  - 64: {fileID: 6466586}
+  - 65: {fileID: 6566700}
   m_Layer: 0
   m_Name: leftDoor
   m_TagString: Untagged
@@ -65,6 +65,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -0.068, z: -0.00000061035155}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439370}
   m_RootOrder: 1
@@ -75,8 +76,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 26.997532, y: 43.08678, z: -37.89333}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 442940}
   - {fileID: 428726}
@@ -91,6 +93,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -0.068, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 439370}
   m_RootOrder: 0
@@ -193,30 +196,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192690}
   m_Mesh: {fileID: 4300000, guid: 32f1a3c3cfd7a5f47b30194eade21b66, type: 3}
---- !u!64 &6447424
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108642}
-  m_Material: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300002, guid: 32f1a3c3cfd7a5f47b30194eade21b66, type: 3}
---- !u!64 &6466586
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187748}
-  m_Material: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300004, guid: 32f1a3c3cfd7a5f47b30194eade21b66, type: 3}
 --- !u!65 &6517148
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -229,6 +208,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0017002, y: 0.22999999, z: 2}
   m_Center: {x: 0, y: -0.114999995, z: 0}
+--- !u!65 &6566700
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187748}
+  m_Material: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1397961, y: 0.12499996, z: 1.6313784}
+  m_Center: {x: 0.2642908, y: 0.000000115484, z: 0.00043937564}
+--- !u!65 &6573164
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108642}
+  m_Material: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1397961, y: 0.12499996, z: 1.6313784}
+  m_Center: {x: -0.2642908, y: 0, z: 0.0004400015}
 --- !u!95 &9555778
 Animator:
   serializedVersion: 3
@@ -257,25 +260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad77cb53b86d894b9b6aacf5ccbf4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 6517148}
+  _trigger: {fileID: 0}
   _player: {fileID: 0}
+  _camera: {fileID: 0}
   _dungeon: {fileID: 0}
-  onUnlock:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9555778}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Open
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

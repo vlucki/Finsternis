@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Exit : MonoBehaviour
 {
     [SerializeField]
-    private BoxCollider _collider;
+    private BoxCollider _trigger;
 
     [SerializeField]
     private GameObject _player;
@@ -19,10 +19,8 @@ public class Exit : MonoBehaviour
     private SimpleDungeon _dungeon;
 
     private bool _locked;
-    
-    private bool _triggered;
 
-    public UnityEvent onUnlock;
+    private bool _triggered;
 
     public bool Locked { get { return _locked; } }
 
@@ -32,13 +30,13 @@ public class Exit : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("MainCamera");
         _dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
 
-        if(!(_collider = GetComponent<BoxCollider>())){
-            _collider = gameObject.AddComponent<BoxCollider>();
+        if (!(_trigger = GetComponent<BoxCollider>())) {
+            _trigger = gameObject.AddComponent<BoxCollider>();
         }
-        _collider.isTrigger = true;
-        _collider.size = new Vector3(1, 1, 1);
-        _collider.center = Vector3.forward / 2;
-        _collider.enabled = false;
+        _trigger.isTrigger = true;
+        _trigger.size = new Vector3(1, 1, 1);
+        _trigger.center = Vector3.forward / 2;
+        _trigger.enabled = false;
         _locked = true;
 
         _triggered = false;
@@ -46,14 +44,31 @@ public class Exit : MonoBehaviour
 
     void Update()
     {
-        if (_dungeon.killsUntilNext <= 0 && !_collider.enabled)
+        if (_dungeon.killsUntilNext <= 0)
             Unlock();
     }
 
     public void Unlock()
     {
-        onUnlock.Invoke();
-        _collider.enabled = true;
+        if (!_trigger.enabled)
+        {
+            _trigger.enabled = true;
+            Follow camFollow = _camera.GetComponent<Follow>();
+            camFollow.SetTarget(transform);
+            camFollow.OnTargetReached.AddListener(BeginOpen);
+        }
+    }
+
+    private void BeginOpen()
+    {
+        GetComponent<Animator>().SetTrigger("Open");
+    }
+
+    public void Open()
+    {
+        Follow camFollow = _camera.GetComponent<Follow>();
+        camFollow.OnTargetReached.RemoveListener(BeginOpen);
+        camFollow.SetTarget(_player.transform);
     }
 
     void OnTriggerEnter(Collider other)

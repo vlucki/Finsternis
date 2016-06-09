@@ -117,18 +117,18 @@ public class MenuController : MonoBehaviour
         Active = true;
         _followBehaviour.ResetOffset();
         _targetAlpha = 1;
-        _followBehaviour.target.GetComponent<CharacterController>().Lock();
+        _followBehaviour.Target.GetComponent<CharacterController>().Lock();
 
         _selectable.Select();
         _options[0].Select();
 
-        this.transform.position = this._followBehaviour.target.transform.position + 2 * this._followBehaviour.offset;
+        this.transform.position = this._followBehaviour.Target.transform.position + 2 * this._followBehaviour.offset;
     }
 
     public void Hide(bool usedToggleButton = false)
     {
         _isToggleButtonDown = usedToggleButton;
-        _followBehaviour.target.GetComponent<CharacterController>().Unlock(8);
+        _followBehaviour.Target.GetComponent<CharacterController>().Unlock(8);
         _targetAlpha = 0;
         _followBehaviour.offset.x *= -1;
     }

@@ -5,11 +5,6 @@ using UnityEngine;
 public class PlayerController : CharacterController
 {
 
-    public override void Awake()
-    {
-        base.Awake();
-    }
-
     public override void Update()
     {
         base.Update();

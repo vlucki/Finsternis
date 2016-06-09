@@ -3,7 +3,6 @@ using UnityEngine.Events;
 using System;
 
 [RequireComponent(typeof(Entity))]
-
 public abstract class EntityAttribute : MonoBehaviour
 {
     [SerializeField]
@@ -21,7 +20,11 @@ public abstract class EntityAttribute<T> : EntityAttribute
     public UnityEvent onValueChanged;
 
     [SerializeField]
+    private bool _autoNotifyEntity = true;
+
+    [SerializeField]
     protected T value;
+
 
     public T Value
     {
@@ -31,7 +34,13 @@ public abstract class EntityAttribute<T> : EntityAttribute
     public virtual bool SetValue(T newValue)
     {
         value = newValue;
-        onValueChanged.Invoke();
+
+        if(_autoNotifyEntity)
+            GetComponent<Entity>().AtributeUpdated(this);
+
+        if (onValueChanged != null)
+            onValueChanged.Invoke();
+
         return true;
     }
 }

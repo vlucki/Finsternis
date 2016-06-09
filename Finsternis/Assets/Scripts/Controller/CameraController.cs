@@ -30,19 +30,18 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (!_follow.target)
+        if (!_follow.Target)
             return;
-        CharacterController cc = _follow.target.GetComponentInParent<CharacterController>();
+        CharacterController cc = _follow.Target.GetComponentInParent<CharacterController>();
         if (cc)
         {
-            if (cc.IsFalling())
+            if (cc.IsFalling() && cc.GetComponent<Rigidbody>().velocity.y >= 0.5f)
             {
                 _follow.offset = new Vector3(0, _follow.offset.y, -1);
-                _follow.focusTarget = true;
             }
             else
             {
-                if (!shaking && !_follow.OffsetReset)
+                if (!shaking && !_follow.WasOffsetChanged)
                 {
                     _follow.ResetOffset();
                     StartCoroutine(Shake(1f));
@@ -59,7 +58,7 @@ public class CameraController : MonoBehaviour
             transform.position, 
             transform.forward, 
             out hit, 
-            Vector3.Distance(transform.position, _follow.target.position), 
+            Vector3.Distance(transform.position, _follow.Target.position), 
             (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.NameToLayer("Invisible")), 
             QueryTriggerInteraction.Ignore))
         {

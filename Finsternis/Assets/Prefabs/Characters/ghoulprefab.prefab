@@ -756,6 +756,7 @@ GameObject:
   - 114: {fileID: 11414680}
   - 114: {fileID: 11411316}
   - 114: {fileID: 11472858}
+  - 114: {fileID: 11460186}
   m_Layer: 9
   m_Name: ghoulprefab
   m_TagString: Untagged
@@ -2287,6 +2288,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  _autoNotifyEntity: 1
   value: 1
   _min: 0
   _max: 3
@@ -2363,6 +2365,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916d930ad8c2bb5449778b4f7f0d0ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11460186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributeName: spd
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _autoNotifyEntity: 1
+  value: 2
+  _min: 0
+  _max: 999
 --- !u!114 &11462804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2395,6 +2418,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  _autoNotifyEntity: 1
   value: 10
   _min: 0
   _max: 10
@@ -2469,6 +2493,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  _autoNotifyEntity: 1
   value: 2
   _min: 0
   _max: 99

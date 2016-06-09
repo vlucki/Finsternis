@@ -11,6 +11,7 @@ public class RangedValueAttributeEditor : Editor
     SerializedProperty attributeName;
     SerializedProperty val;
     SerializedProperty changeEvt;
+    SerializedProperty autoNotify;
 
     void OnEnable()
     {
@@ -22,7 +23,7 @@ public class RangedValueAttributeEditor : Editor
         attributeName = serializedObject.FindProperty("attributeName");
         val = serializedObject.FindProperty("value");
         changeEvt = serializedObject.FindProperty("onValueChanged");
-
+        autoNotify = serializedObject.FindProperty("_autoNotifyEntity");
     }
 
     public override void OnInspectorGUI()
@@ -70,6 +71,8 @@ public class RangedValueAttributeEditor : Editor
         ProgressBar(val.floatValue, "Current " + attributeName.stringValue.ToUpper() + " (" + val.floatValue.ToString("F2") + "/" + tgt.Max.ToString("F2") + ")");
 
         EditorGUILayout.PropertyField(changeEvt);
+
+        EditorGUILayout.PropertyField(autoNotify);
 
         serializedObject.ApplyModifiedProperties();
     }

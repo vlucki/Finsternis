@@ -56,6 +56,7 @@ public abstract class CharacterController : MonoBehaviour
     public virtual void Start()
     {
         character.onDeath.AddListener(CharacterController_death);
+        GetComponent<Movement>().Speed = GetComponent<Entity>().GetAttribute("spd").Value / 10;
     }
 
     public virtual void Update()
