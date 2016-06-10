@@ -6,8 +6,8 @@ public sealed class DamageInfo
 
     public enum DamageType
     {
-        physical = 1,
-        magical = 2
+        physical = 0,
+        magical = 10
     }
 
     private DamageType _type;

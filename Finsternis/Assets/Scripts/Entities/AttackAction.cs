@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 public class AttackAction : EntityAction
 {
@@ -18,29 +17,34 @@ public class AttackAction : EntityAction
         }
     }
 
+    /// <summary>
+    /// Performs an attack action.
+    /// </summary>
+    /// <param name="parameters">
+    /// Every parameter needed to perform this action.</br>
+    /// - (REQUIRED) One or more targeted Entities;
+    /// - (OPTIONAL) Type of damage;
+    /// - (OPTIONAL) Extra damage (from buffs and whatnot);
+    /// </param>
     public override void Perform(params object[] parameters)
     {
         if (parameters.Length < 1)
-            throw new System.ArgumentException("Cannot execute the attack logic without a target");
+            throw new ArgumentException("Cannot execute the attack logic without any parameters.");
 
-        int index = 0;
-        Entity target = parameters[index] as Entity;
-        index++;
-        DamageInfo.DamageType dmgType = DamageInfo.DamageType.physical;
-        if (parameters.Length > index && parameters[index] != null)
-        {
-            dmgType = (DamageInfo.DamageType)parameters[index];
-            index++;
-        }
+        Entity[] targets;
+        if (!GetParametersOfType<Entity>(parameters, out targets))
+            throw new ArgumentException("Cannot execute the attack logic without a target.");
 
-        float amount = damage.Value;
-        if (parameters.Length > index && parameters[index] != null)
-        {
-            amount += Convert.ToSingle(parameters[index]);
-        }
-        DamageInfo dmgInfo = new DamageInfo(dmgType, amount, agent);
-        target.ReceiveDamage(dmgInfo);
+        DamageInfo.DamageType damageType;
+        GetParameterOfType<DamageInfo.DamageType>(parameters, out damageType);
 
+        float extraDamage;
+        GetParameterOfType<float>(parameters, out extraDamage);
 
+        float totalDamage = damage.Value + extraDamage;
+
+        DamageInfo dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+        foreach(Entity target in targets)
+            target.ReceiveDamage(dmgInfo);
     }
 }

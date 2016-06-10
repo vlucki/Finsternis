@@ -206,16 +206,16 @@ GameObject:
   - 95: {fileID: 9557328}
   - 54: {fileID: 5427750}
   - 136: {fileID: 13609500}
-  - 114: {fileID: 11479850}
-  - 114: {fileID: 11409130}
   - 114: {fileID: 11445578}
+  - 114: {fileID: 11409130}
+  - 114: {fileID: 11479850}
   - 114: {fileID: 11437360}
   - 114: {fileID: 11444880}
   - 114: {fileID: 11422480}
   - 114: {fileID: 11469758}
+  - 114: {fileID: 11430864}
   - 114: {fileID: 11468726}
   - 114: {fileID: 11464270}
-  - 114: {fileID: 11430864}
   m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -1328,7 +1328,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.37, y: 0, z: -4.21}
+  m_LocalPosition: {x: -0.39, y: 0.58, z: -3.5}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:

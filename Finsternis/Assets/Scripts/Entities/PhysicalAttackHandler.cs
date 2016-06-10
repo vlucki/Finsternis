@@ -11,7 +11,7 @@ public class PhysicalAttackHandler : MonoBehaviour
     public Vector2 executionMultiplier = Vector2.one;
     public ForceMode modeOnExecution = ForceMode.Impulse;
     public bool ActiveOnDeath = false;
-
+    private RangedValueAttribute str;
 
     void Awake()
     {
@@ -20,6 +20,8 @@ public class PhysicalAttackHandler : MonoBehaviour
             owner = GetComponentInParent<Entity>();
             if (!owner)
                 throw new System.InvalidOperationException("Attack handler needs an owner!");
+
+            str = owner.GetAttribute("str");
         }
     }
 
@@ -44,7 +46,8 @@ public class PhysicalAttackHandler : MonoBehaviour
         {
             CharacterController controller = other.GetComponent<CharacterController>();
             if(controller) controller.Hit();
-            owner.GetComponent<AttackAction>().Perform(otherChar);
+            float strBonus = str ? str.Value * 0.5f : 0;
+            owner.GetComponent<AttackAction>().Perform(otherChar, strBonus);
         }
         SimulateImpact(other, impactMultiplier, true);
     }
@@ -58,8 +61,6 @@ public class PhysicalAttackHandler : MonoBehaviour
                 body.velocity = Vector3.zero;
 
             Vector3 dir = owner.transform.forward;
-
-            RangedValueAttribute str = owner.GetAttribute("str");
 
             float strModifier = str ? str.Value : 1;
             body.AddForce((dir * multiplier.x + Vector3.up * multiplier.y) * strModifier, modeOnImpact);
