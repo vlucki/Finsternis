@@ -6,14 +6,19 @@ public abstract class EntityAction : MonoBehaviour
 {
     protected Entity agent;
 
+    public Entity Agent { get { return agent; } }
 
+    protected virtual void Awake()
+    {
+        agent = GetComponent<Entity>();
+    }
 
     protected bool GetParameterOfType<T>(object[] parameters, out T result)
     {
         result = default(T);
         foreach (var v in parameters)
         {
-            if (v != null && v.GetType().IsAssignableFrom(typeof(T)))
+            if (v != null && v is T)
             {
                 result = (T)v;
                 return true;
@@ -29,18 +34,13 @@ public abstract class EntityAction : MonoBehaviour
         result = null;
         foreach (var v in parameters)
         {
-            if (v != null && v.GetType().IsAssignableFrom(typeof(T)))
+            if (v != null && v is T)
             {
                 results.Add((T)v);
             }
         }
         result = results.ToArray();
         return result.Length > 0;
-    }
-
-    protected virtual void Awake()
-    {
-        agent = GetComponent<Entity>();
     }
 
     public abstract void Perform(params object[] parameters);

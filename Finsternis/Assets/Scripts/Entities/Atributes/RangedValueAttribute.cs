@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class RangedValueAttribute : EntityAttribute<float>
+public class RangedValueAttribute : EntityAttribute
 {
     [SerializeField]
     [Range(0, 999)]
@@ -29,7 +29,7 @@ public class RangedValueAttribute : EntityAttribute<float>
             _max = max;
             _min = Mathf.Min(_min, _max);
         }
-        SetValue(value);
+        SetValue(Value);
     }
 
     public void SetMin(float min, bool pushMax = false)
@@ -41,7 +41,7 @@ public class RangedValueAttribute : EntityAttribute<float>
             _min = min;
             _max = Mathf.Max(_min, _max);
         }
-        SetValue(value);
+        SetValue(Value);
     }
 
     public void Subtract(float value)

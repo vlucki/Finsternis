@@ -10,11 +10,7 @@ public class PlayerController : CharacterController
         base.Update();
 
         if (Locked || IsDead() || IsDying())
-        {
-            if(IsDead())
-                GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().GameOver();
             return;
-        }
 
         if (Input.GetAxis("Jump") != 0 && !IsAttacking())
         {

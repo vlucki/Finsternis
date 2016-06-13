@@ -4,6 +4,12 @@ using System.Collections.Generic;
 public class AttackAction : EntityAction
 {
     RangedValueAttribute damage;
+    private DamageInfo dmgInfo;
+
+    public DamageInfo DamageInfo
+    {
+        get { return dmgInfo; }
+    }
 
     protected override void Awake()
     {
@@ -43,8 +49,8 @@ public class AttackAction : EntityAction
 
         float totalDamage = damage.Value + extraDamage;
 
-        DamageInfo dmgInfo = new DamageInfo(damageType, totalDamage, agent);
-        foreach(Entity target in targets)
-            target.ReceiveDamage(dmgInfo);
+        dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+        foreach (Entity target in targets)
+            target.Interact(this);
     }
 }

@@ -6,34 +6,30 @@ using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
 {
-    public UnityEvent onDeath;
-
-    public UnityEvent onDamageTaken;
+    public UnityEvent onInteraction;
 
     public Entity lastDamageSource;
 
+    public EntityAction lastInteraction;
+
     [SerializeField]
-    [Range(0, 20)]
-    private int _invincibleFrames = 20;
+    protected bool interactable = true;
 
-    private RangedValueAttribute health;
-    private RangedValueAttribute defense;
-    private RangedValueAttribute magicResistance;
-
-    private int _remainingInvincibility = 0;    
-
-    private bool _dead;
-
-    public bool Dead { get { return _dead; } }
+    [SerializeField]
+    protected List<string> requiredAttributes;
 
     protected virtual void Awake()
     {
-        health = CheckAttribute(health, "hp");
-        defense = CheckAttribute(defense, "def");
-        magicResistance = CheckAttribute(magicResistance, "mdef");
+        //if(requiredAttributes != null)
+        //    foreach(string attributeTag in requiredAttributes)
+        //        CheckAttribute(health, attributeTag);
+
+        //health = CheckAttribute(health, "hp");
+        //defense = CheckAttribute(defense, "def");
+        //magicResistance = CheckAttribute(magicResistance, "mdef");
     }
 
-    private RangedValueAttribute CheckAttribute(RangedValueAttribute attribute, string name)
+    protected RangedValueAttribute CheckAttribute(RangedValueAttribute attribute, string name)
     {
         if (!attribute)
             attribute = ((RangedValueAttribute)GetAttribute(name));
@@ -58,44 +54,14 @@ public class Entity : MonoBehaviour
         return null;
     }
 
-    protected virtual void Update()
+    public virtual void Interact(EntityAction action)
     {
-        if (!_dead)
-        {
-            if (_remainingInvincibility > 0)
-                _remainingInvincibility--;
-        }
+        lastInteraction = action;
+        if(onInteraction != null)
+            onInteraction.Invoke();
     }
 
-    public virtual void ReceiveDamage(DamageInfo info)
+    public virtual void AtributeUpdated(EntityAttribute attribute)
     {
-        if (_remainingInvincibility == 0)
-        {
-            lastDamageSource = info.Source;
-            _remainingInvincibility = _invincibleFrames;
-            health.Subtract(Mathf.Max(0, info.Amount - (info.Type == DamageInfo.DamageType.physical ? defense.Value : magicResistance.Value)));
-            onDamageTaken.Invoke();
-        }
-    }
-
-
-    internal void AtributeUpdated(EntityAttribute attribute)
-    {
-        if (attribute == health)
-            CheckHealth();
-    }
-
-
-    private void CheckHealth()
-    {
-        if (health.Value <= 0 && !_dead)
-            Die();
-    }
-
-    private void Die()
-    {
-        _dead = true;
-        onDeath.Invoke();
-        onDeath.RemoveAllListeners();
     }
 }

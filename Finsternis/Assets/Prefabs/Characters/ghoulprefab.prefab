@@ -748,8 +748,7 @@ GameObject:
   - 95: {fileID: 9582006}
   - 54: {fileID: 5441148}
   - 136: {fileID: 13666378}
-  - 114: {fileID: 11428532}
-  - 114: {fileID: 11450916}
+  - 114: {fileID: 11422608}
   - 114: {fileID: 11423230}
   - 114: {fileID: 11466016}
   - 114: {fileID: 11414680}
@@ -2283,16 +2282,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: dmg
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _autoNotifyEntity: 1
+  attributeName: dmg
   value: 1
+  _autoNotifyEntity: 1
   _min: 0
-  _max: 3
+  _max: 99
+--- !u!114 &11422608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  lastDamageSource: {fileID: 0}
+  _invincibleFrames: 20
 --- !u!114 &11423230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2313,29 +2335,6 @@ MonoBehaviour:
   _reach: 1
   _target: {fileID: 0}
   interestPersistence: 5
---- !u!114 &11428532
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 160680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  lastDamageSource: {fileID: 0}
-  _invincibleFrames: 20
 --- !u!114 &11429482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2347,14 +2346,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: def
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _autoNotifyEntity: 1
+  attributeName: def
   value: 1
+  _autoNotifyEntity: 1
   _min: 0
   _max: 999
 --- !u!114 &11437686
@@ -2368,7 +2367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 11428532}
+  owner: {fileID: 0}
   ignoreList:
   - {fileID: 13666378}
   impactMultiplier: {x: 0.1, y: 0.1}
@@ -2376,17 +2375,6 @@ MonoBehaviour:
   executionMultiplier: {x: 0.1, y: 0.1}
   modeOnExecution: 1
   ActiveOnDeath: 0
---- !u!114 &11450916
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 160680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 916d930ad8c2bb5449778b4f7f0d0ad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11460186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2398,14 +2386,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: spd
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _autoNotifyEntity: 1
+  attributeName: spd
   value: 2
+  _autoNotifyEntity: 1
   _min: 0
   _max: 999
 --- !u!114 &11462804
@@ -2434,14 +2422,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: hp
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _autoNotifyEntity: 1
+  attributeName: hp
   value: 10
+  _autoNotifyEntity: 1
   _min: 0
   _max: 10
 --- !u!114 &11469454
@@ -2509,14 +2497,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: str
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  attributeName: str
+  value: 1
   _autoNotifyEntity: 1
-  value: 2
   _min: 0
   _max: 99
 --- !u!114 &11480932
@@ -2557,7 +2545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 11428532}
+  owner: {fileID: 0}
   ignoreList:
   - {fileID: 13666378}
   impactMultiplier: {x: 0.1, y: 0.1}

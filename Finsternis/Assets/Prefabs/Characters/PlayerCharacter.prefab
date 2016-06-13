@@ -206,8 +206,6 @@ GameObject:
   - 95: {fileID: 9557328}
   - 54: {fileID: 5427750}
   - 136: {fileID: 13609500}
-  - 114: {fileID: 11445578}
-  - 114: {fileID: 11409130}
   - 114: {fileID: 11479850}
   - 114: {fileID: 11437360}
   - 114: {fileID: 11444880}
@@ -216,6 +214,7 @@ GameObject:
   - 114: {fileID: 11430864}
   - 114: {fileID: 11468726}
   - 114: {fileID: 11464270}
+  - 114: {fileID: 11443314}
   m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -2221,17 +2220,6 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!114 &11409130
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 916d930ad8c2bb5449778b4f7f0d0ad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11422480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2243,14 +2231,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: dmg
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  attributeName: dmg
+  value: 1
   _autoNotifyEntity: 1
-  value: 2
   _min: 0
   _max: 999
 --- !u!114 &11430864
@@ -2264,14 +2252,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: spd
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  attributeName: spd
+  value: 3
   _autoNotifyEntity: 1
-  value: 1
   _min: 0
   _max: 999
 --- !u!114 &11437360
@@ -2285,16 +2273,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: hp
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  attributeName: hp
+  value: 10
   _autoNotifyEntity: 1
-  value: 5
   _min: 0
-  _max: 5
+  _max: 10
 --- !u!114 &11438366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2306,7 +2294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 11445578}
+  owner: {fileID: 0}
   ignoreList:
   - {fileID: 13609500}
   impactMultiplier: {x: 0.1, y: 0.3}
@@ -2314,7 +2302,7 @@ MonoBehaviour:
   executionMultiplier: {x: 0.1, y: 0.1}
   modeOnExecution: 0
   ActiveOnDeath: 0
---- !u!114 &11444880
+--- !u!114 &11443314
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2322,28 +2310,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 124572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attributeName: def
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  _autoNotifyEntity: 1
-  value: 1
-  _min: 0
-  _max: 999
---- !u!114 &11445578
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
+  m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onDeath:
@@ -2358,6 +2325,27 @@ MonoBehaviour:
       PublicKeyToken=null
   lastDamageSource: {fileID: 0}
   _invincibleFrames: 20
+--- !u!114 &11444880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  attributeName: def
+  value: 1
+  _autoNotifyEntity: 1
+  _min: 0
+  _max: 999
 --- !u!114 &11464270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2393,14 +2381,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: str
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _autoNotifyEntity: 1
+  attributeName: str
   value: 3
+  _autoNotifyEntity: 1
   _min: 0
   _max: 99
 --- !u!114 &11479850

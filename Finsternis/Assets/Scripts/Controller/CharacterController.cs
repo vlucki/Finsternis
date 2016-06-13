@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Entity), typeof(Movement), typeof(Animator))]
+[RequireComponent(typeof(Character), typeof(Movement), typeof(Animator))]
 public abstract class CharacterController : MonoBehaviour
 {
-    protected Entity character;
+    protected Character character;
     protected Animator characterAnimator;
     protected Movement characterMovement;
 
@@ -50,7 +50,7 @@ public abstract class CharacterController : MonoBehaviour
         _locked = false;
         characterMovement = GetComponent<Movement>();
         characterAnimator = GetComponent<Animator>();
-        character = GetComponent<Entity>();
+        character = GetComponent<Character>();
     }
 
     public virtual void Start()

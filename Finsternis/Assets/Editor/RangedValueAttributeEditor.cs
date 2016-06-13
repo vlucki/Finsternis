@@ -28,6 +28,8 @@ public class RangedValueAttributeEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        if (!target)
+            return;
         serializedObject.Update();
 
         script = EditorGUILayout.ObjectField("Script:", script, typeof(MonoScript), false) as MonoScript;

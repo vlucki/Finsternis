@@ -25,15 +25,8 @@ public class PhysicalAttackHandler : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (owner.Dead && !ActiveOnDeath)
-            this.enabled = false;
-    }
-
     void OnTriggerEnter(Collider other)
     {
-
         if (ignoreList != null && ignoreList.Contains(other))
             return;
 

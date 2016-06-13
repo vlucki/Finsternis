@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Spikes : Trap
 {
-    public override void ReceiveDamage(DamageInfo info)
+    public override void Interact(EntityAction action)
     {
-        attack.Perform(info.Source, DamageInfo.DamageType.physical);
+        attack.Perform(action.Agent, DamageInfo.DamageType.physical);
     }
 }
