@@ -8,34 +8,18 @@ public class Entity : MonoBehaviour
 {
     public UnityEvent onInteraction;
 
-    public Entity lastDamageSource;
-
     public EntityAction lastInteraction;
 
     [SerializeField]
     protected bool interactable = true;
 
-    [SerializeField]
-    protected List<string> requiredAttributes;
-
-    protected virtual void Awake()
-    {
-        //if(requiredAttributes != null)
-        //    foreach(string attributeTag in requiredAttributes)
-        //        CheckAttribute(health, attributeTag);
-
-        //health = CheckAttribute(health, "hp");
-        //defense = CheckAttribute(defense, "def");
-        //magicResistance = CheckAttribute(magicResistance, "mdef");
-    }
-
-    protected RangedValueAttribute CheckAttribute(RangedValueAttribute attribute, string name)
+    protected T CheckAttribute<T>(T attribute, string name) where T : EntityAttribute
     {
         if (!attribute)
-            attribute = ((RangedValueAttribute)GetAttribute(name));
+            attribute = (T)(GetAttribute(name));
         if (!attribute)
         {
-            attribute = gameObject.AddComponent<RangedValueAttribute>();
+            attribute = gameObject.AddComponent<T>();
             attribute.AttributeName = name;
         }
 
@@ -45,10 +29,10 @@ public class Entity : MonoBehaviour
         return attribute;
     }
 
-    public RangedValueAttribute GetAttribute(string name)
+    public EntityAttribute GetAttribute(string name)
     {
-        RangedValueAttribute[] attributes = GetComponents<RangedValueAttribute>();
-        foreach (RangedValueAttribute attribute in attributes)
+        EntityAttribute[] attributes = GetComponents<EntityAttribute>();
+        foreach (EntityAttribute attribute in attributes)
             if (attribute.AttributeName.Equals(name))
                 return attribute;
         return null;

@@ -61,6 +61,10 @@ public class EnemyController : CharacterController
                 {
                     timeSinceLastSawTarget += Time.deltaTime;
                     hasTarget = (timeSinceLastSawTarget >= interestPersistence); //stop trying to go towards the target
+                    if(_target.GetComponent<CharacterController>().IsDead())
+                    {
+                        hasTarget = false;
+                    }
                 }
 
                 if (!IsAttacking())

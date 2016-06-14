@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//TODO: debug seed 221, where corridor does not connect to other
 public class SimpleDungeon : Dungeon
 {
     [SerializeField]

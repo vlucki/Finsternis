@@ -9,8 +9,9 @@ public class Character : Entity
 
     public UnityEvent onDeath;
 
-    private RangedValueAttribute health;
-    private RangedValueAttribute defense;
+    private RangedValueAttribute _health;
+    private RangedValueAttribute _defense;
+
     private bool _dead;
 
     [SerializeField]
@@ -18,30 +19,20 @@ public class Character : Entity
     private float _invincibiltyTime = 1f;
 
     [SerializeField]
-    private bool invincible = false;
+    private bool _invincible = false;
 
+    public bool Invincible { get { return _invincible; } }
     public bool Dead { get { return _dead; } }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        requiredAttributes.Add("hp");
-        requiredAttributes.Add("def");
-
-        base.Awake();
-
-        health = GetAttribute("hp");
-        defense = GetAttribute("def");
+        _health = CheckAttribute(_health, "hp");
+        _defense = CheckAttribute(_defense, "def");
     }
 
     public override void AtributeUpdated(EntityAttribute attribute)
     {
-        if (attribute == health)
-            CheckHealth();
-    }
-
-    private void CheckHealth()
-    {
-        if (health.Value <= 0 && !_dead)
+        if (!_dead && attribute.Value <= 0 && attribute.AttributeName.Equals("hp"))
             Die();
     }
 
@@ -66,9 +57,9 @@ public class Character : Entity
 
     public virtual void ReceiveDamage(DamageInfo info)
     {
-        if (!Dead && !invincible)
+        if (!Dead && !_invincible)
         {
-            health.Subtract(Mathf.Max(0, info.Amount - defense.Value));
+            _health.Subtract(Mathf.Max(0, info.Amount - _defense.Value));
             if (!Dead)
                 StartCoroutine(TickInvincibility(_invincibiltyTime));
         }
@@ -76,12 +67,12 @@ public class Character : Entity
 
     private IEnumerator TickInvincibility(float remainingInvincibility)
     {
-        invincible = true;
+        _invincible = true;
         while(remainingInvincibility > 0)
         {
             remainingInvincibility -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        invincible = false;
+        _invincible = false;
     }
 }

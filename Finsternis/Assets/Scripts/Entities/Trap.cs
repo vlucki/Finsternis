@@ -16,9 +16,8 @@ public class Trap : Entity
 
     protected AttackAction attack;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         entitiesInContact = new HashSet<Entity>();
         if (!attack)
             attack = GetComponent<AttackAction>();
@@ -44,7 +43,7 @@ public class Trap : Entity
         {
             Debug.LogError("Failed to find corridor containing the coordinate " + coordinates);
             Debug.LogError(ex.Message);
-            GameObject.DestroyImmediate(this.gameObject);
+            DestroyImmediate(gameObject);
         }
     }
 

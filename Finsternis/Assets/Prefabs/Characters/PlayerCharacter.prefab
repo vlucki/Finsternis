@@ -214,7 +214,7 @@ GameObject:
   - 114: {fileID: 11430864}
   - 114: {fileID: 11468726}
   - 114: {fileID: 11464270}
-  - 114: {fileID: 11443314}
+  - 114: {fileID: 11447214}
   m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -2234,8 +2234,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   attributeName: dmg
   value: 1
   _autoNotifyEntity: 1
@@ -2255,8 +2255,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   attributeName: spd
   value: 3
   _autoNotifyEntity: 1
@@ -2276,8 +2276,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   attributeName: hp
   value: 10
   _autoNotifyEntity: 1
@@ -2302,29 +2302,6 @@ MonoBehaviour:
   executionMultiplier: {x: 0.1, y: 0.1}
   modeOnExecution: 0
   ActiveOnDeath: 0
---- !u!114 &11443314
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  lastDamageSource: {fileID: 0}
-  _invincibleFrames: 20
 --- !u!114 &11444880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2339,13 +2316,38 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   attributeName: def
   value: 1
   _autoNotifyEntity: 1
   _min: 0
   _max: 999
+--- !u!114 &11447214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  lastInteraction: {fileID: 0}
+  interactable: 1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _invincibiltyTime: 1
+  _invincible: 0
 --- !u!114 &11464270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2384,8 +2386,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   attributeName: str
   value: 3
   _autoNotifyEntity: 1
@@ -2402,7 +2404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bd395770688eb42857c682b976f347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fallSpeedThreshold: -0.2
+  _fallSpeedThreshold: -1
   _turningSpeed: 0.05
 --- !u!124 &12482380
 Behaviour:

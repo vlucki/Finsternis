@@ -5,7 +5,12 @@ using System;
 [RequireComponent(typeof(Entity))]
 public abstract class EntityAttribute : MonoBehaviour
 {
-    public UnityEvent<EntityAttribute> onValueChanged;
+    [Serializable]
+    public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
+    {
+    }
+
+    public AttributeValueChangedEvent onValueChanged;
 
     [SerializeField]
     protected string attributeName;

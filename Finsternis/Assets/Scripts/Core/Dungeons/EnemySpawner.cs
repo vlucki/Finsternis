@@ -26,26 +26,23 @@ public class EnemySpawner : MonoBehaviour
     void DoSpawn()
     {
         int roomsToSpawn = dungeon.Random.Range(1, dungeon.Rooms.Count, false);
-        int killsRequired = 0;
         do
         {
             Room r = dungeon.GetRandomRoom();
             int enemiesToSpawn = Mathf.CeilToInt(dungeon.Random.Range(0, r.CellCount * enemyDensity));
             do
             {
-                if(enemies != null && enemies.Count > 0)
+                if (enemies != null && enemies.Count > 0)
                 {
+                    dungeon.killsUntilNext++;
                     Vector2 cell = r.GetRandomCell() + Vector2.one;
                     GameObject enemy = ((GameObject)Instantiate(enemies[0], new Vector3(cell.x * drawer.overallScale.x, 0.2f, -cell.y * drawer.overallScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                     enemy.transform.SetParent(transform);
                     enemy.GetComponent<Character>().onDeath.AddListener(dungeon.EnemyKilled);
-                    killsRequired++;
                 }
             }
             while (--enemiesToSpawn > 0);
         }
         while (--roomsToSpawn > 0);
-
-        dungeon.killsUntilNext = killsRequired;
     }
 }

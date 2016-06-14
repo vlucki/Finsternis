@@ -22,7 +22,11 @@ public abstract class Dungeon : MonoBehaviour
 
     protected MTRandom random;
 
+    protected int availableCardPoints;
+
     public MTRandom Random { get { return random; } }
+
+    public int AvailableCardPoints { get { return availableCardPoints; } }
 
     public int Seed
     {
@@ -31,7 +35,6 @@ public abstract class Dungeon : MonoBehaviour
         {
             if (customSeed)
             {
-                //Random.seed = this._seed;
                 random = new MTRandom(value);
                 _seed = value;
             }
@@ -46,7 +49,6 @@ public abstract class Dungeon : MonoBehaviour
         if (customSeed)
         {
             random = new MTRandom(this._seed);
-            //Random.seed = this._seed;
         }
     }
 

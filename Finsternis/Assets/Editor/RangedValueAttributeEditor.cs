@@ -16,6 +16,9 @@ public class RangedValueAttributeEditor : Editor
     void OnEnable()
     {
         tgt = target as RangedValueAttribute;
+        if (!tgt)
+            return;
+
         script = MonoScript.FromMonoBehaviour(tgt);
         style = new GUIStyle();
         style.margin = new RectOffset(2, 2, 2, 0);
@@ -28,8 +31,9 @@ public class RangedValueAttributeEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (!target)
+        if (!tgt)
             return;
+
         serializedObject.Update();
 
         script = EditorGUILayout.ObjectField("Script:", script, typeof(MonoScript), false) as MonoScript;

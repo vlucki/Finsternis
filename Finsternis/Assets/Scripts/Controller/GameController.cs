@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
     {
         if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
         {
-            if (GoalReached() || _player.GetComponent<Entity>().GetAttribute("hp").Value <= 0)
+            if (GoalReached() || _player.GetComponent<Character>().GetAttribute("hp").Value <= 0)
             {
                 GameOver();
             }

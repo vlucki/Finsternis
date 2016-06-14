@@ -21,7 +21,7 @@ public class PhysicalAttackHandler : MonoBehaviour
             if (!owner)
                 throw new System.InvalidOperationException("Attack handler needs an owner!");
 
-            str = owner.GetAttribute("str");
+            str = owner.GetAttribute("str") as RangedValueAttribute;
         }
     }
 
@@ -37,8 +37,14 @@ public class PhysicalAttackHandler : MonoBehaviour
 
         if (otherChar)
         {
+            if (otherChar is Character && ((Character)otherChar).Invincible)
+                return;
+            
             CharacterController controller = other.GetComponent<CharacterController>();
-            if(controller) controller.Hit();
+            if (controller)
+            {
+                controller.Hit();
+            }
             float strBonus = str ? str.Value * 0.5f : 0;
             owner.GetComponent<AttackAction>().Perform(otherChar, strBonus);
         }

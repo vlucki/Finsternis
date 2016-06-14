@@ -97,7 +97,7 @@ public abstract class CharacterController : MonoBehaviour
 
     protected virtual void Move(Vector3 direction)
     {
-        if (IsStaggered())
+        if (IsStaggered() || _locked)
             return;
 
         direction.y = 0;

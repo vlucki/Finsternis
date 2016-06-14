@@ -69,7 +69,7 @@ public class PlayerHUDController : MonoBehaviour
     {
         if (!attribute)
         {
-            attribute = _character.GetAttribute(name);
+            attribute = _character.GetAttribute(name) as RangedValueAttribute;
         }
         if (attribute)
         {

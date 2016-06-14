@@ -1,8 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using CellType = SimpleDungeon.CellType;
 
-//TODO: REVIEW GENERATION (it is creating chunks that are not connected!)
 public static class RoomFactory
 {
     public static bool CarveRoom(SimpleDungeon dungeon, Corridor corridor, Vector2 minSize, Vector2 maxSize, int _maximumTries, out Room room)

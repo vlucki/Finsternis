@@ -4149,7 +4149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onDeath:
+  onInteraction:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11452854}
@@ -4165,13 +4165,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  lastDamageSource: {fileID: 0}
-  _invincibleFrames: 0
+  lastInteraction: {fileID: 0}
+  interactable: 1
 --- !u!114 &11452854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4194,14 +4189,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeName: hp
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  _autoNotifyEntity: 1
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  attributeName: hp
   value: 1
+  _autoNotifyEntity: 1
   _min: 0
   _max: 1
 --- !u!1001 &100100000

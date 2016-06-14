@@ -200,41 +200,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11443314, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &581274523 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 124572, guid: 164a6daa482f5e24bb696fb3e18884d9, type: 2}
-  m_PrefabInternal: {fileID: 581274522}
---- !u!114 &581274524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581274523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  lastDamageSource: {fileID: 0}
-  lastInteraction: {fileID: 0}
-  interactable: 1
-  requiredAttributes: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  _invincibiltyTime: 1
-  invincible: 0
 --- !u!1 &859391492
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,41 +584,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11422608, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1457277531 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 160680, guid: fb7a771b560f0ff45921e081bccac80a, type: 2}
-  m_PrefabInternal: {fileID: 1457277530}
---- !u!114 &1457277532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1457277531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  lastDamageSource: {fileID: 0}
-  lastInteraction: {fileID: 0}
-  interactable: 1
-  requiredAttributes: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  _invincibiltyTime: 1
-  invincible: 0
 --- !u!1 &1523468147
 GameObject:
   m_ObjectHideFlags: 0
