@@ -29,8 +29,8 @@ public static class RoomFactory
         bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);
 
         while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
-                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x >= room.Bounds.x)  //and it can be moved to the left (orUp) 
-                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y >= room.Bounds.y))) //while still being attached to the corridor
+                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x > room.Bounds.x)  //and it can be moved to the left (orUp) 
+                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y > room.Bounds.y))) //while still being attached to the corridor
         {
 
             //move the room and check again

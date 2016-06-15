@@ -236,7 +236,7 @@ public class SimpleDungeon : Dungeon
                         ((Room)section).AddCell(cell);
                     }
                 }
-                catch (System.InvalidCastException ex)
+                catch (InvalidCastException ex)
                 {
                     throw new System.InvalidCastException("Cell " + cell.ToString("F0") + " - found " + section.GetType() + " was expecting Room", ex);
                 }
@@ -345,7 +345,6 @@ public class SimpleDungeon : Dungeon
         while(hangingCorridors.Count > 0)
         {
             Corridor corridor = hangingCorridors.Dequeue();
-
             if (!ExtendCorridor(corridor)) //first of all, try to extend the corridor untils it intersects something
             {
                 //if it fails, them remove every corridor that is not connected to another one
@@ -404,19 +403,8 @@ public class SimpleDungeon : Dungeon
         while(corridor.Length > 0 && !intersectionFound)
         {
             //look around the last cell of the corridor
-            for (int i = -1; i < 2; i += 2)
-            {
-                Vector2 adjacentCell = corridor.LastCell + offset * i;
-                if (IsWithinDungeon(adjacentCell))
-                {
-                    //if an adjacent corridor was found, stop searching
-                    if (this[adjacentCell] == (int)CellType.corridor)
-                    {
-                        intersectionFound = true;
-                        break;
-                    }
-                }
-            }
+            intersectionFound = (SearchAround(corridor.LastCell, 2, false, CellType.corridor, CellType.room) >= 2);
+
             if (!intersectionFound)
             {
                 //Remove "excess cells" from the corridor
@@ -430,6 +418,32 @@ public class SimpleDungeon : Dungeon
             if(corridor.Length == 0)
                 _corridors.Remove(corridor);
         }
+    }
+
+    private int SearchAround(Vector2 coord, int stopAt, bool checkDiagonals, params CellType[] types)
+    {
+        if (types == null || types.Length < 1)
+            throw new InvalidOperationException("Must provide at least one type to be searched for.");
+
+        int cellsFound = 0;
+
+        for(int i = -1; i < 2; i++)
+        {
+            for(int j = -1; j < 2; j++)
+            {
+                if (i == j)
+                    continue;
+                if (!checkDiagonals && Mathf.Abs(i) == Mathf.Abs(j))
+                    continue;
+                Vector2 cell = coord - new Vector2(i, j);
+                if (IsWithinDungeon(cell) && IsOfAnyType(cell, types))
+                    cellsFound++;
+                if (stopAt > 0 && cellsFound == stopAt)
+                    return cellsFound;
+            }
+        }
+
+        return cellsFound;
     }
 
     /// <summary>
