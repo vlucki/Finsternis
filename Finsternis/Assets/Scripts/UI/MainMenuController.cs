@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -14,10 +15,6 @@ public class MainMenuController : MonoBehaviour
     [Range(0, 1)]
     private float _slerpAmount = 0.1f;
 
-    private Quaternion _targetRotation;
-
-    private bool _targetRotationReached = true;
-
     [SerializeField]
     [Range(0, 360)]
     private float _rotationThreshold = 1;
@@ -31,31 +28,21 @@ public class MainMenuController : MonoBehaviour
             _eventSystem = FindObjectOfType<EventSystem>();
     }
 
-    public void Rotate(GameObject reference)
+    public void FocusButton(BaseEventData data)
     {
-        if (_targetRotationReached)
+        StartCoroutine(Rotate(Quaternion.Euler(new Vector3(0, 0, 360 - data.selectedObject.transform.parent.localRotation.eulerAngles.z))));
+    }
+
+    private IEnumerator Rotate(Quaternion target)
+    {
+        _eventSystem.sendNavigationEvents = false;
+        while (Quaternion.Angle(target, _optionsContainer.transform.rotation) > _rotationThreshold)
         {
-            _targetRotation = Quaternion.Euler(new Vector3(0, 0, 360 - reference.transform.localRotation.eulerAngles.z));
-            _targetRotationReached = Quaternion.Angle(_targetRotation, _optionsContainer.transform.rotation) <= _rotationThreshold;
+            _optionsContainer.transform.rotation = Quaternion.Slerp(_optionsContainer.transform.rotation, target, _slerpAmount);
+            yield return new WaitForEndOfFrame();
         }
+        _optionsContainer.transform.rotation = target;
+        _eventSystem.sendNavigationEvents = true;
     }
-
-    void Update()
-    {
-        if (!_targetRotationReached)
-        {
-            _optionsContainer.transform.rotation = Quaternion.Slerp(_optionsContainer.transform.rotation, _targetRotation, _slerpAmount);
-            _targetRotationReached = Quaternion.Angle(_targetRotation, _optionsContainer.transform.rotation) <= _rotationThreshold;
-        }
-        else if (!_eventSystem.sendNavigationEvents)
-            _eventSystem.sendNavigationEvents = true;
-    }
-
-    void LateUpdate()
-    {
-        if (!_targetRotationReached && _eventSystem.sendNavigationEvents)
-            _eventSystem.sendNavigationEvents = false;
-    }
-
 }
 
