@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    private static GameController instance;
+
     private KeyCode[][] _cheatCodes;
 
     private int _currentCode;
@@ -24,6 +26,8 @@ public class GameController : MonoBehaviour
 
     private int _dungeonCount;
 
+    public static GameController Instance { get { return instance; } }
+
     public int DungeonCount
     {
         get { return _dungeonCount; }
@@ -37,33 +41,44 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
+        if(instance != null)
         {
-            if (!_dungeon || !_drawer)
-            {
-                GameObject dungeon = GameObject.Find("Dungeon");
-                if (dungeon)
-                {
-                    if (!_dungeon)
-                        _dungeon = dungeon.GetComponent<SimpleDungeon>();
-                    if (!_drawer)
-                        _drawer = dungeon.GetComponent<SimpleDungeonDrawer>();
-                }
-            }
+            DestroyImmediate(gameObject);
+            return;
+        }
 
-            if(!_player)
-                _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+        instance = this;
+        DontDestroyOnLoad(gameObject);
 
-            _dungeonCount = -1;
+        Cursor.lockState = CursorLockMode.Locked;
 
-            _cheatCodes = new KeyCode[][] {
+        _cheatCodes = new KeyCode[][] {
                 new KeyCode[]{ KeyCode.E, KeyCode.X, KeyCode.I, KeyCode.T },
                 new KeyCode[] { KeyCode.D, KeyCode.I, KeyCode.E },
                 new KeyCode[] { KeyCode.W, KeyCode.I, KeyCode.N },
                 new KeyCode[] { KeyCode.N, KeyCode.E, KeyCode.X, KeyCode.T }
             };
-        }
+
+        _dungeonCount = -1;
+
+        //if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
+        //{
+        //    if (!_dungeon || !_drawer)
+        //    {
+        //        GameObject dungeon = GameObject.Find("Dungeon");
+        //        if (dungeon)
+        //        {
+        //            if (!_dungeon)
+        //                _dungeon = dungeon.GetComponent<SimpleDungeon>();
+        //            if (!_drawer)
+        //                _drawer = dungeon.GetComponent<SimpleDungeonDrawer>();
+        //        }
+        //    }
+
+        //    if(!_player)
+        //        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+
+        //}
 
     }
 
@@ -73,9 +88,11 @@ public class GameController : MonoBehaviour
             _dungeon.Generate();
     }
 
-    public void GoTo(string scene)
+    public void LoadScene(string scene)
     {
-        SceneManager.LoadSceneAsync(scene);
+        PlayerPrefs.SetString("SceneToLoad", scene);
+        SceneManager.LoadScene("loading_screen");
+        //return SceneManager.LoadSceneAsync(scene);
     }
 
     public void Exit()
@@ -87,20 +104,20 @@ public class GameController : MonoBehaviour
 #endif
     }
 
-    void Update()
-    {
-        if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
-        {
-            if (GoalReached() || _player.GetComponent<Character>().GetAttribute("hp").Value <= 0)
-            {
-                GameOver();
-            }
-            else
-            {
-                CheckCommands();
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
+    //    {
+    //        if (GoalReached() || _player.GetComponent<Character>().GetAttribute("hp").Value <= 0)
+    //        {
+    //            GameOver();
+    //        }
+    //        else
+    //        {
+    //            CheckCommands();
+    //        }
+    //    }
+    //}
 
     private void CheckExecutedCommand()
     {
@@ -182,7 +199,7 @@ public class GameController : MonoBehaviour
 
     public void GameOver()
     {
-        GoTo("main_menu");
+        LoadScene("main_menu");
     }
 
     public void Kill(Entity entity)

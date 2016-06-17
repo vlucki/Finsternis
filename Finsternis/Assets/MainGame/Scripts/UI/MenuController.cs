@@ -141,7 +141,7 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            _gameController.GoTo("main_menu");
+            _gameController.LoadScene("main_menu");
         }
     }
 

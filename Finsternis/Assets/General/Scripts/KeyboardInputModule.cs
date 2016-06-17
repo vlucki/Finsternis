@@ -49,6 +49,8 @@
         private GameObject _currentlySelectedGameObject;
         private GameObject _lastSelectedGameObject;
 
+        public GameObject LastSelected { get { return _lastSelectedGameObject; } }
+
         public bool allowActivationOnMobileDevice
         {
             get { return m_AllowActivationOnMobileDevice; }
