@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     [SerializeField]
-    private GameController _gameController;
+    private GameManager _gameManager;
 
     [SerializeField]
     private Canvas _canvas;
@@ -43,8 +43,8 @@ public class MenuController : MonoBehaviour
 
     void Awake()
     {
-        if (!_gameController)
-            _gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        if (!_gameManager)
+            _gameManager = GameManager.Instance;
 
         if (!_canvas)
             _canvas = GetComponent<Canvas>();
@@ -141,7 +141,7 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            _gameController.LoadScene("main_menu");
+            _gameManager.LoadScene("main_menu");
         }
     }
 
@@ -153,7 +153,7 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            _gameController.Exit();
+            _gameManager.Exit();
         }
     }
 }

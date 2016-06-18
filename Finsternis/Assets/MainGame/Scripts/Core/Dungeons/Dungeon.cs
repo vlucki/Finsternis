@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(DungeonGoal))]
 public abstract class Dungeon : MonoBehaviour
 {
     public UnityEvent onGenerationBegin;

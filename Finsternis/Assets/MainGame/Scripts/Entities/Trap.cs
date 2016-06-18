@@ -57,9 +57,9 @@ public class Trap : Entity
         }
     }
 
-    public virtual void OnTouch(Trigger source)
+    public virtual void OnTouch(GameObject touched)
     {
-        Entity e = source.ObjectEntered.GetComponentInParent<Entity>();
+        Entity e = touched.GetComponentInParent<Entity>();
         if (e)
         {
             if (!entitiesInContact.Contains(e))
@@ -71,9 +71,9 @@ public class Trap : Entity
         }
     }
 
-    public virtual void OnExit(Trigger source)
+    public virtual void OnExit(GameObject exited)
     {
-        Entity e = source.ObjectExited.GetComponentInParent<Entity>();
+        Entity e = exited.GetComponentInParent<Entity>();
         if (e)
         {
             entitiesInContact.Remove(e);

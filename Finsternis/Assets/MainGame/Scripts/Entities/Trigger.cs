@@ -1,27 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
+
+
+[Serializable]
+public class OnTriggerEvent : UnityEvent<GameObject> { }
 
 [RequireComponent(typeof(Collider))]
 public class Trigger : MonoBehaviour
 {
-    public UnityEvent onEnter;
-    public UnityEvent onExit;
+    public OnTriggerEvent onEnter;
+    public OnTriggerEvent onExit;
 
-    private Collider _objectEntered;
-    private Collider _objectExited;
+    private GameObject _objectEntered;
+    private GameObject _objectExited;
 
-    public Collider ObjectEntered { get { return _objectEntered; } }
-    public Collider ObjectExited { get { return _objectExited; } }
+    public GameObject ObjectEntered { get { return _objectEntered; } }
+    public GameObject ObjectExited { get { return _objectExited; } }
 
-    public LayerMask layerToCheck;
-   
+    public LayerMask layerToCheck;   
 
     void OnTriggerEnter(Collider other)
     {
         if (ShouldTrigger(other))
         {
-            _objectEntered = other;
-            onEnter.Invoke();
+            _objectEntered = other.gameObject;
+            onEnter.Invoke(_objectEntered);
         }
     }
 
@@ -29,8 +33,8 @@ public class Trigger : MonoBehaviour
     {
         if (ShouldTrigger(other))
         {
-            _objectExited = other;
-            onExit.Invoke();
+            _objectExited = other.gameObject;
+            onExit.Invoke(_objectExited);
         }
     }
 
