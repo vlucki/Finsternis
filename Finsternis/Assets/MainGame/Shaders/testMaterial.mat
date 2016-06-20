@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: d27e0e1eab092254f93f6196acdf62b7, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -78,6 +78,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 2800000, guid: 00817724c6aaf244f89d66a616439038, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -93,6 +100,10 @@ Material:
         second: 0.5
       data:
         first:
+          name: _Parallax
+        second: 0.02
+      data:
+        first:
           name: _ZWrite
         second: 1
       data:
@@ -103,10 +114,6 @@ Material:
         first:
           name: _BumpScale
         second: 1
-      data:
-        first:
-          name: _Parallax
-        second: 0.02
       data:
         first:
           name: _OcclusionStrength
@@ -155,7 +162,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 0.5588235, b: 0.5588235, a: 1}
+        second: {r: 0.5387111, g: 0.6217784, b: 0.6911765, a: 1}
       data:
         first:
           name: _AlphaCutoff

@@ -41,23 +41,32 @@ public class SimpleDungeon : Dungeon
     [Range(1, 100)]
     private int _maximumTries = 2;
 
-    [Header("Minimum room dimensions")]
+    [Header("Maximum room size")]
     [SerializeField]
-    [Range(2, 1000)]
-    private int _minimumRoomWidth = 3;
+    [Range(2,1000)]
+    private int _maximumRoomWidth;
 
     [SerializeField]
     [Range(2, 1000)]
-    private int _minimumRoomHeight = 3;
+    private int _maximumRoomHeight;
 
-    [Header("Maximum room dimensions")]
+    [Header("Minimum brush size")]
+    [SerializeField]
+    [Range(2, 1000)]
+    private int _minimumBrushWidth = 3;
+
+    [SerializeField]
+    [Range(2, 1000)]
+    private int _minimumBrushHeight = 3;
+
+    [Header("Maximum brish size")]
     [SerializeField]
     [Range(2, 100)]
-    private int _maximumRoomWidth = 7;
+    private int _maximumBrushWidth = 7;
 
     [SerializeField]
     [Range(2, 100)]
-    private int _maximumRoomHeight = 7;
+    private int _maximumBrushHeight = 7;
 
     [Header("Corridor length")]
     [SerializeField]
@@ -75,6 +84,8 @@ public class SimpleDungeon : Dungeon
     public int Width { get { return _dungeon.GetLength(0); } }
     public int Height { get { return _dungeon.GetLength(1); } }
 
+    public Vector2 Size { get { return new Vector2(Width, Height); } }
+
     public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
     public int this[int x, int y]
@@ -85,9 +96,9 @@ public class SimpleDungeon : Dungeon
             {
                 return _dungeon[x, y];
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
-                throw new System.IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
             }
         }
         private set
@@ -96,9 +107,9 @@ public class SimpleDungeon : Dungeon
             {
                 _dungeon[x, y] = value;
             }
-            catch (System.IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
-                throw new System.IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
             }
         }
     }
@@ -135,10 +146,10 @@ public class SimpleDungeon : Dungeon
         _corridors = new List<Corridor>();
         _rooms = new List<Room>();
 
-        _maximumRoomHeight = Mathf.Clamp(_maximumRoomHeight, 0, Height);
-        _maximumRoomWidth = Mathf.Clamp(_maximumRoomWidth, 0, Width);
-        _minimumRoomHeight = Mathf.Clamp(_minimumRoomHeight, 0, _maximumRoomHeight);
-        _minimumRoomWidth = Mathf.Clamp(_minimumRoomWidth, 0, _maximumRoomWidth);
+        _maximumBrushHeight = Mathf.Clamp(_maximumBrushHeight, 0, Height);
+        _maximumBrushWidth = Mathf.Clamp(_maximumBrushWidth, 0, Width);
+        _minimumBrushHeight = Mathf.Clamp(_minimumBrushHeight, 0, _maximumBrushHeight);
+        _minimumBrushWidth = Mathf.Clamp(_minimumBrushWidth, 0, _maximumBrushWidth);
         _maximumCorridorLength = Mathf.Clamp(_maximumCorridorLength, 0, Mathf.Min(Height, Width));
         _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
     }
@@ -156,11 +167,11 @@ public class SimpleDungeon : Dungeon
         Queue<Corridor> hangingCorridors = null;
         Queue<Room> hangingRooms = new Queue<Room>();
         
-        Vector2 maximumRoomSize = new Vector2(_maximumRoomWidth, _maximumRoomHeight);
-        Vector2 minimumRoomSize = new Vector2(_minimumRoomWidth, _minimumRoomHeight);
+        Vector4 brushVariation = new Vector4(_maximumBrushWidth, _maximumBrushHeight, _minimumBrushWidth, _minimumBrushHeight);
+        Vector2 maxRoomSize = new Vector2(_minimumBrushWidth, _minimumBrushHeight);
 
         Room room;
-        if (RoomFactory.CarveRoom(this, Vector2.zero, minimumRoomSize, maximumRoomSize, Vector2.zero, _maximumTries, out room))
+        if (RoomFactory.CarveRoom(this, null, brushVariation, maxRoomSize, _maximumTries, out room))
         {
             MarkCells(room);
             hangingRooms.Enqueue(room);
@@ -168,7 +179,7 @@ public class SimpleDungeon : Dungeon
             entrance = room.GetRandomCell();
         }
         else
-            throw new System.InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
+            throw new InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
 
         int roomCount = 1;
         while (roomCount < _totalRooms  //keep going until the desired number of rooms was generated
@@ -176,7 +187,7 @@ public class SimpleDungeon : Dungeon
         {
             hangingCorridors = GenerateCorridors(hangingRooms);
             
-            roomCount = GenerateRooms(hangingRooms, hangingCorridors, minimumRoomSize, maximumRoomSize, roomCount);            
+            roomCount = GenerateRooms(hangingRooms, hangingCorridors, brushVariation, maxRoomSize, roomCount);            
         } 
 
         if(!allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors);
@@ -415,7 +426,7 @@ public class SimpleDungeon : Dungeon
 
         if(corridor.Length != originalLength)
         {
-            if(corridor.Length == 0)
+            if(corridor.Length < _minimumCorridorLength)
                 _corridors.Remove(corridor);
         }
     }
@@ -454,7 +465,7 @@ public class SimpleDungeon : Dungeon
     /// <param name="minimumRoomSize">Minimum width and height for the rooms.</param>
     /// <param name="maximumRoomSize">Maximum width and height for the rooms.</param>
     /// <returns>How many rooms were created.</returns>
-    public int GenerateRooms(Queue<Room> hangingRooms, Queue<Corridor> hangingCorridors, Vector2 minimumRoomSize, Vector2 maximumRoomSize, int roomCount)
+    public int GenerateRooms(Queue<Room> hangingRooms, Queue<Corridor> hangingCorridors, Vector4 brushVariation, Vector2 maxRoomSize, int roomCount)
     {
         //until there are no hanging corridors (that is, corridors with rooms only at their start) 
         while (hangingCorridors.Count > 0 && roomCount < _totalRooms)
@@ -463,7 +474,7 @@ public class SimpleDungeon : Dungeon
             Room room;
             Corridor corridor = hangingCorridors.Dequeue();
 
-            if (RoomFactory.CarveRoom(this, corridor, minimumRoomSize, maximumRoomSize, _maximumTries, out room))
+            if (RoomFactory.CarveRoom(this, corridor, brushVariation, maxRoomSize, _maximumTries, out room))
             {
                 hangingRooms.Enqueue(room);
                 MarkCells(room);
@@ -499,7 +510,7 @@ public class SimpleDungeon : Dungeon
             Corridor corridor;
             for(int i = 0; i < 2; i++)
             {
-                if (CorridorFactory.CarveCorridor(this, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumRoomWidth, _minimumRoomHeight), out corridor))
+                if (CorridorFactory.CarveCorridor(this, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumBrushWidth, _minimumBrushHeight), out corridor))
                 {
                     hangingCorridors.Enqueue(corridor);
                     _corridors.Add(corridor);

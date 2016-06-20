@@ -3,102 +3,149 @@ using UnityEngine;
 
 public static class RoomFactory
 {
-    public static bool CarveRoom(SimpleDungeon dungeon, Corridor corridor, Vector2 minSize, Vector2 maxSize, int _maximumTries, out Room room)
+    public static bool CarveRoom(SimpleDungeon dungeon, Corridor corridor, Vector4 brushSizeVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
     {
-        return CarveRoom(dungeon, corridor.Bounds.max, minSize, maxSize, corridor.Direction, _maximumTries, out room);
-    }
+        Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
+        Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
+        Vector2 minBrushSize = new Vector2(brushSizeVariation.x, brushSizeVariation.y);
+        Vector2 maxBrushSize = new Vector2(brushSizeVariation.z, brushSizeVariation.w);
 
-    public static bool CarveRoom(SimpleDungeon dungeon, Vector2 startingPosition, Vector2 minSize, Vector2 maxSize, Vector2 offset, int _maximumTries, out Room room)
-    {
-
-        Vector2 pos = startingPosition;
+        Rect brush = new Rect(startingPosition, Vector2.zero);
 
         //move the room one up or to the left so it aligns properly to the corridor
-        pos.x -= offset.y;
-        pos.y -= offset.x;
+        brush.x -= corridorDirection.y;
+        brush.y -= corridorDirection.x;
 
-        room = new Room(pos, dungeon.Random);
+        room = new Room(brush.position, dungeon.Random);
 
-        if (pos.x < 0 || pos.y < 0
-            || !AdjustCoordinate(offset.x, minSize.x, dungeon.Width, ref pos.x)
-            || !AdjustCoordinate(offset.y, minSize.y, dungeon.Height, ref pos.y))
+        if (brush.x < 0 || brush.y < 0
+            || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brush))
         {
             return false;
         }
 
-        bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);
+        bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(brush.position, minBrushSize);
 
         while (!enoughSpaceForRoom //if the room is currently intersecting a corridor
-                && ((offset.y != 0 && pos.x >= 0 && pos.x + minSize.x > room.Bounds.x)  //and it can be moved to the left (orUp) 
-                || (offset.x != 0 && pos.y >= 0 && pos.y + minSize.y > room.Bounds.y))) //while still being attached to the corridor
+                && ((corridorDirection.y != 0 && brush.x >= 0 && brush.x + minBrushSize.x - 1 > room.Bounds.x)  //and it can be moved to the left (orUp) 
+                || (corridorDirection.x != 0 && brush.y >= 0 && brush.y + minBrushSize.y - 1 > room.Bounds.y))) //while still being attached to the corridor
         {
 
             //move the room and check again
-            pos.x -= offset.y;
-            pos.y -= offset.x;
-            enoughSpaceForRoom = !dungeon.OverlapsCorridor(pos, minSize);//!dungeon.SearchInArea(pos, minSize, CellType.corridor);
+            brush.x -= corridorDirection.y;
+            brush.y -= corridorDirection.x;
+            enoughSpaceForRoom = !dungeon.OverlapsCorridor(brush.position, minBrushSize);//!dungeon.SearchInArea(pos, minSize, CellType.corridor);
         }
 
         if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
             return false;
 
-        pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width);
-        pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height);
+        brush.x = Mathf.Clamp(brush.x, 0, dungeon.Width);
+        brush.y = Mathf.Clamp(brush.y, 0, dungeon.Height);
 
         bool roomCarved = false;
         //mark cells at random locations within the room, until the maximum tries is reached
-        for (int tries = 0; tries < _maximumTries; tries++)
+        //Vector2 brush = new Vector2();
+        for (int tries = 0; tries < maxBrushStrokes; tries++)
         {
-            //make sure a segment with the given dimensions won't go over the room bounds
-            Vector2 size = new Vector2();
-            size.x = Mathf.RoundToInt(dungeon.Random.Range(minSize.x, maxSize.x - pos.x + startingPosition.x));
-            size.y = Mathf.RoundToInt(dungeon.Random.Range(minSize.y, maxSize.y - pos.y + startingPosition.y));
 
-            //make sure this new part will be connected to the room!
-            while (room.Size != Vector2.zero && !room.Bounds.Overlaps(new Rect(pos-Vector2.one, size+2*Vector2.one)))
+            if (CreateBrush(
+                minBrushSize,
+                maxBrushSize,
+                startingPosition,
+                corridorDirection,
+                dungeon,
+                room,
+                ref brush))
             {
-                size.x += offset.y;
-                size.y += offset.x;
+                if (!dungeon.OverlapsCorridor(brush.position, brush.size))
+                {
+                    roomCarved = true;
+                    AddCells(brush, dungeon, room);
+                }
             }
 
-            //make sure this new part won't go over a corridor!
-            while (size.x > minSize.x && size.y > minSize.y && dungeon.OverlapsCorridor(pos, size))
-            {
-                size.x -= offset.y;
-                size.y -= offset.x;
-            }
-
-            size.x = Mathf.Min(size.x, maxSize.x);
-            size.y = Mathf.Min(size.y, maxSize.y);
-
-            if (!dungeon.OverlapsCorridor(pos, size))
-            {
-                roomCarved = true;
-                AddCells(pos, size, dungeon, room);
-            }
-            int modifier = (dungeon.Random.value() <= 0.5 ? -1 : 1);
-
-            pos.x += dungeon.Random.Range(1f, size.x * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-            pos.y += dungeon.Random.Range(1f, size.y * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
-
-            pos.x = Mathf.RoundToInt(pos.x);
-            pos.y = Mathf.RoundToInt(pos.y);
-
-            //and that they are not too further left or above what they could 
-            if (offset.y == 0 && pos.x < startingPosition.x)
-                pos.x = (int)startingPosition.x;
-            if (offset.x == 0 && pos.y < startingPosition.y)
-                pos.y = (int)startingPosition.y;
-
-            //ensure the new coordinates are within the dungeon
-            pos.x = Mathf.Clamp(pos.x, 0, dungeon.Width - minSize.x);
-            pos.y = Mathf.Clamp(pos.y, 0, dungeon.Height - minSize.y);
+            MoveBrush(dungeon, corridor, room, minBrushSize, maxBrushSize, ref brush);            
         }
 
         if (room.Pos.x < 0 || room.Pos.y < 0)
             throw new ArgumentOutOfRangeException("Room was carved outside of dungeon!\n" + room);
 
         return roomCarved;
+    }
+
+    static void MoveBrush(SimpleDungeon dungeon, Corridor corridor, Room room, Vector2 minBrushSize, Vector2 maxBrushSize, ref Rect brush)
+    {
+        Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
+        Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
+
+        int modifier = (dungeon.Random.value() <= 0.75 ? -1 : 1);
+
+        brush.x += dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
+        brush.y += dungeon.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
+
+        brush.x = Mathf.RoundToInt(brush.x);
+        brush.y = Mathf.RoundToInt(brush.y);
+
+        //and that they are not too further left or above what they could 
+        if (corridorDirection.y == 0 && brush.x < startingPosition.x)
+            brush.x = (int)startingPosition.x;
+        if (corridorDirection.x == 0 && brush.y < startingPosition.y)
+            brush.y = (int)startingPosition.y;
+
+        //ensure the new coordinates are within the dungeon
+        brush.x = Mathf.Clamp(brush.x, 0, dungeon.Width - minBrushSize.x);
+        brush.y = Mathf.Clamp(brush.y, 0, dungeon.Height - minBrushSize.y);
+
+        brush.x = Mathf.Clamp(brush.x, room.Bounds.x - maxBrushSize.x, room.Bounds.xMax - 1);
+        brush.y = Mathf.Clamp(brush.y, room.Bounds.y - maxBrushSize.y, room.Bounds.yMax - 1);
+    }
+
+    private static bool CreateBrush(
+        Vector2 minBrushSize,
+        Vector2 maxBrushSize,
+        Vector2 startingPosition, 
+        Vector2 corridorDirection,
+        SimpleDungeon dungeon,
+        Room room,
+        ref Rect brush)
+    {
+        //make sure a segment with the given dimensions won't go over the room bounds
+        brush.width = Mathf.RoundToInt(dungeon.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
+        brush.height = Mathf.RoundToInt(dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
+
+        Rect brushPerimeter = new Rect(brush);
+        brushPerimeter.min -= new Vector2(corridorDirection.y, corridorDirection.x);
+        brushPerimeter.max += new Vector2(corridorDirection.y, corridorDirection.x);
+
+        bool hadToExpandBrush = room.Size != Vector2.zero && !room.Bounds.Overlaps(brushPerimeter);
+        //make sure this new part will be connected to the room!
+        while (hadToExpandBrush && !dungeon.OverlapsCorridor(brush.position, brush.size))
+        {
+            brush.width += corridorDirection.y;
+            brush.height += corridorDirection.x;
+            hadToExpandBrush = !room.Bounds.Overlaps(brush);
+        }
+
+        //make sure this new part won't go over a corridor!
+        while (brush.width > minBrushSize.x && brush.height > minBrushSize.y && dungeon.OverlapsCorridor(brush.position, brush.size))
+        {
+            if (hadToExpandBrush) //there's no point in reducing the brush if it had to be expanded to begin with!
+                return false;
+            brush.width -= corridorDirection.y;
+            brush.height -= corridorDirection.x;
+        }
+
+        brush.width = Mathf.Min(brush.width, maxBrushSize.x);
+        brush.height = Mathf.Min(brush.height, maxBrushSize.y);
+
+        return true;
+
+    }
+
+    private static void AddCells(Rect brush, SimpleDungeon dungeon, Room room)
+    {
+        AddCells(brush.position, brush.size, dungeon, room);
     }
 
     private static void AddCells(Vector2 pos, Vector2 size, SimpleDungeon dungeon, Room room)
@@ -113,23 +160,37 @@ public static class RoomFactory
         }
     }
 
-    /// <summary>
-    /// Tries to adjust a given coordinate so it respects a given limit.
-    /// </summary>
-    /// <param name="axisOffset">Whether this coordinate can be adjusted or not.</param>
-    /// <param name="adjustment">By how much the coordinate may be shifted.</param>
-    /// <param name="limit">An upper (exclusive) limit for 'coordinate'.</param>
-    /// <param name="coordinate">The X or Y coordinate that is being adjusted.</param>
-    /// <returns>True if the adjustment was possible.</returns>
-    private static bool AdjustCoordinate(float axisOffset, float adjustment, float limit, ref float coordinate)
+    private static bool AdjustCoordinate(Vector2 corridorDirection, Vector2 minBrushSize, Vector2 dungeonSize, ref Rect brush)
     {
-        if (coordinate + adjustment > limit)
+        //if the corridor is to the left of the room
+        if(corridorDirection. x != 0)
         {
-            if (axisOffset == 0)
-                coordinate = limit - adjustment;
-            else
-                return false;
+            if (brush.xMax > dungeonSize.x) //and the brush is outside the dungeon, horizontally
+            {
+                if (brush.position.x + minBrushSize.x > dungeonSize.x) //try to move it to the left a little
+                    return false;
+                brush.x -= brush.xMax - dungeonSize.x;
+            }
+
+            if(brush.yMax > dungeonSize.y) //and if the brush is outside the dungeon vertically
+            {
+                brush.y -= brush.yMax - dungeonSize.y; //move it up as much as needed
+            }
         }
+        else if (corridorDirection.y != 0) //same as abovem but for when the corridor is above the room (checks things vertivally)
+        {
+            if (brush.yMax > dungeonSize.y)
+            {
+                if (brush.position.y + minBrushSize.y > dungeonSize.y)
+                    return false;
+                brush.y -= brush.yMax - dungeonSize.y;
+            }
+            if (brush.xMax > dungeonSize.x)
+            {
+                brush.x -= brush.xMax - dungeonSize.x;
+            }
+        }
+
 
         return true;
     }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class EnemyController : CharacterController
 {
+
+    public UnityEvent onDeath;
 
     [SerializeField]
     [Range(1, 50)]
@@ -39,6 +41,7 @@ public class EnemyController : CharacterController
     private Vector3 _targetLocation;
 
     private bool hasTarget;
+    public GameObject ragdoll;
 
     public override void Awake()
     {
@@ -96,10 +99,16 @@ public class EnemyController : CharacterController
                 }
 
             }
-            else
+        }
+        if(GetComponent<Collider>().enabled && (IsDead() || IsDying()))
+        {
+            GetComponent<Collider>().enabled = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            if (ragdoll)
             {
-                GetComponent<Collider>().enabled = false;
-                GetComponent<Rigidbody>().isKinematic = true;
+                Instantiate(ragdoll, transform.position, transform.rotation);
+                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

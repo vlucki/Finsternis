@@ -101,6 +101,9 @@ public class Wall : MonoBehaviour
             {
                 m.SetFloat("_FadeAlpha", currentAlpha);
             }
+        } else
+        {
+            currentAlpha = targetAlpha;
         }
     }
 

@@ -2,6 +2,7 @@
 	Properties{
 
 		_MainTex("Texture", 2D) = "white" {}
+		_Ramp("Texture", 2D) = "white" {}
 		_Color("Color", Color) = (1,1,1,1)
 		_FadeAlpha("Fade Alpha", Range(0,1)) = 1
 		_FadeThreshold("Fade Threshold", float) = 0.5
@@ -19,6 +20,7 @@
 			#pragma target 3.0
 
 			sampler2D	_MainTex;
+			sampler2D _Ramp;
 			fixed4		_Color;
 			fixed		_FadeAlpha;
 			float		_FadeThreshold;
@@ -32,10 +34,20 @@
 				float4 color : COLOR;
 			};
 
+			half4 LightingRamp(SurfaceOutput s, half3 lightDir, half atten) {
+				half NdotL = dot(s.Normal, lightDir);
+				half diff = NdotL * 0.5 + 0.5;
+				half3 ramp = tex2D(_Ramp, float2(0, 0)).rgb;
+				half4 c;
+				c.rgb = s.Albedo * _LightColor0.rgb * ramp;
+				c.a = s.Alpha;
+				return c;
+			}
+
 			void surf(Input IN, inout SurfaceOutputStandard o) {
 
 				//Set the texture as usual
-				fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color ;
+				fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 				o.Albedo = c.rgb * IN.color.rgb;
 
 				//Make sure each axis is either 0 or 1

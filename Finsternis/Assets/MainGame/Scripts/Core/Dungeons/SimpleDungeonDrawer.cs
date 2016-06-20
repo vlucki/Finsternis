@@ -35,9 +35,10 @@ public class SimpleDungeonDrawer : MonoBehaviour
     public UnityEvent onDrawEnd;
 
 
-    public void Start()
+    public void Awake()
     {
-        _dungeon = GetComponent<SimpleDungeon>();
+        if(!_dungeon)
+            _dungeon = GetComponent<SimpleDungeon>();
     }
 
     public void Draw()

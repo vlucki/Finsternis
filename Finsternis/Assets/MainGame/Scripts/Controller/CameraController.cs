@@ -55,8 +55,8 @@ public class CameraController : MonoBehaviour
         GameObject occludingObject;
         RaycastHit hit;
         if(Physics.Raycast(
-            transform.position, 
-            transform.forward, 
+            _follow.Target.position, 
+            transform.position - _follow.Target.position, 
             out hit, 
             Vector3.Distance(transform.position, _follow.Target.position), 
             (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.NameToLayer("Invisible")), 

@@ -41,8 +41,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        Cursor.lockState = CursorLockMode.Locked;
 
+#if !UNITY_EDITOR
+        Cursor.lockState = CursorLockMode.Locked;
+#endif
         _dungeonCount = -1;
     }
     

@@ -19,42 +19,42 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 1e4695d93425e5941a7a7eb937273d50, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: -1}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 4e8b91e15b0ccd8428503ddccbb8e7d5, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _DetailNormalMap
         second:
-          m_Texture: {fileID: 2800000, guid: ceca27fbb49d97740acac5a87ce45c98, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _ParallaxMap
         second:
-          m_Texture: {fileID: 2800000, guid: df218c92ffbaad248ab6cbfe71a17537, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _OcclusionMap
         second:
-          m_Texture: {fileID: 2800000, guid: e642eb8f656d5d2449a458450cfab2c1, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _EmissionMap
         second:
-          m_Texture: {fileID: 2800000, guid: 16ebd91ba7feafd4e8f535737f111e71, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -68,7 +68,7 @@ Material:
         first:
           name: _DetailAlbedoMap
         second:
-          m_Texture: {fileID: 2800000, guid: 98bb6f8d38a86e04f8497b2bfe9a5bce, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 5, y: 5}
           m_Offset: {x: 0, y: 0}
       data:
@@ -80,9 +80,16 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _SpecGlossMap
         second:
-          m_Texture: {fileID: 2800000, guid: d430532ec3b5fd84da1c3ed92f1736dc, type: 3}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -136,6 +143,14 @@ Material:
         second: 0
       data:
         first:
+          name: _FadeThreshold
+        second: 0.5
+      data:
+        first:
+          name: _FadeAlpha
+        second: 1
+      data:
+        first:
           name: _Outline
         second: 0.005
     m_Colors:
@@ -146,11 +161,19 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 0.7058823, g: 0.7037346, b: 0.6280276, a: 1}
       data:
         first:
           name: _SpecColor
         second: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+      data:
+        first:
+          name: _FadePoint
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _FadeAxis
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _OutlineColor

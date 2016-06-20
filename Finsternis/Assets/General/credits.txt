@@ -1,4 +1,4 @@
-<b>PontifÌcia Universidade CatÛlica de S„o Paulo</b>
+Ôªø<b>Pontif√≠cia Universidade Cat√≥lica de S√£o Paulo</b>
 
 
 
@@ -19,7 +19,7 @@ curso Superior de Tecnologia em Jogos Digitais
 
 
 
-Trabalho de Conclus„o de Curso
+Trabalho de Conclus√£o de Curso
 
 
 
@@ -39,7 +39,7 @@ Trabalho de Conclus„o de Curso
 
 
 
-<b>PROGRAMA«√O</b>
+<b>PROGRAMA√á√ÉO</b>
 
 
 Victor Portela Diniz Lucki

@@ -1,8 +1,10 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class MainMenuController : MonoBehaviour
     private GameObject _selectedButton;
 
     private Dictionary<string, CanvasGroup> groups;
+    private bool creditsLoaded;
 
     void Awake()
     {
@@ -40,16 +43,52 @@ public class MainMenuController : MonoBehaviour
         groups = new Dictionary<string, CanvasGroup>();
     }
 
+    public void StartNewGame(string sceneName)
+    {
+        GameManager.Instance.LoadScene(sceneName);
+    }
+
+    public void ContinueGame()
+    {
+    }
+
+    public void OpenAlbum()
+    {
+    }
+
+    public void ShowOptions()
+    {
+    }
+
+    public void RollCredits()
+    {
+    }
+
+    public void Exit()
+    {
+        GameManager.Instance.Exit();
+    }
+
     public void FocusButton(BaseEventData data)
     {
         Transform toRotate = data.selectedObject.transform;
         Transform parent = toRotate.parent;
-        while(parent != null && parent.name != "OptionsContainer")
+        while(parent != null && parent != _optionsContainer.transform)
         {
             toRotate = parent;
             parent = toRotate.parent;
         }
+        if (!creditsLoaded && data.selectedObject.name.ToLower().Contains("credits"))
+            LoadCredits();
+
         StartCoroutine(Rotate(Quaternion.Euler(new Vector3(0, 0, 360 - toRotate.localRotation.eulerAngles.z)), data.selectedObject));
+    }
+
+    private void LoadCredits()
+    {
+        creditsLoaded = true;
+        var reader = new System.IO.StreamReader(Application.dataPath + "/General/credits.txt");
+        _centerDisplay.transform.Find("Display").GetChild(0).Find("btnCreditsDisplay").gameObject.GetComponentInChildren<Text>().text = reader.ReadToEnd();
     }
 
     private IEnumerator Rotate(Quaternion targetRotation, GameObject currentlySelected)
@@ -97,7 +136,7 @@ public class MainMenuController : MonoBehaviour
 
         if (!groups.TryGetValue(key, out lastDisplayGroup))
         {
-            Transform t = _centerDisplay.transform.Find(key);
+            Transform t = _centerDisplay.transform.Find("Display").GetChild(0).Find(key);
             if (t)
                 lastDisplayGroup = t.GetComponent<CanvasGroup>();
 
