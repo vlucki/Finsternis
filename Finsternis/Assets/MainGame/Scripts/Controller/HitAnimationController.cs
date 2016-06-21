@@ -7,5 +7,11 @@ public class HitAnimationController : StateMachineBehaviour {
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         animator.SetBool(CharacterController.AttackBool, false);
+        animator.GetComponent<CharacterController>().Lock();
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.GetComponent<CharacterController>().Unlock();
     }
 }

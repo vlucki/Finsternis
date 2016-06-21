@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Character), typeof(Movement), typeof(Animator))]
 public abstract class CharacterController : MonoBehaviour
@@ -7,6 +8,8 @@ public abstract class CharacterController : MonoBehaviour
     protected Character character;
     protected Animator characterAnimator;
     protected Movement characterMovement;
+
+    public UnityEvent onAttack;
 
     public static readonly int AttackState;
     public static readonly int AttackBool;
@@ -148,6 +151,7 @@ public abstract class CharacterController : MonoBehaviour
     public virtual void Attack(int type = 0, bool lockMovement = true)
     {
         ActivateBoolean(AttackBool, AttackType, type, lockMovement);
+        onAttack.Invoke();
     }
 
     public void Lock()

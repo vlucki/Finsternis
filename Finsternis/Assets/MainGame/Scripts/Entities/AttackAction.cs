@@ -38,14 +38,14 @@ public class AttackAction : EntityAction
             throw new ArgumentException("Cannot execute the attack logic without any parameters.");
 
         Entity[] targets;
-        if (!GetParametersOfType<Entity>(parameters, out targets))
+        if (!GetParameters(parameters, out targets))
             throw new ArgumentException("Cannot execute the attack logic without a target.");
 
         DamageInfo.DamageType damageType;
-        GetParameterOfType<DamageInfo.DamageType>(parameters, out damageType);
+        GetParameter(parameters, out damageType);
 
         float extraDamage;
-        GetParameterOfType<float>(parameters, out extraDamage);
+        GetParameter(parameters, out extraDamage);
 
         float totalDamage = damage.Value + extraDamage;
 

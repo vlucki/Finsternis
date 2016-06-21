@@ -91,10 +91,16 @@ public class GameManager : MonoBehaviour
         if (e)
         {
             EntityAttribute hp = e.GetAttribute("hp");
-            hp.SetValue(0);
+            if (hp)
+                hp.SetValue(0);
+            else
+                e.Kill();
             return;
         }
-        Destroy(obj);
+        else
+        {
+            Destroy(obj);
+        }
     }
 
 }

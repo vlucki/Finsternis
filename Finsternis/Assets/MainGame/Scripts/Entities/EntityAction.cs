@@ -13,7 +13,7 @@ public abstract class EntityAction : MonoBehaviour
         agent = GetComponent<Entity>();
     }
 
-    protected bool GetParameterOfType<T>(object[] parameters, out T result)
+    protected bool GetParameter<T>(object[] parameters, out T result)
     {
         result = default(T);
         foreach (var v in parameters)
@@ -28,7 +28,7 @@ public abstract class EntityAction : MonoBehaviour
         return false;
     }
 
-    protected bool GetParametersOfType<T>(object[] parameters, out T[] result)
+    protected bool GetParameters<T>(object[] parameters, out T[] result)
     {
         List<T> results = new List<T>(1);
         result = null;

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Entity : MonoBehaviour
@@ -47,5 +45,10 @@ public class Entity : MonoBehaviour
 
     public virtual void AtributeUpdated(EntityAttribute attribute)
     {
+    }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }

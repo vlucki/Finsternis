@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,9 +19,10 @@ public class Trigger : MonoBehaviour
     public GameObject ObjectEntered { get { return _objectEntered; } }
     public GameObject ObjectExited { get { return _objectExited; } }
 
-    public LayerMask layerToCheck;   
+    public LayerMask ignoreLayers;
+    public List<Collider> ignoreColliders;
 
-    void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (ShouldTrigger(other))
         {
@@ -29,7 +31,7 @@ public class Trigger : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (ShouldTrigger(other))
         {
@@ -40,8 +42,26 @@ public class Trigger : MonoBehaviour
 
     private bool ShouldTrigger(Collider other)
     {
+        if (other.gameObject == this.gameObject || other.transform.IsChildOf(this.transform))
+            return false;
+
         LayerMask otherLayer = 1 << other.gameObject.layer;
-        
-        return other.gameObject != this.gameObject && !other.transform.IsChildOf(this.transform) && ((otherLayer & layerToCheck) == otherLayer);
+        if ((otherLayer & ignoreLayers) == otherLayer)
+            return false;
+
+        if (ignoreColliders != null && ignoreColliders.Contains(other))
+            return false;
+
+       return true;
+    }
+
+    public void Ignore(GameObject obj)
+    {
+        if(obj && obj != gameObject)
+        {
+            Collider c = obj.GetComponent<Collider>();
+            if (c && !ignoreColliders.Contains(c))
+                ignoreColliders.Add(c);
+        }
     }
 }
