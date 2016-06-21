@@ -51,8 +51,12 @@ public class EntityEditor : Editor
             {
                 EditorGUILayout.BeginHorizontal();
                 style.alignment = TextAnchor.MiddleRight;
-                EditorGUILayout.LabelField(attribute.AttributeName, style, GUILayout.MaxWidth(40));
+
+                attribute.AttributeName = EditorGUILayout.TextField(attribute.AttributeName, style, GUILayout.MaxWidth(40));
+
                 attribute.SetValue(EditorGUILayout.IntField((int)attribute.Value, GUILayout.MaxWidth(40)));
+
+
                 if (GUILayout.Button("X", GUILayout.MaxWidth(30)))
                 {
                     if (EditorUtility.DisplayDialog("Delete attribute", "This action cannot be undone.", "Proceed", "Cancel"))

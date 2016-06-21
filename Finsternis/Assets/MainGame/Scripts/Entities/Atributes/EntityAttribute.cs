@@ -48,6 +48,6 @@ public abstract class EntityAttribute : MonoBehaviour
     public string AttributeName
     {
         get { return attributeName; }
-        set { if (String.IsNullOrEmpty(attributeName)) attributeName = value; }
+        set { if (!String.IsNullOrEmpty(value)) attributeName = value; }
     }
 }

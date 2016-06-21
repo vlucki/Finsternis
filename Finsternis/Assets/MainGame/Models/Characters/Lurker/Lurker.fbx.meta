@@ -1,0 +1,548 @@
+fileFormatVersion: 2
+guid: c0fea78dc5adca444811c7995bbae54e
+timeCreated: 1466542432
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: c1
+    100002: c2
+    100004: c3
+    100006: claw
+    100008: claw 1
+    100010: corpo_mob
+    100012: head_top
+    100014: l_arm_pole1
+    100016: l_clavicula
+    100018: l_elbow
+    100020: l_hand_manipulator
+    100022: l_ik
+    100024: l_shoulder
+    100026: l_wrist
+    100028: //RootNode
+    100030: master_mob1
+    100032: neck
+    100034: peito1
+    100036: peito2
+    100038: pelvis
+    100040: r_arm_pole
+    100042: r_clavicula
+    100044: r_elbow
+    100046: r_hand_manipulator
+    100048: r_ik
+    100050: r_shoulder
+    100052: r_wrist
+    400000: c1
+    400002: c2
+    400004: c3
+    400006: claw
+    400008: claw 1
+    400010: corpo_mob
+    400012: head_top
+    400014: l_arm_pole1
+    400016: l_clavicula
+    400018: l_elbow
+    400020: l_hand_manipulator
+    400022: l_ik
+    400024: l_shoulder
+    400026: l_wrist
+    400028: //RootNode
+    400030: master_mob1
+    400032: neck
+    400034: peito1
+    400036: peito2
+    400038: pelvis
+    400040: r_arm_pole
+    400042: r_clavicula
+    400044: r_elbow
+    400046: r_hand_manipulator
+    400048: r_ik
+    400050: r_shoulder
+    400052: r_wrist
+    4300000: corpo_mob
+    7400000: Attack_Lurker
+    7400002: Idle_Lurker
+    7400004: Walk_Lurker
+    7400006: Hit_Lurker
+    7400008: Death_Lurker
+    9500000: //RootNode
+    13700000: corpo_mob
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle_Lurker
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 56
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_mob
+        weight: 1
+      - path: master_mob1
+        weight: 1
+      - path: master_mob1/c1
+        weight: 1
+      - path: master_mob1/c1/c2
+        weight: 1
+      - path: master_mob1/c1/c2/c3
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist/claw
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck/head_top
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist/claw
+          1
+        weight: 1
+      - path: master_mob1/l_arm_pole1
+        weight: 1
+      - path: master_mob1/l_hand_manipulator
+        weight: 1
+      - path: master_mob1/l_ik
+        weight: 1
+      - path: master_mob1/r_arm_pole
+        weight: 1
+      - path: master_mob1/r_hand_manipulator
+        weight: 1
+      - path: master_mob1/r_ik
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack_Lurker
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_mob
+        weight: 1
+      - path: master_mob1
+        weight: 1
+      - path: master_mob1/c1
+        weight: 1
+      - path: master_mob1/c1/c2
+        weight: 1
+      - path: master_mob1/c1/c2/c3
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist/claw
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck/head_top
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist/claw
+          1
+        weight: 1
+      - path: master_mob1/l_arm_pole1
+        weight: 1
+      - path: master_mob1/l_hand_manipulator
+        weight: 1
+      - path: master_mob1/l_ik
+        weight: 1
+      - path: master_mob1/r_arm_pole
+        weight: 1
+      - path: master_mob1/r_hand_manipulator
+        weight: 1
+      - path: master_mob1/r_ik
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk_Lurker
+      takeName: Take 001
+      firstFrame: 103
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_mob
+        weight: 1
+      - path: master_mob1
+        weight: 1
+      - path: master_mob1/c1
+        weight: 1
+      - path: master_mob1/c1/c2
+        weight: 1
+      - path: master_mob1/c1/c2/c3
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist/claw
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck/head_top
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist/claw
+          1
+        weight: 1
+      - path: master_mob1/l_arm_pole1
+        weight: 1
+      - path: master_mob1/l_hand_manipulator
+        weight: 1
+      - path: master_mob1/l_ik
+        weight: 1
+      - path: master_mob1/r_arm_pole
+        weight: 1
+      - path: master_mob1/r_hand_manipulator
+        weight: 1
+      - path: master_mob1/r_ik
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit_Lurker
+      takeName: Take 001
+      firstFrame: 140
+      lastFrame: 169
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_mob
+        weight: 1
+      - path: master_mob1
+        weight: 1
+      - path: master_mob1/c1
+        weight: 1
+      - path: master_mob1/c1/c2
+        weight: 1
+      - path: master_mob1/c1/c2/c3
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist/claw
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck/head_top
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist/claw
+          1
+        weight: 1
+      - path: master_mob1/l_arm_pole1
+        weight: 1
+      - path: master_mob1/l_hand_manipulator
+        weight: 1
+      - path: master_mob1/l_ik
+        weight: 1
+      - path: master_mob1/r_arm_pole
+        weight: 1
+      - path: master_mob1/r_hand_manipulator
+        weight: 1
+      - path: master_mob1/r_ik
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death_Lurker
+      takeName: Take 001
+      firstFrame: 170
+      lastFrame: 210
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_mob
+        weight: 1
+      - path: master_mob1
+        weight: 1
+      - path: master_mob1/c1
+        weight: 1
+      - path: master_mob1/c1/c2
+        weight: 1
+      - path: master_mob1/c1/c2/c3
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/l_clavicula/l_shoulder/l_elbow/l_wrist/claw
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/neck/head_top
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_mob1/c1/c2/c3/pelvis/peito1/peito2/r_clavicula/r_shoulder/r_elbow/r_wrist/claw
+          1
+        weight: 1
+      - path: master_mob1/l_arm_pole1
+        weight: 1
+      - path: master_mob1/l_hand_manipulator
+        weight: 1
+      - path: master_mob1/l_ik
+        weight: 1
+      - path: master_mob1/r_arm_pole
+        weight: 1
+      - path: master_mob1/r_hand_manipulator
+        weight: 1
+      - path: master_mob1/r_ik
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
