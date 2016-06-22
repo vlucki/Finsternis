@@ -260,7 +260,7 @@ MonoBehaviour:
       PublicKeyToken=null
   ignoreLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   ignoreColliders: []
   owner: {fileID: 0}
   impactMultiplier: {x: 3, y: 2}

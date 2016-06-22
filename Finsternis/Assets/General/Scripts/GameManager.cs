@@ -62,8 +62,11 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int index)
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if(playerObj)
+        if (playerObj)
+        {
             _player = playerObj.GetComponent<Entity>();
+            _player.GetAttribute("hp").onValueChanged.AddListener((attribute) => { if (attribute.Value <= 0) GameOver(); });
+        }
     }
 
     public void Exit()

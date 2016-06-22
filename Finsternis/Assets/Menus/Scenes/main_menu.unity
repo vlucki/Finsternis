@@ -340,7 +340,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1738436586}
+      - m_Target: {fileID: 1297907301}
         m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
@@ -4410,12 +4410,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1707627137}
---- !u!114 &1738436586 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11425964, guid: e06ba4e2e31662842961e71d111944d8,
-    type: 2}
-  m_PrefabInternal: {fileID: 321839861}
-  m_Script: {fileID: 11500000, guid: 647bdbc17d6006c41b9059e877ba86e1, type: 3}
 --- !u!1 &1782601816
 GameObject:
   m_ObjectHideFlags: 0
