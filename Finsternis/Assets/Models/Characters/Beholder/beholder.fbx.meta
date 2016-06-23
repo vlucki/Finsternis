@@ -1,0 +1,483 @@
+fileFormatVersion: 2
+guid: 05efb6f14a863a640a7ed4c7eaa3ee59
+timeCreated: 1466584942
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: bot_eye
+    100004: bot_eye 1
+    100006: bot_tip_eye
+    100008: corpo_olho
+    100010: joint1
+    100012: l_clavicula
+    100014: l_elbow
+    100016: l_hand
+    100018: l_ik
+    100020: l_manipulator
+    100022: l_shoulder
+    100024: l_wing_tip
+    100026: locator1
+    100028: locator2
+    100030: master_olho
+    100032: pelvis
+    100034: pelvis_tip
+    100036: polySurface1
+    100038: polySurface2
+    100040: r_clavicula
+    100042: r_elbow
+    100044: r_hand
+    100046: r_ik
+    100048: r_manipulator
+    100050: r_shoulder
+    100052: r_wing_tip
+    100054: top_eye
+    100056: transform1
+    400000: //RootNode
+    400002: bot_eye
+    400004: bot_eye 1
+    400006: bot_tip_eye
+    400008: corpo_olho
+    400010: joint1
+    400012: l_clavicula
+    400014: l_elbow
+    400016: l_hand
+    400018: l_ik
+    400020: l_manipulator
+    400022: l_shoulder
+    400024: l_wing_tip
+    400026: locator1
+    400028: locator2
+    400030: master_olho
+    400032: pelvis
+    400034: pelvis_tip
+    400036: polySurface1
+    400038: polySurface2
+    400040: r_clavicula
+    400042: r_elbow
+    400044: r_hand
+    400046: r_ik
+    400048: r_manipulator
+    400050: r_shoulder
+    400052: r_wing_tip
+    400054: top_eye
+    400056: transform1
+    2300000: polySurface1
+    3300000: polySurface1
+    4300000: polySurface1
+    4300002: polySurface2
+    7400000: Idle_Beholder
+    7400002: Attack_Beholder
+    7400004: Hit_Beholder
+    7400006: Death_Beholder
+    9500000: //RootNode
+    13700000: polySurface2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle_Beholder
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_olho
+        weight: 1
+      - path: corpo_olho/polySurface1
+        weight: 1
+      - path: corpo_olho/polySurface2
+        weight: 1
+      - path: corpo_olho/transform1
+        weight: 1
+      - path: master_olho
+        weight: 1
+      - path: master_olho/l_ik
+        weight: 1
+      - path: master_olho/l_manipulator
+        weight: 1
+      - path: master_olho/locator1
+        weight: 1
+      - path: master_olho/locator2
+        weight: 1
+      - path: master_olho/pelvis
+        weight: 1
+      - path: master_olho/pelvis/bot_eye
+        weight: 1
+      - path: master_olho/pelvis/bot_eye/bot_tip_eye
+        weight: 1
+      - path: master_olho/pelvis/joint1
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand/l_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/pelvis_tip
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand/r_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/top_eye
+        weight: 1
+      - path: master_olho/pelvis/top_eye/bot_eye 1
+        weight: 1
+      - path: master_olho/r_ik
+        weight: 1
+      - path: master_olho/r_manipulator
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack_Beholder
+      takeName: Take 001
+      firstFrame: 24
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_olho
+        weight: 1
+      - path: corpo_olho/polySurface1
+        weight: 1
+      - path: corpo_olho/polySurface2
+        weight: 1
+      - path: corpo_olho/transform1
+        weight: 1
+      - path: master_olho
+        weight: 1
+      - path: master_olho/l_ik
+        weight: 1
+      - path: master_olho/l_manipulator
+        weight: 1
+      - path: master_olho/locator1
+        weight: 1
+      - path: master_olho/locator2
+        weight: 1
+      - path: master_olho/pelvis
+        weight: 1
+      - path: master_olho/pelvis/bot_eye
+        weight: 1
+      - path: master_olho/pelvis/bot_eye/bot_tip_eye
+        weight: 1
+      - path: master_olho/pelvis/joint1
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand/l_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/pelvis_tip
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand/r_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/top_eye
+        weight: 1
+      - path: master_olho/pelvis/top_eye/bot_eye 1
+        weight: 1
+      - path: master_olho/r_ik
+        weight: 1
+      - path: master_olho/r_manipulator
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit_Beholder
+      takeName: Take 001
+      firstFrame: 45
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_olho
+        weight: 1
+      - path: corpo_olho/polySurface1
+        weight: 1
+      - path: corpo_olho/polySurface2
+        weight: 1
+      - path: corpo_olho/transform1
+        weight: 1
+      - path: master_olho
+        weight: 1
+      - path: master_olho/l_ik
+        weight: 1
+      - path: master_olho/l_manipulator
+        weight: 1
+      - path: master_olho/locator1
+        weight: 1
+      - path: master_olho/locator2
+        weight: 1
+      - path: master_olho/pelvis
+        weight: 1
+      - path: master_olho/pelvis/bot_eye
+        weight: 1
+      - path: master_olho/pelvis/bot_eye/bot_tip_eye
+        weight: 1
+      - path: master_olho/pelvis/joint1
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand/l_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/pelvis_tip
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand/r_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/top_eye
+        weight: 1
+      - path: master_olho/pelvis/top_eye/bot_eye 1
+        weight: 1
+      - path: master_olho/r_ik
+        weight: 1
+      - path: master_olho/r_manipulator
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death_Beholder
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo_olho
+        weight: 1
+      - path: corpo_olho/polySurface1
+        weight: 1
+      - path: corpo_olho/polySurface2
+        weight: 1
+      - path: corpo_olho/transform1
+        weight: 1
+      - path: master_olho
+        weight: 1
+      - path: master_olho/l_ik
+        weight: 1
+      - path: master_olho/l_manipulator
+        weight: 1
+      - path: master_olho/locator1
+        weight: 1
+      - path: master_olho/locator2
+        weight: 1
+      - path: master_olho/pelvis
+        weight: 1
+      - path: master_olho/pelvis/bot_eye
+        weight: 1
+      - path: master_olho/pelvis/bot_eye/bot_tip_eye
+        weight: 1
+      - path: master_olho/pelvis/joint1
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand
+        weight: 1
+      - path: master_olho/pelvis/l_clavicula/l_shoulder/l_elbow/l_hand/l_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/pelvis_tip
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand
+        weight: 1
+      - path: master_olho/pelvis/r_clavicula/r_shoulder/r_elbow/r_hand/r_wing_tip
+        weight: 1
+      - path: master_olho/pelvis/top_eye
+        weight: 1
+      - path: master_olho/pelvis/top_eye/bot_eye 1
+        weight: 1
+      - path: master_olho/r_ik
+        weight: 1
+      - path: master_olho/r_manipulator
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

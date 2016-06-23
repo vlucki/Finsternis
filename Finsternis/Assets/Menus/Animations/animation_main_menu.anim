@@ -185,6 +185,31 @@ AnimationClip:
     path: Container/OptionsContainer
     classID: 225
     script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: 0.41666666
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: 1
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: EmissionModule.enabled
+    path: Container/CenterDisplay/WindZone/Particle System
+    classID: 198
+    script: {fileID: 0}
   m_PPtrCurves:
   - curve:
     - time: 0.16666667
@@ -252,6 +277,12 @@ AnimationClip:
       attribute: 1574349066
       script: {fileID: 0}
       classID: 225
+      customType: 0
+      isPPtrCurve: 0
+    - path: 3415445822
+      attribute: 1087013301
+      script: {fileID: 0}
+      classID: 198
       customType: 0
       isPPtrCurve: 0
     - path: 0
@@ -540,6 +571,31 @@ AnimationClip:
     attribute: m_Alpha
     path: Container/OptionsContainer
     classID: 225
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 0
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: 0.41666666
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      - time: 1
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 31
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: EmissionModule.enabled
+    path: Container/CenterDisplay/WindZone/Particle System
+    classID: 198
     script: {fileID: 0}
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0

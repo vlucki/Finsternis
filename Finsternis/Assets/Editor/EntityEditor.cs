@@ -9,6 +9,7 @@ public class EntityEditor : Editor
     GUIStyle style;
     static bool displayAttributes = false;
     private GenericMenu gm;
+    private Vector2 scrollPos;
 
     void OnEnable()
     {
@@ -37,9 +38,6 @@ public class EntityEditor : Editor
             } else if(Event.current.button == 1)
             {
                 gm.ShowAsContext();
-            } else
-            {
-                Debug.Log(Event.current.button);
             }
             Event.current.Use();
         }
@@ -47,17 +45,26 @@ public class EntityEditor : Editor
 
         if (displayAttributes)
         {
+            style.alignment = TextAnchor.MiddleRight;
+            scrollPos = GUILayout.BeginScrollView(scrollPos, style, GUILayout.MinWidth(75), GUILayout.MinHeight(140));
             foreach (EntityAttribute attribute in entity.GetComponents<EntityAttribute>())
             {
-                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.BeginHorizontal(GUILayout.MinWidth(260));
                 style.alignment = TextAnchor.MiddleRight;
 
-                attribute.AttributeName = EditorGUILayout.TextField(attribute.AttributeName, style, GUILayout.MaxWidth(40));
+                attribute.AttributeName = EditorGUILayout.TextField(attribute.AttributeName, style, GUILayout.MaxWidth(60));
+                if (attribute is RangedValueAttribute)
+                {
+                    RangedValueAttribute rvAttribute = attribute as RangedValueAttribute;
+                    attribute.SetValue(EditorGUILayout.IntSlider((int)rvAttribute.Value, (int)rvAttribute.Min, (int)rvAttribute.Max, GUILayout.MaxWidth(60)));
+                }
+                else
+                {
+                    attribute.SetValue(EditorGUILayout.IntField((int)attribute.Value, GUILayout.MaxWidth(60)));
+                }
 
-                attribute.SetValue(EditorGUILayout.IntField((int)attribute.Value, GUILayout.MaxWidth(40)));
 
-
-                if (GUILayout.Button("X", GUILayout.MaxWidth(30)))
+                if (GUILayout.Button("X", GUILayout.MaxWidth(20)))
                 {
                     if (EditorUtility.DisplayDialog("Delete attribute", "This action cannot be undone.", "Proceed", "Cancel"))
                     {
@@ -66,6 +73,12 @@ public class EntityEditor : Editor
                     }
                 }
                 EditorGUILayout.EndHorizontal();
+
+            }
+            GUILayout.EndScrollView();
+            if (GUILayout.Button("Add Attribute"))
+            {
+                AddAttribute();
             }
         }
         EditorGUILayout.EndVertical();

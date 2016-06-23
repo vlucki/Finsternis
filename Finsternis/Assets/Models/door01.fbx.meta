@@ -1,0 +1,1458 @@
+fileFormatVersion: 2
+guid: 9f4160c1c96840b46aa9c75a0b37a201
+timeCreated: 1462062114
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: backSpikes
+    100004: backSpikes 1
+    100006: centerChains
+    100008: chainLink01
+    100010: chainLink01 1
+    100012: chainLink01 2
+    100014: chainLink02
+    100016: chainLink02 1
+    100018: chainLink02 2
+    100020: chainLink03
+    100022: chainLink03 1
+    100024: chainLink03 2
+    100026: chainLink04
+    100028: chainLink04 1
+    100030: chainLink04 2
+    100032: chainLink05
+    100034: chainLink05 1
+    100036: chainLink05 2
+    100038: chainLink06
+    100040: chainLink06 1
+    100042: frontalSpikes
+    100044: frontalSpikes 1
+    100046: leftChains
+    100048: leftDoor
+    100050: rightChains
+    100052: rightDoor
+    100054: spike01
+    100056: spike01 1
+    100058: spike01 2
+    100060: spike01 3
+    100062: spike010
+    100064: spike010 1
+    100066: spike010 2
+    100068: spike010 3
+    100070: spike02
+    100072: spike02 1
+    100074: spike02 2
+    100076: spike02 3
+    100078: spike03
+    100080: spike03 1
+    100082: spike03 2
+    100084: spike03 3
+    100086: spike04
+    100088: spike04 1
+    100090: spike04 2
+    100092: spike04 3
+    100094: spike05
+    100096: spike05 1
+    100098: spike05 2
+    100100: spike05 3
+    100102: spike06
+    100104: spike06 1
+    100106: spike06 2
+    100108: spike06 3
+    100110: spike07
+    100112: spike07 1
+    100114: spike07 2
+    100116: spike07 3
+    100118: spike08
+    100120: spike08 1
+    100122: spike08 2
+    100124: spike08 3
+    100126: spike09
+    100128: spike09 1
+    100130: spike09 2
+    100132: spike09 3
+    100134: chainLink010
+    100136: chainLink010 1
+    100138: chainLink010 2
+    100140: chainLink011
+    100142: chainLink012
+    100144: chainLink07
+    100146: chainLink07 1
+    100148: chainLink07 2
+    100150: chainLink08
+    100152: chainLink08 1
+    100154: chainLink08 2
+    100156: chainLink09
+    100158: chainLink09 1
+    100160: chainLink09 2
+    400000: //RootNode
+    400002: backSpikes
+    400004: backSpikes 1
+    400006: centerChains
+    400008: chainLink01
+    400010: chainLink01 1
+    400012: chainLink01 2
+    400014: chainLink02
+    400016: chainLink02 1
+    400018: chainLink02 2
+    400020: chainLink03
+    400022: chainLink03 1
+    400024: chainLink03 2
+    400026: chainLink04
+    400028: chainLink04 1
+    400030: chainLink04 2
+    400032: chainLink05
+    400034: chainLink05 1
+    400036: chainLink05 2
+    400038: chainLink06
+    400040: chainLink06 1
+    400042: frontalSpikes
+    400044: frontalSpikes 1
+    400046: leftChains
+    400048: leftDoor
+    400050: rightChains
+    400052: rightDoor
+    400054: spike01
+    400056: spike01 1
+    400058: spike01 2
+    400060: spike01 3
+    400062: spike010
+    400064: spike010 1
+    400066: spike010 2
+    400068: spike010 3
+    400070: spike02
+    400072: spike02 1
+    400074: spike02 2
+    400076: spike02 3
+    400078: spike03
+    400080: spike03 1
+    400082: spike03 2
+    400084: spike03 3
+    400086: spike04
+    400088: spike04 1
+    400090: spike04 2
+    400092: spike04 3
+    400094: spike05
+    400096: spike05 1
+    400098: spike05 2
+    400100: spike05 3
+    400102: spike06
+    400104: spike06 1
+    400106: spike06 2
+    400108: spike06 3
+    400110: spike07
+    400112: spike07 1
+    400114: spike07 2
+    400116: spike07 3
+    400118: spike08
+    400120: spike08 1
+    400122: spike08 2
+    400124: spike08 3
+    400126: spike09
+    400128: spike09 1
+    400130: spike09 2
+    400132: spike09 3
+    400134: chainLink010
+    400136: chainLink010 1
+    400138: chainLink010 2
+    400140: chainLink011
+    400142: chainLink012
+    400144: chainLink07
+    400146: chainLink07 1
+    400148: chainLink07 2
+    400150: chainLink08
+    400152: chainLink08 1
+    400154: chainLink08 2
+    400156: chainLink09
+    400158: chainLink09 1
+    400160: chainLink09 2
+    2300000: //RootNode
+    2300002: chainLink01
+    2300004: chainLink01 1
+    2300006: chainLink01 2
+    2300008: chainLink02
+    2300010: chainLink02 1
+    2300012: chainLink02 2
+    2300014: chainLink03
+    2300016: chainLink03 1
+    2300018: chainLink03 2
+    2300020: chainLink04
+    2300022: chainLink04 1
+    2300024: chainLink04 2
+    2300026: chainLink05
+    2300028: chainLink05 1
+    2300030: chainLink05 2
+    2300032: chainLink06
+    2300034: chainLink06 1
+    2300036: leftDoor
+    2300038: rightDoor
+    2300040: spike01
+    2300042: spike01 1
+    2300044: spike01 2
+    2300046: spike01 3
+    2300048: spike010
+    2300050: spike010 1
+    2300052: spike010 2
+    2300054: spike010 3
+    2300056: spike02
+    2300058: spike02 1
+    2300060: spike02 2
+    2300062: spike02 3
+    2300064: spike03
+    2300066: spike03 1
+    2300068: spike03 2
+    2300070: spike03 3
+    2300072: spike04
+    2300074: spike04 1
+    2300076: spike04 2
+    2300078: spike04 3
+    2300080: spike05
+    2300082: spike05 1
+    2300084: spike05 2
+    2300086: spike05 3
+    2300088: spike06
+    2300090: spike06 1
+    2300092: spike06 2
+    2300094: spike06 3
+    2300096: spike07
+    2300098: spike07 1
+    2300100: spike07 2
+    2300102: spike07 3
+    2300104: spike08
+    2300106: spike08 1
+    2300108: spike08 2
+    2300110: spike08 3
+    2300112: spike09
+    2300114: spike09 1
+    2300116: spike09 2
+    2300118: spike09 3
+    2300120: chainLink010
+    2300122: chainLink010 1
+    2300124: chainLink010 2
+    2300126: chainLink011
+    2300128: chainLink012
+    2300130: chainLink07
+    2300132: chainLink07 1
+    2300134: chainLink07 2
+    2300136: chainLink08
+    2300138: chainLink08 1
+    2300140: chainLink08 2
+    2300142: chainLink09
+    2300144: chainLink09 1
+    2300146: chainLink09 2
+    3300000: //RootNode
+    3300002: chainLink01
+    3300004: chainLink01 1
+    3300006: chainLink01 2
+    3300008: chainLink02
+    3300010: chainLink02 1
+    3300012: chainLink02 2
+    3300014: chainLink03
+    3300016: chainLink03 1
+    3300018: chainLink03 2
+    3300020: chainLink04
+    3300022: chainLink04 1
+    3300024: chainLink04 2
+    3300026: chainLink05
+    3300028: chainLink05 1
+    3300030: chainLink05 2
+    3300032: chainLink06
+    3300034: chainLink06 1
+    3300036: leftDoor
+    3300038: rightDoor
+    3300040: spike01
+    3300042: spike01 1
+    3300044: spike01 2
+    3300046: spike01 3
+    3300048: spike010
+    3300050: spike010 1
+    3300052: spike010 2
+    3300054: spike010 3
+    3300056: spike02
+    3300058: spike02 1
+    3300060: spike02 2
+    3300062: spike02 3
+    3300064: spike03
+    3300066: spike03 1
+    3300068: spike03 2
+    3300070: spike03 3
+    3300072: spike04
+    3300074: spike04 1
+    3300076: spike04 2
+    3300078: spike04 3
+    3300080: spike05
+    3300082: spike05 1
+    3300084: spike05 2
+    3300086: spike05 3
+    3300088: spike06
+    3300090: spike06 1
+    3300092: spike06 2
+    3300094: spike06 3
+    3300096: spike07
+    3300098: spike07 1
+    3300100: spike07 2
+    3300102: spike07 3
+    3300104: spike08
+    3300106: spike08 1
+    3300108: spike08 2
+    3300110: spike08 3
+    3300112: spike09
+    3300114: spike09 1
+    3300116: spike09 2
+    3300118: spike09 3
+    3300120: chainLink010
+    3300122: chainLink010 1
+    3300124: chainLink010 2
+    3300126: chainLink011
+    3300128: chainLink012
+    3300130: chainLink07
+    3300132: chainLink07 1
+    3300134: chainLink07 2
+    3300136: chainLink08
+    3300138: chainLink08 1
+    3300140: chainLink08 2
+    3300142: chainLink09
+    3300144: chainLink09 1
+    3300146: chainLink09 2
+    4300000: frame
+    4300002: chainLink01
+    4300004: chainLink02
+    4300006: chainLink03
+    4300008: chainLink04
+    4300010: chainLink05
+    4300012: chainLink01
+    4300014: chainLink02
+    4300016: chainLink03
+    4300018: chainLink04
+    4300020: chainLink05
+    4300022: chainLink06
+    4300024: chainLink01
+    4300026: chainLink02
+    4300028: chainLink03
+    4300030: chainLink04
+    4300032: chainLink05
+    4300034: chainLink06
+    4300036: leftDoor
+    4300038: spike01
+    4300040: spike02
+    4300042: spike03
+    4300044: spike04
+    4300046: spike05
+    4300048: spike06
+    4300050: spike07
+    4300052: spike08
+    4300054: spike09
+    4300056: spike010
+    4300058: spike01
+    4300060: spike02
+    4300062: spike03
+    4300064: spike04
+    4300066: spike05
+    4300068: spike06
+    4300070: spike07
+    4300072: spike08
+    4300074: spike09
+    4300076: spike010
+    4300078: rightDoor
+    4300080: spike01
+    4300082: spike02
+    4300084: spike03
+    4300086: spike04
+    4300088: spike05
+    4300090: spike06
+    4300092: spike07
+    4300094: spike08
+    4300096: spike09
+    4300098: spike010
+    4300100: spike01
+    4300102: spike02
+    4300104: spike03
+    4300106: spike04
+    4300108: spike05
+    4300110: spike06
+    4300112: spike07
+    4300114: spike08
+    4300116: spike09
+    4300118: spike010
+    4300120: chainLink07
+    4300122: chainLink08
+    4300124: chainLink09
+    4300126: chainLink010
+    4300128: chainLink07
+    4300130: chainLink08
+    4300132: chainLink09
+    4300134: chainLink010
+    4300136: chainLink011
+    4300138: chainLink07
+    4300140: chainLink08
+    4300142: chainLink09
+    4300144: chainLink010
+    4300146: chainLink012
+    7400000: Idle
+    7400002: OpenForward
+    7400004: OpenBackward
+    7400006: Closed
+    7400008: OpenedForward
+    7400010: OpenedBackward
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 1
+      - path: centerChains/chainLink01
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 1
+      - path: leftChains
+        weight: 1
+      - path: leftChains/chainLink01 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 1
+      - path: leftDoor
+        weight: 0
+      - path: leftDoor/backSpikes
+        weight: 0
+      - path: leftDoor/backSpikes/spike01
+        weight: 0
+      - path: leftDoor/backSpikes/spike02
+        weight: 0
+      - path: leftDoor/backSpikes/spike03
+        weight: 0
+      - path: leftDoor/backSpikes/spike04
+        weight: 0
+      - path: leftDoor/backSpikes/spike05
+        weight: 0
+      - path: leftDoor/backSpikes/spike06
+        weight: 0
+      - path: leftDoor/backSpikes/spike07
+        weight: 0
+      - path: leftDoor/backSpikes/spike08
+        weight: 0
+      - path: leftDoor/backSpikes/spike09
+        weight: 0
+      - path: leftDoor/backSpikes/spike010
+        weight: 0
+      - path: leftDoor/frontalSpikes
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 0
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 0
+      - path: rightChains
+        weight: 1
+      - path: rightChains/chainLink01 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 1
+      - path: rightDoor
+        weight: 0
+      - path: rightDoor/backSpikes 1
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 0
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 0
+      - path: rightDoor/frontalSpikes 1
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 0
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: OpenForward
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 0
+      - path: centerChains/chainLink01
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 0
+      - path: leftChains
+        weight: 1
+      - path: leftChains/chainLink01 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 1
+      - path: leftDoor
+        weight: 1
+      - path: leftDoor/backSpikes
+        weight: 1
+      - path: leftDoor/backSpikes/spike01
+        weight: 1
+      - path: leftDoor/backSpikes/spike02
+        weight: 1
+      - path: leftDoor/backSpikes/spike03
+        weight: 1
+      - path: leftDoor/backSpikes/spike04
+        weight: 1
+      - path: leftDoor/backSpikes/spike05
+        weight: 1
+      - path: leftDoor/backSpikes/spike06
+        weight: 1
+      - path: leftDoor/backSpikes/spike07
+        weight: 1
+      - path: leftDoor/backSpikes/spike08
+        weight: 1
+      - path: leftDoor/backSpikes/spike09
+        weight: 1
+      - path: leftDoor/backSpikes/spike010
+        weight: 1
+      - path: leftDoor/frontalSpikes
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 1
+      - path: rightChains
+        weight: 1
+      - path: rightChains/chainLink01 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 1
+      - path: rightDoor
+        weight: 1
+      - path: rightDoor/backSpikes 1
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 1
+      - path: rightDoor/frontalSpikes 1
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: OpenBackward
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 0
+      - path: centerChains/chainLink01
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 0
+      - path: leftChains
+        weight: 1
+      - path: leftChains/chainLink01 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 1
+      - path: leftDoor
+        weight: 1
+      - path: leftDoor/backSpikes
+        weight: 1
+      - path: leftDoor/backSpikes/spike01
+        weight: 1
+      - path: leftDoor/backSpikes/spike02
+        weight: 1
+      - path: leftDoor/backSpikes/spike03
+        weight: 1
+      - path: leftDoor/backSpikes/spike04
+        weight: 1
+      - path: leftDoor/backSpikes/spike05
+        weight: 1
+      - path: leftDoor/backSpikes/spike06
+        weight: 1
+      - path: leftDoor/backSpikes/spike07
+        weight: 1
+      - path: leftDoor/backSpikes/spike08
+        weight: 1
+      - path: leftDoor/backSpikes/spike09
+        weight: 1
+      - path: leftDoor/backSpikes/spike010
+        weight: 1
+      - path: leftDoor/frontalSpikes
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 1
+      - path: rightChains
+        weight: 1
+      - path: rightChains/chainLink01 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 1
+      - path: rightDoor
+        weight: 1
+      - path: rightDoor/backSpikes 1
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 1
+      - path: rightDoor/frontalSpikes 1
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Closed
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 91
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 0
+      - path: centerChains/chainLink01
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 0
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 0
+      - path: leftChains
+        weight: 0
+      - path: leftChains/chainLink01 1
+        weight: 0
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 0
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 0
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 0
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 0
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 0
+      - path: leftDoor
+        weight: 1
+      - path: leftDoor/backSpikes
+        weight: 1
+      - path: leftDoor/backSpikes/spike01
+        weight: 1
+      - path: leftDoor/backSpikes/spike02
+        weight: 1
+      - path: leftDoor/backSpikes/spike03
+        weight: 1
+      - path: leftDoor/backSpikes/spike04
+        weight: 1
+      - path: leftDoor/backSpikes/spike05
+        weight: 1
+      - path: leftDoor/backSpikes/spike06
+        weight: 1
+      - path: leftDoor/backSpikes/spike07
+        weight: 1
+      - path: leftDoor/backSpikes/spike08
+        weight: 1
+      - path: leftDoor/backSpikes/spike09
+        weight: 1
+      - path: leftDoor/backSpikes/spike010
+        weight: 1
+      - path: leftDoor/frontalSpikes
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 1
+      - path: rightChains
+        weight: 0
+      - path: rightChains/chainLink01 2
+        weight: 0
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 0
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 0
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 0
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 0
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 0
+      - path: rightDoor
+        weight: 1
+      - path: rightDoor/backSpikes 1
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 1
+      - path: rightDoor/frontalSpikes 1
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: OpenedForward
+      takeName: Take 001
+      firstFrame: 88
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 1
+      - path: centerChains/chainLink01
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 1
+      - path: leftChains
+        weight: 1
+      - path: leftChains/chainLink01 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 1
+      - path: leftDoor
+        weight: 1
+      - path: leftDoor/backSpikes
+        weight: 1
+      - path: leftDoor/backSpikes/spike01
+        weight: 1
+      - path: leftDoor/backSpikes/spike02
+        weight: 1
+      - path: leftDoor/backSpikes/spike03
+        weight: 1
+      - path: leftDoor/backSpikes/spike04
+        weight: 1
+      - path: leftDoor/backSpikes/spike05
+        weight: 1
+      - path: leftDoor/backSpikes/spike06
+        weight: 1
+      - path: leftDoor/backSpikes/spike07
+        weight: 1
+      - path: leftDoor/backSpikes/spike08
+        weight: 1
+      - path: leftDoor/backSpikes/spike09
+        weight: 1
+      - path: leftDoor/backSpikes/spike010
+        weight: 1
+      - path: leftDoor/frontalSpikes
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 1
+      - path: rightChains
+        weight: 1
+      - path: rightChains/chainLink01 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 1
+      - path: rightDoor
+        weight: 1
+      - path: rightDoor/backSpikes 1
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 1
+      - path: rightDoor/frontalSpikes 1
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: OpenedBackward
+      takeName: Take 001
+      firstFrame: 119
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: centerChains
+        weight: 1
+      - path: centerChains/chainLink01
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09
+        weight: 1
+      - path: centerChains/chainLink01/chainLink07/chainLink08/chainLink09/chainLink010
+        weight: 1
+      - path: leftChains
+        weight: 1
+      - path: leftChains/chainLink01 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1
+        weight: 1
+      - path: leftChains/chainLink01 1/chainLink07 1/chainLink08 1/chainLink09 1/chainLink010
+          1/chainLink011
+        weight: 1
+      - path: leftDoor
+        weight: 1
+      - path: leftDoor/backSpikes
+        weight: 1
+      - path: leftDoor/backSpikes/spike01
+        weight: 1
+      - path: leftDoor/backSpikes/spike02
+        weight: 1
+      - path: leftDoor/backSpikes/spike03
+        weight: 1
+      - path: leftDoor/backSpikes/spike04
+        weight: 1
+      - path: leftDoor/backSpikes/spike05
+        weight: 1
+      - path: leftDoor/backSpikes/spike06
+        weight: 1
+      - path: leftDoor/backSpikes/spike07
+        weight: 1
+      - path: leftDoor/backSpikes/spike08
+        weight: 1
+      - path: leftDoor/backSpikes/spike09
+        weight: 1
+      - path: leftDoor/backSpikes/spike010
+        weight: 1
+      - path: leftDoor/frontalSpikes
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike01 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike02 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike03 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike04 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike05 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike06 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike07 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike08 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike09 1
+        weight: 1
+      - path: leftDoor/frontalSpikes/spike010 1
+        weight: 1
+      - path: rightChains
+        weight: 1
+      - path: rightChains/chainLink01 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2
+        weight: 1
+      - path: rightChains/chainLink01 2/chainLink07 2/chainLink08 2/chainLink09 2/chainLink010
+          2/chainLink012
+        weight: 1
+      - path: rightDoor
+        weight: 1
+      - path: rightDoor/backSpikes 1
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike01 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike02 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike03 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike04 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike05 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike06 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike07 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike08 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike09 2
+        weight: 1
+      - path: rightDoor/backSpikes 1/spike010 2
+        weight: 1
+      - path: rightDoor/frontalSpikes 1
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike01 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike02 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike03 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike04 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike05 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike06 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike07 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike08 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike09 3
+        weight: 1
+      - path: rightDoor/frontalSpikes 1/spike010 3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

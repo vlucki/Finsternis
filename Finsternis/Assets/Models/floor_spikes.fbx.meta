@@ -1,0 +1,257 @@
+fileFormatVersion: 2
+guid: b41377ccbbe11114db4fad551ef6500e
+timeCreated: 1461429573
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: floor
+    100004: metal
+    100006: spike01
+    100008: spike010
+    100010: spike011
+    100012: spike02
+    100014: spike03
+    100016: spike04
+    100018: spike05
+    100020: spike06
+    100022: spike07
+    100024: spike08
+    100026: spike09
+    100028: spike012
+    400000: //RootNode
+    400002: floor
+    400004: metal
+    400006: spike01
+    400008: spike010
+    400010: spike011
+    400012: spike02
+    400014: spike03
+    400016: spike04
+    400018: spike05
+    400020: spike06
+    400022: spike07
+    400024: spike08
+    400026: spike09
+    400028: spike012
+    2300000: //RootNode
+    2300002: floor
+    2300004: metal
+    2300006: spike01
+    2300008: spike010
+    2300010: spike011
+    2300012: spike02
+    2300014: spike03
+    2300016: spike04
+    2300018: spike05
+    2300020: spike06
+    2300022: spike07
+    2300024: spike08
+    2300026: spike09
+    2300028: spike012
+    3300000: //RootNode
+    3300002: floor
+    3300004: metal
+    3300006: spike01
+    3300008: spike010
+    3300010: spike011
+    3300012: spike02
+    3300014: spike03
+    3300016: spike04
+    3300018: spike05
+    3300020: spike06
+    3300022: spike07
+    3300024: spike08
+    3300026: spike09
+    3300028: spike012
+    4300000: piramide17
+    4300002: floor
+    4300004: spike01
+    4300006: spike02
+    4300008: spike03
+    4300010: spike04
+    4300012: spike05
+    4300014: spike06
+    4300016: spike07
+    4300018: spike08
+    4300020: spike09
+    4300022: spike010
+    4300024: spike011
+    4300026: metal
+    4300028: spike012
+    7400000: spikes_in
+    7400002: spikes_out
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: spikes_in
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: spike01
+        weight: 1
+      - path: spike02
+        weight: 1
+      - path: spike03
+        weight: 1
+      - path: spike04
+        weight: 1
+      - path: spike05
+        weight: 1
+      - path: spike06
+        weight: 1
+      - path: spike07
+        weight: 1
+      - path: spike08
+        weight: 1
+      - path: spike09
+        weight: 1
+      - path: spike010
+        weight: 1
+      - path: spike011
+        weight: 1
+      - path: spike012
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: spikes_out
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: spike01
+        weight: 1
+      - path: spike02
+        weight: 1
+      - path: spike03
+        weight: 1
+      - path: spike04
+        weight: 1
+      - path: spike05
+        weight: 1
+      - path: spike06
+        weight: 1
+      - path: spike07
+        weight: 1
+      - path: spike08
+        weight: 1
+      - path: spike09
+        weight: 1
+      - path: spike010
+        weight: 1
+      - path: spike011
+        weight: 1
+      - path: spike012
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
