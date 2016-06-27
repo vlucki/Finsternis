@@ -2,11 +2,16 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 public class IntroController : MonoBehaviour {
 
     [Range(0, 10)]
-    public float fadeOutTime = 3;
+    public float fadeInTime = 2;
+    [Range(0, 10)]
+    public float fadeOutTime = 1;
+    [Range(0, 10)]
+    public float holdTime = 1;
     public bool skippable = true;
     public Image imageToFade;
     public string sceneToLoad = "MainMenu";
@@ -14,16 +19,23 @@ public class IntroController : MonoBehaviour {
     private bool _loadingNextScene = false;
 
     void Start () {
-        if (imageToFade)
-        {
-            imageToFade.CrossFadeAlpha(0, fadeOutTime / 2, false);
-        }
-        StartCoroutine(CountDown());
+        StartCoroutine(Transition(FadeOut, fadeInTime, 0, true));
 	}
 
-    private IEnumerator CountDown(){
-        yield return new WaitForSeconds(fadeOutTime);
-        LoadNextScene();
+    private void FadeOut()
+    {
+        skippable = false;
+        StartCoroutine(Transition(LoadNextScene, fadeOutTime, 1));
+    }
+
+    private IEnumerator Transition(Action callback, float fadeTime, float targetAlpha, bool shouldHold = false)
+    {
+        if (imageToFade)
+        {
+            imageToFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
+        }
+        yield return new WaitForSeconds(fadeTime + (shouldHold? holdTime : 0));
+        callback();
     }
 
     private void LoadNextScene()
@@ -39,7 +51,8 @@ public class IntroController : MonoBehaviour {
     {
         if (skippable && Input.GetAxis("Cancel") != 0)
         {
-            LoadNextScene();
+            StopAllCoroutines();
+            FadeOut();
         }
     }
     

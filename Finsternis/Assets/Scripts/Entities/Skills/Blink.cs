@@ -44,7 +44,7 @@ public class Blink : Skill
             if (Physics.BoxCast(bc.center, bc.size / 2, direction, out info, Quaternion.identity, dist, ignoredLayers))
                 dist = info.distance - bc.size.magnitude/2;
         }
-
-        transform.position += direction * dist;
+        if (Physics.Raycast(transform.position + direction*dist, Vector3.down, out info))
+            transform.position += direction * dist;
     }
 }

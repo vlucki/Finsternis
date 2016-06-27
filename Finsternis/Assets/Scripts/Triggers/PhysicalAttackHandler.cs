@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(Collider))]
 public class PhysicalAttackHandler : Trigger
@@ -22,8 +23,22 @@ public class PhysicalAttackHandler : Trigger
 
         }
         str = owner.GetAttribute("str") as RangedValueAttribute;
+        if (!ActiveOnDeath)
+        {
+            RangedValueAttribute health = owner.GetAttribute("hp") as RangedValueAttribute;
+            if (health)
+                health.onValueChanged.AddListener(HealthChanged);
+        }
         Ignore(owner.gameObject);
         onEnter.AddListener(DoCollide);
+    }
+
+    private void HealthChanged(EntityAttribute attribute)
+    {
+        if(attribute.Value <= 0)
+        {
+            GetComponent<Collider>().enabled = ActiveOnDeath;
+        }
     }
 
     void DoCollide(GameObject collidedObject)

@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 public class LoadingScreenController : MonoBehaviour {
 
     public static string sceneToLoad;
+    private string loadingScreenScene;
+
+    void Awake()
+    {
+        loadingScreenScene = SceneManager.GetActiveScene().name;
+    }
+
 	void Start () {
         if(!string.IsNullOrEmpty(sceneToLoad))
            StartCoroutine(Load(SceneManager.LoadSceneAsync(sceneToLoad)));     
@@ -17,6 +24,6 @@ public class LoadingScreenController : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
 
-        SceneManager.UnloadScene("loading_screen");
+        SceneManager.UnloadScene(loadingScreenScene);
     }
 }

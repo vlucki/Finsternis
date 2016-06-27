@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: floorMat
-  m_Shader: {fileID: 10755, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
   m_SavedProperties:
@@ -143,7 +143,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 0.11764705, g: 0.07895239, b: 0.057958473, a: 1}
+        second: {r: 0.08742432, g: 0.09343008, b: 0.1544118, a: 1}
       data:
         first:
           name: _SpecColor

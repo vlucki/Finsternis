@@ -96,8 +96,11 @@ public class SimpleDungeonDrawer : MonoBehaviour
                         || ShouldAddScript(cellX - 1, cellY - 1)
                         || ShouldAddScript(cellX + 1, cellY - 1))
                     {
-                        wall.AddComponent<Wall>();
-                        wall.GetComponent<Wall>().canFadeCompletely = mayBlockPlayer;
+                        if (wall.GetComponent<Renderer>())
+                        {
+                            Wall w = wall.AddComponent<Wall>();
+                            w.canFadeCompletely = mayBlockPlayer;
+                        }
                     }
                     wall.transform.SetParent(wallsContainer.transform);
                 }

@@ -348,7 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54de8d72e76e61f47ac88bf156cd9cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeOutTime: 3
+  fadeInTime: 2
+  fadeOutTime: 1
+  holdTime: 2
   skippable: 1
   imageToFade: {fileID: 1769240252}
   sceneToLoad: MainMenu
@@ -400,8 +402,8 @@ Camera:
   m_GameObject: {fileID: 1293838796}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -411,7 +413,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:

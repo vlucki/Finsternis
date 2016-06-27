@@ -73,7 +73,7 @@ public class MenuController : MonoBehaviour
             _followBehaviour = GetComponent<Follow>();
 
         if (_options == null)
-            _options = GetComponentsInChildren<Button>();
+            _options = _optionsContainer.GetComponentsInChildren<Button>();
     }
 
     void Start()

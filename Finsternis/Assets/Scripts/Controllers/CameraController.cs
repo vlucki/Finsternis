@@ -7,13 +7,30 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Follow _follow;
 
+    [SerializeField]
     [Range(1, 100)]
-    public float shakeDamping = 2;
+    private float _shakeDamping = 2;
 
+    [SerializeField]
     [Range(1, 20)]
-    public float shakeFrequency = 20;
+    private float _shakeFrequency = 20;
+
+    [SerializeField]
+    [Range(1, 100)]
+    private float _shakeAmplitude = 20;
 
     private bool shaking;
+
+    internal void Shake(float time, float damping, float amplitude, float frequency)
+    {
+        if (!shaking)
+        {
+            _shakeDamping = damping;
+            _shakeFrequency = frequency;
+            _shakeAmplitude = amplitude;
+            StartCoroutine(Shake(time));
+        }
+    }
 
     public bool occludeWalls = false;
     [SerializeField]
@@ -81,24 +98,18 @@ public class CameraController : MonoBehaviour
     IEnumerator Shake(float shakeTime)
     {
         shaking = true;
-        System.Random r = new System.Random();
+        float amplitude = _shakeAmplitude;
         while (shakeTime > 0)
         {
 
-            yield return new WaitForSeconds(1/shakeFrequency);
-            shakeTime -= Time.deltaTime + 1 / shakeFrequency;
-            float x = (float)r.NextDouble();
-            float y = (float)r.NextDouble();
+            yield return new WaitForSeconds(1/_shakeFrequency);
+            shakeTime -= Time.deltaTime + 1 / _shakeFrequency;
 
-            if (r.NextDouble() >= 0.5)
-                x *= -1;
-            if (r.NextDouble() <= 0.5)
-                y *= -1;
-            float noise = Mathf.PerlinNoise(x, y);
-            
-            _follow.offset = _follow.OriginalOffset + new Vector3(noise + (r.NextDouble() < 0.5 ? 1 : -1), noise + (r.NextDouble() < 0.5 ? 1 : -1)) / shakeDamping;
-            x += y - shakeTime;
-            y = shakeTime;
+            Vector3 explosionOffset = Random.insideUnitSphere;
+            explosionOffset.z = 0;
+            _follow.offset = _follow.OriginalOffset + explosionOffset * amplitude;
+
+            amplitude /= _shakeDamping;
         }
         _follow.ResetOffset();
         shaking = false;
