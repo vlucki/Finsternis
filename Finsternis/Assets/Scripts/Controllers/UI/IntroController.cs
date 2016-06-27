@@ -3,38 +3,75 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 public class IntroController : MonoBehaviour {
 
+    [SerializeField]
     [Range(0, 10)]
-    public float fadeInTime = 2;
+    private float _fadeInTime = 2;
+
+    [SerializeField]
     [Range(0, 10)]
-    public float fadeOutTime = 1;
+    private float _fadeOutTime = 1;
+
+    [SerializeField]
     [Range(0, 10)]
-    public float holdTime = 1;
-    public bool skippable = true;
-    public Image imageToFade;
-    public string sceneToLoad = "MainMenu";
+    private float _holdTime = 1;
+
+    [SerializeField]
+    private bool _skippable = true;
+
+    [SerializeField]
+    private Image[] _imagesToShow;
+
+    [SerializeField]
+    private string _sceneToLoad = "MainMenu";
 
     private bool _loadingNextScene = false;
+    private Queue<Image> _imagesQueue;
+    private Image currentImage;
+
+    void Awake()
+    {
+        _imagesQueue = new Queue<Image>(_imagesToShow);
+    }
 
     void Start () {
-        StartCoroutine(Transition(FadeOut, fadeInTime, 0, true));
+        FadeIn();
 	}
+
+    private void FadeIn()
+    {
+        _skippable = true;
+        StartCoroutine(Transition(FadeOut, _fadeInTime, 1, true));
+    }
 
     private void FadeOut()
     {
-        skippable = false;
-        StartCoroutine(Transition(LoadNextScene, fadeOutTime, 1));
+        _skippable = false;
+        Action nextStep = LoadNextScene;
+        if (_imagesQueue.Count > 0)
+            nextStep = FadeIn;
+        StartCoroutine(Transition(nextStep, _fadeOutTime, 0));
     }
 
     private IEnumerator Transition(Action callback, float fadeTime, float targetAlpha, bool shouldHold = false)
     {
-        if (imageToFade)
+        Image toFade = currentImage;
+        if (toFade)
         {
-            imageToFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
+            currentImage = null;
         }
-        yield return new WaitForSeconds(fadeTime + (shouldHold? holdTime : 0));
+        else if (_imagesQueue != null && _imagesQueue.Count > 0)
+        {
+            toFade = _imagesQueue.Dequeue();
+            toFade.canvasRenderer.SetAlpha(0);
+            toFade.enabled = true;
+            currentImage = toFade;
+        }
+        toFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
+        yield return new WaitForSeconds(fadeTime + (shouldHold ? _holdTime : 0));
         callback();
     }
 
@@ -42,14 +79,14 @@ public class IntroController : MonoBehaviour {
     {
         if (!_loadingNextScene)
         {
-            LoadingScreenController.sceneToLoad = sceneToLoad;
+            LoadingScreenController.sceneToLoad = _sceneToLoad;
             SceneManager.LoadScene("LoadingScreen");
         }
     }
 
     public void Update()
     {
-        if (skippable && Input.GetAxis("Cancel") != 0)
+        if (_skippable && Input.GetAxis("Cancel") != 0)
         {
             StopAllCoroutines();
             FadeOut();
