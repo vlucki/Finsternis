@@ -12,14 +12,12 @@ public class Fireball : Skill
         if(MayUse(_slot))
         {
             base.Use(_slot);
-            GetComponent<Animator>().speed = 5f;
+            GetComponent<Animator>().SetFloat("attackSpeed", 5f);
         }
-
     }
 
     protected override void CastSkill()
     {
-        GetComponent<Animator>().speed = 1;
         GameObject summonedFireball = Instantiate(fireballPrefab, summonPoint.position + transform.forward*summonOffset, transform.rotation) as GameObject;
         summonedFireball.GetComponent<PhysicalAttackHandler>().ignoreColliders.Add(GetComponent<Collider>());
         summonedFireball.GetComponent<PhysicalAttackHandler>().owner = GetComponent<Entity>();

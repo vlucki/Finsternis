@@ -995,7 +995,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _invincibiltyTime: 1
+  _invincibiltyTime: 0.2
   _invincible: 0
 --- !u!114 &11461916
 MonoBehaviour:

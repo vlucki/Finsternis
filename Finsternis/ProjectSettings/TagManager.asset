@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dungeon
   - Exit
+  - Enemy
   layers:
   - Default
   - TransparentFX

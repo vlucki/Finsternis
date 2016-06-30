@@ -33,6 +33,12 @@ public class Follow : MonoBehaviour
     [Range(0, 1)]
     public float rotationInterpolation = 0.2f;
 
+    [Range(0,1)]
+    public float distanceThreshold = 0.025f;
+
+    private Vector3 _memorizedOffset;
+
+    public Vector3 MemorizedOffset { get { return _memorizedOffset; } }
     public Vector3 OriginalOffset { get { return _originalOffset; } }
 
     public bool WasOffsetChanged { get { return offset == _originalOffset; } }
@@ -42,6 +48,7 @@ public class Follow : MonoBehaviour
     void Awake()
     {
         _originalOffset = offset;
+        _memorizedOffset = offset;
         _originalTarget = _target;
     }
 
@@ -59,9 +66,19 @@ public class Follow : MonoBehaviour
         _timeFocusingTempTarget = 0;
     }
 
-    public void ResetOffset()
+    public void MemorizeOffset(Vector3? offset = null)
     {
-        offset = _originalOffset;
+        if (offset == null)
+            offset = this.offset;
+        _memorizedOffset = (Vector3)offset;
+    }
+
+    public void ResetOffset(bool toOriginal = false)
+    {
+        if (toOriginal)
+            offset = _originalOffset;
+        else
+            offset = _memorizedOffset;
     }
 
     public bool FocusingTemporaryTarget()
@@ -72,13 +89,18 @@ public class Follow : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 idealPosition = _target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, idealPosition, translationInterpolation);
+        float distance = Vector3.Distance(idealPosition, transform.position);
 
-        if (Vector3.Distance(idealPosition, transform.position) <= 0.1f)
+        if (distance <= distanceThreshold)
         {
+            transform.position = idealPosition;
             OnTargetReached.Invoke();
             if(_tempTargetFocusTime > 0 && FocusingTemporaryTarget())
                 _timeFocusingTempTarget += Time.deltaTime;
+        }
+        else
+        {
+            transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
         }
 
         if (_timeFocusingTempTarget >= _tempTargetFocusTime)

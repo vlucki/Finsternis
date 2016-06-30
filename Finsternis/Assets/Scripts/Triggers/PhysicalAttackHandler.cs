@@ -10,8 +10,12 @@ public class PhysicalAttackHandler : Trigger
     public ForceMode modeOnImpact = ForceMode.VelocityChange;
     public Vector2 executionMultiplier = Vector2.one;
     public ForceMode modeOnExecution = ForceMode.Impulse;
-    public bool ActiveOnDeath = false;
+    public bool activeOnDeath = false;
+    public bool ignoreOthersFromOwner = true;
+
+
     private RangedValueAttribute str;
+
 
     void Awake()
     {
@@ -23,7 +27,7 @@ public class PhysicalAttackHandler : Trigger
 
         }
         str = owner.GetAttribute("str") as RangedValueAttribute;
-        if (!ActiveOnDeath)
+        if (!activeOnDeath)
         {
             RangedValueAttribute health = owner.GetAttribute("hp") as RangedValueAttribute;
             if (health)
@@ -33,15 +37,28 @@ public class PhysicalAttackHandler : Trigger
         onEnter.AddListener(DoCollide);
     }
 
+    protected override bool ShouldTrigger(Collider other)
+    {
+        bool result = base.ShouldTrigger(other);
+        if(result && ignoreOthersFromOwner)
+        {
+            PhysicalAttackHandler pah = other.GetComponent<PhysicalAttackHandler>();
+            if (pah && pah.owner == owner)
+                result = false;
+        }
+
+        return result;
+    }
+
     private void HealthChanged(EntityAttribute attribute)
     {
         if(attribute.Value <= 0)
         {
-            GetComponent<Collider>().enabled = ActiveOnDeath;
+            GetComponent<Collider>().enabled = activeOnDeath;
         }
     }
 
-    void DoCollide(GameObject collidedObject)
+    private void DoCollide(GameObject collidedObject)
     {
         Collider other = collidedObject.GetComponent<Collider>();
         if (ignoreColliders != null && ignoreColliders.Contains(other))

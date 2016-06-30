@@ -177,15 +177,15 @@ GameObject:
   - 95: {fileID: 9574102}
   - 135: {fileID: 13549126}
   - 54: {fileID: 5493032}
+  - 114: {fileID: 11435682}
+  - 114: {fileID: 11478084}
   - 114: {fileID: 11496216}
   - 114: {fileID: 11460668}
-  - 114: {fileID: 11435682}
   - 114: {fileID: 11470052}
   - 114: {fileID: 11471308}
   - 114: {fileID: 11420516}
   - 114: {fileID: 11414368}
   - 114: {fileID: 11478234}
-  - 114: {fileID: 11478084}
   m_Layer: 9
   m_Name: Beholder
   m_TagString: Enemy
@@ -999,7 +999,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _invincibiltyTime: 1
+  _invincibiltyTime: 0.2
   _invincible: 0
 --- !u!114 &11460668
 MonoBehaviour:

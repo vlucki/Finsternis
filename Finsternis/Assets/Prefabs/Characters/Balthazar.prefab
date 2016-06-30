@@ -1572,7 +1572,7 @@ MonoBehaviour:
   cooldownTime: 1
   _maxBlinkDistance: 3.5
   _offset: {x: 0, y: 1, z: 0}
-  ignoredLayers:
+  blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
 --- !u!114 &11476516

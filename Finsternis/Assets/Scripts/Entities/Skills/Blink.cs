@@ -11,12 +11,21 @@ public class Blink : Skill
 
     private Collider _collider;
 
-    public LayerMask ignoredLayers;
+    public LayerMask blockingLayers;
 
     protected override void Awake()
     {
         _collider = GetComponent<Collider>();
         base.Awake();
+    }
+
+    protected override void Use(int _slot)
+    {
+        if (MayUse(_slot))
+        {
+            base.Use(_slot);
+            GetComponent<Animator>().SetFloat("attackSpeed", 1f);
+        }
     }
 
     protected override void CastSkill()
@@ -29,19 +38,19 @@ public class Blink : Skill
         if(_collider is CapsuleCollider)
         {
             CapsuleCollider cc = _collider as CapsuleCollider;
-            if (Physics.CapsuleCast(cc.bounds.center + transform.up * cc.radius, cc.bounds.center - transform.up * cc.radius, cc.radius, direction, out info, dist, ignoredLayers))
+            if (Physics.CapsuleCast(cc.bounds.center + transform.up * cc.radius, cc.bounds.center - transform.up * cc.radius, cc.radius, direction, out info, dist, blockingLayers))
                 dist = info.distance - cc.radius;
         }
         else if(_collider is SphereCollider)
         {
             SphereCollider sc = _collider as SphereCollider;
-            if (Physics.SphereCast(origin, sc.radius, direction, out info, dist, ignoredLayers))
+            if (Physics.SphereCast(origin, sc.radius, direction, out info, dist, blockingLayers))
                 dist = info.distance - sc.radius;
         }
         else if (_collider is BoxCollider)
         {
             BoxCollider bc = _collider as BoxCollider;
-            if (Physics.BoxCast(bc.center, bc.size / 2, direction, out info, Quaternion.identity, dist, ignoredLayers))
+            if (Physics.BoxCast(bc.center, bc.size / 2, direction, out info, Quaternion.identity, dist, blockingLayers))
                 dist = info.distance - bc.size.magnitude/2;
         }
         if (Physics.Raycast(transform.position + direction*dist, Vector3.down, out info))

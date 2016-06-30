@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -88,7 +86,6 @@ public class MainMenuController : MonoBehaviour
     {
         creditsLoaded = true;
         TextAsset credits = Resources.Load<TextAsset>("credits");
-       // var reader = new System.IO.StreamReader(Application.dataPath + "/General/credits.txt");
         _centerDisplay.transform.Find("Display").GetChild(0).Find("btnCreditsDisplay").gameObject.GetComponentInChildren<Text>().text = credits.text;
     }
 
@@ -106,6 +103,7 @@ public class MainMenuController : MonoBehaviour
 
             float startAngle = Quaternion.Angle(targetRotation, _optionsContainer.transform.rotation);
             float angle = Quaternion.Angle(targetRotation, _optionsContainer.transform.rotation);
+            GetComponent<Animator>().SetTrigger("React");
             while (angle > _rotationThreshold)
             {
                 _optionsContainer.transform.rotation = Quaternion.Slerp(_optionsContainer.transform.rotation, targetRotation, _slerpAmount);

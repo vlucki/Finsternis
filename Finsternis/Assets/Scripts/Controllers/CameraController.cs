@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Follow))]
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
@@ -21,62 +20,34 @@ public class CameraController : MonoBehaviour
 
     private bool shaking;
 
-    internal void Shake(float time, float damping, float amplitude, float frequency)
-    {
-        if (!shaking)
-        {
-            _shakeDamping = damping;
-            _shakeFrequency = frequency;
-            _shakeAmplitude = amplitude;
-            StartCoroutine(Shake(time));
-        }
-    }
-
     public bool occludeWalls = false;
     [SerializeField]
     private GameObject _occludingObject;
+    private bool shouldReset;
+    private Vector3 lastTarget;
 
     public GameObject OccludingObject { get { return _occludingObject; } }
 
     void Awake()
     {
         if (!_follow)
-            _follow = GetComponent<Follow>();
+            _follow = GetComponentInParent<Follow>();
         shaking = false;
-    }
-
-    void Update()
-    {
-        if (!_follow.Target)
-            return;
-        CharacterController cc = _follow.Target.GetComponentInParent<CharacterController>();
-        if (cc)
-        {
-            if (cc.IsFalling() && cc.GetComponent<Rigidbody>().velocity.y >= 0.5f)
-            {
-                _follow.offset = new Vector3(0, _follow.offset.y, -1);
-            }
-            else
-            {
-                if (!shaking && !_follow.WasOffsetChanged)
-                {
-                    _follow.ResetOffset();
-                    StartCoroutine(Shake(1f));
-                }
-            }
-        }
     }
 
     void FixedUpdate()
     {
         GameObject occludingObject;
         RaycastHit hit;
-        if(Physics.Raycast(
-            _follow.Target.position, 
-            transform.position - _follow.Target.position, 
-            out hit, 
-            Vector3.Distance(transform.position, _follow.Target.position), 
-            (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.NameToLayer("Invisible")), 
+        Vector3 target = _follow.Target.position;
+
+        if (Physics.SphereCast(
+            target,
+            0.25f,
+            transform.position - target,
+            out hit,
+            Vector3.Distance(transform.position, target),
+            (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.NameToLayer("Invisible")),
             QueryTriggerInteraction.Ignore))
         {
             occludingObject = hit.collider.gameObject;
@@ -89,9 +60,56 @@ public class CameraController : MonoBehaviour
                     wall.FadeOut();
                 }
             }
-        } else if (_occludingObject)
+        }
+        else if (_occludingObject)
         {
             _occludingObject = null;
+        }
+
+        if (target != lastTarget)
+            lastTarget = target;
+        else
+            return;
+
+        int mask = 1 << LayerMask.NameToLayer("Wall");
+        float maxDistance = 2f;
+        if (Physics.Raycast(target + Vector3.up / 2, Vector3.back, out hit, maxDistance, mask))
+        {
+            _follow.MemorizeOffset(_follow.OriginalOffset + (Vector3.up * 2 + Vector3.forward * 3) * (1 - hit.distance / maxDistance));
+            if (!shaking)
+                _follow.ResetOffset();
+            shouldReset = true;
+        }
+        else if (shouldReset && !shaking)
+        {
+            _follow.translationInterpolation = 0.05f;
+            _follow.OnTargetReached.AddListener(FinishedInterpolating);
+            shouldReset = false;
+            _follow.ResetOffset(true);
+        }
+    }
+
+    private void FinishedInterpolating()
+    {
+        _follow.translationInterpolation = 0.1f;
+        _follow.MemorizeOffset(_follow.OriginalOffset);
+        _follow.OnTargetReached.RemoveListener(FinishedInterpolating);
+    }
+
+    internal void Shake(float time, float damping, float amplitude, float frequency, bool overrideShake = true)
+    {
+        if(overrideShake && shaking)
+        {
+            shaking = false;
+            StopAllCoroutines();
+        }
+
+        if (!shaking)
+        {
+            _shakeDamping = damping;
+            _shakeFrequency = frequency;
+            _shakeAmplitude = amplitude;
+            StartCoroutine(Shake(time));
         }
     }
 
@@ -101,17 +119,19 @@ public class CameraController : MonoBehaviour
         float amplitude = _shakeAmplitude;
         while (shakeTime > 0)
         {
-
             yield return new WaitForSeconds(1/_shakeFrequency);
             shakeTime -= Time.deltaTime + 1 / _shakeFrequency;
 
-            Vector3 explosionOffset = Random.insideUnitSphere;
-            explosionOffset.z = 0;
-            _follow.offset = _follow.OriginalOffset + explosionOffset * amplitude;
-
+            Vector3 shakeOffset = Random.insideUnitSphere / 10;
+            float angle = Random.value;
+            shakeOffset.z = 0;
+            transform.localPosition = shakeOffset * amplitude;
+            transform.localRotation = Quaternion.Euler(new Vector3(Random.value, Random.value, Random.value) * amplitude / 5);
             amplitude /= _shakeDamping;
         }
-        _follow.ResetOffset();
+        //_follow.ResetOffset();
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         shaking = false;
     }
 }

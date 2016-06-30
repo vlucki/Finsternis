@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MonoBehaviour), true)]
+[CustomEditor(typeof(Component), true)]
 public class QuickReorder : Editor
 {
     public override void OnInspectorGUI()

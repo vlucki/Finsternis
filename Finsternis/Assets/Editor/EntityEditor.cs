@@ -3,7 +3,7 @@ using UnityEditor;
 using System;
 
 [CustomEditor(typeof(Entity), true)]
-public class EntityEditor : Editor
+public class EntityEditor : QuickReorder
 {
     Entity entity;
     GUIStyle style;

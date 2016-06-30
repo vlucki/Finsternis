@@ -53,7 +53,7 @@ public class Exit : MonoBehaviour
         if (!_trigger.enabled)
         {
             _trigger.enabled = true;
-            Follow camFollow = _camera.GetComponent<Follow>();
+            Follow camFollow = _camera.GetComponentInParent<Follow>();
             camFollow.SetTarget(transform);
             camFollow.OnTargetReached.AddListener(BeginOpen);
         }
@@ -66,7 +66,7 @@ public class Exit : MonoBehaviour
 
     public void Open()
     {
-        Follow camFollow = _camera.GetComponent<Follow>();
+        Follow camFollow = _camera.GetComponentInParent<Follow>();
         camFollow.OnTargetReached.RemoveListener(BeginOpen);
         camFollow.SetTarget(_player.transform);
     }

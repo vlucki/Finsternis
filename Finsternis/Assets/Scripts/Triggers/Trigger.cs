@@ -40,7 +40,7 @@ public class Trigger : MonoBehaviour
         }
     }
 
-    private bool ShouldTrigger(Collider other)
+    protected virtual bool ShouldTrigger(Collider other)
     {
         if (other.gameObject == this.gameObject || other.transform.IsChildOf(this.transform))
             return false;
