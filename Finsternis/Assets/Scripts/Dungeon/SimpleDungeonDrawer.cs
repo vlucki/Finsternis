@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using CellType = SimpleDungeon.CellType;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SimpleDungeon))]
@@ -64,7 +63,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     private void MakeSection(DungeonSection section)
     {
         Type type = section.GetType(); 
-        GameObject sectionObj = new GameObject(type.ToString() + " " + section.Pos.ToString("F0"));
+        GameObject sectionObj = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
         sectionObj.transform.position = new Vector3(section.Bounds.center.x * overallScale.x, 0, -section.Bounds.center.y * overallScale.z);
         sectionObj.transform.SetParent(transform);
         foreach (Vector2 cell in section)
@@ -113,7 +112,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
         return (cellX >= 0 
             && cellX < _dungeon.Width 
             && cellY > 0 
-            && _dungeon[cellX, cellY - 1] != (int)CellType.wall);
+            && _dungeon[cellX, cellY - 1] != null);
     }
 
     private void MakeDoors(Corridor corridor, GameObject parent = null)
@@ -130,9 +129,11 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
             for (int i = 0; i < 2; i++)
             {
-                if (i == 0 && _dungeon[corridor[0] - corridor.Direction] == (int)CellType.wall)
+                Vector2 cellBefore = corridor[0] - corridor.Direction;
+                Vector2 cellAfter = corridor.LastCell + corridor.Direction;
+                if (i == 0 && (!_dungeon.IsWithinDungeon(cellBefore) || _dungeon[cellBefore] == null))
                     continue;
-                else if (i == 1 && _dungeon[corridor.LastCell + corridor.Direction] == (int)CellType.wall)
+                else if (i == 1 && (!_dungeon.IsWithinDungeon(cellAfter) || _dungeon[cellAfter] == null))
                     continue;
                 Vector3 pos;
                 if (i == 0) pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
@@ -171,12 +172,13 @@ public class SimpleDungeonDrawer : MonoBehaviour
         GameObject floor = null;
         string nameSuffix = " (" + cellX + ";" + cellY + ")";
         Vector3 pos = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
-        if (_dungeon[cellX, cellY] < (int)CellType.trappedFloor)
+        DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
+        if (!feature || !(feature is Trap))
         {
             floor = MakeQuad(pos,
                 new Vector3(overallScale.x, overallScale.z, 1),
-                Vector3.right * 90, _dungeon[cellX, cellY] == (int)CellType.corridor ? corridorMaterial : defaultFloorMaterial,
-                (CellType)_dungeon[cellX, cellY] + nameSuffix);
+                Vector3.right * 90, _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
+                _dungeon[cellX, cellY].GetType() + nameSuffix);
 
             if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
             {
@@ -220,8 +222,9 @@ public class SimpleDungeonDrawer : MonoBehaviour
             {
                 try
                 {
-                    floor = Instantiate<GameObject>(floorTraps[_dungeon[cellX, cellY] - (int)CellType.trappedFloor]);
-                    floor.GetComponent<Trap>().Init(new Vector2(cellX, cellY));
+                    Vector2 vec2 = new Vector2(cellX, cellY);
+                    floor = Instantiate<GameObject>(floorTraps[_dungeon[vec2].GetFeature(vec2).Id]);
+                    floor.GetComponent<TrapBehaviour>().Init(vec2);
                     if (floor)
                     {
                         floor.transform.position = pos;
@@ -244,7 +247,6 @@ public class SimpleDungeonDrawer : MonoBehaviour
 
     private GameObject MakeWall(int cellX, int cellY)
     {
-        int wallType = (int)CellType.wall;
         GameObject wall;
         Vector3 wallPosition = new Vector3(cellX * overallScale.x, 0, -cellY * overallScale.y); ;
         if (walls != null && walls.Length > 0)
@@ -268,7 +270,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
                     if (x < 0 || y < 0 || y >= _dungeon.Height || x >= _dungeon.Width)
                         continue;
 
-                    if (wallType != (_dungeon[x, y]))
+                    if (_dungeon[x, y] != null)
                     {
                         float angle = 0;
                         if (x < cellX)
@@ -322,7 +324,7 @@ public class SimpleDungeonDrawer : MonoBehaviour
     /// <returns>True if the given coordinates are outside the dungeon or represent a wall within it.</returns>
     private bool ShouldMakeWall(int cellX, int cellY)
     {
-        return (!_dungeon.IsWithinDungeon(cellX, cellY) || _dungeon[cellX, cellY] == (int)CellType.wall);
+        return (!_dungeon.IsWithinDungeon(cellX, cellY) || _dungeon[cellX, cellY] == null);
     }
 
     /// <summary>

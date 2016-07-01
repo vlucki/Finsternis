@@ -38,7 +38,7 @@ public class Corridor : DungeonSection
 
     public Vector2 LastCell
     {
-        get { return _length > 0 ? this[Length-1] : Pos; }
+        get { return _length > 0 ? this[Length-1] : Position; }
     }
 
     public Vector2 this[int index]
@@ -103,9 +103,9 @@ public class Corridor : DungeonSection
         if (index < _length - 1)
             result[1] = new Corridor(this[index + 1], _length - index - 1, _direction);
 
-        foreach (Room connection in connections)
+        foreach (DungeonSection connection in connections)
         {
-            if (result[0] && connection.ContainsCell(Pos - Direction))
+            if (result[0] && connection.ContainsCell(Position - Direction))
                 result[0].AddConnection(connection);
             else if (result[1] && connection.ContainsCell(LastCell + Direction))
                 result[1].AddConnection(connection);
@@ -119,5 +119,10 @@ public class Corridor : DungeonSection
     {
         for (int i = 0; i < _length; i++)
             yield return this[i];
+    }
+
+    public override bool ContainsCell(Vector2 cell)
+    {
+        return cell.x >= X && cell.x <= LastCell.x && cell.y >= Y && cell.y <= LastCell.y;
     }
 }

@@ -58,17 +58,19 @@ public static class RoomFactory
                 room,
                 ref brush))
             {
-                if (!dungeon.OverlapsCorridor(brush.position, brush.size))
+                if (brush.size != Vector2.zero)
                 {
-                    roomCarved = true;
-                    AddCells(brush, dungeon, room);
+                    if (!dungeon.OverlapsCorridor(brush.position, brush.size))
+                    {
+                        if(AddCells(brush, dungeon, room) > 0)
+                            roomCarved = true;
+                    }
                 }
             }
-
             MoveBrush(dungeon, corridor, room, minBrushSize, maxBrushSize, ref brush);            
         }
 
-        if (room.Pos.x < 0 || room.Pos.y < 0)
+        if (room.Position.x < 0 || room.Position.y < 0)
             throw new ArgumentOutOfRangeException("Room was carved outside of dungeon!\n" + room);
 
         return roomCarved;
@@ -143,21 +145,28 @@ public static class RoomFactory
 
     }
 
-    private static void AddCells(Rect brush, SimpleDungeon dungeon, Room room)
+    private static int AddCells(Rect brush, SimpleDungeon dungeon, Room room)
     {
-        AddCells(brush.position, brush.size, dungeon, room);
+        return AddCells(brush.position, brush.size, dungeon, room);
     }
 
-    private static void AddCells(Vector2 pos, Vector2 size, SimpleDungeon dungeon, Room room)
+    private static int AddCells(Vector2 pos, Vector2 size, SimpleDungeon dungeon, Room room)
     {
+        int cellsAdded = 0;
         for (int y = (int)pos.y; y < pos.y + size.y; y++)
         {
             for (int x = (int)pos.x; x < pos.x + size.x; x++)
             {
                 if (x < dungeon.Width && y < dungeon.Height)
+                {
+                    int roomCells = room.CellCount;
                     room.AddCell(x, y);
+                    if(roomCells < room.CellCount)
+                       cellsAdded++;
+                }
             }
         }
+        return cellsAdded;
     }
 
     private static bool AdjustCoordinate(Vector2 corridorDirection, Vector2 minBrushSize, Vector2 dungeonSize, ref Rect brush)

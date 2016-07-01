@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Room : DungeonSection
@@ -134,7 +135,7 @@ public class Room : DungeonSection
         return _cells[_random.Range(0, _cells.Count, false)];
     }
 
-    public bool ContainsCell(Vector2 cell)
+    public override bool ContainsCell(Vector2 cell)
     {
         return bounds.Contains(cell) && Contains(cell);
     }
@@ -173,8 +174,8 @@ public class Room : DungeonSection
         if (this.Overlaps(roomB))
             return true;
 
-        if(     Pos.x <= roomB.bounds.xMax && bounds.xMax >= roomB.Pos.x
-            &&  Pos.y <= roomB.bounds.yMax && bounds.yMax >= roomB.Pos.y)
+        if(     Position.x <= roomB.bounds.xMax && bounds.xMax >= roomB.Position.x
+            &&  Position.y <= roomB.bounds.yMax && bounds.yMax >= roomB.Position.y)
             return SearchCellsTouching(roomB);
 
         return false;

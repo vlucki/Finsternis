@@ -6,22 +6,12 @@ using UnityEngine;
 //TODO: debug seed 221, where corridor does not connect to other
 public class SimpleDungeon : Dungeon
 {
-    [SerializeField]
-    public enum CellType
-    {
-        wall = 0,
-        room = 10,
-        corridor = 20,
-        trappedFloor = 30
-    }
-
     private List<Room> _rooms;
     private List<Corridor> _corridors;
 
     public bool allowDeadEnds = false;
     
-    private int[,] _dungeon;
-    private DungeonSection[,] _sections;
+    private DungeonSection[,] _dungeon;
 
     [Header("Dungeon dimensions")]
     [SerializeField]
@@ -88,7 +78,7 @@ public class SimpleDungeon : Dungeon
 
     public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
-    public int this[int x, int y]
+    public DungeonSection this[int x, int y]
     {
         get
         {
@@ -114,13 +104,13 @@ public class SimpleDungeon : Dungeon
         }
     }
 
-    public int this[float x, float y]
+    public DungeonSection this[float x, float y]
     {
         get { return this[(int)x, (int)y]; }
         private set { this[(int)x, (int)y] = value; }
     }
 
-    public int this[Vector2 pos]
+    public DungeonSection this[Vector2 pos]
     {
         get { return this[(int)pos.x, (int)pos.y]; }
         private set { this[(int)pos.x, (int)pos.y] = value; }
@@ -141,8 +131,8 @@ public class SimpleDungeon : Dungeon
 
     private void Init()
     {
-        _dungeon = new int[_dungeonWidth, _dungeonHeight];
-        _sections = new DungeonSection[_dungeonWidth, _dungeonHeight];
+        //_dungeon = new int[_dungeonWidth, _dungeonHeight];
+        _dungeon = new DungeonSection[_dungeonWidth, _dungeonHeight];
         _corridors = new List<Corridor>();
         _rooms = new List<Room>();
 
@@ -167,7 +157,7 @@ public class SimpleDungeon : Dungeon
         Queue<Corridor> hangingCorridors = null;
         Queue<Room> hangingRooms = new Queue<Room>();
         
-        Vector4 brushVariation = new Vector4(_maximumBrushWidth, _maximumBrushHeight, _minimumBrushWidth, _minimumBrushHeight);
+        Vector4 brushVariation = new Vector4(_minimumBrushWidth, _minimumBrushHeight, _maximumBrushWidth, _maximumBrushHeight);
         Vector2 maxRoomSize = new Vector2(_minimumBrushWidth, _minimumBrushHeight);
 
         Room room;
@@ -213,111 +203,12 @@ public class SimpleDungeon : Dungeon
             && y >= 0
             && y < Height;
     }
-
-    void CheckCorridor(Corridor inUse, List<Corridor> toAdd)
-    {
-        int originalLength = inUse.Length;
-        bool haveToSplit = false;
-        for (int i = 1; i <= originalLength; i++)
-        {
-            Vector2 offset = new Vector2(inUse.Direction.y, inUse.Direction.x);
-            Vector2 cell = inUse[originalLength - i];
-            Vector2 offsetCellA = cell + offset;
-            Vector2 offsetCellB = cell - offset;
-            if (this[cell] == (int)CellType.corridor
-                && (!IsWithinDungeon(offsetCellA) || IsOfAnyType(offsetCellA, CellType.wall, CellType.corridor))
-                && (!IsWithinDungeon(offsetCellB) || IsOfAnyType(offsetCellB, CellType.wall, CellType.corridor)))
-            {
-                haveToSplit = true;
-            }
-            else
-            {
-                if (IsWithinDungeon(offsetCellA) && !IsOfAnyType(offsetCellA, CellType.wall, CellType.corridor))//  this[offsetCellA] != (int)CellType.wall)
-                    _sections[(int)cell.x, (int)cell.y] = _sections[(int)offsetCellA.x, (int)offsetCellA.y];
-
-                else if (IsWithinDungeon(offsetCellB) && !IsOfAnyType(offsetCellB, CellType.wall, CellType.corridor)) //this[offsetCellB] != (int)CellType.wall)
-                    _sections[(int)cell.x, (int)cell.y] = _sections[(int)offsetCellB.x, (int)offsetCellB.y];
-
-                DungeonSection section = _sections[(int)cell.x, (int)cell.y];
-                try
-                {
-                    if (section)
-                    {
-                        this[cell] = (int)CellType.room;
-                        ((Room)section).AddCell(cell);
-                    }
-                }
-                catch (InvalidCastException ex)
-                {
-                    throw new System.InvalidCastException("Cell " + cell.ToString("F0") + " - found " + section.GetType() + " was expecting Room", ex);
-                }
-
-                if (!haveToSplit)
-                    inUse.Length--;
-                else
-                {
-                    Corridor[] parts = inUse.RemoveAt(originalLength - i);
-                    toAdd.Remove(inUse);
-                    inUse.Length = 0;
-
-                    if (parts[1] != null)
-                    {
-                        toAdd.Add(parts[1]);
-                        if (section)
-                            parts[1].AddConnection(section);
-                    }
-
-                    if (parts[0] != null)
-                    {
-                        toAdd.Add(parts[0]);
-                        inUse = parts[0];
-                        if (section)
-                            parts[0].AddConnection(section);
-                        haveToSplit = false;
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                }
-            }
-        }
-    }
-
     /// <summary>
     /// Removes corridors that don't really look like corridors (eg. have walls only on one side) 
     /// and merge rooms that overlap or don't have walls between one or more cells
     /// </summary>
-    private void CleanUp()
+    private void CleanUp(int iteration = 0, int limit = 10)
     {
-        List<Corridor> toAdd = new List<Corridor>();
-
-        foreach(Corridor c in _corridors)
-        {
-            CheckCorridor(c, toAdd);            
-        }
-        _corridors.AddRange(toAdd);
-
-        for(int i = _corridors.Count - 1; i >= 0; i--)
-        {
-            Corridor corridor = Corridors[i];
-
-            if (corridor.Length <= 0)
-                _corridors.RemoveAt(i);
-            else if (corridor.Length != 2 && Random.value() >= 0.8f)
-            {
-                Vector2 extra = Vector2.zero;
-                if (corridor.Length == 3)
-                    extra = corridor.Direction;
-                else if(corridor.Length > 3)
-                    extra = corridor.Direction * Random.Range(1, corridor.Length - 2, false);
-
-                this[corridor.Pos + extra] = (int)CellType.trappedFloor + Random.Range(0, 2, false);
-            }
-            corridor.UpdateConnections();
-        }
-
         MergeRooms();
     }
 
@@ -381,13 +272,13 @@ public class SimpleDungeon : Dungeon
 
         while (corridor.Bounds.xMax < Width - corridor.Direction.x
             && corridor.Bounds.yMax < Height - corridor.Direction.y
-            && this[corridor.LastCell + corridor.Direction] == (int)CellType.wall)
+            && this[corridor.LastCell + corridor.Direction] == null)
         {
             corridor.Length++;
         }
 
         if (oldLength != corridor.Length
-            && this[corridor.LastCell + corridor.Direction] != (int)CellType.wall)
+            && this[corridor.LastCell + corridor.Direction] != null)
         {
             MarkCells(corridor);
             return true;
@@ -414,12 +305,12 @@ public class SimpleDungeon : Dungeon
         while(corridor.Length > 0 && !intersectionFound)
         {
             //look around the last cell of the corridor
-            intersectionFound = (SearchAround(corridor.LastCell, 2, false, CellType.corridor, CellType.room) >= 2);
+            intersectionFound = (SearchAround(corridor.LastCell, 2, false, typeof(Corridor), typeof(Room)) >= 2);
 
             if (!intersectionFound)
             {
                 //Remove "excess cells" from the corridor
-                this[corridor.LastCell] = (int)CellType.wall;
+                this[corridor.LastCell] = null;
                 corridor.Length--;
             }
         }
@@ -431,7 +322,7 @@ public class SimpleDungeon : Dungeon
         }
     }
 
-    private int SearchAround(Vector2 coord, int stopAt, bool checkDiagonals, params CellType[] types)
+    private int SearchAround(Vector2 coord, int stopAt, bool checkDiagonals, params Type[] types)
     {
         if (types == null || types.Length < 1)
             throw new InvalidOperationException("Must provide at least one type to be searched for.");
@@ -474,6 +365,11 @@ public class SimpleDungeon : Dungeon
             Room room;
             Corridor corridor = hangingCorridors.Dequeue();
 
+
+            if (corridor.X == 20 && corridor.Y == 13)
+            {
+                int a = 0;
+            }
             if (RoomFactory.CarveRoom(this, corridor, brushVariation, maxRoomSize, _maximumTries, out room))
             {
                 hangingRooms.Enqueue(room);
@@ -516,7 +412,6 @@ public class SimpleDungeon : Dungeon
                     _corridors.Add(corridor);
                     corridor.AddConnection(room);
                     MarkCells(corridor);
-                    MarkCells(corridor.Pos, corridor.Size, CellType.corridor, false);
                 }
             }
         }
@@ -531,7 +426,7 @@ public class SimpleDungeon : Dungeon
     /// <param name="size">The width and height of the search area.</param>
     /// <param name="types">The types of cell that are being searched.</param>
     /// <returns></returns>
-    public bool SearchInArea(Vector2 pos, Vector2 size, params CellType[] types)
+    public bool SearchInArea(Vector2 pos, Vector2 size, params Type[] types)
     {
         for(int row = (int)pos.y; row < Height && row < pos.y + size.y; row++)
         {
@@ -564,13 +459,38 @@ public class SimpleDungeon : Dungeon
         return false;
     }
 
-    private bool IsOfAnyType(Vector2 cell, params CellType[] types)
+    public bool IsOfAnyType(Vector2 cell, params Type[] types)
     {
-        foreach (CellType type in types)
+        foreach (Type type in types)
         {
-            if (this[cell] == (int)type)
+            if (IsOfType(cell, type))
+                return true;            
+        }
+        return false;
+    }
+    public bool IsOfType(float cellX, float cellY, Type type)
+    {
+        if (this[cellX, cellY])
+        {
+            if (type.Equals(this[cellX, cellY].GetType()))
                 return true;
         }
+        else if (type == null) //Wall
+            return true;
+
+        return false;
+    }
+
+    public bool IsOfType(Vector2 cell, Type type)
+    {
+        if (this[cell])
+        {
+            if (type.Equals(this[cell].GetType()))
+                return true;
+        }
+        else if (type == null) //Wall
+            return true;
+
         return false;
     }
 
@@ -593,7 +513,7 @@ public class SimpleDungeon : Dungeon
                 int x = (int)(cell.x + j);
 
                 if(IsWithinDungeon(x, y)
-                    && this[x, y] == (int)CellType.wall)
+                    && this[x, y] == null)
                 {
                     return true;
                 }
@@ -604,46 +524,11 @@ public class SimpleDungeon : Dungeon
         return false;
     }
 
-    /// <summary>
-    /// Marks every cell within the given area.
-    /// </summary>
-    /// <param name="start">Upper left corner of the area to be marked.</param>
-    /// <param name="size">Width and height of the area to be marked.</param>
-    /// <param name="type">Type to use when marking the cells.</param>
-    /// <param name="ignoreIntersection">If it should ignore cells that are not empty.</param>
-    /// <returns>The point where there was an intersection or where the marking of cells stopped.</returns>
-    private Vector2 MarkCells(Vector2 start, Vector2 size, CellType type = CellType.room, bool ignoreIntersection = true)
+    private void MarkCells(DungeonSection section)
     {
-        for (int row = (int)start.y; row < start.y + size.y && row < Height; row++)
+        foreach (Vector2 cell in section)
         {
-            for (int col = (int)start.x; col < start.x + size.x && col < Width; col++)
-            {
-                if (this[col, row] != (int)CellType.wall && !ignoreIntersection)
-                    return new Vector2(col, row);
-
-                this[col, row] = (int)type;                
-            }
-        }
-
-        return start+size;
-    }
-
-    private void MarkCells(Room room)
-    {
-        foreach(Vector2 cell in room)
-        {
-            this[cell] = (int)CellType.room;
-            _sections[(int)cell.x, (int)cell.y] = room;
-        }
-    }
-
-    private void MarkCells(Corridor corridor)
-    {
-        for(int i = 0; i < corridor.Length; i++)
-        {
-            Vector2 cell = corridor[i];
-            this[cell] = (int)CellType.corridor;
-            _sections[(int)cell.x, (int)cell.y] = corridor;
+            this[cell] = section;
         }
     }
 }

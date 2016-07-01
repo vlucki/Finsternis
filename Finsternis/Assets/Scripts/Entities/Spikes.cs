@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spikes : Trap
+public class Spikes : TrapBehaviour
 {
     public override void Interact(EntityAction action)
     {

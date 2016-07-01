@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using CellType = SimpleDungeon.CellType;
 
 public static class CorridorFactory
 {
@@ -30,74 +28,93 @@ public static class CorridorFactory
     public static bool CarveCorridor(SimpleDungeon dungeon, Room room, Vector2 direction, Vector2 minMaxCorridorLength, Vector2 minRoomDimensions, out Corridor corridor)
     {
         corridor = new Corridor(new Rect(), direction);
-        Rect bounds = corridor.Bounds;
 
         if (!CanFitCorridor(dungeon, direction, room.Bounds, minMaxCorridorLength))
         {
             return false;
         }
 
-        Vector2 corridorStart;
+        Vector2 corridorStart = Vector2.zero;
+        int tries = 10;
+        bool maySpawnCorridor = false;
+        Vector2 sideOffset = new Vector2(direction.y, direction.x);
+        for (int count = 0; !maySpawnCorridor && count < tries; count++)
+        {
+            corridorStart = room.GetRandomCell();
 
-        corridorStart = room.GetRandomCell();
+            //move the corridor starting point outside the room
+            while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && room.ContainsCell(corridorStart))
+                corridorStart += direction;
 
-        //move the corridor starting point outside the room
-        while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && dungeon[corridorStart] > (int)CellType.wall && dungeon[corridorStart] < (int)CellType.corridor)
-            corridorStart += direction;
+            Vector2 offsetA = corridorStart + sideOffset;
+            Vector2 offsetB = corridorStart - sideOffset;
 
-        bounds.position = corridorStart;
+            if (dungeon.IsWithinDungeon(offsetA))
+            {
+                if (dungeon[offsetA] != null)
+                {
+                    maySpawnCorridor = false;
+                    continue;
+                }
+                else
+                {
+                    maySpawnCorridor = true;
+                }
+            }
+            if (dungeon.IsWithinDungeon(offsetB))
+            {
+                if (dungeon[offsetB] != null)
+                {
+                    maySpawnCorridor = false;
+                    continue;
+                }
+                else
+                {
+                    maySpawnCorridor = true;
+                }
+            }
+        }
+
+        corridor.Position = corridorStart;
 
         //if there would be no space for the smallest room after making a corridor with the minimum length, no use creating one
-        if ((direction.x != 0 && bounds.x + minRoomDimensions.x >= dungeon.Width)
-            || (direction.y != 0 && bounds.y + minRoomDimensions.y >= dungeon.Height))
+        if ((direction.x != 0 && corridor.X + minRoomDimensions.x >= dungeon.Width)
+            || (direction.y != 0 && corridor.Y + minRoomDimensions.y >= dungeon.Height))
             return false;
 
         //move the end of the corridor to the very edge of the room bounds (on the direction the corridor should go)
-        while ((direction.x != 0 && bounds.xMax < room.Bounds.xMax) || (direction.y != 0 && bounds.yMax < room.Bounds.yMax))
-            bounds.max += direction;
-
-        bounds.max += new Vector2(dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y) * direction.x + direction.y,
-                                    dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y) * direction.y + direction.x);
-
-        //reduce the corridor until it is too small or until a room can fit at it's end
-        while (bounds.min != bounds.max
-                && ((bounds.xMax + minRoomDimensions.x) * direction.x > dungeon.Width
-                || (bounds.yMax + minRoomDimensions.y) * direction.y > dungeon.Height))
-            bounds.max -= direction;
-
-        if (bounds.size.x == 0 || bounds.size.y == 0)
+        while ((direction.x != 0 && corridor.LastCell.x < room.Bounds.xMax) || (direction.y != 0 && corridor.LastCell.y < room.Bounds.yMax))
+            corridor.Length++;
+        
+        corridor.Length += Mathf.CeilToInt(dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
+        
+        if(corridor.Length == 0)
         {
             Debug.LogWarning("No use creating a corridor with 0 length (" + room.Bounds + ")");
             return false;
         }
 
-        Vector2 predefinedSize = bounds.size;
-        predefinedSize.x = Mathf.RoundToInt(predefinedSize.x);
-        predefinedSize.y = Mathf.RoundToInt(predefinedSize.y);
-
-        bounds.size = GetFinalSize(corridorStart, direction, predefinedSize, dungeon);
-        corridor.Bounds = bounds;
-
-        return corridor.Bounds.size.Equals(predefinedSize);
-    }
-
-    private static Vector2 GetFinalSize(Vector2 corridorStart, Vector2 direction, Vector2 predefinedSize, SimpleDungeon dungeon)
-    {
-        Vector2 actualSize = new Vector2(direction.y, direction.x);
-        for (int row = (int)corridorStart.y; row < (int)(corridorStart.y + predefinedSize.y) && row < dungeon.Height; row++)
+        int predefinedSize = corridor.Length;
+        int actualSize = 0;
+        for (int size = 0; size < predefinedSize; size++)
         {
-            for (int col = (int)corridorStart.x; col < (int)(corridorStart.x + predefinedSize.x) && col < dungeon.Width; col++)
+            Vector2 cell = corridor[size];
+            if (!dungeon.IsWithinDungeon(cell) || dungeon[cell] != null)
             {
-                if (dungeon[col, row] != (int)CellType.wall)
-                {
-                    return actualSize;
-                }
-                actualSize.x = col - corridorStart.x + 1;
+                break;
             }
-            actualSize.y = row - corridorStart.y + 1;
+            actualSize = size+1;
+        }
+        corridor.Length = actualSize;
+
+        bool success = corridor.Length > 0 && corridor.Length == predefinedSize;
+        if (success && corridor.Length > 2 && dungeon.Random.value() <= 0.3f)
+        {
+            int pos = dungeon.Random.Range(1, corridor.Length - 2);
+            corridor.AddFeature<Trap>(corridor[pos]).Id = dungeon.Random.Range(0, 1);
         }
 
-        return actualSize;
+        return success;
     }
 }
 
