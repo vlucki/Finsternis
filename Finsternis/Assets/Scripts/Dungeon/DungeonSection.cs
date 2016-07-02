@@ -79,9 +79,14 @@ public abstract class DungeonSection : IEnumerable<Vector2>
         features.TryGetValue(cell, out feature);
         return feature;
     }
+
     public virtual DungeonFeature GetFeature(float cellX, float cellY)
     {
         return GetFeature(new Vector2(cellX, cellY));
     }
+
+    public abstract bool AddCell(Vector2 cell);
+
+    public abstract void RemoveCell(Vector2 cell);
 }
 

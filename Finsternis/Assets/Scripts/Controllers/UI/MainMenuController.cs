@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MovementEffects;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -79,7 +80,7 @@ public class MainMenuController : MonoBehaviour
         if (!creditsLoaded && data.selectedObject.name.ToLower().Contains("credits"))
             LoadCredits();
 
-        StartCoroutine(Rotate(Quaternion.Euler(new Vector3(0, 0, 360 - toRotate.localRotation.eulerAngles.z)), data.selectedObject));
+        Timing.RunCoroutine(_Rotate(Quaternion.Euler(new Vector3(0, 0, 360 - toRotate.localRotation.eulerAngles.z)), data.selectedObject));
     }
 
     private void LoadCredits()
@@ -89,7 +90,7 @@ public class MainMenuController : MonoBehaviour
         _centerDisplay.transform.Find("Display").GetChild(0).Find("btnCreditsDisplay").gameObject.GetComponentInChildren<Text>().text = credits.text;
     }
 
-    private IEnumerator Rotate(Quaternion targetRotation, GameObject currentlySelected)
+    private IEnumerator<float> _Rotate(Quaternion targetRotation, GameObject currentlySelected)
     {
         if (targetRotation != _optionsContainer.transform.rotation)
         {
@@ -116,7 +117,7 @@ public class MainMenuController : MonoBehaviour
 
                 angle = Quaternion.Angle(targetRotation, _optionsContainer.transform.rotation);
 
-                yield return new WaitForEndOfFrame();
+                yield return 0f;
             }
 
             if (lastSelectedDisplay)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MovementEffects;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -61,17 +62,17 @@ public class Character : Entity
         {
             _health.Subtract(Mathf.Max(0, info.Amount - _defense.Value));
             if (!Dead)
-                StartCoroutine(TickInvincibility(_invincibiltyTime));
+                Timing.RunCoroutine(_TickInvincibility(_invincibiltyTime));
         }
     }
 
-    private IEnumerator TickInvincibility(float remainingInvincibility)
+    private IEnumerator<float> _TickInvincibility(float remainingInvincibility)
     {
         _invincible = true;
         while(remainingInvincibility > 0)
         {
             remainingInvincibility -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return 0f;
         }
         _invincible = false;
     }

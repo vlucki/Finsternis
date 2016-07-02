@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using MovementEffects;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -76,7 +76,8 @@ public class GameManager : MonoBehaviour
         if (playerObj)
         {
             _player = playerObj.GetComponent<Entity>();
-            _player.GetAttribute("hp").onValueChanged.AddListener((attribute) => { if (attribute.Value <= 0) StartCoroutine(GameOver()); });
+            _player.GetAttribute("hp").onValueChanged.AddListener(
+                (attribute) => { if (attribute.Value <= 0) Timing.RunCoroutine(_GameOver()); });
         }
     }
 
@@ -94,9 +95,9 @@ public class GameManager : MonoBehaviour
         return _dungeonCount >= _dungeonGoal;
     }
 
-    public IEnumerator GameOver()
+    public IEnumerator<float> _GameOver()
     {
-        yield return new WaitForSeconds(2);
+        yield return Timing.WaitForSeconds(2);
         LoadScene("GameOver");
     }
 

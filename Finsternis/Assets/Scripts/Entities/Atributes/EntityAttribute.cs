@@ -31,7 +31,7 @@ public abstract class EntityAttribute : MonoBehaviour
         if (_autoNotifyEntity)
         {
             Entity e = GetComponent<Entity>();
-            onValueChanged.AddListener(GetComponent<Entity>().AtributeUpdated);
+            onValueChanged.AddListener(e.AtributeUpdated);
         }
     }
 

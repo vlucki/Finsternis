@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using MovementEffects;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -18,12 +18,12 @@ public class DoorController : MonoBehaviour
         }
         anim.SetInteger("direction", dir);
         anim.SetTrigger("opening");
-        StartCoroutine(DisableCollider());
+        Timing.RunCoroutine(_DisableCollider());
     }
 
-    private IEnumerator DisableCollider()
+    private IEnumerator<float> _DisableCollider()
     {
-        yield return new WaitForSeconds(1);
+        yield return Timing.WaitForSeconds(1);
         GetComponent<Collider>().enabled = false;
     }
 }

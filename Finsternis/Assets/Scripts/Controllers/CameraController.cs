@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using MovementEffects;
 
 public class CameraController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class CameraController : MonoBehaviour
     private GameObject _occludingObject;
     private bool shouldReset;
     private Vector3 lastTarget;
+    private IEnumerator<float> shakeHandle;
 
     public GameObject OccludingObject { get { return _occludingObject; } }
 
@@ -101,7 +103,7 @@ public class CameraController : MonoBehaviour
         if(overrideShake && shaking)
         {
             shaking = false;
-            StopAllCoroutines();
+            Timing.KillCoroutine(shakeHandle);
         }
 
         if (!shaking)
@@ -109,27 +111,27 @@ public class CameraController : MonoBehaviour
             _shakeDamping = damping;
             _shakeFrequency = frequency;
             _shakeAmplitude = amplitude;
-            StartCoroutine(Shake(time));
+            shakeHandle = Timing.RunCoroutine(_Shake(time));
         }
     }
 
-    IEnumerator Shake(float shakeTime)
+    IEnumerator<float> _Shake(float shakeTime)
     {
         shaking = true;
         float amplitude = _shakeAmplitude;
         while (shakeTime > 0)
         {
-            yield return new WaitForSeconds(1/_shakeFrequency);
+            yield return Timing.WaitForSeconds(1/_shakeFrequency);
             shakeTime -= Time.deltaTime + 1 / _shakeFrequency;
 
             Vector3 shakeOffset = Random.insideUnitSphere / 10;
-            float angle = Random.value;
+
             shakeOffset.z = 0;
             transform.localPosition = shakeOffset * amplitude;
             transform.localRotation = Quaternion.Euler(new Vector3(Random.value, Random.value, Random.value) * amplitude / 5);
             amplitude /= _shakeDamping;
         }
-        //_follow.ResetOffset();
+
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         shaking = false;

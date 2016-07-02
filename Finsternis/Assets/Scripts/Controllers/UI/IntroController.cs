@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
-using System.Collections.Generic;
+using MovementEffects;
 
 public class IntroController : MonoBehaviour {
 
@@ -17,7 +17,11 @@ public class IntroController : MonoBehaviour {
 
     [SerializeField]
     [Range(0, 10)]
-    private float _holdTime = 1;
+    private float _delayAfterFadeIn = 1;
+
+    [SerializeField]
+    [Range(0, 10)]
+    private float _delayAfterFadeOut = 0.5f;
 
     [SerializeField]
     private bool _skippable = true;
@@ -31,6 +35,7 @@ public class IntroController : MonoBehaviour {
     private bool _loadingNextScene = false;
     private Queue<Image> _imagesQueue;
     private Image currentImage;
+    private IEnumerator<float> transitionHandle;
 
     void Awake()
     {
@@ -44,7 +49,7 @@ public class IntroController : MonoBehaviour {
     private void FadeIn()
     {
         _skippable = true;
-        StartCoroutine(Transition(FadeOut, _fadeInTime, 1, true));
+        transitionHandle = Timing.RunCoroutine(_Transition(FadeOut, _fadeInTime, 1, _delayAfterFadeIn));
     }
 
     private void FadeOut()
@@ -53,10 +58,10 @@ public class IntroController : MonoBehaviour {
         Action nextStep = LoadNextScene;
         if (_imagesQueue.Count > 0)
             nextStep = FadeIn;
-        StartCoroutine(Transition(nextStep, _fadeOutTime, 0));
+        transitionHandle = Timing.RunCoroutine(_Transition(nextStep, _fadeOutTime, 0, _delayAfterFadeOut));
     }
 
-    private IEnumerator Transition(Action callback, float fadeTime, float targetAlpha, bool shouldHold = false)
+    private IEnumerator<float> _Transition(Action callback, float fadeTime, float targetAlpha, float holdTime = 0f)
     {
         Image toFade = currentImage;
         if (toFade)
@@ -71,7 +76,7 @@ public class IntroController : MonoBehaviour {
             currentImage = toFade;
         }
         toFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
-        yield return new WaitForSeconds(fadeTime + (shouldHold ? _holdTime : 0));
+        yield return Timing.WaitForSeconds(fadeTime + holdTime);
         callback();
     }
 
@@ -88,7 +93,7 @@ public class IntroController : MonoBehaviour {
     {
         if (_skippable && Input.GetAxis("Cancel") != 0)
         {
-            StopAllCoroutines();
+            Timing.KillCoroutine(transitionHandle);
             FadeOut();
         }
     }

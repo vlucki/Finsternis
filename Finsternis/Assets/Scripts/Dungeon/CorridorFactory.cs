@@ -108,11 +108,6 @@ public static class CorridorFactory
         corridor.Length = actualSize;
 
         bool success = corridor.Length > 0 && corridor.Length == predefinedSize;
-        if (success && corridor.Length > 2 && dungeon.Random.value() <= 0.3f)
-        {
-            int pos = dungeon.Random.Range(1, corridor.Length - 2);
-            corridor.AddFeature<Trap>(corridor[pos]).Id = dungeon.Random.Range(0, 1);
-        }
 
         return success;
     }

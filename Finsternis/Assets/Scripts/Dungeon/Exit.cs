@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine.Events;
+using MovementEffects;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Exit : MonoBehaviour
@@ -13,7 +14,7 @@ public class Exit : MonoBehaviour
     private GameObject _player;
 
     [SerializeField]
-    private GameObject _camera;
+    private GameObject _cameraHolder;
 
     [SerializeField]
     private SimpleDungeon _dungeon;
@@ -27,7 +28,7 @@ public class Exit : MonoBehaviour
     void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
-        _camera = GameObject.FindGameObjectWithTag("MainCamera");
+        _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
         _dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
 
         if (!(_trigger = GetComponent<BoxCollider>())) {
@@ -53,7 +54,7 @@ public class Exit : MonoBehaviour
         if (!_trigger.enabled)
         {
             _trigger.enabled = true;
-            Follow camFollow = _camera.GetComponentInParent<Follow>();
+            Follow camFollow = _cameraHolder.GetComponent<Follow>();
             camFollow.SetTarget(transform);
             camFollow.OnTargetReached.AddListener(BeginOpen);
         }
@@ -66,7 +67,7 @@ public class Exit : MonoBehaviour
 
     public void Open()
     {
-        Follow camFollow = _camera.GetComponentInParent<Follow>();
+        Follow camFollow = _cameraHolder.GetComponent<Follow>();
         camFollow.OnTargetReached.RemoveListener(BeginOpen);
         camFollow.SetTarget(_player.transform);
     }
@@ -88,25 +89,25 @@ public class Exit : MonoBehaviour
                 _triggered = false;
                 if (other.transform.position.y < transform.position.y)
                 {
-                    StartCoroutine(EndLevel());
+                    Timing.RunCoroutine(_EndLevel());
                 }
             }
 
         }
     }
 
-    private IEnumerator EndLevel()
+    private IEnumerator<float> _EndLevel()
     {
         _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
         _player.transform.forward = -Vector3.forward;
-        yield return new WaitForSeconds(1);
+        yield return Timing.WaitForSeconds(1);
 
         _dungeon.Generate();
 
-        Vector3 currOffset = _player.transform.position - _camera.transform.position;
+        Vector3 currOffset = _player.transform.position - _cameraHolder.transform.position;
         _player.transform.position = new Vector3((int) (_dungeon.Entrance.x * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x) + _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x/2, 30, (int)- ( _dungeon.Entrance.y * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z) - _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z/2);
 
-        _camera.transform.position = _player.transform.position - currOffset;
+        _cameraHolder.transform.position = _player.transform.position - currOffset;
 
     }
 }

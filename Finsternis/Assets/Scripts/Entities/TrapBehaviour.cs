@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
+using MovementEffects;
 
 [RequireComponent(typeof(AttackAction))]
 public class TrapBehaviour : Entity
@@ -47,13 +47,13 @@ public class TrapBehaviour : Entity
         }
     }
 
-    public virtual IEnumerator OnContinuousTouch(Entity e)
+    public virtual IEnumerator<float> _OnContinuousTouch(Entity e)
     {
-        yield return new WaitForEndOfFrame();
+        yield return 0f;
         while (entitiesInContact.Contains(e))
         {
             attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnStay);
-            yield return new WaitForEndOfFrame();
+            yield return 0f;
         }
     }
 
@@ -66,7 +66,7 @@ public class TrapBehaviour : Entity
             {
                 attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnTouch);
                 entitiesInContact.Add(e);
-                StartCoroutine(OnContinuousTouch(e));
+                Timing.RunCoroutine(_OnContinuousTouch(e));
             }
         }
     }

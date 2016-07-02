@@ -10,7 +10,7 @@ public class SimpleDungeon : Dungeon
     private List<Corridor> _corridors;
 
     public bool allowDeadEnds = false;
-    
+
     private DungeonSection[,] _dungeon;
 
     [Header("Dungeon dimensions")]
@@ -33,7 +33,7 @@ public class SimpleDungeon : Dungeon
 
     [Header("Maximum room size")]
     [SerializeField]
-    [Range(2,1000)]
+    [Range(2, 1000)]
     private int _maximumRoomWidth;
 
     [SerializeField]
@@ -131,7 +131,6 @@ public class SimpleDungeon : Dungeon
 
     private void Init()
     {
-        //_dungeon = new int[_dungeonWidth, _dungeonHeight];
         _dungeon = new DungeonSection[_dungeonWidth, _dungeonHeight];
         _corridors = new List<Corridor>();
         _rooms = new List<Room>();
@@ -156,7 +155,7 @@ public class SimpleDungeon : Dungeon
 
         Queue<Corridor> hangingCorridors = null;
         Queue<Room> hangingRooms = new Queue<Room>();
-        
+
         Vector4 brushVariation = new Vector4(_minimumBrushWidth, _minimumBrushHeight, _maximumBrushWidth, _maximumBrushHeight);
         Vector2 maxRoomSize = new Vector2(_minimumBrushWidth, _minimumBrushHeight);
 
@@ -176,19 +175,33 @@ public class SimpleDungeon : Dungeon
                 && (hangingRooms.Count > 0 || hangingCorridors.Count > 0)) //or until no more rooms or corridors can be generated
         {
             hangingCorridors = GenerateCorridors(hangingRooms);
-            
-            roomCount = GenerateRooms(hangingRooms, hangingCorridors, brushVariation, maxRoomSize, roomCount);            
-        } 
 
-        if(!allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors);
+            roomCount = GenerateRooms(hangingRooms, hangingCorridors, brushVariation, maxRoomSize, roomCount);
+        }
+
+        if (!allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors);
 
         CleanUp();
+
+        AddFeatures();
 
         exit = _lastRoom.GetRandomCell();
 
         Seed = random.Range(0, 0xFFF);
 
         onGenerationEnd.Invoke();
+    }
+
+    private void AddFeatures()
+    {
+        foreach(Corridor corridor in _corridors)
+        {
+            if (corridor.Length > 2 && Random.value() <= 0.3f)
+            {
+                int pos = Random.Range(1, corridor.Length - 2);
+                corridor.AddFeature<Trap>(corridor[pos]).Id = Random.Range(0, 1);
+            }
+        }
     }
 
     public bool IsWithinDungeon(Vector2 cell)
@@ -209,7 +222,86 @@ public class SimpleDungeon : Dungeon
     /// </summary>
     private void CleanUp(int iteration = 0, int limit = 10)
     {
+        FixCorridors();
         MergeRooms();
+    }
+
+    private void FixCorridors()
+    {
+        for (int i = _corridors.Count - 1; i >= 0; i--)
+        {
+            Corridor c = _corridors[i];
+            if (SplitCorridor(c))
+            {
+                i = _corridors.Count;
+                continue;
+            }
+            if (!ExtendCorridor(c))
+                TrimCorridor(c);
+        }
+    }
+
+    private bool SplitCorridor(Corridor c)
+    {
+        Corridor[] halves = null;
+        Vector2 offset = new Vector2(c.Direction.y, c.Direction.x);
+        bool hasToSplit = false;
+        int index = c.Length - 1;
+        while (index >= 0)
+        {
+            Vector2 cell = c[index];
+            Vector2 offsetCellA = cell + offset;
+            Vector2 offsetCellB = cell - offset;
+            if (IsWithinDungeon(offsetCellA))
+            {
+                if (this[offsetCellA] && !(this[offsetCellA] is Corridor))
+                {
+                    this[cell] = this[offsetCellA];
+                    this[offsetCellA].AddCell(cell);
+                    if (hasToSplit)
+                    {
+                        halves = c.RemoveAt(index);
+                        break;
+                    }
+                    else
+                    {
+                        c.Length--;
+                    }
+                }
+            }
+            if (IsWithinDungeon(offsetCellB))
+            {
+                if (this[offsetCellB] && !(this[offsetCellB] is Corridor))
+                {
+                    this[cell] = this[offsetCellB];
+                    this[offsetCellB].AddCell(cell);
+                    if (hasToSplit)
+                    {
+                        halves = c.RemoveAt(index);
+                        break;
+                    }
+                    else
+                    {
+                        c.Length--;
+                    }
+                }
+            }
+            index--;
+            if (index >= c.Length)
+                index = c.Length - 1;
+            hasToSplit = true;
+        }
+        if(halves != null)
+        {
+            if (halves[0])
+                _corridors.Add(halves[0]);
+            if (halves[1])
+                _corridors.Add(halves[1]);
+            _corridors.Remove(c);
+        }
+        if (c.Length == 0)
+            _corridors.Remove(c);
+        return halves != null;
     }
 
     void MergeRooms()
@@ -239,18 +331,18 @@ public class SimpleDungeon : Dungeon
     /// <param name="hangingCorridors">The corridors that still are not attached to another room section (ie. have a dead end)</param>
     private void ConnectLeftoverCorridors(Queue<Corridor> hangingCorridors)
     {
-        if(hangingCorridors.Count == 0)
+        if (hangingCorridors.Count == 0)
             return;
 
         Queue<Corridor> corridorsStillHanging = new Queue<Corridor>(hangingCorridors.Count);
 
-        while(hangingCorridors.Count > 0)
+        while (hangingCorridors.Count > 0)
         {
             Corridor corridor = hangingCorridors.Dequeue();
             if (!ExtendCorridor(corridor)) //first of all, try to extend the corridor untils it intersects something
             {
                 //if it fails, them remove every corridor that is not connected to another one
-                if(!allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
+                if (!allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
             }
         }
 
@@ -300,9 +392,7 @@ public class SimpleDungeon : Dungeon
 
         bool intersectionFound = false;
 
-        Vector2 offset = new Vector2(corridor.Direction.y, corridor.Direction.x);
-
-        while(corridor.Length > 0 && !intersectionFound)
+        while (corridor.Length > 0 && !intersectionFound)
         {
             //look around the last cell of the corridor
             intersectionFound = (SearchAround(corridor.LastCell, 2, false, typeof(Corridor), typeof(Room)) >= 2);
@@ -315,9 +405,9 @@ public class SimpleDungeon : Dungeon
             }
         }
 
-        if(corridor.Length != originalLength)
+        if (corridor.Length != originalLength)
         {
-            if(corridor.Length < _minimumCorridorLength)
+            if (corridor.Length < _minimumCorridorLength)
                 _corridors.Remove(corridor);
         }
     }
@@ -329,9 +419,9 @@ public class SimpleDungeon : Dungeon
 
         int cellsFound = 0;
 
-        for(int i = -1; i < 2; i++)
+        for (int i = -1; i < 2; i++)
         {
-            for(int j = -1; j < 2; j++)
+            for (int j = -1; j < 2; j++)
             {
                 if (i == j)
                     continue;
@@ -366,10 +456,6 @@ public class SimpleDungeon : Dungeon
             Corridor corridor = hangingCorridors.Dequeue();
 
 
-            if (corridor.X == 20 && corridor.Y == 13)
-            {
-                int a = 0;
-            }
             if (RoomFactory.CarveRoom(this, corridor, brushVariation, maxRoomSize, _maximumTries, out room))
             {
                 hangingRooms.Enqueue(room);
@@ -384,7 +470,6 @@ public class SimpleDungeon : Dungeon
                 ExtendCorridor(corridor);
             }
         }
-
         return roomCount;
     }
 
@@ -404,7 +489,7 @@ public class SimpleDungeon : Dungeon
             Room room = hangingRooms.Dequeue();
 
             Corridor corridor;
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 if (CorridorFactory.CarveCorridor(this, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumBrushWidth, _minimumBrushHeight), out corridor))
                 {
@@ -428,7 +513,7 @@ public class SimpleDungeon : Dungeon
     /// <returns></returns>
     public bool SearchInArea(Vector2 pos, Vector2 size, params Type[] types)
     {
-        for(int row = (int)pos.y; row < Height && row < pos.y + size.y; row++)
+        for (int row = (int)pos.y; row < Height && row < pos.y + size.y; row++)
         {
             for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
             {
@@ -464,7 +549,7 @@ public class SimpleDungeon : Dungeon
         foreach (Type type in types)
         {
             if (IsOfType(cell, type))
-                return true;            
+                return true;
         }
         return false;
     }
@@ -512,7 +597,7 @@ public class SimpleDungeon : Dungeon
                 int y = (int)(cell.y + i);
                 int x = (int)(cell.x + j);
 
-                if(IsWithinDungeon(x, y)
+                if (IsWithinDungeon(x, y)
                     && this[x, y] == null)
                 {
                     return true;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using MovementEffects;
 
 public class Fireball : Skill
 {
@@ -22,12 +23,12 @@ public class Fireball : Skill
         summonedFireball.GetComponent<PhysicalAttackHandler>().ignoreColliders.Add(GetComponent<Collider>());
         summonedFireball.GetComponent<PhysicalAttackHandler>().owner = GetComponent<Entity>();
         summonedFireball.SetActive(true);
-        StartCoroutine(Shoot(summonedFireball));
+        Timing.RunCoroutine(_Shoot(summonedFireball), Segment.FixedUpdate);
     }
 
-    private IEnumerator Shoot(GameObject summonedFireball)
+    private IEnumerator<float> _Shoot(GameObject summonedFireball)
     {
-        yield return new WaitForFixedUpdate();
         summonedFireball.GetComponent<Rigidbody>().AddForce(summonedFireball.transform.forward * 50, ForceMode.Impulse);
+        yield return 0f;
     }
 }

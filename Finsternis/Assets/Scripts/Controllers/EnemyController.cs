@@ -150,7 +150,7 @@ public class EnemyController : CharacterController
     private bool LookForTarget()
     {
         bool canSeeTarget = false;
-        Vector3 oldTargetLocation = _targetLocation;
+
         if (!_ignoreWalls)
         {
             RaycastHit hit;

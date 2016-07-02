@@ -103,7 +103,7 @@ public class Room : DungeonSection
         AddCell(new Vector2(x, y));
     }
 
-    public void AddCell(Vector2 otherCell)
+    public override bool AddCell(Vector2 otherCell)
     {
         if (_cells.Count == 0)
             _cells.Add(otherCell);
@@ -111,7 +111,7 @@ public class Room : DungeonSection
         {
             int[] result = Search(otherCell);
             if (result[0] >= 0)
-                return;
+                return false;
 
             int l = result[1];
 
@@ -122,12 +122,30 @@ public class Room : DungeonSection
         }
 
         AdjustSize(otherCell);
+
+        return true;
     }
 
-    private void AdjustSize(Vector2 newCell)
+    private void AdjustSize(Vector2 cell, bool cellRemoved = false)
     {
-        bounds.min = Vector2.Min(bounds.min, newCell);
-        bounds.max = Vector2.Max(bounds.max, newCell + Vector2.one);
+        if (cellRemoved)
+        {
+            if(bounds.min == cell || bounds.max == cell)
+            {
+                Vector2 newMin = _cells[0];
+                Vector2 newMax = newMin;
+                foreach(Vector2 existingCell in this)
+                {
+                    newMin = Vector2.Min(newMin, existingCell);
+                    newMax = Vector2.Max(newMax, existingCell);
+                }
+            }
+        }
+        else
+        {
+            bounds.min = Vector2.Min(bounds.min, cell);
+            bounds.max = Vector2.Max(bounds.max, cell + Vector2.one);
+        }
     }
 
     public Vector2 GetRandomCell()
@@ -185,5 +203,11 @@ public class Room : DungeonSection
     {
         foreach (Vector2 cell in _cells)
             yield return cell;
+    }
+
+    public override void RemoveCell(Vector2 cell)
+    {
+        _cells.Remove(cell);
+        AdjustSize(cell, true);
     }
 }

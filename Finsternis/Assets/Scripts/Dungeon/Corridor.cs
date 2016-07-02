@@ -125,4 +125,29 @@ public class Corridor : DungeonSection
     {
         return cell.x >= X && cell.x <= LastCell.x && cell.y >= Y && cell.y <= LastCell.y;
     }
+
+    public override bool AddCell(Vector2 cell)
+    {
+        if (cell == this[0] - Direction)
+        {
+            Position -= Direction;
+            Length++;
+        }
+        else if (cell == LastCell + Direction)
+            Length++;
+        else
+            return false;
+
+        return true;
+
+    }
+
+    public override void RemoveCell(Vector2 cell)
+    {
+        if(ContainsCell(cell))
+        {
+            while(LastCell != cell)
+                Length--;
+        }
+    }
 }
