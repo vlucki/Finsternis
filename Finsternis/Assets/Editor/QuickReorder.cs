@@ -19,6 +19,7 @@ public class QuickReorder : Editor
         } else if (GUILayout.Button("X", GUILayout.MaxWidth(40)))
         {
             DestroyImmediate(target);
+            EditorGUI.EndChangeCheck();
         }
         EditorGUILayout.EndHorizontal();
         base.OnInspectorGUI();

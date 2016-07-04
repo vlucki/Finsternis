@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(SimpleDungeonDrawer))]
+[CustomEditor(typeof(DungeonDrawer))]
 public class DungeonGeneratorEditor : Editor {
 
 	public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        SimpleDungeonDrawer tgt = target as SimpleDungeonDrawer;
+        DungeonDrawer tgt = target as DungeonDrawer;
         if(tgt)
         {
 

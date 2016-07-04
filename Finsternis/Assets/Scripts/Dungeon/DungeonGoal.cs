@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 using System;
 
+[RequireComponent(typeof(Dungeon))]
 public abstract class DungeonGoal : MonoBehaviour
 {
     [Serializable]

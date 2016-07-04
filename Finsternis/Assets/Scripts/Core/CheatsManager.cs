@@ -59,7 +59,7 @@ public class CheatsManager : MonoBehaviour
                 _currentCodeLetter = 0;
                 break;
             case 3:
-                FindObjectOfType<Dungeon>().Generate();
+                FindObjectOfType<DungeonFactory>().Generate();
                 _currentCodeLetter = 0;
                 break;
             case 4:

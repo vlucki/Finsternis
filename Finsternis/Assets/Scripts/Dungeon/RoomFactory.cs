@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class RoomFactory
 {
-    public static bool CarveRoom(SimpleDungeon dungeon, Corridor corridor, Vector4 brushSizeVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
+    public static bool CarveRoom(Dungeon dungeon, Corridor corridor, Vector4 brushSizeVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
     {
         Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
         Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
@@ -76,7 +76,7 @@ public static class RoomFactory
         return roomCarved;
     }
 
-    static void MoveBrush(SimpleDungeon dungeon, Corridor corridor, Room room, Vector2 minBrushSize, Vector2 maxBrushSize, ref Rect brush)
+    static void MoveBrush(Dungeon dungeon, Corridor corridor, Room room, Vector2 minBrushSize, Vector2 maxBrushSize, ref Rect brush)
     {
         Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
         Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
@@ -108,7 +108,7 @@ public static class RoomFactory
         Vector2 maxBrushSize,
         Vector2 startingPosition, 
         Vector2 corridorDirection,
-        SimpleDungeon dungeon,
+        Dungeon dungeon,
         Room room,
         ref Rect brush)
     {
@@ -145,12 +145,12 @@ public static class RoomFactory
 
     }
 
-    private static int AddCells(Rect brush, SimpleDungeon dungeon, Room room)
+    private static int AddCells(Rect brush, Dungeon dungeon, Room room)
     {
         return AddCells(brush.position, brush.size, dungeon, room);
     }
 
-    private static int AddCells(Vector2 pos, Vector2 size, SimpleDungeon dungeon, Room room)
+    private static int AddCells(Vector2 pos, Vector2 size, Dungeon dungeon, Room room)
     {
         int cellsAdded = 0;
         for (int y = (int)pos.y; y < pos.y + size.y; y++)

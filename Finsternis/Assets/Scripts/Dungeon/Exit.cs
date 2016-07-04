@@ -17,7 +17,7 @@ public class Exit : MonoBehaviour
     private GameObject _cameraHolder;
 
     [SerializeField]
-    private SimpleDungeon _dungeon;
+    private Dungeon _dungeon;
 
     private bool _locked;
 
@@ -29,7 +29,7 @@ public class Exit : MonoBehaviour
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
-        _dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
+        _dungeon = GameObject.FindObjectOfType<Dungeon>();
 
         if (!(_trigger = GetComponent<BoxCollider>())) {
             _trigger = gameObject.AddComponent<BoxCollider>();
@@ -45,7 +45,7 @@ public class Exit : MonoBehaviour
 
     void Update()
     {
-        if (_dungeon.killsUntilNext <= 0)
+        if (_dungeon.KillsUntilNext <= 0)
             Unlock();
     }
 
@@ -100,14 +100,14 @@ public class Exit : MonoBehaviour
     {
         _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
         _player.transform.forward = -Vector3.forward;
-        yield return Timing.WaitForSeconds(1);
+        Destroy(_dungeon, 1);
+        yield return Timing.WaitForSeconds(0.5f);
 
-        _dungeon.Generate();
+        FindObjectOfType<DungeonFactory>().Generate();
 
         Vector3 currOffset = _player.transform.position - _cameraHolder.transform.position;
-        _player.transform.position = new Vector3((int) (_dungeon.Entrance.x * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x) + _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.x/2, 30, (int)- ( _dungeon.Entrance.y * _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z) - _dungeon.GetComponent<SimpleDungeonDrawer>().overallScale.z/2);
+        _player.transform.position = new Vector3((int) (_dungeon.Entrance.x * _dungeon.GetComponent<DungeonDrawer>().overallScale.x) + _dungeon.GetComponent<DungeonDrawer>().overallScale.x/2, 30, (int)- ( _dungeon.Entrance.y * _dungeon.GetComponent<DungeonDrawer>().overallScale.z) - _dungeon.GetComponent<DungeonDrawer>().overallScale.z/2);
 
         _cameraHolder.transform.position = _player.transform.position - currOffset;
-
     }
 }

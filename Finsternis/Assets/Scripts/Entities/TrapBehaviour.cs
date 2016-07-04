@@ -10,7 +10,7 @@ public class TrapBehaviour : Entity
 
     public HashSet<Entity> entitiesInContact;
 
-    protected SimpleDungeon dungeon;
+    protected Dungeon dungeon;
 
     protected Vector2 coordinates = -Vector2.one;
 
@@ -32,7 +32,7 @@ public class TrapBehaviour : Entity
 
     protected virtual void Align()
     {
-        dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<SimpleDungeon>();
+        dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<Dungeon>();
         try
         {
             Corridor corridor = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates));

@@ -1,32 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
 public class DungeonManager : MonoBehaviour
 {
+    [SerializeField]
+    private Dungeon _dungeon;
 
     [SerializeField]
-    private SimpleDungeon _dungeon;
+    private DungeonFactory _dFactory;
 
     [SerializeField]
-    private SimpleDungeonDrawer _drawer;
+    private DungeonDrawer _drawer;
 
     void Awake()
     {
-        if (!_dungeon || !_drawer)
+        if (!_dungeon || !_drawer || !_dFactory)
         {
-            GameObject dungeon = GameObject.Find("Dungeon");
-            if (dungeon)
-            {
-                if (!_dungeon)
-                    _dungeon = dungeon.GetComponent<SimpleDungeon>();
-                if (!_drawer)
-                    _drawer = dungeon.GetComponent<SimpleDungeonDrawer>();
-            }
+            _dFactory = GetComponent<DungeonFactory>();
+            _drawer = GetComponent<DungeonDrawer>();
+
+            if (!_dungeon)
+                _dungeon = FindObjectOfType<Dungeon>();
         }
     }
 
     void Start()
     {
-        _dungeon.Generate();
+        _dFactory.Generate();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SimpleDungeon))]
+[RequireComponent(typeof(Dungeon))]
 public class EnemySpawner : MonoBehaviour
 {
-    public SimpleDungeon dungeon;
-    public SimpleDungeonDrawer drawer;
+    public Dungeon dungeon;
+    public DungeonDrawer drawer;
     public List<GameObject> enemies;
     public GameObject enemyHudPrefab;
 
@@ -15,10 +15,10 @@ public class EnemySpawner : MonoBehaviour
     void Awake()
     {
         if (!dungeon)
-            dungeon = GetComponent<SimpleDungeon>();
+            dungeon = GetComponent<Dungeon>();
 
         if (!drawer)
-            drawer = GetComponent<SimpleDungeonDrawer>();
+            drawer = GetComponent<DungeonDrawer>();
 
         drawer.onDrawEnd.AddListener(DoSpawn);
     }
@@ -35,7 +35,7 @@ public class EnemySpawner : MonoBehaviour
                 do
                 {
                     int enemyToSpawn = enemies.Count == 1 ? 0 : Mathf.CeilToInt(dungeon.Random.Range(0, enemies.Count-1));
-                    dungeon.killsUntilNext++;
+                    dungeon.KillsUntilNext++;
                     Vector2 cell = r.GetRandomCell() + Vector2.one;
                     GameObject enemy = ((GameObject)Instantiate(enemies[enemyToSpawn], new Vector3(cell.x * drawer.overallScale.x, 0.2f, -cell.y * drawer.overallScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                     enemy.transform.SetParent(transform);

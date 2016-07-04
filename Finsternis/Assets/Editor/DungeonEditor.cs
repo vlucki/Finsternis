@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Dungeon), true)]
+[CustomEditor(typeof(DungeonFactory), true)]
 public class DungeonEditor : Editor
 {
     string seed = "0";
     public override void OnInspectorGUI()
     {
-        Dungeon tgt = target as Dungeon;
+        DungeonFactory tgt = target as DungeonFactory;
         if (tgt)
         {
             GUILayout.BeginHorizontal();
@@ -15,15 +15,25 @@ public class DungeonEditor : Editor
             seed = GUILayout.TextField(seed);
             if (GUILayout.Button("Generate"))
             {
-                tgt.Awake();
-                if (!string.IsNullOrEmpty(seed))
+                bool seedFound = false;
+                int dungeonSeed = 0;
+                if (!int.TryParse(seed, out dungeonSeed))
                 {
-                    int dungeonSeed = tgt.Seed;
-                    if (int.TryParse(seed, out dungeonSeed))
-                        tgt.Seed = dungeonSeed;
+                    if (PlayerPrefs.HasKey(DungeonFactory.SEED_KEY))
+                    {
+                        dungeonSeed = PlayerPrefs.GetInt(DungeonFactory.SEED_KEY, 0);
+                        seedFound = true;
+                    }
+                } else
+                {
+                    seedFound = true;
                 }
-                tgt.Generate();
-                tgt.GetComponent<SimpleDungeonDrawer>().Draw();
+                if (seedFound)
+                    tgt.Generate(dungeonSeed);
+                else
+                    tgt.Generate();
+
+                //tgt.GetComponent<DungeonDrawer>().Draw();
             }
             GUILayout.EndHorizontal();
         }

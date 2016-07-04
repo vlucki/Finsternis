@@ -3,7 +3,7 @@
 public static class CorridorFactory
 {
 
-    private static bool CanFitCorridor(SimpleDungeon dungeon, Vector2 direction, Rect roomBounds, Vector2 minMaxCorridorLength)
+    private static bool CanFitCorridor(Dungeon dungeon, Vector2 direction, Rect roomBounds, Vector2 minMaxCorridorLength)
     {
         if (direction.y != 0 //if the corridor is vertical
             && roomBounds.yMax >= dungeon.Height - minMaxCorridorLength.x) //but there isn't space for the smallest corridor allowed below the given room
@@ -25,7 +25,7 @@ public static class CorridorFactory
     /// <param name="direction">The direction (right or bottom) of the corridor.</param>
     /// <param name="corridor">Bounds of the corridor created.</param>
     /// <returns>True if a corridor was created without any intersections.</returns>
-    public static bool CarveCorridor(SimpleDungeon dungeon, Room room, Vector2 direction, Vector2 minMaxCorridorLength, Vector2 minRoomDimensions, out Corridor corridor)
+    public static bool CarveCorridor(Dungeon dungeon, Room room, Vector2 direction, Vector2 minMaxCorridorLength, Vector2 minRoomDimensions, out Corridor corridor)
     {
         corridor = new Corridor(new Rect(), direction);
 
