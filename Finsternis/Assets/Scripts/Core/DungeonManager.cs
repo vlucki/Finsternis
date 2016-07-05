@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
 public class DungeonManager : MonoBehaviour
@@ -18,15 +19,28 @@ public class DungeonManager : MonoBehaviour
         if (!_dungeon || !_drawer || !_dFactory)
         {
             _dFactory = GetComponent<DungeonFactory>();
+            _dFactory.onGenerationEnd.AddListener(() =>{ GameManager.Instance.DungeonCount++; });
             _drawer = GetComponent<DungeonDrawer>();
-
-            if (!_dungeon)
-                _dungeon = FindObjectOfType<Dungeon>();
         }
     }
 
     void Start()
     {
-        _dFactory.Generate();
+        CreateDungeon();
+    }
+
+    private void CreateDungeon()
+    {
+        _dungeon = _dFactory.Generate();
+        _dFactory.onGenerationEnd.AddListener(() =>
+        {
+            _dungeon.goalCleared.AddListener(() =>
+            {
+                if (_dungeon.RemainingGoals <= 0)
+                {
+                    CreateDungeon();
+                }
+            });
+        });
     }
 }

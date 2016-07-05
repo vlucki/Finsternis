@@ -7,9 +7,6 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Movement), typeof(Animator))]
 public class EnemyController : CharacterController
 {
-
-    public UnityEvent onDeath;
-
     [SerializeField]
     [Range(1, 50)]
     private float _aggroRange = 2f;

@@ -10,6 +10,8 @@ public abstract class CharacterController : MonoBehaviour
     [Serializable]
     public class AttackEvent : UnityEvent<int> { }
 
+    public UnityEvent onDeath;
+
     protected Character character;
     protected Animator characterAnimator;
     protected Movement characterMovement;

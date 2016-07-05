@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Dungeon : MonoBehaviour
 {
@@ -18,19 +19,21 @@ public class Dungeon : MonoBehaviour
 
     protected MTRandom random;
 
-    protected int availableCardPoints;
-    
-    protected List<Room> _rooms;
-    protected List<Corridor> _corridors;
-    protected DungeonSection[,] _dungeon;
-    protected int killsUntilNext;
+    private int _availableCardPoints;
 
+    private List<Room> _rooms;
+    private List<Corridor> _corridors;
+    private DungeonSection[,] _dungeon;
 
-    public int KillsUntilNext { get { return killsUntilNext; } set { killsUntilNext = value; } }
+    [SerializeField]
+    private List<DungeonGoal> _goals;
+    private int _remainingGoals;
+
+    public int RemainingGoals { get { return _remainingGoals; } }
 
     public MTRandom Random { get { return random; } }
 
-    public int AvailableCardPoints { get { return availableCardPoints; } }
+    public int AvailableCardPoints { get { return _availableCardPoints; } }
 
     public int Seed
     {
@@ -47,12 +50,10 @@ public class Dungeon : MonoBehaviour
 
     public Vector2 Entrance { get { return entrance; } set { entrance = value; } }
     public Vector2 Exit { get { return exit; } set { exit = value; } }
+
     public int Width { get { return _dungeon.GetLength(0); } }
     public int Height { get { return _dungeon.GetLength(1); } }
-
     public Vector2 Size { get { return new Vector2(Width, Height); } }
-
-    public int[,] GetDungeon() { return _dungeon.Clone() as int[,]; }
 
     public DungeonSection this[int x, int y]
     {
@@ -95,14 +96,56 @@ public class Dungeon : MonoBehaviour
     public List<Corridor> Corridors { get { return _corridors; } }
     public List<Room> Rooms { get { return _rooms; } }
 
+    public UnityEvent goalCleared;
+
+    public void Init(int width, int height)
+    {
+        if (customSeed)
+            random = new MTRandom(this._seed);
+        else
+            random = new MTRandom();
+
+        _dungeon = new DungeonSection[width, height];
+        _corridors = new List<Corridor>();
+        _rooms = new List<Room>();
+        _goals = new List<DungeonGoal>();
+    }
+
+    public T GetGoal<T>() where T : DungeonGoal
+    {
+        foreach(DungeonGoal goal in _goals)
+        {
+            if (goal is T)
+                return (T)goal;
+        }
+        return null;
+    }
+
+    public T[] GetGoals<T>() where T : DungeonGoal
+    {
+        List<T> goals = new List<T>();
+        _goals.ForEach((goal) => { if (goal is T) goals.Add(goal as T); });
+        return goals.ToArray();
+    }
+
+    public T AddGoal<T>() where T : DungeonGoal
+    {
+        T goal = gameObject.AddComponent<T>();
+        _goals.Add(goal);
+        goal.onGoalReached.AddListener(
+            (g) =>
+            {
+                _remainingGoals--;
+                goalCleared.Invoke();
+            });
+
+        _remainingGoals++;
+        return goal;
+    }
+
     public Room GetRandomRoom()
     {
         return _rooms[random.Range(0, _rooms.Count, false)];
-    }
-
-    public void EnemyKilled()
-    {
-        killsUntilNext--;
     }
 
     public bool IsWithinDungeon(Vector2 cell)
@@ -110,6 +153,12 @@ public class Dungeon : MonoBehaviour
         return IsWithinDungeon(cell.x, cell.y);
     }
 
+    /// <summary>
+    /// Checks if a given set of coordinates are within the dungeon bounds.
+    /// </summary>
+    /// <param name="x">The column to check.</param>
+    /// <param name="y">The row to check.</param>
+    /// <returns>True if both X and Y are within the dungeon bounds.</returns>
     public bool IsWithinDungeon(float x, float y)
     {
         return x >= 0
@@ -140,7 +189,7 @@ public class Dungeon : MonoBehaviour
         return false;
     }
 
-    public int SearchAround(Vector2 coord, int stopAt, bool checkDiagonals, params Type[] types)
+    public int SearchAround(Vector2 pos, int stopAt, bool checkDiagonals, params Type[] types)
     {
         if (types == null || types.Length < 1)
             throw new InvalidOperationException("Must provide at least one type to be searched for.");
@@ -155,7 +204,7 @@ public class Dungeon : MonoBehaviour
                     continue;
                 if (!checkDiagonals && Mathf.Abs(i) == Mathf.Abs(j))
                     continue;
-                Vector2 cell = coord - new Vector2(i, j);
+                Vector2 cell = pos - new Vector2(i, j);
                 if (IsWithinDungeon(cell) && IsOfAnyType(cell, types))
                     cellsFound++;
                 if (stopAt > 0 && cellsFound == stopAt)
@@ -193,6 +242,7 @@ public class Dungeon : MonoBehaviour
         }
         return false;
     }
+
     public bool IsOfType(float cellX, float cellY, Type type)
     {
         if (this[cellX, cellY])
@@ -255,25 +305,6 @@ public class Dungeon : MonoBehaviour
         {
             this[cell] = section;
         }
-    }
-
-    //public virtual void Awake()
-    //{
-    //    if (customSeed)
-    //    {
-    //        random = new MTRandom(this._seed);
-    //    }
-    //}
-
-    public void Init(int width, int height)
-    {
-        if (customSeed)
-        {
-            random = new MTRandom(this._seed);
-        }
-        _dungeon = new DungeonSection[width, height];
-        _corridors = new List<Corridor>();
-        _rooms = new List<Room>();
     }
 }
 

@@ -13,7 +13,6 @@ public class PlayerController : CharacterController
 
         if (!IsAttacking())
         {
-            //Input.GetAxis("Jump")
             CheckAttack();
         }
 

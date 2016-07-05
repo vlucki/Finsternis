@@ -2,7 +2,7 @@
 using UnityEditor;
 
 [CustomEditor(typeof(DungeonDrawer))]
-public class DungeonGeneratorEditor : Editor {
+public class DungeonDrawerEditor : Editor {
 
 	public override void OnInspectorGUI()
     {
@@ -14,8 +14,6 @@ public class DungeonGeneratorEditor : Editor {
 
             if (GUILayout.Button("Draw"))
                 tgt.Draw();
-            if (GUILayout.Button("Clear"))
-                tgt.Clear();
         }
     }
 }

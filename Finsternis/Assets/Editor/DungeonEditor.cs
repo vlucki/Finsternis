@@ -33,7 +33,7 @@ public class DungeonEditor : Editor
                 else
                     tgt.Generate();
 
-                //tgt.GetComponent<DungeonDrawer>().Draw();
+                tgt.GetComponent<DungeonDrawer>().Draw();
             }
             GUILayout.EndHorizontal();
         }

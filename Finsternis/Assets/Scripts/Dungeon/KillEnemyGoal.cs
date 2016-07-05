@@ -7,6 +7,19 @@ public class KillEnemyGoal : DungeonGoal
 
     public override void Check()
     {
+        if (quantity <= 0)
+        {
+            goalReached = true;
+            onGoalReached.Invoke(this);
+        }
+    }
 
+    public void EnemyKilled()
+    {
+        if (!goalReached)
+        {
+            quantity--;
+            Check();
+        }
     }
 }

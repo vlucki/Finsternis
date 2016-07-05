@@ -41,7 +41,6 @@ public class DungeonDrawer : MonoBehaviour
     public void Draw()
     {
         onDrawBegin.Invoke();
-        Clear();
 
         if (!_dungeon)
             _dungeon = FindObjectOfType<Dungeon>();
@@ -427,15 +426,5 @@ public class DungeonDrawer : MonoBehaviour
 
         sectionContainer.layer = original.layer;
         return sectionContainer;
-    }
-
-    public void Clear()
-    {
-        while (transform.childCount > 0)
-            DestroyImmediate(transform.GetChild(0).gameObject);
-
-#if UNITY_EDITOR
-        UnityEditor.Undo.RecordObject(this, name + " (Cleared)");
-#endif
     }
 }

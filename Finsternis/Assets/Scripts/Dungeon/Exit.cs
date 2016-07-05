@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
-using UnityEngine.Events;
 using MovementEffects;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -41,12 +39,6 @@ public class Exit : MonoBehaviour
         _locked = true;
 
         _triggered = false;
-    }
-
-    void Update()
-    {
-        if (_dungeon.KillsUntilNext <= 0)
-            Unlock();
     }
 
     public void Unlock()

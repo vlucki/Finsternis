@@ -2,7 +2,6 @@
 
 public static class CorridorFactory
 {
-
     private static bool CanFitCorridor(Dungeon dungeon, Vector2 direction, Rect roomBounds, Vector2 minMaxCorridorLength)
     {
         if (direction.y != 0 //if the corridor is vertical

@@ -82,7 +82,7 @@ public class DungeonFactory : MonoBehaviour
         _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
     }
 
-    public void Generate(int? seed = null)
+    public Dungeon Generate(int? seed = null)
     {
         GameObject dungeonGO = GameObject.FindGameObjectWithTag("Dungeon");
         if (dungeonGO)
@@ -96,8 +96,6 @@ public class DungeonFactory : MonoBehaviour
         if (seed != null)
             dungeon.Seed = (int)seed;
 
-        dungeonGO.AddComponent<KillEnemyGoal>().quantity = dungeon.Random.Range(1, 10);
-        dungeonGO.AddComponent<EnemySpawner>();
         Init(dungeon);
 
         onGenerationBegin.Invoke();
@@ -139,6 +137,8 @@ public class DungeonFactory : MonoBehaviour
         PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
         onGenerationEnd.Invoke();
+
+        return dungeon;
     }
 
     private void AddFeatures(Dungeon dungeon)
