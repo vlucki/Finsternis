@@ -16,7 +16,7 @@ public static class RoomFactory
         brush.x -= corridorDirection.y;
         brush.y -= corridorDirection.x;
 
-        room = new Room(brush.position, dungeon.Random);
+        room = new Room(brush.position, Dungeon.Random);
 
         if (brush.x < 0 || brush.y < 0
             || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brush))
@@ -81,10 +81,10 @@ public static class RoomFactory
         Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
         Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
 
-        int modifier = (dungeon.Random.value() <= 0.75 ? -1 : 1);
+        int modifier = (Dungeon.Random.value() <= 0.75 ? -1 : 1);
 
-        brush.x += dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-        brush.y += dungeon.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
+        brush.x += Dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
+        brush.y += Dungeon.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
 
         brush.x = Mathf.RoundToInt(brush.x);
         brush.y = Mathf.RoundToInt(brush.y);
@@ -113,8 +113,8 @@ public static class RoomFactory
         ref Rect brush)
     {
         //make sure a segment with the given dimensions won't go over the room bounds
-        brush.width = Mathf.RoundToInt(dungeon.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
-        brush.height = Mathf.RoundToInt(dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
+        brush.width = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
+        brush.height = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
 
         Rect brushPerimeter = new Rect(brush);
         brushPerimeter.min -= new Vector2(corridorDirection.y, corridorDirection.x);

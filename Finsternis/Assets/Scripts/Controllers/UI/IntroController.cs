@@ -39,7 +39,8 @@ public class IntroController : MonoBehaviour {
 
     void Awake()
     {
-        _imagesQueue = new Queue<Image>(_imagesToShow);
+        if(_imagesToShow != null && _imagesToShow.Length > 0)
+            _imagesQueue = new Queue<Image>(_imagesToShow);
     }
 
     void Start () {

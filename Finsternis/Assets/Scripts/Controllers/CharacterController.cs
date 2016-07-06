@@ -10,8 +10,6 @@ public abstract class CharacterController : MonoBehaviour
     [Serializable]
     public class AttackEvent : UnityEvent<int> { }
 
-    public UnityEvent onDeath;
-
     protected Character character;
     protected Animator characterAnimator;
     protected Movement characterMovement;
@@ -44,7 +42,7 @@ public abstract class CharacterController : MonoBehaviour
 
     static CharacterController()
     {
-        AttackBool = Animator.StringToHash("attacking");
+        AttackBool = Animator.StringToHash("attack");
         AttackType = Animator.StringToHash("attackType");
         DyingBool = Animator.StringToHash("dying");
         DeadBool = Animator.StringToHash("dead");
@@ -157,7 +155,7 @@ public abstract class CharacterController : MonoBehaviour
 
     public virtual void Attack(int type = 0, bool lockMovement = true)
     {
-        ActivateBoolean(AttackBool, AttackType, type, lockMovement);
+        ActivateTrigger(AttackBool, AttackType, type, lockMovement);
         onAttack.Invoke(type);
     }
 
@@ -185,6 +183,7 @@ public abstract class CharacterController : MonoBehaviour
     public void ActivateTrigger(int hash, int intHash, int type = 0, bool lockMovement = true)
     {
         characterAnimator.SetTrigger(hash);
+        characterAnimator.SetInteger(intHash, type);
         if (lockMovement)
             characterMovement.Direction = Vector3.zero;
     }

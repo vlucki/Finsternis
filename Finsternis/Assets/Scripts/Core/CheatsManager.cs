@@ -5,10 +5,18 @@ using System;
 
 public class CheatsManager : MonoBehaviour
 {
+    public enum CheatCodes
+    {
+        EXIT = 0,
+        DIE  = 1,
+        WIN  = 2,
+        NEXT = 3,
+        KILL = 4
+    }
 
     private KeyCode[][] _cheatCodes;
 
-    private int _currentCode;
+    private CheatCodes _currentCode;
     private int _currentCodeLetter;
 
     void Awake()
@@ -34,7 +42,8 @@ public class CheatsManager : MonoBehaviour
     {
         switch (_currentCode)
         {
-            case 0:
+            case CheatCodes.EXIT:
+                _currentCodeLetter = 0;
                 foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
                 {
                     try
@@ -47,40 +56,39 @@ public class CheatsManager : MonoBehaviour
                         throw ex;
                     }
                 }
-                _currentCodeLetter = 0;
                 break;
-            case 1:
+            case CheatCodes.DIE:
+                _currentCodeLetter = 0;
                 GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
-                _currentCodeLetter = 0;
                 break;
-            case 2:
+            case CheatCodes.WIN:
+                _currentCodeLetter = 0;
                 while (GameManager.Instance.GoalReached())
                     GameManager.Instance.IncreaseDungeonCount();
-                _currentCodeLetter = 0;
                 break;
-            case 3:
-                FindObjectOfType<DungeonFactory>().Generate();
+            case CheatCodes.NEXT:
                 _currentCodeLetter = 0;
+                GameManager.Instance.DungeonManager.CreateDungeon();
                 break;
-            case 4:
+            case CheatCodes.KILL:
+                _currentCodeLetter = 0;
                 foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
                 {
                     GameManager.Instance.Kill(e);
                 }
-                _currentCodeLetter = 0;
                 break;
         }
     }
 
     private void CheckCommands()
     {
-        if (_currentCodeLetter >= _cheatCodes[_currentCode].Length)
+        if (_currentCodeLetter >= _cheatCodes[(int)_currentCode].Length)
         {
             CheckExecutedCommand();
         }
         else if (Input.anyKeyDown)
         {
-            if (Input.GetKeyDown(_cheatCodes[_currentCode][_currentCodeLetter]))
+            if (Input.GetKeyDown(_cheatCodes[(int)_currentCode][_currentCodeLetter]))
                 _currentCodeLetter++;
             else
             {
@@ -90,7 +98,7 @@ public class CheatsManager : MonoBehaviour
                     if (Input.GetKeyDown(_cheatCodes[i][_currentCodeLetter]))
                     {
                         _currentCodeLetter++;
-                        _currentCode = i;
+                        _currentCode = (CheatCodes)i;
                         break;
                     }
                 }

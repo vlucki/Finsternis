@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using MovementEffects;
+using UnityEngine.Events;
+using System;
 
-[RequireComponent(typeof(BoxCollider))]
-public class Exit : MonoBehaviour
+public class Exit : Trigger
 {
-    [SerializeField]
-    private BoxCollider _trigger;
+    //[SerializeField]
+    //private BoxCollider _trigger;
+
+    [Serializable]
+    public class ExitCrossedEvent : UnityEvent<Exit>
+    {
+        public static implicit operator bool(ExitCrossedEvent evt)
+        {
+            return evt != null;
+        }
+    }
 
     [SerializeField]
     private GameObject _player;
@@ -14,28 +24,22 @@ public class Exit : MonoBehaviour
     [SerializeField]
     private GameObject _cameraHolder;
 
-    [SerializeField]
-    private Dungeon _dungeon;
-
     private bool _locked;
 
     private bool _triggered;
 
+    public ExitCrossedEvent OnExitCrossed;
+
     public bool Locked { get { return _locked; } }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        if (!OnExitCrossed)
+            OnExitCrossed = new ExitCrossedEvent();
+        OnExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
         _player = GameObject.FindGameObjectWithTag("Player");
         _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
-        _dungeon = GameObject.FindObjectOfType<Dungeon>();
-
-        if (!(_trigger = GetComponent<BoxCollider>())) {
-            _trigger = gameObject.AddComponent<BoxCollider>();
-        }
-        _trigger.isTrigger = true;
-        _trigger.size = new Vector3(1, 1, 1);
-        _trigger.center = Vector3.forward / 2;
-        _trigger.enabled = false;
         _locked = true;
 
         _triggered = false;
@@ -43,9 +47,9 @@ public class Exit : MonoBehaviour
 
     public void Unlock()
     {
-        if (!_trigger.enabled)
+        if (!collider.enabled)
         {
-            _trigger.enabled = true;
+            collider.enabled = true;
             Follow camFollow = _cameraHolder.GetComponent<Follow>();
             camFollow.SetTarget(transform);
             camFollow.OnTargetReached.AddListener(BeginOpen);
@@ -64,42 +68,16 @@ public class Exit : MonoBehaviour
         camFollow.SetTarget(_player.transform);
     }
 
-    void OnTriggerEnter(Collider other)
+    protected override void OnTriggerExit(Collider other)
     {
-        if (!_triggered && other.gameObject.Equals(_player))
+        base.OnTriggerExit(other);
+        if (ObjectExited == _player)
         {
-            _triggered = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (_triggered)
-        {
-            if (other.gameObject.Equals(_player))
+            if (other.transform.position.y < transform.position.y)
             {
-                _triggered = false;
-                if (other.transform.position.y < transform.position.y)
-                {
-                    Timing.RunCoroutine(_EndLevel());
-                }
+                if(OnExitCrossed)
+                    OnExitCrossed.Invoke(this);
             }
-
         }
-    }
-
-    private IEnumerator<float> _EndLevel()
-    {
-        _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
-        _player.transform.forward = -Vector3.forward;
-        Destroy(_dungeon, 1);
-        yield return Timing.WaitForSeconds(0.5f);
-
-        FindObjectOfType<DungeonFactory>().Generate();
-
-        Vector3 currOffset = _player.transform.position - _cameraHolder.transform.position;
-        _player.transform.position = new Vector3((int) (_dungeon.Entrance.x * _dungeon.GetComponent<DungeonDrawer>().overallScale.x) + _dungeon.GetComponent<DungeonDrawer>().overallScale.x/2, 30, (int)- ( _dungeon.Entrance.y * _dungeon.GetComponent<DungeonDrawer>().overallScale.z) - _dungeon.GetComponent<DungeonDrawer>().overallScale.z/2);
-
-        _cameraHolder.transform.position = _player.transform.position - currOffset;
     }
 }

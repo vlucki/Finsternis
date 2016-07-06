@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,13 +13,24 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     [Range(1, 99)]
-    private int _dungeonGoal = 99;
+    private int _dungeonsToClear = 9;
 
     private int _dungeonCount;
+
+    [SerializeField]
+    private GameObject _fallDeathZone;
+
+    [SerializeField]
+    private DungeonManager _dungeonManager;
+
+    public GameObject playerPrefab;
 
     public static GameManager Instance { get { return instance; } }
 
     public Entity Player { get { return _player; } }
+
+    public DungeonManager DungeonManager { get { return _dungeonManager; } }
+
 
     public int DungeonCount
     {
@@ -51,9 +63,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SearchPlayer();
+        Init();
     }
-    
+
     public void LoadScene(int sceneIndex)
     {
         LoadScene(SceneManager.GetSceneAt(sceneIndex).name);
@@ -67,7 +79,18 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int index)
     {
+        Init();
+    }
+
+    private void Init()
+    {
         SearchPlayer();
+        _fallDeathZone = GameObject.Find("FallDeathZone");
+        _dungeonManager = FindObjectOfType<DungeonManager>();
+        if (_dungeonManager)
+        {
+            _dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
+        }
     }
 
     private void SearchPlayer()
@@ -76,8 +99,20 @@ public class GameManager : MonoBehaviour
         if (playerObj)
         {
             _player = playerObj.GetComponent<Entity>();
+        }
+        else if (playerPrefab)
+        {
+            _player = Instantiate(playerPrefab).GetComponent<Entity>();
+        }
+
+        if (_player)
+        {
             _player.GetAttribute("hp").onValueChanged.AddListener(
                 (attribute) => { if (attribute.Value <= 0) Timing.RunCoroutine(_GameOver()); });
+        }
+        else
+        {
+            throw new System.ArgumentNullException("Could not find a player in the scene!");
         }
     }
 
@@ -92,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     public bool GoalReached()
     {
-        return _dungeonCount >= _dungeonGoal;
+        return _dungeonCount >= _dungeonsToClear;
     }
 
     public IEnumerator<float> _GameOver()
@@ -119,5 +154,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
+    internal void EndCurrentLevel(Exit e)
+    {
+        _fallDeathZone.GetComponent<Collider>().enabled = false;
+
+        _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
+        _player.transform.forward = -Vector3.forward;
+        _dungeonManager.CreateDungeon();
+    }
+
+    private void BeginNewLevel(Dungeon dungeon)
+    {
+        GameObject _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
+        Vector3 currOffset = _player.transform.position - _cameraHolder.transform.position;
+        Vector3 pos = Vector3.up * 30;
+        if(dungeon)
+        {
+            pos.x = (int)(dungeon.Entrance.x * _dungeonManager.Drawer.overallScale.x) + _dungeonManager.Drawer.overallScale.x / 2;
+            pos.z = (int)-(dungeon.Entrance.y * _dungeonManager.Drawer.overallScale.z) - _dungeonManager.Drawer.overallScale.z / 2;
+        }
+        _player.transform.position = pos;
+
+        _cameraHolder.transform.position = _player.transform.position - currOffset;
+
+        _fallDeathZone.GetComponent<Collider>().enabled = true;
+    }
 }
 

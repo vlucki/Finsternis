@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
         List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
         if (enemies != null && enemies.Count > 0)
         {
-            int roomsToSpawn = dungeon.Random.Range(1, dungeon.Rooms.Count, false);
+            int roomsToSpawn = Dungeon.Random.Range(1, dungeon.Rooms.Count, false);
             do
             {
                 SpawnEnemies(goals);
@@ -43,12 +43,12 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemies(List<KillEnemyGoal> goals)
     {
         Room room = dungeon.GetRandomRoom();
-        int enemiesToSpawn = Mathf.CeilToInt(dungeon.Random.Range(0, room.CellCount * enemyDensity));
+        int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
         int remainingEnemies = enemiesToSpawn;
         do
         {
-            int enemyToSpawn = enemies.Count == 1 ? 0 : Mathf.CeilToInt(dungeon.Random.Range(0, enemies.Count - 1));
-            int remainingEnemiesOfChosenType = Mathf.CeilToInt(dungeon.Random.Range(0, remainingEnemies));
+            int enemyToSpawn = enemies.Count == 1 ? 0 : Mathf.CeilToInt(Dungeon.Random.Range(0, enemies.Count - 1));
+            int remainingEnemiesOfChosenType = Mathf.CeilToInt(Dungeon.Random.Range(0, remainingEnemies));
             if (remainingEnemiesOfChosenType > 0)
             {
                 KillEnemyGoal goal = MakeGoal(goals, enemies[enemyToSpawn]);
@@ -89,7 +89,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 cell = room.GetRandomCell() + Vector2.one;
             GameObject enemy = ((GameObject)Instantiate(goal.enemy, new Vector3(cell.x * drawer.overallScale.x, 0.2f, -cell.y * drawer.overallScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
             enemy.transform.SetParent(transform);
-            enemy.GetComponent<EnemyController>().onDeath.AddListener(goal.EnemyKilled);
+            enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
         } while (--amount > 0);
     }
 }

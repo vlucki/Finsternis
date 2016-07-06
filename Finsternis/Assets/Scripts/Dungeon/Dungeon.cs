@@ -17,7 +17,7 @@ public class Dungeon : MonoBehaviour
     [SerializeField]
     protected Vector2 exit;
 
-    protected MTRandom random;
+    protected static MTRandom random;
 
     private int _availableCardPoints;
 
@@ -31,7 +31,7 @@ public class Dungeon : MonoBehaviour
 
     public int RemainingGoals { get { return _remainingGoals; } }
 
-    public MTRandom Random { get { return random; } }
+    public static MTRandom Random { get { return random; } }
 
     public int AvailableCardPoints { get { return _availableCardPoints; } }
 
@@ -96,19 +96,24 @@ public class Dungeon : MonoBehaviour
     public List<Corridor> Corridors { get { return _corridors; } }
     public List<Room> Rooms { get { return _rooms; } }
 
-    public UnityEvent goalCleared;
+    public UnityEvent OnGoalCleared;
 
     public void Init(int width, int height)
     {
-        if (customSeed)
-            random = new MTRandom(this._seed);
-        else
-            random = new MTRandom();
+        if (Dungeon.random == null)
+        {
+            if (customSeed)
+                random = new MTRandom(this._seed);
+            else
+                random = new MTRandom();
+        }
 
         _dungeon = new DungeonSection[width, height];
         _corridors = new List<Corridor>();
         _rooms = new List<Room>();
         _goals = new List<DungeonGoal>();
+        if (OnGoalCleared == null)
+            OnGoalCleared = new UnityEvent();
     }
 
     public T GetGoal<T>() where T : DungeonGoal
@@ -136,7 +141,7 @@ public class Dungeon : MonoBehaviour
             (g) =>
             {
                 _remainingGoals--;
-                goalCleared.Invoke();
+                OnGoalCleared.Invoke();
             });
 
         _remainingGoals++;

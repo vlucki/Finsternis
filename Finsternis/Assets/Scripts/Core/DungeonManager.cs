@@ -1,27 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using MovementEffects;
 
 [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField]
-    private Dungeon _dungeon;
-
-    [SerializeField]
     private DungeonFactory _dFactory;
 
     [SerializeField]
-    private DungeonDrawer _drawer;
+    private DungeonDrawer _dDrawer;
+
+    private Dungeon _currentDungeon;
+
+    public DungeonFactory Factory { get { return _dFactory; } }
+
+    public DungeonDrawer Drawer { get { return _dDrawer; } }
+
+    public Dungeon CurrentDungeon { get { return _currentDungeon; } }
 
     void Awake()
     {
-        if (!_dungeon || !_drawer || !_dFactory)
+        if (!_dDrawer || !_dFactory)
         {
+            _dDrawer = GetComponent<DungeonDrawer>();
             _dFactory = GetComponent<DungeonFactory>();
-            _dFactory.onGenerationEnd.AddListener(() =>{ GameManager.Instance.DungeonCount++; });
-            _drawer = GetComponent<DungeonDrawer>();
         }
+        _dFactory.onGenerationEnd.AddListener((dungeon) =>
+        {
+            GameManager.Instance.DungeonCount++;
+            _currentDungeon = dungeon;
+
+            dungeon.OnGoalCleared.AddListener(() =>
+            {
+                if (dungeon.RemainingGoals <= 0)
+                {
+                    Exit e = FindObjectOfType<Exit>();
+                    e.Unlock();
+                }
+            });
+        });
     }
 
     void Start()
@@ -29,18 +49,17 @@ public class DungeonManager : MonoBehaviour
         CreateDungeon();
     }
 
-    private void CreateDungeon()
+    public void CreateDungeon()
     {
-        _dungeon = _dFactory.Generate();
-        _dFactory.onGenerationEnd.AddListener(() =>
+        Dungeon d = CurrentDungeon;
+        if (d)
         {
-            _dungeon.goalCleared.AddListener(() =>
-            {
-                if (_dungeon.RemainingGoals <= 0)
-                {
-                    CreateDungeon();
-                }
-            });
-        });
+#if UNITY_EDITOR
+            DestroyImmediate(d.gameObject);
+#else
+            Destroy(d.gameObject);
+#endif
+        }
+        _dFactory.Generate();
     }
 }

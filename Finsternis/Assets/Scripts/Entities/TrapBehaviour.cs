@@ -23,16 +23,8 @@ public class TrapBehaviour : Entity
             attack = GetComponent<AttackAction>();
     }
 
-    public void Init(Vector2 coordinates)
+    public virtual void Align(Dungeon dungeon, Vector2 coordinates)
     {
-        if (this.coordinates == -Vector2.one)
-            this.coordinates = coordinates;
-        Align();
-    }
-
-    protected virtual void Align()
-    {
-        dungeon = GameObject.FindGameObjectWithTag("Dungeon").GetComponent<Dungeon>();
         try
         {
             Corridor corridor = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates));
@@ -43,7 +35,12 @@ public class TrapBehaviour : Entity
         {
             Debug.LogError("Failed to find corridor containing the coordinate " + coordinates);
             Debug.LogError(ex.Message);
+
+#if UNITY_EDITOR
             DestroyImmediate(gameObject);
+#else
+            Destroy(gameObject);
+#endif
         }
     }
 

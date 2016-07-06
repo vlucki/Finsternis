@@ -31,19 +31,11 @@ public class DungeonDrawer : MonoBehaviour
     public UnityEvent onDrawBegin;
     public UnityEvent onDrawEnd;
 
-
-    public void Awake()
-    {
-        if(!_dungeon)
-            _dungeon = GetComponent<Dungeon>();
-    }
-
-    public void Draw()
+    public void Draw(Dungeon dungeon)
     {
         onDrawBegin.Invoke();
+        _dungeon = dungeon;
 
-        if (!_dungeon)
-            _dungeon = FindObjectOfType<Dungeon>();
         if (!_dungeon)
             throw new ArgumentException("Failed to find dungeon!");
 
@@ -189,7 +181,11 @@ public class DungeonDrawer : MonoBehaviour
             {
                 if (exits != null && exits.Length > 0)
                 {
+#if UNITY_EDITOR
                     DestroyImmediate(floor);
+#else
+                    Destroy(floor);
+#endif
                     floor = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
                 }
                 else
@@ -229,7 +225,7 @@ public class DungeonDrawer : MonoBehaviour
                 {
                     Vector2 vec2 = new Vector2(cellX, cellY);
                     floor = Instantiate<GameObject>(floorTraps[_dungeon[vec2].GetFeature(vec2).Id]);
-                    floor.GetComponent<TrapBehaviour>().Init(vec2);
+                    floor.GetComponent<TrapBehaviour>().Align(_dungeon, vec2);
                     if (floor)
                     {
                         floor.transform.position = pos;
@@ -393,9 +389,19 @@ public class DungeonDrawer : MonoBehaviour
         }
 
         foreach (MeshFilter m in meshFilters)
+        {
+#if UNITY_EDITOR
             DestroyImmediate(m.gameObject);
+#else
+            Destroy(m.gameObject);
+#endif
+        }
 
+#if UNITY_EDITOR
         DestroyImmediate(parent);
+#else
+        Destroy(m.gameObject);
+#endif
         foreach (GameObject section in sections)
             section.transform.Translate(originalPos);
 

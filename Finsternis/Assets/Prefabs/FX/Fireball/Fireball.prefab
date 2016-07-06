@@ -50,7 +50,6 @@ GameObject:
   - 114: {fileID: 11411926}
   - 114: {fileID: 11409246}
   - 114: {fileID: 11423196}
-  - 114: {fileID: 11413772}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -299,7 +298,8 @@ MonoBehaviour:
   modeOnImpact: 2
   executionMultiplier: {x: 0, y: 0}
   modeOnExecution: 0
-  ActiveOnDeath: 0
+  activeOnDeath: 0
+  ignoreOthersFromOwner: 1
 --- !u!114 &11411926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,34 +323,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!114 &11413772
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 455f455767df78847b786c4a0bcd6e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  remainingTime: 2
-  onCountdownFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9545300}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Explode
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,

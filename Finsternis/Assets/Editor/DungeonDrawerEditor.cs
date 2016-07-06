@@ -13,7 +13,7 @@ public class DungeonDrawerEditor : Editor {
         {
 
             if (GUILayout.Button("Draw"))
-                tgt.Draw();
+                tgt.Draw(FindObjectOfType<Dungeon>());
         }
     }
 }

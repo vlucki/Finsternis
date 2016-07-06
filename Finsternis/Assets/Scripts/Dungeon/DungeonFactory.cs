@@ -5,8 +5,18 @@ using UnityEngine.Events;
 
 public class DungeonFactory : MonoBehaviour
 {
+
+    [Serializable]
+    public class DungeonGenerationEndEvent : UnityEvent<Dungeon>
+    {
+        public static implicit operator bool(DungeonGenerationEndEvent evt)
+        {
+            return evt != null;
+        }
+    }
+
     public UnityEvent onGenerationBegin;
-    public UnityEvent onGenerationEnd;
+    public DungeonGenerationEndEvent onGenerationEnd;
     public bool allowDeadEnds = false;
 
     #region Generation Parameters
@@ -82,15 +92,9 @@ public class DungeonFactory : MonoBehaviour
         _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
     }
 
-    public Dungeon Generate(int? seed = null)
+    public void Generate(int? seed = null)
     {
-        GameObject dungeonGO = GameObject.FindGameObjectWithTag("Dungeon");
-        if (dungeonGO)
-        {
-            DestroyImmediate(dungeonGO);
-        }
-
-        dungeonGO = new GameObject(dungeonName);
+        GameObject dungeonGO = new GameObject(dungeonName);
         dungeonGO.tag = "Dungeon";
         Dungeon dungeon = dungeonGO.AddComponent<Dungeon>();
         if (seed != null)
@@ -136,19 +140,18 @@ public class DungeonFactory : MonoBehaviour
 
         PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
-        onGenerationEnd.Invoke();
-
-        return dungeon;
+        if(onGenerationEnd)
+            onGenerationEnd.Invoke(dungeon);
     }
 
     private void AddFeatures(Dungeon dungeon)
     {
         foreach(Corridor corridor in dungeon.Corridors)
         {
-            if (corridor.Length > 2 && dungeon.Random.value() <= 0.3f)
+            if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
             {
-                int pos = dungeon.Random.Range(1, corridor.Length - 2);
-                corridor.AddFeature<Trap>(corridor[pos]).Id = dungeon.Random.Range(0, 1);
+                int pos = Dungeon.Random.Range(1, corridor.Length - 2);
+                corridor.AddFeature<Trap>(corridor[pos]).Id = Dungeon.Random.Range(0, 1);
             }
         }
     }

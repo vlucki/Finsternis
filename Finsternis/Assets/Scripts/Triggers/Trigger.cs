@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
-[Serializable]
-public class OnTriggerEvent : UnityEvent<GameObject> { }
-
 [RequireComponent(typeof(Collider))]
 public class Trigger : MonoBehaviour
 {
+
+    [Serializable]
+    public class OnTriggerEvent : UnityEvent<GameObject> { }
+
     public OnTriggerEvent onEnter;
     public OnTriggerEvent onExit;
+
+    public LayerMask ignoreLayers;
+    public List<Collider> ignoreColliders;
+
+    protected new Collider collider;
 
     private GameObject _objectEntered;
     private GameObject _objectExited;
@@ -19,8 +24,11 @@ public class Trigger : MonoBehaviour
     public GameObject ObjectEntered { get { return _objectEntered; } }
     public GameObject ObjectExited { get { return _objectExited; } }
 
-    public LayerMask ignoreLayers;
-    public List<Collider> ignoreColliders;
+    protected virtual void Awake()
+    {
+        if(!collider)
+            collider = GetComponent<Collider>();
+    }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -52,12 +60,12 @@ public class Trigger : MonoBehaviour
         if (ignoreColliders != null && ignoreColliders.Contains(other))
             return false;
 
-       return true;
+        return true;
     }
 
     public void Ignore(GameObject obj)
     {
-        if(obj && obj != gameObject)
+        if (obj && obj != gameObject)
         {
             Collider c = obj.GetComponent<Collider>();
             if (c && !ignoreColliders.Contains(c))

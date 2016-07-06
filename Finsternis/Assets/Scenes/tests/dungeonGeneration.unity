@@ -247,6 +247,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 11425964, guid: e06ba4e2e31662842961e71d111944d8, type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 170350, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e06ba4e2e31662842961e71d111944d8, type: 2}
   m_IsPrefabParent: 0
@@ -1093,9 +1097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fb4d3878340e947bc9770f30ac57c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dungeon: {fileID: 0}
   _dFactory: {fileID: 769769430}
-  _drawer: {fileID: 769769431}
+  _dDrawer: {fileID: 769769431}
 --- !u!114 &769769430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,7 +1131,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 769769431}
         m_MethodName: Draw
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1137,8 +1140,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   allowDeadEnds: 0
   _dungeonWidth: 30
   _dungeonHeight: 30
@@ -3248,12 +3251,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   ignoreLayers:
     serializedVersion: 2

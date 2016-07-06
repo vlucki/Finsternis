@@ -19,9 +19,10 @@ public class Fireball : Skill
 
     protected override void CastSkill()
     {
-        GameObject summonedFireball = Instantiate(fireballPrefab, summonPoint.position + transform.forward*summonOffset, transform.rotation) as GameObject;
-        summonedFireball.GetComponent<PhysicalAttackHandler>().ignoreColliders.Add(GetComponent<Collider>());
-        summonedFireball.GetComponent<PhysicalAttackHandler>().owner = GetComponent<Entity>();
+        GameObject summonedFireball = Instantiate(fireballPrefab, summonPoint.position + transform.forward * summonOffset, transform.rotation) as GameObject;
+        PhysicalAttackHandler pah = summonedFireball.GetComponent<PhysicalAttackHandler>();
+        pah.ignoreColliders.Add(GetComponent<Collider>());
+        pah.owner = GetComponent<Entity>();
         summonedFireball.SetActive(true);
         Timing.RunCoroutine(_Shoot(summonedFireball), Segment.FixedUpdate);
     }

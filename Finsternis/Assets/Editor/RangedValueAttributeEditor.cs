@@ -3,7 +3,7 @@ using UnityEditor;
 using System;
 
 [CustomEditor(typeof(RangedValueAttribute))]
-public class RangedValueAttributeEditor : Editor
+public class RangedValueAttributeEditor : QuickReorder
 {
     MonoScript script;
     RangedValueAttribute tgt;
@@ -33,6 +33,7 @@ public class RangedValueAttributeEditor : Editor
     {
         if (!tgt)
             return;
+        DrawQuickReorderHeader();
 
         serializedObject.Update();
 

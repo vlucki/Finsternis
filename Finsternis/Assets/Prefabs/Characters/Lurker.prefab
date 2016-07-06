@@ -346,13 +346,13 @@ GameObject:
   - 95: {fileID: 9528138}
   - 54: {fileID: 5479992}
   - 136: {fileID: 13634732}
+  - 114: {fileID: 11451040}
+  - 114: {fileID: 11406740}
+  - 114: {fileID: 11492538}
   - 114: {fileID: 11478164}
   - 114: {fileID: 11431098}
   - 114: {fileID: 11424458}
   - 114: {fileID: 11466626}
-  - 114: {fileID: 11492538}
-  - 114: {fileID: 11406740}
-  - 114: {fileID: 11451040}
   - 114: {fileID: 11402096}
   - 114: {fileID: 11482334}
   m_Layer: 9
@@ -886,11 +886,6 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   _fallSpeedThreshold: -0.2
   _turningSpeed: 0.05
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   _aggroRange: 5
   _wanderCycle: 1
   wanderFrequency: 0.5
@@ -929,7 +924,8 @@ MonoBehaviour:
   modeOnImpact: 2
   executionMultiplier: {x: 1, y: 1}
   modeOnExecution: 1
-  ActiveOnDeath: 0
+  activeOnDeath: 0
+  ignoreOthersFromOwner: 1
 --- !u!114 &11424458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1027,7 +1023,8 @@ MonoBehaviour:
   modeOnImpact: 2
   executionMultiplier: {x: 1, y: 1}
   modeOnExecution: 1
-  ActiveOnDeath: 0
+  activeOnDeath: 0
+  ignoreOthersFromOwner: 1
 --- !u!114 &11466626
 MonoBehaviour:
   m_ObjectHideFlags: 1

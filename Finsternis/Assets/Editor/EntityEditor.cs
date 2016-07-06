@@ -41,30 +41,57 @@ public class EntityEditor : QuickReorder
             }
             Event.current.Use();
         }
+        EditorGUILayout.EndVertical();
+
+        EditorGUILayout.BeginVertical();
         displayAttributes = EditorGUI.Foldout(foldRect, displayAttributes, "| ATTRIBUTES |");
 
         if (displayAttributes)
         {
-            style.alignment = TextAnchor.MiddleRight;
-            scrollPos = GUILayout.BeginScrollView(scrollPos, style, GUILayout.MinWidth(75), GUILayout.MinHeight(140));
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.MinHeight(240));
             foreach (EntityAttribute attribute in entity.GetComponents<EntityAttribute>())
             {
-                EditorGUILayout.BeginHorizontal(GUILayout.MinWidth(260));
+                style.border = new RectOffset(50, 50, 5, 5);
+                EditorGUILayout.BeginVertical(style);
+                style.alignment = TextAnchor.MiddleCenter;
+                attribute.AttributeName = EditorGUILayout.TextField(attribute.AttributeName, style);
+                EditorGUILayout.BeginHorizontal();
                 style.alignment = TextAnchor.MiddleRight;
 
-                attribute.AttributeName = EditorGUILayout.TextField(attribute.AttributeName, style, GUILayout.MaxWidth(60));
                 if (attribute is RangedValueAttribute)
                 {
                     RangedValueAttribute rvAttribute = attribute as RangedValueAttribute;
-                    attribute.SetValue(EditorGUILayout.IntSlider((int)rvAttribute.Value, (int)rvAttribute.Min, (int)rvAttribute.Max, GUILayout.MaxWidth(60)));
+                    float min = rvAttribute.Min;
+                    float max = rvAttribute.Max;
+
+                    EditorGUILayout.BeginHorizontal(style);
+
+                    EditorGUILayout.LabelField("MIN", style, GUILayout.MaxWidth(30));
+
+                    min = EditorGUILayout.FloatField(min, GUILayout.MaxWidth(40));
+
+                    EditorGUILayout.MinMaxSlider(ref min, ref max, 0, 100);
+
+                    max = EditorGUILayout.FloatField(max, GUILayout.MaxWidth(40));
+
+                    style.alignment = TextAnchor.MiddleRight;
+
+                    EditorGUILayout.LabelField("MAX", style, GUILayout.MaxWidth(30));
+
+                    EditorGUILayout.EndHorizontal();
+
+                    rvAttribute.SetMin(min);
+                    rvAttribute.SetMax(max);
                 }
                 else
                 {
-                    attribute.SetValue(EditorGUILayout.IntField((int)attribute.Value, GUILayout.MaxWidth(60)));
+                    attribute.SetValue(EditorGUILayout.IntField((int)attribute.Value, GUILayout.MaxWidth(40)));
                 }
+                EditorGUILayout.EndHorizontal();
 
-
-                if (GUILayout.Button("X", GUILayout.MaxWidth(20)))
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("REMOVE ATTRIBUTE", GUILayout.MaxWidth(150)))
                 {
                     if (EditorUtility.DisplayDialog("Delete attribute", "This action cannot be undone.", "Proceed", "Cancel"))
                     {
@@ -72,11 +99,16 @@ public class EntityEditor : QuickReorder
                         GUIUtility.ExitGUI();
                     }
                 }
-                EditorGUILayout.EndHorizontal();
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
 
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.Space();
+                EditorGUILayout.Space();
             }
-            GUILayout.EndScrollView();
-            if (GUILayout.Button("Add Attribute"))
+            EditorGUILayout.EndScrollView();
+            EditorGUILayout.Space();
+            if (GUILayout.Button("ADD ATTRIBUTE"))
             {
                 AddAttribute();
             }

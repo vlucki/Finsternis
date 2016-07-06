@@ -85,7 +85,7 @@ public static class CorridorFactory
         while ((direction.x != 0 && corridor.LastCell.x < room.Bounds.xMax) || (direction.y != 0 && corridor.LastCell.y < room.Bounds.yMax))
             corridor.Length++;
         
-        corridor.Length += Mathf.CeilToInt(dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
+        corridor.Length += Mathf.CeilToInt(Dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
         
         if(corridor.Length == 0)
         {
