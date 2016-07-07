@@ -397,6 +397,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1204894846}
   - 114: {fileID: 1204894847}
+  - 114: {fileID: 1204894848}
   m_Layer: 0
   m_Name: ScriptContainer
   m_TagString: Untagged
@@ -411,7 +412,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1204894845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 543.8141, y: 311.18304, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -428,10 +429,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54de8d72e76e61f47ac88bf156cd9cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeOutTime: 2
-  skippable: 1
-  imageToFade: {fileID: 0}
-  sceneToLoad: MainMenu
+  _fadeInTime: 2
+  _fadeOutTime: 1
+  _delayAfterFadeIn: 1
+  _delayAfterFadeOut: 0.5
+  _skippable: 1
+  _graphicsToFade:
+  - {fileID: 1016282733}
+  - {fileID: 740517143}
+  _sceneToLoad: MainMenu
+--- !u!114 &1204894848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1204894845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axisToCheck:
+  - Cancel
+  methodsToCall:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1204894847}
+        m_MethodName: Skip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1293838796
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,8 +515,8 @@ Camera:
   m_GameObject: {fileID: 1293838796}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

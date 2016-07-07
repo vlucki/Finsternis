@@ -14,24 +14,27 @@ public class QuickReorder : Editor
     protected void DrawQuickReorderHeader()
     {
         EditorGUILayout.Space();
-        GUIStyle style = new GUIStyle();
-        style.alignment = TextAnchor.MiddleCenter;
-        EditorGUILayout.BeginHorizontal(style);
 
-        if (GUILayout.Button("/\\"))
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button("/\\", GUILayout.MaxWidth(30)))
         {
             UnityEditorInternal.ComponentUtility.MoveComponentUp(target as Component);
         }
-        else if (GUILayout.Button("\\/"))
+
+        if (GUILayout.Button("\\/", GUILayout.MaxWidth(30)))
         {
             UnityEditorInternal.ComponentUtility.MoveComponentDown(target as Component);
         }
-        else if (GUILayout.Button("X", GUILayout.MaxWidth(40)))
+
+        if (GUILayout.Button("X", GUILayout.MaxWidth(30)))
         {
             DestroyImmediate(target);
             GUIUtility.ExitGUI();
             return;
         }
+
+        GUILayout.FlexibleSpace();
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.Space();
         EditorGUILayout.Space();

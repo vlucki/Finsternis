@@ -251,7 +251,7 @@ GameObject:
   - 222: {fileID: 1016282734}
   - 114: {fileID: 1016282733}
   m_Layer: 5
-  m_Name: logo_PUC
+  m_Name: logo_ImmerSpiel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -512, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1016282733
 MonoBehaviour:
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1016282731}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -317,6 +317,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1204894846}
   - 114: {fileID: 1204894847}
+  - 114: {fileID: 1204894848}
   m_Layer: 0
   m_Name: ScriptContainer
   m_TagString: Untagged
@@ -350,12 +351,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fadeInTime: 2
   _fadeOutTime: 1
-  _holdTime: 1
+  _delayAfterFadeIn: 1
+  _delayAfterFadeOut: 0.5
   _skippable: 1
-  _imagesToShow:
-  - {fileID: 1769240252}
+  _graphicsToFade:
   - {fileID: 1016282733}
+  - {fileID: 1769240252}
   _sceneToLoad: MainMenu
+--- !u!114 &1204894848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1204894845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axisToCheck:
+  - Cancel
+  methodsToCall:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1204894847}
+        m_MethodName: Skip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1293838796
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +555,7 @@ GameObject:
   - 222: {fileID: 1769240253}
   - 114: {fileID: 1769240252}
   m_Layer: 5
-  m_Name: logo_ImmerSpiel
+  m_Name: logo_PUC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +585,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1769240250}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 

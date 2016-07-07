@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            throw new System.ArgumentNullException("Could not find a player in the scene!");
+            Debug.LogWarning("Could not find a player in the scene.");
         }
     }
 
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
 
         _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
         _player.transform.forward = -Vector3.forward;
-        _dungeonManager.CreateDungeon();
+        Timing.CallDelayed(1, _dungeonManager.CreateDungeon);
     }
 
     private void BeginNewLevel(Dungeon dungeon)

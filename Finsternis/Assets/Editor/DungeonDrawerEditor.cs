@@ -2,11 +2,11 @@
 using UnityEditor;
 
 [CustomEditor(typeof(DungeonDrawer))]
-public class DungeonDrawerEditor : Editor {
+public class DungeonDrawerEditor : QuickReorder {
 
 	public override void OnInspectorGUI()
     {
-        DrawDefaultInspector();
+        base.OnInspectorGUI();
 
         DungeonDrawer tgt = target as DungeonDrawer;
         if(tgt)

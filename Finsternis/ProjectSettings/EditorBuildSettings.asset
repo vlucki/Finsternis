@@ -10,9 +10,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Scenes/tests/dungeonGeneration.unity
+    path: Assets/Scenes/Tests/dungeonGeneration.unity
   - enabled: 0
-    path: Assets/Scenes/tests/combatTest.unity
+    path: Assets/Scenes/Tests/combatTest.unity
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
   - enabled: 1

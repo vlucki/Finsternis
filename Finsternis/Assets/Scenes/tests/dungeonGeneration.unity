@@ -1140,6 +1140,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 769769432}
+        m_MethodName: BeginSpawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   allowDeadEnds: 0
@@ -1208,17 +1219,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 769769432}
-        m_MethodName: BeginSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &769769432
@@ -1232,12 +1232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6bc27d04dad594faed0c384a3c0cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
   drawer: {fileID: 769769431}
   enemies:
   - {fileID: 140034, guid: e349ba598c8b58d4cacaffa8d1f85de3, type: 2}
   - {fileID: 190592, guid: 12b8c14a29e8f9244bf5fe1888713449, type: 2}
   enemyHudPrefab: {fileID: 0}
+  enemiesHolder: {fileID: 0}
   enemyDensity: 0.2
 --- !u!1 &791205707
 GameObject:

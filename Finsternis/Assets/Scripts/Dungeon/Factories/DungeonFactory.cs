@@ -56,7 +56,7 @@ public class DungeonFactory : MonoBehaviour
     [Range(2, 1000)]
     private int _minimumBrushHeight = 3;
 
-    [Header("Maximum brish size")]
+    [Header("Maximum brush size")]
     [SerializeField]
     [Range(2, 100)]
     private int _maximumBrushWidth = 7;

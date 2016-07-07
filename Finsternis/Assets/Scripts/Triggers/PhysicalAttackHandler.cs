@@ -17,8 +17,9 @@ public class PhysicalAttackHandler : Trigger
     private RangedValueAttribute str;
 
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (!owner)
         {
             owner = GetComponentInParent<Entity>();

@@ -6,10 +6,10 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public Dungeon dungeon;
     public DungeonDrawer drawer;
     public List<GameObject> enemies;
     public GameObject enemyHudPrefab;
+    public GameObject enemiesHolder;
 
     [Range(0.01f, 1)]
     public float enemyDensity = 0.1f;
@@ -20,13 +20,13 @@ public class EnemySpawner : MonoBehaviour
             drawer = GetComponent<DungeonDrawer>();
     }
 
-    public void BeginSpawn()
+    public void BeginSpawn(Dungeon dungeon)
     {
-        dungeon = FindObjectOfType<Dungeon>();
         if (!dungeon)
         {
             throw new ArgumentException("Failed to locate dungeon on scene!");
         }
+        enemiesHolder = new GameObject("Enemies");
 
         List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
         if (enemies != null && enemies.Count > 0)
@@ -34,13 +34,13 @@ public class EnemySpawner : MonoBehaviour
             int roomsToSpawn = Dungeon.Random.Range(1, dungeon.Rooms.Count, false);
             do
             {
-                SpawnEnemies(goals);
+                SpawnEnemies(dungeon, goals);
             }
             while (--roomsToSpawn > 0);
         }
     }
 
-    private void SpawnEnemies(List<KillEnemyGoal> goals)
+    private void SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
     {
         Room room = dungeon.GetRandomRoom();
         int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
@@ -51,15 +51,15 @@ public class EnemySpawner : MonoBehaviour
             int remainingEnemiesOfChosenType = Mathf.CeilToInt(Dungeon.Random.Range(0, remainingEnemies));
             if (remainingEnemiesOfChosenType > 0)
             {
-                KillEnemyGoal goal = MakeGoal(goals, enemies[enemyToSpawn]);
+                KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies[enemyToSpawn]);
                 goal.quantity += remainingEnemiesOfChosenType;
-                SpawnEnemy(room, goal, remainingEnemiesOfChosenType);
+                SpawnEnemy(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
             }
         }
         while (--remainingEnemies > 0);
     }
 
-    private KillEnemyGoal MakeGoal(List<KillEnemyGoal> goals, GameObject enemy)
+    private KillEnemyGoal MakeGoal(Dungeon dungeon, List<KillEnemyGoal> goals, GameObject enemy)
     {
         KillEnemyGoal goal = null;
         foreach (KillEnemyGoal g in goals)
@@ -82,13 +82,13 @@ public class EnemySpawner : MonoBehaviour
         return goal;
     }
 
-    private void SpawnEnemy(Room room, KillEnemyGoal goal, int amount)
+    private void SpawnEnemy(Transform parent, Room room, KillEnemyGoal goal, int amount)
     {
         do
         {
             Vector2 cell = room.GetRandomCell() + Vector2.one;
             GameObject enemy = ((GameObject)Instantiate(goal.enemy, new Vector3(cell.x * drawer.overallScale.x, 0.2f, -cell.y * drawer.overallScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
-            enemy.transform.SetParent(transform);
+            enemy.transform.SetParent(parent);
             enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
         } while (--amount > 0);
     }

@@ -39,14 +39,20 @@ public class DungeonDrawer : MonoBehaviour
         if (!_dungeon)
             throw new ArgumentException("Failed to find dungeon!");
 
+        GameObject rooms = new GameObject("ROOMS");
+        rooms.transform.SetParent(dungeon.transform);
+
         foreach (Room room in _dungeon.Rooms)
         {
-            MakeSection(room);
+            MakeSection(room).transform.SetParent(rooms.transform);
         }
+
+        GameObject corridors = new GameObject("CORRIDORS");
+        corridors.transform.SetParent(dungeon.transform);
 
         foreach (Corridor corridor in _dungeon.Corridors)
         {
-            MakeSection(corridor);
+            MakeSection(corridor).transform.SetParent(corridors.transform);
         }
 
         MakeWalls();
@@ -57,25 +63,26 @@ public class DungeonDrawer : MonoBehaviour
 #endif
     }
 
-    private void MakeSection(DungeonSection section)
+    private GameObject MakeSection(DungeonSection section)
     {
         Type type = section.GetType(); 
-        GameObject sectionObj = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
-        sectionObj.transform.position = new Vector3(section.Bounds.center.x * overallScale.x, 0, -section.Bounds.center.y * overallScale.z);
-        sectionObj.transform.SetParent(_dungeon.transform);
+        GameObject sectionGO = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
+        sectionGO.transform.position = new Vector3(section.Bounds.center.x * overallScale.x, 0, -section.Bounds.center.y * overallScale.z);
         foreach (Vector2 cell in section)
         {
             GameObject floor = MakeFloor((int)cell.x, (int)cell.y);
-            floor.transform.SetParent(sectionObj.transform);
+            floor.transform.SetParent(sectionGO.transform);
         }
 
         if(type.Equals(typeof(Corridor)))
-            MakeDoors(section as Corridor, sectionObj);
+            MakeDoors(section as Corridor, sectionGO);
+
+        return sectionGO;
     }
 
     private void MakeWalls()
     {
-        GameObject wallsContainer = new GameObject("Walls");
+        GameObject wallsContainer = new GameObject("WALLS");
         wallsContainer.transform.SetParent(_dungeon.transform);
         int width = _dungeon.Width;
         int height = _dungeon.Height;
@@ -167,15 +174,16 @@ public class DungeonDrawer : MonoBehaviour
     private GameObject MakeFloor(int cellX, int cellY)
     {
         GameObject floor = null;
-        string nameSuffix = " (" + cellX + ";" + cellY + ")";
+        string name = "floor (" + cellX + ";" + cellY + ")";
         Vector3 pos = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
         DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
         if (!feature || !(feature is Trap))
         {
             floor = MakeQuad(pos,
-                new Vector3(overallScale.x, overallScale.z, 1),
-                Vector3.right * 90, _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
-                _dungeon[cellX, cellY].GetType() + nameSuffix);
+                            new Vector3(overallScale.x, overallScale.z, 1),
+                            Vector3.right * 90, 
+                            _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
+                            name);
 
             if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
             {
@@ -190,7 +198,7 @@ public class DungeonDrawer : MonoBehaviour
                 }
                 else
                 {
-                    floor.name = "Exit " + nameSuffix;
+                    floor.name = "Exit " + name;
                     floor.tag = "Exit";
                     floor.AddComponent<Exit>();
                 }
@@ -212,7 +220,7 @@ public class DungeonDrawer : MonoBehaviour
 #if UNITY_EDITOR
                     DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
 #else
-                Destroy(pedestal.GetComponent<CapsuleCollider>());
+                    Destroy(pedestal.GetComponent<CapsuleCollider>());
 #endif
                 }
             }
@@ -229,7 +237,7 @@ public class DungeonDrawer : MonoBehaviour
                     if (floor)
                     {
                         floor.transform.position = pos;
-                        floor.transform.name += nameSuffix;
+                        floor.transform.name += name;
                     }
                 } catch(System.IndexOutOfRangeException ex)
                 {

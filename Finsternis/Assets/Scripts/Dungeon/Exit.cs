@@ -6,9 +6,6 @@ using System;
 
 public class Exit : Trigger
 {
-    //[SerializeField]
-    //private BoxCollider _trigger;
-
     [Serializable]
     public class ExitCrossedEvent : UnityEvent<Exit>
     {
@@ -28,16 +25,18 @@ public class Exit : Trigger
 
     private bool _triggered;
 
-    public ExitCrossedEvent OnExitCrossed;
+    public ExitCrossedEvent onExitCrossed;
 
     public bool Locked { get { return _locked; } }
+
+    public bool Triggered { get { return _triggered; } }
 
     protected override void Awake()
     {
         base.Awake();
-        if (!OnExitCrossed)
-            OnExitCrossed = new ExitCrossedEvent();
-        OnExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
+        if (!onExitCrossed)
+            onExitCrossed = new ExitCrossedEvent();
+        onExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
         _player = GameObject.FindGameObjectWithTag("Player");
         _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
         _locked = true;
@@ -70,13 +69,18 @@ public class Exit : Trigger
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (_triggered)
+            return;
+
         base.OnTriggerExit(other);
         if (ObjectExited == _player)
         {
             if (other.transform.position.y < transform.position.y)
             {
-                if(OnExitCrossed)
-                    OnExitCrossed.Invoke(this);
+                _triggered = true;
+                collider.enabled = false;
+                if(onExitCrossed)
+                    onExitCrossed.Invoke(this);
             }
         }
     }

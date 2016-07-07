@@ -25,6 +25,7 @@ public class EntityEditor : QuickReorder
     {
         base.OnInspectorGUI();
         EditorGUILayout.BeginVertical();
+        style.normal.textColor = Color.black;
         style.alignment = TextAnchor.MiddleCenter;
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.GetControlRect(true, 16f, EditorStyles.foldout);
@@ -108,7 +109,9 @@ public class EntityEditor : QuickReorder
             }
             EditorGUILayout.EndScrollView();
             EditorGUILayout.Space();
-            if (GUILayout.Button("ADD ATTRIBUTE"))
+
+            style.normal.textColor = Color.white;
+            if (GUILayout.Button("ADD ATTRIBUTE", style))
             {
                 AddAttribute();
             }
