@@ -7,11 +7,14 @@ public class Room : DungeonSection
     private List<Vector2> _cells;
     private MTRandom _random;
 
+    private bool _locked;
+
+    public bool Locked { get { return _locked; } }
+
     public int CellCount { get { return _cells.Count; } }
 
-    public Room(Vector2 position, MTRandom random) : base()
+    public Room(Vector2 position, MTRandom random) : base(new Rect(position, Vector2.zero))
     {
-        bounds = new Rect(position, Vector2.zero);
         _cells = new List<Vector2>();
         _random = random;
     }
@@ -21,6 +24,8 @@ public class Room : DungeonSection
         bounds = baseRoom.bounds;
         _cells = new List<Vector2>(baseRoom._cells);
         _random = baseRoom._random;
+        connections = new HashSet<DungeonSection>(baseRoom.connections);
+        features = new Dictionary<Vector2, DungeonFeature>(baseRoom.features);
     }
 
     public static Room operator +(Room roomA, Room roomB)
@@ -45,6 +50,11 @@ public class Room : DungeonSection
         }
     }
 
+    public void Lock()
+    {
+        _locked = true;
+    }
+
     public bool Overlaps(Room other)
     {
         if (this.bounds.Overlaps(other.bounds))
@@ -61,14 +71,6 @@ public class Room : DungeonSection
     private bool Contains(Vector2 otherCell)
     {
         return Search(otherCell)[0] >= 0;
-    }
-
-    public void LockDown()
-    {
-        foreach(Corridor corridor in Connections)
-        {
-            corridor.Lock(this);
-        }
     }
 
     public int[] Search(Vector2 otherCell)

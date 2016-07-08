@@ -225,7 +225,7 @@ GameObject:
   - 114: {fileID: 11404476}
   - 114: {fileID: 11488180}
   m_Layer: 8
-  m_Name: t_floor_spikes
+  m_Name: T_floor_spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1058,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1074,11 +1074,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11404476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1115,7 +1116,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1131,11 +1132,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11424448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1161,7 +1163,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1177,11 +1179,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11427810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1207,7 +1210,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1223,11 +1226,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11428858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1253,7 +1257,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1269,11 +1273,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11437900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1299,7 +1304,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1315,11 +1320,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11449388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1365,7 +1371,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1381,11 +1387,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11461624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1411,7 +1418,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1427,11 +1434,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11464508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1457,7 +1465,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1473,11 +1481,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11488180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1524,7 +1533,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1540,11 +1549,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11496768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1570,7 +1580,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1586,11 +1596,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!114 &11497344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1616,7 +1627,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExit:
     m_PersistentCalls:
@@ -1632,11 +1643,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  layerToCheck:
+  ignoreLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  ignoreColliders: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

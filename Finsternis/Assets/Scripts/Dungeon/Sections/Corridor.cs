@@ -69,11 +69,6 @@ public class Corridor : DungeonSection
             connection.AddConnection(this);
     }
 
-    public void Lock(Room room)
-    {
-        //check if room contains a cell at the begining and/or end of corridor and lock that connection
-    }
-
     public override string ToString()
     {
         return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + _length + "]";

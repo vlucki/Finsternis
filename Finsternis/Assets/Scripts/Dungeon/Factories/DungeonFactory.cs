@@ -17,9 +17,12 @@ public class DungeonFactory : MonoBehaviour
 
     public UnityEvent onGenerationBegin;
     public DungeonGenerationEndEvent onGenerationEnd;
-    public bool allowDeadEnds = false;
 
     #region Generation Parameters
+
+    public string dungeonName = "Simple Dungeon";
+    [Space]
+
     [Header("Dungeon dimensions")]
     [SerializeField]
     [Range(10, 1000)]
@@ -65,7 +68,7 @@ public class DungeonFactory : MonoBehaviour
     [Range(2, 100)]
     private int _maximumBrushHeight = 7;
 
-    [Header("Corridor length")]
+    [Header("Corridors")]
     [SerializeField]
     [Range(1, 100)]
     private int _minimumCorridorLength = 1;
@@ -74,7 +77,16 @@ public class DungeonFactory : MonoBehaviour
     [Range(1, 100)]
     private int _maximumCorridorLength = 5;
 
-    public string dungeonName = "Simple Dungeon";
+    [SerializeField]
+    private bool _allowDeadEnds = false;
+
+    [Space]
+    [Header("Features")]
+    [SerializeField]
+    private DungeonFeature[] _traps;
+
+    [SerializeField]
+    private DoorFeature[] _doors;
     #endregion
 
     private Room _lastRoom;
@@ -95,6 +107,7 @@ public class DungeonFactory : MonoBehaviour
     public void Generate(int? seed = null)
     {
         GameObject dungeonGO = new GameObject(dungeonName);
+
         dungeonGO.tag = "Dungeon";
         Dungeon dungeon = dungeonGO.AddComponent<Dungeon>();
         if (seed != null)
@@ -130,7 +143,7 @@ public class DungeonFactory : MonoBehaviour
             roomCount = GenerateRooms(dungeon, hangingRooms, hangingCorridors, brushVariation, maxRoomSize, roomCount);
         }
 
-        if (!allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors, dungeon);
+        if (!_allowDeadEnds) ConnectLeftoverCorridors(hangingCorridors, dungeon);
 
         CleanUp(dungeon);
 
@@ -148,12 +161,52 @@ public class DungeonFactory : MonoBehaviour
     {
         foreach(Corridor corridor in dungeon.Corridors)
         {
-            if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
+            AddTrap(corridor);
+            AddDoors(corridor);
+        }
+    }
+
+    private void AddTrap(Corridor corridor)
+    {
+        if (_traps == null || _traps.Length == 0)
+        {
+            Debug.LogWarning("No traps found.");
+            return;
+        }
+        if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
+        {
+            int pos = Dungeon.Random.Range(1, corridor.Length - 2);
+            DungeonFeature feature = (_traps[Dungeon.Random.Range(0, _traps.Length, false)]);
+            corridor.AddFeature(feature, corridor[pos]);
+        }
+    }
+
+    private void AddDoors(Corridor corridor, int index = 0)
+    {
+        if (_doors == null || _doors.Length == 0)
+        {
+            Debug.LogWarning("No doors found.");
+            return;
+        }
+        DoorFeature feature = (_doors[Dungeon.Random.Range(0, _doors.Length, false)]);
+        corridor.AddFeature(feature, corridor[index]);
+
+        foreach(DungeonSection section in corridor.Connections)
+        {
+            if(section is Room && ((Room)section).Locked)
             {
-                int pos = Dungeon.Random.Range(1, corridor.Length - 2);
-                corridor.AddFeature<Trap>(corridor[pos]).Id = Dungeon.Random.Range(0, 1);
+                feature.Locked = true;
+                break;
             }
         }
+
+
+        if (corridor.Length > 1 && index == 0)
+        {
+            feature.Alignment = DungeonFeature.CellAlignment.EDGE;
+            AddDoors(corridor, corridor.Length - 1);
+        }
+
     }
     /// <summary>
     /// Removes corridors that don't really look like corridors (eg. have walls only on one side) 
@@ -281,7 +334,7 @@ public class DungeonFactory : MonoBehaviour
             if (!ExtendCorridor(dungeon, corridor)) //first of all, try to extend the corridor untils it intersects something
             {
                 //if it fails, them remove every corridor that is not connected to another one
-                if (!allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
+                if (!_allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
             }
         }
 
@@ -368,7 +421,10 @@ public class DungeonFactory : MonoBehaviour
             Room room;
             Corridor corridor = hangingCorridors.Dequeue();
 
-
+            if(!corridor)
+            {
+                throw new System.InvalidOperationException("Corridor should not be null!\n" + corridor);
+            }
             if (RoomFactory.CarveRoom(dungeon, corridor, brushVariation, maxRoomSize, _maximumTries, out room))
             {
                 hangingRooms.Enqueue(room);

@@ -11,7 +11,7 @@ public class DungeonDrawer : MonoBehaviour
     private Dungeon _dungeon;
     [Header("Scaling parameters")]
     [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
-    public Vector3 overallScale = Vector3.one;
+    public Vector3 cellScale = Vector3.one;
     public float extraWallHeight = 3;
     [Header("Materials")]
     public Material defaultWallMaterial;
@@ -22,9 +22,8 @@ public class DungeonDrawer : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject[] walls;
-    public GameObject[] doorways;
+
     public GameObject[] floorTiles;
-    public GameObject[] floorTraps;
     public GameObject[] exits;
 
     [Header("Events")]
@@ -35,6 +34,7 @@ public class DungeonDrawer : MonoBehaviour
     {
         onDrawBegin.Invoke();
         _dungeon = dungeon;
+        Clear();
 
         if (!_dungeon)
             throw new ArgumentException("Failed to find dungeon!");
@@ -63,19 +63,33 @@ public class DungeonDrawer : MonoBehaviour
 #endif
     }
 
+    private void Clear()
+    {
+        if (!_dungeon)
+            return;
+        foreach (Transform t in _dungeon.transform)
+        {
+#if UNITY_EDITOR
+            DestroyImmediate(t);
+#else
+            Destroy(t);
+#endif
+        }
+    }
+
     private GameObject MakeSection(DungeonSection section)
     {
-        Type type = section.GetType(); 
+        Type type = section.GetType();
         GameObject sectionGO = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
-        sectionGO.transform.position = new Vector3(section.Bounds.center.x * overallScale.x, 0, -section.Bounds.center.y * overallScale.z);
+        sectionGO.transform.position = new Vector3(section.Bounds.center.x * cellScale.x, 0, -section.Bounds.center.y * cellScale.z);
         foreach (Vector2 cell in section)
         {
-            GameObject floor = MakeFloor((int)cell.x, (int)cell.y);
-            floor.transform.SetParent(sectionGO.transform);
+            GameObject sectionCell = MakeCell((int)cell.x, (int)cell.y);
+            sectionCell.transform.SetParent(sectionGO.transform);
         }
 
-        if(type.Equals(typeof(Corridor)))
-            MakeDoors(section as Corridor, sectionGO);
+        //if (type.Equals(typeof(Corridor)))
+        //    MakeDoors(section as Corridor, sectionGO);
 
         return sectionGO;
     }
@@ -94,8 +108,8 @@ public class DungeonDrawer : MonoBehaviour
                 {
                     GameObject wall = MakeWall(cellX, cellY);
                     bool mayBlockPlayer = ShouldAddScript(cellX, cellY);
-                    if (mayBlockPlayer 
-                        || ShouldAddScript(cellX, cellY - 1) 
+                    if (mayBlockPlayer
+                        || ShouldAddScript(cellX, cellY - 1)
                         || ShouldAddScript(cellX - 1, cellY - 1)
                         || ShouldAddScript(cellX + 1, cellY - 1))
                     {
@@ -113,12 +127,12 @@ public class DungeonDrawer : MonoBehaviour
 
     private bool ShouldAddScript(int cellX, int cellY)
     {
-        return (cellX >= 0 
-            && cellX < _dungeon.Width 
-            && cellY > 0 
+        return (cellX >= 0
+            && cellX < _dungeon.Width
+            && cellY > 0
             && _dungeon[cellX, cellY - 1] != null);
     }
-
+    /*
     private void MakeDoors(Corridor corridor, GameObject parent = null)
     {
         if (!parent)
@@ -170,18 +184,18 @@ public class DungeonDrawer : MonoBehaviour
             }
         }
     }
-
-    private GameObject MakeFloor(int cellX, int cellY)
+    */
+    private GameObject MakeCell(int cellX, int cellY)
     {
         GameObject floor = null;
         string name = "floor (" + cellX + ";" + cellY + ")";
-        Vector3 pos = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
+        Vector3 pos = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
         DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
-        if (!feature || !(feature is Trap))
+        if (!feature || feature.Type != DungeonFeature.FeatureType.FLOOR)
         {
             floor = MakeQuad(pos,
-                            new Vector3(overallScale.x, overallScale.z, 1),
-                            Vector3.right * 90, 
+                            new Vector3(cellScale.x, cellScale.z, 1),
+                            Vector3.right * 90,
                             _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
                             name);
 
@@ -208,7 +222,7 @@ public class DungeonDrawer : MonoBehaviour
                 if (floorTiles != null && floorTiles.Length > 0 && Random.value > 0.5f)
                 {
                     floor = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                    floor.transform.localScale = overallScale;
+                    floor.transform.localScale = cellScale;
                 }
                 if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
                 {
@@ -227,22 +241,20 @@ public class DungeonDrawer : MonoBehaviour
         }
         else
         {
-            if (floorTraps != null && floorTraps.Length > 0)
+            try
             {
-                try
+                floor = Instantiate(feature.Prefab);
+
+                if (_dungeon[cellX, cellY] is Corridor)
                 {
-                    Vector2 vec2 = new Vector2(cellX, cellY);
-                    floor = Instantiate<GameObject>(floorTraps[_dungeon[vec2].GetFeature(vec2).Id]);
-                    floor.GetComponent<TrapBehaviour>().Align(_dungeon, vec2);
-                    if (floor)
-                    {
-                        floor.transform.position = pos;
-                        floor.transform.name += name;
-                    }
-                } catch(System.IndexOutOfRangeException ex)
-                {
-                    throw new System.IndexOutOfRangeException("Trying to access cell (" + cellX + "; " + cellY + ")", ex);
+                    Vector2 corridorDir = ((Corridor)_dungeon[cellX, cellY]).Direction;
+                    floor.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
                 }
+                floor.transform.position = pos;
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                throw new IndexOutOfRangeException("Trying to access cell (" + cellX + "; " + cellY + ")", ex);
             }
         }
         if (floor)
@@ -257,7 +269,7 @@ public class DungeonDrawer : MonoBehaviour
     private GameObject MakeWall(int cellX, int cellY)
     {
         GameObject wall;
-        Vector3 wallPosition = new Vector3(cellX * overallScale.x, 0, -cellY * overallScale.y); ;
+        Vector3 wallPosition = new Vector3(cellX * cellScale.x, 0, -cellY * cellScale.y); ;
         if (walls != null && walls.Length > 0)
         {
             wall = walls[Random.Range(0, walls.Length)];
@@ -296,8 +308,8 @@ public class DungeonDrawer : MonoBehaviour
                 }
             }
 
-            wall.transform.localScale = new Vector3(overallScale.x, overallScale.y + extraWallHeight, overallScale.z);
-            wallPosition = new Vector3(cellX * overallScale.x + overallScale.x / 2, 0, -cellY * overallScale.z - overallScale.z / 2);
+            wall.transform.localScale = new Vector3(cellScale.x, cellScale.y + extraWallHeight, cellScale.z);
+            wallPosition = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
         }
 
         wall.transform.position = wallPosition;
@@ -434,9 +446,9 @@ public class DungeonDrawer : MonoBehaviour
         r.material = Material.Instantiate<Material>(defaultWallMaterial);
 
         if (useBoxCollider)
-            sectionContainer.AddComponent <BoxCollider> ().sharedMaterial = defaultWallPhysicMaterial;
+            sectionContainer.AddComponent<BoxCollider>().sharedMaterial = defaultWallPhysicMaterial;
         else
-            sectionContainer.AddComponent <MeshCollider> ().sharedMaterial = defaultWallPhysicMaterial;
+            sectionContainer.AddComponent<MeshCollider>().sharedMaterial = defaultWallPhysicMaterial;
 
         sectionContainer.layer = original.layer;
         return sectionContainer;

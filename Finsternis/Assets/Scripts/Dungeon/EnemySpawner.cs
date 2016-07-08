@@ -87,7 +87,7 @@ public class EnemySpawner : MonoBehaviour
         do
         {
             Vector2 cell = room.GetRandomCell() + Vector2.one;
-            GameObject enemy = ((GameObject)Instantiate(goal.enemy, new Vector3(cell.x * drawer.overallScale.x, 0.2f, -cell.y * drawer.overallScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
+            GameObject enemy = ((GameObject)Instantiate(goal.enemy, new Vector3(cell.x * drawer.cellScale.x, 0.2f, -cell.y * drawer.cellScale.y), Quaternion.Euler(0, Random.Range(0, 360), 0)));
             enemy.transform.SetParent(parent);
             enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
         } while (--amount > 0);

@@ -8,6 +8,10 @@ public abstract class EntityAttribute : MonoBehaviour
     [Serializable]
     public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
     {
+        public static implicit operator bool(AttributeValueChangedEvent evt)
+        {
+            return evt != null;
+        }
     }
 
     public AttributeValueChangedEvent onValueChanged;
@@ -31,6 +35,10 @@ public abstract class EntityAttribute : MonoBehaviour
         if (_autoNotifyEntity)
         {
             Entity e = GetComponent<Entity>();
+
+            if (!onValueChanged)
+                onValueChanged = new AttributeValueChangedEvent();
+
             onValueChanged.AddListener(e.AtributeUpdated);
         }
     }
@@ -39,7 +47,7 @@ public abstract class EntityAttribute : MonoBehaviour
     {
         value = newValue;
 
-        if (onValueChanged != null)
+        if (onValueChanged)
             onValueChanged.Invoke(this);
 
         return true;

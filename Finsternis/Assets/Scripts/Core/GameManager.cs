@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject playerPrefab;
 
+    public string mainGameName = "DungeonGeneration";
+
     public static GameManager Instance { get { return instance; } }
 
     public Entity Player { get { return _player; } }
@@ -79,7 +81,8 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int index)
     {
-        Init();
+        if(SceneManager.GetSceneAt(index).name.Equals(mainGameName))
+            Init();
     }
 
     private void Init()
@@ -172,8 +175,8 @@ public class GameManager : MonoBehaviour
         Vector3 pos = Vector3.up * 30;
         if(dungeon)
         {
-            pos.x = (int)(dungeon.Entrance.x * _dungeonManager.Drawer.overallScale.x) + _dungeonManager.Drawer.overallScale.x / 2;
-            pos.z = (int)-(dungeon.Entrance.y * _dungeonManager.Drawer.overallScale.z) - _dungeonManager.Drawer.overallScale.z / 2;
+            pos.x = (int)(dungeon.Entrance.x * _dungeonManager.Drawer.cellScale.x) + _dungeonManager.Drawer.cellScale.x / 2;
+            pos.z = (int)-(dungeon.Entrance.y * _dungeonManager.Drawer.cellScale.z) - _dungeonManager.Drawer.cellScale.z / 2;
         }
         _player.transform.position = pos;
 

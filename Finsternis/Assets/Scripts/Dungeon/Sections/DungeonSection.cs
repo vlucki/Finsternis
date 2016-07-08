@@ -61,17 +61,14 @@ public abstract class DungeonSection : IEnumerable<Vector2>
         return GetEnumerator();
     }
 
-    public T AddFeature<T>(Vector2 cell) where T : DungeonFeature
+    public void AddFeature(DungeonFeature feature, Vector2 cell)
     {
-        if(!features.ContainsKey(cell))
+        if (!features.ContainsKey(cell))
         {
-            T t = ScriptableObject.CreateInstance<T>();
-            features.Add(cell, t);
-            return t;
+            features.Add(cell, feature);
         }
-        return null;
     }
-
+    
     public virtual DungeonFeature GetFeature(Vector2 cell)
     {
         DungeonFeature feature = null;

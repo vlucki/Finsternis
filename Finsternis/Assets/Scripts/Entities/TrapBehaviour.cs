@@ -23,27 +23,6 @@ public class TrapBehaviour : Entity
             attack = GetComponent<AttackAction>();
     }
 
-    public virtual void Align(Dungeon dungeon, Vector2 coordinates)
-    {
-        try
-        {
-            Corridor corridor = dungeon.Corridors.Find(c => c.Bounds.Contains(coordinates));
-            Vector2 corridorDir = corridor.Direction;
-            transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
-        }
-        catch (System.NullReferenceException ex)
-        {
-            Debug.LogError("Failed to find corridor containing the coordinate " + coordinates);
-            Debug.LogError(ex.Message);
-
-#if UNITY_EDITOR
-            DestroyImmediate(gameObject);
-#else
-            Destroy(gameObject);
-#endif
-        }
-    }
-
     public virtual IEnumerator<float> _OnContinuousTouch(Entity e)
     {
         yield return 0f;

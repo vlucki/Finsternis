@@ -1153,7 +1153,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  allowDeadEnds: 0
+  dungeonName: Simple Dungeon
   _dungeonWidth: 30
   _dungeonHeight: 30
   _totalRooms: 40
@@ -1166,7 +1166,12 @@ MonoBehaviour:
   _maximumBrushHeight: 3
   _minimumCorridorLength: 2
   _maximumCorridorLength: 3
-  dungeonName: Simple Dungeon
+  _allowDeadEnds: 0
+  _traps:
+  - {fileID: 11400000, guid: a7d381a3e7fbcd644915c49ed0690dfa, type: 2}
+  - {fileID: 11400000, guid: 2033a40d27ce92143a399873b92d316f, type: 2}
+  _doors:
+  - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
 --- !u!114 &769769431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,7 +1184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeon: {fileID: 0}
-  overallScale: {x: 2, y: 2, z: 2}
+  cellScale: {x: 2, y: 1, z: 2}
   extraWallHeight: 3
   defaultWallMaterial: {fileID: 2100000, guid: e9ce62b9ccf5dbe4ea8ee91197bbb2d4, type: 2}
   defaultWallPhysicMaterial: {fileID: 13400000, guid: 81fbc45ea39fd2c488a0dcab688d127e,
@@ -1190,13 +1195,7 @@ MonoBehaviour:
     type: 2}
   corridorMaterial: {fileID: 2100000, guid: d1d5441484a060e49bb3419c4d6f6d12, type: 2}
   walls: []
-  doorways:
-  - {fileID: 101268, guid: 43e52f631e8208a49bc13ea4d899ae18, type: 2}
-  - {fileID: 100000, guid: f44c14cb0ec1c6f40b66cd5dff596143, type: 3}
   floorTiles: []
-  floorTraps:
-  - {fileID: 178118, guid: a53f62b4ab99d704387d95b1ec057aa5, type: 2}
-  - {fileID: 193676, guid: 7387be7d254b68a4cb4de31844937f2d, type: 2}
   exits:
   - {fileID: 192690, guid: def4ae95ec8083e40875473ef25091bb, type: 2}
   - {fileID: 101834, guid: ec37950c69a0fdb4a865b59ffde99ca2, type: 2}
