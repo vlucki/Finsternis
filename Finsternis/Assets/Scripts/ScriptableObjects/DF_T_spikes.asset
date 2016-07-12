@@ -9,6 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
-  m_Name: DF_T_blades
+  m_Name: DF_T_spikes
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 178118, guid: a53f62b4ab99d704387d95b1ec057aa5, type: 2}
+  _prefab: {fileID: 193676, guid: 7387be7d254b68a4cb4de31844937f2d, type: 2}
+  _type: 0
+  _alignment: 2
+  _offset: {x: 0, y: 0, z: 0}

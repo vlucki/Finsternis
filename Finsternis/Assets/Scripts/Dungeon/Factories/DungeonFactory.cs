@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityQuery;
 
 public class DungeonFactory : MonoBehaviour
 {
@@ -236,7 +237,7 @@ public class DungeonFactory : MonoBehaviour
     private bool SplitCorridor(Dungeon dungeon, Corridor c)
     {
         Corridor[] halves = null;
-        Vector2 offset = new Vector2(c.Direction.y, c.Direction.x);
+        Vector2 offset = c.Direction.YX();
         bool hasToSplit = false;
         int index = c.Length - 1;
         while (index >= 0)

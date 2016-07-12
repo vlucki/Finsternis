@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AttackAction : EntityAction
 {
-    RangedValueAttribute damage;
+    EntityAttribute damage;
     private DamageInfo dmgInfo;
 
     public DamageInfo DamageInfo
@@ -15,10 +15,10 @@ public class AttackAction : EntityAction
     {
         base.Awake();
         if (!damage)
-            damage = agent.GetAttribute("dmg") as RangedValueAttribute;
+            damage = agent.GetAttribute("dmg") as EntityAttribute;
         if (!damage)
         {
-            damage = gameObject.AddComponent<RangedValueAttribute>();
+            damage = gameObject.AddComponent<EntityAttribute>();
             damage.name = "dmg";
         }
     }

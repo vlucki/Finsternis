@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityQuery;
 
 public static class RoomFactory
 {
@@ -7,8 +8,8 @@ public static class RoomFactory
     {
         Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
         Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
-        Vector2 minBrushSize = new Vector2(brushSizeVariation.x, brushSizeVariation.y);
-        Vector2 maxBrushSize = new Vector2(brushSizeVariation.z, brushSizeVariation.w);
+        Vector2 minBrushSize = brushSizeVariation.XY();
+        Vector2 maxBrushSize = brushSizeVariation.ZW();
 
         Rect brush = new Rect(startingPosition, Vector2.zero);
 
@@ -45,7 +46,6 @@ public static class RoomFactory
 
         bool roomCarved = false;
         //mark cells at random locations within the room, until the maximum tries is reached
-        //Vector2 brush = new Vector2();
         for (int tries = 0; tries < maxBrushStrokes; tries++)
         {
 
@@ -117,8 +117,9 @@ public static class RoomFactory
         brush.height = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
 
         Rect brushPerimeter = new Rect(brush);
-        brushPerimeter.min -= new Vector2(corridorDirection.y, corridorDirection.x);
-        brushPerimeter.max += new Vector2(corridorDirection.y, corridorDirection.x);
+        Vector2 offset = corridorDirection.YX();
+        brushPerimeter.min -= offset;
+        brushPerimeter.max += offset;
 
         bool hadToExpandBrush = room.Size != Vector2.zero && !room.Bounds.Overlaps(brushPerimeter);
         //make sure this new part will be connected to the room!

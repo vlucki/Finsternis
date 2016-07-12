@@ -10,8 +10,8 @@ public class Character : Entity
 
     public UnityEvent onDeath;
 
-    private RangedValueAttribute _health;
-    private RangedValueAttribute _defense;
+    private EntityAttribute _health;
+    private EntityAttribute _defense;
 
     private bool _dead;
 
@@ -33,7 +33,7 @@ public class Character : Entity
 
     public override void AtributeUpdated(EntityAttribute attribute)
     {
-        if (!_dead && attribute.Value <= 0 && attribute.AttributeName.Equals("hp"))
+        if (!_dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
             Die();
     }
 

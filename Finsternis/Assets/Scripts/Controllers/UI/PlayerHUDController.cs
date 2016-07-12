@@ -19,8 +19,8 @@ public class PlayerHUDController : MonoBehaviour
     [SerializeField]
     private Text _txtMP;
 
-    private RangedValueAttribute _health;
-    private RangedValueAttribute _mana;
+    private EntityAttribute _health;
+    private EntityAttribute _mana;
 
     void Awake()
     {
@@ -65,11 +65,11 @@ public class PlayerHUDController : MonoBehaviour
         }
     }
 
-    private RangedValueAttribute UpdateRangedField(string name, RangedValueAttribute attribute, Text textField)
+    private EntityAttribute UpdateRangedField(string name, EntityAttribute attribute, Text textField)
     {
         if (!attribute)
         {
-            attribute = _character.GetAttribute(name) as RangedValueAttribute;
+            attribute = _character.GetAttribute(name) as EntityAttribute;
         }
         if (attribute)
         {

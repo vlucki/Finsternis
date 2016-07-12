@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int index)
     {
-        if(SceneManager.GetSceneAt(index).name.Equals(mainGameName))
+        if(SceneManager.sceneCount > index && index >= 0 && SceneManager.GetSceneAt(index).name.Equals(mainGameName))
             Init();
     }
 

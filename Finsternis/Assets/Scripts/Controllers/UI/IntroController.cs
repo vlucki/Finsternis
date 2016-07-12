@@ -102,7 +102,7 @@ public class IntroController : MonoBehaviour {
 
     public void Skip()
     {
-        if (_skippable && Input.GetAxis("Cancel") != 0)
+        if (_skippable)
         {
             Timing.KillCoroutine(_transitionHandle);
             FadeOut();

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityQuery;
 
 public static class CorridorFactory
 {
@@ -36,7 +37,7 @@ public static class CorridorFactory
         Vector2 corridorStart = Vector2.zero;
         int tries = 10;
         bool maySpawnCorridor = false;
-        Vector2 sideOffset = new Vector2(direction.y, direction.x);
+        Vector2 sideOffset = direction.YX();
         for (int count = 0; !maySpawnCorridor && count < tries; count++)
         {
             corridorStart = room.GetRandomCell();

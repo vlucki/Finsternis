@@ -1,12 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using ByteSheep.Events;
+using UnityEditorInternal;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityQuery;
 
 public class InputAxisChecker : MonoBehaviour
 {
-
     [System.Serializable]
-    public class AxisInputEvent : UnityEvent<float>
+    public class AxisInputEvent : QuickEvent<float>
     {
         public static implicit operator bool(AxisInputEvent evt)
         {
@@ -14,25 +15,35 @@ public class InputAxisChecker : MonoBehaviour
         }
     }
 
-    public string[] axisToCheck;
+    [System.Serializable]
+    public class AxesToCheck
+    {
+        [AxesName]
+        public string _axis;
 
+        public string Axis { get { return _axis; } }
 
-    public AxisInputEvent[] methodsToCall;
+        public AxisInputEvent onAxisActive;
+    }
+
+    [SerializeField]
+    private AxesToCheck[] _axesToCheck;
 
     // Update is called once per frame
     void Update()
     {
-        if (axisToCheck != null && methodsToCall != null && methodsToCall.Length == axisToCheck.Length)
+        if (_axesToCheck != null && _axesToCheck.Length > 0)
         {
-            for (int i = 0; i < axisToCheck.Length; i++)
+            for (int i = 0; i < _axesToCheck.Length; i++)
             {
-                float value = Input.GetAxis(axisToCheck[i]);
+                float value = Input.GetAxis(_axesToCheck[i].Axis);
                 if (value != 0)
                 {
-                    if (methodsToCall[i])
-                        methodsToCall[i].Invoke(value);
+                    if (_axesToCheck[i].onAxisActive)
+                        _axesToCheck[i].onAxisActive.Invoke(value);
                     else
-                        Debug.LogWarning("No method assigned to axis " + axisToCheck[i]);
+                        Log.Warn("No method assigned to axis " + _axesToCheck[i].Axis);
+
                 }
             }
         }

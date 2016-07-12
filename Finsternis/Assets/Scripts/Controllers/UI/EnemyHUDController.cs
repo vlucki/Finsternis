@@ -14,7 +14,7 @@ public class EnemyHUDController : MonoBehaviour
     private Character _enemy;
 
 
-    private RangedValueAttribute _health;
+    private EntityAttribute _health;
     void Awake()
     {
         if(!_mainCamera)
@@ -57,7 +57,7 @@ public class EnemyHUDController : MonoBehaviour
             transform.position = _enemy.transform.position + new Vector3(0, 2, 0.2f);
             _txtName.text = _enemy.name;
             _enemy.onDeath.AddListener(Enemy_death);
-            _health = _enemy.GetAttribute("hp") as RangedValueAttribute;
+            _health = _enemy.GetAttribute("hp") as EntityAttribute;
         }
     }
 

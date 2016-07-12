@@ -55,7 +55,10 @@ public class DungeonManager : MonoBehaviour
         if (d)
         {
 #if UNITY_EDITOR
-            DestroyImmediate(d.gameObject);
+            if(!UnityEditor.EditorApplication.isPlaying)
+                DestroyImmediate(d.gameObject);
+            else
+                Destroy(d.gameObject);
 #else
             Destroy(d.gameObject);
 #endif

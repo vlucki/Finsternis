@@ -8,6 +8,8 @@ public class Entity : MonoBehaviour
 
     public EntityAction lastInteraction;
 
+    public EntityAttribute test;
+
     [SerializeField]
     protected bool interactable = true;
 
@@ -18,7 +20,7 @@ public class Entity : MonoBehaviour
         if (!attribute)
         {
             attribute = gameObject.AddComponent<T>();
-            attribute.AttributeName = name;
+            attribute.Alias = name;
         }
 
         if (!attribute)
@@ -31,7 +33,7 @@ public class Entity : MonoBehaviour
     {
         EntityAttribute[] attributes = GetComponents<EntityAttribute>();
         foreach (EntityAttribute attribute in attributes)
-            if (attribute.AttributeName.Equals(name))
+            if (attribute.Alias.Equals(name))
                 return attribute;
         return null;
     }

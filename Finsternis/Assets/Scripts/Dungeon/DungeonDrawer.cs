@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using UnityQuery;
 using Random = UnityEngine.Random;
 
 public class DungeonDrawer : MonoBehaviour
@@ -59,7 +59,8 @@ public class DungeonDrawer : MonoBehaviour
 
         onDrawEnd.Invoke();
 #if UNITY_EDITOR
-        UnityEditor.Undo.RecordObject(this, name + " (Drawn)");
+        if(!UnityEditor.EditorApplication.isPlaying)
+            UnityEditor.Undo.RecordObject(this, name + " (Drawn)");
 #endif
     }
 
@@ -69,11 +70,7 @@ public class DungeonDrawer : MonoBehaviour
             return;
         foreach (Transform t in _dungeon.transform)
         {
-#if UNITY_EDITOR
-            DestroyImmediate(t);
-#else
-            Destroy(t);
-#endif
+            DestroyObject(t.gameObject);
         }
     }
 
@@ -203,11 +200,7 @@ public class DungeonDrawer : MonoBehaviour
             {
                 if (exits != null && exits.Length > 0)
                 {
-#if UNITY_EDITOR
-                    DestroyImmediate(floor);
-#else
-                    Destroy(floor);
-#endif
+                    DestroyObject(floor);
                     floor = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
                 }
                 else
@@ -231,11 +224,7 @@ public class DungeonDrawer : MonoBehaviour
                     pedestal.transform.SetParent(floor.transform);
                     pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
                     pedestal.transform.localPosition = Vector3.zero;
-#if UNITY_EDITOR
-                    DestroyImmediate(pedestal.GetComponent<CapsuleCollider>());
-#else
-                    Destroy(pedestal.GetComponent<CapsuleCollider>());
-#endif
+                    DestroyObject(pedestal.GetComponent<CapsuleCollider>());
                 }
             }
         }
@@ -410,18 +399,11 @@ public class DungeonDrawer : MonoBehaviour
 
         foreach (MeshFilter m in meshFilters)
         {
-#if UNITY_EDITOR
-            DestroyImmediate(m.gameObject);
-#else
-            Destroy(m.gameObject);
-#endif
+            DestroyObject(m.gameObject);
         }
 
-#if UNITY_EDITOR
-        DestroyImmediate(parent);
-#else
-        Destroy(m.gameObject);
-#endif
+        DestroyObject(parent);
+
         foreach (GameObject section in sections)
             section.transform.Translate(originalPos);
 
@@ -452,5 +434,17 @@ public class DungeonDrawer : MonoBehaviour
 
         sectionContainer.layer = original.layer;
         return sectionContainer;
+    }
+
+    private void DestroyObject(GameObject obj)
+    {
+#if UNITY_EDITOR
+        if (!UnityEditor.EditorApplication.isPlaying)
+            DestroyImmediate(obj);
+        else
+            Destroy(obj);
+#else
+        Destroy(obj);
+#endif
     }
 }
