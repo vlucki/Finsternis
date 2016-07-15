@@ -4,65 +4,68 @@ using System;
 using System.Collections.Generic;
 using MovementEffects;
 
-[RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
-public class DungeonManager : MonoBehaviour
+namespace Finsternis
 {
-    [SerializeField]
-    private DungeonFactory _dFactory;
-
-    [SerializeField]
-    private DungeonDrawer _dDrawer;
-
-    private Dungeon _currentDungeon;
-
-    public DungeonFactory Factory { get { return _dFactory; } }
-
-    public DungeonDrawer Drawer { get { return _dDrawer; } }
-
-    public Dungeon CurrentDungeon { get { return _currentDungeon; } }
-
-    void Awake()
+    [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
+    public class DungeonManager : MonoBehaviour
     {
-        if (!_dDrawer || !_dFactory)
-        {
-            _dDrawer = GetComponent<DungeonDrawer>();
-            _dFactory = GetComponent<DungeonFactory>();
-        }
-        _dFactory.onGenerationEnd.AddListener((dungeon) =>
-        {
-            GameManager.Instance.DungeonCount++;
-            _currentDungeon = dungeon;
+        [SerializeField]
+        private DungeonFactory _dFactory;
 
-            dungeon.OnGoalCleared.AddListener(() =>
+        [SerializeField]
+        private DungeonDrawer _dDrawer;
+
+        private Dungeon _currentDungeon;
+
+        public DungeonFactory Factory { get { return _dFactory; } }
+
+        public DungeonDrawer Drawer { get { return _dDrawer; } }
+
+        public Dungeon CurrentDungeon { get { return _currentDungeon; } }
+
+        void Awake()
+        {
+            if (!_dDrawer || !_dFactory)
             {
-                if (dungeon.RemainingGoals <= 0)
+                _dDrawer = GetComponent<DungeonDrawer>();
+                _dFactory = GetComponent<DungeonFactory>();
+            }
+            _dFactory.onGenerationEnd.AddListener((dungeon) =>
+            {
+                GameManager.Instance.DungeonCount++;
+                _currentDungeon = dungeon;
+
+                dungeon.OnGoalCleared.AddListener(() =>
                 {
-                    Exit e = FindObjectOfType<Exit>();
-                    e.Unlock();
-                }
+                    if (dungeon.RemainingGoals <= 0)
+                    {
+                        Exit e = FindObjectOfType<Exit>();
+                        e.Unlock();
+                    }
+                });
             });
-        });
-    }
+        }
 
-    void Start()
-    {
-        CreateDungeon();
-    }
-
-    public void CreateDungeon()
-    {
-        Dungeon d = CurrentDungeon;
-        if (d)
+        void Start()
         {
+            CreateDungeon();
+        }
+
+        public void CreateDungeon()
+        {
+            Dungeon d = CurrentDungeon;
+            if (d)
+            {
 #if UNITY_EDITOR
-            if(!UnityEditor.EditorApplication.isPlaying)
-                DestroyImmediate(d.gameObject);
-            else
-                Destroy(d.gameObject);
+                if (!UnityEditor.EditorApplication.isPlaying)
+                    DestroyImmediate(d.gameObject);
+                else
+                    Destroy(d.gameObject);
 #else
             Destroy(d.gameObject);
 #endif
+            }
+            _dFactory.Generate();
         }
-        _dFactory.Generate();
     }
 }

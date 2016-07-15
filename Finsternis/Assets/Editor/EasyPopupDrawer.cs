@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -68,44 +66,3 @@ public class EasyPopupDrawer : PropertyDrawer
     }
 }
 #endif
-
-public class PopupAttribute : PropertyAttribute
-{
-    public enum PopUpType
-    {
-        INT = 0,
-        FLOAT = 1,
-        STRING = 2
-    }
-
-    public readonly PopUpType popupType;
-
-    private ArrayList _items;
-
-    public ArrayList Items { get { return _items; } }
-
-    public PopupAttribute(params string[] items)
-    {
-        popupType = PopUpType.STRING;
-        MakeItems(items);
-    }
-
-    public PopupAttribute(params int[] items)
-    {
-        popupType = PopUpType.INT;
-        MakeItems(items);
-    }
-
-    public PopupAttribute(params float[] items)
-    {
-        popupType = PopUpType.FLOAT;
-        MakeItems(items);
-    }
-
-    private void MakeItems<T>(T[] items)
-    {
-        if (items == null || items.Length < 1)
-            throw new ArgumentException("Must pass at least one item to popup!");
-        _items = ArrayList.ReadOnly(new ArrayList(items));
-    }
-}

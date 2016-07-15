@@ -809,7 +809,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1297907301}
         m_MethodName: StartNewGame
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3298,6 +3298,7 @@ MonoBehaviour:
   _eventSystem: {fileID: 457131083}
   _slerpAmount: 0.15
   _rotationThreshold: 1
+  _mainGameScene: dungeonGeneration
 --- !u!95 &1297907302
 Animator:
   serializedVersion: 3

@@ -1,56 +1,42 @@
-﻿using ByteSheep.Events;
-using UnityEditorInternal;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityQuery;
 
 public class InputAxisChecker : MonoBehaviour
 {
-    [System.Serializable]
-    public class AxisInputEvent : QuickEvent<float>
-    {
-        public static implicit operator bool(AxisInputEvent evt)
-        {
-            return evt != null;
-        }
-    }
-
-    [System.Serializable]
-    public class AxesToCheck
-    {
-        [AxesName]
-        public string _axis;
-
-        public string Axis { get { return _axis; } }
-
-        public AxisInputEvent onAxisActive;
-    }
-
     [SerializeField]
-    private AxesToCheck[] _axesToCheck;
-
-    // Update is called once per frame
+    private AxisCheckInfo[] _axesToCheck;
+    
     void Update()
     {
         if (_axesToCheck != null && _axesToCheck.Length > 0)
         {
             for (int i = 0; i < _axesToCheck.Length; i++)
             {
-                float value = Input.GetAxis(_axesToCheck[i].Axis);
-                if (value != 0)
-                {
-                    if (_axesToCheck[i].onAxisActive)
-                        _axesToCheck[i].onAxisActive.Invoke(value);
+                AxisCheckInfo axis = _axesToCheck[i];
+                float value = Input.GetAxis(axis.Axis);
+                if (ShouldTrigger(axis, value))
+                    if (axis.onAxisActive)
+                        axis.onAxisActive.Invoke(value);
                     else
-                        Log.Warn("No method assigned to axis " + _axesToCheck[i].Axis);
-
-                }
+                        Log.Warn("No method assigned to axis " + axis.Axis);
             }
-        }
-        else
-        {
-            throw new System.InvalidOperationException("Each axis must correspond to at least one method call!");
         }
     }
 
+    private bool ShouldTrigger(AxisCheckInfo axis, float value)
+    {
+        switch (axis.thresholdType)
+        {
+            case AxisCheckInfo.ThresholdType.DIFFERENT_THAN:
+                return value != axis.thresholdValue;
+            case AxisCheckInfo.ThresholdType.LESS_THAN:
+                return value < axis.thresholdValue;
+            case AxisCheckInfo.ThresholdType.GREATER_THAN:
+                return value > axis.thresholdValue;
+            case AxisCheckInfo.ThresholdType.EQUAL_TO:
+                return value == axis.thresholdValue;
+            default:
+                return false;
+        }
+    }
 }

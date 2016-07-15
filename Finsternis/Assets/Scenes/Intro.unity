@@ -319,7 +319,7 @@ GameObject:
   - 114: {fileID: 1204894847}
   - 114: {fileID: 1204894848}
   m_Layer: 0
-  m_Name: ScriptContainer
+  m_Name: Transitions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,31 +371,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _axesToCheck:
   - _axis: Cancel
+    thresholdType: 3
+    thresholdValue: 0
     onAxisActive:
-      m_inspectorListHeight: 63
-      m_persistentCalls:
-        m_calls:
-        - m_genericMenuData:
-            m_selectedComponent: 2
-            m_selectedMember: 9
-            m_isDynamic: 0
-          m_target: {fileID: 1204894847}
-          m_memberName: Skip
-          m_memberType: 8
-          m_argument:
-            m_supportedType: 0
-            m_stringArgument: 
-            m_intArgument: 0
-            m_floatArgument: 0
-            m_boolArgument: 0
-            m_colorArgument: {r: 0, g: 0, b: 0, a: 0}
-            m_vector2Argument: {x: 0, y: 0}
-            m_vector3Argument: {x: 0, y: 0, z: 0}
-            m_objectArgument: {fileID: 0}
-            m_gameObjectArgument: {fileID: 0}
-            m_transformArgument: {fileID: 0}
-          m_isDynamic: 0
-          m_isCallEnabled: 1
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1204894847}
+          m_MethodName: Skip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: AxisCheckInfo+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!1 &1293838796
 GameObject:
   m_ObjectHideFlags: 0

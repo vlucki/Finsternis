@@ -3,30 +3,33 @@ using System.Collections;
 using UnityEngine.Events;
 using System;
 
-[RequireComponent(typeof(Dungeon))]
-public abstract class DungeonGoal : MonoBehaviour
+namespace Finsternis
 {
-    [Serializable]
-    public class GoalReachedEvent : UnityEvent<DungeonGoal>
+    [RequireComponent(typeof(Dungeon))]
+    public abstract class DungeonGoal : MonoBehaviour
     {
-        public static implicit operator bool(GoalReachedEvent evt)
+        [Serializable]
+        public class GoalReachedEvent : UnityEvent<DungeonGoal>
         {
-            return evt != null;
+            public static implicit operator bool(GoalReachedEvent evt)
+            {
+                return evt != null;
+            }
         }
+
+        [SerializeField]
+        public GoalReachedEvent onGoalReached;
+
+        public DungeonGoal()
+        {
+            if (!onGoalReached)
+                onGoalReached = new GoalReachedEvent();
+        }
+
+        protected bool goalReached;
+
+        public bool GoalReached { get { return goalReached; } }
+
+        public abstract void Check();
     }
-
-    [SerializeField]
-    public GoalReachedEvent onGoalReached;
-
-    public DungeonGoal()
-    {
-        if (!onGoalReached)
-            onGoalReached = new GoalReachedEvent();
-    }
-
-    protected bool goalReached;
-
-    public bool GoalReached { get { return goalReached; } }
-
-    public abstract void Check();
 }

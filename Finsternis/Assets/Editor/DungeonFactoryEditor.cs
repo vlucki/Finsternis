@@ -1,45 +1,49 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(DungeonFactory), true)]
-public class DungeonFactoryEditor : QuickReorder
+namespace Finsternis
 {
-    string seed = "0";
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(DungeonFactory), true)]
+    public class DungeonFactoryEditor : QuickReorder
     {
-        DrawQuickReorderHeader();
-        DungeonFactory tgt = target as DungeonFactory;
-        if (tgt)
+        string seed = "0";
+        public override void OnInspectorGUI()
         {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Fixed seed:");
-            seed = GUILayout.TextField(seed);
-            if (GUILayout.Button("Generate"))
+            DrawQuickReorderHeader();
+            DungeonFactory tgt = target as DungeonFactory;
+            if (tgt)
             {
-                bool seedFound = false;
-                int dungeonSeed = 0;
-                if (!int.TryParse(seed, out dungeonSeed))
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Fixed seed:");
+                seed = GUILayout.TextField(seed);
+                if (GUILayout.Button("Generate"))
                 {
-                    if (PlayerPrefs.HasKey(DungeonFactory.SEED_KEY))
+                    bool seedFound = false;
+                    int dungeonSeed = 0;
+                    if (!int.TryParse(seed, out dungeonSeed))
                     {
-                        dungeonSeed = PlayerPrefs.GetInt(DungeonFactory.SEED_KEY, 0);
+                        if (PlayerPrefs.HasKey(DungeonFactory.SEED_KEY))
+                        {
+                            dungeonSeed = PlayerPrefs.GetInt(DungeonFactory.SEED_KEY, 0);
+                            seedFound = true;
+                        }
+                    }
+                    else
+                    {
                         seedFound = true;
                     }
-                } else
-                {
-                    seedFound = true;
-                }
-                if (seedFound)
-                    tgt.Generate(dungeonSeed);
-                else
-                    tgt.Generate();
+                    if (seedFound)
+                        tgt.Generate(dungeonSeed);
+                    else
+                        tgt.Generate();
 
-                tgt.GetComponent<DungeonDrawer>().Draw(FindObjectOfType<Dungeon>());
+                    tgt.GetComponent<DungeonDrawer>().Draw(FindObjectOfType<Dungeon>());
+                }
+                GUILayout.EndHorizontal();
             }
-            GUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+            DrawDefaultInspector();
         }
-        EditorGUILayout.Space();
-        EditorGUILayout.Space();
-        DrawDefaultInspector();
     }
 }

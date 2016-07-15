@@ -1,13 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using System;
 
-public class AxesNameAttribute : PropertyAttribute { }
-
-#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(AxesNameAttribute))]
 public class CustomAxesDrawer : PropertyDrawer
 {
@@ -58,6 +52,7 @@ public class CustomAxesDrawer : PropertyDrawer
         {
             InitializeAxes(property);
             SelectAxis(property);
+
             EditorGUI.BeginChangeCheck();
             selectedIndex = EditorGUI.Popup(position, label, selectedIndex, axes);
             if(EditorGUI.EndChangeCheck())
@@ -71,11 +66,8 @@ public class CustomAxesDrawer : PropertyDrawer
 
     private void SelectAxis(SerializedProperty property)
     {
-        for(selectedIndex = axes.Length - 1; selectedIndex >= 0; selectedIndex--)
-        {
-            if (axes[selectedIndex].text.Equals(property.stringValue))
-                break;
-        }
+        for (int i = 0; i < axes.Length; ++i)
+            if (axes[i].text.Equals(property.stringValue))
+            selectedIndex = i;
     }
 }
-#endif

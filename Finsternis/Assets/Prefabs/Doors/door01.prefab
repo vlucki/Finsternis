@@ -48,7 +48,7 @@ GameObject:
   - 114: {fileID: 11405996}
   - 114: {fileID: 11452854}
   - 65: {fileID: 6575378}
-  - 114: {fileID: 11469170}
+  - 114: {fileID: 11434636}
   m_Layer: 0
   m_Name: door01
   m_TagString: Untagged
@@ -4166,7 +4166,31 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   lastInteraction: {fileID: 0}
+  test: {fileID: 0}
   interactable: 1
+--- !u!114 &11434636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _constraints: 3
+  _name: Health
+  _alias: hp
+  _value: 1
+  _min: 0
+  _max: 1
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _autoNotifyEntity: 0
 --- !u!114 &11452854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4178,27 +4202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f602eebf3a264db2a68aa26fbe3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11469170
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: hp
-  value: 1
-  _autoNotifyEntity: 1
-  _min: 0
-  _max: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

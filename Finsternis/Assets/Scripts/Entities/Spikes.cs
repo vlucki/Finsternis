@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class Spikes : TrapBehaviour
+﻿namespace Finsternis
 {
-    public override void Interact(EntityAction action)
+    public class Spikes : TrapBehaviour
     {
-        attack.Perform(action.Agent, DamageInfo.DamageType.physical);
+        public override void Interact(EntityAction action)
+        {
+            attack.Perform(action.Agent, DamageInfo.DamageType.physical);
+        }
     }
 }

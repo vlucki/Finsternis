@@ -457,9 +457,9 @@ GameObject:
   - 114: {fileID: 11476516}
   - 114: {fileID: 11400542}
   - 114: {fileID: 11424050}
-  - 114: {fileID: 11423332}
   - 114: {fileID: 11446764}
   - 114: {fileID: 11463148}
+  - 114: {fileID: 11416438}
   m_Layer: 9
   m_Name: Balthazar
   m_TagString: Player
@@ -1218,7 +1218,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1075573, y: 0, z: -1.3642808}
+  m_LocalPosition: {x: 3.1075573, y: -0, z: -1.3642808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1390,19 +1390,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: def
-  value: 1
-  _autoNotifyEntity: 1
+  _constraints: 1
+  _name: Defense
+  _alias: def
+  _value: 1
   _min: 0
-  _max: 99
+  _max: 0
+  onValueChanged:
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
+  _autoNotifyEntity: 1
 --- !u!114 &11406364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1411,19 +1412,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: str
-  value: 1
-  _autoNotifyEntity: 1
+  _constraints: 3
+  _name: Mana
+  _alias: mp
+  _value: 10
   _min: 0
-  _max: 999
+  _max: 10
+  onValueChanged:
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
+  _autoNotifyEntity: 1
 --- !u!114 &11406562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1438,7 +1440,7 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: CharacterController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Finsternis.CharacterController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   _fallSpeedThreshold: -0.2
   _turningSpeed: 0.05
@@ -1455,7 +1457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0.175
   _maxVelocity: 2
---- !u!114 &11423332
+--- !u!114 &11416438
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1463,19 +1465,86 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: mp
-  value: 10
-  _autoNotifyEntity: 1
-  _min: 0
-  _max: 10
+  _axesToCheck:
+  - _axis: Jump
+    thresholdType: 2
+    thresholdValue: 0
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11406562}
+          m_MethodName: Attack
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - _axis: Fire1
+    thresholdType: 2
+    thresholdValue: 0
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11406562}
+          m_MethodName: Attack
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - _axis: Fire2
+    thresholdType: 2
+    thresholdValue: 0
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11406562}
+          m_MethodName: Attack
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - _axis: Fire3
+    thresholdType: 2
+    thresholdValue: 0
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11406562}
+          m_MethodName: Attack
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!114 &11424050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1484,19 +1553,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: dmg
-  value: 4
-  _autoNotifyEntity: 1
+  _constraints: 1
+  _name: Magic Defense
+  _alias: mdef
+  _value: 1
   _min: 0
-  _max: 999
+  _max: 0
+  onValueChanged:
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
+  _autoNotifyEntity: 1
 --- !u!114 &11431546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1505,19 +1575,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: mdef
-  value: 3
-  _autoNotifyEntity: 1
+  _constraints: 1
+  _name: Damage
+  _alias: dmg
+  _value: 2
   _min: 0
-  _max: 999
+  _max: 0
+  onValueChanged:
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
+  _autoNotifyEntity: 1
 --- !u!114 &11435086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1526,19 +1597,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: hp
-  value: 10
-  _autoNotifyEntity: 1
+  _constraints: 3
+  _name: Health
+  _alias: hp
+  _value: 10
   _min: 0
   _max: 10
+  onValueChanged:
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
+  _autoNotifyEntity: 1
 --- !u!114 &11446764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1553,9 +1625,9 @@ MonoBehaviour:
   _slot: 0
   castTime: 0.2
   cooldownTime: 0.5
-  fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
-  summonPoint: {fileID: 460662}
-  summonOffset: 0.2
+  _fireballPrefab: {fileID: 0}
+  _summonPoint: {fileID: 0}
+  _summonOffset: 0
 --- !u!114 &11463148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1583,19 +1655,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 170350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bce4aebdedd354fac634ec1191ff9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _constraints: 1
+  _name: Speed
+  _alias: spd
+  _value: 3
+  _min: 0
+  _max: 0
   onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  attributeName: spd
-  value: 3
+    m_inspectorListHeight: 63
+    m_persistentCalls:
+      m_calls: []
   _autoNotifyEntity: 1
-  _min: 1
-  _max: 999
 --- !u!114 &11487014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1624,6 +1697,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   lastInteraction: {fileID: 0}
+  test: {fileID: 0}
   interactable: 1
   onDeath:
     m_PersistentCalls:

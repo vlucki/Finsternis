@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
-using ByteSheep.Events;
 
 [RequireComponent(typeof(Entity))]
 [Serializable]
 public class EntityAttribute : MonoBehaviour
 {
     [Serializable]
-    public class AttributeValueChangedEvent : QuickEvent<EntityAttribute>
+    public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
     {
         public static implicit operator bool(AttributeValueChangedEvent evt)
         {
@@ -52,6 +51,8 @@ public class EntityAttribute : MonoBehaviour
 
     [SerializeField]
     private bool _autoNotifyEntity = true;
+
+    private Entity owner;
 
     public string Name
     {
@@ -133,14 +134,13 @@ public class EntityAttribute : MonoBehaviour
 
     void Awake()
     {
+        owner = GetComponent<Entity>();
         if (_autoNotifyEntity)
         {
-            Entity e = GetComponent<Entity>();
-
             if (!onValueChanged)
                 onValueChanged = new AttributeValueChangedEvent();
 
-            onValueChanged.AddListener(e.AtributeUpdated);
+            onValueChanged.AddListener(owner.AtributeUpdated);
         }
     }
     
@@ -246,6 +246,30 @@ public class EntityAttribute : MonoBehaviour
     {
         //Ensure consistency of fields
         SetMax(_max, true);
+    }
+
+    /// <summary>
+    /// Shorthand for the Add method.
+    /// </summary>
+    /// <param name="attribute">The attribute that should have its value increased.</param>
+    /// <param name="amount">How much to add.</param>
+    /// <returns>The attribute passed, after calling Add(amount) on it.</returns>
+    public static EntityAttribute operator +(EntityAttribute attribute, float amount)
+    {
+        attribute.Add(amount);
+        return attribute;
+    }
+
+    /// <summary>
+    /// Shorthand for the Subtract method.
+    /// </summary>
+    /// <param name="attribute">The attribute that should have its value decreased.</param>
+    /// <param name="amount">How much to subtract.</param>
+    /// <returns>The attribute passed, after calling Subtract(amount) on it.</returns>
+    public static EntityAttribute operator -(EntityAttribute attribute, float amount)
+    {
+        attribute.Subtract(amount);
+        return attribute;
     }
 
     public void Subtract(float value)

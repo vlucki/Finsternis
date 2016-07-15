@@ -1,56 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
+using UnityQuery;
 
-public class AttackAction : EntityAction
+namespace Finsternis
 {
-    EntityAttribute damage;
-    private DamageInfo dmgInfo;
-
-    public DamageInfo DamageInfo
+    public class AttackAction : EntityAction
     {
-        get { return dmgInfo; }
-    }
+        EntityAttribute damage;
+        private DamageInfo dmgInfo;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        if (!damage)
-            damage = agent.GetAttribute("dmg") as EntityAttribute;
-        if (!damage)
+        public DamageInfo DamageInfo
         {
-            damage = gameObject.AddComponent<EntityAttribute>();
-            damage.name = "dmg";
+            get { return dmgInfo; }
         }
-    }
 
-    /// <summary>
-    /// Performs an attack action.
-    /// </summary>
-    /// <param name="parameters">
-    /// Every parameter needed to perform this action.</br>
-    /// - (REQUIRED) One or more targeted Entities;
-    /// - (OPTIONAL) Type of damage;
-    /// - (OPTIONAL) Extra damage (from buffs and whatnot);
-    /// </param>
-    public override void Perform(params object[] parameters)
-    {
-        if (parameters.Length < 1)
-            throw new ArgumentException("Cannot execute the attack logic without any parameters.");
+        protected override void Awake()
+        {
+            base.Awake();
+            if (!damage)
+                damage = agent.GetAttribute("dmg") as EntityAttribute;
+            if (!damage)
+            {
+                damage = gameObject.AddComponent<EntityAttribute>();
+                damage.Name = "Damage";
+                damage.Alias = "dmg";
+                damage.SetValue(1);
+            }
+        }
 
-        Entity[] targets;
-        if (!GetParameters(parameters, out targets))
-            throw new ArgumentException("Cannot execute the attack logic without a target.");
+        /// <summary>
+        /// Performs an attack action.
+        /// </summary>
+        /// <param name="parameters">
+        /// Every parameter needed to perform this action.</br>
+        /// - (REQUIRED) One or more targeted Entities;
+        /// - (OPTIONAL) Type of damage;
+        /// - (OPTIONAL) Extra damage (from buffs and whatnot);
+        /// </param>
+        public override void Perform(params object[] parameters)
+        {
+            if (parameters.Length < 1)
+                throw new ArgumentException("Cannot execute the attack logic without any parameters.");
 
-        DamageInfo.DamageType damageType;
-        GetParameter(parameters, out damageType);
+            Entity[] targets;
+            if (!GetParameters(parameters, out targets))
+                throw new ArgumentException("Cannot execute the attack logic without a target.");
 
-        float extraDamage;
-        GetParameter(parameters, out extraDamage);
+            DamageInfo.DamageType damageType;
+            if (!GetParameter(parameters, out damageType))
+                Log.Warn("No damage type found, using default value.");
 
-        float totalDamage = damage.Value + extraDamage;
+            float extraDamage;
+            GetParameter(parameters, out extraDamage);
 
-        dmgInfo = new DamageInfo(damageType, totalDamage, agent);
-        foreach (Entity target in targets)
-            target.Interact(this);
+            float totalDamage = damage.Value + extraDamage;
+
+            dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+            foreach (Entity target in targets)
+                target.Interact(this);
+        }
     }
 }

@@ -29,8 +29,8 @@ public class IntroController : MonoBehaviour {
     [SerializeField]
     private Graphic[] _graphicsToFade;
 
-    [SerializeField]
-    private string _sceneToLoad = "MainMenu";
+    [SerializeField][SceneSelection]
+    private string _sceneToLoad;
 
     private bool _loadingNextScene = false;
     private Queue<Graphic> _graphicsQueue;

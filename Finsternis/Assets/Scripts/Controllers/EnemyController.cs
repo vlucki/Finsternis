@@ -79,7 +79,7 @@ namespace Finsternis
                         }
                         else if (hasTarget && transform.position != _targetLocation - GetOffset(_targetLocation))
                         {
-                            Move((_target.transform.position - transform.position).normalized);
+                            SetDirection((_target.transform.position - transform.position).normalized);
                         }
                         else
                         {
@@ -114,12 +114,12 @@ namespace Finsternis
             timeSinceLastWander += Time.deltaTime;
             if (timeSinceLastWander >= _wanderCycle)
             {
-                Move(GetWanderingDirection());
+                SetDirection(GetWanderingDirection());
                 timeSinceLastWander = 0;
             }
             else
             {
-                Move(GetComponent<Movement>().Direction);
+                SetDirection(GetComponent<Movement>().Direction);
             }
         }
 

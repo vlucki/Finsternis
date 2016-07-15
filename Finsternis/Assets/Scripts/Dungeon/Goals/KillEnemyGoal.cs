@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 
-public class KillEnemyGoal : DungeonGoal
+namespace Finsternis
 {
-    public GameObject enemy;
-    public int quantity;
-
-    public override void Check()
+    public class KillEnemyGoal : DungeonGoal
     {
-        if (quantity <= 0)
+        public GameObject enemy;
+        public int quantity;
+
+        public override void Check()
         {
-            goalReached = true;
-            onGoalReached.Invoke(this);
+            if (quantity <= 0)
+            {
+                goalReached = true;
+                onGoalReached.Invoke(this);
+            }
         }
-    }
 
-    public void EnemyKilled()
-    {
-        if (!goalReached)
+        public void EnemyKilled()
         {
-            quantity--;
-            Check();
+            if (!goalReached)
+            {
+                quantity--;
+                Check();
+            }
         }
     }
 }

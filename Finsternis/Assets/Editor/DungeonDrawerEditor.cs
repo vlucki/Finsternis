@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(DungeonDrawer))]
-public class DungeonDrawerEditor : QuickReorder {
-
-	public override void OnInspectorGUI()
+namespace Finsternis
+{
+    [CustomEditor(typeof(DungeonDrawer))]
+    public class DungeonDrawerEditor : QuickReorder
     {
-        base.OnInspectorGUI();
 
-        DungeonDrawer tgt = target as DungeonDrawer;
-        if(tgt)
+        public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
 
-            if (GUILayout.Button("Draw"))
-                tgt.Draw(FindObjectOfType<Dungeon>());
+            DungeonDrawer tgt = target as DungeonDrawer;
+            if (tgt)
+            {
+
+                if (GUILayout.Button("Draw"))
+                    tgt.Draw(FindObjectOfType<Dungeon>());
+            }
         }
     }
 }

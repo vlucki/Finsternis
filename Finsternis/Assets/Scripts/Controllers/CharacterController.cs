@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Events;
 using System;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -39,6 +40,7 @@ namespace Finsternis
         private bool _locked;
         private int _unlockDelay;
         private Vector3 LastDirection;
+        private Vector3 currentDirection;
 
         public bool Locked { get { return _locked || _unlockDelay > 0; } }
 
@@ -80,7 +82,10 @@ namespace Finsternis
                 }
 
                 if (!_locked)
-                    characterAnimator.SetFloat(SpeedFloat, characterMovement.GetHorizontalSpeed());
+                {
+                    UpdateDirection();
+                    characterAnimator.SetFloat(SpeedFloat, characterMovement.GetSpeedNoY());
+                }
             }
         }
 
@@ -105,19 +110,59 @@ namespace Finsternis
             }
         }
 
-        protected virtual void Move(Vector3 direction)
+        public void SetXDirection(float horizontal)
         {
-            if (IsStaggered() || _locked)
-                return;
 
-            direction.y = 0;
-            Vector3 dir = direction;
-            if (direction == Vector3.zero)
-                dir = LastDirection;
-            else
-                LastDirection = dir;
-            transform.forward = Vector3.Slerp(transform.forward, dir, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, direction) / 720));
-            GetComponent<Movement>().Direction = direction;
+            if (CanMove())
+            {
+                currentDirection.x = horizontal;
+
+                if (currentDirection != Vector3.zero)
+                    LastDirection = currentDirection;
+            }
+        }
+
+        public void SetZDirection(float vertical)
+        {
+            if (CanMove())
+            {
+                currentDirection.z = vertical;
+
+                if (currentDirection != Vector3.zero)
+                    LastDirection = currentDirection;
+            }
+        }
+
+        protected virtual void SetDirection(Vector3 direction)
+        {
+            if (CanMove())
+            {
+                currentDirection = direction.WithY(0);
+
+                if (currentDirection != Vector3.zero)
+                    LastDirection = currentDirection;
+
+                //transform.forward = Vector3.Slerp(transform.forward, dir, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, direction) / 720));
+                //GetComponent<Movement>().Direction = direction;
+
+            }
+        }
+
+        private void UpdateDirection()
+        {
+            transform.forward = Vector3.Slerp(transform.forward, LastDirection, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, currentDirection) / 720));
+            GetComponent<Movement>().Direction = currentDirection;
+        }
+
+        protected virtual bool CanMove()
+        {
+            bool staggered = IsStaggered();
+            bool attacking = IsAttacking();
+            print("staggered - " + staggered);
+            print("attacking - " + attacking);
+            print("_locked - " + _locked);
+
+            return !(_locked || staggered || attacking);
         }
 
         public bool IsAttacking()
@@ -154,11 +199,22 @@ namespace Finsternis
         {
             ActivateTrigger(HitBool, HitType, type, lockMovement);
         }
-
-        public virtual void Attack(int type = 0, bool lockMovement = true)
+        public virtual void Attack(int type = 0)
         {
+            Attack(true, type);
+        }
+        public virtual void Attack(bool lockMovement, int type = 0)
+        {
+            if (!CanAttack())
+                return;
+
             ActivateTrigger(AttackBool, AttackType, type, lockMovement);
             onAttack.Invoke(type);
+        }
+
+        public virtual bool CanAttack()
+        {
+            return !IsAttacking();
         }
 
         public void Lock()

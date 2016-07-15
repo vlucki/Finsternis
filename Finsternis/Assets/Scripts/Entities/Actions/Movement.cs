@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
     public Vector3 Direction
     {
         get { return _direction; }
-        set { _direction = value.normalized; }
+        set { _direction = value; }
     }
     
     protected virtual void Start()
@@ -41,7 +41,7 @@ public class Movement : MonoBehaviour
         if (_direction != Vector3.zero)
         {
             body.AddForce(_direction * _speed, ForceMode.VelocityChange);
-            if (GetHorizontalSpeed() > _maxVelocity)
+            if (GetSpeedNoY() > _maxVelocity)
                 body.AddForce(-_direction * Speed, ForceMode.VelocityChange);
         }
     }
@@ -51,7 +51,7 @@ public class Movement : MonoBehaviour
         return body.velocity.magnitude;
     }
 
-    internal float GetHorizontalSpeed()
+    internal float GetSpeedNoY()
     {
         if(body)
             return Mathf.Pow(body.velocity.x, 2) + Mathf.Pow(body.velocity.z, 2);
