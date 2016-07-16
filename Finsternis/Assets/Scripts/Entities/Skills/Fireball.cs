@@ -6,6 +6,7 @@ namespace Finsternis
 {
     public class Fireball : Skill
     {
+        [Space(30)]
         [Header("Fireball attributes")]
 
         [SerializeField]

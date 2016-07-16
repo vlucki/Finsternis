@@ -15,10 +15,10 @@ namespace Finsternis
             {
                 _elapsedTime += Time.deltaTime;
             }
-            else if (!animator.GetBool(CharacterController.DeadBool))
+            else if (!animator.GetBool(CharController.DeadBool))
             {
-                animator.SetBool(CharacterController.DyingBool, false);
-                animator.SetBool(CharacterController.DeadBool, true);
+                animator.SetBool(CharController.DyingBool, false);
+                animator.SetBool(CharController.DeadBool, true);
             }
         }
     }

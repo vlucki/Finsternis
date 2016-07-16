@@ -71,7 +71,6 @@ public class QuickReorder : Editor
         {
             if (EditorUtility.DisplayDialog("Delete component?", "This action cannot be undone.", "Proceed", "Cancel"))
             {
-                target.hideFlags = HideFlags.HideAndDontSave;
                 DestroyImmediate(target, true);
                 GUIUtility.ExitGUI();
                 return;

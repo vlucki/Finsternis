@@ -8,13 +8,13 @@ namespace Finsternis
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            animator.SetBool(CharacterController.AttackBool, false);
-            animator.GetComponent<CharacterController>().Lock();
+            animator.SetBool(CharController.AttackBool, false);
+            animator.GetComponent<CharController>().Lock();
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.GetComponent<CharacterController>().Unlock();
+            animator.GetComponent<CharController>().Unlock();
         }
     }
 }

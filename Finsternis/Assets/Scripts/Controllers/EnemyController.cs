@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 namespace Finsternis
 {
     [RequireComponent(typeof(Movement), typeof(Animator))]
-    public class EnemyController : CharacterController
+    public class EnemyController : CharController
     {
         [SerializeField]
         [Range(1, 50)]
@@ -60,7 +60,7 @@ namespace Finsternis
                     {
                         timeSinceLastSawTarget += Time.deltaTime;
                         hasTarget = (timeSinceLastSawTarget >= interestPersistence); //stop trying to go towards the target
-                        if (_target.GetComponent<CharacterController>().IsDead())
+                        if (_target.GetComponent<CharController>().IsDead())
                         {
                             hasTarget = false;
                         }

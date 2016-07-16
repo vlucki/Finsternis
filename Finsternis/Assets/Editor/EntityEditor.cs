@@ -17,8 +17,10 @@ public class EntityEditor : Editor
     private Vector2 scrollPos;
     private GUIStyle removeAttributeButtonStyle;
 
-    protected void OnEnable()
+    protected void Init()
     {
+        if (entity != null)
+            return;
         entity = target as Entity;
 
         PopulateAttributesList();
@@ -259,10 +261,21 @@ public class EntityEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        Init();
         base.OnInspectorGUI();
-        Rect r = EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginVertical();
         EditorGUILayout.Space();
+        EditorGUILayout.BeginHorizontal();
         displayAttributes = EditorGUILayout.Foldout(displayAttributes, "| ATTRIBUTES |", foldoutStyle);
+
+
+        GUILayout.FlexibleSpace();
+
+        if (GUILayout.Button("ADD", EditorStyles.miniButton))
+        {
+            AddAttribute();
+        }
+        EditorGUILayout.EndHorizontal();
 
         if (displayAttributes)
         {
@@ -273,14 +286,6 @@ public class EntityEditor : Editor
 
             EditorGUILayout.EndScrollView();
             EditorGUILayout.Space();
-
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("ADD ATTRIBUTE", EditorStyles.miniButton))
-            {
-                AddAttribute();
-            }
-            EditorGUILayout.EndHorizontal();
         }
         EditorGUILayout.EndVertical();
     }

@@ -73,7 +73,7 @@ namespace Finsternis
                 if (otherChar is Character && ((Character)otherChar).Invincible)
                     return;
 
-                CharacterController controller = collidedObject.GetComponent<CharacterController>();
+                CharController controller = collidedObject.GetComponent<CharController>();
                 if (controller)
                 {
                     controller.Hit();

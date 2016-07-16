@@ -2,6 +2,7 @@
 using System;
 using UnityEngine.Events;
 
+[DisallowMultipleComponent]
 public class Entity : MonoBehaviour
 {
     public UnityEvent onInteraction;

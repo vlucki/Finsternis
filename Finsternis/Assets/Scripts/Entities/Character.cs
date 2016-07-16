@@ -7,8 +7,8 @@ namespace Finsternis
 {
     public class Character : Entity
     {
-        [Space(10)]
-        [Header("Character")]
+        [Space(20)]
+        [Header("Character Specific Variables")]
 
         public UnityEvent onDeath;
 

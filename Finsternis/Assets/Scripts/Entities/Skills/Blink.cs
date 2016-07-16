@@ -5,6 +5,9 @@ namespace Finsternis
     [RequireComponent(typeof(Collider))]
     public class Blink : Skill
     {
+        [Space(30)]
+        [Header("Blink attributes")]
+
         [SerializeField]
         private float _maxBlinkDistance = 1f;
 
