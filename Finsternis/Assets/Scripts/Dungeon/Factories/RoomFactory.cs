@@ -78,11 +78,15 @@ namespace Finsternis
             return roomCarved;
         }
 
-        static void MoveBrush(Dungeon dungeon, Vector2 startingPosition, Vector2 corridorDirection, Room room, Vector2 minBrushSize, Vector2 maxBrushSize, ref Rect brush)
+        static void MoveBrush(
+            Dungeon dungeon, 
+            Vector2 startingPosition, 
+            Vector2 corridorDirection, 
+            Room room, 
+            Vector2 minBrushSize, 
+            Vector2 maxBrushSize, 
+            ref Rect brush)
         {
-            //Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
-            //Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
-
             int modifier = (Dungeon.Random.value() <= 0.75 ? -1 : 1);
 
             brush.x += Dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width

@@ -40,6 +40,18 @@ namespace Finsternis
             return r;
         }
 
+        public override string ToString()
+        {
+            System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(_cells.ToString());
+            return builder.ToString();
+        }
+
+        public override IEnumerator<Vector2> GetEnumerator()
+        {
+            foreach (Vector2 cell in _cells)
+                yield return cell;
+        }
+
         public static Room operator +(Room roomA, Room roomB)
         {
             Room mergedRooms = CreateInstance(roomA);
@@ -140,14 +152,22 @@ namespace Finsternis
             return true;
         }
 
+        /// <summary>
+        /// Ensures the room bounds are consitent after adding or removing a given cell.
+        /// </summary>
+        /// <param name="cell">The cell that was added or removed.</param>
+        /// <param name="cellRemoved">What happened to the cell.</param>
         private void AdjustSize(Vector2 cell, bool cellRemoved = false)
         {
-            if (cellRemoved)
+            if (cellRemoved) //if the cell was removed
             {
-                if (bounds.min == cell || bounds.max == cell)
+                //if this cell was at the edge of the room
+                if (bounds.min.x == cell.x || bounds.min.y == cell.y || bounds.max.x == cell.x || bounds.max.y == cell.y)
                 {
                     Vector2 newMin = _cells[0];
                     Vector2 newMax = newMin;
+
+                    //iterate through the remaining cells and define the new bounds, if needed
                     foreach (Vector2 existingCell in this)
                     {
                         newMin = Vector2.Min(newMin, existingCell);
@@ -155,7 +175,7 @@ namespace Finsternis
                     }
                 }
             }
-            else
+            else //if not, just check strech the bounds to accommodate it, if needed
             {
                 bounds.min = Vector2.Min(bounds.min, cell);
                 bounds.max = Vector2.Max(bounds.max, cell + Vector2.one);
@@ -172,12 +192,6 @@ namespace Finsternis
             return bounds.Contains(cell) && Contains(cell);
         }
 
-        public override string ToString()
-        {
-            System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(_cells.ToString());
-            return builder.ToString();
-        }
-
         internal void Disconnect()
         {
             foreach (DungeonSection section in connections)
@@ -190,10 +204,11 @@ namespace Finsternis
         {
             foreach (Vector2 cell in other)
             {
-                if (this.ContainsCell(new Vector2(cell.x - 1, cell.y))
+                if  (  this.ContainsCell(new Vector2(cell.x - 1, cell.y))
                     || this.ContainsCell(new Vector2(cell.x + 1, cell.y))
                     || this.ContainsCell(new Vector2(cell.x, cell.y - 1))
-                    || this.ContainsCell(new Vector2(cell.x, cell.y + 1)))
+                    || this.ContainsCell(new Vector2(cell.x, cell.y + 1))
+                    )
                 {
                     return true;
                 }
@@ -206,17 +221,13 @@ namespace Finsternis
             if (this.Overlaps(roomB))
                 return true;
 
-            if (Position.x <= roomB.bounds.xMax && bounds.xMax >= roomB.Position.x
-                && Position.y <= roomB.bounds.yMax && bounds.yMax >= roomB.Position.y)
+            if (   Position.x <= roomB.bounds.xMax 
+                && bounds.xMax >= roomB.Position.x
+                && Position.y <= roomB.bounds.yMax 
+                && bounds.yMax >= roomB.Position.y)
                 return SearchCellsTouching(roomB);
 
             return false;
-        }
-
-        public override IEnumerator<Vector2> GetEnumerator()
-        {
-            foreach (Vector2 cell in _cells)
-                yield return cell;
         }
 
         public override void RemoveCell(Vector2 cell)

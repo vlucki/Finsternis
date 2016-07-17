@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Finsternis
@@ -54,12 +53,11 @@ namespace Finsternis
             }
         }
 
-        public static Corridor CreateInstance(Rect bounds, Vector2 direction)// : base()
+        public static Corridor CreateInstance(Rect bounds, Vector2 direction)
         {
             Corridor c = CreateInstance<Corridor>(bounds);
             c._direction = direction;
             return c;
-            //c.Bounds = bounds;
         }
 
         public static Corridor CreateInstance(Vector2 position, int length, Vector2 direction)
@@ -67,15 +65,21 @@ namespace Finsternis
             return Corridor.CreateInstance(new Rect(position, direction * length + new Vector2(direction.y, direction.x)), direction);
         }
 
+        public override string ToString()
+        {
+            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + _length + "]";
+        }
+
+        public override IEnumerator<Vector2> GetEnumerator()
+        {
+            for (int i = 0; i < _length; i++)
+                yield return this[i];
+        }
+
         public void UpdateConnections()
         {
             foreach (DungeonSection connection in connections)
                 connection.AddConnection(this);
-        }
-
-        public override string ToString()
-        {
-            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + _length + "]";
         }
 
         public void RemoveLast()
@@ -85,8 +89,9 @@ namespace Finsternis
 
         public void RemoveFirst()
         {
-            Rect newBounds = new Rect(bounds);
-            newBounds.position += _direction;
+            Rect newBounds = new Rect();
+            newBounds.position = Position + _direction;
+            newBounds.size = Size - _direction;
             Bounds = newBounds;
         }
 
@@ -115,17 +120,16 @@ namespace Finsternis
             return result;
         }
 
-        public override IEnumerator<Vector2> GetEnumerator()
-        {
-            for (int i = 0; i < _length; i++)
-                yield return this[i];
-        }
-
         public override bool ContainsCell(Vector2 cell)
         {
             return cell.x >= X && cell.x <= LastCell.x && cell.y >= Y && cell.y <= LastCell.y;
         }
 
+        /// <summary>
+        /// Adds a cells to this corridor, but only immediately before the first or after the last.
+        /// </summary>
+        /// <param name="cell">The cell to be added.</param>
+        /// <returns>True if the cell was added.</returns>
         public override bool AddCell(Vector2 cell)
         {
             if (cell == this[0] - Direction)

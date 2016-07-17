@@ -26,20 +26,15 @@ namespace Finsternis
         public virtual Rect Bounds
         {
             get { return bounds; }
-            set { }
+            set { bounds = value; }
         }
 
         public static T CreateInstance<T>(Rect bounds) where T : DungeonSection
         {
-            T section = ScriptableObject.CreateInstance<T>();
-            section.bounds = bounds;
+            T section = CreateInstance<T>();
+            section.Bounds = bounds;
             return section;
         }
-
-        //public static implicit operator bool(DungeonSection section)
-        //{
-        //    return section != null;
-        //}
 
         protected DungeonSection() : this(new Rect()) { }
 
