@@ -4,7 +4,7 @@ using UnityEditor;
 namespace Finsternis
 {
     [CustomEditor(typeof(DungeonDrawer))]
-    public class DungeonDrawerEditor : QuickReorder
+    public class DungeonDrawerEditor : Editor
     {
 
         public override void OnInspectorGUI()

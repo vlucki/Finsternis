@@ -177,7 +177,7 @@ namespace Finsternis
             foreach (Corridor corridor in dungeon.Corridors)
             {
                 AddTrap(corridor);
-                AddDoors(corridor);
+                AddDoors(dungeon, corridor);
             }
         }
 
@@ -205,31 +205,44 @@ namespace Finsternis
         /// </summary>
         /// <param name="corridor">The corridor that will have doors added to it.</param>
         /// <param name="index">Is this door being added the the first (0) or last (1) cell of the corridor?</param>
-        private void AddDoors(Corridor corridor, int index = 0)
+        private void AddDoors(Dungeon dungeon, Corridor corridor, int index = 0)
         {
             if (_doors == null || _doors.Length == 0)
             {
-                Debug.LogWarning("No doors found.");
+                Log.Warn("No doors found.");
                 return;
             }
 
-            DoorFeature feature = (_doors[Dungeon.Random.Range(0, _doors.Length, false)]);
-            corridor.AddFeature(feature, corridor[index]);
+            DoorFeature door = DoorFeature.CreateInstance(_doors[Dungeon.Random.Range(0, _doors.Length, false)]);
+            Vector2 pos = corridor[index];
+            corridor.AddFeature(door, pos);
 
             foreach (DungeonSection section in corridor.Connections)
             {
                 if (section is Room && ((Room)section).Locked)
                 {
-                    feature.Locked = true;
+                    door.Locked = true;
                     break;
                 }
             }
 
-
-            if (corridor.Length > 1 && index == 0)
+            if (corridor.Length > 1)
             {
-                feature.Alignment = DungeonFeature.CellAlignment.EDGE;
-                AddDoors(corridor, corridor.Length - 1);
+                Vector3 offset = new Vector3(corridor.Direction.x / 2, 0, corridor.Direction.y / 2);
+                if (corridor.Direction.y != 0)
+                    offset *= -1;
+
+                if (index == 0)
+                {
+                    door.Offset = -offset;
+                    if (dungeon.IsWithinDungeon(corridor.LastCell + corridor.Direction)
+                    && !dungeon.IsOfAnyType(corridor.LastCell + corridor.Direction, typeof(Corridor), null))
+                        AddDoors(dungeon, corridor, corridor.Length - 1);
+                }
+                else
+                {
+                    door.Offset = offset;
+                }
             }
 
         }

@@ -11,10 +11,12 @@ namespace Finsternis
     {
         [SerializeField]
         private Dungeon _dungeon;
+
         [Header("Scaling parameters")]
         [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
         public Vector3 cellScale = Vector3.one;
         public float extraWallHeight = 3;
+
         [Header("Materials")]
         public Material defaultWallMaterial;
         public PhysicMaterial defaultWallPhysicMaterial;
@@ -128,66 +130,14 @@ namespace Finsternis
                 && cellY > 0
                 && _dungeon[cellX, cellY - 1] != null);
         }
-        /*
-        private void MakeDoors(Corridor corridor, GameObject parent = null)
-        {
-            if (!parent)
-                parent = gameObject;
-            if (corridor.Length > 1)
-            {
-                Vector2 direction = corridor.Direction;
-                direction.y -= direction.x;
-                direction.x *= 90;
 
-                GameObject prefab = doorways[Random.Range(0, doorways.Length)];
-
-                for (int i = 0; i < 2; i++)
-                {
-                    Vector2 cellBefore = corridor[0] - corridor.Direction;
-                    Vector2 cellAfter = corridor.LastCell + corridor.Direction;
-                    if (i == 0 && (!_dungeon.IsWithinDungeon(cellBefore) || _dungeon[cellBefore] == null))
-                        continue;
-                    else if (i == 1 && (!_dungeon.IsWithinDungeon(cellAfter) || _dungeon[cellAfter] == null))
-                        continue;
-                    Vector3 pos;
-                    if (i == 0) pos = new Vector3(corridor.Bounds.x, 0, corridor.Bounds.y);
-                    else pos = new Vector3(corridor.LastCell.x, 0, corridor.LastCell.y);
-                    string name = pos.x.ToString("F0") + ";" + pos.z.ToString("F0");
-
-                    pos.x *= overallScale.x;
-                    pos.x += overallScale.x / 2;
-
-                    pos.z *= -overallScale.z;
-                    pos.z -= overallScale.z / 2;
-
-                    if (direction.x == 90 || direction.x == 270)
-                    {
-                        pos.x += overallScale.x / 2.5f * direction.y;
-                        if (direction.x == 270)
-                            pos.x += (overallScale.x * 0.8f);
-                    }
-                    else
-                    {
-                        pos.z -= overallScale.z / 2.5f * direction.y;
-                        if (direction.x == 0)
-                            pos.z += (overallScale.z * 0.8f);
-                    }
-
-                    GameObject doorway = Instantiate(prefab, pos, Quaternion.Euler(Vector3.up * -direction.x)) as GameObject;
-                    doorway.name += "(" + name + ")";
-                    doorway.transform.SetParent(parent.transform);
-                    direction.x += 180;
-                }
-            }
-        }
-        */
         private GameObject MakeCell(int cellX, int cellY)
         {
             GameObject floor = null;
             string name = "floor (" + cellX + ";" + cellY + ")";
             Vector3 pos = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
             DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
-            if (!feature || feature.Type != DungeonFeature.FeatureType.FLOOR)
+            if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
             {
                 floor = MakeQuad(pos,
                                 new Vector3(cellScale.x, cellScale.z, 1),
@@ -226,6 +176,8 @@ namespace Finsternis
                         ClearObject(pedestal.GetComponent<CapsuleCollider>());
                     }
                 }
+                if (feature)
+                    MakeFeature(feature, new Vector3(cellX, cellY)).transform.SetParent(floor.transform);
             }
             else
             {
@@ -252,6 +204,41 @@ namespace Finsternis
             }
 
             return floor;
+        }
+
+        private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
+        {
+            position += Vector2.one / 2; //needed to align the feature with the center of each cell
+            GameObject featureGO = 
+                (GameObject)Instantiate(
+                feature.Prefab, 
+                new Vector3(position.x * cellScale.x, 0, -position.y * cellScale.z) + feature.Offset, 
+                Quaternion.identity);
+            
+            switch (feature.Alignment)
+            {
+                case DungeonFeature.CellAlignment.FLOOR:
+
+                    //if (_dungeon.IsOfType<Corridor>(position) && feature is DoorFeature)
+                        featureGO.transform.forward = feature.Offset;
+
+                    break;
+
+                case DungeonFeature.CellAlignment.WALL:
+
+                         if (_dungeon.IsOfType(position + Vector2.up, null))
+                        featureGO.transform.up = Vector3.forward;   //wall is "above"
+                    else if (_dungeon.IsOfType(position + Vector2.down, null))
+                        featureGO.transform.up = Vector3.back;      //wall is "below"
+                    else if (_dungeon.IsOfType(position + Vector2.right, null))
+                        featureGO.transform.up = Vector3.right;     //wall is to the right
+                    else if (_dungeon.IsOfType(position + Vector2.left, null))
+                        featureGO.transform.up = Vector3.left;      //wall is to the left
+
+                    break;
+            }
+
+            return featureGO;
         }
 
         private GameObject MakeWall(int cellX, int cellY)

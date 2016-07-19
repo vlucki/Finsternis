@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(fileName = "DoorFeature", menuName = "DungeonFeature/Door", order = 2)]
 public class DoorFeature : DungeonFeature
@@ -18,4 +17,12 @@ public class DoorFeature : DungeonFeature
         set { _locked = value; }
     }
 
+    internal static DoorFeature CreateInstance(DoorFeature reference)
+    {
+        DoorFeature door = CreateInstance<DoorFeature>();
+        door.Init(reference);
+        door._locked = reference._locked;
+        door._closed = reference._closed;
+        return door;
+    }
 }

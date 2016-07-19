@@ -200,7 +200,7 @@ namespace Finsternis
             }
         }
 
-        bool SearchCellsTouching(Room other)
+        public bool ContainsAdjacentCells(Room other)
         {
             foreach (Vector2 cell in other)
             {
@@ -225,7 +225,7 @@ namespace Finsternis
                 && bounds.xMax >= roomB.Position.x
                 && Position.y <= roomB.bounds.yMax 
                 && bounds.yMax >= roomB.Position.y)
-                return SearchCellsTouching(roomB);
+                return ContainsAdjacentCells(roomB);
 
             return false;
         }

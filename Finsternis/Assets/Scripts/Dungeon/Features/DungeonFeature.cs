@@ -7,20 +7,18 @@ public class DungeonFeature : ScriptableObject
 {
     public enum FeatureType
     {
-        ADD_ON  = 0,
-        FLOOR   = 1,
-        WALL    = 2
+        ADD_ON      = 0,
+        REPLACEMENT = 1 //should this feature replace the tile it's on?
     }
 
     public enum CellAlignment
     {
-        RANDOM  = 1,
-        CENTER  = 2,
-        EDGE    = 3
+        FLOOR   = 0,
+        WALL    = 1
     }
 
     [SerializeField]
-    private Guid id;
+    private Guid _id;
 
     [SerializeField]
     private GameObject _prefab;
@@ -29,14 +27,17 @@ public class DungeonFeature : ScriptableObject
     private FeatureType _type = FeatureType.ADD_ON;
 
     [SerializeField]
-    private CellAlignment _alignment = CellAlignment.CENTER;
+    private CellAlignment _alignment = CellAlignment.FLOOR;
 
     [SerializeField]
     private Vector3 _offset = Vector3.zero;
 
-    public Guid Id { get { return id; } }
+    public Guid Id { get { return _id; } }
 
-    public GameObject Prefab { get { return _prefab; } }
+    public GameObject Prefab
+    {
+        get { return _prefab; }
+    }
 
     public FeatureType Type { get { return _type; } }
 
@@ -51,8 +52,23 @@ public class DungeonFeature : ScriptableObject
         set { _offset = value; }
     }
 
+    public static DungeonFeature CreateInstance(DungeonFeature reference)
+    {
+        DungeonFeature feature = CreateInstance<DungeonFeature>();
+        feature.Init(reference);
+        return feature;
+    }
+
+    protected void Init(DungeonFeature reference)
+    {
+        this._offset     = reference._offset;
+        this._prefab     = reference._prefab;
+        this._type       = reference._type;
+        this._alignment  = reference._alignment;
+    }
+
     void OnEnable()
     {
-        id = Guid.NewGuid();
+        _id = Guid.NewGuid();
     }
 }

@@ -12,6 +12,21 @@ namespace UnityQuery
     {
         #region Public Methods and Operators
 
+        public static Vector3 AddZ(this Vector2 v, float z)
+        {
+            return new Vector3(v.x, v.y, z);
+        }
+
+        public static Vector4 AddZW(this Vector2 v, float z, float w)
+        {
+            return new Vector4(v.x, v.y, z, w);
+        }
+
+        public static Vector4 AddW(this Vector3 v, float w)
+        {
+            return new Vector4(v.x, v.y, v.z, w);
+        }
+
         public static Vector2 OnlyX(this Vector2 v)
         {
             return new Vector2(v.x, 0);

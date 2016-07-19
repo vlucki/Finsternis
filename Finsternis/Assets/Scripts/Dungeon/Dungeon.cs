@@ -254,13 +254,18 @@ namespace Finsternis
         {
             if (this[cellX, cellY])
             {
-                if (type.Equals(this[cellX, cellY].GetType()))
+                if (this[cellX, cellY].GetType().Equals(type))
                     return true;
             }
             else if (type == null) //Wall
                 return true;
 
             return false;
+        }
+
+        public bool IsOfType<T>(Vector2 cell)
+        {
+            return IsOfType(cell.x, cell.y, typeof(T));
         }
 
         public bool IsOfType(Vector2 cell, Type type)

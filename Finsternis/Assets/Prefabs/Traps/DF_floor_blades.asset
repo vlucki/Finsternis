@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 178118, guid: a53f62b4ab99d704387d95b1ec057aa5, type: 2}
   _type: 1
-  _alignment: 2
+  _alignment: 0
   _offset: {x: 0, y: 0, z: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 101268, guid: 43e52f631e8208a49bc13ea4d899ae18, type: 2}
   _type: 0
-  _alignment: 2
+  _alignment: 0
   _offset: {x: 0, y: 0, z: 0}
   _closed: 1
   _locked: 0
