@@ -155,13 +155,18 @@ namespace Finsternis
             return _rooms[random.Range(0, _rooms.Count, false)];
         }
 
+        /// <summary>
+        /// Checks if a given set of coordinates is within the dungeon bounds.
+        /// </summary>
+        /// <param name="cell">The coordinates to be checked.</param>
+        /// <returns>True if the given cell is within the dungeon bounds.</returns>
         public bool IsWithinDungeon(Vector2 cell)
         {
             return IsWithinDungeon(cell.x, cell.y);
         }
 
         /// <summary>
-        /// Checks if a given set of coordinates are within the dungeon bounds.
+        /// Checks if a given set of coordinates is within the dungeon bounds.
         /// </summary>
         /// <param name="x">The column to check.</param>
         /// <param name="y">The row to check.</param>
@@ -175,14 +180,17 @@ namespace Finsternis
         }
 
         /// <summary>
-        /// Searches a given area for a given cell type;
+        /// Searches a given area for the given cell types;
         /// </summary>
         /// <param name="pos">The area starting point.</param>
         /// <param name="size">The width and height of the search area.</param>
         /// <param name="types">The types of cell that are being searched.</param>
-        /// <returns></returns>
+        /// <returns>True if any of the types was found</returns>
         public bool SearchInArea(Vector2 pos, Vector2 size, params Type[] types)
         {
+            if (types == null || types.Length < 1)
+                throw new InvalidOperationException("Must provide at least one type to be searched for.");
+
             for (int row = (int)pos.y; row < Height && row < pos.y + size.y; row++)
             {
                 for (int col = (int)pos.x; col < Width && col < pos.x + size.x; col++)
@@ -196,7 +204,15 @@ namespace Finsternis
             return false;
         }
 
-        public int SearchAround(Vector2 pos, int stopAt, bool checkDiagonals, params Type[] types)
+        /// <summary>
+        /// Searches around a given coordinate for the provided tyes.
+        /// </summary>
+        /// <param name="pos">The coordinate whose surroundings will be checked.</param>
+        /// <param name="requiredNumberOfMatches">How many matches should happen before stopping the check?</param>
+        /// <param name="checkDiagonals">Should diagonals be chekced? (ie. [x-1, y-1])</param>
+        /// <param name="types">The types to be considered.</param>
+        /// <returns>How many cells of the provided types were found.</returns>
+        public int SearchAround(Vector2 pos, int requiredNumberOfMatches, bool checkDiagonals, params Type[] types)
         {
             if (types == null || types.Length < 1)
                 throw new InvalidOperationException("Must provide at least one type to be searched for.");
@@ -207,14 +223,13 @@ namespace Finsternis
             {
                 for (int j = -1; j < 2; j++)
                 {
-                    if (i == j)
+                    if (i == j || (!checkDiagonals && Mathf.Abs(i) == Mathf.Abs(j)))
                         continue;
-                    if (!checkDiagonals && Mathf.Abs(i) == Mathf.Abs(j))
-                        continue;
-                    Vector2 cell = pos - new Vector2(i, j);
-                    if (IsWithinDungeon(cell) && IsOfAnyType(cell, types))
+
+                    Vector2 neighbourCell = pos + new Vector2(i, j);
+                    if (IsWithinDungeon(neighbourCell) && IsOfAnyType(neighbourCell, types))
                         cellsFound++;
-                    if (stopAt > 0 && cellsFound == stopAt)
+                    if (requiredNumberOfMatches > 0 && cellsFound == requiredNumberOfMatches)
                         return cellsFound;
                 }
             }
@@ -240,6 +255,12 @@ namespace Finsternis
             return false;
         }
 
+        /// <summary>
+        /// Checks if there is an instance of any of the provided types at a given coordinate.
+        /// </summary>
+        /// <param name="cell">The coordinates to be checked.</param>
+        /// <param name="types">The types to be considered.</param>
+        /// <returns>True if there is a match between one of the provided types and the object at the provided coordinates.</returns>
         public bool IsOfAnyType(Vector2 cell, params Type[] types)
         {
             foreach (Type type in types)
@@ -250,6 +271,13 @@ namespace Finsternis
             return false;
         }
 
+        /// <summary>
+        /// Checks if there is an instance of the provided type at a given coordinate.
+        /// </summary>
+        /// <param name="cellX">The column to be checked.</param>
+        /// <param name="cellY">The row to be checked.</param>
+        /// <param name="type">The type to be considered.</param>
+        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
         public bool IsOfType(float cellX, float cellY, Type type)
         {
             if (this[cellX, cellY])
@@ -263,14 +291,26 @@ namespace Finsternis
             return false;
         }
 
-        public bool IsOfType<T>(Vector2 cell)
-        {
-            return IsOfType(cell.x, cell.y, typeof(T));
-        }
-
+        /// <summary>
+        /// Checks if there is an instance of the provided type at a given coordinate.
+        /// </summary>
+        /// <param name="cell">The coordinates to be checked.</param>
+        /// <param name="type">The type to be considered.</param>
+        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
         public bool IsOfType(Vector2 cell, Type type)
         {
             return IsOfType(cell.x, cell.y, type);
+        }
+
+        /// <summary>
+        /// Checks if there is an instance of the provided type at a given coordinate.
+        /// </summary>
+        /// <typeparam name="T">The type to be considered.</typeparam>
+        /// <param name="cell">The coordinates to be checked.</param>
+        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
+        public bool IsOfType<T>(Vector2 cell)
+        {
+            return IsOfType(cell.x, cell.y, typeof(T));
         }
 
         /// <summary>

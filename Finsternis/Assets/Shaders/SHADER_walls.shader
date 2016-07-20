@@ -10,8 +10,10 @@
 		_FadeAxis("Fade Axis", Vector) = (0,0,0)
 	}
 		SubShader{
-			Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
+			//Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
+			Tags { "RenderType" = "Opaque"}
 			LOD 200
+			Cull Off
 
 			CGPROGRAM
 			#pragma surface surf Standard alpha:fade fullforwardshadows
@@ -20,7 +22,6 @@
 			#pragma target 3.0
 
 			sampler2D	_MainTex;
-			sampler2D _Ramp;
 			fixed4		_Color;
 			fixed		_FadeAlpha;
 			float		_FadeThreshold;
@@ -33,16 +34,6 @@
 				float2 uv_MainTex;
 				float4 color : COLOR;
 			};
-
-			half4 LightingRamp(SurfaceOutput s, half3 lightDir, half atten) {
-				half NdotL = dot(s.Normal, lightDir);
-				half diff = NdotL * 0.5 + 0.5;
-				half3 ramp = tex2D(_Ramp, float2(0, 0)).rgb;
-				half4 c;
-				c.rgb = s.Albedo * _LightColor0.rgb * ramp;
-				c.a = s.Alpha;
-				return c;
-			}
 
 			void surf(Input IN, inout SurfaceOutputStandard o) {
 

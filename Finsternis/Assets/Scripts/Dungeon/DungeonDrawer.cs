@@ -34,6 +34,8 @@ namespace Finsternis
         public UnityEvent onDrawBegin;
         public UnityEvent onDrawEnd;
 
+        private HashSet<Vector2> drawnWalls;
+
         public void Draw(Dungeon dungeon)
         {
             onDrawBegin.Invoke();
@@ -43,6 +45,7 @@ namespace Finsternis
             if (!_dungeon)
                 throw new ArgumentException("Failed to find dungeon!");
 
+            drawnWalls = new HashSet<Vector2>();
             GameObject rooms = new GameObject("ROOMS");
             rooms.transform.SetParent(dungeon.transform);
 
@@ -59,7 +62,7 @@ namespace Finsternis
                 MakeSection(corridor).transform.SetParent(corridors.transform);
             }
 
-            MakeWalls();
+            //MakeWalls();
 
             onDrawEnd.Invoke();
 #if UNITY_EDITOR
@@ -82,6 +85,17 @@ namespace Finsternis
             sectionGO.transform.position = new Vector3(section.Bounds.center.x * cellScale.x, 0, -section.Bounds.center.y * cellScale.z);
             foreach (Vector2 cell in section)
             {
+                for (int i = -1; i < 2; i++)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        if (i == 0 && j == 0)
+                            continue;
+
+                        GameObject wall = MakeWall((int)cell.x + i, (int)cell.y + j);
+                        if(wall) wall.transform.SetParent(sectionGO.transform);
+                    }
+                }
                 GameObject sectionCell = MakeCell((int)cell.x, (int)cell.y);
                 sectionCell.transform.SetParent(sectionGO.transform);
             }
@@ -133,13 +147,14 @@ namespace Finsternis
 
         private GameObject MakeCell(int cellX, int cellY)
         {
-            GameObject floor = null;
-            string name = "floor (" + cellX + ";" + cellY + ")";
+            GameObject cell = null;
             Vector3 pos = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
+            
+            string name = "floor (" + cellX + ";" + cellY + ")";
             DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
             if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
             {
-                floor = MakeQuad(pos,
+                cell = MakeQuad(pos,
                                 new Vector3(cellScale.x, cellScale.z, 1),
                                 Vector3.right * 90,
                                 _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
@@ -149,61 +164,61 @@ namespace Finsternis
                 {
                     if (exits != null && exits.Length > 0)
                     {
-                        ClearObject(floor);
-                        floor = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
+                        ClearObject(cell);
+                        cell = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
                     }
                     else
                     {
-                        floor.name = "Exit " + name;
-                        floor.tag = "Exit";
-                        floor.AddComponent<Exit>();
+                        cell.name = "Exit " + name;
+                        cell.tag = "Exit";
+                        cell.AddComponent<Exit>();
                     }
                 }
                 else
                 {
                     if (floorTiles != null && floorTiles.Length > 0 && Random.value > 0.5f)
                     {
-                        floor = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                        floor.transform.localScale = cellScale;
+                        cell = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+                        cell.transform.localScale = cellScale;
                     }
                     if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
                     {
                         GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                         pedestal.name = "Entrance";
-                        pedestal.transform.SetParent(floor.transform);
+                        pedestal.transform.SetParent(cell.transform);
                         pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
                         pedestal.transform.localPosition = Vector3.zero;
                         ClearObject(pedestal.GetComponent<CapsuleCollider>());
                     }
                 }
                 if (feature)
-                    MakeFeature(feature, new Vector3(cellX, cellY)).transform.SetParent(floor.transform);
+                    MakeFeature(feature, new Vector3(cellX, cellY)).transform.SetParent(cell.transform);
             }
             else
             {
                 try
                 {
-                    floor = Instantiate(feature.Prefab);
+                    cell = Instantiate(feature.Prefab);
 
                     if (_dungeon[cellX, cellY] is Corridor)
                     {
                         Vector2 corridorDir = ((Corridor)_dungeon[cellX, cellY]).Direction;
-                        floor.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
+                        cell.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
                     }
-                    floor.transform.position = pos;
+                    cell.transform.position = pos;
                 }
                 catch (IndexOutOfRangeException ex)
                 {
                     throw new IndexOutOfRangeException("Trying to access cell (" + cellX + "; " + cellY + ")", ex);
                 }
             }
-            if (floor)
+            if (cell)
             {
-                floor.layer = LayerMask.NameToLayer("Floor");
-                floor.transform.SetParent(_dungeon.transform);
+                cell.layer = LayerMask.NameToLayer("Floor");
+                cell.transform.SetParent(_dungeon.transform);
             }
 
-            return floor;
+            return cell;
         }
 
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
@@ -243,6 +258,13 @@ namespace Finsternis
 
         private GameObject MakeWall(int cellX, int cellY)
         {
+            Vector2 coords = new Vector2(cellX, cellY);
+
+            if (drawnWalls.Contains(coords) || (_dungeon.IsWithinDungeon(coords) && !_dungeon.IsOfType(cellX, cellY, null)))
+                return null;
+
+            drawnWalls.Add(coords);
+
             GameObject wall;
             Vector3 wallPosition = new Vector3(cellX * cellScale.x, 0, -cellY * cellScale.y); ;
             if (walls != null && walls.Length > 0)
@@ -252,8 +274,8 @@ namespace Finsternis
             else
             {
                 wall = new GameObject("Wall (" + cellX + ";" + cellY + ")");
-                GameObject top = MakeQuad(Vector3.up, Vector3.one, Vector3.right * 90, defaultWallMaterial, "WallTop");
-                top.transform.SetParent(wall.transform);
+                //GameObject top = MakeQuad(Vector3.up, Vector3.one, Vector3.right * 90, defaultWallMaterial, "WallTop");
+                //top.transform.SetParent(wall.transform);
 
                 for (int i = -1; i < 2; i++)
                 {
@@ -263,22 +285,40 @@ namespace Finsternis
                             continue;
                         int x = cellX + j;
                         int y = cellY + i;
-                        if (x < 0 || y < 0 || y >= _dungeon.Height || x >= _dungeon.Width)
+                        if (!_dungeon.IsWithinDungeon(x, y))
                             continue;
 
                         if (_dungeon[x, y] != null)
                         {
+                            Vector2 offset = Vector2.down;
                             float angle = 0;
                             if (x < cellX)
+                            {
+                                offset = Vector2.right;
                                 angle = 90;
+                            }
                             else if (x > cellX)
+                            {
+                                offset = Vector2.left;
                                 angle = -90;
+                            }
                             else if (y < cellY)
+                            {
+                                offset = Vector2.up;
                                 angle = 180; //make wall face away the camera
-                            GameObject side = MakeQuad(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSide");
-                            side.GetComponent<Collider>().sharedMaterial = defaultWallPhysicMaterial;
-                            side.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
-                            side.transform.SetParent(wall.transform);
+                            }
+
+                            float angleB = offset.y <= 0 ? -angle : 0;
+                            GameObject sideA = MakeQuad(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSideA");
+                            GameObject sideB = MakeQuad(new Vector3((float)j / 2 + offset.x/50, 0.5f, -(float)i / 2 - offset.y / 50) , Vector3.one, new Vector3(0, angleB, 0), defaultWallMaterial, "WallSideB");
+
+                            sideA.GetComponent<Collider>().sharedMaterial = defaultWallPhysicMaterial;
+                            sideA.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
+                            sideA.transform.SetParent(wall.transform);
+
+                            ClearObject(sideB.GetComponent<Collider>());
+                            sideB.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
+                            sideB.transform.SetParent(wall.transform);
                         }
                     }
                 }

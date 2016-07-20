@@ -980,9 +980,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11443888
 MonoBehaviour:
@@ -1002,9 +1003,10 @@ MonoBehaviour:
   _min: 0
   _max: 10
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11449234
 MonoBehaviour:
@@ -1024,9 +1026,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11457582
 MonoBehaviour:
@@ -1046,9 +1049,10 @@ MonoBehaviour:
   _min: 0
   _max: 8
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11460668
 MonoBehaviour:
@@ -1079,9 +1083,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11477254
 MonoBehaviour:
@@ -1101,9 +1106,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11478084
 MonoBehaviour:
@@ -1119,7 +1125,7 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Finsternis.CharacterController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   _fallSpeedThreshold: -0.2
   _turningSpeed: 0.05
@@ -1149,9 +1155,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 40
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11496216
 MonoBehaviour:
@@ -1164,8 +1171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692239cdea0649f4e80f8d21660085df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.175
-  _maxVelocity: 2
+  _acceleration: 0.175
+  _maxVelocity: 4.5
+  _minVelocityThreshold: 0.1
 --- !u!114 &11499932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1180,13 +1188,13 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onExit:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 0

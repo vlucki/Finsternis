@@ -448,7 +448,7 @@ GameObject:
   - 54: {fileID: 5459534}
   - 136: {fileID: 13603302}
   - 114: {fileID: 11493898}
-  - 114: {fileID: 11406562}
+  - 114: {fileID: 11467130}
   - 114: {fileID: 11411972}
   - 114: {fileID: 11487014}
   - 114: {fileID: 11435086}
@@ -1400,9 +1400,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11406364
 MonoBehaviour:
@@ -1422,28 +1423,11 @@ MonoBehaviour:
   _min: 0
   _max: 10
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
-  _autoNotifyEntity: 1
---- !u!114 &11406562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72bd395770688eb42857c682b976f347, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onAttack:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Finsternis.CharacterController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _fallSpeedThreshold: -0.2
-  _turningSpeed: 0.05
+  _autoNotifyEntity: 1
 --- !u!114 &11411972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1455,8 +1439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692239cdea0649f4e80f8d21660085df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.175
-  _maxVelocity: 2
+  _acceleration: 0.175
+  _maxVelocity: 3
+  _minVelocityThreshold: 0.1
 --- !u!114 &11416438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1469,13 +1454,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _axesToCheck:
-  - _axis: Jump
-    thresholdType: 2
+  - name: Base Attack
+    _axis: BaseAttack
+    _thresholdType: 16
     thresholdValue: 0
+    _repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11406562}
+        - m_Target: {fileID: 11467130}
           m_MethodName: Attack
           m_Mode: 3
           m_Arguments:
@@ -1486,15 +1473,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - _axis: Fire1
-    thresholdType: 2
+  - name: Skill 1
+    _axis: SkillSlot1
+    _thresholdType: 17
     thresholdValue: 0
+    _repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11406562}
+        - m_Target: {fileID: 11467130}
           m_MethodName: Attack
           m_Mode: 3
           m_Arguments:
@@ -1505,15 +1494,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - _axis: Fire2
-    thresholdType: 2
+  - name: Skill 2
+    _axis: SkillSlot2
+    _thresholdType: 16
     thresholdValue: 0
+    _repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11406562}
+        - m_Target: {fileID: 11467130}
           m_MethodName: Attack
           m_Mode: 3
           m_Arguments:
@@ -1524,15 +1515,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - _axis: Fire3
-    thresholdType: 2
+  - name: Skill 3
+    _axis: SkillSlot3
+    _thresholdType: 16
     thresholdValue: 0
+    _repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11406562}
+        - m_Target: {fileID: 11467130}
           m_MethodName: Attack
           m_Mode: 3
           m_Arguments:
@@ -1543,7 +1536,49 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputAxisChecker+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - name: Movement X
+    _axis: Horizontal
+    _thresholdType: 273
+    thresholdValue: 0
+    _repeatDelay: 0.033
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11467130}
+          m_MethodName: SetXDirection
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - name: Movement Z
+    _axis: Vertical
+    _thresholdType: 273
+    thresholdValue: 0
+    _repeatDelay: 0.033
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11467130}
+          m_MethodName: SetZDirection
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
 --- !u!114 &11424050
 MonoBehaviour:
@@ -1563,9 +1598,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11431546
 MonoBehaviour:
@@ -1585,9 +1621,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11435086
 MonoBehaviour:
@@ -1607,9 +1644,10 @@ MonoBehaviour:
   _min: 0
   _max: 10
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11446764
 MonoBehaviour:
@@ -1625,9 +1663,10 @@ MonoBehaviour:
   _slot: 0
   castTime: 0.2
   cooldownTime: 0.5
-  _fireballPrefab: {fileID: 0}
-  _summonPoint: {fileID: 0}
-  _summonOffset: 0
+  _lockDuringCast: 1
+  _fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+  _summonPoint: {fileID: 478938}
+  _summonOffset: 0.5
 --- !u!114 &11463148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1642,11 +1681,30 @@ MonoBehaviour:
   _slot: 1
   castTime: 0.4
   cooldownTime: 1
+  _lockDuringCast: 1
   _maxBlinkDistance: 3.5
   _offset: {x: 0, y: 1, z: 0}
   blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &11467130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e63472012b142d4a84cf9787c874748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  _fallSpeedThreshold: -0.2
+  _turningSpeed: 0.05
 --- !u!114 &11476516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1665,9 +1723,10 @@ MonoBehaviour:
   _min: 0
   _max: 0
   onValueChanged:
-    m_inspectorListHeight: 63
-    m_persistentCalls:
-      m_calls: []
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   _autoNotifyEntity: 1
 --- !u!114 &11487014
 MonoBehaviour:
