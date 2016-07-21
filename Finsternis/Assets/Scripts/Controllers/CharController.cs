@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System;
 using UnityQuery;
+using System.Collections.Generic;
 
 namespace Finsternis
 {
@@ -19,10 +20,12 @@ namespace Finsternis
         protected Movement characterMovement;
 
         public AttackEvent onAttack;
-
-        public static readonly int AttackState;
+        public UnityEvent onLock;
+        public UnityEvent onUnlock;
+        
         public static readonly int AttackBool;
         public static readonly int AttackType;
+        public static readonly int AttackSpeed;
         public static readonly int DyingBool;
         public static readonly int DeadBool;
         public static readonly int FallingBool;
@@ -38,15 +41,24 @@ namespace Finsternis
         [SerializeField]
         private float _turningSpeed = 0.05f;
 
+        [SerializeField]
+        private List<Skill> skills;
+
+        [SerializeField]
+        private Skill[] equippedSkills = new Skill[4];
+
         private bool _locked;
-        private int _unlockDelay;
+        private float _unlockDelay;
+        private bool _waitingForDelay;
 
         public bool Locked { get { return _locked || _unlockDelay > 0; } }
+        public Character Character { get { return character; } }
 
         static CharController()
         {
             AttackBool  = Animator.StringToHash("attack");
             AttackType  = Animator.StringToHash("attackType");
+            AttackSpeed = Animator.StringToHash("attackSpeed");
             DyingBool   = Animator.StringToHash("dying");
             DeadBool    = Animator.StringToHash("dead");
             FallingBool = Animator.StringToHash("falling");
@@ -61,23 +73,26 @@ namespace Finsternis
             _locked = false;
             characterMovement = GetComponent<Movement>();
             characterAnimator = GetComponent<Animator>();
-            character = GetComponent<Character>();
+            character         = GetComponent<Character>();
         }
 
         public virtual void Start()
         {
             character.onDeath.AddListener(CharacterController_death);
-            GetComponent<Movement>().Speed = GetComponent<Entity>().GetAttribute("spd").Value / 10;
+            characterMovement.Speed = character.GetAttribute("spd").Value / 10;
+            Array.ForEach<Skill>(equippedSkills, (skill) => { if(skill) skill.Equip(); }); //make sure every skill that is equipped knows it
         }
 
         public virtual void Update()
         {
             if (!IsDead() && !IsDying())
             {
-                if (_unlockDelay > 0)
+                if (_waitingForDelay)
                 {
-                    _unlockDelay--;
-                    return;
+                    if (_unlockDelay > 0)
+                        _unlockDelay -= Time.deltaTime;
+                    else
+                        Unlock();
                 }
 
                 if (!_locked)
@@ -95,7 +110,7 @@ namespace Finsternis
                 RaycastHit hit;
                 int mask = (1 << LayerMask.NameToLayer("Floor"));
                 bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
-                if (floorBelow && _locked && characterAnimator.GetBool(FallingBool))
+                if (floorBelow && _locked && characterAnimator.GetBool(FallingBool) && !_waitingForDelay)
                 {
                     characterAnimator.SetBool(FallingBool, false);
                     Unlock();
@@ -113,7 +128,7 @@ namespace Finsternis
         {
             if (CanMove())
             {
-                characterMovement.Direction = characterMovement.Direction.WithX(horizontal);
+                characterMovement.SetDirection(characterMovement.Direction.WithX(horizontal));
             }
         }
 
@@ -121,7 +136,7 @@ namespace Finsternis
         {
             if (CanMove())
             {
-                characterMovement.Direction = characterMovement.Direction.WithZ(vertical);
+                characterMovement.SetDirection(characterMovement.Direction.WithZ(vertical));
             }
         }
 
@@ -129,7 +144,7 @@ namespace Finsternis
         {
             if (CanMove())
             {
-                characterMovement.Direction = direction.WithY(0);
+                characterMovement.SetDirection(direction.WithY(0));
             }
         }
 
@@ -178,21 +193,47 @@ namespace Finsternis
 
         public virtual void Hit(int type = 0, bool lockMovement = true)
         {
-            ActivateTrigger(HitBool, HitType, type, lockMovement);
+            ActivateTrigger(HitBool, HitType, type);
+            if (lockMovement)
+                Lock();
         }
 
-        public virtual void Attack(int type = 0)
-        {
-            Attack(true, type);
-        }
-
-        public virtual void Attack(bool lockMovement, int type = 0)
+        public virtual void Attack(int slot = 0)
         {
             if (!CanAttack())
+            {
+#if UNITY_EDITOR
+                print(ToString() + " can't attack right now");
+#endif
                 return;
+            }
+            if(equippedSkills == null)
+            {
+                Log.Error("No skill equipped");
+                return;
+            }
+            else if(slot > equippedSkills.Length || slot < 0 )
+            {
+                Log.Error("Invalid skill slot (" + slot + ")");
+                return;
+            }
+            equippedSkills[slot].Use();
+            onAttack.Invoke(slot);
+        }
 
-            ActivateTrigger(AttackBool, AttackType, type, lockMovement);
-            onAttack.Invoke(type);
+        public void EquipSkill(Skill skill, int slot)
+        {
+            if (slot > equippedSkills.Length || slot < 0)
+            {
+                Log.Error("Invalid skill slot (" + slot + ")");
+                return;
+            }
+
+            if (equippedSkills[slot])
+                equippedSkills[slot].Unequip();
+
+            equippedSkills[slot] = skill;
+            skill.Equip();
         }
 
         public virtual bool CanAttack()
@@ -204,38 +245,45 @@ namespace Finsternis
         {
             _locked = true;
             characterAnimator.SetFloat(SpeedFloat, 0);
-            characterMovement.Direction = characterMovement.Direction.OnlyY();
+            characterMovement.SetDirection(characterMovement.Direction.OnlyY());
+            onLock.Invoke();
         }
 
-        public void Unlock(int delay = 0)
+        public void Lock(float duration)
         {
-            if (delay > 0)
-                _unlockDelay = delay;
+            Lock();
+            UnlockWithDelay(duration);
+        }
 
+        public void UnlockWithDelay(float delay)
+        {
+            _waitingForDelay = true;
+            _unlockDelay = delay;
+        }
+
+        public void Unlock()
+        {
+            _waitingForDelay = false;
             _locked = false;
+            onUnlock.Invoke();
         }
 
         protected virtual void CharacterController_death()
         {
             characterAnimator.SetBool(DyingBool, true);
-            characterMovement.Direction = Vector2.zero;
+            characterMovement.SetDirection(Vector3.zero);
         }
 
-        public void ActivateTrigger(int hash, int intHash, int type = 0, bool lockMovement = true)
+        public void ActivateTrigger(int hash, int intHash, int type = 0)
         {
             characterAnimator.SetTrigger(hash);
             characterAnimator.SetInteger(intHash, type);
-            if (lockMovement)
-                characterMovement.Direction = Vector3.zero;
         }
 
-        private void ActivateBoolean(int booleanHash, int intHash, int type = 0, bool lockMovement = true)
+        private void ActivateBoolean(int booleanHash, int intHash, int type = 0)
         {
             characterAnimator.SetBool(booleanHash, true);
             characterAnimator.SetInteger(intHash, type);
-
-            if (lockMovement)
-                characterMovement.Direction = Vector3.zero;
         }
 
     }

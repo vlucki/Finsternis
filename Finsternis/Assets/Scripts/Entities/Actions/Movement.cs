@@ -34,11 +34,17 @@ public class Movement : MonoBehaviour
     public Vector3 Direction
     {
         get { return _direction; }
-        set { _direction = value; }
     }
 
     public Vector3 LastDirection { get { return _lastDirection; } }
     
+    public void SetDirection(Vector3 direction)
+    {
+        if (direction != Vector3.zero)
+            direction.Normalize();
+        this._direction = direction;
+    }
+
     protected virtual void Start()
     {
         if(!body)

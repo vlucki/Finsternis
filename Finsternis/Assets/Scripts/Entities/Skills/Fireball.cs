@@ -6,36 +6,50 @@ namespace Finsternis
 {
     public class Fireball : Skill
     {
-        [Space(30)]
-        [Header("Fireball attributes")]
+        [Space(10, order = 0)]
+        [Header("Fireball attributes", order = 1)]
 
         [SerializeField]
-        private GameObject _fireballPrefab;
+        private GameObject fireballPrefab;
 
         [SerializeField]
-        private Transform _summonPoint;
+        private Transform summonPoint;
 
         [SerializeField]
         [Tooltip("How much in front of the summon point the fireball will appear.")]
         [Range(-1, 1)]
-        private float _summonOffset = 0;
+        private float summonOffset = 0;
 
-        protected override void Use(int _slot)
+        private Animator animator;
+
+        protected override void Awake()
         {
-            if (MayUse(_slot))
+            summonPoint = summonPoint? summonPoint : transform;
+            base.Awake();
+            this.animator = GetComponent<Animator>();
+        }
+
+        public override bool Use()
+        {
+            if (MayUse())
             {
-                base.Use(_slot);
-                GetComponent<Animator>().SetFloat("attackSpeed", 5f);
+                animator.SetFloat("attackSpeed", 5f);
             }
+            return base.Use();
         }
 
         protected override void CastSkill()
         {
-            GameObject summonedFireball = Instantiate(_fireballPrefab, _summonPoint.position + transform.forward * _summonOffset, transform.rotation) as GameObject;
-            PhysicalAttackHandler pah = summonedFireball.GetComponent<PhysicalAttackHandler>();
-            pah.ignoreColliders.Add(GetComponent<Collider>());
-            pah.owner = GetComponent<Entity>();
+            base.CastSkill();
+
+            GameObject summonedFireball = Instantiate(this.fireballPrefab, this.summonPoint.position + transform.forward * this.summonOffset, transform.rotation) as GameObject;
+
+            var pAtkHandler = summonedFireball.GetComponent<PhysicalAttackHandler>();
+            pAtkHandler.Ignore(gameObject);
+            pAtkHandler.owner = user.Character;
+
             summonedFireball.SetActive(true);
+            
             Timing.RunCoroutine(_Shoot(summonedFireball), Segment.FixedUpdate);
         }
 

@@ -12,6 +12,11 @@ namespace UnityQuery
     {
         #region Public Methods and Operators
 
+        public static void Error(string s)
+        {
+            Debug.LogError(s);
+        }
+
         public static void Error(Object context, string s)
         {
             Debug.LogError(s.ToLogString(context), context);

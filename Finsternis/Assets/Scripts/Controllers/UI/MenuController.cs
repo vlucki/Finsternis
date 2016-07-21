@@ -117,7 +117,7 @@ namespace Finsternis
             _followBehaviour.ResetOffset();
             _targetAlpha = 1;
             _followBehaviour.Target.GetComponent<CharController>().Lock();
-            GameManager.Instance.Player.GetComponent<InputRouter>().enabled = false;
+            //GameManager.Instance.Player.GetComponent<InputRouter>().enabled = false;
 
             _selectable.Select();
             _options[0].Select();
@@ -128,8 +128,7 @@ namespace Finsternis
         public void Hide(bool usedToggleButton = false)
         {
             _isToggleButtonDown = usedToggleButton;
-            GameManager.Instance.Player.GetComponent<InputRouter>().enabled = true;
-            _followBehaviour.Target.GetComponent<CharController>().Unlock(8);
+            _followBehaviour.Target.GetComponent<CharController>().UnlockWithDelay(1f);
             _targetAlpha = 0;
             _followBehaviour.offset.x *= -1;
         }

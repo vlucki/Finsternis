@@ -16,7 +16,8 @@ namespace Finsternis
         public OnTriggerEvent onExit;
 
         public LayerMask ignoreLayers;
-        public List<Collider> ignoreColliders;
+        [SerializeField]
+        protected List<Collider> ignoreColliders;
 
         protected new Collider collider;
 
