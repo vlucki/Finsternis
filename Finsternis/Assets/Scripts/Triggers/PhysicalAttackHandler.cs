@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 namespace Finsternis
 {
-    [RequireComponent(typeof(Collider))]
     public class PhysicalAttackHandler : Trigger
     {
         public Entity owner;
@@ -14,9 +13,7 @@ namespace Finsternis
         public bool activeOnDeath = false;
         public bool ignoreOthersFromOwner = true;
 
-
         private EntityAttribute str;
-
 
         protected override void Awake()
         {
@@ -28,7 +25,7 @@ namespace Finsternis
                     throw new System.InvalidOperationException("Attack handler needs an owner!");
 
             }
-            str = owner.GetAttribute("str") as EntityAttribute;
+            this.str = owner.GetAttribute("str") as EntityAttribute;
             if (!activeOnDeath)
             {
                 EntityAttribute health = owner.GetAttribute("hp") as EntityAttribute;
@@ -44,8 +41,8 @@ namespace Finsternis
             bool result = base.ShouldTrigger(other);
             if (result && ignoreOthersFromOwner)
             {
-                PhysicalAttackHandler pah = other.GetComponent<PhysicalAttackHandler>();
-                if (pah && pah.owner == owner)
+                PhysicalAttackHandler pAtkHandler = other.GetComponent<PhysicalAttackHandler>();
+                if (pAtkHandler && pAtkHandler.owner == owner)
                     result = false;
             }
 
@@ -56,7 +53,7 @@ namespace Finsternis
         {
             if (attribute.Value <= 0)
             {
-                GetComponent<Collider>().enabled = activeOnDeath;
+                collider.enabled = activeOnDeath;
             }
         }
 

@@ -15,31 +15,31 @@ namespace Finsternis
         [Serializable]
         public class AttackEvent : UnityEvent<int> { }
 
-        protected Character character;
-        protected Animator characterAnimator;
-        protected Movement characterMovement;
-
-        public AttackEvent onAttack;
-        public UnityEvent onLock;
-        public UnityEvent onUnlock;
-        
-        public static readonly int AttackBool;
-        public static readonly int AttackType;
+        public static readonly int AttackTrigger;
+        public static readonly int AttackSlot;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;
         public static readonly int DeadBool;
         public static readonly int FallingBool;
-        public static readonly int HitBool;
+        public static readonly int HitTrigger;
         public static readonly int HitType;
         public static readonly int SpeedFloat;
 
+        public AttackEvent onAttack;
+        public UnityEvent onLock;
+        public UnityEvent onUnlock;
+
+        protected Character character;
+        protected Animator characterAnimator;
+        protected Movement characterMovement;
+
         [SerializeField]
         [Range(0, -1)]
-        private float _fallSpeedThreshold = -0.2f;
+        private float fallSpeedThreshold = -0.2f;
 
         [Range(0, 1)]
         [SerializeField]
-        private float _turningSpeed = 0.05f;
+        private float turningSpeed = 0.05f;
 
         [SerializeField]
         private List<Skill> skills;
@@ -47,30 +47,30 @@ namespace Finsternis
         [SerializeField]
         private Skill[] equippedSkills = new Skill[4];
 
-        private bool _locked;
-        private float _unlockDelay;
-        private bool _waitingForDelay;
+        private bool locked;
+        private float unlockDelay;
+        private bool waitingForDelay;
 
-        public bool Locked { get { return _locked || _unlockDelay > 0; } }
+        public bool Locked { get { return this.locked; } }
         public Character Character { get { return character; } }
 
         static CharController()
         {
-            AttackBool  = Animator.StringToHash("attack");
-            AttackType  = Animator.StringToHash("attackType");
-            AttackSpeed = Animator.StringToHash("attackSpeed");
-            DyingBool   = Animator.StringToHash("dying");
-            DeadBool    = Animator.StringToHash("dead");
-            FallingBool = Animator.StringToHash("falling");
-            HitBool     = Animator.StringToHash("hit");
-            HitType     = Animator.StringToHash("hitType");
-            SpeedFloat  = Animator.StringToHash("speed");
+            AttackTrigger = Animator.StringToHash("attack");
+            AttackSlot    = Animator.StringToHash("attackSlot");
+            AttackSpeed   = Animator.StringToHash("attackSpeed");
+            DyingBool     = Animator.StringToHash("dying");
+            DeadBool      = Animator.StringToHash("dead");
+            FallingBool   = Animator.StringToHash("falling");
+            HitTrigger    = Animator.StringToHash("hit");
+            HitType       = Animator.StringToHash("hitType");
+            SpeedFloat    = Animator.StringToHash("speed");
 
         }
 
         public virtual void Awake()
         {
-            _locked = false;
+            this.locked = false;
             characterMovement = GetComponent<Movement>();
             characterAnimator = GetComponent<Animator>();
             character         = GetComponent<Character>();
@@ -80,25 +80,25 @@ namespace Finsternis
         {
             character.onDeath.AddListener(CharacterController_death);
             characterMovement.Speed = character.GetAttribute("spd").Value / 10;
-            Array.ForEach<Skill>(equippedSkills, (skill) => { if(skill) skill.Equip(); }); //make sure every skill that is equipped knows it
+            Array.ForEach<Skill>(this.equippedSkills, (skill) => { if(skill) skill.Equip(); }); //make sure every skill that is equipped knows it
         }
 
         public virtual void Update()
         {
             if (!IsDead() && !IsDying())
             {
-                if (_waitingForDelay)
+                if (this.waitingForDelay)
                 {
-                    if (_unlockDelay > 0)
-                        _unlockDelay -= Time.deltaTime;
+                    if (this.unlockDelay > 0)
+                        this.unlockDelay -= Time.deltaTime;
                     else
                         Unlock();
                 }
 
-                if (!_locked)
+                if (!locked)
                 {
                     UpdateRotation();
-                    characterAnimator.SetFloat(SpeedFloat, characterMovement.VelocityNoY());
+                    characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.VelocityNoY());
                 }
             }
         }
@@ -109,17 +109,20 @@ namespace Finsternis
             {
                 RaycastHit hit;
                 int mask = (1 << LayerMask.NameToLayer("Floor"));
-                bool floorBelow = GetComponent<Rigidbody>().velocity.y >= _fallSpeedThreshold || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
-                if (floorBelow && _locked && characterAnimator.GetBool(FallingBool) && !_waitingForDelay)
+                bool floorBelow = 
+                    GetComponent<Rigidbody>().velocity.y >= fallSpeedThreshold 
+                    || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
+
+                if (floorBelow && this.locked && IsFalling() && !this.waitingForDelay)
                 {
-                    characterAnimator.SetBool(FallingBool, false);
+                    characterAnimator.SetBool(CharController.FallingBool, false);
                     Unlock();
                 }
-                else if (!floorBelow && !_locked)
+                else if (!floorBelow && !this.locked)
                 {
                     Lock();
-                    characterAnimator.SetBool(FallingBool, true);
-                    characterAnimator.SetFloat(SpeedFloat, 0);
+                    characterAnimator.SetBool(CharController.FallingBool, true);
+                    characterAnimator.SetFloat(CharController.SpeedFloat, 0);
                 }
             }
         }
@@ -150,7 +153,10 @@ namespace Finsternis
 
         private void UpdateRotation()
         {
-            transform.forward = Vector3.Slerp(transform.forward, characterMovement.LastDirection, Mathf.Max(_turningSpeed, Vector3.Angle(transform.forward, characterMovement.Direction) / 720));
+            transform.forward = Vector3.Slerp(
+                transform.forward, 
+                characterMovement.LastDirection, 
+                Mathf.Max(this.turningSpeed, Vector3.Angle(transform.forward, characterMovement.Direction) / 720));
         }
 
         protected virtual bool CanMove()
@@ -158,32 +164,32 @@ namespace Finsternis
             bool staggered = IsStaggered();
             bool attacking = IsAttacking();
 
-            return !(_locked || staggered || attacking);
+            return !(this.locked || staggered || attacking);
         }
 
         public bool IsAttacking()
         {
-            return characterAnimator.GetBool(AttackBool);
+            return characterAnimator.GetBool(CharController.AttackTrigger);
         }
 
         public bool IsDying()
         {
-            return characterAnimator.GetBool(DyingBool);
+            return characterAnimator.GetBool(CharController.DyingBool);
         }
 
         public bool IsDead()
         {
-            return characterAnimator.GetBool(DeadBool);
+            return characterAnimator.GetBool(CharController.DeadBool);
         }
 
         public bool IsFalling()
         {
-            return characterAnimator.GetBool(FallingBool);
+            return characterAnimator.GetBool(CharController.FallingBool);
         }
 
         public bool IsStaggered()
         {
-            return characterAnimator.GetBool(HitBool);
+            return characterAnimator.GetBool(CharController.HitTrigger);
         }
 
         public bool ShouldWalk()
@@ -193,7 +199,9 @@ namespace Finsternis
 
         public virtual void Hit(int type = 0, bool lockMovement = true)
         {
-            ActivateTrigger(HitBool, HitType, type);
+            this.characterAnimator.SetInteger(HitType, type);
+            this.characterAnimator.SetTrigger(HitTrigger);
+
             if (lockMovement)
                 Lock();
         }
@@ -207,33 +215,47 @@ namespace Finsternis
 #endif
                 return;
             }
-            if(equippedSkills == null)
-            {
-                Log.Error("No skill equipped");
+
+            if (!ValidateSkillSlot(slot))
                 return;
-            }
-            else if(slot > equippedSkills.Length || slot < 0 )
+
+            if (this.equippedSkills[slot].Use())
             {
-                Log.Error("Invalid skill slot (" + slot + ")");
-                return;
+                characterAnimator.SetInteger(AttackSlot, slot);
+                onAttack.Invoke(slot);
             }
-            equippedSkills[slot].Use();
-            onAttack.Invoke(slot);
         }
 
         public void EquipSkill(Skill skill, int slot)
         {
-            if (slot > equippedSkills.Length || slot < 0)
-            {
-                Log.Error("Invalid skill slot (" + slot + ")");
+            if (!ValidateSkillSlot(slot, false))
                 return;
-            }
 
             if (equippedSkills[slot])
                 equippedSkills[slot].Unequip();
 
             equippedSkills[slot] = skill;
             skill.Equip();
+        }
+
+        private bool ValidateSkillSlot(int slot, bool checkForEmptySlot = true)
+        {
+            if (this.equippedSkills == null)
+            {
+                Log.Error("Variable 'equippedSkills' not initialized.");
+                return false;
+            }
+            else if (slot > this.equippedSkills.Length || slot < 0)
+            {
+                Log.Error("Invalid skill slot (" + slot + ")");
+                return false;
+            }
+            else if(checkForEmptySlot && !this.equippedSkills[slot])
+            {
+                Log.Warn("No skill equipped in slot " + slot);
+                return false;
+            }
+            return true;
         }
 
         public virtual bool CanAttack()
@@ -243,8 +265,8 @@ namespace Finsternis
 
         public void Lock()
         {
-            _locked = true;
-            characterAnimator.SetFloat(SpeedFloat, 0);
+            this.locked = true;
+            characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.SetDirection(characterMovement.Direction.OnlyY());
             onLock.Invoke();
         }
@@ -257,34 +279,21 @@ namespace Finsternis
 
         public void UnlockWithDelay(float delay)
         {
-            _waitingForDelay = true;
-            _unlockDelay = delay;
+            this.waitingForDelay = true;
+            unlockDelay = delay;
         }
 
         public void Unlock()
         {
-            _waitingForDelay = false;
-            _locked = false;
+            this.waitingForDelay = false;
+            this.locked = false;
             onUnlock.Invoke();
         }
 
         protected virtual void CharacterController_death()
         {
-            characterAnimator.SetBool(DyingBool, true);
+            characterAnimator.SetBool(CharController.DyingBool, true);
             characterMovement.SetDirection(Vector3.zero);
         }
-
-        public void ActivateTrigger(int hash, int intHash, int type = 0)
-        {
-            characterAnimator.SetTrigger(hash);
-            characterAnimator.SetInteger(intHash, type);
-        }
-
-        private void ActivateBoolean(int booleanHash, int intHash, int type = 0)
-        {
-            characterAnimator.SetBool(booleanHash, true);
-            characterAnimator.SetInteger(intHash, type);
-        }
-
     }
 }

@@ -8,8 +8,8 @@ namespace Finsternis
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.SetBool(CharController.AttackBool, false);
-            animator.SetInteger(CharController.AttackType, 0);
+            animator.SetBool(CharController.AttackTrigger, false);
+            animator.SetInteger(CharController.AttackSlot, 0);
         }
     }
 }

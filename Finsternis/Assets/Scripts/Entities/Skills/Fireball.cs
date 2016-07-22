@@ -24,8 +24,9 @@ namespace Finsternis
 
         protected override void Awake()
         {
-            summonPoint = summonPoint? summonPoint : transform;
             base.Awake();
+            if(!this.summonPoint)
+                this.summonPoint = transform;
             this.animator = GetComponent<Animator>();
         }
 
@@ -55,7 +56,7 @@ namespace Finsternis
 
         private IEnumerator<float> _Shoot(GameObject summonedFireball)
         {
-            summonedFireball.GetComponent<Rigidbody>().AddForce(summonedFireball.transform.forward * 50, ForceMode.Impulse);
+            summonedFireball.GetComponent<Rigidbody>().AddForce(summonedFireball.transform.forward * 75, ForceMode.Impulse);
             yield return 0f;
         }
     }

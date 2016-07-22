@@ -28,10 +28,13 @@ public sealed class AxisTriggersContainer
 #endif
 
     [AxesName][SerializeField]
-    private string _axis;
+    private string axis;
 
     [SerializeField]
-    private ThresholdTypeEnum _thresholdType = ThresholdTypeEnum.DIFFERENT_THAN;
+    private bool enabled = true;
+
+    [SerializeField]
+    private ThresholdTypeEnum thresholdType = ThresholdTypeEnum.DIFFERENT_THAN;
 
     [Range(-1, 1)]
     [SerializeField]
@@ -39,40 +42,46 @@ public sealed class AxisTriggersContainer
 
     [Range(0, 10)]
     [SerializeField]
-    private float _repeatDelay = 0f;
+    private float repeatDelay = 0f;
 
-    private float _lastTriggered;
+    private float lastTriggered;
 
     public AxisInputEvent onAxisActive;
 
     public string Axis
     {
-        get { return _axis; }
-        set { _axis = value; }
+        get { return this.axis; }
+        set { this.axis = value; }
+    }
+
+    public bool Enabled
+    {
+        get { return this.enabled; }
+        set { this.enabled = value; }
     }
 
     public ThresholdTypeEnum ThresholdType
     {
-        get { return _thresholdType; }
-        set { _thresholdType = value; }
+        get { return this.thresholdType; }
+        set { this.thresholdType = value; }
     }
 
     public float ThresholdValue
     {
-        get { return thresholdValue; }
-        set { thresholdValue = value; }
+        get { return this.thresholdValue; }
+        set { this.thresholdValue = value; }
     }
 
     public float LastTriggered
     {
-        get { return _lastTriggered; }
-        set { _lastTriggered = value; }
+        get { return lastTriggered; }
+        set { lastTriggered = value; }
     }
 
     public float RepeatDelay
     {
-        get { return _repeatDelay; }
-        set { _repeatDelay = value; }
+        get { return this.repeatDelay; }
+        set { this.repeatDelay = value; }
 
     }
 }

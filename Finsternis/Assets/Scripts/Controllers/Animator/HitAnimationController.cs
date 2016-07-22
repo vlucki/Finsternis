@@ -8,7 +8,7 @@ namespace Finsternis
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-            animator.SetBool(CharController.AttackBool, false);
+            animator.SetBool(CharController.AttackTrigger, false);
             animator.GetComponent<CharController>().Lock();
         }
 

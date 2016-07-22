@@ -8,7 +8,6 @@ namespace Finsternis
     [RequireComponent(typeof(Collider))]
     public class Trigger : MonoBehaviour
     {
-
         [Serializable]
         public class OnTriggerEvent : UnityEvent<GameObject> { }
 

@@ -22,15 +22,15 @@ namespace Finsternis
 
         protected float remainingCooldown = 0;
 
+        protected CharController user;
+
         private float timeDisabled;
+        private bool equipped;
 
         private IEnumerator<float> castingHandle;
         private IEnumerator<float> cooldownHandle;
 
-        protected CharController user;
-        private bool equipped;
-
-        public bool CollingDown { get { return remainingCooldown > 0; } }
+        public bool CoolingDown { get { return remainingCooldown > 0; } }
         public bool LockDuringCast { get { return lockDuringCast; } }
         public bool Equipped { get { return this.equipped; } }
 
@@ -52,7 +52,7 @@ namespace Finsternis
 
         public virtual bool MayUse()
         {
-            return !CollingDown;
+            return !CoolingDown;
         }
 
         private IEnumerator<float> _BeginCasting()
@@ -70,7 +70,7 @@ namespace Finsternis
 
         protected virtual void CastSkill()
         {
-            if (CollingDown)
+            if (CoolingDown)
                 this.cooldownHandle = Timing.RunCoroutine(_Cooldown());
         }
 
@@ -80,32 +80,30 @@ namespace Finsternis
             {
                 yield return 0f;
                 remainingCooldown -= Time.deltaTime;
-            } while (CollingDown);
+            } while (CoolingDown);
         }
 
         public virtual void Equip()
         {
-            equipped = true;
-            enabled = true;
+            this.equipped = enabled = true;
         }
 
         public virtual void Unequip()
         {
-            equipped = false;
-            enabled = false;
+            this.equipped = enabled = false;
         }
 
         protected virtual void OnDisable()
         {
-            Timing.KillCoroutine(castingHandle);
-            Timing.KillCoroutine(cooldownHandle);
+            Timing.KillCoroutine(this.castingHandle);
+            Timing.KillCoroutine(this.cooldownHandle);
             timeDisabled = Time.timeSinceLevelLoad;
         }
 
         protected virtual void OnEnable()
         {
             remainingCooldown -= (Time.timeSinceLevelLoad - timeDisabled);
-            if(CollingDown)
+            if(CoolingDown)
                 Timing.RunCoroutine(_Cooldown());
         }
     }

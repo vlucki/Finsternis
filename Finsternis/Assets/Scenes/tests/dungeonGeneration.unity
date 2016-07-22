@@ -1198,6 +1198,11 @@ MonoBehaviour:
   enemyHudPrefab: {fileID: 0}
   enemiesHolder: {fileID: 0}
   enemyDensity: 0.01
+--- !u!95 &780893629 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9543252, guid: 65c8a0f35a6611a4285464649e0044ef,
+    type: 2}
+  m_PrefabInternal: {fileID: 1425826756}
 --- !u!1 &791205707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2944,6 +2949,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1376929845}
+--- !u!4 &1387102891 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 478938, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+  m_PrefabInternal: {fileID: 1425826756}
 --- !u!1 &1397815113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3052,6 +3061,10 @@ Prefab:
       propertyPath: onUnlock.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 483752, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3.1075573
@@ -3144,6 +3157,58 @@ Prefab:
       propertyPath: fireballPrefab
       value: 
       objectReference: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+    - target: {fileID: 11446764, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: summonPoint
+      value: 
+      objectReference: {fileID: 1387102891}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 780893629}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetInteger
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 780893629}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: attack
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
   m_IsPrefabParent: 0

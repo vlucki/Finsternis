@@ -5,15 +5,15 @@ using UnityQuery;
 public class InputRouter : MonoBehaviour
 {
     [SerializeField]
-    private AxisTriggersContainer[] _axesToCheck;
+    private AxisTriggersContainer[] axesToCheck;
 
     void Update()
     {
-        if (_axesToCheck != null && _axesToCheck.Length > 0)
+        if (this.axesToCheck != null && this.axesToCheck.Length > 0)
         {
-            for (int i = 0; i < _axesToCheck.Length; i++)
+            for (int i = 0; i < this.axesToCheck.Length; i++)
             {
-                AxisTriggersContainer axis = _axesToCheck[i];
+                AxisTriggersContainer axis = this.axesToCheck[i];
                 float value = Input.GetAxis(axis.Axis);
                 if (ShouldTrigger(axis, value))
                     if (axis.onAxisActive)
@@ -26,7 +26,7 @@ public class InputRouter : MonoBehaviour
 
     private bool ShouldTrigger(AxisTriggersContainer axis, float value)
     {
-        if (Time.timeSinceLevelLoad - axis.LastTriggered < axis.RepeatDelay)
+        if (!axis.Enabled || Time.timeSinceLevelLoad - axis.LastTriggered < axis.RepeatDelay)
             return false;
 
         axis.LastTriggered = Time.timeSinceLevelLoad;
