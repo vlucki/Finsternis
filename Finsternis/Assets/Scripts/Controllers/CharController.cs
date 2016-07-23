@@ -218,8 +218,9 @@ namespace Finsternis
             if (!ValidateSkillSlot((int)slot))
                 return;
 
-            if (this.equippedSkills[(int)slot].Use())
+            if (this.equippedSkills[(int)slot].MayUse())
             {
+                this.equippedSkills[(int)slot].Use();
                 characterAnimator.SetInteger(AttackSlot, (int)slot);
                 characterAnimator.SetTrigger(AttackTrigger);
                 onAttack.Invoke((int)slot);

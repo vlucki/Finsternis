@@ -19,7 +19,6 @@ namespace Finsternis
 
         private new Collider collider;
 
-
         private Animator animator;
 
         protected override void Awake()
@@ -29,13 +28,10 @@ namespace Finsternis
             base.Awake();
         }
 
-        public override bool Use()
+        public override void Use()
         {
-            if (MayUse())
-            {
-                this.animator.SetFloat("attackSpeed", 1f);
-            }
-            return base.Use();
+            this.animator.SetFloat(CharController.AttackSpeed, 1f);
+            base.Use();
         }
 
         protected override void CastSkill()

@@ -30,13 +30,10 @@ namespace Finsternis
             this.animator = GetComponent<Animator>();
         }
 
-        public override bool Use()
+        public override void Use()
         {
-            if (MayUse())
-            {
-                animator.SetFloat("attackSpeed", 5f);
-            }
-            return base.Use();
+            animator.SetFloat(CharController.AttackSpeed, 5f);
+            base.Use();
         }
 
         protected override void CastSkill()

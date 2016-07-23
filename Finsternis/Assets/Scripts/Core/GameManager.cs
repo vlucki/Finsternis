@@ -11,19 +11,19 @@ namespace Finsternis
         private static GameManager instance;
 
         [SerializeField]
-        private Entity _player;
+        private Entity player;
 
         [SerializeField]
         [Range(1, 99)]
-        private int _dungeonsToClear = 9;
+        private int dungeonsToClear = 9;
 
-        private int _dungeonCount;
-
-        [SerializeField]
-        private GameObject _fallDeathZone;
+        private int clearedDungeons;
 
         [SerializeField]
-        private DungeonManager _dungeonManager;
+        private GameObject fallDeathZone;
+
+        [SerializeField]
+        private DungeonManager dungeonManager;
 
         public GameObject playerPrefab;
 
@@ -31,20 +31,19 @@ namespace Finsternis
 
         public static GameManager Instance { get { return instance; } }
 
-        public Entity Player { get { return _player; } }
+        public Entity Player { get { return this.player; } }
 
-        public DungeonManager DungeonManager { get { return _dungeonManager; } }
-
+        public DungeonManager DungeonManager { get { return this.dungeonManager; } }
 
         public int DungeonCount
         {
-            get { return _dungeonCount; }
-            set { _dungeonCount = Mathf.Max(0, value); }
+            get { return this.clearedDungeons; }
+            set { this.clearedDungeons = Mathf.Max(0, value); }
         }
 
         public void IncreaseDungeonCount()
         {
-            _dungeonCount++;
+            this.clearedDungeons++;
         }
 
         void Awake()
@@ -62,7 +61,7 @@ namespace Finsternis
 #if !UNITY_EDITOR
         Cursor.lockState = CursorLockMode.Locked;
 #endif
-            _dungeonCount = -1;
+            this.clearedDungeons = -1;
         }
 
         void Start()
@@ -90,11 +89,11 @@ namespace Finsternis
         private void Init()
         {
             SearchPlayer();
-            _fallDeathZone = GameObject.Find("FallDeathZone");
-            _dungeonManager = FindObjectOfType<DungeonManager>();
-            if (_dungeonManager)
+            this.fallDeathZone = GameObject.Find("FallDeathZone");
+            this.dungeonManager = FindObjectOfType<DungeonManager>();
+            if (this.dungeonManager)
             {
-                _dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
+                this.dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
             }
         }
 
@@ -103,16 +102,16 @@ namespace Finsternis
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj)
             {
-                _player = playerObj.GetComponent<Entity>();
+                this.player = playerObj.GetComponent<Entity>();
             }
             else if (playerPrefab)
             {
-                _player = Instantiate(playerPrefab).GetComponent<Entity>();
+                this.player = Instantiate(playerPrefab).GetComponent<Entity>();
             }
 
-            if (_player)
+            if (this.player)
             {
-                _player.GetAttribute("hp").onValueChanged.AddListener(
+                this.player.GetAttribute("hp").onValueChanged.AddListener(
                     (attribute) => { if (attribute.Value <= 0) Timing.RunCoroutine(_GameOver()); });
             }
             else
@@ -132,7 +131,7 @@ namespace Finsternis
 
         public bool GoalReached()
         {
-            return _dungeonCount >= _dungeonsToClear;
+            return this.clearedDungeons >= this.dungeonsToClear;
         }
 
         public IEnumerator<float> _GameOver()
@@ -149,8 +148,8 @@ namespace Finsternis
                 EntityAttribute hp = e.GetAttribute("hp");
                 if (hp)
                     hp.SetValue(0);
-                else
-                    e.Kill();
+
+                e.Kill();
                 return;
             }
             else
@@ -160,31 +159,31 @@ namespace Finsternis
         }
 
 
-
         internal void EndCurrentLevel(Exit e)
         {
-            _fallDeathZone.GetComponent<Collider>().enabled = false;
+            this.fallDeathZone.GetComponent<Collider>().enabled = false;
 
-            _player.GetComponent<Rigidbody>().velocity = new Vector3(0, _player.GetComponent<Rigidbody>().velocity.y, 0);
-            _player.transform.forward = -Vector3.forward;
-            Timing.CallDelayed(1, _dungeonManager.CreateDungeon);
+            this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
+            this.player.transform.forward = -Vector3.forward;
+            Timing.CallDelayed(1, this.dungeonManager.CreateDungeon);
         }
 
         private void BeginNewLevel(Dungeon dungeon)
         {
-            GameObject _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
-            Vector3 currOffset = _player.transform.position - _cameraHolder.transform.position;
-            Vector3 pos = Vector3.up * 30;
-            if (dungeon)
-            {
-                pos.x = (int)(dungeon.Entrance.x * _dungeonManager.Drawer.cellScale.x) + _dungeonManager.Drawer.cellScale.x / 2;
-                pos.z = (int)-(dungeon.Entrance.y * _dungeonManager.Drawer.cellScale.z) - _dungeonManager.Drawer.cellScale.z / 2;
-            }
-            _player.transform.position = pos;
+            if (!dungeon)
+                throw new ArgumentNullException("dungeon", "There must exist a dungeon for a new level to begin.");
 
-            _cameraHolder.transform.position = _player.transform.position - currOffset;
+            GameObject cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
+            Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-            _fallDeathZone.GetComponent<Collider>().enabled = true;
+            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2);
+            pos.y = 30;
+
+            this.player.transform.position = pos;
+
+            cameraHolder.transform.position = this.player.transform.position - currOffset;
+
+            this.fallDeathZone.GetComponent<Collider>().enabled = true;
         }
     }
 }

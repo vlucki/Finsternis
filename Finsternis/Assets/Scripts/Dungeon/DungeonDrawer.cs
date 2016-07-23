@@ -36,6 +36,11 @@ namespace Finsternis
 
         private HashSet<Vector2> drawnWalls;
 
+        public Vector3 GetWorldPosition(Vector2 dungeonPosition)
+        {
+            return new Vector3(dungeonPosition.x * cellScale.x, 0, -dungeonPosition.y * cellScale.z);
+        }
+
         public void Draw(Dungeon dungeon)
         {
             onDrawBegin.Invoke();
@@ -82,7 +87,7 @@ namespace Finsternis
         {
             Type type = section.GetType();
             GameObject sectionGO = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
-            sectionGO.transform.position = new Vector3(section.Bounds.center.x * cellScale.x, 0, -section.Bounds.center.y * cellScale.z);
+            sectionGO.transform.position = GetWorldPosition(section.Bounds.center);
             foreach (Vector2 cell in section)
             {
                 for (int i = -1; i < 2; i++)
@@ -99,9 +104,6 @@ namespace Finsternis
                 GameObject sectionCell = MakeCell((int)cell.x, (int)cell.y);
                 sectionCell.transform.SetParent(sectionGO.transform);
             }
-
-            //if (type.Equals(typeof(Corridor)))
-            //    MakeDoors(section as Corridor, sectionGO);
 
             return sectionGO;
         }
@@ -148,8 +150,8 @@ namespace Finsternis
         private GameObject MakeCell(int cellX, int cellY)
         {
             GameObject cell = null;
-            Vector3 pos = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
-            
+            Vector3 pos = GetWorldPosition(new Vector2(cellX, cellY) + Vector2.one / 2);
+
             string name = "floor (" + cellX + ";" + cellY + ")";
             DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
             if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
@@ -224,10 +226,11 @@ namespace Finsternis
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
         {
             position += Vector2.one / 2; //needed to align the feature with the center of each cell
+
             GameObject featureGO = 
                 (GameObject)Instantiate(
-                feature.Prefab, 
-                new Vector3(position.x * cellScale.x, 0, -position.y * cellScale.z) + feature.Offset, 
+                feature.Prefab,
+                GetWorldPosition(position) + feature.Offset, 
                 Quaternion.identity);
             
             switch (feature.Alignment)
@@ -266,7 +269,8 @@ namespace Finsternis
             drawnWalls.Add(coords);
 
             GameObject wall;
-            Vector3 wallPosition = new Vector3(cellX * cellScale.x, 0, -cellY * cellScale.y); ;
+            Vector3 wallPosition = GetWorldPosition(coords);
+
             if (walls != null && walls.Length > 0)
             {
                 wall = walls[Random.Range(0, walls.Length)];
@@ -324,7 +328,7 @@ namespace Finsternis
                 }
 
                 wall.transform.localScale = new Vector3(cellScale.x, cellScale.y + extraWallHeight, cellScale.z);
-                wallPosition = new Vector3(cellX * cellScale.x + cellScale.x / 2, 0, -cellY * cellScale.z - cellScale.z / 2);
+                wallPosition = GetWorldPosition(coords + Vector2.one / 2);
             }
 
             wall.transform.position = wallPosition;
