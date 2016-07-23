@@ -29,70 +29,70 @@ namespace Finsternis
         [Header("Dungeon dimensions")]
         [SerializeField]
         [Range(10, 1000)]
-        private int _dungeonWidth = 20;
+        private int dungeonWidth = 20;
 
         [SerializeField]
         [Range(10, 1000)]
-        private int _dungeonHeight = 20;
+        private int dungeonHeight = 20;
 
         [SerializeField]
         [Range(2, 1000)] //at least one starting point and one exit
-        private int _totalRooms = 5;
+        private int totalRooms = 5;
 
         [Tooltip("How many times should it try to carve a room before stoping")]
         [SerializeField]
         [Range(1, 100)]
-        private int _maximumTries = 2;
+        private int maximumTries = 2;
 
         [Header("Maximum room size")]
         [SerializeField]
         [Range(2, 1000)]
-        private int _maximumRoomWidth;
+        private int maximumRoomWidth;
 
         [SerializeField]
         [Range(2, 1000)]
-        private int _maximumRoomHeight;
+        private int maximumRoomHeight;
 
         [Header("Minimum brush size")]
         [SerializeField]
         [Range(2, 1000)]
-        private int _minimumBrushWidth = 3;
+        private int minimumBrushWidth = 3;
 
         [SerializeField]
         [Range(2, 1000)]
-        private int _minimumBrushHeight = 3;
+        private int minimumBrushHeight = 3;
 
         [Header("Maximum brush size")]
         [SerializeField]
         [Range(2, 100)]
-        private int _maximumBrushWidth = 7;
+        private int maximumBrushWidth = 7;
 
         [SerializeField]
         [Range(2, 100)]
-        private int _maximumBrushHeight = 7;
+        private int maximumBrushHeight = 7;
 
         [Header("Corridors")]
         [SerializeField]
         [Range(1, 100)]
-        private int _minimumCorridorLength = 1;
+        private int minimumCorridorLength = 1;
 
         [SerializeField]
         [Range(1, 100)]
-        private int _maximumCorridorLength = 5;
+        private int maximumCorridorLength = 5;
 
         [SerializeField]
-        private bool _allowDeadEnds = false;
+        private bool allowDeadEnds = false;
 
         [Space]
         [Header("Features")]
         [SerializeField]
-        private DungeonFeature[] _traps;
+        private DungeonFeature[] traps;
 
         [SerializeField]
-        private DoorFeature[] _doors;
+        private DoorFeature[] doors;
         #endregion
 
-        private Room _lastRoom;
+        private Room lastRoom;
         public const string SEED_KEY = "LastSeed";
 
         /// <summary>
@@ -101,14 +101,14 @@ namespace Finsternis
         /// <param name="dungeon">Reference to the dungeon.</param>
         public void Init(Dungeon dungeon)
         {
-            dungeon.Init(_dungeonWidth, _dungeonHeight);
+            dungeon.Init(this.dungeonWidth, this.dungeonHeight);
 
-            _maximumBrushHeight = Mathf.Clamp(_maximumBrushHeight, 0, dungeon.Height);
-            _maximumBrushWidth = Mathf.Clamp(_maximumBrushWidth, 0, dungeon.Width);
-            _minimumBrushHeight = Mathf.Clamp(_minimumBrushHeight, 0, _maximumBrushHeight);
-            _minimumBrushWidth = Mathf.Clamp(_minimumBrushWidth, 0, _maximumBrushWidth);
-            _maximumCorridorLength = Mathf.Clamp(_maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
-            _minimumCorridorLength = Mathf.Clamp(_minimumCorridorLength, 0, _maximumCorridorLength);
+            this.maximumBrushHeight = Mathf.Clamp (this.maximumBrushHeight, 0, dungeon.Height);
+            this.maximumBrushWidth = Mathf.Clamp (this.maximumBrushWidth, 0, dungeon.Width);
+            this.minimumBrushHeight = Mathf.Clamp (this.minimumBrushHeight, 0, this.maximumBrushHeight);
+            this.minimumBrushWidth = Mathf.Clamp (this.minimumBrushWidth, 0, this.maximumBrushWidth);
+            this.maximumCorridorLength = Mathf.Clamp (this.maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
+            this.minimumCorridorLength = Mathf.Clamp (this.minimumCorridorLength, 0, this.maximumCorridorLength);
         }
 
         /// <summary>
@@ -131,11 +131,11 @@ namespace Finsternis
             Queue<Corridor> hangingCorridors = null;
             Queue<Room> hangingRooms = new Queue<Room>();
 
-            Vector4 brushVariation = new Vector4(_minimumBrushWidth, _minimumBrushHeight, _maximumBrushWidth, _maximumBrushHeight);
-            Vector2 maxRoomSize = new Vector2(_minimumBrushWidth, _minimumBrushHeight);
+            Vector4 brushVariation = new Vector4 (this.minimumBrushWidth, this.minimumBrushHeight, this.maximumBrushWidth, this.maximumBrushHeight);
+            Vector2 maxRoomSize = new Vector2 (this.minimumBrushWidth, this.minimumBrushHeight);
 
             Room room;
-            if (RoomFactory.CarveRoom(dungeon, null, brushVariation, maxRoomSize, _maximumTries, out room))
+            if (RoomFactory.CarveRoom(dungeon, null, brushVariation, maxRoomSize, this.maximumTries, out room))
             {
                 dungeon.MarkCells(room);
                 hangingRooms.Enqueue(room);
@@ -146,7 +146,7 @@ namespace Finsternis
                 throw new InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
 
             int roomCount = 1;
-            while (roomCount < _totalRooms  //keep going until the desired number of rooms was generated
+            while (roomCount < this.totalRooms  //keep going until the desired number of rooms was generated
                     && (hangingRooms.Count > 0 || hangingCorridors.Count > 0)) //or until no more rooms or corridors can be generated
             {
                 hangingCorridors = GenerateCorridors(dungeon, hangingRooms);
@@ -154,13 +154,13 @@ namespace Finsternis
                 roomCount = GenerateRooms(dungeon, hangingRooms, hangingCorridors, brushVariation, maxRoomSize, roomCount);
             }
 
-            if (!_allowDeadEnds) ConnectLeftoverCorridors(dungeon, hangingCorridors);
+            if (!this.allowDeadEnds) ConnectLeftoverCorridors(dungeon, hangingCorridors);
 
             CleanUp(dungeon);
 
             AddFeatures(dungeon);
 
-            dungeon.Exit = _lastRoom.GetRandomCell();
+            dungeon.Exit = this.lastRoom.GetRandomCell();
 
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
@@ -187,7 +187,7 @@ namespace Finsternis
         /// <param name="corridor">The corridor to be trapped.</param>
         private void AddTrap(Corridor corridor)
         {
-            if (_traps == null || _traps.Length == 0)
+            if  (this.traps == null || this.traps.Length == 0)
             {
                 Debug.LogWarning("No traps found.");
                 return;
@@ -195,7 +195,7 @@ namespace Finsternis
             if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
             {
                 int pos = Dungeon.Random.Range(1, corridor.Length - 2);
-                DungeonFeature feature = (_traps[Dungeon.Random.Range(0, _traps.Length, false)]);
+                DungeonFeature feature =  (this.traps[Dungeon.Random.Range(0, this.traps.Length, false)]);
                 corridor.AddFeature(feature, corridor[pos]);
             }
         }
@@ -207,13 +207,13 @@ namespace Finsternis
         /// <param name="index">Is this door being added the the first (0) or last (1) cell of the corridor?</param>
         private void AddDoors(Dungeon dungeon, Corridor corridor, int index = 0)
         {
-            if (_doors == null || _doors.Length == 0)
+            if  (this.doors == null || this.doors.Length == 0)
             {
                 Log.Warn("No doors found.");
                 return;
             }
 
-            DoorFeature door = DoorFeature.CreateInstance(_doors[Dungeon.Random.Range(0, _doors.Length, false)]);
+            DoorFeature door = DoorFeature.CreateInstance (this.doors[Dungeon.Random.Range(0, this.doors.Length, false)]);
             Vector2 pos = corridor[index];
             corridor.AddFeature(door, pos);
 
@@ -389,7 +389,7 @@ namespace Finsternis
                 if (!ExtendCorridor(dungeon, corridor)) //first of all, try to extend the corridor untils it intersects something
                 {
                     //if it fails, them remove every corridor that is not connected to another one
-                    if (!_allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
+                    if (!this.allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
                 }
             }
 
@@ -456,7 +456,7 @@ namespace Finsternis
 
             if (corridor.Length != originalLength)
             {
-                if (corridor.Length < _minimumCorridorLength)
+                if (corridor.Length < this.minimumCorridorLength)
                     dungeon.Corridors.Remove(corridor);
             }
         }
@@ -473,7 +473,7 @@ namespace Finsternis
         public int GenerateRooms(Dungeon dungeon, Queue<Room> generatedRooms, Queue<Corridor> hangingCorridors, Vector4 brushVariation, Vector2 maxRoomSize, int roomCount)
         {
             //until there are no hanging corridors (that is, corridors with rooms only at their start) 
-            while (hangingCorridors.Count > 0 && roomCount < _totalRooms)
+            while (hangingCorridors.Count > 0 && roomCount < this.totalRooms)
             {
                 //make a room at the end of a corridor and add it to the queue of rooms without corridors
                 Room room;
@@ -483,12 +483,12 @@ namespace Finsternis
                 {
                     throw new InvalidOperationException("Corridor should not be null!\n" + corridor);
                 }
-                if (RoomFactory.CarveRoom(dungeon, corridor, brushVariation, maxRoomSize, _maximumTries, out room))
+                if (RoomFactory.CarveRoom(dungeon, corridor, brushVariation, maxRoomSize, this.maximumTries, out room))
                 {
                     generatedRooms.Enqueue(room);
                     dungeon.MarkCells(room);
                     dungeon.Rooms.Add(room);
-                    _lastRoom = room;
+                    this.lastRoom = room;
                     corridor.AddConnection(room);
                     roomCount++;
                 }
@@ -521,7 +521,7 @@ namespace Finsternis
                 Corridor corridor;
                 for (int i = 0; i < 2; i++)
                 {
-                    if (CorridorFactory.CarveCorridor(dungeon, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(_minimumCorridorLength, _maximumCorridorLength), new Vector2(_minimumBrushWidth, _minimumBrushHeight), out corridor))
+                    if (CorridorFactory.CarveCorridor(dungeon, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2 (this.minimumCorridorLength, this.maximumCorridorLength), new Vector2 (this.minimumBrushWidth, this.minimumBrushHeight), out corridor))
                     {
                         hangingCorridors.Enqueue(corridor);
                         dungeon.Corridors.Add(corridor);

@@ -8,7 +8,7 @@ namespace Finsternis
         [Space(10)]
         [Header("Blink attributes", order = 1)]
 
-        [SerializeField]
+        [SerializeField][Range(0, 10)]
         private float maxBlinkDistance = 1f;
 
         [SerializeField]

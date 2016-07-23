@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-[CreateAssetMenu(fileName = "DungeonFeature", menuName = "DungeonFeature/Generic Feature", order = 1)]
+[CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/DungeonFeature/Generic Feature", order = 0)]
 public class DungeonFeature : ScriptableObject
 {
     public enum FeatureType
@@ -18,38 +18,33 @@ public class DungeonFeature : ScriptableObject
     }
 
     [SerializeField]
-    private Guid _id;
+    private GameObject prefab;
 
     [SerializeField]
-    private GameObject _prefab;
+    private FeatureType type = FeatureType.ADD_ON;
 
     [SerializeField]
-    private FeatureType _type = FeatureType.ADD_ON;
+    private CellAlignment alignment = CellAlignment.FLOOR;
 
     [SerializeField]
-    private CellAlignment _alignment = CellAlignment.FLOOR;
-
-    [SerializeField]
-    private Vector3 _offset = Vector3.zero;
-
-    public Guid Id { get { return _id; } }
+    private Vector3 offset = Vector3.zero;
 
     public GameObject Prefab
     {
-        get { return _prefab; }
+        get { return this.prefab; }
     }
 
-    public FeatureType Type { get { return _type; } }
+    public FeatureType Type { get { return this.type; } }
 
     public CellAlignment Alignment {
-        get { return _alignment; }
-        set { _alignment = value; }
+        get { return this.alignment; }
+        set { this.alignment = value; }
     }
 
     public Vector3 Offset
     {
-        get { return _offset; }
-        set { _offset = value; }
+        get { return this.offset; }
+        set { this.offset = value; }
     }
 
     public static DungeonFeature CreateInstance(DungeonFeature reference)
@@ -61,14 +56,9 @@ public class DungeonFeature : ScriptableObject
 
     protected void Init(DungeonFeature reference)
     {
-        this._offset     = reference._offset;
-        this._prefab     = reference._prefab;
-        this._type       = reference._type;
-        this._alignment  = reference._alignment;
-    }
-
-    void OnEnable()
-    {
-        _id = Guid.NewGuid();
+        this.offset     = reference.offset;
+        this.prefab     = reference.prefab;
+        this.type       = reference.type;
+        this.alignment  = reference.alignment;
     }
 }

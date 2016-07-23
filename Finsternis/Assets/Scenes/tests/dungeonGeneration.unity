@@ -766,6 +766,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493515736}
+--- !u!114 &658775525 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef,
+    type: 2}
+  m_PrefabInternal: {fileID: 1425826756}
+  m_Script: {fileID: 11500000, guid: 6e63472012b142d4a84cf9787c874748, type: 3}
 --- !u!1 &727496063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1044,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 769769427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6898193, y: -3.2597656, z: -3.2480469}
+  m_LocalPosition: {x: 0, y: -3.2597656, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1112,26 +1118,21 @@ MonoBehaviour:
     m_TypeName: Finsternis.DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   dungeonName: Simple Dungeon
-  _dungeonWidth: 30
-  _dungeonHeight: 30
-  _totalRooms: 40
-  _maximumTries: 3
-  _maximumRoomWidth: 3
-  _maximumRoomHeight: 3
-  _minimumBrushWidth: 2
-  _minimumBrushHeight: 2
-  _maximumBrushWidth: 3
-  _maximumBrushHeight: 3
-  _minimumCorridorLength: 2
-  _maximumCorridorLength: 3
-  _allowDeadEnds: 0
-  _traps:
-  - {fileID: 11400000, guid: a7d381a3e7fbcd644915c49ed0690dfa, type: 2}
-  - {fileID: 11400000, guid: 2033a40d27ce92143a399873b92d316f, type: 2}
-  - {fileID: 11400000, guid: 09b4cdf05f0443a49a2dc773923cc051, type: 2}
-  _doors:
-  - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
-  - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
+  dungeonWidth: 50
+  dungeonHeight: 50
+  totalRooms: 50
+  maximumTries: 2
+  maximumRoomWidth: 0
+  maximumRoomHeight: 0
+  minimumBrushWidth: 3
+  minimumBrushHeight: 3
+  maximumBrushWidth: 7
+  maximumBrushHeight: 7
+  minimumCorridorLength: 1
+  maximumCorridorLength: 5
+  allowDeadEnds: 0
+  traps: []
+  doors: []
 --- !u!114 &769769431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1574,10 +1575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade91008a7776b3468b24e740c02ce44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
-  _canvas: {fileID: 878453349}
-  _optionsContainer: {fileID: 914940993}
-  _followBehaviour: {fileID: 878453345}
+  gameManager: {fileID: 0}
+  canvas: {fileID: 0}
+  optionsContainer: {fileID: 0}
+  followBehaviour: {fileID: 0}
   fadeSpeed: 0.2
 --- !u!114 &878453345
 MonoBehaviour:
@@ -1885,7 +1886,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975108876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6898193, y: -3.2597656, z: -3.2480469}
+  m_LocalPosition: {x: 0, y: -3.2597656, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1986,7 +1987,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 986273453}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6898193, y: 3.2597656, z: 3.2480469}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2795,7 +2796,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1270723575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6898193, y: -3.2597656, z: -3.2480469}
+  m_LocalPosition: {x: 0, y: -3.2597656, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -3053,6 +3054,26 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].controls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].controls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].controls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onLock.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -3063,7 +3084,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 483752, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: m_LocalPosition.x
@@ -3163,7 +3196,7 @@ Prefab:
       objectReference: {fileID: 1387102891}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -3175,7 +3208,7 @@ Prefab:
       objectReference: {fileID: 780893629}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetInteger
+      value: SetTrigger
       objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3183,7 +3216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 
+      value: attack
       objectReference: {fileID: 0}
     - target: {fileID: 11467130, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -3209,6 +3242,159 @@ Prefab:
       propertyPath: onAttack.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: attack
       objectReference: {fileID: 0}
+    - target: {fileID: 11463148, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: maxBlinkDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[0].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[1].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[2].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[3].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[4].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[5].onAxisActive.m_TypeName
+      value: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: axesToCheck.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f78b1f9457f03249b5bfa2da14fbb6b,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_TypeName
+      value: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].controls.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f78b1f9457f03249b5bfa2da14fbb6b,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].controls.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d88faa801aba0d94d947bc192f4b60cf,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].name
+      value: Movement On X Axis
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 658775525}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetXDirection
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[0].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].name
+      value: Movement On Z Axis
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].controls.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d88faa801aba0d94d947bc192f4b60cf,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 658775525}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetZDirection
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[1].onAxisActive.m_TypeName
+      value: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].name
+      value: Attacks
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].controls.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fd45a7014728b34884844f08d0d3848,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 658775525}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].onAxisActive.m_TypeName
+      value: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].controls.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e281a9b07e24d154e8a5d722344f9d38,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].controls.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f9450fddf781a634b85f28248a3c15a9,
+        type: 2}
+    - target: {fileID: 11416438, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
+      propertyPath: triggers.Array.data[2].controls.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 98fba4874565ebf42bf391106a23ae49,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
   m_IsPrefabParent: 0
@@ -3455,7 +3641,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1506804901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6898193, y: -63.259766, z: -3.2480469}
+  m_LocalPosition: {x: 0, y: -63.259766, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

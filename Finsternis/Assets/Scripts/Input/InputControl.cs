@@ -1,18 +1,8 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
-[System.Serializable]
-public sealed class AxisTriggersContainer
+[CreateAssetMenu(fileName = "InputControl", menuName = "Finsternis/Input/Input Control", order = 1)]
+public class InputControl : ScriptableObject
 {
-    [System.Serializable]
-    public class AxisInputEvent : UnityEvent<float>
-    {
-        public static implicit operator bool(AxisInputEvent evt)
-        {
-            return evt != null;
-        }
-    }
-
     public enum ThresholdTypeEnum
     {
         NONE            = 0x000,
@@ -22,10 +12,6 @@ public sealed class AxisTriggersContainer
         EQUAL_TO        = 0x100,
         ANY             = 0x111
     }
-
-#if UNITY_EDITOR
-    public string name;
-#endif
 
     [AxesName][SerializeField]
     private string axis;
@@ -44,9 +30,8 @@ public sealed class AxisTriggersContainer
     [SerializeField]
     private float repeatDelay = 0f;
 
-    private float lastTriggered;
-
-    public AxisInputEvent onAxisActive;
+    [SerializeField][Tooltip("Should the value returned by Input.GetAxis be restricted to either 0 or 1?")]
+    private bool clampValue = false;
 
     public string Axis
     {
@@ -72,16 +57,19 @@ public sealed class AxisTriggersContainer
         set { this.thresholdValue = value; }
     }
 
-    public float LastTriggered
-    {
-        get { return lastTriggered; }
-        set { lastTriggered = value; }
-    }
-
     public float RepeatDelay
     {
         get { return this.repeatDelay; }
-        set { this.repeatDelay = value; }
+        set { this.repeatDelay = Mathf.Max(0, value); }
+    }
 
+    public virtual float Value()
+    {
+        return clampValue ? Mathf.Clamp01(Input.GetAxis(Axis)) : Input.GetAxis(Axis);
+    }
+
+    public float TrueValue()
+    {
+        return Input.GetAxis(Axis);
     }
 }

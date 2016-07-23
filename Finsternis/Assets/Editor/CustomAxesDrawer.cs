@@ -44,10 +44,6 @@ public class CustomAxesDrawer : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        if(axes == null || axes.Length < 1)
-        {
-            EditorGUILayout.HelpBox("There must be at least one Axis defined in the input manager for this script to work.", MessageType.Error, true);
-        }
         if (property.propertyType.Equals(SerializedPropertyType.String))
         {
             InitializeAxes(property);

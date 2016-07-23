@@ -1453,131 +1453,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _axesToCheck:
-  - name: Base Attack
-    _axis: BaseAttack
-    _thresholdType: 16
+  axesToCheck:
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: Attack
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Skill 1
-    _axis: SkillSlot1
-    _thresholdType: 17
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: Attack
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Skill 2
-    _axis: SkillSlot2
-    _thresholdType: 16
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: Attack
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Skill 3
-    _axis: SkillSlot3
-    _thresholdType: 16
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: Attack
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Movement X
-    _axis: Horizontal
-    _thresholdType: 273
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0.033
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: SetXDirection
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Movement Z
-    _axis: Vertical
-    _thresholdType: 273
+  - name: 
+    axis: 
+    enabled: 0
+    thresholdType: 0
     thresholdValue: 0
-    _repeatDelay: 0.033
+    repeatDelay: 0
     onAxisActive:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11467130}
-          m_MethodName: SetZDirection
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
 --- !u!114 &11424050
@@ -1660,13 +1600,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0077f36e68a650a47a60230a48b1f77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slot: 0
   castTime: 0.2
   cooldownTime: 0.5
-  _lockDuringCast: 1
-  _fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
-  _summonPoint: {fileID: 478938}
-  _summonOffset: 0.5
+  lockDuringCast: 1
+  fireballPrefab: {fileID: 0}
+  summonPoint: {fileID: 0}
+  summonOffset: 0
 --- !u!114 &11463148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1678,12 +1617,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc6d1d21c8e530458929b5ca406de2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slot: 1
   castTime: 0.4
   cooldownTime: 1
-  _lockDuringCast: 1
-  _maxBlinkDistance: 3.5
-  _offset: {x: 0, y: 1, z: 0}
+  lockDuringCast: 1
+  maxBlinkDistance: 3
+  offset: {x: 0, y: 1, z: 0}
   blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
@@ -1703,8 +1641,24 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _fallSpeedThreshold: -0.2
-  _turningSpeed: 0.05
+  onLock:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onUnlock:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  fallSpeedThreshold: -0.2
+  turningSpeed: 0.05
+  skills: []
+  equippedSkills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &11476516
 MonoBehaviour:
   m_ObjectHideFlags: 1

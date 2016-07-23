@@ -13,8 +13,9 @@ namespace Finsternis
         public GameObject enemyHudPrefab;
         public GameObject enemiesHolder;
 
+        [SerializeField]
         [Range(0.01f, 1)]
-        public float enemyDensity = 0.1f;
+        private float enemyDensity = 0.1f;
 
         void Awake()
         {

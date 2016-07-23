@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "DoorFeature", menuName = "DungeonFeature/Door", order = 2)]
+[CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/DungeonFeature/Generic Feature", order = 1)]
 public class DoorFeature : DungeonFeature
 {
     [SerializeField]

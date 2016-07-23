@@ -65,7 +65,6 @@ namespace Finsternis
             HitTrigger    = Animator.StringToHash("hit");
             HitType       = Animator.StringToHash("hitType");
             SpeedFloat    = Animator.StringToHash("speed");
-
         }
 
         public virtual void Awake()
@@ -206,7 +205,7 @@ namespace Finsternis
                 Lock();
         }
 
-        public virtual void Attack(int slot = 0)
+        public virtual void Attack(float slot = 0)
         {
             if (!CanAttack())
             {
@@ -216,13 +215,14 @@ namespace Finsternis
                 return;
             }
 
-            if (!ValidateSkillSlot(slot))
+            if (!ValidateSkillSlot((int)slot))
                 return;
 
-            if (this.equippedSkills[slot].Use())
+            if (this.equippedSkills[(int)slot].Use())
             {
-                characterAnimator.SetInteger(AttackSlot, slot);
-                onAttack.Invoke(slot);
+                characterAnimator.SetInteger(AttackSlot, (int)slot);
+                characterAnimator.SetTrigger(AttackTrigger);
+                onAttack.Invoke((int)slot);
             }
         }
 

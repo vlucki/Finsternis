@@ -7,99 +7,100 @@ namespace Finsternis
     public class MenuController : MonoBehaviour
     {
         [SerializeField]
-        private GameManager _gameManager;
+        private GameManager gameManager;
 
         [SerializeField]
-        private Canvas _canvas;
+        private Canvas canvas;
 
         [SerializeField]
-        private GameObject _optionsContainer;
+        private GameObject optionsContainer;
 
         [SerializeField]
-        private Follow _followBehaviour;
+        private Follow followBehaviour;
 
-        private Button[] _options;
+        private Button[] options;
 
-        private Selectable _selectable;
+        private Selectable selectable;
 
-        private bool _isToggleButtonDown;
+        private bool isToggleButtonDown;
 
-        float _targetAlpha = 0;
+        float targetAlpha = 0;
         [SerializeField]
         [Range(0, 1)]
         float fadeSpeed = 0.2f;
-        private CanvasGroup _group;
+
+        private CanvasGroup group;
 
         public bool Active
         {
-            get { return _canvas.enabled; }
+            get { return this.canvas.enabled; }
             set
             {
-                _canvas.enabled = value;
-                _followBehaviour.enabled = value;
-                _optionsContainer.SetActive(value);
+                this.canvas.enabled = value;
+                this.followBehaviour.enabled = value;
+                this.optionsContainer.SetActive(value);
             }
         }
 
         void Awake()
         {
-            if (!_gameManager)
-                _gameManager = GameManager.Instance;
+            if (!this.gameManager)
+                this.gameManager = GameManager.Instance;
 
-            if (!_canvas)
-                _canvas = GetComponent<Canvas>();
+            if (!this.canvas)
+                this.canvas = GetComponent<Canvas>();
 
-            if (!_selectable)
-                _selectable = GetComponent<Selectable>();
+            if (!this.selectable)
+                this.selectable = GetComponent<Selectable>();
 
-            if (!_group)
-                _group = GetComponent<CanvasGroup>();
+            if (!this.group)
+                this.group = GetComponent<CanvasGroup>();
 
-            _group.alpha = 0;
+            this.group.alpha = 0;
 
-            if (!_optionsContainer)
+            if (!this.optionsContainer)
             {
                 foreach (Transform t in transform)
                 {
                     if (t.name.Equals("OptionsContainer"))
                     {
-                        _optionsContainer = t.gameObject;
+                        this.optionsContainer = t.gameObject;
                         break;
                     }
                 }
             }
 
-            if (!_followBehaviour)
-                _followBehaviour = GetComponent<Follow>();
+            if (!this.followBehaviour)
+                this.followBehaviour = GetComponent<Follow>();
 
-            if (_options == null)
-                _options = _optionsContainer.GetComponentsInChildren<Button>();
+            if (this.options == null)
+                this.options = this.optionsContainer.GetComponentsInChildren<Button>();
         }
 
         void Start()
         {
-            ToggleMenu();
+            Active = false;
         }
 
         void Update()
         {
             if (Input.GetAxis("Cancel") > 0)
             {
-                if (!_isToggleButtonDown)
+                if (!this.isToggleButtonDown)
                 {
                     ToggleMenu();
-                    _isToggleButtonDown = true;
+                    this.isToggleButtonDown = true;
                 }
             }
-            else if (_isToggleButtonDown)
+            else if (this.isToggleButtonDown)
             {
-                _isToggleButtonDown = false;
+                this.isToggleButtonDown = false;
             }
 
-            if (!Mathf.Approximately(_group.alpha, _targetAlpha))
-                _group.alpha = Mathf.Lerp(_group.alpha, _targetAlpha, fadeSpeed);
+            if (!Mathf.Approximately(this.group.alpha, this.targetAlpha))
+                this.group.alpha = Mathf.Lerp(this.group.alpha, this.targetAlpha, fadeSpeed);
 
-            if (Active && _group.alpha < 0.1f)
+            if (Active && this.group.alpha < 0.1f)
                 Active = false;
         }
 
@@ -114,34 +115,33 @@ namespace Finsternis
         public void Show()
         {
             Active = true;
-            _followBehaviour.ResetOffset();
-            _targetAlpha = 1;
-            _followBehaviour.Target.GetComponent<CharController>().Lock();
-            //GameManager.Instance.Player.GetComponent<InputRouter>().enabled = false;
+            this.followBehaviour.ResetOffset();
+            this.targetAlpha = 1;
+            this.followBehaviour.Target.GetComponent<CharController>().Lock();
 
-            _selectable.Select();
-            _options[0].Select();
+            this.selectable.Select();
+            this.options[0].Select();
 
-            this.transform.position = this._followBehaviour.Target.transform.position + 2 * this._followBehaviour.offset;
+            this.transform.position = this.followBehaviour.Target.transform.position + 2 * this.followBehaviour.offset;
         }
 
         public void Hide(bool usedToggleButton = false)
         {
-            _isToggleButtonDown = usedToggleButton;
-            _followBehaviour.Target.GetComponent<CharController>().UnlockWithDelay(1f);
-            _targetAlpha = 0;
-            _followBehaviour.offset.x *= -1;
+            this.isToggleButtonDown = usedToggleButton;
+            this.targetAlpha = 0;
+            this.followBehaviour.Target.GetComponent<CharController>().UnlockWithDelay(0.3f);
+            this.followBehaviour.offset.x *= -1;
         }
 
         public void MainMenu(bool askForConfirmation = true)
         {
             if (askForConfirmation)
             {
-                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", MainMenu, false, _options[2].Select);
+                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", MainMenu, false, this.options[2].Select);
             }
             else
             {
-                _gameManager.LoadScene("MainMenu");
+                this.gameManager.LoadScene("MainMenu");
             }
         }
 
@@ -149,11 +149,11 @@ namespace Finsternis
         {
             if (askForConfirmation)
             {
-                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", Exit, false, _options[3].Select);
+                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", Exit, false, this.options[3].Select);
             }
             else
             {
-                _gameManager.Exit();
+                this.gameManager.Exit();
             }
         }
     }
