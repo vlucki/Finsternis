@@ -456,10 +456,10 @@ GameObject:
   - 114: {fileID: 11431546}
   - 114: {fileID: 11476516}
   - 114: {fileID: 11400542}
-  - 114: {fileID: 11424050}
   - 114: {fileID: 11446764}
   - 114: {fileID: 11463148}
   - 114: {fileID: 11416438}
+  - 114: {fileID: 11481436}
   m_Layer: 9
   m_Name: Balthazar
   m_TagString: Player
@@ -1393,18 +1393,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constraints: 1
-  _name: Defense
-  _alias: def
-  _value: 1
-  _min: 0
-  _max: 0
+  constraints: 1
+  name: Speed
+  alias: spd
+  value: 3
+  min: 0
+  max: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
+  autoNotifyEntity: 1
 --- !u!114 &11406364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1416,18 +1416,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constraints: 3
-  _name: Mana
-  _alias: mp
-  _value: 10
-  _min: 0
-  _max: 10
+  constraints: 3
+  name: Mana
+  alias: mp
+  value: 10
+  min: 0
+  max: 10
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
+  autoNotifyEntity: 1
 --- !u!114 &11411972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,29 +1514,6 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
---- !u!114 &11424050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _constraints: 1
-  _name: Magic Defense
-  _alias: mdef
-  _value: 1
-  _min: 0
-  _max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
 --- !u!114 &11431546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1548,18 +1525,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constraints: 1
-  _name: Damage
-  _alias: dmg
-  _value: 2
-  _min: 0
-  _max: 0
+  constraints: 1
+  name: Damage
+  alias: dmg
+  value: 3
+  min: 0
+  max: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
+  autoNotifyEntity: 1
 --- !u!114 &11435086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1571,18 +1548,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constraints: 3
-  _name: Health
-  _alias: hp
-  _value: 10
-  _min: 0
-  _max: 10
+  constraints: 3
+  name: Health
+  alias: hp
+  value: 10
+  min: 0
+  max: 10
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
+  autoNotifyEntity: 1
 --- !u!114 &11446764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1706,18 +1683,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _constraints: 1
-  _name: Speed
-  _alias: spd
-  _value: 3
-  _min: 0
-  _max: 0
+  constraints: 1
+  name: Defense
+  alias: def
+  value: 2
+  min: 0
+  max: 0
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  _autoNotifyEntity: 1
+  autoNotifyEntity: 1
+--- !u!114 &11481436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  constraints: 1
+  name: Strength
+  alias: str
+  value: 1
+  min: 0
+  max: 0
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  autoNotifyEntity: 1
 --- !u!114 &11487014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1753,8 +1753,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  _invincibiltyTime: 2
-  _invincible: 0
+  invincibiltyTime: 1
+  invincible: 0
 --- !u!136 &13603302
 CapsuleCollider:
   m_ObjectHideFlags: 1

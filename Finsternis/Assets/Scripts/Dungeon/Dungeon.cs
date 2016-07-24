@@ -7,6 +7,8 @@ namespace Finsternis
 {
     public class Dungeon : MonoBehaviour
     {
+        public static MTRandom Random;
+
         [SerializeField]
         private int seed;
 
@@ -14,26 +16,42 @@ namespace Finsternis
         private bool customSeed = true;
 
         [SerializeField]
-        protected Vector2 entrance;
+        private Vector2 entrance;
 
         [SerializeField]
-        protected Vector2 exit;
+        private Vector2 exit;
 
-        public static MTRandom Random;
+        [SerializeField]
+        private List<DungeonGoal> goals;
 
-        private int availableCardPoints;
+        private int availableCardPoints = -1;
 
         private List<Room> rooms;
         private List<Corridor> corridors;
         private DungeonSection[,] dungeonGrid;
 
-        [SerializeField]
-        private List<DungeonGoal> goals;
         private int remainingGoals;
 
         public int RemainingGoals { get { return this.remainingGoals; } }
 
         public int AvailableCardPoints { get { return this.availableCardPoints; } }
+
+        public void AddPoints(int points)
+        {
+            if (points <= 0)
+                return;
+
+            this.availableCardPoints += points;
+        }
+
+        public bool UsePoints(int points)
+        {
+            if (points >= 0 || this.availableCardPoints < points)
+                return false;
+
+            this.availableCardPoints -= points;
+            return true;
+        }
 
         public int Seed
         {

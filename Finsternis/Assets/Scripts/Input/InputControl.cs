@@ -72,4 +72,12 @@ public class InputControl : ScriptableObject
     {
         return Input.GetAxis(Axis);
     }
+
+#if UNITY_EDITOR
+
+    void OnValidate()
+    {
+        this.ThresholdValue = Mathf.Clamp(this.thresholdValue, -1, 1);
+    }
+#endif
 }
