@@ -24,61 +24,61 @@ public class EntityAttribute : MonoBehaviour
 
     [SerializeField]
     [HideInInspector]
-    private ValueConstraint _constraints = ValueConstraint.NONE;
+    private ValueConstraint constraints = ValueConstraint.NONE;
 
     [SerializeField]
     [HideInInspector]
-    private string _name;
+    private new string name;
 
     [SerializeField]
     [HideInInspector]
-    private string _alias;
+    private string alias;
 
     [SerializeField]
     [HideInInspector]
-    private float _value;
+    private float value;
 
     [SerializeField]
     [HideInInspector]
-    private float _min;
+    private float min;
 
     [SerializeField]
     [HideInInspector]
-    private float _max;
+    private float max;
 
     [SerializeField]
     public AttributeValueChangedEvent onValueChanged;
 
     [SerializeField]
-    private bool _autoNotifyEntity = true;
+    private bool autoNotifyEntity = true;
 
     private Entity owner;
 
     public string Name
     {
-        get { return _name; }
-        set { _name = value; }
+        get { return this.name; }
+        set { this.name = value; }
     }
 
     public string Alias
     {
-        get { return _alias; }
-        set { _alias = value; }
+        get { return this.alias; }
+        set { this.alias = value; }
     }
 
     public float Value
     {
-        get { return _value; }
+        get { return this.value; }
     }
 
     public float Min
     {
-        get { return _min; }
+        get { return this.min; }
     }
 
     public float Max
     {
-        get { return _max; }
+        get { return this.max; }
     }
 
     public int IntValue { get { return (int)Value; } }
@@ -87,7 +87,7 @@ public class EntityAttribute : MonoBehaviour
     {
         get
         {
-            return (_constraints & ValueConstraint.MAX) == ValueConstraint.MAX;
+            return (this.constraints & ValueConstraint.MAX) == ValueConstraint.MAX;
         }
         set
         {
@@ -95,13 +95,13 @@ public class EntityAttribute : MonoBehaviour
             {
                 if (value)
                 {
-                    _constraints |= ValueConstraint.MAX;
-                    _max = _value;
+                    this.constraints |= ValueConstraint.MAX;
+                    this.max = this.value;
                 }
                 else
                 {
-                    _constraints ^= ValueConstraint.MAX;
-                    _max = 0;
+                    this.constraints ^= ValueConstraint.MAX;
+                    this.max = 0;
                 }
             }
         }
@@ -111,7 +111,7 @@ public class EntityAttribute : MonoBehaviour
     {
         get
         {
-            return (_constraints & ValueConstraint.MIN) == ValueConstraint.MIN;
+            return (this.constraints & ValueConstraint.MIN) == ValueConstraint.MIN;
         }
         set
         {
@@ -119,13 +119,13 @@ public class EntityAttribute : MonoBehaviour
             {
                 if (value)
                 {
-                    _constraints |= ValueConstraint.MIN;
-                    _min = _value;
+                    this.constraints |= ValueConstraint.MIN;
+                    this.min = this.value;
                 }
                 else
                 {
-                    _constraints ^= ValueConstraint.MIN;
-                    _min = 0;
+                    this.constraints ^= ValueConstraint.MIN;
+                    this.min = 0;
                 }
             }
 
@@ -135,7 +135,7 @@ public class EntityAttribute : MonoBehaviour
     void Awake()
     {
         owner = GetComponent<Entity>();
-        if (_autoNotifyEntity)
+        if (this.autoNotifyEntity)
         {
             if (!onValueChanged)
                 onValueChanged = new AttributeValueChangedEvent();
@@ -151,14 +151,14 @@ public class EntityAttribute : MonoBehaviour
     public void SetValue(float newValue)
     {
         if (LimitMinimum)
-            newValue = Mathf.Max(_min, newValue);
+            newValue = Mathf.Max(this.min, newValue);
 
         if (LimitMaximum)
-            newValue = Mathf.Min(_max, newValue);
+            newValue = Mathf.Min(this.max, newValue);
 
-        if (_value != newValue)
+        if (this.value != newValue)
         {
-            _value = newValue;
+            this.value = newValue;
             if (onValueChanged)
                 onValueChanged.Invoke(this);
         }
@@ -174,18 +174,18 @@ public class EntityAttribute : MonoBehaviour
     {
         LimitMinimum = true;
 
-        bool result = _min != newMin;
+        bool result = this.min != newMin;
 
-        _min = newMin;
+        this.min = newMin;
 
-        if (LimitMaximum && _min > _max)
+        if (LimitMaximum && this.min > this.max)
         {
             if (updateMax)
-                _max = _min;
+                this.max = this.min;
             else
-                _min = _max;
+                this.min = this.max;
 
-            SetValue(_value);
+            SetValue(this.value);
         }
 
         return result;
@@ -200,18 +200,18 @@ public class EntityAttribute : MonoBehaviour
     {
         LimitMaximum = true;
 
-        bool result = _max != newMax;
+        bool result = this.max != newMax;
 
-        _max = newMax;
+        this.max = newMax;
 
-        if (LimitMinimum && _max < _min)
+        if (LimitMinimum && this.max < this.min)
         {
             if (updateMin)
-                _min = _max;
+                this.min = this.max;
             else
-                _max = _min;
+                this.max = this.min;
 
-            SetValue(_value);
+            SetValue(this.value);
         }
 
         return result;
@@ -232,12 +232,12 @@ public class EntityAttribute : MonoBehaviour
         switch (drivingLimit)
         {
             case 0:
-                _min = min;
-                _max = Mathf.Max(min, max);
+                this.min = min;
+                this.max = Mathf.Max(min, max);
                 break;
             case 1:
-                _max = max;
-                _min = Mathf.Min(min, max);
+                this.max = max;
+                this.min = Mathf.Min(min, max);
                 break;
         }
     }
@@ -245,7 +245,7 @@ public class EntityAttribute : MonoBehaviour
     private void OnEnable()
     {
         //Ensure consistency of fields
-        SetMax(_max, true);
+        SetMax(this.max, true);
     }
 
     /// <summary>

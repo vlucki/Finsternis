@@ -213,7 +213,7 @@ namespace Finsternis
                 return;
             }
 
-            DoorFeature door = DoorFeature.CreateInstance (this.doors[Dungeon.Random.Range(0, this.doors.Length, false)]);
+            DoorFeature door = DoorFeature.Instantiate (this.doors[Dungeon.Random.Range(0, this.doors.Length, false)]);
             Vector2 pos = corridor[index];
             corridor.AddFeature(door, pos);
 

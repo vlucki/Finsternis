@@ -5,7 +5,7 @@ using System.Collections;
 public class Pickable : MonoBehaviour
 {
     [SerializeField]
-    private Item _item;
+    private Card _item;
 
     // Use this for initialization
     void Start()

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_T_spikes
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 193676, guid: 7387be7d254b68a4cb4de31844937f2d, type: 2}
-  _type: 0
-  _alignment: 2
-  _offset: {x: 0, y: 0, z: 0}
+  prefab: {fileID: 193676, guid: 7387be7d254b68a4cb4de31844937f2d, type: 2}
+  type: 1
+  alignment: 0
+  offset: {x: 0, y: 0, z: 0}

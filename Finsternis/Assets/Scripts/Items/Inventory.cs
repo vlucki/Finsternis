@@ -10,12 +10,12 @@ public class Inventory : MonoBehaviour
     private class InventorySlot : ScriptableObject
     {
         [SerializeField]
-        private Item _item;
+        private Card _item;
 
         [SerializeField]
         private int _quantity;
 
-        public Item Item
+        public Card Item
         {
             get { return _item; }
             set { if (!(_item = value)) _quantity = 0; }
@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
 
         public InventorySlot() { }
 
-        public InventorySlot(Item i, int quantity = 0)
+        public InventorySlot(Card i, int quantity = 0)
         {
             this._item = i;
             this._quantity = quantity;
@@ -62,7 +62,7 @@ public class Inventory : MonoBehaviour
     }
 
     //return true if the item was successfuly added to the inventory
-    public bool AddItem(Item item, int quantity = 1)
+    public bool AddItem(Card item, int quantity = 1)
     {
         InventorySlot emptySlot = null;
 

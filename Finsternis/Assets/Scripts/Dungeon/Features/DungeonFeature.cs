@@ -46,19 +46,4 @@ public class DungeonFeature : ScriptableObject
         get { return this.offset; }
         set { this.offset = value; }
     }
-
-    public static DungeonFeature CreateInstance(DungeonFeature reference)
-    {
-        DungeonFeature feature = CreateInstance<DungeonFeature>();
-        feature.Init(reference);
-        return feature;
-    }
-
-    protected void Init(DungeonFeature reference)
-    {
-        this.offset     = reference.offset;
-        this.prefab     = reference.prefab;
-        this.type       = reference.type;
-        this.alignment  = reference.alignment;
-    }
 }

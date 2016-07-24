@@ -10,7 +10,7 @@ namespace Finsternis
     public class DungeonDrawer : MonoBehaviour
     {
         [SerializeField]
-        private Dungeon _dungeon;
+        private Dungeon dungeon;
 
         [Header("Scaling parameters")]
         [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
@@ -44,17 +44,17 @@ namespace Finsternis
         public void Draw(Dungeon dungeon)
         {
             onDrawBegin.Invoke();
-            _dungeon = dungeon;
+            this.dungeon = dungeon;
             Clear();
 
-            if (!_dungeon)
+            if (!this.dungeon)
                 throw new ArgumentException("Failed to find dungeon!");
 
-            drawnWalls = new HashSet<Vector2>();
+            this.drawnWalls = new HashSet<Vector2>();
             GameObject rooms = new GameObject("ROOMS");
-            rooms.transform.SetParent(dungeon.transform);
+            rooms.transform.SetParent(this.dungeon.transform);
 
-            foreach (Room room in _dungeon.Rooms)
+            foreach (Room room in this.dungeon.Rooms)
             {
                 MakeSection(room).transform.SetParent(rooms.transform);
             }
@@ -62,7 +62,7 @@ namespace Finsternis
             GameObject corridors = new GameObject("CORRIDORS");
             corridors.transform.SetParent(dungeon.transform);
 
-            foreach (Corridor corridor in _dungeon.Corridors)
+            foreach (Corridor corridor in this.dungeon.Corridors)
             {
                 MakeSection(corridor).transform.SetParent(corridors.transform);
             }
@@ -70,17 +70,13 @@ namespace Finsternis
             //MakeWalls();
 
             onDrawEnd.Invoke();
-#if UNITY_EDITOR
-            if (!UnityEditor.EditorApplication.isPlaying)
-                UnityEditor.Undo.RecordObject(this, name + " (Drawn)");
-#endif
         }
 
         private void Clear()
         {
-            if (!_dungeon)
+            if (!dungeon)
                 return;
-            _dungeon.gameObject.DestroyChildren();
+            dungeon.gameObject.DestroyChildren();
         }
 
         private GameObject MakeSection(DungeonSection section)
@@ -94,7 +90,7 @@ namespace Finsternis
                 {
                     for (int j = -1; j < 2; j++)
                     {
-                        if (i == 0 && j == 0)
+                        if (Mathf.Abs(i) == Mathf.Abs(j))
                             continue;
 
                         GameObject wall = MakeWall((int)cell.x + i, (int)cell.y + j);
@@ -111,9 +107,9 @@ namespace Finsternis
         private void MakeWalls()
         {
             GameObject wallsContainer = new GameObject("WALLS");
-            wallsContainer.transform.SetParent(_dungeon.transform);
-            int width = _dungeon.Width;
-            int height = _dungeon.Height;
+            wallsContainer.transform.SetParent(dungeon.transform);
+            int width = dungeon.Width;
+            int height = dungeon.Height;
             for (int cellY = -1; cellY <= height; cellY++)
             {
                 for (int cellX = -1; cellX <= width; cellX++)
@@ -142,9 +138,9 @@ namespace Finsternis
         private bool ShouldAddScript(int cellX, int cellY)
         {
             return (cellX >= 0
-                && cellX < _dungeon.Width
+                && cellX < dungeon.Width
                 && cellY > 0
-                && _dungeon[cellX, cellY - 1] != null);
+                && dungeon[cellX, cellY - 1] != null);
         }
 
         private GameObject MakeCell(int cellX, int cellY)
@@ -153,16 +149,16 @@ namespace Finsternis
             Vector3 pos = GetWorldPosition(new Vector2(cellX, cellY) + Vector2.one / 2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
-            DungeonFeature feature = _dungeon[cellX, cellY].GetFeature(cellX, cellY);
+            DungeonFeature feature = dungeon[cellX, cellY].GetFeature(cellX, cellY);
             if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
             {
                 cell = MakeQuad(pos,
                                 new Vector3(cellScale.x, cellScale.z, 1),
                                 Vector3.right * 90,
-                                _dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
+                                dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
                                 name);
 
-                if (cellX == (int)_dungeon.Exit.x && cellY == (int)_dungeon.Exit.y)
+                if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
                 {
                     if (exits != null && exits.Length > 0)
                     {
@@ -183,7 +179,7 @@ namespace Finsternis
                         cell = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
                         cell.transform.localScale = cellScale;
                     }
-                    if (cellX == (int)_dungeon.Entrance.x && cellY == (int)_dungeon.Entrance.y)
+                    if (cellX == (int)dungeon.Entrance.x && cellY == (int)dungeon.Entrance.y)
                     {
                         GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                         pedestal.name = "Entrance";
@@ -202,9 +198,9 @@ namespace Finsternis
                 {
                     cell = Instantiate(feature.Prefab);
 
-                    if (_dungeon[cellX, cellY] is Corridor)
+                    if (dungeon[cellX, cellY] is Corridor)
                     {
-                        Vector2 corridorDir = ((Corridor)_dungeon[cellX, cellY]).Direction;
+                        Vector2 corridorDir = ((Corridor)dungeon[cellX, cellY]).Direction;
                         cell.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
                     }
                     cell.transform.position = pos;
@@ -217,7 +213,7 @@ namespace Finsternis
             if (cell)
             {
                 cell.layer = LayerMask.NameToLayer("Floor");
-                cell.transform.SetParent(_dungeon.transform);
+                cell.transform.SetParent(dungeon.transform);
             }
 
             return cell;
@@ -244,13 +240,13 @@ namespace Finsternis
 
                 case DungeonFeature.CellAlignment.WALL:
 
-                         if (_dungeon.IsOfType(position + Vector2.up, null))
+                         if (dungeon.IsOfType(position + Vector2.up, null))
                         featureGO.transform.up = Vector3.forward;   //wall is "above"
-                    else if (_dungeon.IsOfType(position + Vector2.down, null))
+                    else if (dungeon.IsOfType(position + Vector2.down, null))
                         featureGO.transform.up = Vector3.back;      //wall is "below"
-                    else if (_dungeon.IsOfType(position + Vector2.right, null))
+                    else if (dungeon.IsOfType(position + Vector2.right, null))
                         featureGO.transform.up = Vector3.right;     //wall is to the right
-                    else if (_dungeon.IsOfType(position + Vector2.left, null))
+                    else if (dungeon.IsOfType(position + Vector2.left, null))
                         featureGO.transform.up = Vector3.left;      //wall is to the left
 
                     break;
@@ -263,7 +259,7 @@ namespace Finsternis
         {
             Vector2 coords = new Vector2(cellX, cellY);
 
-            if (drawnWalls.Contains(coords) || (_dungeon.IsWithinDungeon(coords) && !_dungeon.IsOfType(cellX, cellY, null)))
+            if (drawnWalls.Contains(coords) || (dungeon.IsWithinDungeon(coords) && !dungeon.IsOfType(cellX, cellY, null)))
                 return null;
 
             drawnWalls.Add(coords);
@@ -289,10 +285,10 @@ namespace Finsternis
                             continue;
                         int x = cellX + j;
                         int y = cellY + i;
-                        if (!_dungeon.IsWithinDungeon(x, y))
+                        if (!dungeon.IsWithinDungeon(x, y))
                             continue;
 
-                        if (_dungeon[x, y] != null)
+                        if (dungeon[x, y] != null)
                         {
                             Vector2 offset = Vector2.down;
                             float angle = 0;
@@ -364,7 +360,7 @@ namespace Finsternis
         /// <returns>True if the given coordinates are outside the dungeon or represent a wall within it.</returns>
         private bool ShouldMakeWall(int cellX, int cellY)
         {
-            return (!_dungeon.IsWithinDungeon(cellX, cellY) || _dungeon[cellX, cellY] == null);
+            return (!dungeon.IsWithinDungeon(cellX, cellY) || dungeon[cellX, cellY] == null);
         }
 
         /// <summary>

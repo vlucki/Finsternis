@@ -8,7 +8,7 @@ namespace Finsternis
     public class Dungeon : MonoBehaviour
     {
         [SerializeField]
-        private int _seed;
+        private int seed;
 
         [SerializeField]
         private bool customSeed = true;
@@ -19,33 +19,31 @@ namespace Finsternis
         [SerializeField]
         protected Vector2 exit;
 
-        protected static MTRandom random;
+        public static MTRandom Random;
 
-        private int _availableCardPoints;
+        private int availableCardPoints;
 
-        private List<Room> _rooms;
-        private List<Corridor> _corridors;
-        private DungeonSection[,] _dungeon;
+        private List<Room> rooms;
+        private List<Corridor> corridors;
+        private DungeonSection[,] dungeonGrid;
 
         [SerializeField]
-        private List<DungeonGoal> _goals;
-        private int _remainingGoals;
+        private List<DungeonGoal> goals;
+        private int remainingGoals;
 
-        public int RemainingGoals { get { return _remainingGoals; } }
+        public int RemainingGoals { get { return this.remainingGoals; } }
 
-        public static MTRandom Random { get { return random; } }
-
-        public int AvailableCardPoints { get { return _availableCardPoints; } }
+        public int AvailableCardPoints { get { return this.availableCardPoints; } }
 
         public int Seed
         {
-            get { return _seed; }
+            get { return this.seed; }
             set
             {
                 if (customSeed)
                 {
-                    random = new MTRandom(value);
-                    _seed = value;
+                    Random = new MTRandom(value);
+                    this.seed = value;
                 }
             }
         }
@@ -53,8 +51,8 @@ namespace Finsternis
         public Vector2 Entrance { get { return entrance; } set { entrance = value; } }
         public Vector2 Exit { get { return exit; } set { exit = value; } }
 
-        public int Width { get { return _dungeon.GetLength(0); } }
-        public int Height { get { return _dungeon.GetLength(1); } }
+        public int Width { get { return this.dungeonGrid.GetLength(0); } }
+        public int Height { get { return this.dungeonGrid.GetLength(1); } }
         public Vector2 Size { get { return new Vector2(Width, Height); } }
 
         public DungeonSection this[int x, int y]
@@ -63,7 +61,7 @@ namespace Finsternis
             {
                 try
                 {
-                    return _dungeon[x, y];
+                    return this.dungeonGrid[x, y];
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -74,7 +72,7 @@ namespace Finsternis
             {
                 try
                 {
-                    _dungeon[x, y] = value;
+                    this.dungeonGrid[x, y] = value;
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -95,32 +93,32 @@ namespace Finsternis
             set { this[(int)pos.x, (int)pos.y] = value; }
         }
 
-        public List<Corridor> Corridors { get { return _corridors; } }
-        public List<Room> Rooms { get { return _rooms; } }
+        public List<Corridor> Corridors { get { return corridors; } }
+        public List<Room> Rooms { get { return rooms; } }
 
         public UnityEvent OnGoalCleared;
 
         public void Init(int width, int height)
         {
-            if (Dungeon.random == null)
+            if (Dungeon.Random == null)
             {
                 if (customSeed)
-                    random = new MTRandom(this._seed);
+                    Random = new MTRandom(this.seed);
                 else
-                    random = new MTRandom();
+                    Random = new MTRandom();
             }
 
-            _dungeon = new DungeonSection[width, height];
-            _corridors = new List<Corridor>();
-            _rooms = new List<Room>();
-            _goals = new List<DungeonGoal>();
+            this.dungeonGrid = new DungeonSection[width, height];
+            this.corridors = new List<Corridor>();
+            this.rooms = new List<Room>();
+            this.goals = new List<DungeonGoal>();
             if (OnGoalCleared == null)
                 OnGoalCleared = new UnityEvent();
         }
 
         public T GetGoal<T>() where T : DungeonGoal
         {
-            foreach (DungeonGoal goal in _goals)
+            foreach (DungeonGoal goal in this.goals)
             {
                 if (goal is T)
                     return (T)goal;
@@ -131,28 +129,28 @@ namespace Finsternis
         public T[] GetGoals<T>() where T : DungeonGoal
         {
             List<T> goals = new List<T>();
-            _goals.ForEach((goal) => { if (goal is T) goals.Add(goal as T); });
+            this.goals.ForEach((goal) => { if (goal is T) goals.Add(goal as T); });
             return goals.ToArray();
         }
 
         public T AddGoal<T>() where T : DungeonGoal
         {
             T goal = gameObject.AddComponent<T>();
-            _goals.Add(goal);
+            this.goals.Add(goal);
             goal.onGoalReached.AddListener(
                 (g) =>
                 {
-                    _remainingGoals--;
+                    remainingGoals--;
                     OnGoalCleared.Invoke();
                 });
 
-            _remainingGoals++;
+            remainingGoals++;
             return goal;
         }
 
         public Room GetRandomRoom()
         {
-            return _rooms[random.Range(0, _rooms.Count, false)];
+            return this.rooms[Random.Range(0, this.rooms.Count, false)];
         }
 
         /// <summary>
@@ -247,7 +245,7 @@ namespace Finsternis
         {
             Rect r = new Rect(pos, size);
 
-            foreach (Corridor c in _corridors)
+            foreach (Corridor c in corridors)
             {
                 if (c.Bounds.Overlaps(r))
                     return true;

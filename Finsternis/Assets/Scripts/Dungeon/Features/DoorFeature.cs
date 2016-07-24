@@ -16,13 +16,4 @@ public class DoorFeature : DungeonFeature
         get { return _locked; }
         set { _locked = value; }
     }
-
-    internal static DoorFeature CreateInstance(DoorFeature reference)
-    {
-        DoorFeature door = CreateInstance<DoorFeature>();
-        door.Init(reference);
-        door._locked = reference._locked;
-        door._closed = reference._closed;
-        return door;
-    }
 }

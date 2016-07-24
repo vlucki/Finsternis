@@ -31,7 +31,7 @@ public class InputControl : ScriptableObject
     private float repeatDelay = 0f;
 
     [SerializeField][Tooltip("Should the value returned by Input.GetAxis be restricted to either 0 or 1?")]
-    private bool clampValue = false;
+    private bool constantValue = false;
 
     public string Axis
     {
@@ -65,7 +65,7 @@ public class InputControl : ScriptableObject
 
     public virtual float Value()
     {
-        return clampValue ? Mathf.Clamp01(Input.GetAxis(Axis)) : Input.GetAxis(Axis);
+        return constantValue ? Mathf.Max(Input.GetAxis(Axis)) : Input.GetAxis(Axis);
     }
 
     public float TrueValue()

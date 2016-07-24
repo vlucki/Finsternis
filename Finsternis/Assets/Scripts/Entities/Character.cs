@@ -12,36 +12,36 @@ namespace Finsternis
 
         public UnityEvent onDeath;
 
-        private EntityAttribute _health;
-        private EntityAttribute _defense;
+        private EntityAttribute health;
+        private EntityAttribute defense;
 
-        private bool _dead;
+        private bool dead;
 
         [SerializeField]
         [Range(0, 5)]
-        private float _invincibiltyTime = 1f;
+        private float invincibiltyTime = 1f;
 
         [SerializeField]
-        private bool _invincible = false;
+        private bool invincible = false;
 
-        public bool Invincible { get { return _invincible; } }
-        public bool Dead { get { return _dead; } }
+        public bool Invincible { get { return this.invincible; } }
+        public bool Dead { get { return this.dead; } }
 
         protected void Awake()
         {
-            _health = CheckAttribute(_health, "hp");
-            _defense = CheckAttribute(_defense, "def");
+            this.health = CheckAttribute(this.health, "hp");
+            this.defense = CheckAttribute(this.defense, "def");
         }
 
         public override void AtributeUpdated(EntityAttribute attribute)
         {
-            if (!_dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
+            if (!this.dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
                 Die();
         }
 
         private void Die()
         {
-            _dead = true;
+            this.dead = true;
             onDeath.Invoke();
             onDeath.RemoveAllListeners();
         }
@@ -60,23 +60,23 @@ namespace Finsternis
 
         public virtual void ReceiveDamage(DamageInfo info)
         {
-            if (!Dead && !_invincible)
+            if (!Dead && !this.invincible)
             {
-                _health -= (Mathf.Max(0, info.Amount - _defense.Value));
+                this.health -= (Mathf.Max(0, info.Amount - this.defense.Value));
                 if (!Dead)
-                    Timing.RunCoroutine(_TickInvincibility(_invincibiltyTime));
+                    Timing.RunCoroutine(_TickInvincibility(this.invincibiltyTime));
             }
         }
 
         private IEnumerator<float> _TickInvincibility(float remainingInvincibility)
         {
-            _invincible = true;
+            this.invincible = true;
             while (remainingInvincibility > 0)
             {
                 remainingInvincibility -= Time.deltaTime;
                 yield return 0f;
             }
-            _invincible = false;
+            this.invincible = false;
         }
     }
 }
