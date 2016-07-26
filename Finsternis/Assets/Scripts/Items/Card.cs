@@ -6,11 +6,11 @@ namespace Finsternis
     {
         public enum RARITY
         {
-            common = 0x0000,
-            uncommon = 0x0001,
-            rare = 0x0010,
-            legendary = 0x0100,
-            godlike = 0x1000
+            common      = 0x0000,
+            uncommon    = 0x0001,
+            rare        = 0x0010,
+            legendary   = 0x0100,
+            godlike     = 0x1000
         };
 
         [SerializeField]
