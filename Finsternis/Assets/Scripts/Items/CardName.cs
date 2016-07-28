@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public abstract class InitializableObject : ScriptableObject
 {
@@ -13,7 +14,7 @@ public abstract class InitializableObject : ScriptableObject
     public void InitCheck()
     {
         if (!Initialized)
-            throw new System.InvalidOperationException("Object was not initialized.");
+            throw new InvalidOperationException("Object was not initialized.");
     }
 
 }
@@ -34,32 +35,10 @@ public class CardName : InitializableObject
         base.Init();
     }
 
-    public void AddEffect(Effect effect)
+    public void AddEffect(AttributeModifier effect)
     {
         InitCheck();
         effects.Add(effect);
     }
 }
 
-//TODO: look into adding constraints to effect (like time, location, attribute, etc)
-public abstract class Effect : InitializableObject
-{
-
-}
-
-public abstract class AttributeEffect : Effect
-{
-    [SerializeField]
-    private string attributeAlias;
-    [SerializeField]
-    private float valueChange;
-
-    public string AttributeAlias { get { InitCheck(); return this.attributeAlias; } }
-
-    public void Init(string atributeAlias, float valueChange)
-    {
-        this.attributeAlias = atributeAlias;
-        this.valueChange = valueChange;
-        base.Init();
-    }
-}
