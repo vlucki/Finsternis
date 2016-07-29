@@ -11,7 +11,7 @@ public class TimeConstraint : IConstraint
         this.duration = duration;
     }
 
-    public bool Validate()
+    public bool IsValid()
     {
         return Time.time - startTime < duration;
     }

@@ -1,1 +1,97 @@
-﻿
+﻿{
+	"PreNames" : [
+		{
+			"Mystical" : {
+				"buffs" : 
+				{
+					"absolute" : 
+					[
+						{"int" : 1},
+						{"mp" : 5}
+					]
+				}
+			}
+		},
+
+		{
+			"Curious" : 
+			{		
+				"buffs" : 
+				{
+					"absolute" :
+					[
+						{"int" : 1.5},
+						{"mp" : 3}
+					]
+				}
+			}
+		},
+
+		{
+			"Cursed" : 
+			{
+				"debuffs" : 
+				{
+					"absolute" : 
+					[
+						{"str" : 1},
+					],
+
+					"relative" : 
+					[
+						{"hp" : 0.5},
+						{"mp" : 0.5}
+					]
+				}
+			}
+		}
+	],
+
+	"Names" : 
+	[
+		{
+			"Tome" : 
+			{
+
+			}
+		},
+
+		{
+			"Robe" : 
+			{
+
+			}
+		},
+
+		{
+			"Cursed" : 
+			{
+
+			}
+		}
+	],
+
+	"PostNames" : [
+		{
+			"of Wisdom" : 
+			{
+
+			}
+		},
+
+		{
+			"of Fear" : 
+			{
+
+			}
+		},
+
+		{
+			"from the Shadows" : 
+			{
+
+			}
+		}
+	]
+
+}

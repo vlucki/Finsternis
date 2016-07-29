@@ -32,7 +32,7 @@ public abstract class Effect
     /// <returns>True if every constraint is valid</returns>
     public bool ShouldBeActive()
     {
-        return constraints.Find((constraint) => { return !constraint.Validate(); }) == null;
+        return constraints.Find((constraint) => { return !constraint.IsValid(); }) == null;
     }
 
 }

@@ -6,14 +6,17 @@ namespace Finsternis
 {
     public static class CardFactory
     {
-        public static TextAsset cardGenerationParameters;
-
         public static List<CardName> prenames;
         public static List<CardName> postnames;
         public static List<CardName> names;
 
+        private static bool initialized;
+
         public static Card CreateCard()
         {
+            if (!CardFactory.initialized)
+                LoadParameters();
+
             Card c = ScriptableObject.CreateInstance<Card>();
 
             return c;
@@ -24,6 +27,13 @@ namespace Finsternis
             prenames = new List<CardName>();
             postnames = new List<CardName>();
             names = new List<CardName>();
+            TextAsset cardGenerationParametersFile = Resources.Load<TextAsset>("CardGenParameters");
+
+            JSONObject obj = new JSONObject(cardGenerationParametersFile.text, -2, false, true);
+            List<JSONObject> prenamesObj = obj.GetField("PreNames").list;
+
+
+            initialized = true;
         }
 
 

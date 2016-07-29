@@ -56,12 +56,18 @@ namespace Finsternis
 
             instance = this;
             DontDestroyOnLoad(gameObject);
-
+            this.clearedDungeons = -1;
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
 #if !UNITY_EDITOR
         Cursor.lockState = CursorLockMode.Locked;
 #endif
-            this.clearedDungeons = -1;
+        }
+
+        private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name.Equals(mainGameName))
+                Init();
         }
 
         void Start()
@@ -78,12 +84,6 @@ namespace Finsternis
         {
             LoadingScreenController.sceneToLoad = sceneName;
             SceneManager.LoadScene("LoadingScreen");
-        }
-
-        void OnLevelWasLoaded(int index)
-        {
-            if (SceneManager.sceneCount > index && index >= 0 && SceneManager.GetSceneAt(index).name.Equals(mainGameName))
-                Init();
         }
 
         private void Init()

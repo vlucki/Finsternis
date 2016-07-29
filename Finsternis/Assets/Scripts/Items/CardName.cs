@@ -2,23 +2,6 @@
 using System.Collections.Generic;
 using System;
 
-public abstract class InitializableObject : ScriptableObject
-{
-    public bool Initialized { get; private set; }
-
-    protected void Init()
-    {
-        Initialized = true;
-    }
-
-    public void InitCheck()
-    {
-        if (!Initialized)
-            throw new InvalidOperationException("Object was not initialized.");
-    }
-
-}
-
 public class CardName : InitializableObject
 {
     private List<Effect> effects;

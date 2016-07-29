@@ -4,13 +4,13 @@ namespace Finsternis
 {
     public class Card : ScriptableObject
     {
-        public enum RARITY
+        public enum RARITY : byte
         {
-            common      = 0x0000,
-            uncommon    = 0x0001,
-            rare        = 0x0010,
-            legendary   = 0x0100,
-            godlike     = 0x1000
+            common      = 0, //0000
+            uncommon    = 1, //0001
+            rare        = 2, //0010
+            legendary   = 4, //0100
+            godlike     = 8  //1000
         };
 
         [SerializeField]
