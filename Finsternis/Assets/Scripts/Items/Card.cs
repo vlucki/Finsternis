@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Finsternis
 {
@@ -14,25 +15,27 @@ namespace Finsternis
         };
 
         [SerializeField]
-        private RARITY rarity;
+        private float rarity;
 
         [SerializeField]
         private int cost;
 
         [SerializeField]
         private string description;
+        
+        private List<Effect> effects;
 
-        public RARITY Rarity { get { return this.rarity; } }
+        public RARITY Rarity { get { return (RARITY)this.rarity; } }
 
         public int Cost { get { return this.cost; } }
 
         public string Description { get { return this.description; } }
 
-        public void Init(RARITY rarity, int cost, string description = "???")
+        public void AppendName(CardName name)
         {
-            this.rarity = rarity;
-            this.cost = cost;
-            this.description = description;
+            this.name += name.name;
+            this.rarity += name.Rarity;
+            this.effects.AddRange(name.Effects);
         }
     }
 }

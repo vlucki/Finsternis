@@ -1,0 +1,99 @@
+﻿{
+  "PreNames": [
+    {
+      "Mystical": {
+        "modifiers": {
+          "absolute": [
+            { "int": 1 },
+            { "mp": 5 }
+          ]
+        }
+      }
+    },
+
+    {
+      "Curious": {
+        "modifiers": {
+          "absolute": [
+            { "int": 1.5 },
+            { "mp": 3 }
+          ]
+        }
+      }
+    },
+
+    {
+      "Cursed": {
+        "modifiers": {
+          "absolute": [
+            { "str": -1 }
+          ],
+
+          "relative": [
+            { "hp": -0.5 },
+            { "mp": -0.5 }
+          ]
+        }
+      }
+    }
+  ],
+
+  "Names": [
+    {
+      "Tome": {
+        "modifiers": {
+          "absolute": [
+            { "atk": 1 },
+            { "int": 3 },
+            { "mp": 3 }
+          ]
+        }
+      }
+    },
+
+    {
+      "Robe": {
+        "modifiers": {
+          "absolute": [
+            { "def": 1},
+            { "int": 0.5 },
+            { "mp": 5 }
+          ]
+        }
+      }
+    },
+
+    {
+      "Staff": {
+        "modifiers": {
+          "absolute": [
+            { "atk": 2 },
+            { "int": 1.5 },
+            { "mp": 3 }
+          ]
+        }
+      }
+    }
+  ],
+
+  "PostNames": [
+    {
+      "of Wisdom": {
+
+      }
+    },
+
+    {
+      "of Fear": {
+
+      }
+    },
+
+    {
+      "from the Shadows": {
+
+      }
+    }
+  ]
+
+}

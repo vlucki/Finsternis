@@ -38,7 +38,7 @@ public abstract class Effect
 
     private IConstraint GetConstraint(Type t)
     {
-        return constraints.Find((constraint) => { return constraint.GetType().Equals(t); });
+        return constraints == null ? null : constraints.Find((constraint) => { return constraint.GetType().Equals(t); });
     }
 
     /// <summary>
