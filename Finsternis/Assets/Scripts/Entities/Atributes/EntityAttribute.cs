@@ -68,8 +68,10 @@ public class EntityAttribute : MonoBehaviour
 
     public float Value
     {
-        get { return this.value; }
+        get { return this.value + ValueModifier; }
     }
+
+    public float BaseValue { get { return this.value; } }
 
     public float Min
     {
@@ -80,6 +82,8 @@ public class EntityAttribute : MonoBehaviour
     {
         get { return this.max; }
     }
+
+    public float ValueModifier { get; set; }
 
     public int IntValue { get { return (int)Value; } }
 

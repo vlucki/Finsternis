@@ -34,6 +34,7 @@ public class JSONObject
     public enum Type { NULL, STRING, NUMBER, OBJECT, ARRAY, BOOL, BAKED }
     public bool isContainer { get { return (type == Type.ARRAY || type == Type.OBJECT); } }
     public Type type = Type.NULL;
+
     public int Count
     {
         get
@@ -43,6 +44,7 @@ public class JSONObject
             return list.Count;
         }
     }
+
     public List<JSONObject> list;
     public List<string> keys;
     public string str;
@@ -86,11 +88,13 @@ public class JSONObject
                 break;
         }
     }
+
     public JSONObject(bool b)
     {
         type = Type.BOOL;
         this.b = b;
     }
+
 #if USEFLOAT
     public JSONObject(float f)
     {
@@ -103,6 +107,7 @@ public class JSONObject
 		n = d;
 	}
 #endif
+
     public JSONObject(int i)
     {
         type = Type.NUMBER;
@@ -110,6 +115,7 @@ public class JSONObject
         useInt = true;
         n = i;
     }
+
     public JSONObject(long l)
     {
         type = Type.NUMBER;
@@ -117,6 +123,7 @@ public class JSONObject
         useInt = true;
         n = l;
     }
+
     public JSONObject(Dictionary<string, string> dic)
     {
         type = Type.OBJECT;
@@ -129,6 +136,7 @@ public class JSONObject
             list.Add(CreateStringObject(kvp.Value));
         }
     }
+
     public JSONObject(Dictionary<string, JSONObject> dic)
     {
         type = Type.OBJECT;
@@ -141,15 +149,18 @@ public class JSONObject
             list.Add(kvp.Value);
         }
     }
+
     public JSONObject(AddJSONContents content)
     {
         content.Invoke(this);
     }
+
     public JSONObject(JSONObject[] objs)
     {
         type = Type.ARRAY;
         list = new List<JSONObject>(objs);
     }
+
     //Convenience function for creating a JSONObject containing a string.  This is not part of the constructor so that malformed JSON data doesn't just turn into a string object
     public static JSONObject StringObject(string val) { return CreateStringObject(val); }
     public void Absorb(JSONObject obj)
@@ -163,6 +174,7 @@ public class JSONObject
         b = obj.b;
         type = obj.type;
     }
+
     public static JSONObject Create()
     {
 #if POOLING
@@ -182,6 +194,7 @@ public class JSONObject
 #endif
         return new JSONObject();
     }
+
     public static JSONObject Create(Type t)
     {
         JSONObject obj = Create();
@@ -198,6 +211,7 @@ public class JSONObject
         }
         return obj;
     }
+
     public static JSONObject Create(bool val)
     {
         JSONObject obj = Create();
@@ -205,6 +219,7 @@ public class JSONObject
         obj.b = val;
         return obj;
     }
+
     public static JSONObject Create(float val)
     {
         JSONObject obj = Create();
@@ -212,6 +227,7 @@ public class JSONObject
         obj.n = val;
         return obj;
     }
+
     public static JSONObject Create(int val)
     {
         JSONObject obj = Create();
@@ -221,6 +237,7 @@ public class JSONObject
         obj.i = val;
         return obj;
     }
+
     public static JSONObject Create(long val)
     {
         JSONObject obj = Create();
@@ -230,6 +247,7 @@ public class JSONObject
         obj.i = val;
         return obj;
     }
+
     public static JSONObject CreateStringObject(string val)
     {
         JSONObject obj = Create();
@@ -237,6 +255,7 @@ public class JSONObject
         obj.str = val;
         return obj;
     }
+
     public static JSONObject CreateBakedObject(string val)
     {
         JSONObject bakedObject = Create();
@@ -244,6 +263,7 @@ public class JSONObject
         bakedObject.str = val;
         return bakedObject;
     }
+
     /// <summary>
     /// Create a JSONObject by parsing string data
     /// </summary>
@@ -260,12 +280,14 @@ public class JSONObject
         obj.Parse(val, maxDepth, storeExcessLevels, strict);
         return obj;
     }
+
     public static JSONObject Create(AddJSONContents content)
     {
         JSONObject obj = Create();
         content.Invoke(obj);
         return obj;
     }
+
     public static JSONObject Create(Dictionary<string, string> dic)
     {
         JSONObject obj = Create();
@@ -281,11 +303,14 @@ public class JSONObject
         return obj;
     }
     public JSONObject() { }
+
     #region PARSE
+
     public JSONObject(string str, int maxDepth = -2, bool storeExcessLevels = false, bool strict = false)
     {   //create a new JSONObject from a string (this will also create any children, and parse the whole string)
         Parse(str, maxDepth, storeExcessLevels, strict);
     }
+
     void Parse(string str, int maxDepth = -2, bool storeExcessLevels = false, bool strict = false)
     {
         if (!string.IsNullOrEmpty(str))
@@ -490,32 +515,39 @@ public class JSONObject
                                 //Profiler.EndSample();
     }
     #endregion
+
     public bool IsNumber { get { return type == Type.NUMBER; } }
     public bool IsNull { get { return type == Type.NULL; } }
     public bool IsString { get { return type == Type.STRING; } }
     public bool IsBool { get { return type == Type.BOOL; } }
     public bool IsArray { get { return type == Type.ARRAY; } }
     public bool IsObject { get { return type == Type.OBJECT || type == Type.BAKED; } }
+
     public void Add(bool val)
     {
         Add(Create(val));
     }
+
     public void Add(float val)
     {
         Add(Create(val));
     }
+
     public void Add(int val)
     {
         Add(Create(val));
     }
+
     public void Add(string str)
     {
         Add(CreateStringObject(str));
     }
+
     public void Add(AddJSONContents content)
     {
         Add(Create(content));
     }
+
     public void Add(JSONObject obj)
     {
         if (obj)
@@ -529,30 +561,37 @@ public class JSONObject
             list.Add(obj);
         }
     }
+
     public void AddField(string name, bool val)
     {
         AddField(name, Create(val));
     }
+
     public void AddField(string name, float val)
     {
         AddField(name, Create(val));
     }
+
     public void AddField(string name, int val)
     {
         AddField(name, Create(val));
     }
+
     public void AddField(string name, long val)
     {
         AddField(name, Create(val));
     }
+
     public void AddField(string name, AddJSONContents content)
     {
         AddField(name, Create(content));
     }
+
     public void AddField(string name, string val)
     {
         AddField(name, CreateStringObject(val));
     }
+
     public void AddField(string name, JSONObject obj)
     {
         if (obj)
@@ -575,10 +614,12 @@ public class JSONObject
             list.Add(obj);
         }
     }
+
     public void SetField(string name, string val) { SetField(name, CreateStringObject(val)); }
-    public void SetField(string name, bool val) { SetField(name, Create(val)); }
-    public void SetField(string name, float val) { SetField(name, Create(val)); }
-    public void SetField(string name, int val) { SetField(name, Create(val)); }
+    public void SetField(string name, bool val)   { SetField(name, Create(val)); }
+    public void SetField(string name, float val)  { SetField(name, Create(val)); }
+    public void SetField(string name, int val)    { SetField(name, Create(val)); }
+
     public void SetField(string name, JSONObject obj)
     {
         if (HasField(name))
@@ -588,6 +629,7 @@ public class JSONObject
         }
         AddField(name, obj);
     }
+
     public void RemoveField(string name)
     {
         if (keys.IndexOf(name) > -1)
@@ -596,13 +638,16 @@ public class JSONObject
             keys.Remove(name);
         }
     }
+
     public delegate void FieldNotFound(string name);
     public delegate void GetFieldResponse(JSONObject obj);
+
     public bool GetField(out bool field, string name, bool fallback)
     {
         field = fallback;
         return GetField(ref field, name);
     }
+
     public bool GetField(ref bool field, string name, FieldNotFound fail = null)
     {
         if (type == Type.OBJECT)
@@ -618,6 +663,7 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
 #if USEFLOAT
     public bool GetField(out float field, string name, float fallback)
     {
@@ -646,11 +692,13 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
     public bool GetField(out int field, string name, int fallback)
     {
         field = fallback;
         return GetField(ref field, name);
     }
+
     public bool GetField(ref int field, string name, FieldNotFound fail = null)
     {
         if (IsObject)
@@ -666,11 +714,13 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
     public bool GetField(out long field, string name, long fallback)
     {
         field = fallback;
         return GetField(ref field, name);
     }
+
     public bool GetField(ref long field, string name, FieldNotFound fail = null)
     {
         if (IsObject)
@@ -686,11 +736,13 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
     public bool GetField(out uint field, string name, uint fallback)
     {
         field = fallback;
         return GetField(ref field, name);
     }
+
     public bool GetField(ref uint field, string name, FieldNotFound fail = null)
     {
         if (IsObject)
@@ -706,11 +758,13 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
     public bool GetField(out string field, string name, string fallback)
     {
         field = fallback;
         return GetField(ref field, name);
     }
+
     public bool GetField(ref string field, string name, FieldNotFound fail = null)
     {
         if (IsObject)
@@ -726,6 +780,7 @@ public class JSONObject
             fail.Invoke(name);
         return false;
     }
+
     public void GetField(string name, GetFieldResponse response, FieldNotFound fail = null)
     {
         if (response != null && IsObject)
@@ -740,6 +795,19 @@ public class JSONObject
         if (fail != null)
             fail.Invoke(name);
     }
+
+    public List<JSONObject> GetFieldList(string name)
+    {
+        JSONObject obj = GetField(name);
+        if (obj)
+        {
+            if (obj.list != null)
+                return obj.list;
+        }
+
+        return null;
+    }
+
     public JSONObject GetField(string name)
     {
         if (IsObject)
@@ -748,6 +816,7 @@ public class JSONObject
                     return list[i];
         return null;
     }
+
     public bool HasFields(string[] names)
     {
         if (!IsObject)
@@ -757,6 +826,7 @@ public class JSONObject
                 return false;
         return true;
     }
+
     public bool HasField(string name)
     {
         if (!IsObject)
@@ -766,6 +836,7 @@ public class JSONObject
                 return true;
         return false;
     }
+
     public void Clear()
     {
         type = Type.NULL;
@@ -777,6 +848,7 @@ public class JSONObject
         n = 0;
         b = false;
     }
+
     /// <summary>
     /// Copy a JSONObject. This could probably work better
     /// </summary>
@@ -785,6 +857,7 @@ public class JSONObject
     {
         return Create(Print());
     }
+
     /*
 	 * The Merge function is experimental. Use at your own risk.
 	 */
@@ -792,6 +865,7 @@ public class JSONObject
     {
         MergeRecur(this, obj);
     }
+
     /// <summary>
     /// Merge object right into left recursively
     /// </summary>
@@ -848,6 +922,7 @@ public class JSONObject
             }
         }
     }
+
     public void Bake()
     {
         if (type != Type.BAKED)
@@ -856,6 +931,7 @@ public class JSONObject
             type = Type.BAKED;
         }
     }
+
     public IEnumerable BakeAsync()
     {
         if (type != Type.BAKED)
@@ -872,6 +948,7 @@ public class JSONObject
             type = Type.BAKED;
         }
     }
+
 #pragma warning disable 219
     public string Print(bool pretty = false)
     {
@@ -879,6 +956,7 @@ public class JSONObject
         Stringify(0, builder, pretty);
         return builder.ToString();
     }
+
     public IEnumerable<string> PrintAsync(bool pretty = false)
     {
         StringBuilder builder = new StringBuilder();
@@ -890,13 +968,15 @@ public class JSONObject
         }
         yield return builder.ToString();
     }
+
 #pragma warning restore 219
     #region STRINGIFY
     const float maxFrameTime = 0.008f;
+
     static readonly Stopwatch printWatch = new Stopwatch();
+
     IEnumerable StringifyAsync(int depth, StringBuilder builder, bool pretty = false)
     {   //Convert the JSONObject into a string
-        //Profiler.BeginSample("JSONprint");
         if (depth++ > MAX_DEPTH)
         {
 #if UNITY_2 || UNITY_3 || UNITY_4 || UNITY_5
@@ -1046,8 +1126,8 @@ public class JSONObject
                 builder.Append("null");
                 break;
         }
-        //Profiler.EndSample();
     }
+
     //TODO: Refactor Stringify functions to share core logic
     /*
 	 * I know, I know, this is really bad form.  It turns out that there is a
@@ -1057,7 +1137,6 @@ public class JSONObject
 	 */
     void Stringify(int depth, StringBuilder builder, bool pretty = false)
     {   //Convert the JSONObject into a string
-        //Profiler.BeginSample("JSONprint");
         if (depth++ > MAX_DEPTH)
         {
 #if UNITY_2 || UNITY_3 || UNITY_4 || UNITY_5
@@ -1199,9 +1278,9 @@ public class JSONObject
                 builder.Append("null");
                 break;
         }
-        //Profiler.EndSample();
     }
     #endregion
+
 #if UNITY_2 || UNITY_3 || UNITY_4 || UNITY_5
     public static implicit operator WWWForm(JSONObject obj)
     {
@@ -1233,6 +1312,7 @@ public class JSONObject
                 list[index] = value;
         }
     }
+
     public JSONObject this[string index]
     {
         get
@@ -1244,14 +1324,17 @@ public class JSONObject
             SetField(index, value);
         }
     }
+
     public override string ToString()
     {
         return Print();
     }
+
     public string ToString(bool pretty)
     {
         return Print(pretty);
     }
+
     public Dictionary<string, string> ToDictionary()
     {
         if (type == Type.OBJECT)

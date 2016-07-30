@@ -103,7 +103,7 @@ public class CameraController : MonoBehaviour
         if(overrideShake && shaking)
         {
             shaking = false;
-            Timing.KillCoroutine(shakeHandle);
+            Timing.KillCoroutines(shakeHandle);
         }
 
         if (!shaking)

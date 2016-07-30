@@ -2,7 +2,7 @@
 	"PreNames" : [
 		{
 			"Mystical" : {
-				"buffs" : 
+				"modifiers" : 
 				{
 					"absolute" : 
 					[
@@ -16,7 +16,7 @@
 		{
 			"Curious" : 
 			{		
-				"buffs" : 
+				"modifiers" : 
 				{
 					"absolute" :
 					[
@@ -30,17 +30,17 @@
 		{
 			"Cursed" : 
 			{
-				"debuffs" : 
+				"modifiers" : 
 				{
 					"absolute" : 
 					[
-						{"str" : 1},
+						{"str" : -1},
 					],
 
 					"relative" : 
 					[
-						{"hp" : 0.5},
-						{"mp" : 0.5}
+						{"hp" : -0.5},
+						{"mp" : -0.5}
 					]
 				}
 			}

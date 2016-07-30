@@ -2,7 +2,7 @@
 {
     public bool Initialized { get; private set; }
 
-    protected void Init()
+    protected virtual void Init()
     {
         Initialized = true;
     }

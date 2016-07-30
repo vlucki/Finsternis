@@ -80,7 +80,6 @@ public class IntroController : MonoBehaviour {
         else if (_graphicsQueue != null && _graphicsQueue.Count > 0)
         {
             toFade = _graphicsQueue.Dequeue();
-            //toFade.canvasRenderer.SetAlpha(0);
             toFade.enabled = true;
             _currentGraphic = toFade;
         }
@@ -104,7 +103,7 @@ public class IntroController : MonoBehaviour {
     {
         if (_skippable)
         {
-            Timing.KillCoroutine(_transitionHandle);
+            Timing.KillCoroutines(_transitionHandle);
             FadeOut();
         }
     }

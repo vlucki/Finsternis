@@ -8,6 +8,11 @@ public abstract class Effect
     [SerializeField]
     private List<IConstraint> constraints;
 
+    public static implicit operator bool(Effect e)
+    {
+        return e != null;
+    }
+
     public void AddConstraint(IConstraint constraint)
     {
         if (!constraint.AllowMultiple() && !HasConstraint(constraint.GetType()))
@@ -23,7 +28,17 @@ public abstract class Effect
 
     private bool HasConstraint(Type t)
     {
-        return constraints.Find((constraint) => { return constraint.GetType().Equals(t); }) != null;
+        return GetConstraint(t) != null;
+    }
+
+    public T GetConstraint<T>() where T : IConstraint
+    {
+        return (T)GetConstraint(typeof(T));
+    }
+
+    private IConstraint GetConstraint(Type t)
+    {
+        return constraints.Find((constraint) => { return constraint.GetType().Equals(t); });
     }
 
     /// <summary>

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2592d66c085427e41b3c135a70df4e26, type: 3}
-  m_Name: SkillSlot4
+  m_Name: SkillSlot2
   m_EditorClassIdentifier: 
-  axis: SkillSlot4
+  axis: SkillSlot2
   enabled: 1
   thresholdType: 17
   thresholdValue: 0
   repeatDelay: 0
-  clampValue: 1
-  valueMultiplier: 3
+  constantValue: 0
+  valueMultiplier: 1

@@ -16,8 +16,4 @@ MonoBehaviour:
   thresholdType: 273
   thresholdValue: 0
   repeatDelay: 0.1
-  onAxisActive:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: AxisTriggersContainer+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  constantValue: 0

@@ -77,9 +77,18 @@ namespace Finsternis
 
         public virtual void Start()
         {
-            character.onDeath.AddListener(CharacterController_death);
-            characterMovement.Speed = character.GetAttribute("spd").Value / 10;
-            Array.ForEach<Skill>(this.equippedSkills, (skill) => { if(skill) skill.Equip(); }); //make sure every skill that is equipped knows it
+            try
+            {
+                character.onDeath.AddListener(CharacterController_death);
+
+                characterMovement.Speed = character.GetAttribute("spd").Value / 10;
+
+                Array.ForEach<Skill>(this.equippedSkills, (skill) => { if (skill) skill.Equip(); }); //make sure every skill that is equipped knows it
+            } catch (Exception e)
+            {
+                Log.Error("Exception thrown when initializing controller for " + gameObject);
+                throw e;
+            }
         }
 
         public virtual void Update()

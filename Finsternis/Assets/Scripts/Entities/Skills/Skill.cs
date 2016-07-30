@@ -99,8 +99,8 @@ namespace Finsternis
 
         protected virtual void OnDisable()
         {
-            Timing.KillCoroutine(this.castingHandle);
-            Timing.KillCoroutine(this.cooldownHandle);
+            Timing.KillCoroutines(this.castingHandle);
+            Timing.KillCoroutines(this.cooldownHandle);
             timeDisabled = Time.timeSinceLevelLoad;
         }
 
