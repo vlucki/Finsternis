@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Finsternis
 {
+    [Serializable]
     public static class CardFactory
     {
         public sealed class CardComparer : IComparer<CardName>
@@ -39,6 +40,7 @@ namespace Finsternis
             public const string AbsoluteModifier = "absolute";
             public const string RelativeModifier = "relative";
         };
+
         private const int MaxNameSelectionTries = 10000;
 
         private static bool initialized;
@@ -51,18 +53,18 @@ namespace Finsternis
             Card c = ScriptableObject.CreateInstance<Card>();
 
             CardName[] fullName = new CardName[3];
+
             if (Random.value > 0.5)
                 fullName[0] = GetRandomName(new List<CardName>(prenames), rarityLimit);
+
             fullName[1] = GetRandomName(new List<CardName>(names), rarityLimit, false);
+
             if (Random.value > 0.5)
                 fullName[2] = GetRandomName(new List<CardName>(postnames), rarityLimit);
 
-            for(int i = 0; i < fullName.Length; i++)
-                if(fullName[i])
-                {
-                    c.name += fullName[i].name;
-                   
-                }
+            for (int i = 0; i < fullName.Length; i++)
+                if (fullName[i])
+                    c.AppendName(fullName[i]);
 
             return c;
         }

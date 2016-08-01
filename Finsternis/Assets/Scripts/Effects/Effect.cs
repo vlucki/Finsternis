@@ -5,12 +5,28 @@ using UnityEngine;
 [Serializable]
 public abstract class Effect
 {
+    /// <summary>
+    /// How does this effect interact with another of the same type?
+    /// </summary>
+    public enum EffectInteractionType
+    {
+        stackable  = 0, //new instances are simply added regardless of others
+        overwrite  = 1, //each new instance that is added deletes the previous one
+        standalone = 2  //once it is added, any attempt to add another instance is ignored
+    }
     [SerializeField]
     private List<IConstraint> constraints;
+
+    public EffectInteractionType InteractionType { get; private set; }
 
     public static implicit operator bool(Effect e)
     {
         return e != null;
+    }
+
+    public Effect(EffectInteractionType interactionType = EffectInteractionType.stackable)
+    {
+        this.InteractionType = interactionType;
     }
 
     public void AddConstraint(IConstraint constraint)

@@ -31,11 +31,49 @@ namespace Finsternis
 
         public string Description { get { return this.description; } }
 
+        public Card()
+        {
+            effects = new List<Effect>();
+        }
+
         public void AppendName(CardName name)
         {
             this.name += name.name;
             this.rarity += name.Rarity;
-            this.effects.AddRange(name.Effects);
+            AddEffects(name.Effects);
         }
+        
+        public void AddEffect(Effect effect)
+        {
+            if (effect.InteractionType == Effect.EffectInteractionType.stackable)
+            {
+                this.effects.Add(effect);
+            }
+            else
+            {
+                for (int i = 0; i < this.effects.Count; i++)
+                {
+                    if (this.effects[i].GetType().Equals(effect.GetType()))
+                    {
+                        if(effect.InteractionType == Effect.EffectInteractionType.overwrite)
+                        {
+                            this.effects[i] = effect;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void AddEffects(IEnumerable<Effect> effects)
+        {
+            foreach (Effect e in effects)
+                AddEffect(e);
+        }
+
+        public List<Effect> GetEffects() { return new List<Effect>(effects); }
     }
 }

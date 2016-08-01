@@ -17,7 +17,7 @@ public class AttributeModifier : Effect
         set { this.valueChange = value == 0 ? this.valueChange : value; }
     }
 
-    public AttributeModifier(string atributeAlias, float valueChange = 0)
+    public AttributeModifier(string atributeAlias, float valueChange = 0, EffectInteractionType effectType = EffectInteractionType.stackable) : base(effectType)
     {
         this.attributeAlias = atributeAlias;
         this.valueChange = valueChange;
