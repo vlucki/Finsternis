@@ -2,97 +2,68 @@
   "PreNames": [
     {
       "Mystical": {
-        "modifiers": {
-          "absolute": [
-            { "int": 1 },
-            { "mp": 5 }
-          ]
-        }
+        "effects": [ "+mp", "+int" ],
+        "flavour": "Magic is"
       }
     },
 
     {
       "Curious": {
-        "modifiers": {
-          "absolute": [
-            { "int": 1.5 },
-            { "mp": 3 }
-          ]
-        }
+        "effects": [ "+mp", "*int" ]
       }
+
     },
 
     {
       "Cursed": {
-        "modifiers": {
-          "absolute": [
-            { "str": -1 }
-          ],
-
-          "relative": [
-            { "hp": -0.5 },
-            { "mp": -0.5 }
-          ]
-        }
+        "effects": [ "-str", "/hp", "/mp" ]
       }
+
     }
   ],
 
   "Names": [
     {
       "Tome": {
-        "modifiers": {
-          "absolute": [
-            { "atk": 1 },
-            { "int": 3 },
-            { "mp": 3 }
-          ]
-        }
+        "effects": [ "+atk", "+int", "+mp" ]
       }
+
     },
 
     {
       "Robe": {
-        "modifiers": {
-          "absolute": [
-            { "def": 1},
-            { "int": 0.5 },
-            { "mp": 5 }
-          ]
-        }
+        "effects": [ "+def", "+int", "+mp" ]
       }
     },
 
     {
       "Staff": {
-        "modifiers": {
-          "absolute": [
-            { "atk": 2 },
-            { "int": 1.5 },
-            { "mp": 3 }
-          ]
-        }
+        "effects": [ "+atk", "+int", "+mp" ]
       }
+
     }
   ],
 
   "PostNames": [
     {
       "of Wisdom": {
-
+        "effects": [ "+mp", "*int" ]
       }
+
     },
 
     {
       "of Fear": {
-
+        "effects": [ "-int" ]
       }
+
     },
 
     {
       "from the Shadows": {
-
+        "effects": [ "+spd" ]
       }
+
     }
   ]
 

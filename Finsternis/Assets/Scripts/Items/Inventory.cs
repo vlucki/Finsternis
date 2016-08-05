@@ -67,7 +67,7 @@ namespace Finsternis {
             for (int index = 0; index < slots.Length; index++)
             {
                 InventorySlot slot = slots[index];
-                if (slot.IsEmpty() && !emptySlot)
+                if (slot.IsEmpty && !emptySlot)
                 {
                     emptySlot = slot; //store the empty slot in case we need it
                 }
