@@ -38,9 +38,10 @@ namespace Finsternis
         public const int MaxEffectsPerName = 4;
 
         private struct JSONKeys {
-            public const string PreNames         = "PreNames";
-            public const string Names            = "Names";
-            public const string PostNames        = "PostNames";
+            public const string PreNames    = "PreNames";
+            public const string Names       = "Names";
+            public const string PostNames   = "PostNames";
+            public const string Effects     = "effects";
         };
 
         private const int MaxNameSelectionTries = 10000;
@@ -56,12 +57,12 @@ namespace Finsternis
 
             CardName[] fullName = new CardName[3];
 
-            if (CardFactory.Random.value() > 0.5)
+            if (Random.value() > 0.5)
                 fullName[0] = GetRandomName(new List<CardName>(prenames), rarityLimit);
 
             fullName[1] = GetRandomName(new List<CardName>(names), rarityLimit, false);
 
-            if (CardFactory.Random.value() > 0.5)
+            if (Random.value() > 0.5)
                 fullName[2] = GetRandomName(new List<CardName>(postnames), rarityLimit);
 
             for (int i = 0; i < fullName.Length; i++)
@@ -108,25 +109,8 @@ namespace Finsternis
             CardName name = ScriptableObject.CreateInstance<CardName>();
             name.name = nameString;
 
-            AddEffects(name, nameParameters.GetField("effects").list);
-
-            CardFactory.Random = new MTRandom(name.name);
-            for (int index = CardFactory.Random.Range(1, CardFactory.MaxEffectsPerName); index > 0; index--)
-            {
-
-                if (CardFactory.Random.value() < 0.5f)
-                {
-                    float amount = CardFactory.Random.Range(0.1f, 99) * CardFactory.Random.valueExponential(1.8f);
-
-                    if (CardFactory.Random.value() > 0.75f)
-                        amount *= -1;
-                    name.AddEffect(
-                        new AttributeModifier(
-                            CardFactory.AttributeAlias[CardFactory.Random.Range(0, CardFactory.AttributeAlias.Length - 1)],
-                            amount));
-                }
-            }
-
+            Random = new MTRandom(name.name);
+            AddEffects(name, nameParameters.GetField(JSONKeys.Effects).list);
             return name;
         }
 
@@ -150,13 +134,13 @@ namespace Finsternis
                 switch (token)
                 {
                     case '+':
-                        return new AttributeModifier(str.Substring(1), Random.Range(0.1f, 10f));
+                        return new AttributeModifier(str.Substring(1), Random.Range(0.1f, 10f, 1));
                     case '-':
-                        return new AttributeModifier(str.Substring(1), Random.Range(-10f, -0.1f));
+                        return new AttributeModifier(str.Substring(1), Random.Range(-10f, -0.1f, 1));
                     case '*':
-                        return new AttributeModifier(str.Substring(1), Random.Range(1f, 4f));
+                        return new AttributeModifier(str.Substring(1), Random.Range(1f, 4f, 1), AttributeModifier.ModifierType.Relative);
                     case '/':
-                        return new AttributeModifier(str.Substring(1), Random.Range(0.1f, 1f));
+                        return new AttributeModifier(str.Substring(1), Random.Range(0.1f, 1f, 1), AttributeModifier.ModifierType.Relative);
                 }
             }
             else

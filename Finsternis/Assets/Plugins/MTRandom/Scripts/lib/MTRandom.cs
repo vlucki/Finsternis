@@ -159,15 +159,19 @@ public class MTRandom
 			return _rand.Next(min,max);
 		}
 	}
+
 	/// <summary>
 	/// Returns the next pseudo-random number integer between <paramref name="min"/> [inclusive] and <paramref name="max"/> [inclusive].
 	/// </summary>
 	/// <param name="min">Minimum.</param>
 	/// <param name="max">Maximum.</param>
-	public float Range(float min, float max)
+	public float Range(float min, float max, int decimalPlaces = 0)
 	{
-		return ScaleFloatToRange((float)_rand.NextSingle(true),min,max,0.0f,1.0f);
-	}
+        if(decimalPlaces < 1)
+		    return ScaleFloatToRange((float)_rand.NextSingle(true),min,max,0.0f,1.0f);
+        else
+            return (float)(Math.Round(ScaleFloatToRange((float)_rand.NextSingle(true), min, max, 0.0f, 1.0f), decimalPlaces));
+    }
 	/// <summary>
 	/// Returns the next pseudo-random number integer between <paramref name="min"/> [inclusive] and <paramref name="max"/> [inclusive].
 	/// </summary>
