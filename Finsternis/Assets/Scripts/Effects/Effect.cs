@@ -66,4 +66,8 @@ public abstract class Effect
         return constraints.Find((constraint) => { return !constraint.IsValid(); }) == null;
     }
 
+    public override string ToString()
+    {
+        return "Effect: " + InteractionType.ToString() + ", " + constraints;
+    }
 }

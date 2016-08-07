@@ -1,12 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [System.Serializable]
 public class AttributeModifier : Effect
 {
-    [SerializeField]
     private string attributeAlias;
-
-    [SerializeField]
+    
     private float valueChange;
 
     public enum ModifierType
@@ -14,9 +13,8 @@ public class AttributeModifier : Effect
         Absolute = 0,
         Relative = 10
     }
-
-    [SerializeField]
-    private ModifierType type;
+    
+    public ModifierType ChangeType { get; private set; }
 
     public string AttributeAlias { get { return this.attributeAlias; } }
 
@@ -30,5 +28,21 @@ public class AttributeModifier : Effect
     {
         this.attributeAlias = atributeAlias;
         this.valueChange = valueChange;
+        this.ChangeType = modifierType;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + ", value modifier: " + ModifierString();
+    }
+
+    private string ModifierString()
+    {
+        string str = "";
+
+        if (ChangeType == ModifierType.Relative)
+            str += "*";
+
+        return str + valueChange;
     }
 }

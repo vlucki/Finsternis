@@ -4,16 +4,26 @@ using System;
 
 public class CardName : InitializableObject
 {
+
+    public enum NameType { PreName = 0, MainName = 1, PostName = 2 }
+
     private List<Effect> effects;
 
     public float Rarity { get; private set; }
 
+    public List<string> prepositions;
+
     public List<Effect> Effects { get { return effects; } }
 
-    public CardName()
+    public NameType Type { get; private set; }
+
+    public void Init(NameType type, string name)
     {
-        effects = new List<Effect>();
         base.Init();
+        this.name = name;
+        this.effects = new List<Effect>();
+        prepositions = new List<string>();
+        this.Type = type;
     }
 
     public void AddEffect(Effect effect)

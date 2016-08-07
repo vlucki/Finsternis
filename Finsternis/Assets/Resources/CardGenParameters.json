@@ -22,7 +22,7 @@
     }
   ],
 
-  "Names": [
+  "MainNames": [
     {
       "Tome": {
         "effects": [ "+atk", "+int", "+mp" ]
@@ -46,21 +46,24 @@
 
   "PostNames": [
     {
-      "of Wisdom": {
+      "Wisdom": {
+        "prepositions": [ "of" ],
         "effects": [ "+mp", "*int" ]
       }
 
     },
 
     {
-      "of Fear": {
+      "Fear": {
+        "prepositions": ["of"],
         "effects": [ "-int" ]
       }
 
     },
 
     {
-      "from the Shadows": {
+      "the Shadows": {
+        "prepositions": [ "from", "of" ],
         "effects": [ "+spd" ]
       }
 

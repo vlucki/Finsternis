@@ -36,8 +36,15 @@ namespace Finsternis
             effects = new List<Effect>();
         }
 
-        public void AppendName(CardName name)
+        public void AppendName(CardName name, string junction = null)
         {
+
+            if (!string.IsNullOrEmpty(this.name))
+                this.name += " ";
+
+            if (!string.IsNullOrEmpty(junction))
+                this.name += junction + " ";
+
             this.name += name.name;
             this.rarity += name.Rarity;
             AddEffects(name.Effects);
@@ -75,5 +82,16 @@ namespace Finsternis
         }
 
         public List<Effect> GetEffects() { return new List<Effect>(effects); }
+
+        public override string ToString()
+        {
+            string effects = "";
+            if (this.effects.Count > 0)
+            {
+                this.effects.ForEach((effect) => { effects += effect + ", "; });
+                effects = effects.Substring(0, effects.Length - 2);
+            }
+            return base.ToString() + " -> " + this.name + " = {cost: " + this.cost + ", Effects: (" + effects + ")}";
+        }
     }
 }
