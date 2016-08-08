@@ -8,8 +8,13 @@ public class TimeConstraint : IConstraint
 
     public TimeConstraint(float duration)
     {
-        this.startTime = Time.time;
         this.Duration = duration;
+        Reset();
+    }
+
+    public void Reset()
+    {
+        this.startTime = Time.time;
     }
 
     public bool IsValid()

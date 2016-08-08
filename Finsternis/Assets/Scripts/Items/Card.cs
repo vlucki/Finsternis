@@ -25,6 +25,8 @@ namespace Finsternis
         
         private List<Effect> effects;
 
+        private List<CardName> names;
+
         public RARITY Rarity { get { return (RARITY)this.rarity; } }
 
         public int Cost { get { return this.cost; } }
@@ -34,45 +36,74 @@ namespace Finsternis
         public Card()
         {
             effects = new List<Effect>();
+            names = new List<CardName>();
         }
 
-        public void AppendName(CardName name, string junction = null)
+        public string UpdateName()
         {
+            this.name = "";
+            names.ForEach(name => {
+                this.name += (GetAdditionalNameString(name) ?? (string.IsNullOrEmpty(this.name) ? "" : " ")) + name.name + " ";
+            });
 
-            if (!string.IsNullOrEmpty(this.name))
-                this.name += " ";
+            return this.name;
+        }
 
-            if (!string.IsNullOrEmpty(junction))
-                this.name += junction + " ";
+        private string GetAdditionalNameString(CardName name)
+        {
+            if (name.Type != CardName.NameType.MainName)
+            {
+                if (names.Count > 1 && names[names.Count - 2].Type == name.Type)
+                    return " and ";
+                else if (name.Type == CardName.NameType.PostName)
+                {
+                    return " " + name.prepositions[Random.Range(0, name.prepositions.Count - 1)] + " ";
+                }
+            }
+            return null;
+        }
+
+        public void AppendName(CardName name)
+        {
+            //if (this.names.Count > 0)
+            //    this.name += " ";
+
+            //if (!string.IsNullOrEmpty(junction))
+            //    this.name += junction + " ";
+
+            this.names.Add(name);
 
             this.name += name.name;
             this.rarity += name.Rarity;
             AddEffects(name.Effects);
         }
+
+        public void RemoveName(CardName toRemove)
+        {
+            RemoveName((cardName) => { return cardName.Equals(toRemove); });
+        }
+
+        public void RemoveName(string name)
+        {
+            RemoveName((cardName) => { return cardName.name.Equals(name); });
+        }
+
+        private void RemoveName(System.Func<CardName, bool> condition)
+        {
+            effects.Clear(); //will have to recompute all effects since some may have been overwritte by the ones in the name that will be removed
+
+            names.RemoveAll((cardName) => {
+                if (condition(cardName))
+                    return true;
+
+                AddEffects(cardName.Effects); //if this name won't be removed, re-add it's effects to the card
+                return false;
+            });
+        }
         
         public void AddEffect(Effect effect)
         {
-            if (effect.InteractionType == Effect.EffectInteractionType.stackable)
-            {
-                this.effects.Add(effect);
-            }
-            else
-            {
-                for (int i = 0; i < this.effects.Count; i++)
-                {
-                    if (this.effects[i].GetType().Equals(effect.GetType()))
-                    {
-                        if(effect.InteractionType == Effect.EffectInteractionType.overwrite)
-                        {
-                            this.effects[i] = effect;
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                }
-            }
+            this.effects.Add(effect);
         }
 
         public void AddEffects(IEnumerable<Effect> effects)

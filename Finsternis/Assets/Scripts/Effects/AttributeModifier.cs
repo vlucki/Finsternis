@@ -24,7 +24,7 @@ public class AttributeModifier : Effect
         set { this.valueChange = value == 0 ? this.valueChange : value; }
     }
 
-    public AttributeModifier(string atributeAlias, float valueChange, ModifierType modifierType = ModifierType.Absolute, EffectInteractionType effectType = EffectInteractionType.stackable) : base(effectType)
+    public AttributeModifier(string atributeAlias, float valueChange, ModifierType modifierType = ModifierType.Absolute)
     {
         this.attributeAlias = atributeAlias;
         this.valueChange = valueChange;

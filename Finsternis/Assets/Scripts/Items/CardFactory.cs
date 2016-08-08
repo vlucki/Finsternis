@@ -39,14 +39,9 @@ namespace Finsternis
         public const int MaxNameSelectionTries = 4;
         private static bool initialized;
 
-        public static Card MakeCard(float rarityLimit = 1)
+        private static List<CardName> ChooseNames(float rarityLimit)
         {
-            if (!CardFactory.initialized)
-                LoadParameters();
-
-            Card card = ScriptableObject.CreateInstance<Card>();
-            var chosenNames = new List<CardName>();
-
+            List<CardName> chosenNames = new List<CardName>();
             //3 iterations:
             //1st: prenames
             //2nd: main name
@@ -73,29 +68,46 @@ namespace Finsternis
                 }
             }
 
+            return chosenNames;
+        }
+
+        public static Card MakeCard(float rarityLimit = 1)
+        {
+            if (!CardFactory.initialized)
+                LoadParameters();
+
+            Card card = ScriptableObject.CreateInstance<Card>();
+            var chosenNames = ChooseNames(rarityLimit);
+
             HashSet<CardName> usedNames = new HashSet<CardName>();
+
             for(int i = 0; i < chosenNames.Count; i++)
             {
                 CardName name = chosenNames[i];
-                if (!usedNames.Contains(name))
+                if (!usedNames.Contains(name) || name.IsStackable)
                 {
                     usedNames.Add(name);
-                    string extra = null;
-                    if (name.Type != CardName.NameType.MainName)
-                    {
-                        if (i > 0 && chosenNames.Count > 2 && chosenNames[chosenNames.Count - 2].Type == name.Type)
-                            extra = "and";
-                        else if(name.Type == CardName.NameType.PostName)
-                        {
-                            extra = name.prepositions[Random.Range(0, name.prepositions.Count - 1)];
-                        }
-                    }
                     
-                    card.AppendName(name, extra);
+                    card.AppendName(name);
                 }
             }
+            card.UpdateName();
 
             return card;
+        }
+
+        private static string GetAdditionalNameString(CardName name, List<CardName> chosenNames)
+        {
+            if (name.Type != CardName.NameType.MainName)
+            {
+                if (chosenNames.Count > 2 && chosenNames[chosenNames.Count - 2].Type == name.Type)
+                    return "and";
+                else if (name.Type == CardName.NameType.PostName)
+                {
+                    return name.prepositions[Random.Range(0, name.prepositions.Count - 1)];
+                }
+            }
+            return null;
         }
 
         private static CardName GetRandomName(List<CardName> namesBeingUsed, List<CardName> availableNames, float rarityLimit)
@@ -161,7 +173,7 @@ namespace Finsternis
         private static CardName GenerateName(string nameString, CardName.NameType type, JSONObject nameParameters)
         {
             CardName name = ScriptableObject.CreateInstance<CardName>();
-            name.Init(type, nameString);
+            name.Init(nameString, type);
             Random = new MTRandom(name.name);
             AddEffects(name, nameParameters.GetField("effects").list);
             JSONObject prepositions = nameParameters.GetField("prepositions");
