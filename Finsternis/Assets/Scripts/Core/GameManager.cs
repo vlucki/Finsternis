@@ -6,6 +6,7 @@ using System;
 
 namespace Finsternis
 {
+    [AddComponentMenu("Finsternis/Game Manager")]
     public class GameManager : MonoBehaviour
     {
         private static GameManager instance;
@@ -27,6 +28,7 @@ namespace Finsternis
 
         public GameObject playerPrefab;
 
+        [SceneSelection]
         public string mainGameName = "DungeonGeneration";
 
         public static GameManager Instance { get { return instance; } }
@@ -94,6 +96,7 @@ namespace Finsternis
             if (this.dungeonManager)
             {
                 this.dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
+                this.dungeonManager.CreateDungeon();
             }
         }
 

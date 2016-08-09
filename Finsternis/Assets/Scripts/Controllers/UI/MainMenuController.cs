@@ -32,7 +32,7 @@ namespace Finsternis
         private bool creditsLoaded;
 
         [SerializeField][SceneSelection]
-        private string _mainGameScene;
+        private string _mainGameScene = "DungeonGeneration";
 
 
         void Awake()
@@ -56,7 +56,7 @@ namespace Finsternis
         public void ContinueGame()
         {
             //TODO: load previously saved game data before starting a game
-            GameManager.Instance.LoadScene(_mainGameScene);
+            GameManager.Instance.LoadScene("CardGenTest");
         }
 
         public void OpenAlbum()

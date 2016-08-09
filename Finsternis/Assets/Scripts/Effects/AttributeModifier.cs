@@ -33,15 +33,21 @@ public class AttributeModifier : Effect
 
     public override string ToString()
     {
-        return base.ToString() + ", value modifier: " + ModifierString();
+        var str = base.ToString();
+
+        return str.Substring(0, str.Length) 
+            + ", attribute: '" + this.attributeAlias
+            + "', amount: " + StringfyValue();
     }
 
-    private string ModifierString()
+    public string StringfyValue()
     {
         string str = "";
 
         if (ChangeType == ModifierType.Relative)
-            str += "*";
+            str += "x";
+        else if (this.valueChange > 0)
+            str += "+"; 
 
         return str + valueChange;
     }

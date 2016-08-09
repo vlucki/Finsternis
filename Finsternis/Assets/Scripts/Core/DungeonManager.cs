@@ -46,11 +46,6 @@ namespace Finsternis
             });
         }
 
-        void Start()
-        {
-            CreateDungeon();
-        }
-
         public void CreateDungeon()
         {
             Dungeon d = CurrentDungeon;

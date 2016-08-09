@@ -7,11 +7,11 @@ namespace Finsternis
     {
         public enum RARITY : byte
         {
-            common      = 0, //0000
-            uncommon    = 1, //0001
-            rare        = 2, //0010
-            legendary   = 4, //0100
-            godlike     = 8  //1000
+            common = 0, //0000
+            uncommon = 1, //0001
+            rare = 2, //0010
+            legendary = 4, //0100
+            godlike = 8  //1000
         };
 
         [SerializeField]
@@ -22,7 +22,7 @@ namespace Finsternis
 
         [SerializeField]
         private string description;
-        
+
         private List<Effect> effects;
 
         private List<CardName> names;
@@ -42,10 +42,11 @@ namespace Finsternis
         public string UpdateName()
         {
             this.name = "";
-            names.ForEach(name => {
+            names.ForEach(name =>
+            {
                 this.name += (GetAdditionalNameString(name) ?? (string.IsNullOrEmpty(this.name) ? "" : " ")) + name.name + " ";
             });
-
+            this.name = this.name.TrimEnd();
             return this.name;
         }
 
@@ -53,7 +54,7 @@ namespace Finsternis
         {
             if (name.Type != CardName.NameType.MainName)
             {
-                if (names.Count > 1 && names[names.Count - 2].Type == name.Type)
+                if (names.Count > 1 && names.Count - 2 > 0 && names[names.Count - 2].Type == name.Type)
                     return " and ";
                 else if (name.Type == CardName.NameType.PostName)
                 {
@@ -65,34 +66,35 @@ namespace Finsternis
 
         public void AppendName(CardName name)
         {
-            //if (this.names.Count > 0)
-            //    this.name += " ";
-
-            //if (!string.IsNullOrEmpty(junction))
-            //    this.name += junction + " ";
-
             this.names.Add(name);
-
-            this.name += name.name;
             this.rarity += name.Rarity;
             AddEffects(name.Effects);
         }
 
-        public void RemoveName(CardName toRemove)
+        public void RemoveName(CardName nameToRemove)
         {
-            RemoveName((cardName) => { return cardName.Equals(toRemove); });
+            if (names.RemoveAll(cardName => cardName.Equals(nameToRemove)) > 0)
+                RefreshEffects();
         }
 
-        public void RemoveName(string name)
+        public void RemoveName(string nameStr)
         {
-            RemoveName((cardName) => { return cardName.name.Equals(name); });
+            if (names.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0)
+                RefreshEffects();
+        }
+
+        private void RefreshEffects()
+        {
+            effects.Clear();
+            names.ForEach(cardName => AddEffects(cardName.Effects));
         }
 
         private void RemoveName(System.Func<CardName, bool> condition)
         {
             effects.Clear(); //will have to recompute all effects since some may have been overwritte by the ones in the name that will be removed
 
-            names.RemoveAll((cardName) => {
+            names.RemoveAll((cardName) =>
+            {
                 if (condition(cardName))
                     return true;
 
@@ -100,7 +102,7 @@ namespace Finsternis
                 return false;
             });
         }
-        
+
         public void AddEffect(Effect effect)
         {
             this.effects.Add(effect);
@@ -119,10 +121,11 @@ namespace Finsternis
             string effects = "";
             if (this.effects.Count > 0)
             {
-                this.effects.ForEach((effect) => { effects += effect + ", "; });
-                effects = effects.Substring(0, effects.Length - 2);
+                effects += "[";
+                this.effects.ForEach((effect) => { effects += effect + "]; ["; });
+                effects = effects.Substring(0, effects.Length - 3);
             }
-            return base.ToString() + " -> " + this.name + " = {cost: " + this.cost + ", Effects: (" + effects + ")}";
+            return base.ToString() + " -> Cost: " + this.cost + ", Effects: {" + effects + "}";
         }
     }
 }

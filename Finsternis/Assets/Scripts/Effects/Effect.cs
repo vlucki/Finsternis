@@ -57,7 +57,7 @@ public abstract class Effect
 
     public override string ToString()
     {
-        return base.ToString() + "[constraints: " + StringfyConstraints() + "]";
+        return base.ToString() + ((constraints != null && constraints.Count > 0) ? ", constraints: {" + StringfyConstraints() + "}" : "");
     }
 
     private string StringfyConstraints()
