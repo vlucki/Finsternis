@@ -1,6 +1,5 @@
 ﻿public interface IConstraint
 {
-
     /// <summary>
     /// Validates the conditions imposed by the constraint.
     /// </summary>

@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TimeConstraint : IConstraint
 {
-    private float startTime;
-
     public float Duration { get; private set; }
+
+    public float StartTime { get; private set; }
 
     public TimeConstraint(float duration)
     {
@@ -14,12 +15,12 @@ public class TimeConstraint : IConstraint
 
     public void Reset()
     {
-        this.startTime = Time.time;
+        this.StartTime = Time.time;
     }
 
     public bool IsValid()
     {
-        return Time.time - startTime < Duration;
+        return Time.time - this.StartTime < Duration;
     }
 
     public bool AllowMultiple()

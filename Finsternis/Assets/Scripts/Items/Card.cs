@@ -35,34 +35,36 @@ namespace Finsternis
 
         public Card()
         {
-            effects = new List<Effect>();
-            names = new List<CardName>();
+            this.effects = new List<Effect>();
+            this.names = new List<CardName>();
         }
-
+        #region Name String Creation
         public string UpdateName()
         {
             this.name = "";
-            names.ForEach(name =>
+            int index = -1;
+            names.ForEach(cardName =>
             {
-                this.name += (GetAdditionalNameString(name) ?? (string.IsNullOrEmpty(this.name) ? "" : " ")) + name.name + " ";
+                this.name += (GetAdditionalNameString(cardName, ++index) ?? "") + cardName.name + " ";
             });
             this.name = this.name.TrimEnd();
             return this.name;
         }
 
-        private string GetAdditionalNameString(CardName name)
+        private string GetAdditionalNameString(CardName cardName, int index)
         {
-            if (name.Type != CardName.NameType.MainName)
+            if (index > 0 && cardName.Type != CardName.NameType.MainName)
             {
-                if (names.Count > 1 && names.Count - 2 > 0 && names[names.Count - 2].Type == name.Type)
-                    return " and ";
-                else if (name.Type == CardName.NameType.PostName)
+                if (names[index-1].Type == cardName.Type)
+                    return "and ";
+                else if (cardName.Type == CardName.NameType.PostName)
                 {
-                    return " " + name.prepositions[Random.Range(0, name.prepositions.Count - 1)] + " ";
+                    return cardName.prepositions[Random.Range(0, cardName.prepositions.Count - 1)] + " ";
                 }
             }
             return null;
         }
+        #endregion
 
         public void AppendName(CardName name)
         {
@@ -73,20 +75,20 @@ namespace Finsternis
 
         public void RemoveName(CardName nameToRemove)
         {
-            if (names.RemoveAll(cardName => cardName.Equals(nameToRemove)) > 0)
+            if (this.names.RemoveAll(cardName => cardName.Equals(nameToRemove)) > 0)
                 RefreshEffects();
         }
 
         public void RemoveName(string nameStr)
         {
-            if (names.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0)
+            if (this.names.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0)
                 RefreshEffects();
         }
 
         private void RefreshEffects()
         {
-            effects.Clear();
-            names.ForEach(cardName => AddEffects(cardName.Effects));
+            this.effects.Clear();
+            this.names.ForEach(cardName => AddEffects(cardName.Effects));
         }
 
         private void RemoveName(System.Func<CardName, bool> condition)
@@ -103,9 +105,13 @@ namespace Finsternis
             });
         }
 
-        public void AddEffect(Effect effect)
+        public void AddEffect(Effect effectToAdd)
         {
-            this.effects.Add(effect);
+            Effect match = this.effects.Find(effect => effect.Merge(effectToAdd));
+            if (!match)
+            {
+                this.effects.Add((Effect)effectToAdd.Clone());
+            }
         }
 
         public void AddEffects(IEnumerable<Effect> effects)
@@ -118,14 +124,14 @@ namespace Finsternis
 
         public override string ToString()
         {
-            string effects = "";
+            string effectsStr = "";
             if (this.effects.Count > 0)
             {
-                effects += "[";
-                this.effects.ForEach((effect) => { effects += effect + "]; ["; });
-                effects = effects.Substring(0, effects.Length - 3);
+                effectsStr += "[";
+                this.effects.ForEach((effect) => { effectsStr += effect + "]; ["; });
+                effectsStr = effectsStr.Substring(0, effectsStr.Length - 3);
             }
-            return base.ToString() + " -> Cost: " + this.cost + ", Effects: {" + effects + "}";
+            return base.ToString() + " -> Cost: " + this.cost + ", Effects: {" + effectsStr + "}";
         }
     }
 }

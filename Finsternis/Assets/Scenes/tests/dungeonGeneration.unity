@@ -13,16 +13,16 @@ SceneSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_Fog: 0
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.1
   m_LinearFogStart: 0
   m_LinearFogEnd: 10
-  m_AmbientSkyColor: {r: 0.94917816, g: 0.9553275, b: 0.97794116, a: 1}
-  m_AmbientEquatorColor: {r: 0.41900954, g: 0.69148225, b: 0.9191176, a: 1}
-  m_AmbientGroundColor: {r: 0.5211974, g: 0.37267518, b: 0.8308824, a: 1}
+  m_AmbientSkyColor: {r: 0.37967128, g: 0.382131, b: 0.39117646, a: 0.4}
+  m_AmbientEquatorColor: {r: 0.16760382, g: 0.2765929, b: 0.36764705, a: 0.4}
+  m_AmbientGroundColor: {r: 0.20847896, g: 0.14907007, b: 0.33235297, a: 0.4}
   m_AmbientIntensity: 0.4
   m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 0}
@@ -37,12 +37,12 @@ RenderSettings:
   m_ReflectionIntensity: 0.585
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 7
   m_GIWorkflowMode: 1
-  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -53,18 +53,23 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 3
+    serializedVersion: 4
     m_Resolution: 8
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
+    m_AO: 0
     m_AOMaxDistance: 1
-    m_Padding: 2
     m_CompAOExponent: 0
+    m_CompAOExponentDirect: 0
+    m_Padding: 2
     m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000,
       type: 0}
+    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
+    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
+    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
   m_LightingDataAsset: {fileID: 0}
@@ -1197,8 +1202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawer: {fileID: 769769431}
   enemies:
-  - {fileID: 140034, guid: e349ba598c8b58d4cacaffa8d1f85de3, type: 2}
-  - {fileID: 190592, guid: 12b8c14a29e8f9244bf5fe1888713449, type: 2}
+  - {fileID: 1000012345338928, guid: e349ba598c8b58d4cacaffa8d1f85de3, type: 2}
+  - {fileID: 1000011908864442, guid: 12b8c14a29e8f9244bf5fe1888713449, type: 2}
   enemyHudPrefab: {fileID: 0}
   enemiesHolder: {fileID: 0}
   enemyDensity: 0.01
@@ -1924,7 +1929,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 976683702}
   m_Enabled: 1
-  serializedVersion: 6
+  serializedVersion: 7
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.2
@@ -1934,6 +1939,7 @@ Light:
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
+    m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
@@ -1946,10 +1952,10 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 2
+  m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_AreaSize: {x: 1, y: 1}
 --- !u!4 &976683704
 Transform:
   m_ObjectHideFlags: 0

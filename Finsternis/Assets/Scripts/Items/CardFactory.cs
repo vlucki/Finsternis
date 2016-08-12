@@ -28,9 +28,6 @@ namespace Finsternis
         }
 
         public static List<CardName>[] names;
-        //public static List<CardName> prenames;
-        //public static List<CardName> postnames;
-        //public static List<CardName> names;
 
         public static MTRandom Random;
 

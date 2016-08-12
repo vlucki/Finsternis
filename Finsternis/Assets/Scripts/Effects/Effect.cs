@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class Effect
+public abstract class Effect : IComparable<Effect>, ICloneable
 {
     [SerializeField]
-    private List<IConstraint> constraints;
+    protected List<IConstraint> constraints;
 
-    public Effect()
+    public string Name { get; protected set; }
+
+    public Effect(string name = null)
     {
         this.constraints = new List<IConstraint>();
+        if (!string.IsNullOrEmpty(name))
+            this.Name = name;
     }
 
     public static implicit operator bool(Effect e)
@@ -20,10 +24,10 @@ public abstract class Effect
 
     public void AddConstraint(IConstraint constraint)
     {
-        if (!constraint.AllowMultiple() && !HasConstraint(constraint.GetType()))
+        if (!constraint.AllowMultiple() && HasConstraint(constraint.GetType()))
             return;
 
-        this.constraints.Add(constraint);
+        constraints.Add(constraint);
     }
 
     public bool HasConstraint<T>() where T : IConstraint
@@ -71,4 +75,14 @@ public abstract class Effect
 
         return constraintsStr.Substring(0, constraintsStr.Length-2);
     }
+
+    //Simply check if other effect is null
+    public virtual int CompareTo(Effect other)
+    {
+        return other ? 0 : 1;
+    }
+
+    public abstract bool Merge(Effect other);
+
+    public abstract object Clone();
 }
