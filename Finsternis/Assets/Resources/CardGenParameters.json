@@ -19,6 +19,13 @@
         "effects": [ "-str", "/hp", "/mp" ]
       }
 
+    },
+
+    {
+      "Evil": {
+        "effects": [ "+str", "-hp" ]
+      }
+
     }
   ],
 
