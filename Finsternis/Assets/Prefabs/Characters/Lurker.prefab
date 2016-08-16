@@ -223,12 +223,6 @@ GameObject:
   - 114: {fileID: 114000012364374302}
   - 114: {fileID: 114000010375194488}
   - 114: {fileID: 114000012178017174}
-  - 114: {fileID: 114000010166371622}
-  - 114: {fileID: 114000010956836888}
-  - 114: {fileID: 114000011077738826}
-  - 114: {fileID: 114000011291945886}
-  - 114: {fileID: 114000010046444008}
-  - 114: {fileID: 114000013593551852}
   m_Layer: 9
   m_Name: Lurker
   m_TagString: Enemy
@@ -867,52 +861,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010046444008
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &114000010166371622
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &114000010375194488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -959,75 +907,6 @@ MonoBehaviour:
   modeOnExecution: 1
   activeOnDeath: 0
   ignoreOthersFromOwner: 1
---- !u!114 &114000010956836888
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &114000011077738826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &114000011291945886
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &114000012178017174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,29 +992,6 @@ MonoBehaviour:
   _target: {fileID: 0}
   interestPersistence: 5
   ragdoll: {fileID: 0}
---- !u!114 &114000013593551852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 0
-  name: 
-  alias: 
-  value: 0
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &114000014186784308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1153,8 +1009,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   lastInteraction: {fileID: 0}
-  test: {fileID: 0}
   interactable: 1
+  attributes: []
   onDeath:
     m_PersistentCalls:
       m_Calls: []

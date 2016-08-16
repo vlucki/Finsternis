@@ -29,8 +29,8 @@ namespace Finsternis
 
         protected void Awake()
         {
-            this.health = CheckAttribute(this.health, "hp");
-            this.defense = CheckAttribute(this.defense, "def");
+            this.health = GetAttribute("hp", true);
+            this.defense = GetAttribute("def", true);
         }
 
         public override void AtributeUpdated(EntityAttribute attribute)

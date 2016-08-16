@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 public class Entity : MonoBehaviour
@@ -9,34 +9,28 @@ public class Entity : MonoBehaviour
 
     public EntityAction lastInteraction;
 
-    public EntityAttribute test;
-
     [SerializeField]
     protected bool interactable = true;
 
-    protected T CheckAttribute<T>(T attribute, string name) where T : EntityAttribute
-    {
-        if (!attribute)
-            attribute = (T)(GetAttribute(name));
-        if (!attribute)
-        {
-            attribute = gameObject.AddComponent<T>();
-            attribute.Alias = name;
-        }
+    [SerializeField]
+    private List<EntityAttribute> attributes;
 
-        if (!attribute)
-            throw new NullReferenceException("Could not load attribute " + name + "\nMaybe it was not set in the inspector?");
+    public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
+    {
+        EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
+        if (!attribute && createIfNotFound)
+        {
+            attribute = ScriptableObject.CreateInstance<EntityAttribute>();
+            attribute.Alias = alias;
+        }
 
         return attribute;
     }
 
-    public EntityAttribute GetAttribute(string name)
+    public void AddAttribute(EntityAttribute attribute)
     {
-        EntityAttribute[] attributes = GetComponents<EntityAttribute>();
-        foreach (EntityAttribute attribute in attributes)
-            if (attribute.Alias.Equals(name))
-                return attribute;
-        return null;
+        if(!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+            attributes.Add(attribute);
     }
 
     public virtual void Interact(EntityAction action)

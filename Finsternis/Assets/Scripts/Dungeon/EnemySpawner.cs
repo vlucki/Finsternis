@@ -9,6 +9,7 @@ namespace Finsternis
     public class EnemySpawner : MonoBehaviour
     {
         public DungeonDrawer drawer;
+        public List<EntityAttribute> baseAttributes;
         public List<GameObject> enemies;
         public GameObject enemyHudPrefab;
         public GameObject enemiesHolder;
@@ -87,13 +88,49 @@ namespace Finsternis
 
         private void SpawnEnemy(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
+            MTRandom enemyRandom = new MTRandom(goal.enemy.name.GetHashCode());
+            EntityAttribute[] enemyAttributes = null;
             do
             {
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
                 GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                 enemy.transform.SetParent(parent);
                 enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
+
+                var enemyChar = enemy.GetComponent<Character>();
+                if (enemyAttributes == null)
+                {
+                    enemyAttributes = new EntityAttribute[baseAttributes.Count];
+                    for (int i = 0; i < enemyAttributes.Length; i++)
+                        enemyAttributes[i] = AddAttribute(enemyChar, baseAttributes[i], enemyRandom);
+                    
+                }
+                else
+                {
+                    foreach (var attribute in enemyAttributes)
+                        enemyChar.AddAttribute(Instantiate(attribute));
+                }
+
+
             } while (--amount > 0);
+        }
+
+        private EntityAttribute AddAttribute(Entity enemy, EntityAttribute attribute, MTRandom rng)
+        {
+            EntityAttribute enemyAttribute = Instantiate(attribute);
+
+            int value = Mathf.RoundToInt(rng.valuePower(0.8f) * 10);
+
+            if (attribute.LimitMaximum)
+            {
+                enemyAttribute.SetMax(value);
+            }
+
+            enemyAttribute.SetValue(value);
+
+            enemy.AddAttribute(enemyAttribute);
+
+            return enemyAttribute;
         }
     }
 }

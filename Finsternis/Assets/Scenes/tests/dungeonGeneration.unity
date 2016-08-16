@@ -1022,191 +1022,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 744608688}
---- !u!1 &769769427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 769769428}
-  - 114: {fileID: 769769429}
-  - 114: {fileID: 769769430}
-  - 114: {fileID: 769769431}
-  - 114: {fileID: 769769432}
-  m_Layer: 0
-  m_Name: DungeonManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &769769428
+--- !u!4 &769769428 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769769427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.2597656, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 986273454}
-  m_RootOrder: 1
---- !u!114 &769769429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769769427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5fb4d3878340e947bc9770f30ac57c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dFactory: {fileID: 769769430}
-  _dDrawer: {fileID: 769769431}
---- !u!114 &769769430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769769427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ffaef35e643ec4eb743e1f36dc845f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onGenerationBegin:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 27461277}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onGenerationEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 769769431}
-        m_MethodName: Draw
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 769769432}
-        m_MethodName: BeginSpawn
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  dungeonName: Simple Dungeon
-  dungeonWidth: 50
-  dungeonHeight: 50
-  totalRooms: 50
-  maximumTries: 2
-  maximumRoomWidth: 0
-  maximumRoomHeight: 0
-  minimumBrushWidth: 3
-  minimumBrushHeight: 3
-  maximumBrushWidth: 7
-  maximumBrushHeight: 7
-  minimumCorridorLength: 1
-  maximumCorridorLength: 5
-  allowDeadEnds: 0
-  traps:
-  - {fileID: 11400000, guid: 9fadb522a6f577e499bf9c09998e5224, type: 2}
-  - {fileID: 11400000, guid: 60fea911ad260b94a974ff51719ee04f, type: 2}
-  doors:
-  - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
-  - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
---- !u!114 &769769431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769769427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3955da5f93e554b45b11a5875465b656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeon: {fileID: 0}
-  cellScale: {x: 2, y: 1, z: 2}
-  extraWallHeight: 3
-  defaultWallMaterial: {fileID: 2100000, guid: e9ce62b9ccf5dbe4ea8ee91197bbb2d4, type: 2}
-  defaultWallPhysicMaterial: {fileID: 13400000, guid: 81fbc45ea39fd2c488a0dcab688d127e,
+  m_PrefabParentObject: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755,
     type: 2}
-  defaultFloorMaterial: {fileID: 2100000, guid: a25fb5e44fcb7ed43bf1a94ec58bb62e,
-    type: 2}
-  defaultFloorPhysicMaterial: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44,
-    type: 2}
-  corridorMaterial: {fileID: 2100000, guid: d1d5441484a060e49bb3419c4d6f6d12, type: 2}
-  walls: []
-  floorTiles: []
-  exits:
-  - {fileID: 192690, guid: def4ae95ec8083e40875473ef25091bb, type: 2}
-  - {fileID: 101834, guid: ec37950c69a0fdb4a865b59ffde99ca2, type: 2}
-  onDrawBegin:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDrawEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 27461277}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!114 &769769432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 769769427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c6bc27d04dad594faed0c384a3c0cbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawer: {fileID: 769769431}
-  enemies:
-  - {fileID: 1000012345338928, guid: e349ba598c8b58d4cacaffa8d1f85de3, type: 2}
-  - {fileID: 1000011908864442, guid: 12b8c14a29e8f9244bf5fe1888713449, type: 2}
-  enemyHudPrefab: {fileID: 0}
-  enemiesHolder: {fileID: 0}
-  enemyDensity: 0.01
+  m_PrefabInternal: {fileID: 2137514734}
 --- !u!1 &791205707
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,9 +3205,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Options
-
-'
+  m_Text: Options
 --- !u!222 &1550215018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3972,3 +3790,55 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2126441930}
+--- !u!1001 &2137514734
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 986273454}
+    m_Modifications:
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.2597656
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 27461277}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 27461277}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
+  m_IsPrefabParent: 0

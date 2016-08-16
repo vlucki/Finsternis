@@ -17,12 +17,10 @@ namespace Finsternis
         {
             base.Awake();
             if (!damage)
-                damage = agent.GetAttribute("dmg") as EntityAttribute;
-            if (!damage)
+                damage = agent.GetAttribute("dmg", true) as EntityAttribute;
+
+            if (damage.Value == 0)
             {
-                damage = gameObject.AddComponent<EntityAttribute>();
-                damage.Name = "Damage";
-                damage.Alias = "dmg";
                 damage.SetValue(1);
             }
         }

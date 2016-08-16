@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 // /////////////////////////////////////////////////////////////////////////////////////////
 //                              More Effective Coroutines
-//                                        v1.7.0
+//                                        v1.7.2
 // 
 // This is an improved implementation of coroutines that boasts zero per-frame memory allocations.
 //  It serves as the "Time" portion of the Movement / Time plugin, which can be found here:
@@ -68,15 +67,18 @@ namespace MovementEffects
         private double _lastSlowUpdateTime;
 
         private ushort _framesSinceUpdate;
-
+        private int _expansions = 1;
 
         private const ushort FramesUntilMaintenance = 64;
-        private const int ProcessArrayChunkSize = 128;
+        private const int ProcessArrayChunkSize = 64;
+        private const int InitialBufferSizeLarge = 256;
+        private const int InitialBufferSizeMedium = 64;
+        private const int InitialBufferSizeSmall = 8;
 
-        private IEnumerator<float>[] UpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize * 4];
-        private IEnumerator<float>[] LateUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
-        private IEnumerator<float>[] FixedUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
-        private IEnumerator<float>[] SlowUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
+        private IEnumerator<float>[] UpdateProcesses = new IEnumerator<float>[InitialBufferSizeLarge];
+        private IEnumerator<float>[] LateUpdateProcesses = new IEnumerator<float>[InitialBufferSizeSmall];
+        private IEnumerator<float>[] FixedUpdateProcesses = new IEnumerator<float>[InitialBufferSizeMedium];
+        private IEnumerator<float>[] SlowUpdateProcesses = new IEnumerator<float>[InitialBufferSizeMedium];
 
         private readonly Dictionary<ProcessIndex, string> ProcessTags = new Dictionary<ProcessIndex,string>();
         private readonly Dictionary<string, List<ProcessIndex>> TaggedProcesses = new Dictionary<string,List<ProcessIndex>>();
@@ -85,10 +87,6 @@ namespace MovementEffects
         public static double LocalTime { get { return Instance.localTime; } }
         [System.NonSerialized] public float deltaTime;
         public static float DeltaTime { get { return Instance.deltaTime; } }
-
-#if UNITY_EDITOR
-        private bool _editorPaused;
-#endif
 
         private static Timing _instance;
         public static Timing Instance
@@ -170,8 +168,6 @@ namespace MovementEffects
                                     SlowUpdateProcesses[coindex.i] = ReplacementFunction(SlowUpdateProcesses[coindex.i],
                                         coindex.seg, ProcessTags.ContainsKey(coindex) ? ProcessTags[coindex] : null);
 
-                                    RemoveTag(coindex);
-
                                     ReplacementFunction = null;
                                     coindex.i--;
                                 }
@@ -179,10 +175,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if(OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             SlowUpdateProcesses[coindex.i] = null;
                         }
@@ -194,7 +190,7 @@ namespace MovementEffects
                 _runningSlowUpdate = false;
             }
 
-            if(_nextUpdateProcessSlot > 0)
+            if (_nextUpdateProcessSlot > 0)
             {
                 ProcessIndex coindex = new ProcessIndex { seg = Segment.Update };
                 _runningUpdate = true;
@@ -223,8 +219,6 @@ namespace MovementEffects
                                     UpdateProcesses[coindex.i] = ReplacementFunction(UpdateProcesses[coindex.i],
                                         coindex.seg, ProcessTags.ContainsKey(coindex) ? ProcessTags[coindex] : null);
 
-                                    RemoveTag(coindex);
-
                                     ReplacementFunction = null;
                                     coindex.i--;
                                 }
@@ -232,10 +226,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if(OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             UpdateProcesses[coindex.i] = null;
                         }
@@ -293,8 +287,6 @@ namespace MovementEffects
                                     FixedUpdateProcesses[coindex.i] = ReplacementFunction(FixedUpdateProcesses[coindex.i],
                                         coindex.seg, ProcessTags.ContainsKey(coindex) ? ProcessTags[coindex] : null);
 
-                                    RemoveTag(coindex);
-
                                     ReplacementFunction = null;
                                     coindex.i--;
                                 }
@@ -302,10 +294,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if(OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             FixedUpdateProcesses[coindex.i] = null;
                         }
@@ -352,8 +344,6 @@ namespace MovementEffects
                                     LateUpdateProcesses[coindex.i] = ReplacementFunction(LateUpdateProcesses[coindex.i],
                                         coindex.seg, ProcessTags.ContainsKey(coindex) ? ProcessTags[coindex] : null);
 
-                                    RemoveTag(coindex);
-
                                     ReplacementFunction = null;
                                     coindex.i--;
                                 }
@@ -361,10 +351,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if(OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             LateUpdateProcesses[coindex.i] = null;
                         }
@@ -470,7 +460,10 @@ namespace MovementEffects
                 }
             }
             for(outer.i = inner.i;outer.i < _nextUpdateProcessSlot;outer.i++)
+            {
                 UpdateProcesses[outer.i] = null;
+                RemoveTag(outer);
+            }
 
             NumberOfUpdateCoroutines = _nextUpdateProcessSlot = inner.i;
 
@@ -488,7 +481,10 @@ namespace MovementEffects
                 }
             }
             for(outer.i = inner.i;outer.i < _nextFixedUpdateProcessSlot;outer.i++)
+            {
                 FixedUpdateProcesses[outer.i] = null;
+                RemoveTag(outer);
+            }
 
             NumberOfFixedUpdateCoroutines = _nextFixedUpdateProcessSlot = inner.i;
 
@@ -506,7 +502,10 @@ namespace MovementEffects
                 }
             }
             for(outer.i = inner.i;outer.i < _nextLateUpdateProcessSlot;outer.i++)
+            {
                 LateUpdateProcesses[outer.i] = null;
+                RemoveTag(outer);
+            }
 
             NumberOfLateUpdateCoroutines = _nextLateUpdateProcessSlot = inner.i;
 
@@ -524,7 +523,10 @@ namespace MovementEffects
                 }
             }
             for (outer.i = inner.i; outer.i < _nextSlowUpdateProcessSlot; outer.i++)
+            { 
                 SlowUpdateProcesses[outer.i] = null;
+                RemoveTag(outer);
+            }
 
             NumberOfSlowUpdateCoroutines = _nextSlowUpdateProcessSlot = inner.i;
         }
@@ -533,7 +535,7 @@ namespace MovementEffects
         {
             if(ProcessTags.ContainsKey(coindex))
             {
-                Debug.Log("collision! " + coindex.seg + ", " + coindex.i);
+                Debug.LogWarning("collision! " + coindex.seg + ", " + coindex.i);
                 ProcessTags.Remove(coindex);
             }
 
@@ -566,25 +568,23 @@ namespace MovementEffects
 
         private void MoveTag(ProcessIndex coindexFrom, ProcessIndex coindexTo)
         {
-            if(!ProcessTags.ContainsKey(coindexFrom)) return;
+            RemoveTag(coindexTo);
 
-            string tag = ProcessTags[coindexFrom];
+            if(ProcessTags.ContainsKey(coindexFrom))
+            {
+                int index = TaggedProcesses[ProcessTags[coindexFrom]].IndexOf(coindexFrom);
+                TaggedProcesses[ProcessTags[coindexFrom]][index] = coindexTo;
 
-            if (ProcessTags.ContainsKey(coindexTo))
-                ProcessTags[coindexTo] = ProcessTags[coindexFrom];
-            else
-                ProcessTags.Add(coindexTo, tag);
-
-            ProcessTags.Remove(coindexFrom);
-
-            TaggedProcesses[tag].Remove(coindexFrom);
-            TaggedProcesses[tag].Add(coindexTo);
+                ProcessTags.Add(coindexTo, ProcessTags[coindexFrom]);
+                ProcessTags.Remove(coindexFrom);
+            }
         }
 
         /// <summary>
         /// Run a new coroutine in the Update segment.
         /// </summary>
         /// <param name="coroutine">The new coroutine's handle.</param>
+        /// <returns>The coroutine's handle, which can be used for Wait and Kill operations.</returns>
         public static IEnumerator<float> RunCoroutine(IEnumerator<float> coroutine)
         {
             return coroutine == null ? null : Instance.RunCoroutineOnInstance(coroutine, Segment.Update, null);
@@ -595,6 +595,7 @@ namespace MovementEffects
         /// </summary>
         /// <param name="coroutine">The new coroutine's handle.</param>
         /// <param name="tag">An optional tag to attach to the coroutine, which can later be used for Kill operations.</param>
+        /// <returns>The coroutine's handle, which can be used for Wait and Kill operations.</returns>
         public static IEnumerator<float> RunCoroutine(IEnumerator<float> coroutine, string tag)
         {
             return coroutine == null ? null : Instance.RunCoroutineOnInstance(coroutine, Segment.Update, tag);
@@ -648,7 +649,7 @@ namespace MovementEffects
         /// Run a new coroutine on this Timing instance.
         /// </summary>
         /// <param name="coroutine">The new coroutine's handle.</param>
-        /// <param name="timing">Whether to run it in the Update, FixedUpdate, or LateUpdate loop.</param>
+        /// <param name="timing">The segment that the coroutine should run in.</param>
         /// <returns>The coroutine's handle, which can be used for Wait and Kill operations.</returns>
         public IEnumerator<float> RunCoroutineOnInstance(IEnumerator<float> coroutine, Segment timing)
         {
@@ -659,7 +660,7 @@ namespace MovementEffects
         /// Run a new coroutine on this Timing instance.
         /// </summary>
         /// <param name="coroutine">The new coroutine's handle.</param>
-        /// <param name="timing">Whether to run it in the Update, FixedUpdate, or LateUpdate loop.</param>
+        /// <param name="timing">The segment that the coroutine should run in.</param>
         /// <param name="tag">An optional tag to attach to the coroutine, which can later be used for Kill operations.</param>
         /// <returns>The coroutine's handle, which can be used for Wait and Kill operations.</returns>
         public IEnumerator<float> RunCoroutineOnInstance(IEnumerator<float> coroutine, Segment timing, string tag)
@@ -667,17 +668,15 @@ namespace MovementEffects
             if(coroutine == null) 
                 return null;
 
-            ProcessIndex slot;
+            ProcessIndex slot = new ProcessIndex {seg = timing};
             switch(timing)
             {
                 case Segment.Update:
 
-                    slot.seg = Segment.Update;
-
                     if(_nextUpdateProcessSlot >= UpdateProcesses.Length)
                     {
                         IEnumerator<float>[] oldArray = UpdateProcesses;
-                        UpdateProcesses = new IEnumerator<float>[UpdateProcesses.Length + ProcessArrayChunkSize];
+                        UpdateProcesses = new IEnumerator<float>[UpdateProcesses.Length + (ProcessArrayChunkSize * _expansions++)];
                         for(int i = 0;i < oldArray.Length;i++)
                             UpdateProcesses[i] = oldArray[i];
                     }
@@ -693,6 +692,7 @@ namespace MovementEffects
                         try
                         {
                             _runningUpdate = true;
+                            CalculateTimeValues(slot.seg);
 
                             if(!UpdateProcesses[slot.i].MoveNext())
                             {
@@ -710,8 +710,6 @@ namespace MovementEffects
 
                                     ReplacementFunction = null;
 
-                                    RemoveTag(slot);
-
                                     if (UpdateProcesses[slot.i] != null)
                                         UpdateProcesses[slot.i].MoveNext();
                                 }
@@ -719,10 +717,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if (OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             UpdateProcesses[slot.i] = null;
                         }
@@ -736,12 +734,10 @@ namespace MovementEffects
 
                 case Segment.FixedUpdate:
 
-                    slot.seg = Segment.FixedUpdate;
-
                     if(_nextFixedUpdateProcessSlot >= FixedUpdateProcesses.Length)
                     {
                         IEnumerator<float>[] oldArray = FixedUpdateProcesses;
-                        FixedUpdateProcesses = new IEnumerator<float>[FixedUpdateProcesses.Length + ProcessArrayChunkSize];
+                        FixedUpdateProcesses = new IEnumerator<float>[FixedUpdateProcesses.Length + (ProcessArrayChunkSize * _expansions++)];
                         for(int i = 0;i < oldArray.Length;i++)
                             FixedUpdateProcesses[i] = oldArray[i];
                     }
@@ -757,6 +753,7 @@ namespace MovementEffects
                         try
                         {
                             _runningFixedUpdate = true;
+                            CalculateTimeValues(slot.seg);
 
                             if(!FixedUpdateProcesses[slot.i].MoveNext())
                             {
@@ -774,8 +771,6 @@ namespace MovementEffects
 
                                     ReplacementFunction = null;
 
-                                    RemoveTag(slot);
-
                                     if (FixedUpdateProcesses[slot.i] != null)
                                         FixedUpdateProcesses[slot.i].MoveNext();
                                 }
@@ -783,10 +778,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if (OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             FixedUpdateProcesses[slot.i] = null;
                         }
@@ -800,12 +795,10 @@ namespace MovementEffects
 
                 case Segment.LateUpdate:
 
-                    slot.seg = Segment.LateUpdate;
-
                     if(_nextLateUpdateProcessSlot >= LateUpdateProcesses.Length)
                     {
                         IEnumerator<float>[] oldArray = LateUpdateProcesses;
-                        LateUpdateProcesses = new IEnumerator<float>[LateUpdateProcesses.Length + ProcessArrayChunkSize];
+                        LateUpdateProcesses = new IEnumerator<float>[LateUpdateProcesses.Length + (ProcessArrayChunkSize * _expansions++)];
                         for(int i = 0;i < oldArray.Length;i++)
                             LateUpdateProcesses[i] = oldArray[i];
                     }
@@ -821,6 +814,7 @@ namespace MovementEffects
                         try
                         {
                             _runningLateUpdate = true;
+                            CalculateTimeValues(slot.seg);
 
                             if(!LateUpdateProcesses[slot.i].MoveNext())
                             {
@@ -838,8 +832,6 @@ namespace MovementEffects
 
                                     ReplacementFunction = null;
 
-                                    RemoveTag(slot);
-
                                     if (LateUpdateProcesses[slot.i] != null)
                                         LateUpdateProcesses[slot.i].MoveNext();
                                 }
@@ -847,10 +839,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if (OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             LateUpdateProcesses[slot.i] = null;
                         }
@@ -864,12 +856,10 @@ namespace MovementEffects
 
                 case Segment.SlowUpdate:
 
-                    slot.seg = Segment.SlowUpdate;
-
                     if(_nextSlowUpdateProcessSlot >= SlowUpdateProcesses.Length)
                     {
                         IEnumerator<float>[] oldArray = SlowUpdateProcesses;
-                        SlowUpdateProcesses = new IEnumerator<float>[SlowUpdateProcesses.Length + ProcessArrayChunkSize];
+                        SlowUpdateProcesses = new IEnumerator<float>[SlowUpdateProcesses.Length + (ProcessArrayChunkSize * _expansions++)];
                         for(int i = 0;i < oldArray.Length;i++)
                             SlowUpdateProcesses[i] = oldArray[i];
                     }
@@ -885,6 +875,7 @@ namespace MovementEffects
                         try
                         {
                             _runningSlowUpdate = true;
+                            CalculateTimeValues(slot.seg);
 
                             if(!SlowUpdateProcesses[slot.i].MoveNext())
                             {
@@ -902,8 +893,6 @@ namespace MovementEffects
 
                                     ReplacementFunction = null;
 
-                                    RemoveTag(slot);
-
                                     if (SlowUpdateProcesses[slot.i] != null)
                                         SlowUpdateProcesses[slot.i].MoveNext();
                                 }
@@ -911,10 +900,10 @@ namespace MovementEffects
                         }
                         catch (System.Exception ex)
                         {
-                            if (OnError != null)
-                                OnError(ex);
-                            else
+                            if (OnError == null)
                                 _exceptions.Enqueue(ex);
+                            else
+                                OnError(ex);
 
                             SlowUpdateProcesses[slot.i] = null;
                         }
@@ -983,19 +972,19 @@ namespace MovementEffects
         /// <returns>The number of coroutines that were killed.</returns>
         public void KillAllCoroutinesOnInstance()
         {
-            UpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize * 4];
+            UpdateProcesses = new IEnumerator<float>[InitialBufferSizeLarge];
             NumberOfUpdateCoroutines = 0;
             _nextUpdateProcessSlot = 0;
 
-            LateUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
+            LateUpdateProcesses = new IEnumerator<float>[InitialBufferSizeSmall];
             NumberOfLateUpdateCoroutines = 0;
             _nextLateUpdateProcessSlot = 0;
 
-            FixedUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
+            FixedUpdateProcesses = new IEnumerator<float>[InitialBufferSizeMedium];
             NumberOfFixedUpdateCoroutines = 0;
             _nextFixedUpdateProcessSlot = 0;
 
-            SlowUpdateProcesses = new IEnumerator<float>[ProcessArrayChunkSize];
+            SlowUpdateProcesses = new IEnumerator<float>[InitialBufferSizeMedium];
             NumberOfSlowUpdateCoroutines = 0;
             _nextSlowUpdateProcessSlot = 0;
 
@@ -1003,6 +992,7 @@ namespace MovementEffects
             TaggedProcesses.Clear();
             _waitingProcesses.Clear();
             _exceptions.Clear();
+            _expansions = 1;
 
             ResetTimeCount();
         }
@@ -1064,7 +1054,7 @@ namespace MovementEffects
 
             for(int i = 0;i < _waitingProcesses.Count;i++)
             {
-                if (_waitingProcesses[i].Trigger == coroutine && !_waitingProcesses[i].Killed)
+                if(_waitingProcesses[i].Trigger == coroutine && !_waitingProcesses[i].Killed && !_waitingProcesses[i].Killed)
                 {
                     _waitingProcesses[i].Killed = true;
                     numberFound++;
@@ -1072,7 +1062,7 @@ namespace MovementEffects
 
                 for (int j = 0; j < _waitingProcesses[i].Tasks.Count; j++)
                 {
-                    if(_waitingProcesses[i].Tasks[j].Task == coroutine)
+                    if(_waitingProcesses[i].Tasks[j].Task == coroutine && _waitingProcesses[i].Tasks[j].Task != null)
                     {
                         _waitingProcesses[i].Tasks[j].Task = null;
                         numberFound++;
@@ -1115,7 +1105,7 @@ namespace MovementEffects
 
             for (int i = 0; i < _waitingProcesses.Count; i++)
             {
-                if (_waitingProcesses[i].TriggerTag == tag && !_waitingProcesses[i].Killed)
+                if(_waitingProcesses[i].TriggerTag == tag && !_waitingProcesses[i].Killed && !_waitingProcesses[i].Killed)
                 {
                     _waitingProcesses[i].Killed = true;
                     numberFound++;
@@ -1123,7 +1113,7 @@ namespace MovementEffects
 
                 for (int j = 0; j < _waitingProcesses[i].Tasks.Count; j++)
                 {
-                    if (_waitingProcesses[i].Tasks[j].Tag == tag)
+                    if(_waitingProcesses[i].Tasks[j].Tag == tag && _waitingProcesses[i].Tasks[j].Task != null)
                     {
                         _waitingProcesses[i].Tasks[j].Task = null;
                         numberFound++;
@@ -1173,7 +1163,8 @@ namespace MovementEffects
 
             for (int i = 0; i < _waitingProcesses.Count; i++)
             {
-                if (_waitingProcesses[i].Trigger == coroutine && _waitingProcesses[i].TriggerTag == tag && !_waitingProcesses[i].Killed)
+                if(_waitingProcesses[i].Trigger == coroutine && _waitingProcesses[i].TriggerTag == tag && !_waitingProcesses[i].Killed &&
+                   !_waitingProcesses[i].Killed)
                 {
                     _waitingProcesses[i].Killed = true;
                     numberFound++;
@@ -1181,7 +1172,8 @@ namespace MovementEffects
 
                 for (int j = 0; j < _waitingProcesses[i].Tasks.Count; j++)
                 {
-                    if (_waitingProcesses[i].Tasks[j].Task == coroutine && _waitingProcesses[i].Tasks[j].Tag == tag)
+                    if(_waitingProcesses[i].Tasks[j].Task == coroutine && _waitingProcesses[i].Tasks[j].Tag == tag &&
+                       _waitingProcesses[i].Tasks[j].Task != null)
                     {
                         _waitingProcesses[i].Tasks[j].Task = null;
                         numberFound++;
@@ -1451,6 +1443,59 @@ namespace MovementEffects
         }
 
         /// <summary>
+        /// Use the command "yield return Timing.WaitUntilDone(operation);" to pause the current 
+        /// coroutine until the operation is done.
+        /// </summary>
+        /// <param name="operation">The operation variable returned.</param>
+        public static float WaitUntilDone(CustomYieldInstruction operation)
+        {
+            ReplacementFunction = (input, timing, tag) => _StartWhenDone(operation, input);
+            return float.NaN;
+        }
+
+        private static IEnumerator<float> _StartWhenDone(CustomYieldInstruction operation, IEnumerator<float> pausedProc)
+        {
+            while (operation.keepWaiting)
+                yield return 0f;
+
+            ReplacementFunction = delegate { return pausedProc; };
+            yield return float.NaN;
+        }
+
+        /// <summary>
+        /// Use the command "yield return Timing.WaitUntilDone(evaluatorFunc);" to pause the current 
+        /// coroutine until the evaluator function returns true.
+        /// </summary>
+        /// <param name="evaluatorFunc">The evaluator function.</param>
+        public static float WaitUntilTrue(System.Func<bool> evaluatorFunc)
+        {
+            ReplacementFunction = (input, timing, tag) => _StartWhenDone(evaluatorFunc, false, input);
+            return float.NaN;
+        }
+
+        /// <summary>
+        /// Use the command "yield return Timing.WaitUntilDone(evaluatorFunc);" to pause the current 
+        /// coroutine until the evaluator function returns false.
+        /// </summary>
+        /// <param name="evaluatorFunc">The evaluator function.</param>
+        public static float WaitUntilFalse(System.Func<bool> evaluatorFunc)
+        {
+            ReplacementFunction = (input, timing, tag) => _StartWhenDone(evaluatorFunc, true, input);
+            return float.NaN;
+        }
+
+        private static IEnumerator<float> _StartWhenDone(System.Func<bool> evaluatorFunc, bool continueOn, IEnumerator<float> pausedProc)
+        {
+            while (evaluatorFunc() == continueOn)
+                yield return 0f;
+
+            ReplacementFunction = delegate { return pausedProc; };
+            yield return float.NaN;
+        }
+
+
+
+        /// <summary>
         /// Use in a yield return statement to wait for the specified number of seconds.
         /// </summary>
         /// <param name="waitTime">Number of seconds to wait.</param>
@@ -1464,13 +1509,10 @@ namespace MovementEffects
         /// Use in a yield return statement to wait for the specified number of seconds.
         /// </summary>
         /// <param name="waitTime">Number of seconds to wait.</param>
-        /// <param name="instance">The instance of Timing to run against. Only needed if
-        /// you are running in an instance other than default.</param>
-        public static float WaitForSeconds(float waitTime, Timing instance)
+        public float WaitForSecondsOnInstance(float waitTime)
         {
-            if (instance == null) throw new System.ArgumentNullException();
             if (float.IsNaN(waitTime)) waitTime = 0f;
-            return (float)instance.localTime + waitTime;
+            return (float)localTime + waitTime;
         }
 
         /// <summary>
@@ -1481,17 +1523,32 @@ namespace MovementEffects
         /// <param name="action">The action to call.</param>
         public static void CallDelayed<TRef>(TRef reference, float delay, System.Action<TRef> action)
         {
+            if (action == null) return;
+
+            if (delay >= -0.001f)
+                RunCoroutine(Instance._CallDelayBack(reference, delay, action));
+            else
+                action(reference);
+        }
+        /// <summary>
+        /// Calls the specified action after a specified number of seconds.
+        /// </summary>
+        /// <param name="reference">A value that will be passed in to the supplied action.</param>
+        /// <param name="delay">The number of seconds to wait before calling the action.</param>
+        /// <param name="action">The action to call.</param>
+        public void CallDelayedOnInstance<TRef>(TRef reference, float delay, System.Action<TRef> action)
+        {
             if(action == null) return;
 
-            if (delay >= -0.0001f)
-                RunCoroutine(_CallDelayBack(reference, delay, action));
+            if (delay >= -0.001f)
+                RunCoroutineOnInstance(_CallDelayBack(reference, delay, action));
             else
                 action(reference);
         }
 
-        private static IEnumerator<float> _CallDelayBack<TRef>(TRef reference, float delay, System.Action<TRef> action)
+        private IEnumerator<float> _CallDelayBack<TRef>(TRef reference, float delay, System.Action<TRef> action)
         {
-            yield return (float)LocalTime + delay;
+            yield return (float)localTime + delay;
 
             CallDelayed(reference, -1f, action);
         }
@@ -1503,23 +1560,38 @@ namespace MovementEffects
         /// <param name="action">The action to call.</param>
         public static void CallDelayed(float delay, System.Action action)
         {
-            if(action == null) return;
+            if (action == null) return;
 
             if (delay >= -0.0001f)
-                RunCoroutine(_CallDelayBack(delay, action));
+                RunCoroutine(Instance._CallDelayBack(delay, action));
             else
                 action();
         }
 
-        private static IEnumerator<float> _CallDelayBack(float delay, System.Action action)
+        /// <summary>
+        /// Calls the specified action after a specified number of seconds.
+        /// </summary>
+        /// <param name="delay">The number of seconds to wait before calling the action.</param>
+        /// <param name="action">The action to call.</param>
+        public void CallDelayedOnInstance(float delay, System.Action action)
         {
-            yield return (float)LocalTime + delay;
+            if (action == null) return;
+
+            if (delay >= -0.0001f)
+                RunCoroutineOnInstance(_CallDelayBack(delay, action));
+            else
+                action();
+        }
+
+        private IEnumerator<float> _CallDelayBack(float delay, System.Action action)
+        {
+            yield return (float)localTime + delay;
 
             CallDelayed(-1f, action);
         }
 
         /// <summary>
-        /// Calls the supplied at the given rate for a given number of seconds.
+        /// Calls the supplied action at the given rate for a given number of seconds.
         /// </summary>
         /// <param name="timeframe">The number of seconds that this function should run.</param>
         /// <param name="period">The amount of time between calls.</param>
@@ -1528,11 +1600,24 @@ namespace MovementEffects
         public static void CallPeriodically(float timeframe, float period, System.Action action, System.Action onDone = null)
         {
             if (action != null)
-                RunCoroutine(_CallContinuously(timeframe, period, action, onDone), Segment.Update);
+                RunCoroutine(Instance._CallContinuously(timeframe, period, action, onDone), Segment.Update);
         }
 
         /// <summary>
-        /// Calls the supplied at the given rate for a given number of seconds.
+        /// Calls the supplied action at the given rate for a given number of seconds.
+        /// </summary>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="period">The amount of time between calls.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallPeriodicallyOnInstance(float timeframe, float period, System.Action action, System.Action onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(timeframe, period, action, onDone), Segment.Update);
+        }
+
+        /// <summary>
+        /// Calls the supplied action at the given rate for a given number of seconds.
         /// </summary>
         /// <param name="timeframe">The number of seconds that this function should run.</param>
         /// <param name="period">The amount of time between calls.</param>
@@ -1541,12 +1626,26 @@ namespace MovementEffects
         /// <param name="onDone">An optional action to call when this function finishes.</param>
         public static void CallPeriodically(float timeframe, float period, System.Action action, Segment timing, System.Action onDone = null)
         {
-            if(action == null) return;
-            RunCoroutine(_CallContinuously(timeframe, period, action, onDone), timing);
+            if(action != null)
+                RunCoroutine(Instance._CallContinuously(timeframe, period, action, onDone), timing);
         }
 
         /// <summary>
-        /// Calls the supplied action every frame for a given number of seconds.
+        /// Calls the supplied action at the given rate for a given number of seconds.
+        /// </summary>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="period">The amount of time between calls.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="timing">The timing segment to run in.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallPeriodicallyOnInstance(float timeframe, float period, System.Action action, Segment timing, System.Action onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(timeframe, period, action, onDone), timing);
+        }
+
+        /// <summary>
+        /// Calls the supplied action at the given rate for a given number of seconds.
         /// </summary>
         /// <param name="timeframe">The number of seconds that this function should run.</param>
         /// <param name="action">The action to call every frame.</param>
@@ -1554,7 +1653,19 @@ namespace MovementEffects
         public static void CallContinuously(float timeframe, System.Action action, System.Action onDone = null)
         {
             if (action != null)
-                RunCoroutine(_CallContinuously(timeframe, 0f, action, onDone), Segment.Update);
+                RunCoroutine(Instance._CallContinuously(timeframe, 0f, action, onDone), Segment.Update);
+        }
+
+        /// <summary>
+        /// Calls the supplied action at the given rate for a given number of seconds.
+        /// </summary>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallContinuouslyOnInstance(float timeframe, System.Action action, System.Action onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(timeframe, 0f, action, onDone), Segment.Update);
         }
 
         /// <summary>
@@ -1566,14 +1677,27 @@ namespace MovementEffects
         /// <param name="onDone">An optional action to call when this function finishes.</param>
         public static void CallContinuously(float timeframe, System.Action action, Segment timing, System.Action onDone = null)
         {
-            if(action == null) return;
-            RunCoroutine(_CallContinuously(timeframe, 0f, action, onDone), timing);
+            if(action != null)
+                RunCoroutine(Instance._CallContinuously(timeframe, 0f, action, onDone), timing);
         }
 
-        private static IEnumerator<float> _CallContinuously(float timeframe, float period, System.Action action, System.Action onDone)
+        /// <summary>
+        /// Calls the supplied action every frame for a given number of seconds.
+        /// </summary>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="timing">The timing segment to run in.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallContinuouslyOnInstance(float timeframe, System.Action action, Segment timing, System.Action onDone = null)
         {
-            double startTime = LocalTime;
-            while (LocalTime <= startTime + timeframe)
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(timeframe, 0f, action, onDone), timing);
+        }
+
+        private IEnumerator<float> _CallContinuously(float timeframe, float period, System.Action action, System.Action onDone)
+        {
+            double startTime = localTime;
+            while (localTime <= startTime + timeframe)
             {
                 yield return WaitForSeconds(period);
 
@@ -1585,7 +1709,7 @@ namespace MovementEffects
         }
 
         /// <summary>
-        /// Calls the supplied at the given rate for a given number of seconds.
+        /// Calls the supplied action at the given rate for a given number of seconds.
         /// </summary>
         /// <param name="reference">A value that will be passed in to the supplied action each period.</param>
         /// <param name="timeframe">The number of seconds that this function should run.</param>
@@ -1595,11 +1719,25 @@ namespace MovementEffects
         public static void CallPeriodically<T>(T reference, float timeframe, float period, System.Action<T> action, System.Action<T> onDone = null)
         {
             if (action != null)
-                RunCoroutine(_CallContinuously(reference, timeframe, period, action, onDone), Segment.Update);
+                RunCoroutine(Instance._CallContinuously(reference, timeframe, period, action, onDone), Segment.Update);
         }
 
         /// <summary>
-        /// Calls the supplied at the given rate for a given number of seconds.
+        /// Calls the supplied action at the given rate for a given number of seconds.
+        /// </summary>
+        /// <param name="reference">A value that will be passed in to the supplied action each period.</param>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="period">The amount of time between calls.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallPeriodicallyOnInstance<T>(T reference, float timeframe, float period, System.Action<T> action, System.Action<T> onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(reference, timeframe, period, action, onDone), Segment.Update);
+        }
+
+        /// <summary>
+        /// Calls the supplied action at the given rate for a given number of seconds.
         /// </summary>
         /// <param name="reference">A value that will be passed in to the supplied action each period.</param>
         /// <param name="timeframe">The number of seconds that this function should run.</param>
@@ -1610,9 +1748,24 @@ namespace MovementEffects
         public static void CallPeriodically<T>(T reference, float timeframe, float period, System.Action<T> action, 
             Segment timing, System.Action<T> onDone = null)
         {
-            if(action == null) return;
+            if(action != null)
+                RunCoroutine(Instance._CallContinuously(reference, timeframe, period, action, onDone), timing);
+        }
 
-            RunCoroutine(_CallContinuously(reference, timeframe, period, action, onDone), timing);
+        /// <summary>
+        /// Calls the supplied action at the given rate for a given number of seconds.
+        /// </summary>
+        /// <param name="reference">A value that will be passed in to the supplied action each period.</param>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="period">The amount of time between calls.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="timing">The timing segment to run in.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallPeriodicallyOnInstance<T>(T reference, float timeframe, float period, System.Action<T> action,
+            Segment timing, System.Action<T> onDone = null)
+        {
+            if(action != null)
+                RunCoroutineOnInstance(_CallContinuously(reference, timeframe, period, action, onDone), timing);
         }
 
         /// <summary>
@@ -1624,7 +1777,21 @@ namespace MovementEffects
         /// <param name="onDone">An optional action to call when this function finishes.</param>
         public static void CallContinuously<T>(T reference, float timeframe, System.Action<T> action, System.Action<T> onDone = null)
         {
-            RunCoroutine(_CallContinuously(reference, 0f, timeframe, action, onDone), Segment.Update);
+            if(action != null)
+                RunCoroutine(Instance._CallContinuously(reference, 0f, timeframe, action, onDone), Segment.Update);
+        }
+
+        /// <summary>
+        /// Calls the supplied action every frame for a given number of seconds.
+        /// </summary>
+        /// <param name="reference">A value that will be passed in to the supplied action each frame.</param>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallContinuouslyOnInstance<T>(T reference, float timeframe, System.Action<T> action, System.Action<T> onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(reference, 0f, timeframe, action, onDone), Segment.Update);
         }
 
         /// <summary>
@@ -1638,16 +1805,30 @@ namespace MovementEffects
         public static void CallContinuously<T>(T reference, float timeframe, float period, System.Action<T> action, 
             Segment timing, System.Action<T> onDone = null)
         {
-            if(action == null) return;
-
-            RunCoroutine(_CallContinuously(reference, timeframe, 0f, action, onDone), timing);
+            if(action != null)
+                RunCoroutine(Instance._CallContinuously(reference, timeframe, 0f, action, onDone), timing);
         }
 
-        private static IEnumerator<float> _CallContinuously<T>(T reference, float timeframe, float period,
+        /// <summary>
+        /// Calls the supplied action every frame for a given number of seconds.
+        /// </summary>
+        /// <param name="reference">A value that will be passed in to the supplied action each frame.</param>
+        /// <param name="timeframe">The number of seconds that this function should run.</param>
+        /// <param name="action">The action to call every frame.</param>
+        /// <param name="timing">The timing segment to run in.</param>
+        /// <param name="onDone">An optional action to call when this function finishes.</param>
+        public void CallContinuouslyOnInstance<T>(T reference, float timeframe, float period, System.Action<T> action,
+            Segment timing, System.Action<T> onDone = null)
+        {
+            if (action != null)
+                RunCoroutineOnInstance(_CallContinuously(reference, timeframe, 0f, action, onDone), timing);
+        }
+
+        private IEnumerator<float> _CallContinuously<T>(T reference, float timeframe, float period,
             System.Action<T> action, System.Action <T> onDone = null)
         {
-            double startTime = LocalTime;
-            while (LocalTime <= startTime + timeframe)
+            double startTime = localTime;
+            while (localTime <= startTime + timeframe)
             {
                 yield return WaitForSeconds(period);
 
@@ -1659,7 +1840,7 @@ namespace MovementEffects
         }
 
         [System.Obsolete("Unity coroutine function, use RunCoroutine instead.")]
-        public new Coroutine StartCoroutine(IEnumerator routine)
+        public new Coroutine StartCoroutine(System.Collections.IEnumerator routine)
         {
             return base.StartCoroutine(routine);
         }
@@ -1677,7 +1858,7 @@ namespace MovementEffects
         }
 
         [System.Obsolete("Unity coroutine function, use RunCoroutine instead.")]
-        public new Coroutine StartCoroutine_Auto(IEnumerator routine)
+        public new Coroutine StartCoroutine_Auto(System.Collections.IEnumerator routine)
         {
             return base.StartCoroutine_Auto(routine);
         }
@@ -1689,7 +1870,7 @@ namespace MovementEffects
         }
 
         [System.Obsolete("Unity coroutine function, use KillCoroutine instead.")]
-        public new void StopCoroutine(IEnumerator routine)
+        public new void StopCoroutine(System.Collections.IEnumerator routine)
         {
             base.StopCoroutine(routine);
         }

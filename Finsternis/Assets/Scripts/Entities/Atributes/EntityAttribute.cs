@@ -2,9 +2,8 @@
 using UnityEngine.Events;
 using System;
 
-[RequireComponent(typeof(Entity))]
-[Serializable]
-public class EntityAttribute : MonoBehaviour
+[CreateAssetMenu(fileName = "EntityAttribute", menuName = "Finsternis/Attribute")]
+public class EntityAttribute : ScriptableObject, ICloneable
 {
     [Serializable]
     public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
@@ -14,6 +13,7 @@ public class EntityAttribute : MonoBehaviour
             return evt != null;
         }
     }
+
     public enum ValueConstraint
     {
         NONE    = 0, //0b0000
@@ -23,27 +23,18 @@ public class EntityAttribute : MonoBehaviour
     }
 
     [SerializeField]
-    [HideInInspector]
-    private ValueConstraint constraints = ValueConstraint.NONE;
-
-    [SerializeField]
-    [HideInInspector]
-    private new string name;
-
-    [SerializeField]
-    [HideInInspector]
     private string alias;
 
     [SerializeField]
-    [HideInInspector]
+    private ValueConstraint constraints;
+
+    [SerializeField]
     private float value;
 
     [SerializeField]
-    [HideInInspector]
     private float min;
 
     [SerializeField]
-    [HideInInspector]
     private float max;
 
     [SerializeField]
@@ -51,8 +42,6 @@ public class EntityAttribute : MonoBehaviour
 
     [SerializeField]
     private bool autoNotifyEntity = true;
-
-    private Entity owner;
 
     public string Name
     {
@@ -135,19 +124,12 @@ public class EntityAttribute : MonoBehaviour
 
         }
     }
-
-    void Awake()
+    public EntityAttribute(string alias, string name = null)
     {
-        owner = GetComponent<Entity>();
-        if (this.autoNotifyEntity)
-        {
-            if (!onValueChanged)
-                onValueChanged = new AttributeValueChangedEvent();
-
-            onValueChanged.AddListener(owner.AtributeUpdated);
-        }
+        this.alias = alias;
+        this.name = name;
     }
-    
+
     /// <summary>
     /// Changes the value of this attribute, respecting the minimum and maximum if they exist.
     /// </summary>
@@ -246,12 +228,6 @@ public class EntityAttribute : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        //Ensure consistency of fields
-        SetMax(this.max, true);
-    }
-
     /// <summary>
     /// Shorthand for the Add method.
     /// </summary>
@@ -285,4 +261,43 @@ public class EntityAttribute : MonoBehaviour
     {
         SetValue(Value + value);
     }
+
+    public object Clone()
+    {
+        EntityAttribute clone = new EntityAttribute(this.alias, this.name);
+        clone.value = this.value;
+        clone.max = this.max;
+        clone.min = this.min;
+        clone.constraints = this.constraints;
+        clone.autoNotifyEntity = this.autoNotifyEntity;
+
+        return clone;
+    }
+
+#if UNITY_EDITOR
+
+    float lastMin;
+    float lastMax;
+    string lastAlias;
+
+    void OnValidate()
+    {
+        if (LimitMinimum || lastMin != this.min)
+            SetMin(this.min);
+
+        if (LimitMaximum || lastMax != this.max)
+            SetMax(this.max);
+
+        SetValue(this.value);
+
+        if (!string.IsNullOrEmpty(this.alias) && !this.alias.Equals(lastAlias))
+        {
+            this.alias = this.alias.ToLower();
+            lastAlias = this.alias;
+        }
+
+        lastMin = this.min;
+        lastMax = this.max;
+    }
+#endif
 }

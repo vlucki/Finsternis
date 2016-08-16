@@ -451,15 +451,9 @@ GameObject:
   - 114: {fileID: 11467130}
   - 114: {fileID: 11411972}
   - 114: {fileID: 11487014}
-  - 114: {fileID: 11435086}
-  - 114: {fileID: 11406364}
-  - 114: {fileID: 11431546}
-  - 114: {fileID: 11476516}
-  - 114: {fileID: 11400542}
   - 114: {fileID: 11446764}
   - 114: {fileID: 11463148}
   - 114: {fileID: 11416438}
-  - 114: {fileID: 11481436}
   m_Layer: 9
   m_Name: Balthazar
   m_TagString: Player
@@ -1382,52 +1376,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400542
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 1
-  name: Speed
-  alias: spd
-  value: 3
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &11406364
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 3
-  name: Mana
-  alias: mp
-  value: 10
-  min: 0
-  max: 10
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &11411972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1514,52 +1462,6 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
---- !u!114 &11431546
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 1
-  name: Damage
-  alias: dmg
-  value: 3
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &11435086
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 3
-  name: Health
-  alias: hp
-  value: 10
-  min: 0
-  max: 10
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &11446764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1672,52 +1574,6 @@ MonoBehaviour:
   - {fileID: 11463148}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &11476516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 1
-  name: Defense
-  alias: def
-  value: 2
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
---- !u!114 &11481436
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  constraints: 1
-  name: Strength
-  alias: str
-  value: 1
-  min: 0
-  max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
 --- !u!114 &11487014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1746,8 +1602,15 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   lastInteraction: {fileID: 0}
-  test: {fileID: 0}
   interactable: 1
+  attributes:
+  - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
+  - {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
+  - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  - {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
+  - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
+  - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
+  - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1777,17 +1640,20 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 68cb9c6a08cbc4040a0f2a8ab4a18ab3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -1797,6 +1663,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300000, guid: 05a5653751bbba04fb9b18df157fc675, type: 3}
   m_Bones:
   - {fileID: 482284}
