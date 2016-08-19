@@ -11,26 +11,30 @@ namespace Finsternis
         public DungeonDrawer drawer;
         public List<EntityAttribute> baseAttributes;
         public List<GameObject> enemies;
-        public GameObject enemyHudPrefab;
         public GameObject enemiesHolder;
 
         [SerializeField]
-        [Range(0.01f, 1)]
+        [ReadOnly]
+        [Tooltip("Set during runtime, by the Dungeon's RNG.")]
         private float enemyDensity = 0.1f;
 
         void Awake()
         {
             if (!drawer)
-                drawer = GetComponent<DungeonDrawer>();
+                drawer = FindObjectOfType<DungeonDrawer>();
         }
 
         public void BeginSpawn(Dungeon dungeon)
         {
             if (!dungeon)
-            {
-                throw new ArgumentException("Failed to locate dungeon on scene!");
-            }
+                throw new ArgumentException("Must have a dungeon in order to spawn enemies!");
+
+            if (enemiesHolder)
+                Destroy(enemiesHolder);
+
+            enemyDensity = Dungeon.Random.RangePower(0, 0.2f, 0.4f);
             enemiesHolder = new GameObject("Enemies");
+            enemyDensity = 0.1f;
 
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
             if (enemies != null && enemies.Count > 0)

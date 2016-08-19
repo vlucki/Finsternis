@@ -22,7 +22,6 @@ GameObject:
   - 114: {fileID: 114000010866930958}
   - 114: {fileID: 114000011967736520}
   - 114: {fileID: 114000013336403104}
-  - 114: {fileID: 114000012820900222}
   m_Layer: 0
   m_Name: DungeonManager
   m_TagString: Untagged
@@ -97,7 +96,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114000012820900222}
+      - m_Target: {fileID: 0}
         m_MethodName: BeginSpawn
         m_Mode: 0
         m_Arguments:
@@ -130,32 +129,6 @@ MonoBehaviour:
   doors:
   - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
   - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
---- !u!114 &114000012820900222
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010139600784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c6bc27d04dad594faed0c384a3c0cbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawer: {fileID: 114000013336403104}
-  baseAttributes:
-  - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
-  - {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
-  - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
-  - {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
-  - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
-  - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
-  - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
-  enemies:
-  - {fileID: 1000012345338928, guid: e349ba598c8b58d4cacaffa8d1f85de3, type: 2}
-  - {fileID: 1000011908864442, guid: 12b8c14a29e8f9244bf5fe1888713449, type: 2}
-  enemyHudPrefab: {fileID: 0}
-  enemiesHolder: {fileID: 0}
-  enemyDensity: 0.01
 --- !u!114 &114000013336403104
 MonoBehaviour:
   m_ObjectHideFlags: 1

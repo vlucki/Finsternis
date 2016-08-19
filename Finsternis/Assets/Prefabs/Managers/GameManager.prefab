@@ -40,8 +40,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647bdbc17d6006c41b9059e877ba86e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _dungeonGoal: 99
+  player: {fileID: 0}
+  dungeonsToClear: 9
+  fallDeathZone: {fileID: 0}
+  dungeonManager: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  mainGameName: DungeonGeneration
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

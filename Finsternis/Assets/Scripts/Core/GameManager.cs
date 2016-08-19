@@ -31,6 +31,8 @@ namespace Finsternis
         [SceneSelection]
         public string mainGameName = "DungeonGeneration";
 
+        private bool hasManagerStarted;
+
         public static GameManager Instance { get { return instance; } }
 
         public Entity Player { get { return this.player; } }
@@ -68,12 +70,13 @@ namespace Finsternis
 
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.name.Equals(mainGameName))
+            if (hasManagerStarted && scene.name.Equals(mainGameName))
                 Init();
         }
 
         void Start()
         {
+            hasManagerStarted = true;
             Init();
         }
 

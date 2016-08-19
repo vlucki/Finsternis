@@ -196,6 +196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardContentHolder: {fileID: 1836846112}
+  leftPanel: {fileID: 1836846113}
+  rightPanel: {fileID: 1836846111}
 --- !u!1 &1328772320
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,10 +420,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95118cb4114bd794aadae22b82872d7f, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1836846111 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010347844670, guid: 95118cb4114bd794aadae22b82872d7f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1836846110}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1836846112 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 191656, guid: 95118cb4114bd794aadae22b82872d7f, type: 2}
   m_PrefabInternal: {fileID: 1836846110}
+--- !u!114 &1836846113 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013174990816, guid: 95118cb4114bd794aadae22b82872d7f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1836846110}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1948238874
 Prefab:
   m_ObjectHideFlags: 0
@@ -507,7 +521,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   - name: Generate
     controls:
-    - {fileID: 11400000, guid: 0fd45a7014728b34884844f08d0d3848, type: 2}
+    - {fileID: 11400000, guid: 7b770120844f79c47a1877cd2c3135c3, type: 2}
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
