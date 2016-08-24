@@ -18,8 +18,9 @@ namespace Finsternis
 
         protected AttackAction attack;
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             entitiesInContact = new HashSet<Entity>();
             if (!attack)
                 attack = GetComponent<AttackAction>();
@@ -30,7 +31,7 @@ namespace Finsternis
             yield return 0f;
             while (entitiesInContact.Contains(e))
             {
-                attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnStay);
+                attack.Execute(DamageInfo.DamageType.physical, damageModifierOnStay, e);
                 yield return 0f;
             }
         }
@@ -42,7 +43,7 @@ namespace Finsternis
             {
                 if (!entitiesInContact.Contains(e))
                 {
-                    attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnTouch);
+                    attack.Execute(DamageInfo.DamageType.physical, damageModifierOnTouch, e);
                     entitiesInContact.Add(e);
                     Timing.RunCoroutine(_OnContinuousTouch(e));
                 }

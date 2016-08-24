@@ -194,7 +194,7 @@ namespace Finsternis
             }
             if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
             {
-                int pos = Dungeon.Random.Range(1, corridor.Length - 2);
+                int pos = Dungeon.Random.Range(1, corridor.Length - 1, false);
                 DungeonFeature feature =  (this.traps[Dungeon.Random.Range(0, this.traps.Length, false)]);
                 corridor.AddFeature(feature, corridor[pos]);
             }

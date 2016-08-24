@@ -2,7 +2,7 @@
   "PreNames": [
     {
       "Mystical": {
-        "effects": [ "+mp", "+int" ],
+        "effects": [ "+atk", "+mp", "+int" ],
         "flavour": "Magic is"
       }
     },
@@ -32,7 +32,7 @@
   "MainNames": [
     {
       "Tome": {
-        "effects": [ "+atk", "+int", "+mp" ]
+        "effects": [ "+dmg", "+int", "+mp" ]
       }
 
     },
@@ -45,7 +45,7 @@
 
     {
       "Staff": {
-        "effects": [ "+atk", "+int", "+mp" ]
+        "effects": [ "+dmg", "+int", "+mp" ]
       }
 
     }

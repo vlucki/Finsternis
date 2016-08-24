@@ -40,6 +40,9 @@ public class IntroController : MonoBehaviour {
 
     void Awake()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(_sceneToLoad, "A scene to load must be defined!");
+        UnityEngine.Assertions.Assert.AreNotEqual(_sceneToLoad, "", "A scene to load must be defined!");
+
         if (_graphicsToFade != null && _graphicsToFade.Length > 0)
         {
             _graphicsQueue = new Queue<Graphic>(_graphicsToFade);

@@ -29,7 +29,7 @@ namespace Finsternis
 
             bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(brush.position, minBrushSize);
 
-            while (corridorDirection != Vector2.zero
+            while (!corridorDirection.IsZero()
                     && !enoughSpaceForRoom //if the room is currently intersecting a corridor
                     && ((corridorDirection.y != 0 && brush.x >= 0 && brush.x + minBrushSize.x - 1 > room.Bounds.x)  //and it can be moved to the left (orUp) 
                     || (corridorDirection.x != 0 && brush.y >= 0 && brush.y + minBrushSize.y - 1 > room.Bounds.y))) //while still being attached to the corridor
@@ -60,7 +60,7 @@ namespace Finsternis
                     room,
                     ref brush))
                 {
-                    if (brush.size != Vector2.zero)
+                    if (!brush.size.IsZero())
                     {
                         if (!dungeon.OverlapsCorridor(brush.position, brush.size))
                         {
@@ -127,9 +127,9 @@ namespace Finsternis
             brushPerimeter.min -= offset;
             brushPerimeter.max += offset;
 
-            bool hadToExpandBrush = room.Size != Vector2.zero && !room.Bounds.Overlaps(brushPerimeter);
+            bool hadToExpandBrush = !room.Size.IsZero() && !room.Bounds.Overlaps(brushPerimeter);
             //make sure this new part will be connected to the room!
-            while (corridorDirection != Vector2.zero && hadToExpandBrush && !dungeon.OverlapsCorridor(brush.position, brush.size))
+            while (!corridorDirection.IsZero() && hadToExpandBrush && !dungeon.OverlapsCorridor(brush.position, brush.size))
             {
                 brush.width += corridorDirection.y;
                 brush.height += corridorDirection.x;
@@ -137,7 +137,7 @@ namespace Finsternis
             }
 
             //make sure this new part won't go over a corridor!
-            while (corridorDirection != Vector2.zero
+            while (!corridorDirection.IsZero()
                     && brush.width > minBrushSize.x
                     && brush.height > minBrushSize.y
                     && dungeon.OverlapsCorridor(brush.position, brush.size))

@@ -7,10 +7,4 @@
         Initialized = true;
     }
 
-    public void InitCheck()
-    {
-        if (!Initialized)
-            throw new System.InvalidOperationException("Object was not initialized.");
-    }
-
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class CardName : InitializableObject
+public class CardName : ScriptableObject
 {
 
     public enum NameType { PreName = 0, MainName = 1, PostName = 2 }
@@ -20,11 +20,7 @@ public class CardName : InitializableObject
     public NameType Type { get; private set; }
 
     public void Init(string name, NameType type, bool stackable = true)
-    {
-        if (Initialized)
-            return;
-
-        base.Init();
+    {        
         this.name = name;
         this.Type = type;
         this.IsStackable = stackable; 
@@ -34,7 +30,8 @@ public class CardName : InitializableObject
 
     public void AddEffect(Effect effect)
     {
-        InitCheck();
+        UnityEngine.Assertions.Assert.IsNotNull(this.effects);
+
         effects.Add(effect);
         Rarity += ComputeRarity(effect);
     }

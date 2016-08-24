@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -32,9 +33,8 @@ namespace Finsternis
             if (enemiesHolder)
                 Destroy(enemiesHolder);
 
-            enemyDensity = Dungeon.Random.RangePower(0, 0.2f, 0.4f);
+            enemyDensity = Dungeon.Random.Range(0, 0.2f);
             enemiesHolder = new GameObject("Enemies");
-            enemyDensity = 0.1f;
 
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
             if (enemies != null && enemies.Count > 0)
@@ -55,8 +55,8 @@ namespace Finsternis
             int remainingEnemies = enemiesToSpawn;
             do
             {
-                int enemyToSpawn = enemies.Count == 1 ? 0 : Mathf.CeilToInt(Dungeon.Random.Range(0, enemies.Count - 1));
-                int remainingEnemiesOfChosenType = Mathf.CeilToInt(Dungeon.Random.Range(0, remainingEnemies));
+                int enemyToSpawn = enemies.Count == 1 ? 0 : Dungeon.Random.Range(0, enemies.Count, false);
+                int remainingEnemiesOfChosenType = Dungeon.Random.Range(0, remainingEnemies, true);
                 if (remainingEnemiesOfChosenType > 0)
                 {
                     KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies[enemyToSpawn]);
@@ -92,49 +92,14 @@ namespace Finsternis
 
         private void SpawnEnemy(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
-            MTRandom enemyRandom = new MTRandom(goal.enemy.name.GetHashCode());
-            EntityAttribute[] enemyAttributes = null;
+            System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> enemyAttributes = null;
             do
             {
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
                 GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                 enemy.transform.SetParent(parent);
                 enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
-
-                var enemyChar = enemy.GetComponent<Character>();
-                if (enemyAttributes == null)
-                {
-                    enemyAttributes = new EntityAttribute[baseAttributes.Count];
-                    for (int i = 0; i < enemyAttributes.Length; i++)
-                        enemyAttributes[i] = AddAttribute(enemyChar, baseAttributes[i], enemyRandom);
-                    
-                }
-                else
-                {
-                    foreach (var attribute in enemyAttributes)
-                        enemyChar.AddAttribute(Instantiate(attribute));
-                }
-
-
             } while (--amount > 0);
-        }
-
-        private EntityAttribute AddAttribute(Entity enemy, EntityAttribute attribute, MTRandom rng)
-        {
-            EntityAttribute enemyAttribute = Instantiate(attribute);
-
-            int value = Mathf.RoundToInt(rng.valuePower(0.8f) * 10);
-
-            if (attribute.LimitMaximum)
-            {
-                enemyAttribute.SetMax(value);
-            }
-
-            enemyAttribute.SetValue(value);
-
-            enemy.AddAttribute(enemyAttribute);
-
-            return enemyAttribute;
         }
     }
 }

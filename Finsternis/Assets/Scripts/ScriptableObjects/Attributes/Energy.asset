@@ -21,4 +21,4 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 0
+  autoNotifyEntity: 1

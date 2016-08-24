@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alias: spd
   constraints: 1
-  value: 2.5
-  min: 0
+  value: 3
+  min: 3
   max: 0
   onValueChanged:
     m_PersistentCalls:

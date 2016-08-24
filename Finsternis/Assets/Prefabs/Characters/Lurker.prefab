@@ -219,10 +219,10 @@ GameObject:
   - 95: {fileID: 95000013364264826}
   - 54: {fileID: 54000011223061086}
   - 136: {fileID: 136000013030091710}
-  - 114: {fileID: 114000014186784308}
-  - 114: {fileID: 114000012364374302}
-  - 114: {fileID: 114000010375194488}
-  - 114: {fileID: 114000012178017174}
+  - 114: {fileID: 114000011818615346}
+  - 114: {fileID: 114000011811933878}
+  - 114: {fileID: 114000011460988776}
+  - 114: {fileID: 114000013491772252}
   m_Layer: 9
   m_Name: Lurker
   m_TagString: Enemy
@@ -861,20 +861,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010375194488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011908864442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692239cdea0649f4e80f8d21660085df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleration: 0.175
-  _maxVelocity: 2
-  _minVelocityThreshold: 0.1
 --- !u!114 &114000010787396162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -900,14 +886,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   ignoreColliders: []
-  owner: {fileID: 114000014186784308}
+  owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
   executionMultiplier: {x: 1, y: 1}
   modeOnExecution: 1
   activeOnDeath: 0
   ignoreOthersFromOwner: 1
---- !u!114 &114000012178017174
+--- !u!114 &114000011460988776
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -915,42 +901,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011908864442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
+  m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012206476248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013569627868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
-  owner: {fileID: 114000014186784308}
-  impactMultiplier: {x: 1, y: 1}
-  modeOnImpact: 2
-  executionMultiplier: {x: 1, y: 1}
-  modeOnExecution: 1
-  activeOnDeath: 0
-  ignoreOthersFromOwner: 1
---- !u!114 &114000012364374302
+  acceleration: 0.175
+  maxVelocityMagnitude: 5
+  minVelocityThreshold: 0.1
+--- !u!114 &114000011811933878
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -984,15 +941,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _aggroRange: 5
+  aggroRange: 2
   _wanderCycle: 1
   wanderFrequency: 0.5
-  _ignoreWalls: 0
-  _reach: 1.5
-  _target: {fileID: 0}
-  interestPersistence: 5
+  ignoreWalls: 0
+  reach: 0.5
+  target: {fileID: 0}
+  interestPersistence: 2
   ragdoll: {fileID: 0}
---- !u!114 &114000014186784308
+--- !u!114 &114000011818615346
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1000,7 +957,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011908864442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
+  m_Script: {fileID: 11500000, guid: 86d8a24df48414749a3f6a41312ebd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onInteraction:
@@ -1010,7 +967,14 @@ MonoBehaviour:
       PublicKeyToken=null
   lastInteraction: {fileID: 0}
   interactable: 1
-  attributes: []
+  attributes:
+  - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
+  - {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
+  - {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
+  - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
+  - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
+  - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1018,6 +982,49 @@ MonoBehaviour:
       PublicKeyToken=null
   invincibiltyTime: 1
   invincible: 0
+--- !u!114 &114000012206476248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013569627868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  ignoreColliders: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  executionMultiplier: {x: 1, y: 1}
+  modeOnExecution: 1
+  activeOnDeath: 0
+  ignoreOthersFromOwner: 1
+--- !u!114 &114000013491772252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011908864442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136000013030091710
 CapsuleCollider:
   m_ObjectHideFlags: 1

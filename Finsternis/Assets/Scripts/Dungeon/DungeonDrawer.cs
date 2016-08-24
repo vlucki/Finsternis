@@ -94,7 +94,8 @@ namespace Finsternis
                             continue;
 
                         GameObject wall = MakeWall((int)cell.x + i, (int)cell.y + j);
-                        if(wall) wall.transform.SetParent(sectionGO.transform);
+                        if (wall)
+                            wall.transform.SetParent(sectionGO.transform);
                     }
                 }
                 GameObject sectionCell = MakeCell((int)cell.x, (int)cell.y);
@@ -223,24 +224,24 @@ namespace Finsternis
         {
             position += Vector2.one / 2; //needed to align the feature with the center of each cell
 
-            GameObject featureGO = 
+            GameObject featureGO =
                 (GameObject)Instantiate(
                 feature.Prefab,
-                GetWorldPosition(position) + feature.Offset, 
+                GetWorldPosition(position) + feature.Offset,
                 Quaternion.identity);
-            
+
             switch (feature.Alignment)
             {
                 case DungeonFeature.CellAlignment.FLOOR:
 
-                    //if (_dungeon.IsOfType<Corridor>(position) && feature is DoorFeature)
+                    if (!feature.Offset.IsZero())
                         featureGO.transform.forward = feature.Offset;
 
                     break;
 
                 case DungeonFeature.CellAlignment.WALL:
 
-                         if (dungeon.IsOfType(position + Vector2.up, null))
+                    if (dungeon.IsOfType(position + Vector2.up, null))
                         featureGO.transform.up = Vector3.forward;   //wall is "above"
                     else if (dungeon.IsOfType(position + Vector2.down, null))
                         featureGO.transform.up = Vector3.back;      //wall is "below"
@@ -257,7 +258,7 @@ namespace Finsternis
 
         private GameObject MakeWall(int cellX, int cellY)
         {
-            Vector2 coords = new Vector2(cellX, cellY);
+            var coords = new Vector2(cellX, cellY);
 
             if (drawnWalls.Contains(coords) || (dungeon.IsWithinDungeon(coords) && !dungeon.IsOfType(cellX, cellY, null)))
                 return null;
@@ -290,7 +291,7 @@ namespace Finsternis
 
                         if (dungeon[x, y] != null)
                         {
-                            Vector2 offset = Vector2.down;
+                            var offset = Vector2.down;
                             float angle = 0;
                             if (x < cellX)
                             {
@@ -310,7 +311,7 @@ namespace Finsternis
 
                             float angleB = offset.y <= 0 ? -angle : 0;
                             GameObject sideA = MakeQuad(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSideA");
-                            GameObject sideB = MakeQuad(new Vector3((float)j / 2 + offset.x/50, 0.5f, -(float)i / 2 - offset.y / 50) , Vector3.one, new Vector3(0, angleB, 0), defaultWallMaterial, "WallSideB");
+                            GameObject sideB = MakeQuad(new Vector3((float)j / 2 + offset.x / 50, 0.5f, -(float)i / 2 - offset.y / 50), Vector3.one, new Vector3(0, angleB, 0), defaultWallMaterial, "WallSideB");
 
                             sideA.GetComponent<Collider>().sharedMaterial = defaultWallPhysicMaterial;
                             sideA.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;

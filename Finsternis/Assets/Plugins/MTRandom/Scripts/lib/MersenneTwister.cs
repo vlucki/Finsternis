@@ -368,7 +368,7 @@ namespace UMT
 
 		private static readonly UInt32[] _mag01 = { 0x0, MatrixA };
 
-		private void init(UInt32 seed)
+		public void init(UInt32 seed)
 		{
 			_mt[0] = seed & 0xffffffffU;
 			

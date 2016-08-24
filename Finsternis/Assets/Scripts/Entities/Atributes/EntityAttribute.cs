@@ -43,10 +43,22 @@ public class EntityAttribute : ScriptableObject, ICloneable
     [SerializeField]
     private bool autoNotifyEntity = true;
 
+    public Entity Owner { get; private set; }
+
     public string Name
     {
         get { return this.name; }
         set { this.name = value; }
+    }
+
+    internal void SetOwner(Entity entity)
+    {
+        if (!this.Owner)
+        {
+            this.Owner = entity;
+            if (autoNotifyEntity)
+                onValueChanged.AddListener(this.Owner.AtributeUpdated);
+        }
     }
 
     public string Alias
@@ -55,10 +67,7 @@ public class EntityAttribute : ScriptableObject, ICloneable
         set { this.alias = value; }
     }
 
-    public float Value
-    {
-        get { return this.value + ValueModifier; }
-    }
+    public float Value { get { return this.value + ValueModifier; } }
 
     public float BaseValue { get { return this.value; } }
 
@@ -72,7 +81,7 @@ public class EntityAttribute : ScriptableObject, ICloneable
         get { return this.max; }
     }
 
-    public float ValueModifier { get; set; }
+    public float ValueModifier { get; private set; }
 
     public int IntValue { get { return (int)Value; } }
 
@@ -124,6 +133,7 @@ public class EntityAttribute : ScriptableObject, ICloneable
 
         }
     }
+
     public EntityAttribute(string alias, string name = null)
     {
         this.alias = alias;
@@ -148,6 +158,12 @@ public class EntityAttribute : ScriptableObject, ICloneable
             if (onValueChanged)
                 onValueChanged.Invoke(this);
         }
+    }
+
+    public void SetModifier(float newModifier)
+    {
+        this.ValueModifier = newModifier;
+        onValueChanged.Invoke(this);
     }
 
     /// <summary>
@@ -272,6 +288,11 @@ public class EntityAttribute : ScriptableObject, ICloneable
         clone.autoNotifyEntity = this.autoNotifyEntity;
 
         return clone;
+    }
+
+    public override string ToString()
+    {
+        return alias + ": " + value.ToString();
     }
 
 #if UNITY_EDITOR

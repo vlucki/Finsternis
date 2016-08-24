@@ -3,12 +3,12 @@ using Random = UnityEngine.Random;
 
 namespace Finsternis
 {
-    [RequireComponent(typeof(Movement), typeof(Animator))]
+    [RequireComponent(typeof(EnemyChar))]
     public class EnemyController : CharController
     {
         [SerializeField]
         [Range(1, 50)]
-        private float _aggroRange = 2f;
+        private float aggroRange = 2f;
 
         [SerializeField]
         [Range(1, 50)]
@@ -19,14 +19,14 @@ namespace Finsternis
         private float wanderFrequency = 0.5f;
 
         [SerializeField]
-        private bool _ignoreWalls = false;
+        private bool ignoreWalls = false;
 
         [SerializeField]
         [Range(0, 10)]
-        private float _reach = 0.5f;
+        private float reach = 0.5f;
 
         [SerializeField]
-        private GameObject _target;
+        private GameObject target;
 
         [SerializeField]
         private float interestPersistence = 2f;
@@ -42,7 +42,7 @@ namespace Finsternis
         public override void Awake()
         {
             base.Awake();
-            _target = GameObject.FindGameObjectWithTag("Player");
+            target = GameObject.FindGameObjectWithTag("Player");
         }
 
         public override void Update()
@@ -60,7 +60,7 @@ namespace Finsternis
                     {
                         timeSinceLastSawTarget += Time.deltaTime;
                         hasTarget = (timeSinceLastSawTarget >= interestPersistence); //stop trying to go towards the target
-                        if (_target.GetComponent<CharController>().IsDead())
+                        if (target.GetComponent<CharController>().IsDead())
                         {
                             hasTarget = false;
                         }
@@ -70,7 +70,7 @@ namespace Finsternis
                     {
                         if (canSeeTarget && CheckRange())
                         {
-                            float angle = Vector3.Angle(transform.forward, (_target.transform.position - transform.position));
+                            float angle = Vector3.Angle(transform.forward, (target.transform.position - transform.position));
 
                             if (angle < 30f)
                             {
@@ -79,7 +79,7 @@ namespace Finsternis
                         }
                         else if (hasTarget && transform.position != _targetLocation - GetOffset(_targetLocation))
                         {
-                            SetDirection((_target.transform.position - transform.position).normalized);
+                            SetDirection((target.transform.position - transform.position).normalized);
                         }
                         else
                         {
@@ -98,6 +98,8 @@ namespace Finsternis
             }
             if (GetComponent<Collider>().enabled && (IsDead() || IsDying()))
             {
+                foreach (var c in GetComponentsInChildren<Collider>())
+                    c.enabled = false;
                 GetComponent<Collider>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = true;
                 if (ragdoll)
@@ -119,7 +121,7 @@ namespace Finsternis
             }
             else
             {
-                SetDirection(GetComponent<Movement>().Direction);
+                SetDirection(characterMovement.Direction);
             }
         }
 
@@ -140,32 +142,32 @@ namespace Finsternis
 
         private bool CheckRange()
         {
-            return Vector3.Distance(_targetLocation, transform.position) <= _reach;
+            return Vector3.Distance(_targetLocation, transform.position) <= reach;
         }
 
         private bool LookForTarget()
         {
             bool canSeeTarget = false;
 
-            if (!_ignoreWalls)
+            if (!ignoreWalls)
             {
                 RaycastHit hit;
                 if (Physics.Raycast(
                     transform.position + Vector3.up,
-                    _target.transform.position - transform.position,
+                    target.transform.position - transform.position,
                     out hit,
-                    _aggroRange))
+                    aggroRange))
                 {
-                    canSeeTarget = _target.Equals(hit.collider.gameObject);
+                    canSeeTarget = target.Equals(hit.collider.gameObject);
                     if (canSeeTarget)
-                        _targetLocation = _target.transform.position;
+                        _targetLocation = target.transform.position;
                 }
             }
             else
             {
-                canSeeTarget = Vector3.Distance(transform.position, _target.transform.position) <= _aggroRange;
+                canSeeTarget = Vector3.Distance(transform.position, target.transform.position) <= aggroRange;
                 if (canSeeTarget)
-                    _targetLocation = _target.transform.position;
+                    _targetLocation = target.transform.position;
             }
 
             return canSeeTarget;
@@ -173,7 +175,7 @@ namespace Finsternis
 
         private Vector3 GetOffset(Vector3 position)
         {
-            Vector3 offset = (transform.position - position).normalized * _reach;
+            Vector3 offset = (transform.position - position).normalized * reach;
             offset.y = 0;
             return offset;
         }

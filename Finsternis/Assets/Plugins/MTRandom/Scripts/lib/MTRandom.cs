@@ -13,7 +13,7 @@ using UMT;
 /// </summary>
 public class MTRandom
 {
-	private MersenneTwister _rand;
+	protected MersenneTwister _rand;
 
 	#region SEED
 	/// <summary>

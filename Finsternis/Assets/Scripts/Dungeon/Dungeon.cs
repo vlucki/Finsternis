@@ -5,9 +5,39 @@ using UnityEngine.Events;
 
 namespace Finsternis
 {
+
+    public class DungeonRandom : MTRandom, IRandom
+    {
+        public DungeonRandom() : base()
+        {
+        }
+
+        public DungeonRandom(int seed) : base(seed) { }
+
+        public void SetSeed(int seed)
+        {
+            this._rand.init((uint)seed);
+        }
+
+        public void SetSeed(string seed)
+        {
+            SetSeed(seed.GetHashCode());
+        }
+    }
+
     public class Dungeon : MonoBehaviour
     {
-        public static MTRandom Random;
+        private static IRandom random;
+
+        public static IRandom Random
+        {
+            get
+            {
+                if (random == null)
+                    random = new DungeonRandom();
+                return random;
+            }
+        }
 
         [SerializeField]
         private int seed;
@@ -60,7 +90,7 @@ namespace Finsternis
             {
                 if (customSeed)
                 {
-                    Random = new MTRandom(value);
+                    random = new DungeonRandom(value);
                     this.seed = value;
                 }
             }
@@ -121,9 +151,9 @@ namespace Finsternis
             if (Dungeon.Random == null)
             {
                 if (customSeed)
-                    Random = new MTRandom(this.seed);
+                    random = new DungeonRandom(this.seed);
                 else
-                    Random = new MTRandom();
+                    random = new DungeonRandom();
             }
 
             this.dungeonGrid = new DungeonSection[width, height];

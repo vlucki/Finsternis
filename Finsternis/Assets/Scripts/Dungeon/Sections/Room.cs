@@ -6,7 +6,7 @@ namespace Finsternis
     public class Room : DungeonSection
     {
         private List<Vector2> _cells;
-        private MTRandom _random;
+        private IRandom random;
 
         private bool _locked;
 
@@ -14,32 +14,21 @@ namespace Finsternis
 
         public int CellCount { get { return _cells.Count; } }
 
-        public static Room CreateInstance(Vector2 position, MTRandom random)
+        public static Room CreateInstance(Vector2 position, IRandom random)
         {
             Room r = CreateInstance<Room>(new Rect(position, Vector2.zero));
             r._cells = new List<Vector2>();
-            r._random = random;
+            r.random = random;
             return r;
         }
 
-        public static Room CreateInstance(Rect bounds, MTRandom random)
+        public static Room CreateInstance(Rect bounds, IRandom random)
         {
             Room r = CreateInstance<Room>(bounds);
             r._cells = new List<Vector2>();
-            r._random = random;
+            r.random = random;
             return r;
         }
-
-        public static Room CreateInstance(Room baseRoom)
-        {
-            Room r = CreateInstance(baseRoom.bounds, baseRoom._random);
-            r._cells = new List<Vector2>(baseRoom._cells);
-            r.connections = new HashSet<DungeonSection>(baseRoom.connections);
-            r.features = new Dictionary<Vector2, DungeonFeature>(baseRoom.features);
-
-            return r;
-        }
-
         public override string ToString()
         {
             System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(_cells.ToString());
@@ -54,7 +43,7 @@ namespace Finsternis
 
         public static Room operator +(Room roomA, Room roomB)
         {
-            Room mergedRooms = CreateInstance(roomA);
+            Room mergedRooms = Instantiate(roomA);
             mergedRooms.Merge(roomB);
 
             return mergedRooms;
@@ -184,7 +173,7 @@ namespace Finsternis
 
         public Vector2 GetRandomCell()
         {
-            return _cells[_random.Range(0, _cells.Count, false)];
+            return _cells[this.random.Range(0, _cells.Count, false)];
         }
 
         public override bool ContainsCell(Vector2 cell)

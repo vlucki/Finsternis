@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
+[SelectionBase]
 [DisallowMultipleComponent]
 public class Entity : MonoBehaviour
 {
@@ -13,7 +14,21 @@ public class Entity : MonoBehaviour
     protected bool interactable = true;
 
     [SerializeField]
-    private List<EntityAttribute> attributes;
+    protected List<EntityAttribute> attributes;
+
+    public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
+
+    protected virtual void Awake()
+    {
+        for(int i = 0; i < attributes.Count; i++)
+            InitializeAttribute(i);
+    }
+
+    protected virtual void InitializeAttribute(int attributeIndex)
+    {
+        attributes[attributeIndex] = Instantiate(attributes[attributeIndex]);
+        attributes[attributeIndex].SetOwner(this);
+    }
 
     public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
     {
@@ -29,8 +44,11 @@ public class Entity : MonoBehaviour
 
     public void AddAttribute(EntityAttribute attribute)
     {
-        if(!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+        if (!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+        {
             attributes.Add(attribute);
+            attribute.SetOwner(this);
+        }
     }
 
     public virtual void Interact(EntityAction action)

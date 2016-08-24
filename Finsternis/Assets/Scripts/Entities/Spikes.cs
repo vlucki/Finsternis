@@ -4,7 +4,7 @@
     {
         public override void Interact(EntityAction action)
         {
-            attack.Perform(action.Agent, DamageInfo.DamageType.physical);
+            attack.Execute(action.Agent);
         }
     }
 }

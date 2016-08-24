@@ -12,8 +12,18 @@ namespace Finsternis
 
         public UnityEvent onDeath;
 
-        private EntityAttribute health;
-        private EntityAttribute defense;
+        private EntityAttribute cachedHealth;
+        private EntityAttribute cachedDefense;
+
+        private EntityAttribute health
+        {
+            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("hp", true)); }
+        }
+
+        private EntityAttribute defense
+        {
+            get { return this.cachedDefense ?? (this.cachedDefense = GetAttribute("def", true)); }
+        }
 
         private bool dead;
 
@@ -25,13 +35,8 @@ namespace Finsternis
         private bool invincible = false;
 
         public bool Invincible { get { return this.invincible; } }
-        public bool Dead { get { return this.dead; } }
 
-        protected void Awake()
-        {
-            this.health = GetAttribute("hp", true);
-            this.defense = GetAttribute("def", true);
-        }
+        public bool Dead { get { return this.dead; } }
 
         public override void AtributeUpdated(EntityAttribute attribute)
         {
@@ -50,7 +55,7 @@ namespace Finsternis
         {
             if (interactable)
             {
-                if (!Dead && typeof(AttackAction).IsAssignableFrom(action.GetType()))
+                if (!Dead && action is AttackAction)
                 {
                     ReceiveDamage(((AttackAction)action).DamageInfo);
                 }
@@ -62,7 +67,7 @@ namespace Finsternis
         {
             if (!Dead && !this.invincible)
             {
-                this.health -= (Mathf.Max(0, info.Amount - this.defense.Value));
+                this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
                 if (!Dead)
                     Timing.RunCoroutine(_TickInvincibility(this.invincibiltyTime));
             }

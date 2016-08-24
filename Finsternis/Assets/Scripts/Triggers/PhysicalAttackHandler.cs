@@ -79,7 +79,7 @@ namespace Finsternis
                 AttackAction attack = owner.GetComponent<AttackAction>();
 
                 if (attack)
-                    attack.Perform(otherChar, strBonus);
+                    attack.Execute(strBonus, otherChar);
             }
             SimulateImpact(collidedObject, impactMultiplier, true);
         }

@@ -3,6 +3,8 @@ using UnityQuery;
 
 namespace Finsternis
 {
+
+    [UnityEngine.DisallowMultipleComponent]
     public class AttackAction : EntityAction
     {
         EntityAttribute damage;
@@ -25,30 +27,31 @@ namespace Finsternis
             }
         }
 
+        public void Execute(params Entity[] targets)
+        {
+            Execute(DamageInfo.DamageType.physical, 0, targets);
+        }
+
+        public void Execute(float extraDamage, params Entity[] targets)
+        {
+            Execute(DamageInfo.DamageType.physical, extraDamage, targets);
+        }
+
+        public void Execute(DamageInfo.DamageType damageType, params Entity[] targets)
+        {
+            Execute(damageType, 0, targets);
+        }
+
         /// <summary>
         /// Performs an attack action.
         /// </summary>
-        /// <param name="parameters">
-        /// Every parameter needed to perform this action.</br>
-        /// - (REQUIRED) One or more targeted Entities;
-        /// - (OPTIONAL) Type of damage;
-        /// - (OPTIONAL) Extra damage (from buffs and whatnot);
-        /// </param>
-        public override void Perform(params object[] parameters)
+        /// <param name="damageType">Type of damage that will be applied.</param>
+        /// <param name="extraDamage">Value to be added to the base damage before applying it to the targets.</param>
+        /// <param name="targets">One or more entities that will have damage applied to them.</param>
+        public void Execute(DamageInfo.DamageType damageType, float extraDamage, params Entity[] targets)
         {
-            if (parameters.Length < 1)
-                throw new ArgumentException("Cannot execute the attack logic without any parameters.");
-
-            Entity[] targets;
-            if (!GetParameters(parameters, out targets))
+            if(targets == null || targets.Length < 1)
                 throw new ArgumentException("Cannot execute the attack logic without a target.");
-
-            DamageInfo.DamageType damageType;
-            if (!GetParameter(parameters, out damageType))
-                Log.Warn("No damage type found, using default value.");
-
-            float extraDamage;
-            GetParameter(parameters, out extraDamage);
 
             float totalDamage = damage.Value + extraDamage;
 

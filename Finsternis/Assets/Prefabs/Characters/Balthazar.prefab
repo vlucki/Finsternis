@@ -449,11 +449,12 @@ GameObject:
   - 136: {fileID: 13603302}
   - 114: {fileID: 11493898}
   - 114: {fileID: 11467130}
-  - 114: {fileID: 11411972}
   - 114: {fileID: 11487014}
   - 114: {fileID: 11446764}
   - 114: {fileID: 11463148}
   - 114: {fileID: 11416438}
+  - 114: {fileID: 114000013709114372}
+  - 114: {fileID: 114000013368011138}
   m_Layer: 9
   m_Name: Balthazar
   m_TagString: Player
@@ -1207,12 +1208,12 @@ Transform:
   m_RootOrder: 0
 --- !u!4 &483752
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1346,7 +1347,7 @@ Transform:
   m_RootOrder: 1
 --- !u!54 &5459534
 Rigidbody:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1362,7 +1363,7 @@ Rigidbody:
 --- !u!95 &9543252
 Animator:
   serializedVersion: 3
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1376,23 +1377,9 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11411972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692239cdea0649f4e80f8d21660085df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _acceleration: 0.175
-  _maxVelocity: 3
-  _minVelocityThreshold: 0.1
 --- !u!114 &11416438
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1464,7 +1451,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
 --- !u!114 &11446764
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1491,7 +1478,7 @@ MonoBehaviour:
   summonOffset: 0
 --- !u!114 &11463148
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1520,7 +1507,7 @@ MonoBehaviour:
     m_Bits: 2048
 --- !u!114 &11467130
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1567,7 +1554,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fallSpeedThreshold: -0.2
-  turningSpeed: 0.05
+  turningSpeed: 0.1
   skills: []
   equippedSkills:
   - {fileID: 11446764}
@@ -1576,7 +1563,7 @@ MonoBehaviour:
   - {fileID: 0}
 --- !u!114 &11487014
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1587,7 +1574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &11493898
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1620,7 +1607,7 @@ MonoBehaviour:
   invincible: 0
 --- !u!136 &13603302
 CapsuleCollider:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170350}
@@ -1709,3 +1696,35 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170350}
   m_IsPrefabParent: 1
+--- !u!114 &114000013368011138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 916d930ad8c2bb5449778b4f7f0d0ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots:
+  - card: {fileID: 0}
+    quantity: 0
+  - card: {fileID: 0}
+    quantity: 0
+  - card: {fileID: 0}
+    quantity: 0
+--- !u!114 &114000013709114372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 0.175
+  maxVelocityMagnitude: 2
+  minVelocityThreshold: 0.1

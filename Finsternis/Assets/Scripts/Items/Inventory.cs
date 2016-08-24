@@ -1,94 +1,82 @@
-﻿using UnityEngine;
-using System.Collections.Specialized;
-using System;
+﻿namespace Finsternis
+{
+    using UnityEngine;
+    using System.Collections.Specialized;
+    using System;
+    using System.Collections.Generic;
 
-namespace Finsternis {
-    [Serializable]
+    [RequireComponent(typeof(Entity))]
     public class Inventory : MonoBehaviour
     {
+        [Serializable]
+        public class InventoryEvent : UnityEngine.Events.UnityEvent<Card> { }
 
-        //stores the itens and their quantity
-        private class InventorySlot : ScriptableObject
+        public InventoryEvent onCardAdded;
+        public InventoryEvent onCardRemoved;
+
+        [SerializeField]
+        private List<Card> cards;
+
+        private Entity owner;
+
+        private int totalInventoryCost;
+
+        private int maximumCostAllowed = 10;
+
+        public int MaximumCostAllowed
         {
-            [SerializeField]
-            private Card card;
-
-            [SerializeField]
-            private int quantity;
-
-            public Card Card
-            {
-                get { return this.card; }
-                set { if (!(this.card = value)) this.quantity = 1; }
-            }
-
-            public int Quantity
-            {
-                get { return this.quantity; }
-                set
-                {
-                    if ((this.quantity = value) <= 0)
-                    {
-                        this.quantity = 0;
-                        this.card = null;
-                    }
-                }
-            }
-
-            public bool IsEmpty { get { return this.quantity == 0; } }
-
-            public InventorySlot() { }
-
-            public InventorySlot(Card i, int quantity = 1)
-            {
-                this.card = i;
-                Quantity = quantity;
-            }
-
+            get { return this.maximumCostAllowed; }
+            set { this.maximumCostAllowed = Mathf.Max(0, value); }
         }
-
-        //every inventory has a fixed number of item slots
-        private InventorySlot[] slots;
-
-        public void Init(int size)
+        
+        void Awake()
         {
-            this.slots = new InventorySlot[size];
-            for (int i = 0; i < size; i++)
-            {
-                this.slots[i] = ScriptableObject.CreateInstance<InventorySlot>();
-            }
+            owner = GetComponent<Entity>();
         }
 
         //return true if the item was successfuly added to the inventory
-        public bool AddItem(Card item, int quantity = 1)
+        public bool AddCard(Card card)
         {
-            InventorySlot emptySlot = null;
-
-            for (int index = 0; index < slots.Length; index++)
+            bool cardAdded = false;
+            if (totalInventoryCost <= maximumCostAllowed - card.Cost)
             {
-                InventorySlot slot = slots[index];
-                if (slot.IsEmpty && !emptySlot)
+                if (!cards.Contains(card))
                 {
-                    emptySlot = slot; //store the empty slot in case we need it
-                }
+                    totalInventoryCost += card.Cost;
+                    cardAdded = true;
+                    cards.Add(card);
 
-                //if the slot being checked is holding the item that should be added, just increase it's quantity
-                if (slot.Card.Equals(item))
-                {
-                    slot.Quantity += quantity;
-                    return true;
+                    foreach(var e in card.GetEffects())
+                    {
+                        var e2 = e as AttributeModifier;
+                        if (e2)
+                        {
+                            var attrib = owner.GetAttribute(e2.AttributeAlias);
+                            if (attrib)
+                            {
+                                if (e2.ChangeType == AttributeModifier.ModifierType.Absolute)
+                                    attrib.SetModifier(attrib.ValueModifier + e2.ValueChange);
+                            }
+                        }
+                    }
+                    
+                    onCardAdded.Invoke(card);
                 }
             }
+            return cardAdded;
+        }
 
-            //if the item passed is not yet in the inventory and there is an empty slot for it, store it
-            if (emptySlot)
-            {
-                emptySlot.Card = item;
-                emptySlot.Quantity = quantity;
-                return true;
-            }
+        public void RemoveCard(Card card)
+        {
+            RemoveCard(cards.IndexOf(card));
+        }
 
-            return false;
+        public void RemoveCard(int cardIndex)
+        {
+            Card c = cards[cardIndex];
+            totalInventoryCost -= c.Cost;
+            onCardAdded.Invoke(c);
+            cards.RemoveAt(cardIndex);
         }
     }
 }
