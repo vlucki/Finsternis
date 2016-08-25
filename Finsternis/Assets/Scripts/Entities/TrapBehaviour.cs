@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using MovementEffects;
+using System;
 
 namespace Finsternis
 {
@@ -57,6 +58,10 @@ namespace Finsternis
             {
                 entitiesInContact.Remove(e);
             }
+        }
+
+        public override void AtributeUpdated(EntityAttribute attribute)
+        {
         }
     }
 }

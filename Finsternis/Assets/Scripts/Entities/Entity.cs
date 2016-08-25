@@ -1,69 +1,74 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using System.Collections.Generic;
-
-[SelectionBase]
-[DisallowMultipleComponent]
-public class Entity : MonoBehaviour
+﻿namespace Finsternis
 {
-    public UnityEvent onInteraction;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using System.Collections.Generic;
 
-    public EntityAction lastInteraction;
-
-    [SerializeField]
-    protected bool interactable = true;
-
-    [SerializeField]
-    protected List<EntityAttribute> attributes;
-
-    public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
-
-    protected virtual void Awake()
+    [SelectionBase]
+    [DisallowMultipleComponent]
+    public abstract class Entity : MonoBehaviour
     {
-        for(int i = 0; i < attributes.Count; i++)
-            InitializeAttribute(i);
-    }
+        public UnityEvent onInteraction;
 
-    protected virtual void InitializeAttribute(int attributeIndex)
-    {
-        attributes[attributeIndex] = Instantiate(attributes[attributeIndex]);
-        attributes[attributeIndex].SetOwner(this);
-    }
+        public EntityAction lastInteraction;
 
-    public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
-    {
-        EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
-        if (!attribute && createIfNotFound)
+        [SerializeField]
+        protected bool interactable = true;
+
+        [SerializeField]
+        protected List<EntityAttribute> attributes;
+
+        public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
+
+        protected virtual void Awake()
         {
-            attribute = ScriptableObject.CreateInstance<EntityAttribute>();
-            attribute.Alias = alias;
+            for (int i = 0; i < attributes.Count; i++)
+                InitializeAttribute(i);
         }
 
-        return attribute;
-    }
-
-    public void AddAttribute(EntityAttribute attribute)
-    {
-        if (!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+        protected virtual void InitializeAttribute(int attributeIndex)
         {
-            attributes.Add(attribute);
-            attribute.SetOwner(this);
+            attributes[attributeIndex] = Instantiate(attributes[attributeIndex]);
+            attributes[attributeIndex].SetOwner(this);
         }
-    }
 
-    public virtual void Interact(EntityAction action)
-    {
-        lastInteraction = action;
-        if(onInteraction != null)
-            onInteraction.Invoke();
-    }
+        public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
+        {
+            EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
+            if (!attribute && createIfNotFound)
+            {
+                attribute = ScriptableObject.CreateInstance<EntityAttribute>();
+                attribute.Alias = alias;
+            }
 
-    public virtual void AtributeUpdated(EntityAttribute attribute)
-    {
-    }
+            return attribute;
+        }
 
-    public void Kill()
-    {
-        Destroy(gameObject);
+        public void AddAttribute(EntityAttribute attribute)
+        {
+            if (!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+            {
+                attributes.Add(attribute);
+                attribute.SetOwner(this);
+            }
+        }
+
+        /// <summary>
+        /// Interface to allow for interactions between entities
+        /// </summary>
+        /// <param name="action">The type of interaction that should take place (eg. Attack).</param>
+        public virtual void Interact(EntityAction action)
+        {
+            lastInteraction = action;
+            if (onInteraction != null)
+                onInteraction.Invoke();
+        }
+
+        public abstract void AtributeUpdated(EntityAttribute attribute);
+
+        public void Kill()
+        {
+            Destroy(gameObject);
+        }
     }
 }

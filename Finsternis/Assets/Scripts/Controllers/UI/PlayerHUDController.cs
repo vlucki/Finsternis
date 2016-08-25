@@ -1,99 +1,102 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class PlayerHUDController : MonoBehaviour
+﻿namespace Finsternis
 {
-    [SerializeField]
-    private Entity _character;
+    using System;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-    [SerializeField]
-    private Text _txtName;
-
-    [SerializeField]
-    private Text _txtLvl;
-
-    [SerializeField]
-    private Text _txtHP;
-
-    [SerializeField]
-    private Text _txtMP;
-
-    private EntityAttribute _health;
-    private EntityAttribute _mana;
-
-    void Awake()
+    public class PlayerHUDController : MonoBehaviour
     {
-        if(!_txtName || !_txtLvl || !_txtHP || !_txtMP)
+        [SerializeField]
+        private Entity character;
+
+        [SerializeField]
+        private Text txtName;
+
+        [SerializeField]
+        private Text txtLvl;
+
+        [SerializeField]
+        private Text txtHP;
+
+        [SerializeField]
+        private Text txtMP;
+
+        private EntityAttribute health;
+        private EntityAttribute mana;
+
+        void Awake()
         {
-            Text[] fields = GetComponentsInChildren<Text>();
-            foreach(Text field in fields)
+            if (!this.txtName || !this.txtLvl || !this.txtHP || !this.txtMP)
             {
-                if (field.name.Equals("txtName"))
-                    _txtName = field;
-                else if (field.name.Equals("txtLvl"))
-                    _txtLvl = field;
-                else if (field.name.Equals("txtHP"))
-                    _txtHP = field;
-                else if(field.name.Equals("txtMP"))
-                    _txtMP = field;
+                Text[] fields = GetComponentsInChildren<Text>();
+                foreach (Text field in fields)
+                {
+                    if (field.name.Equals("txtName"))
+                        this.txtName = field;
+                    else if (field.name.Equals("txtLvl"))
+                        this.txtLvl = field;
+                    else if (field.name.Equals("txtHP"))
+                        this.txtHP = field;
+                    else if (field.name.Equals("txtMP"))
+                        this.txtMP = field;
+                }
+            }
+
+            ValidateState();
+        }
+
+        public void Start()
+        {
+            UpdateHud();
+        }
+
+        void Update()
+        {
+            UpdateHud();
+        }
+
+        private void UpdateHud()
+        {
+            if (this.character)
+            {
+                if (String.IsNullOrEmpty(this.txtName.text))
+                    this.txtName.text = this.character.name;
+
+                this.health = UpdateRangedField("hp", this.health, this.txtHP);
+                this.mana = UpdateRangedField("mp", this.mana, this.txtMP);
             }
         }
 
-        ValidateState();
-    }
-
-    public void Start()
-    {
-        UpdateHud();
-    }
-
-    void Update()
-    {
-        UpdateHud();
-    }
-
-    private void UpdateHud()
-    {
-        if (_character)
+        private EntityAttribute UpdateRangedField(string name, EntityAttribute attribute, Text textField)
         {
-            if (String.IsNullOrEmpty(_txtName.text))
-                _txtName.text = _character.name;
+            if (!attribute)
+            {
+                attribute = this.character.GetAttribute(name) as EntityAttribute;
+            }
+            if (attribute)
+            {
+                textField.text = attribute.Value + "/" + attribute.Max;
+            }
+            return attribute;
+        }
 
-            _health = UpdateRangedField("hp", _health, _txtHP);
-            _mana = UpdateRangedField("mp", _mana, _txtMP);
+        private void ValidateState()
+        {
+            if (!this.character)
+                throw new System.InvalidOperationException("Must assign a Character to the HUD.");
+
+            if (!this.txtName)
+                throw new System.InvalidOperationException("Must assign a Text for the character name.");
+
+            if (!this.txtLvl)
+                throw new System.InvalidOperationException("Must assign a Text for the character level");
+
+            if (!this.txtHP)
+                throw new System.InvalidOperationException("Must assign a Text for the character HP.");
+
+            if (!this.txtMP)
+                throw new System.InvalidOperationException("Must assign a Text for the character MP.");
         }
     }
 
-    private EntityAttribute UpdateRangedField(string name, EntityAttribute attribute, Text textField)
-    {
-        if (!attribute)
-        {
-            attribute = _character.GetAttribute(name) as EntityAttribute;
-        }
-        if (attribute)
-        {
-            textField.text = attribute.Value + "/" + attribute.Max;
-        }
-        return attribute;
-    }
-
-    private void ValidateState()
-    {
-        if (!_character)
-            throw new System.InvalidOperationException("Must assign a Character to the HUD.");
-
-        if (!_txtName)
-            throw new System.InvalidOperationException("Must assign a Text for the character name.");
-
-        if (!_txtLvl)
-            throw new System.InvalidOperationException("Must assign a Text for the character level");
-
-        if (!_txtHP)
-            throw new System.InvalidOperationException("Must assign a Text for the character HP.");
-
-        if (!_txtMP)
-            throw new System.InvalidOperationException("Must assign a Text for the character MP.");
-    }
 }
-

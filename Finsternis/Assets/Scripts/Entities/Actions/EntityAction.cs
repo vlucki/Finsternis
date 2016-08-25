@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-[RequireComponent(typeof(Entity))]
-public abstract class EntityAction : MonoBehaviour
+﻿namespace Finsternis
 {
-    protected Entity agent;
+    using UnityEngine;
 
-    public Entity Agent { get { return agent; } }
-
-    protected virtual void Awake()
+    [RequireComponent(typeof(Entity))]
+    public abstract class EntityAction : MonoBehaviour
     {
-        agent = GetComponent<Entity>();
+        protected Entity agent;
+
+        public Entity Agent { get { return agent; } }
+
+        protected virtual void Awake()
+        {
+            agent = GetComponent<Entity>();
+        }
     }
 }

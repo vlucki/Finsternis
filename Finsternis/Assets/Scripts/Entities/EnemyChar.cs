@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+
     public class EnemyChar : Character
     {
         private IRandom enemyRandom;
@@ -26,7 +25,7 @@ namespace Finsternis
                 attribute.SetMax(value);
             }
 
-            attribute.SetValue(value);
+            attribute.SetBaseValue(value);
         }
     }
 }

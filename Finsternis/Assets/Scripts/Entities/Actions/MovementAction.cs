@@ -1,77 +1,80 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using UnityQuery;
-
-[RequireComponent(typeof(Rigidbody))]
-[DisallowMultipleComponent]
-public class MovementAction : EntityAction
+﻿namespace Finsternis
 {
-    private Rigidbody rbody;
+    using UnityEngine;
+    using System.Collections;
+    using System;
+    using UnityQuery;
 
-    [SerializeField]
-    [Range(0, 1f)]
-    private float acceleration = 0.175f;
-
-    [SerializeField]
-    [Range(1, 10)]
-    private float maxVelocityMagnitude = 5;
-
-    [SerializeField]
-    [Range(0, 1)]
-    private float minVelocityThreshold = 0.1f;
-
-    private EntityAttribute cachedSpeed;
-
-    private EntityAttribute Speed
+    [RequireComponent(typeof(Rigidbody))]
+    [DisallowMultipleComponent]
+    public class MovementAction : EntityAction
     {
-        get { return cachedSpeed ?? (cachedSpeed = agent.GetAttribute("spd", true)); }
-    }
+        private Rigidbody rbody;
 
-    public float MaxVelocityMagnitude
-    {
-        get { return this.maxVelocityMagnitude; }
-    }
+        [SerializeField]
+        [Range(0, 1f)]
+        private float acceleration = 0.175f;
 
-    public Vector3 Velocity { get { return rbody.velocity; } }
+        [SerializeField]
+        [Range(1, 10)]
+        private float maxVelocityMagnitude = 5;
 
-    private Vector3 direction;
+        [SerializeField]
+        [Range(0, 1)]
+        private float minVelocityThreshold = 0.1f;
 
-    public Vector3 Direction
-    {
-        get { return this.direction; }
-        set { this.direction = value.normalized; }
-    }
+        private EntityAttribute cachedSpeed;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        this.rbody = GetComponent<Rigidbody>();
-    }
-
-    void FixedUpdate()
-    {
-        if (!this.Direction.IsZero())
+        private EntityAttribute Speed
         {
-            float velMagnitude = GetVelocityMagnitude();
-
-            if (velMagnitude < maxVelocityMagnitude)
-                rbody.AddForce(Direction * rbody.mass * Speed.Value * (velMagnitude < 0.1f ? 2 : 1));
-
-
-            this.Direction = Vector3.zero;
+            get { return cachedSpeed ?? (cachedSpeed = agent.GetAttribute("spd", true)); }
         }
-    }
 
-    internal float GetVelocityMagnitude(bool ignoreY = true)
-    {
-        if (rbody)
+        public float MaxVelocityMagnitude
         {
-            if (ignoreY)
-                return rbody.velocity.XZ().sqrMagnitude;
-            else
-                return rbody.velocity.sqrMagnitude;
+            get { return this.maxVelocityMagnitude; }
         }
-        return 0;
+
+        public Vector3 Velocity { get { return rbody.velocity; } }
+
+        private Vector3 direction;
+
+        public Vector3 Direction
+        {
+            get { return this.direction; }
+            set { this.direction = value.normalized; }
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            this.rbody = GetComponent<Rigidbody>();
+        }
+
+        void FixedUpdate()
+        {
+            if (!this.Direction.IsZero())
+            {
+                float velMagnitude = GetVelocityMagnitude();
+
+                if (velMagnitude < maxVelocityMagnitude)
+                    rbody.AddForce(Direction * rbody.mass * Speed.Value * (velMagnitude < 0.1f ? 2 : 1));
+
+
+                this.Direction = Vector3.zero;
+            }
+        }
+
+        internal float GetVelocityMagnitude(bool ignoreY = true)
+        {
+            if (rbody)
+            {
+                if (ignoreY)
+                    return rbody.velocity.XZ().sqrMagnitude;
+                else
+                    return rbody.velocity.sqrMagnitude;
+            }
+            return 0;
+        }
     }
 }

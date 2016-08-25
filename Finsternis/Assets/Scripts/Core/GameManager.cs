@@ -153,7 +153,7 @@ namespace Finsternis
             {
                 EntityAttribute hp = e.GetAttribute("hp");
                 if (hp)
-                    hp.SetValue(0);
+                    hp.SetBaseValue(0);
 
                 e.Kill();
                 return;

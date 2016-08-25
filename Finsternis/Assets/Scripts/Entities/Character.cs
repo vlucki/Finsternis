@@ -1,10 +1,10 @@
-﻿using MovementEffects;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using MovementEffects;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+
     public class Character : Entity
     {
         [Space(20)]

@@ -23,7 +23,7 @@ namespace Finsternis
 
             if (damage.Value == 0)
             {
-                damage.SetValue(1);
+                damage.SetBaseValue(1);
             }
         }
 

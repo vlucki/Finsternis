@@ -47,11 +47,11 @@ namespace Finsternis
         [SerializeField]
         private Skill[] equippedSkills = new Skill[4];
 
-        private bool locked;
+        private bool actionsLocked;
         private float unlockDelay;
         private bool waitingForDelay;
 
-        public bool Locked { get { return this.locked; } }
+        public bool ActionsLocked { get { return this.actionsLocked; } }
         public Character Character { get { return character; } }
 
         static CharController()
@@ -69,7 +69,7 @@ namespace Finsternis
 
         public virtual void Awake()
         {
-            this.locked = false;
+            this.actionsLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
             character         = GetComponent<Character>();
@@ -80,11 +80,10 @@ namespace Finsternis
             try
             {
                 character.onDeath.AddListener(CharacterController_death);
-
-                //characterMovement.Acceleration = character.GetAttribute("spd").Value / 10;
-
                 Array.ForEach<Skill>(this.equippedSkills, (skill) => { if (skill) skill.Equip(); }); //make sure every skill that is equipped knows it
-            } catch (Exception e)
+
+            }
+            catch (Exception e)
             {
                 Log.Error("Exception thrown when initializing controller for " + gameObject);
                 throw e;
@@ -103,7 +102,7 @@ namespace Finsternis
                         Unlock();
                 }
 
-                if (!locked)
+                if (!actionsLocked)
                 {
                     UpdateRotation();
                     characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.GetVelocityMagnitude());
@@ -121,12 +120,12 @@ namespace Finsternis
                     GetComponent<Rigidbody>().velocity.y >= fallSpeedThreshold 
                     || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
 
-                if (floorBelow && this.locked && IsFalling() && !this.waitingForDelay)
+                if (floorBelow && this.actionsLocked && IsFalling() && !this.waitingForDelay)
                 {
                     characterAnimator.SetBool(CharController.FallingBool, false);
                     Unlock();
                 }
-                else if (!floorBelow && !this.locked)
+                else if (!floorBelow && !this.actionsLocked)
                 {
                     Lock();
                     characterAnimator.SetBool(CharController.FallingBool, true);
@@ -175,7 +174,7 @@ namespace Finsternis
             bool staggered = IsStaggered();
             bool attacking = IsAttacking();
 
-            return !(this.locked || staggered || attacking);
+            return !(this.actionsLocked || staggered || attacking);
         }
 
         public bool IsAttacking()
@@ -278,7 +277,7 @@ namespace Finsternis
 
         public void Lock()
         {
-            this.locked = true;
+            this.actionsLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.Direction = (characterMovement.Direction.OnlyY());
             onLock.Invoke();
@@ -299,7 +298,7 @@ namespace Finsternis
         public void Unlock()
         {
             this.waitingForDelay = false;
-            this.locked = false;
+            this.actionsLocked = false;
             onUnlock.Invoke();
         }
 

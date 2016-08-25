@@ -46,16 +46,15 @@
                     cardAdded = true;
                     cards.Add(card);
 
-                    foreach(var e in card.GetEffects())
+                    foreach(var effect in card.GetEffects())
                     {
-                        var e2 = e as AttributeModifier;
-                        if (e2)
+                        var attributeModifier = effect as AttributeModifier;
+                        if (attributeModifier)
                         {
-                            var attrib = owner.GetAttribute(e2.AttributeAlias);
+                            var attrib = owner.GetAttribute(attributeModifier.AttributeAlias);
                             if (attrib)
                             {
-                                if (e2.ChangeType == AttributeModifier.ModifierType.Absolute)
-                                    attrib.SetModifier(attrib.ValueModifier + e2.ValueChange);
+                                attrib.AddModifier(attributeModifier);
                             }
                         }
                     }
