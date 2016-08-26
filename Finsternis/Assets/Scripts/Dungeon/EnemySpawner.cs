@@ -92,7 +92,6 @@ namespace Finsternis
 
         private void SpawnEnemy(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
-            System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> enemyAttributes = null;
             do
             {
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell

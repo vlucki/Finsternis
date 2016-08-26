@@ -462,11 +462,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761426bae2b86b8409a58614c2b2f24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 420993354}
-  _txtName: {fileID: 1397815116}
-  _txtLvl: {fileID: 1905153693}
-  _txtHP: {fileID: 744608691}
-  _txtMP: {fileID: 792704579}
+  character: {fileID: 420993354}
+  txtName: {fileID: 0}
+  txtLvl: {fileID: 0}
+  txtHP: {fileID: 0}
+  txtMP: {fileID: 0}
 --- !u!114 &338939011
 MonoBehaviour:
   m_ObjectHideFlags: 0

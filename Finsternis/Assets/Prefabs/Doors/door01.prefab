@@ -45,7 +45,6 @@ GameObject:
   - 33: {fileID: 3336232}
   - 23: {fileID: 2353332}
   - 95: {fileID: 9538824}
-  - 114: {fileID: 11405996}
   - 114: {fileID: 11452854}
   - 65: {fileID: 6575378}
   m_Layer: 0
@@ -4317,36 +4316,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11405996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e52115470aa374f92689a8eb0eff2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11452854}
-        m_MethodName: 4f70656e
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 556e697479456e67696e652e4f626a6563742c20556e697479456e67696e65
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: 556e697479456e67696e652e4576656e74732e556e6974794576656e742c20556e697479456e67696e652c2056657273696f6e3d302e302e302e302c2043756c747572653d6e65757472616c2c205075626c69634b6579546f6b656e3d6e756c6c
-    m_CallsDirty: 1
-  lastInteraction: {fileID: 0}
-  interactable: 1
-  attributes: []
 --- !u!114 &11452854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4358,6 +4327,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f602eebf3a264db2a68aa26fbe3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  lastInteraction: {fileID: 0}
+  interactable: 1
+  attributes: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

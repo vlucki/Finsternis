@@ -6,6 +6,16 @@
 
     public static class Vector
     {
+        public static float GetAngle(this Vector2 v, Vector3 other)
+        {
+            return Vector2.Angle(v, other);
+        }
+
+        public static float GetAngle(this Vector3 v, Vector3 other)
+        {
+            return Vector3.Angle(v, other);
+        }
+
         public static bool IsZero(this Vector2 v)
         {
             return v == Vector2.zero;

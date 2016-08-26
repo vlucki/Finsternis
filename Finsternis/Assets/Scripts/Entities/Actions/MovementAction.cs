@@ -12,10 +12,6 @@
         private Rigidbody rbody;
 
         [SerializeField]
-        [Range(0, 1f)]
-        private float acceleration = 0.175f;
-
-        [SerializeField]
         [Range(1, 10)]
         private float maxVelocityMagnitude = 5;
 
@@ -58,7 +54,7 @@
                 float velMagnitude = GetVelocityMagnitude();
 
                 if (velMagnitude < maxVelocityMagnitude)
-                    rbody.AddForce(Direction * rbody.mass * Speed.Value * (velMagnitude < 0.1f ? 2 : 1));
+                    rbody.AddForce(Direction * rbody.mass * Speed.Value * (velMagnitude < minVelocityThreshold ? 2 : 1));
 
 
                 this.Direction = Vector3.zero;

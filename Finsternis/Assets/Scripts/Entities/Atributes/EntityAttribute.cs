@@ -6,7 +6,7 @@
     using System.Collections.Generic;
 
     [CreateAssetMenu(fileName = "EntityAttribute", menuName = "Finsternis/Attribute")]
-    public class EntityAttribute : ScriptableObject, ICloneable
+    public class EntityAttribute : ScriptableObject
     {
         [Serializable]
         public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
@@ -44,9 +44,6 @@
         public AttributeValueChangedEvent onValueChanged;
 
         [SerializeField]
-        private bool autoNotifyEntity = true;
-
-        [SerializeField]
         [ReadOnly]
         private List<AttributeModifier> modifiers;
 
@@ -63,8 +60,6 @@
             if (!Owner)
             {
                 Owner = entity;
-                if (autoNotifyEntity)
-                    onValueChanged.AddListener(Owner.AtributeUpdated);
             }
         }
 
@@ -139,12 +134,6 @@
             }
         }
 
-        public EntityAttribute(string alias, string name = null)
-        {
-            this.alias = alias;
-            this.name = name;
-        }
-
         /// <summary>
         /// Changes the value of this attribute, respecting the minimum and maximum if they exist.
         /// </summary>
@@ -168,6 +157,9 @@
         {
             if (newModifier.AttributeAlias.Equals(this.alias))
             {
+                if (this.modifiers == null)
+                    this.modifiers = new List<AttributeModifier>();
+
                 this.modifiers.Add(newModifier);
                 RecalculateValue();
             }
@@ -175,7 +167,7 @@
 
         public void RemoveModifier(AttributeModifier toRemove)
         {
-            if (this.modifiers.Remove(toRemove))
+            if (this.modifiers != null && this.modifiers.Remove(toRemove))
                 RecalculateValue();
         }
 
@@ -184,16 +176,17 @@
             float currentValue = Value;
 
             Value = this.baseValue;
-
-            modifiers.ForEach(modifier =>
+            if (this.modifiers != null)
             {
-                if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
-                    Value += modifier.ValueChange;
-                else
-                    Value *= modifier.ValueChange;
-            });
-
-            if (Value != currentValue)
+                modifiers.ForEach(modifier =>
+                {
+                    if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
+                        Value += modifier.ValueChange;
+                    else
+                        Value *= modifier.ValueChange;
+                });
+            }
+            if (Value != currentValue && onValueChanged)
                 onValueChanged.Invoke(this);
         }
 
@@ -307,18 +300,6 @@
         public void Add(float value)
         {
             SetBaseValue(Value + value);
-        }
-
-        public object Clone()
-        {
-            EntityAttribute clone = new EntityAttribute(this.alias, this.name);
-            clone.baseValue = this.baseValue;
-            clone.max = this.max;
-            clone.min = this.min;
-            clone.constraints = this.constraints;
-            clone.autoNotifyEntity = this.autoNotifyEntity;
-
-            return clone;
         }
 
         public override string ToString()

@@ -38,7 +38,7 @@
 
         public bool Dead { get { return this.dead; } }
 
-        public override void AtributeUpdated(EntityAttribute attribute)
+        public virtual void AtributeUpdated(EntityAttribute attribute)
         {
             if (!this.dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
                 Die();

@@ -6,7 +6,7 @@
 
     [SelectionBase]
     [DisallowMultipleComponent]
-    public abstract class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour, IInteractable
     {
         public UnityEvent onInteraction;
 
@@ -63,8 +63,6 @@
             if (onInteraction != null)
                 onInteraction.Invoke();
         }
-
-        public abstract void AtributeUpdated(EntityAttribute attribute);
 
         public void Kill()
         {

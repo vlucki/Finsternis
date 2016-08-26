@@ -209,6 +209,9 @@ namespace Finsternis
 
         public virtual void Hit(int type = 0, bool lockMovement = true)
         {
+            if (this.character.Invincible)
+                return;
+
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
 

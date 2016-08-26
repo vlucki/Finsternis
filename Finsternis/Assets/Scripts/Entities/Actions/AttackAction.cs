@@ -27,17 +27,17 @@ namespace Finsternis
             }
         }
 
-        public void Execute(params Entity[] targets)
+        public void Execute(params IInteractable[] targets)
         {
             Execute(DamageInfo.DamageType.physical, 0, targets);
         }
 
-        public void Execute(float extraDamage, params Entity[] targets)
+        public void Execute(float extraDamage, params IInteractable[] targets)
         {
             Execute(DamageInfo.DamageType.physical, extraDamage, targets);
         }
 
-        public void Execute(DamageInfo.DamageType damageType, params Entity[] targets)
+        public void Execute(DamageInfo.DamageType damageType, params IInteractable[] targets)
         {
             Execute(damageType, 0, targets);
         }
@@ -48,7 +48,7 @@ namespace Finsternis
         /// <param name="damageType">Type of damage that will be applied.</param>
         /// <param name="extraDamage">Value to be added to the base damage before applying it to the targets.</param>
         /// <param name="targets">One or more entities that will have damage applied to them.</param>
-        public void Execute(DamageInfo.DamageType damageType, float extraDamage, params Entity[] targets)
+        public void Execute(DamageInfo.DamageType damageType, float extraDamage, params IInteractable[] targets)
         {
             if(targets == null || targets.Length < 1)
                 throw new ArgumentException("Cannot execute the attack logic without a target.");

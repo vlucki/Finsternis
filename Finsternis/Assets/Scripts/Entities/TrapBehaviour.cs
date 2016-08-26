@@ -59,9 +59,5 @@ namespace Finsternis
                 entitiesInContact.Remove(e);
             }
         }
-
-        public override void AtributeUpdated(EntityAttribute attribute)
-        {
-        }
     }
 }
