@@ -12,6 +12,9 @@
         private Rigidbody rbody;
 
         [SerializeField]
+        private float velocityScale = 3f;
+
+        [SerializeField]
         [Range(1, 10)]
         private float maxVelocityMagnitude = 5;
 
@@ -41,6 +44,8 @@
             set { this.direction = value.normalized; }
         }
 
+        public Vector3 LastDirection { get; private set; }
+
         protected override void Awake()
         {
             base.Awake();
@@ -49,15 +54,17 @@
 
         void FixedUpdate()
         {
-            if (!this.Direction.IsZero())
+            if (!this.direction.IsZero())
             {
                 float velMagnitude = GetVelocityMagnitude();
 
-                if (velMagnitude < maxVelocityMagnitude)
-                    rbody.AddForce(Direction * rbody.mass * Speed.Value * (velMagnitude < minVelocityThreshold ? 2 : 1));
+                rbody.AddForce((Direction * Speed.Value) * velocityScale, ForceMode.VelocityChange);
 
+                if (velMagnitude > maxVelocityMagnitude)
+                    rbody.AddForce(-Direction * Speed.Value * velocityScale, ForceMode.Acceleration);
 
-                this.Direction = Vector3.zero;
+                LastDirection = this.direction;
+                this.direction = Vector3.zero;
             }
         }
 

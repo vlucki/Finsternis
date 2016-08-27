@@ -34,6 +34,8 @@
         [SerializeField]
         private float baseValue;
 
+        private float valueWithModifiers;
+
         [SerializeField]
         private float min;
 
@@ -69,7 +71,14 @@
             set { this.alias = value; }
         }
 
-        public float Value { get; private set; }
+        public float Value {
+            get {
+                if (this.valueWithModifiers != this.baseValue && !(modifiers != null && modifiers.Count > 0)) //make sure the value is initialized if the "SetValue" method was not called yet
+                    this.valueWithModifiers = this.baseValue;
+                return this.valueWithModifiers;
+            }
+            private set { this.valueWithModifiers = value; }
+        }
 
         public float BaseValue { get { return this.baseValue; } }
 

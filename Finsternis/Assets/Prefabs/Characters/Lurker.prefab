@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0.175
+  velocityScale: 0.02
   maxVelocityMagnitude: 5
   minVelocityThreshold: 0.1
 --- !u!114 &114000011811933878

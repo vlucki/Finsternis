@@ -13,12 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alias: hp
   constraints: 3
-  value: 8
+  baseValue: 10
   min: 0
   max: 10
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 1
+    m_TypeName: Finsternis.EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  modifiers: []

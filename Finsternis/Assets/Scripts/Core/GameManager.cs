@@ -1,11 +1,12 @@
-﻿using MovementEffects;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using MovementEffects;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
+    using System;
+    using UnityQuery;
+
     [AddComponentMenu("Finsternis/Game Manager")]
     public class GameManager : MonoBehaviour
     {
@@ -182,8 +183,7 @@ namespace Finsternis
             GameObject cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
             Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2);
-            pos.y = 30;
+            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2).WithY(3);
 
             this.player.transform.position = pos;
 

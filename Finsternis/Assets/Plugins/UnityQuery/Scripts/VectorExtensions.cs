@@ -4,7 +4,7 @@
     using UnityEngine;
     using System.Collections;
 
-    public static class Vector
+    public static class VectorExtensions
     {
         public static float GetAngle(this Vector2 v, Vector3 other)
         {
@@ -29,6 +29,19 @@
         public static bool IsZero(this Vector4 v)
         {
             return v == Vector4.zero;
+        }
+
+        public static Vector2 LinearClamp(this Vector2 v, Vector2 min, Vector2 max)
+        {
+            Vector2 clampedVector = new Vector3(
+            Mathf.Clamp(v.x, min.x, max.x),
+            Mathf.Clamp(v.y, min.y, max.y));
+            return clampedVector;
+        }
+
+        public static float Max(this Vector2 v)
+        {
+            return Mathf.Max(v.x, v.y);
         }
     }
 }

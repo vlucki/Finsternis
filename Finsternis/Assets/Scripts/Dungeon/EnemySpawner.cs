@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using UnityEngine;
-
-using Random = UnityEngine.Random;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using UnityEngine;
+
+    using Random = UnityEngine.Random;
+
     public class EnemySpawner : MonoBehaviour
     {
         public DungeonDrawer drawer;
@@ -50,7 +50,11 @@ namespace Finsternis
 
         private void SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
         {
-            Room room = dungeon.GetRandomRoom();
+            Room room;
+            do
+            { room = dungeon.GetRandomRoom(); }
+            while (room.Equals(dungeon[dungeon.Entrance]));
+
             int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
             int remainingEnemies = enemiesToSpawn;
             do
@@ -63,8 +67,9 @@ namespace Finsternis
                     goal.quantity += remainingEnemiesOfChosenType;
                     SpawnEnemy(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
                 }
+                --remainingEnemies;
             }
-            while (--remainingEnemies > 0);
+            while (remainingEnemies > 0);
         }
 
         private KillEnemyGoal MakeGoal(Dungeon dungeon, List<KillEnemyGoal> goals, GameObject enemy)
