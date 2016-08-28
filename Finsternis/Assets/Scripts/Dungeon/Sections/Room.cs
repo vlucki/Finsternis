@@ -173,7 +173,7 @@ namespace Finsternis
 
         public Vector2 GetRandomCell()
         {
-            return _cells[this.random.Range(0, _cells.Count, false)];
+            return _cells[this.random.IntRange(0, _cells.Count, false)];
         }
 
         public override bool ContainsCell(Vector2 cell)

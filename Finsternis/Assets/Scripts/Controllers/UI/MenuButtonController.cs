@@ -4,40 +4,56 @@
     using MovementEffects;
     using System;
     using System.Collections.Generic;
+    using UnityEngine.UI;
 
     public class MenuButtonController : MonoBehaviour
     {
         [SerializeField]
         private Vector3 unselectedScale = Vector3.one/2;
         [SerializeField][Range(0.01f, 1f)]
-        private float scaleInterpolationFactor = 0.2f;
+        private float transitionInterpolationFactor = 0.2f;
 
+        private Text label;
         private Vector3 targetScale;
-        private bool updatingScale;
+        private float targetLabelAlpha;
+        private bool transitioning;
+
+        void Awake()
+        {
+            this.label = GetComponentInChildren<Text>();
+        }
 
         public void Select()
         {
             targetScale = Vector3.one;
-            if (!updatingScale)
-                Timing.RunCoroutine(_UpdateScale());
+            targetLabelAlpha = 1;
+            if (!transitioning)
+                Timing.RunCoroutine(_DoTransition());
         }
 
         public void Deselect()
         {
             targetScale = unselectedScale;
-            if (!updatingScale)
-                Timing.RunCoroutine(_UpdateScale());
+            targetLabelAlpha = 0.25f;
+            if (!transitioning)
+                Timing.RunCoroutine(_DoTransition());
         }
 
-        private IEnumerator<float> _UpdateScale()
+        private IEnumerator<float> _DoTransition()
         {
-            this.updatingScale = true;
+            this.transitioning = true;
+            Color c = label.color;
             while (transform.localScale != this.targetScale)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, this.targetScale, this.scaleInterpolationFactor);
+                transform.localScale = Vector3.Lerp(transform.localScale, this.targetScale, this.transitionInterpolationFactor);
+                c.a = Mathf.Lerp(c.a, this.targetLabelAlpha, this.transitionInterpolationFactor);
+                label.color = c;
                 yield return 0;
             }
-            this.updatingScale = false;
+            transform.localScale = this.targetScale;
+            c.a = this.targetLabelAlpha;
+            label.color = c;
+            this.transitioning = false;
         }
     }
 }

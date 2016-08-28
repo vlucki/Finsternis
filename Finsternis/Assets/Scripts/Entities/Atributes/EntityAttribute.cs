@@ -77,7 +77,6 @@
                     this.valueWithModifiers = this.baseValue;
                 return this.valueWithModifiers;
             }
-            private set { this.valueWithModifiers = value; }
         }
 
         public float BaseValue { get { return this.baseValue; } }
@@ -143,6 +142,26 @@
             }
         }
 
+        private void RecalculateValue()
+        {
+            float currentValue = this.valueWithModifiers;
+            this.valueWithModifiers = this.baseValue;
+
+            if (this.modifiers != null)
+            {
+                modifiers.ForEach(modifier =>
+                {
+                    if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
+                        this.valueWithModifiers += modifier.ValueChange;
+                    else
+                        this.valueWithModifiers *= modifier.ValueChange;
+                });
+            }
+
+            if (Value != currentValue && onValueChanged)
+                onValueChanged.Invoke(this);
+        }
+
         /// <summary>
         /// Changes the value of this attribute, respecting the minimum and maximum if they exist.
         /// </summary>
@@ -156,7 +175,7 @@
                 newValue = Mathf.Min(this.max, newValue);
 
             if (this.baseValue != newValue)
-            {
+            {                
                 this.baseValue = newValue;
                 RecalculateValue();
             }
@@ -178,25 +197,6 @@
         {
             if (this.modifiers != null && this.modifiers.Remove(toRemove))
                 RecalculateValue();
-        }
-
-        private void RecalculateValue()
-        {
-            float currentValue = Value;
-
-            Value = this.baseValue;
-            if (this.modifiers != null)
-            {
-                modifiers.ForEach(modifier =>
-                {
-                    if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
-                        Value += modifier.ValueChange;
-                    else
-                        Value *= modifier.ValueChange;
-                });
-            }
-            if (Value != currentValue && onValueChanged)
-                onValueChanged.Invoke(this);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@
 
         public override string ToString()
         {
-            return alias + ": " + baseValue.ToString();
+            return alias + ": " + Value.ToString();
         }
 
 #if UNITY_EDITOR

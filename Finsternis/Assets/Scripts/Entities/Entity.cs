@@ -3,6 +3,7 @@
     using UnityEngine;
     using UnityEngine.Events;
     using System.Collections.Generic;
+    using System;
 
     [SelectionBase]
     [DisallowMultipleComponent]
@@ -18,6 +19,13 @@
         [SerializeField]
         protected List<EntityAttribute> attributes;
 
+        [Serializable]
+        public class AttributeInitializedEvent : UnityEvent<EntityAttribute> {
+            public static implicit operator bool(AttributeInitializedEvent evt)
+            { return evt != null; }
+        }
+        public AttributeInitializedEvent onAttributeInitialized;
+
         public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
 
         protected virtual void Awake()
@@ -30,6 +38,8 @@
         {
             attributes[attributeIndex] = Instantiate(attributes[attributeIndex]);
             attributes[attributeIndex].SetOwner(this);
+            if (onAttributeInitialized)
+                onAttributeInitialized.Invoke(attributes[attributeIndex]);
         }
 
         public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)

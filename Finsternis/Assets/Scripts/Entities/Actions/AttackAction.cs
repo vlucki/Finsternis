@@ -7,7 +7,7 @@ namespace Finsternis
     [UnityEngine.DisallowMultipleComponent]
     public class AttackAction : EntityAction
     {
-        EntityAttribute damage;
+        private EntityAttribute damage;
         private DamageInfo dmgInfo;
 
         public DamageInfo DamageInfo
@@ -18,13 +18,15 @@ namespace Finsternis
         protected override void Awake()
         {
             base.Awake();
-            if (!damage)
-                damage = agent.GetAttribute("dmg", true) as EntityAttribute;
-
-            if (damage.Value == 0)
-            {
-                damage.SetBaseValue(1);
-            }
+            agent.onAttributeInitialized.AddListener(
+                attribute => 
+                {
+                    if (attribute.Alias.Equals("dmg"))
+                    {
+                        damage = attribute;
+                    }
+                }
+                );
         }
 
         public void Execute(params IInteractable[] targets)
@@ -53,7 +55,7 @@ namespace Finsternis
             if(targets == null || targets.Length < 1)
                 throw new ArgumentException("Cannot execute the attack logic without a target.");
 
-            float totalDamage = damage.Value + extraDamage;
+            float totalDamage = (damage ? damage.Value : 0) + extraDamage;
 
             dmgInfo = new DamageInfo(damageType, totalDamage, agent);
             foreach (Entity target in targets)

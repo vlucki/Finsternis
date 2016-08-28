@@ -137,7 +137,7 @@ public class MTRandom
 	/// <param name="min">Minimum.</param>
 	/// <param name="max">Max.</param>
 	/// <param name="includeMax">If set to <c>true</c> include <paramref name="Max"/>.</param>
-	public int Range(int min, int max, bool includeMax)
+	public int IntRange(int min, int max, bool includeMax)
 	{
 		if (includeMax)
 		{

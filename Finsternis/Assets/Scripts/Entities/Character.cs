@@ -38,13 +38,20 @@
 
         public bool Dead { get { return this.dead; } }
 
-        public virtual void AtributeUpdated(EntityAttribute attribute)
+        protected override void InitializeAttribute(int attributeIndex)
         {
-            if (!this.dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
+            base.InitializeAttribute(attributeIndex);
+            if (attributes[attributeIndex].Alias.Equals("hp"))
+                attributes[attributeIndex].onValueChanged.AddListener(CheckHealth);
+        }
+
+        public virtual void CheckHealth(EntityAttribute health)
+        {
+            if (!this.dead && health.Value <= 0)
                 Die();
         }
 
-        private void Die()
+        protected virtual void Die()
         {
             this.dead = true;
             onDeath.Invoke();
@@ -63,9 +70,9 @@
             }
         }
 
-        public virtual void ReceiveDamage(DamageInfo info)
+        protected virtual void ReceiveDamage(DamageInfo info)
         {
-            if (!Dead && !this.invincible)
+            if (!this.invincible)
             {
                 this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
                 if (!Dead)

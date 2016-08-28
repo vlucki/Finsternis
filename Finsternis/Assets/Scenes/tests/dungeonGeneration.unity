@@ -1970,9 +1970,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focusTarget: 0
-  _target: {fileID: 420993360}
-  _originalTarget: {fileID: 420993360}
-  _tempTargetFocusTime: 0.3
+  target: {fileID: 0}
+  originalTarget: {fileID: 0}
+  tempTargetFocusTime: 0.3
   OnTargetReached:
     m_PersistentCalls:
       m_Calls: []
@@ -2133,9 +2133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focusTarget: 1
-  _target: {fileID: 420993360}
-  _originalTarget: {fileID: 420993360}
-  _tempTargetFocusTime: 0.3
+  target: {fileID: 420993360}
+  originalTarget: {fileID: 420993360}
+  tempTargetFocusTime: 0.3
   OnTargetReached:
     m_PersistentCalls:
       m_Calls: []

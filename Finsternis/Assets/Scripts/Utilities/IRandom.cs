@@ -4,5 +4,5 @@
     void SetSeed(int seed);
     float value(bool inclusive = true);
     float Range(float min, float max, int decimalPlaces = 0);
-    int Range(int min, int max, bool inclusive);
+    int IntRange(int min, int max, bool inclusive);
 }

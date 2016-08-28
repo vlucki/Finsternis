@@ -10,6 +10,7 @@
     public class EnemySpawner : MonoBehaviour
     {
         public DungeonDrawer drawer;
+        private CardsManager cardsManager;
         public List<EntityAttribute> baseAttributes;
         public List<GameObject> enemies;
         public GameObject enemiesHolder;
@@ -23,6 +24,8 @@
         {
             if (!drawer)
                 drawer = FindObjectOfType<DungeonDrawer>();
+
+            cardsManager = FindObjectOfType<CardsManager>();
         }
 
         public void BeginSpawn(Dungeon dungeon)
@@ -39,7 +42,7 @@
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
             if (enemies != null && enemies.Count > 0)
             {
-                int roomsToSpawn = Dungeon.Random.Range(1, dungeon.Rooms.Count, false);
+                int roomsToSpawn = Dungeon.Random.IntRange(1, dungeon.Rooms.Count, false);
                 do
                 {
                     SpawnEnemies(dungeon, goals);
@@ -56,11 +59,14 @@
             while (room.Equals(dungeon[dungeon.Entrance]));
 
             int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
+
+            enemiesToSpawn = Mathf.Min(enemiesToSpawn, room.CellCount);
+
             int remainingEnemies = enemiesToSpawn;
             do
             {
-                int enemyToSpawn = enemies.Count == 1 ? 0 : Dungeon.Random.Range(0, enemies.Count, false);
-                int remainingEnemiesOfChosenType = Dungeon.Random.Range(0, remainingEnemies, true);
+                int enemyToSpawn = enemies.Count == 1 ? 0 : Dungeon.Random.IntRange(0, enemies.Count, false);
+                int remainingEnemiesOfChosenType = Dungeon.Random.IntRange(0, remainingEnemies, true);
                 if (remainingEnemiesOfChosenType > 0)
                 {
                     KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies[enemyToSpawn]);
@@ -102,7 +108,7 @@
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
                 GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                 enemy.transform.SetParent(parent);
-                enemy.GetComponent<Character>().onDeath.AddListener(goal.EnemyKilled);
+                enemy.GetComponent<EnemyChar>().onDeath.AddListener(goal.EnemyKilled);
             } while (--amount > 0);
         }
     }

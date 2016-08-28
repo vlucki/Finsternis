@@ -198,7 +198,7 @@ namespace Finsternis
 
         public Room GetRandomRoom()
         {
-            return this.rooms[Random.Range(0, this.rooms.Count, false)];
+            return this.rooms[Random.IntRange(0, this.rooms.Count, false)];
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.Events;
 
-[ExecuteInEditMode]
 public class Follow : MonoBehaviour
 {
     [SerializeField]
@@ -85,9 +84,11 @@ public class Follow : MonoBehaviour
     {
         return this.originalTarget != this.target;
     }
-
+    
     void FixedUpdate()
     {
+        if (!this.target)
+            return;
         Vector3 idealPosition = this.target.position + offset;
         float distance = Vector3.Distance(idealPosition, transform.position);
 
