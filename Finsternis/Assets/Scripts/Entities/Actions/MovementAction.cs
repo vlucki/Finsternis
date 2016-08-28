@@ -18,10 +18,6 @@
         [Range(1, 10)]
         private float maxVelocityMagnitude = 5;
 
-        [SerializeField]
-        [Range(0, 1)]
-        private float minVelocityThreshold = 0.1f;
-
         private EntityAttribute cachedSpeed;
 
         private EntityAttribute Speed

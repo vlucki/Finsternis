@@ -12,45 +12,21 @@
     [DisallowMultipleComponent]
     public class MenuEyeController : MonoBehaviour
     {
-
-        [Serializable]
-        public struct Circle
-        {
-            public readonly float radius;
-            public readonly Vector2 center;
-
-            public Circle(float radius, Vector2 center)
-            {
-                this.radius = radius;
-                this.center = center;
-            }
-
-            public bool Contains(Vector2 point)
-            {
-                return Vector2.Distance(point, center) <= radius;
-            }
-
-            public Vector2 ProjectPoint(Vector2 point)
-            {
-                return  Vector2.MoveTowards(this.center, point, this.radius);
-            }
-        }
-
         [SerializeField]
-        [Range(0, 20)]
-        private float pupilSpeed = 2;
+        [Range(0.01f, 1)]
+        private float interpolationAmount = 0.2f;
         
         private GameObject pupil;
 
         private IEnumerator<float> lookAtEnumerator;
         private Vector2 lastTarget;
 
-        private Circle eye;
+        private Circle eyeBounds;
 
         void Awake()
         {
             var t = GetComponent<RectTransform>();
-            eye = new Circle(t.sizeDelta.Max(), t.anchoredPosition);
+            eyeBounds = new Circle(t.sizeDelta.Min() / 2, t.anchoredPosition);
             try
             {
                 pupil = transform.Find("Pupil").gameObject;
@@ -65,7 +41,7 @@
             if (!pupil)
                 return;
 
-            Vector2 target = data.selectedObject.transform.position;
+            Vector2 target = eyeBounds.ProjectPoint(data.selectedObject.GetComponent<RectTransform>().anchoredPosition);
             if (lastTarget == target)
                 return;
 
@@ -79,16 +55,15 @@
 
         private IEnumerator<float> _LookAtTarget(Vector2 target)
         {
-            target = eye.ProjectPoint(target);
             Vector2 currentPos;
             Rect eyeBounds = GetComponent<RectTransform>().rect;
             var transform = pupil.GetComponent<RectTransform>();
-            float delay = 1 - pupilSpeed / 20;
+
             do
             {
-                currentPos = Vector2.Lerp(transform.position, target, 0.3f);
-                transform.position = currentPos;
-                yield return Timing.WaitForSeconds(delay);
+                currentPos = Vector2.Lerp(transform.anchoredPosition, target, this.interpolationAmount);
+                transform.anchoredPosition = currentPos;
+                yield return 0;
             } while (currentPos != target);
         }
         
