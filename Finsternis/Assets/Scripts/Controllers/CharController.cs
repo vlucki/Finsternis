@@ -37,6 +37,18 @@ namespace Finsternis
         [Range(0, -1)]
         private float fallSpeedThreshold = -0.2f;
 
+        [SerializeField]
+        [Range(0, 10)]
+        [Tooltip("How many updates to consider before changing the 'falling state'")]
+        private int fallingStateChecks = 3;
+
+        [SerializeField]
+        [ReadOnly]
+        private int fallingStateCheckCount;
+
+        [SerializeField][ReadOnly]
+        private bool couldBeFalling = false;
+
         [Range(0, 1)]
         [SerializeField]
         private float turningSpeed = 0.05f;
@@ -110,26 +122,39 @@ namespace Finsternis
             }
         }
 
+        private bool UpdateFallingState()
+        {
+            bool wasFalling = this.couldBeFalling;
+            float fallingSpeed = GetComponent<Rigidbody>().velocity.y;
+            this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
+
+            if (wasFalling == this.couldBeFalling)
+                this.fallingStateCheckCount++;
+            else
+                this.fallingStateCheckCount = 1;
+
+            bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
+
+            return isFallingNow;
+        }
+
         public virtual void FixedUpdate()
         {
             if (!IsDead())
             {
-                RaycastHit hit;
-                int mask = (1 << LayerMask.NameToLayer("Floor"));
-                bool floorBelow = 
-                    GetComponent<Rigidbody>().velocity.y >= fallSpeedThreshold 
-                    || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
-
-                if (floorBelow && this.actionsLocked && IsFalling() && !this.waitingForDelay)
+                if(UpdateFallingState())
                 {
-                    characterAnimator.SetBool(CharController.FallingBool, false);
-                    Unlock();
-                }
-                else if (!floorBelow && !this.actionsLocked)
-                {
-                    Lock();
-                    characterAnimator.SetBool(CharController.FallingBool, true);
-                    characterAnimator.SetFloat(CharController.SpeedFloat, 0);
+                    if (!this.couldBeFalling && this.actionsLocked && IsFalling() && !this.waitingForDelay)
+                    {
+                        characterAnimator.SetBool(CharController.FallingBool, false);
+                        Unlock();
+                    }
+                    else if (this.couldBeFalling && !this.actionsLocked)
+                    {
+                        Lock();
+                        characterAnimator.SetBool(CharController.FallingBool, true);
+                        characterAnimator.SetFloat(CharController.SpeedFloat, 0);
+                    }
                 }
             }
         }

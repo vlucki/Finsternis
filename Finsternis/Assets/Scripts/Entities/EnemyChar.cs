@@ -18,7 +18,7 @@
             if (lastInteraction.Agent.CompareTag("Player"))
             {
                 enemyRandom.SetSeed(name.GetHashCode());
-                FindObjectOfType<CardsManager>().GivePlayerCard(enemyRandom.IntRange(0, 4, true));
+                FindObjectOfType<CardsManager>().GivePlayerCard(enemyRandom.IntRange(1, 4, true));
             }
             base.Die();
         }

@@ -62,11 +62,11 @@
         {
             if (interactable)
             {
+                base.Interact(action);
                 if (!Dead && action is AttackAction)
                 {
                     ReceiveDamage(((AttackAction)action).DamageInfo);
                 }
-                base.Interact(action);
             }
         }
 
