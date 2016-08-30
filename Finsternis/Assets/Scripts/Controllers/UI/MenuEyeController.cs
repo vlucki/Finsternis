@@ -21,15 +21,18 @@
         private IEnumerator<float> lookAtEnumerator;
         private Vector2 lastTarget;
 
+        [SerializeField]
         private Circle eyeBounds;
 
         void Awake()
         {
             var t = GetComponent<RectTransform>();
-            eyeBounds = new Circle(t.sizeDelta.Min() / 2, t.anchoredPosition);
+            if(eyeBounds.radius == 0)
+                eyeBounds.radius = t.sizeDelta.Min() / 2;
+            eyeBounds.center = t.anchoredPosition;
             try
             {
-                pupil = transform.Find("Pupil").gameObject;
+                pupil = transform.FindDescendent("Pupil").gameObject;
             } catch(NullReferenceException ex)
             {
                 Log.Error(this, "Failed to find eye pupil.\n" + ex.Message);
@@ -56,7 +59,6 @@
         private IEnumerator<float> _LookAtTarget(Vector2 target)
         {
             Vector2 currentPos;
-            Rect eyeBounds = GetComponent<RectTransform>().rect;
             var transform = pupil.GetComponent<RectTransform>();
 
             do

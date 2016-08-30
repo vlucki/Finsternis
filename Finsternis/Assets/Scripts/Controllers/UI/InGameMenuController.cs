@@ -1,13 +1,15 @@
 namespace Finsternis
 {
-    using UnityEngine;
-    using System.Collections;
-    using UnityQuery;
-    using UnityEngine.UI;
     using System.Collections.Generic;
-    using UnityEngine.EventSystems;
+
+    #region using Unity
+    using UnityEngine;
+    using UnityEngine.UI;
+    using UnityEngine.Events;
+    #endregion
+
+    using UnityQuery;
     using MovementEffects;
-    using System;
 
     [RequireComponent(typeof(CanvasGroup), typeof(InputRouter))]
     [DisallowMultipleComponent]
@@ -19,7 +21,6 @@ namespace Finsternis
         private List<Button> options;
         private Circle menuBounds;
         private bool transitioning;
-        private EventSystem evtSys;
         private float targetPercentage;
 
         public UnityEvent OnMenuOpen;
@@ -36,7 +37,6 @@ namespace Finsternis
             }
             else
             {
-                this.evtSys = FindObjectOfType<EventSystem>();
                 this.group = GetComponent<CanvasGroup>();
                 this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min()/2, GetComponent<RectTransform>().anchoredPosition);
                 this.options = new List<Button>();
@@ -48,8 +48,14 @@ namespace Finsternis
             }
         }
 
-        void OnEnable(){
-          Open();
+        public void Toggle()
+        {
+            if (transitioning)
+                return;
+            if (!gameObject.activeSelf)
+                Open();
+            else
+                Close();
         }
 
         /// <summary>
@@ -58,6 +64,7 @@ namespace Finsternis
         public void Open()
         {
             this.OnMenuOpen.Invoke();
+            gameObject.SetActive(true);
             this.targetPercentage = 1;
             this.OnTransitionFinished = null;
             if(!transitioning)
@@ -78,7 +85,7 @@ namespace Finsternis
         /// <summary>
         /// Animates the menu, interpolating it's current and target state (eg. from Closed to Opened)
         /// </summary>
-        private void _ToggleMenu()
+        private IEnumerator<float> _ToggleMenu()
         {
             transitioning = true;
             float currentPercentage = 1 - this.targetPercentage;
@@ -86,14 +93,18 @@ namespace Finsternis
             {
                 PositionButtons(currentPercentage);
                 currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.2f);
+                yield return 0;
             }
-            while (!Mathf.Approximately(currentPercentage, targetPercentage));
+            while (Mathf.Abs(currentPercentage - targetPercentage) > 0.2f);
 
             PositionButtons(targetPercentage); //call once more to avoid precision errors
-            
-            transitioning = false;
-            
-            if(this.OnTransitionFinished) this.OnTransitionFinished.Invoke();
+
+            if (options.Count > 0)
+                options[0].Select();
+
+            if (this.OnTransitionFinished != null) this.OnTransitionFinished.Invoke();
+
+            transitioning = false;            
         }
 
         /// <summary>
@@ -110,6 +121,18 @@ namespace Finsternis
                 var dir = optionPosition - menuBounds.center;
                 dir = dir.Rotate(angleBetweenOptions);
                 optionPosition = dir.normalized * this.menuBounds.radius * percentage;
+            }
+        }
+
+        public void Exit(bool askForConfirmation = true)
+        {
+            if (askForConfirmation)
+            {
+                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", Exit, false, this.options[3].Select);
+            }
+            else
+            {
+                GameManager.Instance.Exit();
             }
         }
     }

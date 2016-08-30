@@ -4,8 +4,8 @@ using System;
 [Serializable]
 public struct Circle
 {
-    public readonly float radius;
-    public readonly Vector2 center;
+    public float radius;
+    public Vector2 center;
 
     public Circle(float radius, Vector2 center)
     {
