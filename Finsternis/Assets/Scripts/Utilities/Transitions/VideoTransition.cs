@@ -19,10 +19,10 @@
             audioIntro.clip = movie.audioClip;
 
             if (OnTransitionStarted == null)
-                OnTransitionStarted = new UnityEngine.Events.UnityEvent();
+                OnTransitionStarted = new TransitionEvent();
 
-            OnTransitionStarted.AddListener(() => Timing.RunCoroutine(_PlayVideo()));
-            OnTransitionEnded.AddListener(() =>
+            OnTransitionStarted.AddListener(t => Timing.RunCoroutine(_PlayVideo()));
+            OnTransitionEnded.AddListener(t =>
             {
                 if (movie.isPlaying)
                 {

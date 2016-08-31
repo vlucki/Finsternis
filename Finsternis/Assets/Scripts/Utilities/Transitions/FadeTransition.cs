@@ -20,10 +20,10 @@ namespace Finsternis
         {
             graphicToFade = GetComponent<Graphic>();
 
-            if (OnTransitionStarted == null)
-                OnTransitionStarted = new UnityEngine.Events.UnityEvent();
+            if (!OnTransitionStarted)
+                OnTransitionStarted = new TransitionEvent();
 
-            OnTransitionStarted.AddListener(() => Timing.RunCoroutine(_DoFade()));
+            OnTransitionStarted.AddListener(t => Timing.RunCoroutine(_DoFade()));
 
             graphicToFade.canvasRenderer.SetAlpha(1 - targetAlpha);
 

@@ -15,7 +15,7 @@
         [SerializeField]
         [Range(0.01f, 1)]
         private float interpolationAmount = 0.2f;
-        
+
         private GameObject pupil;
 
         private IEnumerator<float> lookAtEnumerator;
@@ -27,13 +27,14 @@
         void Awake()
         {
             var t = GetComponent<RectTransform>();
-            if(eyeBounds.radius == 0)
+            if (eyeBounds.radius == 0)
                 eyeBounds.radius = t.sizeDelta.Min() / 2;
             eyeBounds.center = t.anchoredPosition;
             try
             {
                 pupil = transform.FindDescendent("Pupil").gameObject;
-            } catch(NullReferenceException ex)
+            }
+            catch (NullReferenceException ex)
             {
                 Log.Error(this, "Failed to find eye pupil.\n" + ex.Message);
             }
@@ -63,11 +64,11 @@
 
             do
             {
-                currentPos = Vector2.Lerp(transform.anchoredPosition, target, this.interpolationAmount);
+                currentPos = Vector3.Slerp(transform.anchoredPosition, target, this.interpolationAmount);
                 transform.anchoredPosition = currentPos;
                 yield return 0;
             } while (currentPos != target);
         }
-        
+
     }
 }

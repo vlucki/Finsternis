@@ -148,6 +148,8 @@ namespace Finsternis
         private bool LookForTarget()
         {
             bool canSeeTarget = false;
+            if (!target)
+                return false;
 
             if (!ignoreWalls)
             {
