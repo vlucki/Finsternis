@@ -7,29 +7,41 @@
     using System.Collections.Generic;
     using UnityEngine.EventSystems;
     using UnityQuery;
+    using UnityEngine.Events;
 
     [RequireComponent(typeof(Image))]
     [DisallowMultipleComponent]
     public class MenuEyeController : MonoBehaviour
     {
-        [SerializeField]
-        [Range(0.01f, 1)]
-        private float interpolationAmount = 0.2f;
-
-        private GameObject pupil;
-
-        private IEnumerator<float> lookAtEnumerator;
-        private Vector2 lastTarget;
 
         [SerializeField]
         private Circle eyeBounds;
 
-        void Awake()
+        [SerializeField]
+        [Range(0.01f, 1)]
+        private float movementInterpolationAmount = 0.2f;
+
+        [SerializeField][Range(0,1)]
+        private float distanceThreshold = 0.1f;
+
+        public UnityEvent OnBeganMoving;
+        public UnityEvent OnTargetReached;
+
+        private IEnumerator<float> lookAtEnumerator;
+
+        private GameObject pupil;
+        private GameObject Pupil
         {
-            var t = GetComponent<RectTransform>();
-            if (eyeBounds.radius == 0)
-                eyeBounds.radius = t.sizeDelta.Min() / 2;
-            eyeBounds.center = t.anchoredPosition;
+            get
+            {
+                if (!pupil)
+                    GetPupil();
+                return pupil;
+            }
+        }
+
+        private void GetPupil()
+        {
             try
             {
                 pupil = transform.FindDescendent("Pupil").gameObject;
@@ -40,17 +52,36 @@
             }
         }
 
+        void Awake()
+        {
+            var t = GetComponent<RectTransform>(); 
+            eyeBounds.center = t.anchoredPosition;
+            if (eyeBounds.radius == 0)
+                eyeBounds.radius = t.sizeDelta.Min() / 2;
+        }
+
+        public void Reset()
+        {
+            if (lookAtEnumerator != null)
+                Timing.KillCoroutines(lookAtEnumerator);
+
+            lookAtEnumerator = Timing.RunCoroutine(_LookAtTarget(Vector2.zero));
+        }
+
         public void LookAt(BaseEventData data)
         {
-            if (!pupil)
+            if (!Pupil)
                 return;
+            LookAt(data.selectedObject);
+        }
 
-            Vector2 target = eyeBounds.ProjectPoint(data.selectedObject.GetComponent<RectTransform>().anchoredPosition);
-            if (lastTarget == target)
-                return;
+        public void LookAt(GameObject target)
+        {
+            LookAt(eyeBounds.ProjectPoint(target.GetComponent<RectTransform>().anchoredPosition));
+        }
 
-            lastTarget = target;
-
+        public void LookAt(Vector2 target)
+        {
             if (lookAtEnumerator != null)
                 Timing.KillCoroutines(lookAtEnumerator);
 
@@ -59,16 +90,33 @@
 
         private IEnumerator<float> _LookAtTarget(Vector2 target)
         {
-            Vector2 currentPos;
-            var transform = pupil.GetComponent<RectTransform>();
-
-            do
+            if (Pupil)
             {
-                currentPos = Vector3.Slerp(transform.anchoredPosition, target, this.interpolationAmount);
-                transform.anchoredPosition = currentPos;
-                yield return 0;
-            } while (currentPos != target);
+                OnBeganMoving.Invoke();
+
+                var transform = Pupil.GetComponent<RectTransform>();
+                Vector2 currentPos = transform.anchoredPosition;
+                float initialDistance = Vector2.Distance(currentPos, target);
+
+                do
+                {
+                    currentPos = Vector3.Slerp(currentPos, target, this.movementInterpolationAmount);
+                    transform.anchoredPosition = currentPos;
+
+                    yield return 0;
+                } while (Vector2.Distance(currentPos, target) / initialDistance >= distanceThreshold);
+
+                transform.anchoredPosition = target;
+                OnTargetReached.Invoke();
+            } else
+            {
+                Log.Error("No game object asigned as pupil");
+            }
         }
 
+        void OnDisable()
+        {
+            Timing.KillCoroutines(lookAtEnumerator);
+        }
     }
 }

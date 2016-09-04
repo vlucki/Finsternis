@@ -5,9 +5,17 @@
     using System;
     using System.Collections.Generic;
     using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using UnityEngine.Events;
 
-    public class MenuButtonController : MonoBehaviour
+    public class MenuButtonController : Button
     {
+        [Serializable]
+        public class SelectionChangedEvent : UnityEvent<bool, Selectable>{
+            public static implicit operator bool(SelectionChangedEvent evt) { return evt != null; }
+        }
+
+        public SelectionChangedEvent OnSelectionChanged;
         [SerializeField]
         private Vector3 unselectedScale = Vector3.one/2;
         [SerializeField][Range(0.01f, 1f)]
@@ -18,25 +26,41 @@
         private float targetLabelAlpha;
         private bool transitioning;
 
-        void Awake()
+        public Button Button { get; private set; }
+        public bool IsSelected { get; private set; }
+
+        protected override void Awake()
         {
             this.label = GetComponentInChildren<Text>();
+            base.Awake();
         }
 
-        public void Select()
+        public override void OnSelect(BaseEventData eventData)
         {
-            targetScale = Vector3.one;
-            targetLabelAlpha = 1;
-            if (!transitioning)
+            base.OnSelect(eventData);
+            this.IsSelected = true;
+            this.targetScale = Vector3.one;
+            this.targetLabelAlpha = 1;
+
+            if (!this.transitioning)
                 Timing.RunCoroutine(_DoTransition());
+
+            if (OnSelectionChanged)
+                OnSelectionChanged.Invoke(true, this);
         }
 
-        public void Deselect()
+        public override void OnDeselect(BaseEventData eventData)
         {
-            targetScale = unselectedScale;
-            targetLabelAlpha = 0.25f;
-            if (!transitioning)
+            base.OnDeselect(eventData);
+            this.IsSelected = false;
+            this.targetScale = unselectedScale;
+            this.targetLabelAlpha = 0.25f;
+
+            if (!this.transitioning)
                 Timing.RunCoroutine(_DoTransition());
+
+            if (OnSelectionChanged)
+                OnSelectionChanged.Invoke(true, this);
         }
 
         private IEnumerator<float> _DoTransition()

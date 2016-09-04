@@ -4,8 +4,7 @@ namespace Finsternis
     using System.Collections.Generic;
     using UnityEngine.UI;
     using MovementEffects;
-
-    [RequireComponent(typeof(Graphic))]
+    
     public abstract class FadeTransition : Transition
     {
         [SerializeField]
@@ -14,25 +13,32 @@ namespace Finsternis
 
         protected int targetAlpha = 1;
 
-        private Graphic graphicToFade;
+        private List<Graphic> graphicsToFade;
+
+        [SerializeField]
+        private bool setupAlphaOnAwake = true;
 
         protected override void Awake()
         {
-            graphicToFade = GetComponent<Graphic>();
+            this.graphicsToFade = new List<Graphic>();
+            GetComponentsInChildren<Graphic>(graphicsToFade);
 
             if (!OnTransitionStarted)
                 OnTransitionStarted = new TransitionEvent();
 
             OnTransitionStarted.AddListener(t => Timing.RunCoroutine(_DoFade()));
 
-            graphicToFade.canvasRenderer.SetAlpha(1 - targetAlpha);
+            if(setupAlphaOnAwake)
+                foreach(var toFade in this.graphicsToFade)
+                    toFade.canvasRenderer.SetAlpha(1 - targetAlpha);
 
             base.Awake();
         }
 
         private IEnumerator<float> _DoFade()
         {
-            graphicToFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
+            foreach (var toFade in this.graphicsToFade)
+                toFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
             yield return Timing.WaitForSeconds(waitAfterEnding + fadeTime);
 
             End();

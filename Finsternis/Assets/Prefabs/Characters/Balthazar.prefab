@@ -1443,6 +1443,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
   - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
   - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
+  onAttributeInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1496,6 +1501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggers:
   - name: Movement On X Axis
+    toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: 8f78b1f9457f03249b5bfa2da14fbb6b, type: 2}
     onAxisActive:
@@ -1515,6 +1521,7 @@ MonoBehaviour:
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - name: Movement On Z Axis
+    toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: d88faa801aba0d94d947bc192f4b60cf, type: 2}
     onAxisActive:
@@ -1534,6 +1541,7 @@ MonoBehaviour:
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - name: Attacks
+    toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: 0fd45a7014728b34884844f08d0d3848, type: 2}
     - {fileID: 11400000, guid: e281a9b07e24d154e8a5d722344f9d38, type: 2}
@@ -1593,9 +1601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityScale: 0.1
+  velocityScale: 0.3
   maxVelocityMagnitude: 2
-  minVelocityThreshold: 0.1
 --- !u!114 &114000014202934784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1645,6 +1652,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fallSpeedThreshold: -0.2
+  fallingStateChecks: 3
+  fallingStateCheckCount: 0
+  couldBeFalling: 0
   turningSpeed: 0.1
   skills: []
   equippedSkills:

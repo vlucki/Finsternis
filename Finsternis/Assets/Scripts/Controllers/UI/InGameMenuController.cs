@@ -10,101 +10,134 @@ namespace Finsternis
 
     using UnityQuery;
     using MovementEffects;
+    using UnityEngine.EventSystems;
 
-    [RequireComponent(typeof(CanvasGroup), typeof(InputRouter))]
+    [RequireComponent(typeof(InputRouter))]
     [DisallowMultipleComponent]
-    public class InGameMenuController : MonoBehaviour
+    public class InGameMenuController : MenuController
     {
-        private static int InstanceCount = 0;
-
-        private CanvasGroup group;
-        private List<Button> options;
+        private List<MenuButtonController> options;
         private Circle menuBounds;
+        private MenuEyeController eyeController;
         private bool transitioning;
         private float targetPercentage;
 
-        public UnityEvent OnMenuOpen;
-        public UnityEvent OnMenuClose;
+        private MenuButtonController lastSelected;
 
-        private UnityEvent OnTransitionFinished;
+        private UnityAction showNewGameDialog;
+        private UnityAction showExitGameDialog;
+        private EventSystem evtSystem;
 
-        void Awake()
+        private void Awake()
         {
-            if (InstanceCount > 0)
+            this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min() / 2, GetComponent<RectTransform>().anchoredPosition);
+            this.options = new List<MenuButtonController>();
+
+            this.eyeController = GetComponentInChildren<MenuEyeController>();
+            this.evtSystem = FindObjectOfType<EventSystem>();
+
+            OnOpen.AddListener(() =>
             {
-                Log.Warn("There should only be one instance of the InGame menu at any given time.");
-                Destroy(this.gameObject);
-            }
-            else
+                if (!lastSelected)
+                    lastSelected = options[0];
+
+                if (!lastSelected.IsSelected)
+                    lastSelected.Select();
+                else
+                    eyeController.LookAt(lastSelected.gameObject);
+
+                if (evtSystem.currentSelectedGameObject != lastSelected.gameObject)
+                    evtSystem.SetSelectedGameObject(lastSelected.gameObject);
+            });
+
+            GetComponentsInChildren<MenuButtonController>(this.options);
+
+            if (this.options.Count <= 0)
+                Log.Warn("Not a single option found on the menu.");
+
+            else if (this.options.Count > 1)
             {
-                this.group = GetComponent<CanvasGroup>();
-                this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min()/2, GetComponent<RectTransform>().anchoredPosition);
-                this.options = new List<Button>();
-                this.OnMenuClose.AddListener(() => gameObject.SetActive(false));
-                
-                GetComponentsInChildren<Button>(options);
-                if (options.Count <= 0)
-                    Log.Warn("Not a single option found on the menu.");
+                for (int i = 0; i < this.options.Count; i++)
+                {
+                    int left = i - 1;
+                    int right = i + 1;
+                    if (left < 0)
+                        left = this.options.Count - 1;
+                    if (right >= this.options.Count)
+                        right = 0;
+                    Navigation n = options[i].navigation;
+                    n.selectOnRight = options[right];
+                    n.selectOnLeft = options[left];
+                    options[i].OnSelectionChanged.AddListener((selected, button) =>
+                    {
+                        if (selected)
+                            lastSelected = (MenuButtonController)button;
+                    }
+                    );
+                }
             }
+
+            showNewGameDialog = new UnityAction(() =>
+                ConfirmationDialogController.Show("Start a new game?\n(current progress will be lost)", GameManager.Instance.NewGame, BeginOpening)
+            );
+
+            showExitGameDialog = new UnityAction(() =>
+                ConfirmationDialogController.Show("Exit game?", GameManager.Instance.Exit, BeginOpening)
+            );
         }
 
-        public void Toggle()
+        public override void Toggle()
         {
             if (transitioning)
                 return;
-            if (!gameObject.activeSelf)
-                Open();
-            else
-                Close();
+            base.Toggle();
         }
 
         /// <summary>
         /// Sets up everything in order for the menu to open (animations, effects, callbacks)
         /// </summary>
-        public void Open()
+        public override void BeginOpening()
         {
-            this.OnMenuOpen.Invoke();
-            gameObject.SetActive(true);
             this.targetPercentage = 1;
-            this.OnTransitionFinished = null;
-            if(!transitioning)
-                Timing.RunCoroutine(_ToggleMenu());
+            OnFinishedToggling.AddListener(Open);
+            base.BeginOpening();
         }
-        
+
         /// <summary>
         /// Sets up everything in order for the menu to close (animations, effects, callbacks)
         /// </summary>
-        public void Close()
+        public override void BeginClosing()
         {
             this.targetPercentage = 0;
-            this.OnTransitionFinished = this.OnMenuClose;
-            if(!transitioning)
-                Timing.RunCoroutine(_ToggleMenu());
+            this.eyeController.Reset();
+            OnFinishedToggling.AddListener(Close);
+            base.BeginClosing();
         }
 
         /// <summary>
         /// Animates the menu, interpolating it's current and target state (eg. from Closed to Opened)
         /// </summary>
-        private IEnumerator<float> _ToggleMenu()
+        protected override IEnumerator<float> _ToggleMenu()
         {
-            transitioning = true;
-            float currentPercentage = 1 - this.targetPercentage;
-            do
+            if (!transitioning)
             {
-                PositionButtons(currentPercentage);
-                currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.2f);
-                yield return 0;
+                transitioning = true;
+                float currentPercentage = 1 - this.targetPercentage;
+                do
+                {
+                    PositionButtons(currentPercentage);
+                    currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.2f);
+                    yield return 0;
+                }
+                while (Mathf.Abs(currentPercentage - targetPercentage) > 0.2f);
+
+                PositionButtons(targetPercentage); //call once more to avoid precision errors
+
+                OnFinishedToggling.Invoke();
+                OnFinishedToggling.RemoveAllListeners();
+
+                transitioning = false;
             }
-            while (Mathf.Abs(currentPercentage - targetPercentage) > 0.2f);
-
-            PositionButtons(targetPercentage); //call once more to avoid precision errors
-
-            if (options.Count > 0)
-                options[0].Select();
-
-            if (this.OnTransitionFinished != null) this.OnTransitionFinished.Invoke();
-
-            transitioning = false;            
         }
 
         /// <summary>
@@ -115,7 +148,7 @@ namespace Finsternis
         {
             float angleBetweenOptions = -360 / options.Count;
             Vector2 optionPosition = this.menuBounds.center + Vector2.up * this.menuBounds.radius;
-            for(int index = 0; index < options.Count; index++)
+            for (int index = 0; index < options.Count; index++)
             {
                 this.options[index].GetComponent<RectTransform>().anchoredPosition = optionPosition;
                 var dir = optionPosition - menuBounds.center;
@@ -124,11 +157,26 @@ namespace Finsternis
             }
         }
 
+        public void NewGame(bool askForConfirmation = true)
+        {
+
+            if (askForConfirmation)
+            {
+                BeginClosing();
+                OnFinishedToggling.AddListener(showNewGameDialog);
+            }
+            else
+            {
+                GameManager.Instance.NewGame();
+            }
+        }
+
         public void Exit(bool askForConfirmation = true)
         {
             if (askForConfirmation)
             {
-                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", Exit, false, this.options[3].Select);
+                BeginClosing();
+                OnFinishedToggling.AddListener(showExitGameDialog);
             }
             else
             {

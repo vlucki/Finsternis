@@ -191,5 +191,10 @@
 
             this.fallDeathZone.GetComponent<Collider>().enabled = true;
         }
+
+        internal void NewGame()
+        {
+            LoadScene("DungeonGeneration");
+        }
     }
 }

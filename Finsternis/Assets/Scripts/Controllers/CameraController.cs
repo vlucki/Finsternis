@@ -5,7 +5,7 @@ using MovementEffects;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private Follow _follow;
+    private Follow follow;
 
     [SerializeField]
     [Range(1, 100)]
@@ -32,16 +32,21 @@ public class CameraController : MonoBehaviour
 
     void Awake()
     {
-        if (!_follow)
-            _follow = GetComponentInParent<Follow>();
+        if (!this.follow)
+            this.follow = GetComponentInParent<Follow>();
         shaking = false;
     }
 
     void FixedUpdate()
     {
+        if (!this.follow)
+            return;
+        if (!this.follow.Target)
+            return;
+
         GameObject occludingObject;
         RaycastHit hit;
-        Vector3 target = _follow.Target.position;
+        Vector3 target = this.follow.Target.position;
 
         if (Physics.SphereCast(
             target,
@@ -77,25 +82,25 @@ public class CameraController : MonoBehaviour
         float maxDistance = 2f;
         if (Physics.Raycast(target + Vector3.up / 2, Vector3.back, out hit, maxDistance, mask))
         {
-            _follow.MemorizeOffset(_follow.OriginalOffset + (Vector3.up * 2 + Vector3.forward * 3) * (1 - hit.distance / maxDistance));
+            this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2 + Vector3.forward * 3) * (1 - hit.distance / maxDistance));
             if (!shaking)
-                _follow.ResetOffset();
+                this.follow.ResetOffset();
             shouldReset = true;
         }
         else if (shouldReset && !shaking)
         {
-            _follow.translationInterpolation = 0.05f;
-            _follow.OnTargetReached.AddListener(FinishedInterpolating);
+            this.follow.translationInterpolation = 0.05f;
+            this.follow.OnTargetReached.AddListener(FinishedInterpolating);
             shouldReset = false;
-            _follow.ResetOffset(true);
+            this.follow.ResetOffset(true);
         }
     }
 
     private void FinishedInterpolating()
     {
-        _follow.translationInterpolation = 0.1f;
-        _follow.MemorizeOffset(_follow.OriginalOffset);
-        _follow.OnTargetReached.RemoveListener(FinishedInterpolating);
+        this.follow.translationInterpolation = 0.1f;
+        this.follow.MemorizeOffset(this.follow.OriginalOffset);
+        this.follow.OnTargetReached.RemoveListener(FinishedInterpolating);
     }
 
     internal void Shake(float time, float damping, float amplitude, float frequency, bool overrideShake = true)

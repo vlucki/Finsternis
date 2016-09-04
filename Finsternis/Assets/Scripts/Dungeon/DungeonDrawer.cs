@@ -67,8 +67,6 @@ namespace Finsternis
                 MakeSection(corridor).transform.SetParent(corridors.transform);
             }
 
-            //MakeWalls();
-
             onDrawEnd.Invoke();
         }
 

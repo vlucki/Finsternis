@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 969ca508ecc80aa43a0bff995d9763ee
-timeCreated: 1472378864
+guid: aebe59e195806f54283e7749d4c6fa06
+timeCreated: 1472849073
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
-  fontSize: 20
+  fontSize: 16
   forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Simplifica
+  - MB Demonic Tale
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

@@ -129,9 +129,10 @@ namespace Finsternis
             this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
 
             if (wasFalling == this.couldBeFalling)
-                this.fallingStateCheckCount++;
+                if(this.fallingStateChecks > this.fallingStateCheckCount)
+                    this.fallingStateCheckCount++;
             else
-                this.fallingStateCheckCount = 1;
+                this.fallingStateCheckCount = 0;
 
             bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
 

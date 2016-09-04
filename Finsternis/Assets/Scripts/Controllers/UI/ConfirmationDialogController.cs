@@ -1,93 +1,140 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
-
-public class ConfirmationDialogController : MonoBehaviour
+﻿namespace Finsternis
 {
-    public UnityEvent onConfirm;
-    public UnityEvent onCancel;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityEngine.UI;
+    using UnityEngine.EventSystems;
+    using System;
+    using System.Collections.Generic;
 
-    [SerializeField]
-    private Text _messageField;
-
-    [SerializeField]
-    private EventSystem _evtSystem;
-
-    [SerializeField]
-    private GameObject _yes;
-
-    [SerializeField]
-    private GameObject _no;
-
-    private static ConfirmationDialogController _this;
-
-    public string Message
+    public class ConfirmationDialogController : MenuController
     {
-        get { return _messageField.text; }
-        set { _messageField.text = value; }
-    }
+        public UnityEvent onConfirm;
+        public UnityEvent onCancel;
 
-    public ConfirmationDialogController()
-    {
-        ConfirmationDialogController._this = this;
-    }
+        [SerializeField]
+        private Text messageField;
 
-    void Awake()
-    {
-        _evtSystem = FindObjectOfType<EventSystem>();
-        _messageField = GetComponentInChildren<Text>();
-        foreach (Button b in transform.GetComponentsInChildren<Button>())
+        [SerializeField]
+        private EventSystem evtSystem;
+
+        [SerializeField]
+        private GameObject yesButton;
+
+        [SerializeField]
+        private GameObject noButton;
+
+        public static ConfirmationDialogController Instance { get; private set; }
+
+        public string Message
         {
-            if (b.name.Equals("Yes"))
-                _yes = b.gameObject;
-            else if (b.name.Equals("No"))
-                _no = b.gameObject;
+            get { return this.messageField.text; }
+            set {  this.messageField.text = value; }
         }
-    }
 
-    void Update()
-    {
-        if (_evtSystem.currentSelectedGameObject != _yes && _evtSystem.currentSelectedGameObject != _no)
-            _evtSystem.SetSelectedGameObject(_yes);
-    }
+        void Awake()
+        {
+            Instance = this;
+            Init();
+            Close();
+        }
 
-    public void Confirm()
-    {
-        onConfirm.Invoke();
-    }
+        void Init()
+        {
+            this.evtSystem = FindObjectOfType<EventSystem>();
+            this.messageField = GetComponentInChildren<Text>();
+            foreach (Button b in transform.GetComponentsInChildren<Button>())
+            {
+                if (b.name.Equals("Yes"))
+                    this.yesButton = b.gameObject;
+                else if (b.name.Equals("No"))
+                    this.noButton = b.gameObject;
+            }
+        }
 
-    public void Cancel()
-    {
-        onCancel.Invoke();
-    }
+        void OnEnable()
+        {
+            if (this.evtSystem == null)
+                Init();
+            if (this.evtSystem.currentSelectedGameObject != this.yesButton && this.evtSystem.currentSelectedGameObject != this.noButton)
+                this.evtSystem.SetSelectedGameObject(this.yesButton);
+        }
 
+        public void Confirm()
+        {
+            onConfirm.Invoke();
+        }
 
-    internal static void Show<T>(string message, UnityAction<T> confirmationCallback, T confirmationParameter, UnityAction cancelationCallbak = null)
-    {
-        _this.onConfirm.AddListener(() => confirmationCallback(confirmationParameter));
-        if (cancelationCallbak != null)
-            _this.onCancel.AddListener(cancelationCallbak);
-        Show(message);
-    }
+        public void Cancel()
+        {
+            onCancel.Invoke();
+        }
 
-    internal static void Show<T, K>(string message, UnityAction<T, K> callback, T parameterA, K parameterB, UnityAction cancelationCallbak = null)
-    {
-        _this.onConfirm.AddListener(() => callback(parameterA, parameterB));
-        if (cancelationCallbak != null)
-            _this.onCancel.AddListener(cancelationCallbak);
-        Show(message);
-    }
+        internal static void Show(string message, UnityAction confirmationCallback, UnityAction cancelationCallback = null)
+        {
+            if (!ValidateInstance(cancelationCallback))
+                return;
 
-    private static void Show(string message)
-    {
-        _this.gameObject.SetActive(true);
-        _this.Message = message;
-    }
+            Show(message);
+            Instance.onConfirm.AddListener(() => confirmationCallback());
+        }
 
-    void OnDisable()
-    {
-        onConfirm.RemoveAllListeners();
-        onCancel.RemoveAllListeners();
+        internal static void Show<T>(string message, UnityAction<T> confirmationCallback, T confirmationParameter, UnityAction cancelationCallback = null)
+        {
+            if (!ValidateInstance(cancelationCallback))
+                return;
+
+            Show(message);
+            Instance.onConfirm.AddListener(() => confirmationCallback(confirmationParameter));
+        }
+
+        internal static void Show<T, K>(string message, UnityAction<T, K> callback, T parameterA, K parameterB, UnityAction cancelationCallback = null)
+        {
+            if (!ValidateInstance(cancelationCallback))
+                return;
+
+            Show(message);
+            Instance.onConfirm.AddListener(() => callback(parameterA, parameterB));
+        }
+
+        private static bool ValidateInstance(UnityAction cancelationCallback)
+        {
+            if (Instance)
+            {
+                if (cancelationCallback != null)
+                    Instance.onCancel.AddListener(cancelationCallback);
+            }
+            else if (cancelationCallback != null)
+                cancelationCallback();
+            
+            return Instance;
+        }
+
+        private static void Show(string message)
+        {
+            Instance.BeginOpening();
+            Instance.Message = message;
+        }
+
+        void OnDisable()
+        {
+            onConfirm.RemoveAllListeners();
+            onCancel.RemoveAllListeners();
+        }
+
+        protected override IEnumerator<float> _ToggleMenu()
+        {
+            if (!IsOpen)
+                Open();
+            else
+                Close();
+
+            yield return 0;
+        }
+
+        void OnDestroy()
+        {
+            Instance = null;
+        }
     }
 }
