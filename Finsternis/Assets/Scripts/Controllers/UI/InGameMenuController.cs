@@ -6,11 +6,11 @@ namespace Finsternis
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
+    using UnityEngine.EventSystems;
     #endregion
 
     using UnityQuery;
-    using MovementEffects;
-    using UnityEngine.EventSystems;
+    using System.Collections;
 
     [RequireComponent(typeof(InputRouter))]
     [DisallowMultipleComponent]
@@ -26,15 +26,14 @@ namespace Finsternis
 
         private UnityAction showNewGameDialog;
         private UnityAction showExitGameDialog;
-        private EventSystem evtSystem;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min() / 2, GetComponent<RectTransform>().anchoredPosition);
             this.options = new List<MenuButtonController>();
-
             this.eyeController = GetComponentInChildren<MenuEyeController>();
-            this.evtSystem = FindObjectOfType<EventSystem>();
 
             OnOpen.AddListener(() =>
             {
@@ -46,8 +45,8 @@ namespace Finsternis
                 else
                     eyeController.LookAt(lastSelected.gameObject);
 
-                if (evtSystem.currentSelectedGameObject != lastSelected.gameObject)
-                    evtSystem.SetSelectedGameObject(lastSelected.gameObject);
+                if (EvtSystem.currentSelectedGameObject != lastSelected.gameObject)
+                    EvtSystem.SetSelectedGameObject(lastSelected.gameObject);
             });
 
             GetComponentsInChildren<MenuButtonController>(this.options);
@@ -57,24 +56,7 @@ namespace Finsternis
 
             else if (this.options.Count > 1)
             {
-                for (int i = 0; i < this.options.Count; i++)
-                {
-                    int left = i - 1;
-                    int right = i + 1;
-                    if (left < 0)
-                        left = this.options.Count - 1;
-                    if (right >= this.options.Count)
-                        right = 0;
-                    Navigation n = options[i].navigation;
-                    n.selectOnRight = options[right];
-                    n.selectOnLeft = options[left];
-                    options[i].OnSelectionChanged.AddListener((selected, button) =>
-                    {
-                        if (selected)
-                            lastSelected = (MenuButtonController)button;
-                    }
-                    );
-                }
+                InitOptions();
             }
 
             showNewGameDialog = new UnityAction(() =>
@@ -84,6 +66,24 @@ namespace Finsternis
             showExitGameDialog = new UnityAction(() =>
                 ConfirmationDialogController.Show("Exit game?", GameManager.Instance.Exit, BeginOpening)
             );
+        }
+
+        private void InitOptions()
+        {
+            for (int i = 0; i < this.options.Count; i++)
+            {
+                int left = i - 1;
+                int right = i + 1;
+                if (left < 0)
+                    left = this.options.Count - 1;
+                if (right >= this.options.Count)
+                    right = 0;
+                Navigation n = options[i].navigation;
+                n.selectOnRight = options[right];
+                n.selectOnLeft = options[left];
+                options[i].OnSelectionChanged.AddListener(
+                    (selected, button) => lastSelected = selected ? (MenuButtonController)button : lastSelected);
+            }
         }
 
         public override void Toggle()
@@ -101,6 +101,7 @@ namespace Finsternis
             this.targetPercentage = 1;
             OnFinishedToggling.AddListener(Open);
             base.BeginOpening();
+            StartCoroutine(_ToggleMenu());
         }
 
         /// <summary>
@@ -112,12 +113,13 @@ namespace Finsternis
             this.eyeController.Reset();
             OnFinishedToggling.AddListener(Close);
             base.BeginClosing();
+            StartCoroutine(_ToggleMenu());
         }
 
         /// <summary>
         /// Animates the menu, interpolating it's current and target state (eg. from Closed to Opened)
         /// </summary>
-        protected override IEnumerator<float> _ToggleMenu()
+        protected IEnumerator _ToggleMenu()
         {
             if (!transitioning)
             {
@@ -127,7 +129,7 @@ namespace Finsternis
                 {
                     PositionButtons(currentPercentage);
                     currentPercentage = Mathf.Lerp(currentPercentage, targetPercentage, 0.2f);
-                    yield return 0;
+                    yield return null;
                 }
                 while (Mathf.Abs(currentPercentage - targetPercentage) > 0.2f);
 

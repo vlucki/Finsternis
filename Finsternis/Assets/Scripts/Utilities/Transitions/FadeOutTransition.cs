@@ -7,8 +7,9 @@
     {
         protected override void Awake()
         {
-            targetAlpha = 0;
+            transitionType = "FadeOut";
             base.Awake();
         }
+
     }
 }

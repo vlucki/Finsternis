@@ -2,12 +2,13 @@
 {
     using UnityEngine;
     using UnityEngine.UI;
-    using MovementEffects;
+
     using System;
     using System.Collections.Generic;
     using UnityEngine.EventSystems;
     using UnityQuery;
     using UnityEngine.Events;
+    using System.Collections;
 
     [RequireComponent(typeof(Image))]
     [DisallowMultipleComponent]
@@ -27,7 +28,7 @@
         public UnityEvent OnBeganMoving;
         public UnityEvent OnTargetReached;
 
-        private IEnumerator<float> lookAtEnumerator;
+        private Coroutine lookAtCoroutine;
 
         private GameObject pupil;
         private GameObject Pupil
@@ -62,10 +63,7 @@
 
         public void Reset()
         {
-            if (lookAtEnumerator != null)
-                Timing.KillCoroutines(lookAtEnumerator);
-
-            lookAtEnumerator = Timing.RunCoroutine(_LookAtTarget(Vector2.zero));
+            LookAt(Vector2.zero);
         }
 
         public void LookAt(BaseEventData data)
@@ -82,13 +80,13 @@
 
         public void LookAt(Vector2 target)
         {
-            if (lookAtEnumerator != null)
-                Timing.KillCoroutines(lookAtEnumerator);
+            if (lookAtCoroutine != null)
+                StopCoroutine(lookAtCoroutine);
 
-            lookAtEnumerator = Timing.RunCoroutine(_LookAtTarget(target));
+            lookAtCoroutine = StartCoroutine(_LookAtTarget(target));
         }
 
-        private IEnumerator<float> _LookAtTarget(Vector2 target)
+        private IEnumerator _LookAtTarget(Vector2 target)
         {
             if (Pupil)
             {
@@ -103,12 +101,13 @@
                     currentPos = Vector3.Slerp(currentPos, target, this.movementInterpolationAmount);
                     transform.anchoredPosition = currentPos;
 
-                    yield return 0;
+                    yield return null;
                 } while (Vector2.Distance(currentPos, target) / initialDistance >= distanceThreshold);
 
                 transform.anchoredPosition = target;
                 OnTargetReached.Invoke();
-            } else
+            }
+            else
             {
                 Log.Error("No game object asigned as pupil");
             }
@@ -116,7 +115,7 @@
 
         void OnDisable()
         {
-            Timing.KillCoroutines(lookAtEnumerator);
+            StopAllCoroutines();
         }
     }
 }

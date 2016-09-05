@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using MovementEffects;
+
 using System;
+using System.Collections;
 
 namespace Finsternis
 {
@@ -27,13 +28,13 @@ namespace Finsternis
                 attack = GetComponent<AttackAction>();
         }
 
-        public virtual IEnumerator<float> _OnContinuousTouch(Entity e)
+        public virtual IEnumerator _OnContinuousTouch(Entity e)
         {
             yield return 0f;
             while (entitiesInContact.Contains(e))
             {
                 attack.Execute(DamageInfo.DamageType.physical, damageModifierOnStay, e);
-                yield return 0f;
+                yield return null;
             }
         }
 
@@ -46,7 +47,7 @@ namespace Finsternis
                 {
                     attack.Execute(DamageInfo.DamageType.physical, damageModifierOnTouch, e);
                     entitiesInContact.Add(e);
-                    Timing.RunCoroutine(_OnContinuousTouch(e));
+                    StartCoroutine(_OnContinuousTouch(e));
                 }
             }
         }

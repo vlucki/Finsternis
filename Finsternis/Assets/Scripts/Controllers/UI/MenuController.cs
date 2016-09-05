@@ -3,11 +3,23 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
-    using MovementEffects;
+    using UnityEngine.EventSystems;
 
     [RequireComponent(typeof(CanvasGroup))]
-    public abstract class MenuController : MonoBehaviour
+    public abstract class MenuController : ExtendedBehaviour
     {
+        private EventSystem evtSystem;
+        protected EventSystem EvtSystem
+        {
+            get
+            {
+                if(!this.evtSystem)
+                    this.evtSystem = FindObjectOfType<EventSystem>();
+                return this.evtSystem;
+            }
+        }
+        [Header("Transition events")]
+        [Space]
         public UnityEvent OnBeganOpening;
         public UnityEvent OnBeganClosing;
 
@@ -25,8 +37,6 @@
                 return onFinishedToggling;
             }
         }
-
-        protected IEnumerator<float> toggleEnumerator;
 
         private CanvasGroup canvasGroup;
 
@@ -53,14 +63,8 @@
         /// </summary>
         public virtual void BeginOpening()
         {
-            this.OnBeganOpening.Invoke();
-
             gameObject.SetActive(true);
-
-            if (toggleEnumerator != null)
-                Timing.KillCoroutines(toggleEnumerator);
-
-            Timing.RunCoroutine(_ToggleMenu());
+            this.OnBeganOpening.Invoke();
         }
 
         /// <summary>
@@ -70,27 +74,20 @@
         {
             this.OnBeganClosing.Invoke();
             this.CanvasGroup.interactable = false;
-
-            if (toggleEnumerator != null)
-                Timing.KillCoroutines(toggleEnumerator);
-
-            Timing.RunCoroutine(_ToggleMenu());
         }
 
-        protected virtual void Open()
+        public virtual void Open()
         {
             this.CanvasGroup.interactable = true;
             IsOpen = true;
             OnOpen.Invoke();
         }
 
-        protected virtual void Close()
+        public virtual void Close()
         {
-            gameObject.SetActive(false);
             IsOpen = false;
             OnClose.Invoke();
+            gameObject.SetActive(false);
         }
-
-        protected abstract IEnumerator<float> _ToggleMenu();
     }
 }

@@ -1,10 +1,8 @@
 ﻿namespace Finsternis
 {
-    using MovementEffects;
-    using System.Collections.Generic;
     using UnityEngine;
-    using System;
     using UnityQuery;
+    using System.Collections;
 
     [RequireComponent(typeof(Animator))]
     public class Door : Entity
@@ -60,12 +58,12 @@
             }
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");
-            Timing.RunCoroutine(_DisableCollider());
+            StartCoroutine(_DisableCollider());
         }
 
-        private IEnumerator<float> _DisableCollider()
+        private IEnumerator _DisableCollider()
         {
-            yield return Timing.WaitForSeconds(1);
+            yield return Yields.Seconds(1);
             GetComponent<Collider>().enabled = false;
         }
     }

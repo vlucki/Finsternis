@@ -1,46 +1,50 @@
 namespace Finsternis
 {
+    using System;
+    using System.Collections;
     using UnityEngine;
-    using System.Collections.Generic;
-    using UnityEngine.UI;
-    using MovementEffects;
-    
+    using UnityQuery;
+
+    [RequireComponent(typeof(CanvasGroup), typeof(Animator))]
     public abstract class FadeTransition : Transition
     {
+        protected CanvasGroup canvasGroup;
+
+        private Animator animator;
+
+        [SerializeField][Range(0.1f, 10f)]
+        private float duration = 1f;
+
+        protected string transitionType;
+
         [SerializeField]
-        [Range(0, 10)]
-        private float fadeTime = 2;
-
-        protected int targetAlpha = 1;
-
-        private List<Graphic> graphicsToFade;
-
-        [SerializeField]
-        private bool setupAlphaOnAwake = true;
+        private bool presetAlpha = false;
 
         protected override void Awake()
         {
-            this.graphicsToFade = new List<Graphic>();
-            GetComponentsInChildren<Graphic>(graphicsToFade);
+            this.canvasGroup = GetComponent<CanvasGroup>();
+            animator = GetComponent<Animator>();
+            animator.enabled = false;
 
             if (!OnTransitionStarted)
                 OnTransitionStarted = new TransitionEvent();
 
-            OnTransitionStarted.AddListener(t => Timing.RunCoroutine(_DoFade()));
-
-            if(setupAlphaOnAwake)
-                foreach(var toFade in this.graphicsToFade)
-                    toFade.canvasRenderer.SetAlpha(1 - targetAlpha);
+            OnTransitionStarted.AddListener(
+                t =>
+                {
+                    animator.enabled = true;
+                    animator.SetTrigger(transitionType);
+                    animator.speed = 1 / duration;
+                    StartCoroutine(WaitBeforEnding(duration));
+                }
+                );
 
             base.Awake();
         }
 
-        private IEnumerator<float> _DoFade()
+        private IEnumerator WaitBeforEnding(float duration)
         {
-            foreach (var toFade in this.graphicsToFade)
-                toFade.CrossFadeAlpha(targetAlpha, fadeTime, false);
-            yield return Timing.WaitForSeconds(waitAfterEnding + fadeTime);
-
+            yield return Yields.Seconds(duration);
             End();
         }
     }

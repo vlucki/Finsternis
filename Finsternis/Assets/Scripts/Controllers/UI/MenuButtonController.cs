@@ -1,12 +1,13 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using MovementEffects;
+
     using System;
     using System.Collections.Generic;
     using UnityEngine.UI;
     using UnityEngine.EventSystems;
     using UnityEngine.Events;
+    using System.Collections;
 
     public class MenuButtonController : Button
     {
@@ -24,7 +25,6 @@
         private Text label;
         private Vector3 targetScale;
         private float targetLabelAlpha;
-        private bool transitioning;
 
         public Button Button { get; private set; }
         public bool IsSelected { get; private set; }
@@ -42,8 +42,8 @@
             this.targetScale = Vector3.one;
             this.targetLabelAlpha = 1;
 
-            if (!this.transitioning)
-                Timing.RunCoroutine(_DoTransition());
+            StopCoroutine(_DoTransition());
+            StartCoroutine(_DoTransition());
 
             if (OnSelectionChanged)
                 OnSelectionChanged.Invoke(true, this);
@@ -56,28 +56,26 @@
             this.targetScale = unselectedScale;
             this.targetLabelAlpha = 0.25f;
 
-            if (!this.transitioning)
-                Timing.RunCoroutine(_DoTransition());
+            StopCoroutine(_DoTransition());
+            StartCoroutine(_DoTransition());
 
             if (OnSelectionChanged)
                 OnSelectionChanged.Invoke(true, this);
         }
 
-        private IEnumerator<float> _DoTransition()
+        private IEnumerator _DoTransition()
         {
-            this.transitioning = true;
             Color c = label.color;
             while (transform.localScale != this.targetScale)
             {
                 transform.localScale = Vector3.Lerp(transform.localScale, this.targetScale, this.transitionInterpolationFactor);
                 c.a = Mathf.Lerp(c.a, this.targetLabelAlpha, this.transitionInterpolationFactor);
                 label.color = c;
-                yield return 0;
+                yield return null;
             }
             transform.localScale = this.targetScale;
             c.a = this.targetLabelAlpha;
             label.color = c;
-            this.transitioning = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using UnityEngine;
 
     [AddComponentMenu("Finsternis/Transitions/Fade In")]
@@ -7,7 +8,7 @@
     {
         protected override void Awake()
         {
-            targetAlpha = 1;
+            transitionType = "FadeIn";
             base.Awake();
         }
     }

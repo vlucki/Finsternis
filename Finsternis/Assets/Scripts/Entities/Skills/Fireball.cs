@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using MovementEffects;
+using System.Collections;
+
 
 namespace Finsternis
 {
@@ -48,13 +48,13 @@ namespace Finsternis
 
             summonedFireball.SetActive(true);
             
-            Timing.RunCoroutine(_Shoot(summonedFireball), Segment.FixedUpdate);
+            StartCoroutine(_Shoot(summonedFireball));
         }
 
-        private IEnumerator<float> _Shoot(GameObject summonedFireball)
+        private IEnumerator _Shoot(GameObject summonedFireball)
         {
+            yield return new WaitForFixedUpdate();
             summonedFireball.GetComponent<Rigidbody>().AddForce(summonedFireball.transform.forward * 75, ForceMode.Impulse);
-            yield return 0f;
         }
     }
 }

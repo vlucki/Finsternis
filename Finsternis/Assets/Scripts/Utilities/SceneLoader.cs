@@ -1,9 +1,9 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections.Generic;
+    using System.Collections;
     using UnityEngine.SceneManagement;
-    using MovementEffects;
+    
     using System;
     using UnityEngine.Events;
 
@@ -37,14 +37,15 @@
         public void LoadAdditive(string scene)
         {
             ValidateScene(ref scene);
-            Timing.RunCoroutine(WaitForSceneLoad(scene));
+            StartCoroutine(WaitForSceneLoad(scene));
         }
 
-        private IEnumerator<float> WaitForSceneLoad(string scene)
+        private IEnumerator WaitForSceneLoad(string scene)
         {
             var asyncOperation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             while (!asyncOperation.isDone)
-                yield return 0;
+                yield return null;
+
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
             OnAdditiveSceneLoaded.Invoke();
         }

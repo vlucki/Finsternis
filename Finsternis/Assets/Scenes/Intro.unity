@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggers:
   - name: Skip
+    toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: ccb84e579757abe488d3642e3b0c2e0e, type: 2}
     onAxisActive:
@@ -530,6 +531,8 @@ GameObject:
   - 114: {fileID: 1769240252}
   - 114: {fileID: 1769240255}
   - 114: {fileID: 1769240254}
+  - 225: {fileID: 1769240256}
+  - 95: {fileID: 1769240257}
   m_Layer: 5
   m_Name: LogoPUC
   m_TagString: Untagged
@@ -624,8 +627,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  fadeTime: 2
-  setupAlphaOnAwake: 0
+  duration: 1
+  presetAlpha: 0
 --- !u!114 &1769240255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,8 +665,36 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  fadeTime: 2
-  setupAlphaOnAwake: 1
+  duration: 5
+  presetAlpha: 1
+--- !u!225 &1769240256
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769240250}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1769240257
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769240250}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e77a7ed29c974294b83c2f594f40ea9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1778952071
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +707,8 @@ GameObject:
   - 114: {fileID: 1778952073}
   - 114: {fileID: 1778952075}
   - 114: {fileID: 1778952076}
+  - 225: {fileID: 1778952077}
+  - 95: {fileID: 1778952078}
   m_Layer: 5
   m_Name: FinsternisLogo
   m_TagString: Untagged
@@ -750,7 +783,7 @@ MonoBehaviour:
   skippable: 0
   beginOnAwake: 0
   waitBeforeStart: 0
-  waitAfterEnding: 1
+  waitAfterEnding: 0
   OnTransitionStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -772,8 +805,8 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  fadeTime: 2
-  setupAlphaOnAwake: 1
+  duration: 1
+  presetAlpha: 1
 --- !u!114 &1778952076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,7 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnAwake: 0
-  waitBeforeStart: 0
+  waitBeforeStart: 2
   waitAfterEnding: 0
   OnTransitionStarted:
     m_PersistentCalls:
@@ -810,8 +843,36 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  fadeTime: 1
-  setupAlphaOnAwake: 0
+  duration: 1
+  presetAlpha: 0
+--- !u!225 &1778952077
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1778952071}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &1778952078
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1778952071}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e77a7ed29c974294b83c2f594f40ea9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1999963433
 Prefab:
   m_ObjectHideFlags: 0

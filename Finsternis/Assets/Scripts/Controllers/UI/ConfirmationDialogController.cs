@@ -3,71 +3,65 @@
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
-    using UnityEngine.EventSystems;
-    using System;
-    using System.Collections.Generic;
 
     public class ConfirmationDialogController : MenuController
     {
         public UnityEvent onConfirm;
         public UnityEvent onCancel;
 
+        private UnityEvent callOnClose;
+
         [SerializeField]
         private Text messageField;
-
-        [SerializeField]
-        private EventSystem evtSystem;
-
-        [SerializeField]
-        private GameObject yesButton;
-
-        [SerializeField]
-        private GameObject noButton;
 
         public static ConfirmationDialogController Instance { get; private set; }
 
         public string Message
         {
             get { return this.messageField.text; }
-            set {  this.messageField.text = value; }
+            set { this.messageField.text = value; }
         }
 
-        void Awake()
+        protected override void Awake()
         {
-            Instance = this;
-            Init();
+            base.Awake();
+            if (!Instance)
+            {
+                Init();
+            }
             Close();
         }
 
         void Init()
         {
-            this.evtSystem = FindObjectOfType<EventSystem>();
+            Instance = this;
             this.messageField = GetComponentInChildren<Text>();
-            foreach (Button b in transform.GetComponentsInChildren<Button>())
-            {
-                if (b.name.Equals("Yes"))
-                    this.yesButton = b.gameObject;
-                else if (b.name.Equals("No"))
-                    this.noButton = b.gameObject;
-            }
         }
 
         void OnEnable()
         {
-            if (this.evtSystem == null)
+            if (!Instance)
                 Init();
-            if (this.evtSystem.currentSelectedGameObject != this.yesButton && this.evtSystem.currentSelectedGameObject != this.noButton)
-                this.evtSystem.SetSelectedGameObject(this.yesButton);
+        }
+
+        public override void Close()
+        {
+            if(callOnClose != null)
+                callOnClose.Invoke();
+
+            base.Close();
         }
 
         public void Confirm()
         {
-            onConfirm.Invoke();
+            callOnClose = onConfirm;
+            BeginClosing();
         }
 
         public void Cancel()
         {
-            onCancel.Invoke();
+            callOnClose = onCancel;
+            BeginClosing();
         }
 
         internal static void Show(string message, UnityAction confirmationCallback, UnityAction cancelationCallback = null)
@@ -106,7 +100,7 @@
             }
             else if (cancelationCallback != null)
                 cancelationCallback();
-            
+
             return Instance;
         }
 
@@ -122,19 +116,10 @@
             onCancel.RemoveAllListeners();
         }
 
-        protected override IEnumerator<float> _ToggleMenu()
-        {
-            if (!IsOpen)
-                Open();
-            else
-                Close();
-
-            yield return 0;
-        }
-
         void OnDestroy()
         {
-            Instance = null;
+            if (Instance && Instance.gameObject == gameObject)
+                Instance = null;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Finsternis
 {
-    using MovementEffects;
-    using System.Collections.Generic;
+    using System.Collections;
     using UnityEngine;
     using UnityEngine.Events;
 
@@ -76,17 +75,17 @@
             {
                 this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
                 if (!Dead)
-                    Timing.RunCoroutine(_TickInvincibility(this.invincibiltyTime));
+                    StartCoroutine(_TickInvincibility(this.invincibiltyTime));
             }
         }
 
-        private IEnumerator<float> _TickInvincibility(float remainingInvincibility)
+        private IEnumerator _TickInvincibility(float remainingInvincibility)
         {
             this.invincible = true;
             while (remainingInvincibility > 0)
             {
                 remainingInvincibility -= Time.deltaTime;
-                yield return 0f;
+                yield return null;
             }
             this.invincible = false;
         }

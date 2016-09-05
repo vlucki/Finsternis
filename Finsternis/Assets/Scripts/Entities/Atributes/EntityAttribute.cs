@@ -313,7 +313,12 @@
 
         public override string ToString()
         {
-            return alias + ": " + Value.ToString();
+            string toStr = Value.ToString();
+            if (!string.IsNullOrEmpty(name))
+                toStr = name + ": " + toStr;
+            else
+                toStr = alias + ": " + toStr;
+            return toStr;
         }
 
 #if UNITY_EDITOR

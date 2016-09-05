@@ -4,6 +4,7 @@
     using UnityEngine.Events;
     using System.Collections.Generic;
     using System;
+    using UnityQuery;
 
     [SelectionBase]
     [DisallowMultipleComponent]
@@ -36,10 +37,14 @@
 
         protected virtual void InitializeAttribute(int attributeIndex)
         {
-            attributes[attributeIndex] = Instantiate(attributes[attributeIndex]);
-            attributes[attributeIndex].SetOwner(this);
+
+            var attribute = Instantiate(attributes[attributeIndex]);
+            attribute.name = attributes[attributeIndex].name; //remove the annoying (Clone) that Unity appends to the name
+            attribute.SetOwner(this);
             if (onAttributeInitialized)
-                onAttributeInitialized.Invoke(attributes[attributeIndex]);
+                onAttributeInitialized.Invoke(attribute);
+
+            attributes[attributeIndex] = attribute;
         }
 
         public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)

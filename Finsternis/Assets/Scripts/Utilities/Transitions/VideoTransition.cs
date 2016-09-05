@@ -1,8 +1,8 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using MovementEffects;
-    using System.Collections.Generic;
+    
+    using System.Collections;
 
     [RequireComponent(typeof(Renderer), typeof(AudioSource))]
     public class VideoTransition : Transition
@@ -21,12 +21,12 @@
             if (OnTransitionStarted == null)
                 OnTransitionStarted = new TransitionEvent();
 
-            OnTransitionStarted.AddListener(t => Timing.RunCoroutine(_PlayVideo()));
+            OnTransitionStarted.AddListener(t => StartCoroutine(_PlayVideo()));
             OnTransitionEnded.AddListener(t =>
             {
                 if (movie.isPlaying)
                 {
-                    Timing.KillCoroutines(_PlayVideo());
+                    StopAllCoroutines();
                     movie.Stop();
                     audioIntro.Stop();
                 }
@@ -34,7 +34,7 @@
             base.Awake();
         }
 
-        private IEnumerator<float> _PlayVideo()
+        private IEnumerator _PlayVideo()
         {
 
             if (!movie.isPlaying)
@@ -43,7 +43,7 @@
                 movie.Play();
             }
             while (movie.isPlaying)
-                yield return 0;
+                yield return null;
         }
     }
 }

@@ -39,17 +39,8 @@
 
         public void Skip()
         {
-            skipping = true;
-            toRemove = new List<Transition>();
-            foreach (var t in playing)
-                t.Skip();
-            skipping = false;
-
-            for (int i = toRemove.Count - 1; i >= 0; i--)
-            {
-                playing.Remove(toRemove[i]);
-                toRemove.RemoveAt(i);
-            }
+            for(int i = playing.Count - 1; i >= 0; i--)
+                playing[i].Skip();
         }
     }
 }

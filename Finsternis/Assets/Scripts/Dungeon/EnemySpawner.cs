@@ -10,7 +10,6 @@
     public class EnemySpawner : MonoBehaviour
     {
         public DungeonDrawer drawer;
-        private CardsManager cardsManager;
         public List<EntityAttribute> baseAttributes;
         public List<GameObject> enemies;
         public GameObject enemiesHolder;
@@ -24,8 +23,6 @@
         {
             if (!drawer)
                 drawer = FindObjectOfType<DungeonDrawer>();
-
-            cardsManager = FindObjectOfType<CardsManager>();
         }
 
         public void BeginSpawn(Dungeon dungeon)
@@ -42,7 +39,7 @@
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
             if (enemies != null && enemies.Count > 0)
             {
-                int roomsToSpawn = Dungeon.Random.IntRange(1, dungeon.Rooms.Count, false);
+                int roomsToSpawn = 1; //Dungeon.Random.IntRange(1, dungeon.Rooms.Count, false);
                 do
                 {
                     SpawnEnemies(dungeon, goals);
@@ -58,15 +55,13 @@
             { room = dungeon.GetRandomRoom(); }
             while (room.Equals(dungeon[dungeon.Entrance]));
 
-            int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
-
-            enemiesToSpawn = Mathf.Min(enemiesToSpawn, room.CellCount);
+            int enemiesToSpawn = 1; //Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
 
             int remainingEnemies = enemiesToSpawn;
             do
             {
                 int enemyToSpawn = enemies.Count == 1 ? 0 : Dungeon.Random.IntRange(0, enemies.Count, false);
-                int remainingEnemiesOfChosenType = Dungeon.Random.IntRange(0, remainingEnemies, true);
+                int remainingEnemiesOfChosenType = 1; //Dungeon.Random.IntRange(0, remainingEnemies, true);
                 if (remainingEnemiesOfChosenType > 0)
                 {
                     KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies[enemyToSpawn]);

@@ -1,9 +1,10 @@
-namespace Finsternis
+﻿namespace Finsternis
 {
     using UnityEngine;
     using UnityEngine.Events;
-    using MovementEffects;
     using System.Collections.Generic;
+    using System.Collections;
+    using UnityQuery;
 
     public abstract class Transition : MonoBehaviour
     {
@@ -38,32 +39,32 @@ namespace Finsternis
 
         public void Begin()
         {
-            Timing.RunCoroutine(_Begin());
+            StartCoroutine(_Begin());
         }
 
         public void End()
         {
-            Timing.RunCoroutine(_End());
+            StartCoroutine(_End());
         }
 
-        private IEnumerator<float> _Begin()
+        private IEnumerator _Begin()
         {
-            if (!transitioning)
+            if (!this.transitioning)
             {
                 if (waitBeforeStart > 0)
-                    yield return Timing.WaitForSeconds(waitBeforeStart);
+                    yield return Yields.Seconds(waitBeforeStart);
                 this.transitioning = true;
                 OnTransitionStarted.Invoke(this);
             }
         }
 
-        private IEnumerator<float> _End()
+        private IEnumerator _End()
         {
-            if (transitioning)
+            if (this.transitioning)
             {
-                if (waitBeforeStart > 0)
-                    yield return Timing.WaitForSeconds(waitBeforeStart);
                 this.transitioning = false;
+                if (waitAfterEnding > 0)
+                    yield return Yields.Seconds(waitAfterEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }
@@ -72,7 +73,8 @@ namespace Finsternis
         {
             if (skippable)
             {
-                End();
+                this.transitioning = false;
+                OnTransitionEnded.Invoke(this);
             }
         }
 

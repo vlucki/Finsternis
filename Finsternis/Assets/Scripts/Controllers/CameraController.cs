@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using MovementEffects;
+using System.Collections;
+using UnityQuery;
 
 public class CameraController : MonoBehaviour
 {
@@ -9,26 +10,26 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     [Range(1, 100)]
-    private float _shakeDamping = 2;
+    private float shakeDamping = 2;
 
     [SerializeField]
     [Range(1, 20)]
-    private float _shakeFrequency = 20;
+    private float shakeFrequency = 20;
 
     [SerializeField]
     [Range(1, 100)]
-    private float _shakeAmplitude = 20;
+    private float shakeAmplitude = 20;
 
     private bool shaking;
 
     public bool occludeWalls = false;
     [SerializeField]
-    private GameObject _occludingObject;
+    private GameObject occludingObject;
     private bool shouldReset;
     private Vector3 lastTarget;
-    private IEnumerator<float> shakeHandle;
+    private Coroutine shakeHandle;
 
-    public GameObject OccludingObject { get { return _occludingObject; } }
+    public GameObject OccludingObject { get { return occludingObject; } }
 
     void Awake()
     {
@@ -63,14 +64,14 @@ public class CameraController : MonoBehaviour
                 Wall wall = occludingObject.GetComponent<Wall>();
                 if (wall)
                 {
-                    _occludingObject = occludingObject;
+                    this.occludingObject = occludingObject;
                     wall.FadeOut();
                 }
             }
         }
-        else if (_occludingObject)
+        else if (this.occludingObject)
         {
-            _occludingObject = null;
+            this.occludingObject = null;
         }
 
         if (target != lastTarget)
@@ -83,11 +84,11 @@ public class CameraController : MonoBehaviour
         if (Physics.Raycast(target + Vector3.up / 2, Vector3.back, out hit, maxDistance, mask))
         {
             this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2 + Vector3.forward * 3) * (1 - hit.distance / maxDistance));
-            if (!shaking)
+            if (!this.shaking)
                 this.follow.ResetOffset();
             shouldReset = true;
         }
-        else if (shouldReset && !shaking)
+        else if (shouldReset && !this.shaking)
         {
             this.follow.translationInterpolation = 0.05f;
             this.follow.OnTargetReached.AddListener(FinishedInterpolating);
@@ -105,40 +106,40 @@ public class CameraController : MonoBehaviour
 
     internal void Shake(float time, float damping, float amplitude, float frequency, bool overrideShake = true)
     {
-        if(overrideShake && shaking)
+        if(overrideShake && this.shaking)
         {
-            shaking = false;
-            Timing.KillCoroutines(shakeHandle);
+            this.shaking = false;
+            StopCoroutine(this.shakeHandle);
         }
 
-        if (!shaking)
+        if (!this.shaking)
         {
-            _shakeDamping = damping;
-            _shakeFrequency = frequency;
-            _shakeAmplitude = amplitude;
-            shakeHandle = Timing.RunCoroutine(_Shake(time));
+            this.shakeDamping = damping;
+            this.shakeFrequency = frequency;
+            this.shakeAmplitude = amplitude;
+            this.shakeHandle = StartCoroutine(_Shake(time));
         }
     }
 
-    IEnumerator<float> _Shake(float shakeTime)
+    IEnumerator _Shake(float shakeTime)
     {
-        shaking = true;
-        float amplitude = _shakeAmplitude;
+        this.shaking = true;
+        float amplitude = this.shakeAmplitude;
         while (shakeTime > 0)
         {
-            yield return Timing.WaitForSeconds(1/_shakeFrequency);
-            shakeTime -= Time.deltaTime + 1 / _shakeFrequency;
+            yield return Yields.Seconds(1 / this.shakeFrequency);
+            shakeTime -= Time.deltaTime + 1 / this.shakeFrequency;
 
             Vector3 shakeOffset = Random.insideUnitSphere / 10;
 
             shakeOffset.z = 0;
             transform.localPosition = shakeOffset * amplitude;
             transform.localRotation = Quaternion.Euler(new Vector3(Random.value, Random.value, Random.value) * amplitude / 5);
-            amplitude /= _shakeDamping;
+            amplitude /= this.shakeDamping;
         }
 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        shaking = false;
+        this.shaking = false;
     }
 }
