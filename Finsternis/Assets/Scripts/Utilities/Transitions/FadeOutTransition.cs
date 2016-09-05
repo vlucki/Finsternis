@@ -7,7 +7,7 @@
     {
         protected override void Awake()
         {
-            transitionType = "FadeOut";
+            transitionType = FadeType.FadeOut;
             base.Awake();
         }
 

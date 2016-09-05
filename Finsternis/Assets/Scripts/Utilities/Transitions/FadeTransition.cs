@@ -15,7 +15,9 @@ namespace Finsternis
         [SerializeField][Range(0.1f, 10f)]
         private float duration = 1f;
 
-        protected string transitionType;
+        public enum FadeType { FadeIn = 0, FadeOut = 1}
+
+        protected FadeType transitionType;
 
         [SerializeField]
         private bool presetAlpha = false;
@@ -33,11 +35,14 @@ namespace Finsternis
                 t =>
                 {
                     animator.enabled = true;
-                    animator.SetTrigger(transitionType);
+                    animator.SetTrigger(transitionType.ToString());
                     animator.speed = 1 / duration;
                     StartCoroutine(WaitBeforEnding(duration));
                 }
                 );
+
+            if (presetAlpha)
+                this.canvasGroup.alpha = (int)transitionType;
 
             base.Awake();
         }

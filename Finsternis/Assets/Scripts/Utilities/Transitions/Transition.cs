@@ -22,7 +22,7 @@
         [Range(0, 5)]
         public float waitBeforeStart = 0f;
         [Range(0, 5)]
-        public float waitAfterEnding = 0f;
+        public float waitBeforeEnding = 0f;
 
         public TransitionEvent OnTransitionStarted;
         public TransitionEvent OnTransitionEnded;
@@ -63,8 +63,8 @@
             if (this.transitioning)
             {
                 this.transitioning = false;
-                if (waitAfterEnding > 0)
-                    yield return Yields.Seconds(waitAfterEnding);
+                if (waitBeforeEnding > 0)
+                    yield return Yields.Seconds(waitBeforeEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }

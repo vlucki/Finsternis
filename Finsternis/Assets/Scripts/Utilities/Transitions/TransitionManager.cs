@@ -8,8 +8,6 @@
     public class TransitionManager : MonoBehaviour
     {
         private List<Transition> playing;
-        private List<Transition> toRemove;
-        private bool skipping;
 
         void Awake()
         {
@@ -26,10 +24,7 @@
         {
             t.OnTransitionStarted.RemoveListener(WatchTransition);
             t.OnTransitionEnded.RemoveListener(UnwatchTransition);
-            if (!skipping)
-                playing.Remove(t);
-            else
-                toRemove.Add(t);
+            playing.Remove(t);
         }
 
         private void WatchTransition(Transition t)
