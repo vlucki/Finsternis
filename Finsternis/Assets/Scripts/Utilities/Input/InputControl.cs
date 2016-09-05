@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "InputControl", menuName = "Finsternis/Input/Input Control", order = 1)]
+[CreateAssetMenu(fileName = "InputControl", menuName = "Finsternis/Input/Input", order = 1)]
 public class InputControl : ScriptableObject
 {
     public enum ThresholdTypeEnum
@@ -30,9 +30,6 @@ public class InputControl : ScriptableObject
     [SerializeField]
     private float repeatDelay = 0f;
 
-    [SerializeField][Tooltip("Should the value returned by Input.GetAxis be restricted to either 0 or 1?")]
-    private bool constantValue = false;
-
     public string Axis
     {
         get { return this.axis; }
@@ -60,17 +57,34 @@ public class InputControl : ScriptableObject
     public float RepeatDelay
     {
         get { return this.repeatDelay; }
-        set { this.repeatDelay = Mathf.Max(0, value); }
+        set { this.repeatDelay = value; }
     }
 
-    public virtual float Value()
+    public virtual float Value
     {
-        return constantValue ? Mathf.Max(Input.GetAxis(Axis)) : Input.GetAxis(Axis);
+        get { return AxisValue; }
     }
 
-    public float TrueValue()
+    public float AxisValue { get { return Input.GetAxis(Axis); } }
+    /// <summary>
+    /// Returns false if the axis value is 0, true otherwise.
+    /// </summary>
+    public bool BooleanValue { get { return Value != 0; } }
+
+    /// <summary>
+    /// Returns 0 if the axis value is 0, -1 if it is less than 0 and 1 otherwise
+    /// </summary>
+    public int ConstantValue
     {
-        return Input.GetAxis(Axis);
+        get
+        {
+            float rawValue = Value;
+            if (rawValue < 0)
+                return -1;
+            if (rawValue > 0)
+                return 1;
+            return 0;
+        }
     }
 
 #if UNITY_EDITOR

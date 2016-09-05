@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityQuery;
 
 [DisallowMultipleComponent]
 public class InputRouter : MonoBehaviour
@@ -18,9 +19,15 @@ public class InputRouter : MonoBehaviour
 
         public string name;
 
+        [Tooltip("If true, will wait for the input to stop firing before triggering again.")]
+        public bool toggleOnly = false;
+
         public InputControl[] controls;
 
         public AxisInputEvent onAxisActive;
+
+
+        private bool active;
 
         private float lastTriggered;
 
@@ -31,7 +38,12 @@ public class InputRouter : MonoBehaviour
                 if (ShouldTrigger(control))
                 {
                     lastTriggered = Time.timeSinceLevelLoad;
-                    onAxisActive.Invoke(control.Value());
+                    onAxisActive.Invoke(control.Value);
+                    active = true;
+                }
+                else if (!control.BooleanValue)
+                {
+                    active = false;
                 }
             });
         }
@@ -40,13 +52,13 @@ public class InputRouter : MonoBehaviour
         {
             if (!control)
             {
-                UnityQuery.Log.Warn(control, "Null control found. Did you forget to set something in the inspector?");
+                Log.Warn(control, "Null control found. Did you forget to set something in the inspector?");
                 return false;
             }
-            if (!control.Enabled || Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay)
+            if (!control.Enabled || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))
                 return false;
 
-            float value = control.TrueValue();
+            float value = control.AxisValue;
 
             switch (control.ThresholdType)
             {

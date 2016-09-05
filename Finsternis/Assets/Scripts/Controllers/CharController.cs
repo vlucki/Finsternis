@@ -8,7 +8,7 @@ namespace Finsternis
 {
     [AddComponentMenu("Finsternis/Char Controller")]
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Character), typeof(Movement), typeof(Animator))]
+    [RequireComponent(typeof(Character), typeof(MovementAction), typeof(Animator))]
     public class CharController : MonoBehaviour
     {
 
@@ -31,11 +31,23 @@ namespace Finsternis
 
         protected Character character;
         protected Animator characterAnimator;
-        protected Movement characterMovement;
+        protected MovementAction characterMovement;
 
         [SerializeField]
         [Range(0, -1)]
         private float fallSpeedThreshold = -0.2f;
+
+        [SerializeField]
+        [Range(0, 10)]
+        [Tooltip("How many updates to consider before changing the 'falling state'")]
+        private int fallingStateChecks = 3;
+
+        [SerializeField]
+        [ReadOnly]
+        private int fallingStateCheckCount;
+
+        [SerializeField][ReadOnly]
+        private bool couldBeFalling = false;
 
         [Range(0, 1)]
         [SerializeField]
@@ -47,11 +59,11 @@ namespace Finsternis
         [SerializeField]
         private Skill[] equippedSkills = new Skill[4];
 
-        private bool locked;
+        private bool actionsLocked;
         private float unlockDelay;
         private bool waitingForDelay;
 
-        public bool Locked { get { return this.locked; } }
+        public bool ActionsLocked { get { return this.actionsLocked; } }
         public Character Character { get { return character; } }
 
         static CharController()
@@ -69,8 +81,8 @@ namespace Finsternis
 
         public virtual void Awake()
         {
-            this.locked = false;
-            characterMovement = GetComponent<Movement>();
+            this.actionsLocked = false;
+            characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
             character         = GetComponent<Character>();
         }
@@ -80,11 +92,10 @@ namespace Finsternis
             try
             {
                 character.onDeath.AddListener(CharacterController_death);
-
-                characterMovement.Speed = character.GetAttribute("spd").Value / 10;
-
                 Array.ForEach<Skill>(this.equippedSkills, (skill) => { if (skill) skill.Equip(); }); //make sure every skill that is equipped knows it
-            } catch (Exception e)
+
+            }
+            catch (Exception e)
             {
                 Log.Error("Exception thrown when initializing controller for " + gameObject);
                 throw e;
@@ -103,51 +114,65 @@ namespace Finsternis
                         Unlock();
                 }
 
-                if (!locked)
+                if (!actionsLocked)
                 {
                     UpdateRotation();
-                    characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.VelocityNoY());
+                    characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.GetVelocityMagnitude());
                 }
             }
+        }
+
+        private bool UpdateFallingState()
+        {
+            bool wasFalling = this.couldBeFalling;
+            float fallingSpeed = GetComponent<Rigidbody>().velocity.y;
+            this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
+
+            if (wasFalling == this.couldBeFalling)
+                if(this.fallingStateChecks > this.fallingStateCheckCount)
+                    this.fallingStateCheckCount++;
+            else
+                this.fallingStateCheckCount = 0;
+
+            bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
+
+            return isFallingNow;
         }
 
         public virtual void FixedUpdate()
         {
             if (!IsDead())
             {
-                RaycastHit hit;
-                int mask = (1 << LayerMask.NameToLayer("Floor"));
-                bool floorBelow = 
-                    GetComponent<Rigidbody>().velocity.y >= fallSpeedThreshold 
-                    || Physics.Raycast(new Ray(transform.position + Vector3.up, Vector3.down), out hit, 4.25f, mask);
-
-                if (floorBelow && this.locked && IsFalling() && !this.waitingForDelay)
+                if(UpdateFallingState())
                 {
-                    characterAnimator.SetBool(CharController.FallingBool, false);
-                    Unlock();
-                }
-                else if (!floorBelow && !this.locked)
-                {
-                    Lock();
-                    characterAnimator.SetBool(CharController.FallingBool, true);
-                    characterAnimator.SetFloat(CharController.SpeedFloat, 0);
+                    if (!this.couldBeFalling && this.actionsLocked && IsFalling() && !this.waitingForDelay)
+                    {
+                        characterAnimator.SetBool(CharController.FallingBool, false);
+                        Unlock();
+                    }
+                    else if (this.couldBeFalling && !this.actionsLocked)
+                    {
+                        Lock();
+                        characterAnimator.SetBool(CharController.FallingBool, true);
+                        characterAnimator.SetFloat(CharController.SpeedFloat, 0);
+                    }
                 }
             }
         }
 
-        public void SetXDirection(float horizontal)
+        public void SetXDirection(float amount)
         {
             if (CanMove())
             {
-                characterMovement.SetDirection(characterMovement.Direction.WithX(horizontal));
+                characterMovement.Direction = (characterMovement.Direction.WithX(amount));
             }
         }
 
-        public void SetZDirection(float vertical)
+        public void SetZDirection(float amount)
         {
             if (CanMove())
             {
-                characterMovement.SetDirection(characterMovement.Direction.WithZ(vertical));
+                characterMovement.Direction = (characterMovement.Direction.WithZ(amount));
             }
         }
 
@@ -155,16 +180,19 @@ namespace Finsternis
         {
             if (CanMove())
             {
-                characterMovement.SetDirection(direction.WithY(0));
+                characterMovement.Direction = (direction.WithY(0));
             }
         }
 
         private void UpdateRotation()
         {
+            float currentVelocity = characterMovement.GetVelocityMagnitude();
+            if (currentVelocity <= 0.1f)
+                return;
             transform.forward = Vector3.Slerp(
                 transform.forward, 
-                characterMovement.LastDirection, 
-                Mathf.Max(this.turningSpeed, Vector3.Angle(transform.forward, characterMovement.Direction) / 720));
+                characterMovement.Velocity, 
+                turningSpeed);
         }
 
         protected virtual bool CanMove()
@@ -172,7 +200,7 @@ namespace Finsternis
             bool staggered = IsStaggered();
             bool attacking = IsAttacking();
 
-            return !(this.locked || staggered || attacking);
+            return !(this.actionsLocked || staggered || attacking);
         }
 
         public bool IsAttacking()
@@ -202,11 +230,14 @@ namespace Finsternis
 
         public bool ShouldWalk()
         {
-            return characterMovement.Direction != Vector3.zero;
+            return !characterMovement.Direction.IsZero();
         }
 
         public virtual void Hit(int type = 0, bool lockMovement = true)
         {
+            if (this.character.Invincible)
+                return;
+
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
 
@@ -275,9 +306,9 @@ namespace Finsternis
 
         public void Lock()
         {
-            this.locked = true;
+            this.actionsLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
-            characterMovement.SetDirection(characterMovement.Direction.OnlyY());
+            characterMovement.Direction = (characterMovement.Direction.OnlyY());
             onLock.Invoke();
         }
 
@@ -296,14 +327,14 @@ namespace Finsternis
         public void Unlock()
         {
             this.waitingForDelay = false;
-            this.locked = false;
+            this.actionsLocked = false;
             onUnlock.Invoke();
         }
 
         protected virtual void CharacterController_death()
         {
             characterAnimator.SetBool(CharController.DyingBool, true);
-            characterMovement.SetDirection(Vector3.zero);
+            characterMovement.Direction = Vector3.zero;
         }
     }
 }

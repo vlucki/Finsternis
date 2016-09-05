@@ -26,19 +26,25 @@ public class CustomAxesDrawer : PropertyDrawer
 
         SerializedProperty axisArray = obj.FindProperty("m_Axes");
 
+        AxesNameAttribute attrib = (AxesNameAttribute)attribute;
+
         if (axisArray.arraySize == 0)
         {
             Debug.LogWarning("No Axes found.");
-            return;
+            if (!attrib.allowNone)
+                return;
         }
-        axes = new GUIContent[axisArray.arraySize];
+        int extra = (attrib.allowNone ? 1 : 0);
+        axes = new GUIContent[axisArray.arraySize + extra];
+        if (attrib.allowNone)
+            axes[0] = new GUIContent("None");
 
         for (int i = 0; i < axisArray.arraySize; ++i)
         {
             var axis = axisArray.GetArrayElementAtIndex(i);
             var name = axis.FindPropertyRelative("m_Name").stringValue;
 
-            axes[i] = new GUIContent(name);
+            axes[i+extra] = new GUIContent(name);
         }
     }
 

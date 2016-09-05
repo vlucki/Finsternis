@@ -13,7 +13,7 @@ using UMT;
 /// </summary>
 public class MTRandom
 {
-	private MersenneTwister _rand;
+	protected MersenneTwister _rand;
 
 	#region SEED
 	/// <summary>
@@ -50,17 +50,6 @@ public class MTRandom
 
 	#region VALUE
 	/// <summary>
-	/// Returns a pseudo-random number between 0.0 [inclusive] and 1.0 [inclusive] (Read Only).
-	/// </summary>
-	/// <returns>
-	/// This method returns a single-precision pseudo-random number greater than or equal to zero, and less
-	/// than or equal to one.
-	/// </returns>
-	public float value()
-	{
-		return _rand.NextSingle(true);
-	}
-	/// <summary>
 	/// Returns a pseudo-random number greater than or equal to zero, and either strictly
 	/// less than one, or less than or equal to one, depending on the value of the
 	/// given boolean parameter.
@@ -77,7 +66,7 @@ public class MTRandom
 	/// this method returns a single-precision pseudo-random number greater than or equal to zero and
 	/// strictly less than one.
 	/// </returns>
-	public float value(bool includeOne)
+	public float value(bool includeOne = true)
 	{
 		return _rand.NextSingle(includeOne);
 	}
@@ -148,7 +137,7 @@ public class MTRandom
 	/// <param name="min">Minimum.</param>
 	/// <param name="max">Max.</param>
 	/// <param name="includeMax">If set to <c>true</c> include <paramref name="Max"/>.</param>
-	public int Range(int min, int max, bool includeMax)
+	public int IntRange(int min, int max, bool includeMax)
 	{
 		if (includeMax)
 		{

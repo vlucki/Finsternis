@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using MovementEffects;
+
+using System;
+using System.Collections;
 
 namespace Finsternis
 {
@@ -18,20 +20,21 @@ namespace Finsternis
 
         protected AttackAction attack;
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             entitiesInContact = new HashSet<Entity>();
             if (!attack)
                 attack = GetComponent<AttackAction>();
         }
 
-        public virtual IEnumerator<float> _OnContinuousTouch(Entity e)
+        public virtual IEnumerator _OnContinuousTouch(Entity e)
         {
             yield return 0f;
             while (entitiesInContact.Contains(e))
             {
-                attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnStay);
-                yield return 0f;
+                attack.Execute(DamageInfo.DamageType.physical, damageModifierOnStay, e);
+                yield return null;
             }
         }
 
@@ -42,9 +45,9 @@ namespace Finsternis
             {
                 if (!entitiesInContact.Contains(e))
                 {
-                    attack.Perform(e, DamageInfo.DamageType.physical, damageModifierOnTouch);
+                    attack.Execute(DamageInfo.DamageType.physical, damageModifierOnTouch, e);
                     entitiesInContact.Add(e);
-                    Timing.RunCoroutine(_OnContinuousTouch(e));
+                    StartCoroutine(_OnContinuousTouch(e));
                 }
             }
         }

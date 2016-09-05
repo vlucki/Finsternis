@@ -19,10 +19,7 @@ namespace Finsternis
                 if (x && !y)
                     return 1;
 
-                if (x.Rarity == y.Rarity)
-                    return x.name.CompareTo(y.name);
-                else
-                    return x.Rarity.CompareTo(y.Rarity);
+                return x.name.CompareTo(y.name);
 
             }
         }

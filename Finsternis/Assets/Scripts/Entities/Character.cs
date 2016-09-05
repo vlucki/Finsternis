@@ -1,10 +1,9 @@
-﻿using MovementEffects;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections;
+    using UnityEngine;
+    using UnityEngine.Events;
+
     public class Character : Entity
     {
         [Space(20)]
@@ -12,8 +11,18 @@ namespace Finsternis
 
         public UnityEvent onDeath;
 
-        private EntityAttribute health;
-        private EntityAttribute defense;
+        private EntityAttribute cachedHealth;
+        private EntityAttribute cachedDefense;
+
+        private EntityAttribute health
+        {
+            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("hp", true)); }
+        }
+
+        private EntityAttribute defense
+        {
+            get { return this.cachedDefense ?? (this.cachedDefense = GetAttribute("def", true)); }
+        }
 
         private bool dead;
 
@@ -25,21 +34,23 @@ namespace Finsternis
         private bool invincible = false;
 
         public bool Invincible { get { return this.invincible; } }
+
         public bool Dead { get { return this.dead; } }
 
-        protected void Awake()
+        protected override void InitializeAttribute(int attributeIndex)
         {
-            this.health = CheckAttribute(this.health, "hp");
-            this.defense = CheckAttribute(this.defense, "def");
+            base.InitializeAttribute(attributeIndex);
+            if (attributes[attributeIndex].Alias.Equals("hp"))
+                attributes[attributeIndex].onValueChanged.AddListener(CheckHealth);
         }
 
-        public override void AtributeUpdated(EntityAttribute attribute)
+        public virtual void CheckHealth(EntityAttribute health)
         {
-            if (!this.dead && attribute.Value <= 0 && attribute.Alias.Equals("hp"))
+            if (!this.dead && health.Value <= 0)
                 Die();
         }
 
-        private void Die()
+        protected virtual void Die()
         {
             this.dead = true;
             onDeath.Invoke();
@@ -50,31 +61,31 @@ namespace Finsternis
         {
             if (interactable)
             {
-                if (!Dead && typeof(AttackAction).IsAssignableFrom(action.GetType()))
+                base.Interact(action);
+                if (!Dead && action is AttackAction)
                 {
                     ReceiveDamage(((AttackAction)action).DamageInfo);
                 }
-                base.Interact(action);
             }
         }
 
-        public virtual void ReceiveDamage(DamageInfo info)
+        protected virtual void ReceiveDamage(DamageInfo info)
         {
-            if (!Dead && !this.invincible)
+            if (!this.invincible)
             {
-                this.health -= (Mathf.Max(0, info.Amount - this.defense.Value));
+                this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
                 if (!Dead)
-                    Timing.RunCoroutine(_TickInvincibility(this.invincibiltyTime));
+                    StartCoroutine(_TickInvincibility(this.invincibiltyTime));
             }
         }
 
-        private IEnumerator<float> _TickInvincibility(float remainingInvincibility)
+        private IEnumerator _TickInvincibility(float remainingInvincibility)
         {
             this.invincible = true;
             while (remainingInvincibility > 0)
             {
                 remainingInvincibility -= Time.deltaTime;
-                yield return 0f;
+                yield return null;
             }
             this.invincible = false;
         }

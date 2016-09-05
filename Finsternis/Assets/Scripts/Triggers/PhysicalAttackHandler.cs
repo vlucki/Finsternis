@@ -63,23 +63,21 @@ namespace Finsternis
             if (ignoreColliders != null && ignoreColliders.Contains(other))
                 return;
 
-            Entity otherChar = collidedObject.GetComponentInParent<Entity>();
+            IInteractable interactable = collidedObject.GetComponentInParent<IInteractable>();
 
-            if (otherChar)
+            if (interactable != null)
             {
-                if (otherChar is Character && ((Character)otherChar).Invincible)
-                    return;
-
-                CharController controller = collidedObject.GetComponent<CharController>();
-                if (controller)
+                if (interactable is Entity)
                 {
-                    controller.Hit();
+                    CharController controller = collidedObject.GetComponent<CharController>();
+                    if (controller) controller.Hit();
                 }
+
                 float strBonus = str ? str.Value * 0.5f : 0;
                 AttackAction attack = owner.GetComponent<AttackAction>();
 
                 if (attack)
-                    attack.Perform(otherChar, strBonus);
+                    attack.Execute(strBonus, interactable);
             }
             SimulateImpact(collidedObject, impactMultiplier, true);
         }

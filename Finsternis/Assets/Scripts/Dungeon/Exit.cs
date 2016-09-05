@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using System;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using UnityEngine.Events;
+    using System;
+
     public class Exit : Trigger
     {
         [Serializable]
@@ -16,20 +16,20 @@ namespace Finsternis
         }
 
         [SerializeField]
-        private GameObject _player;
+        private GameObject player;
 
         [SerializeField]
-        private GameObject _cameraHolder;
+        private GameObject cameraHolder;
 
-        private bool _locked;
+        private bool locked;
 
-        private bool _triggered;
+        private bool triggered;
 
         public ExitCrossedEvent onExitCrossed;
 
-        public bool Locked { get { return _locked; } }
+        public bool Locked { get { return this.locked; } }
 
-        public bool Triggered { get { return _triggered; } }
+        public bool Triggered { get { return this.triggered; } }
 
         protected override void Awake()
         {
@@ -37,11 +37,11 @@ namespace Finsternis
             if (!onExitCrossed)
                 onExitCrossed = new ExitCrossedEvent();
             onExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
-            _player = GameObject.FindGameObjectWithTag("Player");
-            _cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
-            _locked = true;
+            this.player = GameObject.FindGameObjectWithTag("Player");
+            this.cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
+            this.locked = true;
 
-            _triggered = false;
+            this.triggered = false;
         }
 
         public void Unlock()
@@ -49,7 +49,7 @@ namespace Finsternis
             if (!collider.enabled)
             {
                 collider.enabled = true;
-                Follow camFollow = _cameraHolder.GetComponent<Follow>();
+                Follow camFollow = this.cameraHolder.GetComponent<Follow>();
                 camFollow.SetTarget(transform);
                 camFollow.OnTargetReached.AddListener(BeginOpen);
             }
@@ -62,22 +62,22 @@ namespace Finsternis
 
         public void Open()
         {
-            Follow camFollow = _cameraHolder.GetComponent<Follow>();
+            Follow camFollow = this.cameraHolder.GetComponent<Follow>();
             camFollow.OnTargetReached.RemoveListener(BeginOpen);
-            camFollow.SetTarget(_player.transform);
+            camFollow.SetTarget(this.player.transform);
         }
 
         protected override void OnTriggerExit(Collider other)
         {
-            if (_triggered)
+            if (this.triggered)
                 return;
 
             base.OnTriggerExit(other);
-            if (ObjectExited == _player)
+            if (ObjectExited == this.player)
             {
                 if (other.transform.position.y < transform.position.y)
                 {
-                    _triggered = true;
+                    this.triggered = true;
                     collider.enabled = false;
                     if (onExitCrossed)
                         onExitCrossed.Invoke(this);

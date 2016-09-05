@@ -70,8 +70,7 @@ namespace Finsternis
                     break;
                 case CheatCodes.WIN:
                     _currentCodeLetter = 0;
-                    while (GameManager.Instance.GoalReached())
-                        GameManager.Instance.IncreaseDungeonCount();
+                    GameManager.Instance.Win();
                     break;
                 case CheatCodes.NEXT:
                     _currentCodeLetter = 0;

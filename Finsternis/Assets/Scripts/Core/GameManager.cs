@@ -1,11 +1,13 @@
-﻿using MovementEffects;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.SceneManagement;
+    using System;
+    using UnityQuery;
+    using System.Collections;
+
     [AddComponentMenu("Finsternis/Game Manager")]
     public class GameManager : MonoBehaviour
     {
@@ -16,7 +18,7 @@ namespace Finsternis
 
         [SerializeField]
         [Range(1, 99)]
-        private int dungeonsToClear = 9;
+        private int dungeonsToClear = 13;
 
         private int clearedDungeons;
 
@@ -31,21 +33,18 @@ namespace Finsternis
         [SceneSelection]
         public string mainGameName = "DungeonGeneration";
 
+        private bool hasManagerStarted;
+
         public static GameManager Instance { get { return instance; } }
 
         public Entity Player { get { return this.player; } }
 
         public DungeonManager DungeonManager { get { return this.dungeonManager; } }
 
-        public int DungeonCount
+        public int ClearedDungeons
         {
             get { return this.clearedDungeons; }
             set { this.clearedDungeons = Mathf.Max(0, value); }
-        }
-
-        public void IncreaseDungeonCount()
-        {
-            this.clearedDungeons++;
         }
 
         void Awake()
@@ -58,7 +57,7 @@ namespace Finsternis
 
             instance = this;
             DontDestroyOnLoad(gameObject);
-            this.clearedDungeons = -1;
+            this.clearedDungeons = 0;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
 #if !UNITY_EDITOR
@@ -90,7 +89,11 @@ namespace Finsternis
 
         private void Init()
         {
+            if (this.player)
+                return;
             SearchPlayer();
+            this.clearedDungeons = 0;
+            this.dungeonsToClear = UnityEngine.Random.Range(1, 99);
             this.fallDeathZone = GameObject.Find("FallDeathZone");
             this.dungeonManager = FindObjectOfType<DungeonManager>();
             if (this.dungeonManager)
@@ -115,7 +118,7 @@ namespace Finsternis
             if (this.player)
             {
                 this.player.GetAttribute("hp").onValueChanged.AddListener(
-                    (attribute) => { if (attribute.Value <= 0) Timing.RunCoroutine(_GameOver()); });
+                    (attribute) => { if (attribute.Value <= 0) StartCoroutine(_GameOver()); });
             }
             else
             {
@@ -137,9 +140,9 @@ namespace Finsternis
             return this.clearedDungeons >= this.dungeonsToClear;
         }
 
-        public IEnumerator<float> _GameOver()
+        public IEnumerator _GameOver()
         {
-            yield return Timing.WaitForSeconds(2);
+            yield return Yields.Seconds(2);
             LoadScene("GameOver");
         }
 
@@ -150,7 +153,7 @@ namespace Finsternis
             {
                 EntityAttribute hp = e.GetAttribute("hp");
                 if (hp)
-                    hp.SetValue(0);
+                    hp.SetBaseValue(0);
 
                 e.Kill();
                 return;
@@ -168,7 +171,17 @@ namespace Finsternis
 
             this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
             this.player.transform.forward = -Vector3.forward;
-            Timing.CallDelayed(1, this.dungeonManager.CreateDungeon);
+            clearedDungeons++;
+            if (!GoalReached())
+                StartCoroutine(CallDelayed(1, this.dungeonManager.CreateDungeon));
+            else
+                Win();
+        }
+
+        private IEnumerator CallDelayed(float delay, Action a)
+        {
+            yield return Yields.Seconds(delay);
+            a();
         }
 
         private void BeginNewLevel(Dungeon dungeon)
@@ -179,14 +192,23 @@ namespace Finsternis
             GameObject cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
             Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2);
-            pos.y = 30;
+            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2).WithY(3);
 
             this.player.transform.position = pos;
 
             cameraHolder.transform.position = this.player.transform.position - currOffset;
 
             this.fallDeathZone.GetComponent<Collider>().enabled = true;
+        }
+
+        internal void NewGame()
+        {
+            LoadScene("DungeonGeneration");
+        }
+
+        public void Win()
+        {
+            NewGame();
         }
     }
 }

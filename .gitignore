@@ -57,3 +57,7 @@ sysinfo.txt
 /Finsternis/Assets/Plugins/JSON/readme.txt.meta
 /Finsternis/.vs/config/applicationhost.config
 /Finsternis/Build
+/Finsternis/Library/metadata
+/Finsternis/Library/ScriptAssemblies
+/Finsternis/Library/ShaderCache
+/Finsternis/Library/UnityAssemblies

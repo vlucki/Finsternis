@@ -1,57 +1,87 @@
-﻿using UnityEngine;
-using System;
-using UnityEngine.Events;
-
-[DisallowMultipleComponent]
-public class Entity : MonoBehaviour
+﻿namespace Finsternis
 {
-    public UnityEvent onInteraction;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using System.Collections.Generic;
+    using System;
+    using UnityQuery;
 
-    public EntityAction lastInteraction;
-
-    public EntityAttribute test;
-
-    [SerializeField]
-    protected bool interactable = true;
-
-    protected T CheckAttribute<T>(T attribute, string name) where T : EntityAttribute
+    [SelectionBase]
+    [DisallowMultipleComponent]
+    public abstract class Entity : MonoBehaviour, IInteractable
     {
-        if (!attribute)
-            attribute = (T)(GetAttribute(name));
-        if (!attribute)
+        public UnityEvent onInteraction;
+
+        public EntityAction lastInteraction;
+
+        [SerializeField]
+        protected bool interactable = true;
+
+        [SerializeField]
+        protected List<EntityAttribute> attributes;
+
+        [Serializable]
+        public class AttributeInitializedEvent : UnityEvent<EntityAttribute> {
+            public static implicit operator bool(AttributeInitializedEvent evt)
+            { return evt != null; }
+        }
+        public AttributeInitializedEvent onAttributeInitialized;
+
+        public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
+
+        protected virtual void Awake()
         {
-            attribute = gameObject.AddComponent<T>();
-            attribute.Alias = name;
+            for (int i = 0; i < attributes.Count; i++)
+                InitializeAttribute(i);
         }
 
-        if (!attribute)
-            throw new NullReferenceException("Could not load attribute " + name + "\nMaybe it was not set in the inspector?");
+        protected virtual void InitializeAttribute(int attributeIndex)
+        {
 
-        return attribute;
-    }
+            var attribute = Instantiate(attributes[attributeIndex]);
+            attribute.name = attributes[attributeIndex].name; //remove the annoying (Clone) that Unity appends to the name
+            attribute.SetOwner(this);
+            if (onAttributeInitialized)
+                onAttributeInitialized.Invoke(attribute);
 
-    public EntityAttribute GetAttribute(string name)
-    {
-        EntityAttribute[] attributes = GetComponents<EntityAttribute>();
-        foreach (EntityAttribute attribute in attributes)
-            if (attribute.Alias.Equals(name))
-                return attribute;
-        return null;
-    }
+            attributes[attributeIndex] = attribute;
+        }
 
-    public virtual void Interact(EntityAction action)
-    {
-        lastInteraction = action;
-        if(onInteraction != null)
-            onInteraction.Invoke();
-    }
+        public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
+        {
+            EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
+            if (!attribute && createIfNotFound)
+            {
+                attribute = ScriptableObject.CreateInstance<EntityAttribute>();
+                attribute.Alias = alias;
+            }
 
-    public virtual void AtributeUpdated(EntityAttribute attribute)
-    {
-    }
+            return attribute;
+        }
 
-    public void Kill()
-    {
-        Destroy(gameObject);
+        public void AddAttribute(EntityAttribute attribute)
+        {
+            if (!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
+            {
+                attributes.Add(attribute);
+                attribute.SetOwner(this);
+            }
+        }
+
+        /// <summary>
+        /// Interface to allow for interactions between entities
+        /// </summary>
+        /// <param name="action">The type of interaction that should take place (eg. Attack).</param>
+        public virtual void Interact(EntityAction action)
+        {
+            lastInteraction = action;
+            if (onInteraction != null)
+                onInteraction.Invoke();
+        }
+
+        public void Kill()
+        {
+            Destroy(gameObject);
+        }
     }
 }

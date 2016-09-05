@@ -1,160 +1,93 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-namespace Finsternis
+﻿namespace Finsternis
 {
-    [RequireComponent(typeof(Canvas), typeof(CanvasGroup), typeof(Selectable))]
-    [RequireComponent(typeof(Follow))]
-    public class MenuController : MonoBehaviour
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityEngine.EventSystems;
+
+    [RequireComponent(typeof(CanvasGroup))]
+    public abstract class MenuController : ExtendedBehaviour
     {
-        [SerializeField]
-        private GameManager gameManager;
-
-        [SerializeField]
-        private Canvas canvas;
-
-        [SerializeField]
-        private GameObject optionsContainer;
-
-        [SerializeField]
-        private Follow followBehaviour;
-
-        private Button[] options;
-
-        private Selectable selectable;
-
-        private bool isToggleButtonDown;
-
-        float targetAlpha = 0;
-        [SerializeField]
-        [Range(0, 1)]
-        float fadeSpeed = 0.2f;
-
-        private CanvasGroup group;
-
-        public bool Active
+        private EventSystem evtSystem;
+        protected EventSystem EvtSystem
         {
-            get { return this.canvas.enabled; }
-            set
+            get
             {
-                this.canvas.enabled = value;
-                this.followBehaviour.enabled = value;
-                this.optionsContainer.SetActive(value);
+                if(!this.evtSystem)
+                    this.evtSystem = FindObjectOfType<EventSystem>();
+                return this.evtSystem;
+            }
+        }
+        [Header("Transition events")]
+        [Space]
+        public UnityEvent OnBeganOpening;
+        public UnityEvent OnBeganClosing;
+
+        public UnityEvent OnOpen;
+        public UnityEvent OnClose;
+
+        private UnityEvent onFinishedToggling;
+
+        protected UnityEvent OnFinishedToggling
+        {
+            get
+            {
+                if (onFinishedToggling == null)
+                    onFinishedToggling = new UnityEvent();
+                return onFinishedToggling;
             }
         }
 
-        void Awake()
-        {
-            if (!this.gameManager)
-                this.gameManager = GameManager.Instance;
+        private CanvasGroup canvasGroup;
 
-            if (!this.canvas)
-                this.canvas = GetComponent<Canvas>();
-
-            if (!this.selectable)
-                this.selectable = GetComponent<Selectable>();
-
-            if (!this.group)
-                this.group = GetComponent<CanvasGroup>();
-
-            this.group.alpha = 0;
-
-            if (!this.optionsContainer)
-            {
-                foreach (Transform t in transform)
-                {
-                    if (t.name.Equals("OptionsContainer"))
-                    {
-                        this.optionsContainer = t.gameObject;
-                        break;
-                    }
-                }
+        protected CanvasGroup CanvasGroup {
+            get {
+                if(!this.canvasGroup)
+                    this.canvasGroup = GetComponent<CanvasGroup>();
+                return this.canvasGroup;
             }
-
-            if (!this.followBehaviour)
-                this.followBehaviour = GetComponent<Follow>();
-
-            if (this.options == null)
-                this.options = this.optionsContainer.GetComponentsInChildren<Button>();
         }
+        
+        public bool IsOpen { get; private set; }
 
-        void Start()
+        public virtual void Toggle()
         {
-            Active = false;
-        }
-
-        void Update()
-        {
-            if (Input.GetAxis("Cancel") > 0)
-            {
-                if (!this.isToggleButtonDown)
-                {
-                    ToggleMenu();
-                    this.isToggleButtonDown = true;
-                }
-            }
-            else if (this.isToggleButtonDown)
-            {
-                this.isToggleButtonDown = false;
-            }
-
-            if (!Mathf.Approximately(this.group.alpha, this.targetAlpha))
-                this.group.alpha = Mathf.Lerp(this.group.alpha, this.targetAlpha, fadeSpeed);
-
-            if (Active && this.group.alpha < 0.1f)
-                Active = false;
-        }
-
-        public void ToggleMenu()
-        {
-            if (!Active)
-                Show();
+            if (!IsOpen)
+                BeginOpening();
             else
-                Hide();
+                BeginClosing();
         }
 
-        public void Show()
+        /// <summary>
+        /// Opens the menu
+        /// </summary>
+        public virtual void BeginOpening()
         {
-            Active = true;
-            this.followBehaviour.ResetOffset();
-            this.targetAlpha = 1;
-            this.followBehaviour.Target.GetComponent<CharController>().Lock();
-
-            this.selectable.Select();
-            this.options[0].Select();
-
-            this.transform.position = this.followBehaviour.Target.transform.position + 2 * this.followBehaviour.offset;
+            gameObject.SetActive(true);
+            this.OnBeganOpening.Invoke();
         }
 
-        public void Hide(bool usedToggleButton = false)
+        /// <summary>
+        /// Closes the menu
+        /// </summary>
+        public virtual void BeginClosing()
         {
-            this.isToggleButtonDown = usedToggleButton;
-            this.targetAlpha = 0;
-            this.followBehaviour.Target.GetComponent<CharController>().UnlockWithDelay(0.3f);
-            this.followBehaviour.offset.x *= -1;
+            this.OnBeganClosing.Invoke();
+            this.CanvasGroup.interactable = false;
         }
 
-        public void MainMenu(bool askForConfirmation = true)
+        public virtual void Open()
         {
-            if (askForConfirmation)
-            {
-                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", MainMenu, false, this.options[2].Select);
-            }
-            else
-            {
-                this.gameManager.LoadScene("MainMenu");
-            }
+            this.CanvasGroup.interactable = true;
+            IsOpen = true;
+            OnOpen.Invoke();
         }
 
-        public void Exit(bool askForConfirmation = true)
+        public virtual void Close()
         {
-            if (askForConfirmation)
-            {
-                ConfirmationDialogController.Show("Are you sure you wish to quit the game?", Exit, false, this.options[3].Select);
-            }
-            else
-            {
-                this.gameManager.Exit();
-            }
+            IsOpen = false;
+            OnClose.Invoke();
+            gameObject.SetActive(false);
         }
     }
 }

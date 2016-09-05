@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
+  m_Name: Health
+  m_EditorClassIdentifier: 
+  alias: hp
+  constraints: 3
+  baseValue: 10
+  min: 0
+  max: 10
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  modifiers: []

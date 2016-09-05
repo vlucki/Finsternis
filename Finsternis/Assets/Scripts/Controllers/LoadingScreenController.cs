@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using MovementEffects;
+
 
 public class LoadingScreenController : MonoBehaviour {
 
@@ -15,7 +15,7 @@ public class LoadingScreenController : MonoBehaviour {
 
 	void Start () {
         if(!string.IsNullOrEmpty(sceneToLoad))
-           Timing.RunCoroutine(_Load(SceneManager.LoadSceneAsync(sceneToLoad)));     
+           StartCoroutine(_Load(SceneManager.LoadSceneAsync(sceneToLoad)));     
 	}
 
     private IEnumerator<float> _Load(AsyncOperation loadScene)

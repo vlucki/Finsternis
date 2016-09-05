@@ -1,7 +1,8 @@
-﻿using MovementEffects;
-using System.Collections.Generic;
+﻿
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -31,9 +32,6 @@ namespace Finsternis
         private float timeDisabled;
         private bool equipped;
 
-        private IEnumerator<float> castingHandle;
-        private IEnumerator<float> cooldownHandle;
-
         public bool CoolingDown { get; private set; }
         public bool LockDuringCast { get { return lockDuringCast; } }
         public bool Equipped { get { return this.equipped; } }
@@ -46,7 +44,7 @@ namespace Finsternis
         public virtual void Use()
         {
             lastUsed = Time.timeSinceLevelLoad;
-            this.castingHandle = Timing.RunCoroutine(_BeginCasting());
+            StartCoroutine(_BeginCasting());
             if (onUse != null)
                 onUse.Invoke();
         }
@@ -56,14 +54,14 @@ namespace Finsternis
             return !CoolingDown;
         }
 
-        private IEnumerator<float> _BeginCasting()
+        private IEnumerator _BeginCasting()
         {
 
             if (castTime > 0)
             {
                 if (lockDuringCast)
                     user.Lock(castTime);
-                yield return Timing.WaitForSeconds(castTime);
+                yield return Yields.Seconds(castTime);
             }
 
             CastSkill();
@@ -72,10 +70,10 @@ namespace Finsternis
         protected virtual void CastSkill()
         {
             if (cooldownTime > 0)
-                this.cooldownHandle = Timing.RunCoroutine(_Cooldown());
+                StartCoroutine(_Cooldown());
         }
 
-        private IEnumerator<float> _Cooldown()
+        private IEnumerator _Cooldown()
         {
             CoolingDown = true;
 
@@ -99,8 +97,7 @@ namespace Finsternis
 
         protected virtual void OnDisable()
         {
-            Timing.KillCoroutines(this.castingHandle);
-            Timing.KillCoroutines(this.cooldownHandle);
+            StopAllCoroutines();
             timeDisabled = Time.timeSinceLevelLoad;
         }
 
@@ -108,7 +105,7 @@ namespace Finsternis
         {
             lastUsed -= (Time.timeSinceLevelLoad - timeDisabled);
             if (CoolingDown)
-                Timing.RunCoroutine(_Cooldown());
+                StartCoroutine(_Cooldown());
         }
     }
 }

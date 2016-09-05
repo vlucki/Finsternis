@@ -16,5 +16,4 @@ MonoBehaviour:
   thresholdType: 17
   thresholdValue: 0
   repeatDelay: 0
-  constantValue: 0
   valueMultiplier: 3

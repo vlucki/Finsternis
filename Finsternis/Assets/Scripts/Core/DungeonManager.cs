@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-using System.Collections.Generic;
-using MovementEffects;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using System.Collections;
+    using System;
+    using System.Collections.Generic;
+
+    using UnityQuery;
+
     [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
     public class DungeonManager : MonoBehaviour
     {
@@ -32,7 +33,7 @@ namespace Finsternis
             }
             _dFactory.onGenerationEnd.AddListener((dungeon) =>
             {
-                GameManager.Instance.DungeonCount++;
+                GameManager.Instance.ClearedDungeons++;
                 _currentDungeon = dungeon;
 
                 dungeon.OnGoalCleared.AddListener(() =>
@@ -51,14 +52,7 @@ namespace Finsternis
             Dungeon d = CurrentDungeon;
             if (d)
             {
-#if UNITY_EDITOR
-                if (!UnityEditor.EditorApplication.isPlaying)
-                    DestroyImmediate(d.gameObject);
-                else
-                    Destroy(d.gameObject);
-#else
-            Destroy(d.gameObject);
-#endif
+                d.gameObject.DestroyNow();
             }
             _dFactory.Generate();
         }

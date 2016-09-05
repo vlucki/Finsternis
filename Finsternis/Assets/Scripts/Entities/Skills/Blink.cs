@@ -40,7 +40,7 @@ namespace Finsternis
             float dist = this.maxBlinkDistance;
             RaycastHit info;
             Vector3 origin = transform.position + this.offset;
-            Vector3 direction = new Vector3(Mathf.Ceil(Input.GetAxis("Horizontal")), transform.position.y, Mathf.Ceil(Input.GetAxis("Vertical")));
+            Vector3 direction = transform.forward;
 
             if (this.collider is CapsuleCollider)
             {

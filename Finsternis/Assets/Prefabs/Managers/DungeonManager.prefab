@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000010139600784}
+  m_IsPrefabParent: 1
+--- !u!1 &1000010139600784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012090428852}
+  - 114: {fileID: 114000010866930958}
+  - 114: {fileID: 114000011967736520}
+  - 114: {fileID: 114000013336403104}
+  m_Layer: 0
+  m_Name: DungeonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012090428852
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010139600784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.2597656, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000010866930958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010139600784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fb4d3878340e947bc9770f30ac57c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dFactory: {fileID: 114000011967736520}
+  _dDrawer: {fileID: 114000013336403104}
+--- !u!114 &114000011967736520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010139600784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ffaef35e643ec4eb743e1f36dc845f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGenerationBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onGenerationEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013336403104}
+        m_MethodName: Draw
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: BeginSpawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  dungeonName: Simple Dungeon
+  dungeonWidth: 50
+  dungeonHeight: 50
+  totalRooms: 50
+  maximumTries: 2
+  maximumRoomWidth: 0
+  maximumRoomHeight: 0
+  minimumBrushWidth: 3
+  minimumBrushHeight: 3
+  maximumBrushWidth: 7
+  maximumBrushHeight: 7
+  minimumCorridorLength: 1
+  maximumCorridorLength: 5
+  allowDeadEnds: 0
+  traps:
+  - {fileID: 11400000, guid: 9fadb522a6f577e499bf9c09998e5224, type: 2}
+  - {fileID: 11400000, guid: 60fea911ad260b94a974ff51719ee04f, type: 2}
+  doors:
+  - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
+  - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
+--- !u!114 &114000013336403104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010139600784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3955da5f93e554b45b11a5875465b656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeon: {fileID: 0}
+  cellScale: {x: 2, y: 1, z: 2}
+  extraWallHeight: 3
+  defaultWallMaterial: {fileID: 2100000, guid: e9ce62b9ccf5dbe4ea8ee91197bbb2d4, type: 2}
+  defaultWallPhysicMaterial: {fileID: 13400000, guid: 81fbc45ea39fd2c488a0dcab688d127e,
+    type: 2}
+  defaultFloorMaterial: {fileID: 2100000, guid: a25fb5e44fcb7ed43bf1a94ec58bb62e,
+    type: 2}
+  defaultFloorPhysicMaterial: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44,
+    type: 2}
+  corridorMaterial: {fileID: 2100000, guid: d1d5441484a060e49bb3419c4d6f6d12, type: 2}
+  walls: []
+  floorTiles: []
+  exits:
+  - {fileID: 192690, guid: def4ae95ec8083e40875473ef25091bb, type: 2}
+  - {fileID: 101834, guid: ec37950c69a0fdb4a865b59ffde99ca2, type: 2}
+  onDrawBegin:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onDrawEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

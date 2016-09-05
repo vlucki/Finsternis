@@ -71,14 +71,7 @@ namespace UnityQuery
             {
                 // Hide immediately.
                 child.SetActive(false);
-#if UNITY_EDITOR
-                if (!UnityEditor.EditorApplication.isPlaying)
-                    Object.DestroyImmediate(child);
-                else
-                    Object.Destroy(child);
-#else
-                Object.Destroy(child);
-#endif
+                child.DestroyNow();
             }
         }
 
