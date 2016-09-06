@@ -19,7 +19,7 @@ namespace UnityQuery
             else
                 Object.Destroy(obj);
 #else
-                Object.Destroy(child);
+                Object.Destroy(obj);
 #endif
         }
 

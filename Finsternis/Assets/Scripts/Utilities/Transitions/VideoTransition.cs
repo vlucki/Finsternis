@@ -10,7 +10,7 @@
         private AudioSource audioIntro;
         private MovieTexture movie;
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
 
             Renderer VideoIntro = GetComponent<Renderer>();
@@ -31,7 +31,6 @@
                     audioIntro.Stop();
                 }
             });
-            base.Awake();
         }
 
         private IEnumerator _PlayVideo()

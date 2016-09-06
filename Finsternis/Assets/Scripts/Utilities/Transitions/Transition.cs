@@ -15,9 +15,10 @@
             { return evt != null; }
         }
 
-        public bool skippable = true;
-
-        public bool beginOnAwake = false;
+        [SerializeField]
+        protected bool skippable = true;
+        [SerializeField]
+        protected bool beginOnStart = false;
 
         [Range(0, 5)]
         public float waitBeforeStart = 0f;
@@ -31,9 +32,9 @@
 
         public bool Transitioning { get { return this.transitioning; } }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
-            if (beginOnAwake)
+            if (beginOnStart)
                 Begin();
         }
 

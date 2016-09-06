@@ -13,7 +13,8 @@ namespace Finsternis
             DIE = 1,
             WIN = 2,
             NEXT = 3,
-            KILL = 4
+            KILL = 4,
+            CARD = 5
         }
 
         private KeyCode[][] _cheatCodes;
@@ -33,7 +34,8 @@ namespace Finsternis
                 new KeyCode[] { KeyCode.D, KeyCode.I, KeyCode.E },
                 new KeyCode[] { KeyCode.W, KeyCode.I, KeyCode.N },
                 new KeyCode[] { KeyCode.N, KeyCode.E, KeyCode.X, KeyCode.T },
-                new KeyCode[] { KeyCode.K, KeyCode.I, KeyCode.L, KeyCode.L }
+                new KeyCode[] { KeyCode.K, KeyCode.I, KeyCode.L, KeyCode.L },
+                new KeyCode[] { KeyCode.C, KeyCode.A, KeyCode.R, KeyCode.D }
             };
         }
 
@@ -50,40 +52,31 @@ namespace Finsternis
             switch (_currentCode)
             {
                 case CheatCodes.EXIT:
-                    _currentCodeLetter = 0;
                     foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
-                    {
-                        try
-                        {
-                            obj.GetComponent<Exit>().Unlock();
-                        }
-                        catch (NullReferenceException ex)
-                        {
-                            Debug.LogError(obj);
-                            throw ex;
-                        }
-                    }
+                        obj.GetComponent<Exit>().Unlock();
                     break;
                 case CheatCodes.DIE:
-                    _currentCodeLetter = 0;
                     GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
                     break;
                 case CheatCodes.WIN:
-                    _currentCodeLetter = 0;
                     GameManager.Instance.Win();
                     break;
                 case CheatCodes.NEXT:
-                    _currentCodeLetter = 0;
                     GameManager.Instance.DungeonManager.CreateDungeon();
                     break;
                 case CheatCodes.KILL:
-                    _currentCodeLetter = 0;
                     foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
                     {
                         GameManager.Instance.Kill(e);
                     }
                     break;
+                case CheatCodes.CARD:
+                    GameObject.FindObjectOfType<CardsManager>().GivePlayerCard(1);
+                    break;
+                default:
+                    return;
             }
+            _currentCodeLetter = 0;
         }
 
         private void CheckCommands()

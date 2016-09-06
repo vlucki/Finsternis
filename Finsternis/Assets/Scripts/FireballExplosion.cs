@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -16,6 +17,12 @@ namespace Finsternis
             if (dist <= 0)
                 dist = 1;
             cam.GetComponent<CameraController>().Shake(0.75f, 4, 20 / dist, 20);
+        }
+
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateExit(animator, stateInfo, layerIndex);
+            animator.gameObject.DestroyNow();
         }
     }
 }

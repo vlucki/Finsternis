@@ -1,0 +1,367 @@
+fileFormatVersion: 2
+guid: 17db4b9d26b0f5348810db109d5ad205
+timeCreated: 1473162333
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: logo_immerspiel_frames_0
+    21300002: logo_immerspiel_frames_1
+    21300004: logo_immerspiel_frames_2
+    21300006: logo_immerspiel_frames_3
+    21300008: logo_immerspiel_frames_4
+    21300010: logo_immerspiel_frames_5
+    21300012: logo_immerspiel_frames_6
+    21300014: logo_immerspiel_frames_7
+    21300016: logo_immerspiel_frames_8
+    21300018: logo_immerspiel_frames_9
+    21300020: logo_immerspiel_frames_10
+    21300022: logo_immerspiel_frames_11
+    21300024: logo_immerspiel_frames_12
+    21300026: logo_immerspiel_frames_13
+    21300028: logo_immerspiel_frames_14
+    21300030: logo_immerspiel_frames_15
+    21300032: logo_immerspiel_frames_16
+    21300034: logo_immerspiel_frames_17
+    21300036: logo_immerspiel_frames_18
+    21300038: logo_immerspiel_frames_19
+    21300040: logo_immerspiel_frames_20
+    21300042: logo_immerspiel_frames_21
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 4096
+  textureSettings:
+    filterMode: 2
+    aniso: -1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 3521
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_1
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 3521
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_2
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 3521
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_3
+      rect:
+        serializedVersion: 2
+        x: 3073
+        y: 3521
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2945
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_5
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 2945
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_6
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 2945
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_7
+      rect:
+        serializedVersion: 2
+        x: 3073
+        y: 2945
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2369
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_9
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 2369
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_10
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 2369
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_11
+      rect:
+        serializedVersion: 2
+        x: 3073
+        y: 2369
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_12
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1793
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_13
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1793
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_14
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 1793
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_15
+      rect:
+        serializedVersion: 2
+        x: 3073
+        y: 1793
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_16
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1217
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_17
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 1217
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_18
+      rect:
+        serializedVersion: 2
+        x: 2049
+        y: 1217
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_19
+      rect:
+        serializedVersion: 2
+        x: 3073
+        y: 1217
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 641
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: logo_immerspiel_frames_21
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 641
+        width: 1022
+        height: 574
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
