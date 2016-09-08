@@ -40,7 +40,10 @@
 
         public void Begin()
         {
-            StartCoroutine(_Begin());
+            if (isActiveAndEnabled)
+                StartCoroutine(_Begin());
+            else
+                Log.Error(this, "Cannot start transition with innactive game object!");
         }
 
         public void End()
@@ -77,6 +80,11 @@
                 this.transitioning = false;
                 OnTransitionEnded.Invoke(this);
             }
+        }
+
+        protected virtual void OnDisable()
+        {
+            this.transitioning = false;
         }
 
     }

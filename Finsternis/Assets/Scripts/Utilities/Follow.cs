@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityQuery;
 
 public class Follow : MonoBehaviour
 {
@@ -90,7 +91,7 @@ public class Follow : MonoBehaviour
         if (!this.target)
             return;
         Vector3 idealPosition = this.target.position + offset;
-        float distance = Vector3.Distance(idealPosition, transform.position);
+        float distance = idealPosition.Distance(transform.position);
 
         if (distance <= this.distanceThreshold)
         {

@@ -54,7 +54,7 @@
             {
                 Vector3 interactionSource = transform.position - lastInteraction.Agent.transform.position;
                 
-                dir = (transform.forward.GetAngle(interactionSource) < 90) ? -1 : 1;
+                dir = (transform.forward.Angle(interactionSource) < 90) ? -1 : 1;
             }
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");

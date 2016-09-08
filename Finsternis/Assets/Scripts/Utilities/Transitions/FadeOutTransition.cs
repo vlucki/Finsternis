@@ -10,6 +10,13 @@
             transitionType = FadeType.FadeOut;
             base.Awake();
         }
-
+#if UNITY_EDITOR
+        protected override void OnValidate()
+        {
+            transitionType = FadeType.FadeOut;
+            base.OnValidate();
+        }
+#endif
     }
+
 }

@@ -9,11 +9,12 @@
     {
         private Animator animator;
 
+        [SerializeField][ReadOnly]
         protected string trigger;
 
         [SerializeField]
         [Range(0.1f, 10f)]
-        private float duration = 1f;
+        protected float duration = 1f;
 
         protected virtual void Awake()
         {
@@ -30,7 +31,8 @@
                     animator.speed = 1 / duration;
                     if(!trigger.IsNullOrEmpty())
                         animator.SetTrigger(trigger);
-                    StartCoroutine(WaitForAnimation(duration));
+                    if(isActiveAndEnabled)
+                        StartCoroutine(WaitForAnimation(duration));
                 }
             );
         }
@@ -38,7 +40,7 @@
         private IEnumerator WaitForAnimation(float duration)
         {
             float elapsed = 0;
-            while(Transitioning && elapsed < duration)
+            while(Transitioning && elapsed <= duration)
             {
                 yield return Yields.Frame();
                 elapsed += Time.deltaTime;

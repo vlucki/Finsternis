@@ -45,7 +45,7 @@
         {
             try
             {
-                pupil = transform.FindDescendent("Pupil").gameObject;
+                pupil = transform.FindDescendant("Pupil").gameObject;
             }
             catch (NullReferenceException ex)
             {

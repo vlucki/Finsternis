@@ -54,7 +54,7 @@ public class CameraController : MonoBehaviour
             0.25f,
             transform.position - target,
             out hit,
-            Vector3.Distance(transform.position, target),
+            transform.position.Distance(target),
             (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.NameToLayer("Invisible")),
             QueryTriggerInteraction.Ignore))
         {

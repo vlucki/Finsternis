@@ -20,11 +20,18 @@ namespace Finsternis
         protected override void Awake()
         {
             this.canvasGroup = GetComponent<CanvasGroup>();
+            trigger = transitionType.ToString();
+            base.Awake();
 
             if (presetAlpha)
                 this.canvasGroup.alpha = (int)transitionType;
-            trigger = transitionType.ToString();
-            base.Awake();
         }
+
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            trigger = transitionType.ToString();
+        }
+#endif
     }
 }

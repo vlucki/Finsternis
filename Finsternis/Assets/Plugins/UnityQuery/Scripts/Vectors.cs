@@ -12,14 +12,46 @@ namespace UnityQuery
 
     public static class Vectors
     {
-        public static float GetAngle(this Vector2 v, Vector3 other)
+        public static float Angle(this Vector2 v, Vector3 other)
         {
             return Vector2.Angle(v, other);
         }
 
-        public static float GetAngle(this Vector3 v, Vector3 other)
+        public static float Angle(this Vector3 v, Vector3 other)
         {
             return Vector3.Angle(v, other);
+        }
+
+        /// <summary>
+        /// Calculates the direction between two Vector2.
+        /// </summary>
+        /// <param name="v">Starting point.</param>
+        /// <param name="other">Target.</param>
+        /// <returns>Normalized vector from v to other.</returns>
+        public static Vector2 Towards(this Vector2 v, Vector2 other)
+        {
+            return (other - v).normalized;
+        }
+
+        /// <summary>
+        /// Calculates the direction between two Vector3.
+        /// </summary>
+        /// <param name="v">Starting point.</param>
+        /// <param name="other">Target.</param>
+        /// <returns>Normalized vector from v to other.</returns>
+        public static Vector3 Towards(this Vector3 v, Vector3 other)
+        {
+            return (other - v).normalized;
+        }
+
+        public static float Distance(this Vector2 v, Vector2 other)
+        {
+            return Vector2.Distance(v, other);
+        }
+
+        public static float Distance(this Vector3 v, Vector3 other)
+        {
+            return Vector3.Distance(v, other);
         }
 
         /// <summary>

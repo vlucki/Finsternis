@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityQuery;
 using Random = UnityEngine.Random;
 
 namespace Finsternis
@@ -34,7 +35,7 @@ namespace Finsternis
         private float timeSinceLastSawTarget = 0;
         private float timeSinceLastWander = 0;
 
-        private Vector3 _targetLocation;
+        private Vector3 targetLocation;
 
         private bool hasTarget;
         public GameObject ragdoll;
@@ -77,7 +78,7 @@ namespace Finsternis
                                 Attack();
                             }
                         }
-                        else if (hasTarget && transform.position != _targetLocation - GetOffset(_targetLocation))
+                        else if (hasTarget && transform.position != targetLocation - GetOffset(targetLocation))
                         {
                             SetDirection((target.transform.position - transform.position).normalized);
                         }
@@ -142,13 +143,13 @@ namespace Finsternis
 
         private bool CheckRange()
         {
-            return Vector3.Distance(_targetLocation, transform.position) <= reach;
+            return this.targetLocation.Distance(transform.position) <= this.reach;
         }
 
         private bool LookForTarget()
         {
             bool canSeeTarget = false;
-            if (!target)
+            if (!this.target)
                 return false;
 
             if (!ignoreWalls)
@@ -156,22 +157,19 @@ namespace Finsternis
                 RaycastHit hit;
                 if (Physics.Raycast(
                     transform.position + Vector3.up,
-                    target.transform.position - transform.position,
+                    this.target.transform.position - transform.position,
                     out hit,
                     aggroRange))
                 {
-                    canSeeTarget = target.Equals(hit.collider.gameObject);
-                    if (canSeeTarget)
-                        _targetLocation = target.transform.position;
+                    canSeeTarget = this.target.Equals(hit.collider.gameObject);
                 }
             }
             else
             {
-                canSeeTarget = Vector3.Distance(transform.position, target.transform.position) <= aggroRange;
-                if (canSeeTarget)
-                    _targetLocation = target.transform.position;
+                canSeeTarget = transform.position.Distance(target.transform.position) <= aggroRange;
             }
-
+            if (canSeeTarget)
+                this.targetLocation = target.transform.position;
             return canSeeTarget;
         }
 
