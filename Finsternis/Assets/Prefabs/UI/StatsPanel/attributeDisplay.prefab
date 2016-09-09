@@ -21,7 +21,7 @@ GameObject:
   - 224: {fileID: 224000013049613198}
   - 114: {fileID: 114000013693910068}
   m_Layer: 5
-  m_Name: attributeRow
+  m_Name: attributeDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

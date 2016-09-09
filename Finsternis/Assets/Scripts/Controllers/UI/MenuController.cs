@@ -50,7 +50,7 @@
         
         public bool IsOpen { get; private set; }
 
-        public virtual void Toggle()
+        public void Toggle()
         {
             if (!IsOpen)
                 BeginOpening();

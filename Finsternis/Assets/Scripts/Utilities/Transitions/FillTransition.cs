@@ -30,14 +30,22 @@
         private IEnumerator _DoFill()
         {
             int target = (int)transitionType;
-            while(Transitioning && Mathf.Abs(image.fillAmount - target) >= 0.05f)
+
+            while(Transitioning && Mathf.Abs(this.image.fillAmount - target) >= 0.05f)
             {
-                image.fillAmount = Mathf.Lerp(image.fillAmount, target, interpolationAmount);
+                this.image.fillAmount = Mathf.Lerp(this.image.fillAmount, target, this.interpolationAmount);
                 yield return null;
             }
 
-            image.fillAmount = target;
+            this.image.fillAmount = target;
             End();
+        }
+
+        protected override void OnDisable()
+        {
+            image.fillAmount = (int)transitionType;
+
+            base.OnDisable();
         }
     }
 }

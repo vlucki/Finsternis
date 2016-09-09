@@ -55,7 +55,7 @@ public class InputRouter : MonoBehaviour
                 Log.Warn(control, "Null control found. Did you forget to set something in the inspector?");
                 return false;
             }
-            if (!control.Enabled || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))
+            if (!control.IsEnabled() || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))
                 return false;
 
             float value = control.AxisValue;
@@ -89,7 +89,12 @@ public class InputRouter : MonoBehaviour
 
         internal void SetControlState(string axis, bool enabled)
         {
-            System.Array.ForEach(controls, (control) => { if (control.Axis.Equals(axis)) control.Enabled = enabled; });
+            System.Array.ForEach(controls, (control) => {
+                if (control.Axis.Equals(axis))
+                {
+                    if (!(enabled && control.IsEnabled())) control.Toggle(); //if the control stat does not match the desired one, toggle it
+                }
+            });
         }
     }
 

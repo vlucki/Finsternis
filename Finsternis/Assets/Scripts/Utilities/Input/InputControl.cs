@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "InputControl", menuName = "Finsternis/Input/Input", order = 1)]
 public class InputControl : ScriptableObject
@@ -16,7 +17,7 @@ public class InputControl : ScriptableObject
     [AxesName][SerializeField]
     private string axis;
 
-    [SerializeField]
+    [NonSerialized]
     private bool enabled = true;
 
     [SerializeField]
@@ -34,12 +35,6 @@ public class InputControl : ScriptableObject
     {
         get { return this.axis; }
         set { this.axis = value; }
-    }
-
-    public bool Enabled
-    {
-        get { return this.enabled; }
-        set { this.enabled = value; }
     }
 
     public ThresholdTypeEnum ThresholdType
@@ -60,12 +55,19 @@ public class InputControl : ScriptableObject
         set { this.repeatDelay = value; }
     }
 
+    /// <summary>
+    /// Value of this control. By default, it will be the same as the AxisValue.
+    /// </summary>
     public virtual float Value
     {
         get { return AxisValue; }
     }
 
+    /// <summary>
+    /// Unmodified value from the axis.
+    /// </summary>
     public float AxisValue { get { return Input.GetAxis(Axis); } }
+
     /// <summary>
     /// Returns false if the axis value is 0, true otherwise.
     /// </summary>
@@ -86,6 +88,14 @@ public class InputControl : ScriptableObject
             return 0;
         }
     }
+
+    public bool IsEnabled() { return this.enabled; }
+
+    public void Enable() { this.enabled = true; }
+
+    public void Disable() { this.enabled = false; }
+
+    public void Toggle() { this.enabled = !this.enabled; }
 
 #if UNITY_EDITOR
 

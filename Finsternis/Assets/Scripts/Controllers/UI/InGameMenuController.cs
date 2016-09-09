@@ -86,13 +86,6 @@ namespace Finsternis
             }
         }
 
-        public override void Toggle()
-        {
-            if (transitioning)
-                return;
-            base.Toggle();
-        }
-
         /// <summary>
         /// Sets up everything in order for the menu to open (animations, effects, callbacks)
         /// </summary>

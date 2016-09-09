@@ -48,7 +48,8 @@
 
         public void End()
         {
-            StartCoroutine(_End());
+            if(isActiveAndEnabled)
+                StartCoroutine(_End());
         }
 
         private IEnumerator _Begin()

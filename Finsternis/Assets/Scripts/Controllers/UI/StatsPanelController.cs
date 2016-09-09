@@ -1,15 +1,13 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
-    using System;
     using UnityEngine.UI;
     using UnityQuery;
 
     public class StatsPanelController : MenuController
     {
         [SerializeField]
-        private GameObject rowPrefab;
+        private GameObject displayPrefab;
         private bool initialized = false;
         Entity player;
         protected override void Awake()
@@ -31,31 +29,47 @@
             }
         }
 
+        public override void BeginClosing()
+        {
+            base.BeginClosing();
+        }
+
         public void UpdateAttributes()
         {
             foreach (var attribute in player.Attributes)
                 UpdateAttributeDisplay(attribute);
         }
 
+        /// <summary>
+        /// Updates the display corresponding to an attribute. If not display is found, a new one is created.
+        /// </summary>
+        /// <param name="attribute">The attribute to be displayed.</param>
         private void UpdateAttributeDisplay(EntityAttribute attribute)
         {
             var child = transform.FindDescendant(attribute.Alias);
             if (!child)
             {
-                child = AddRow(attribute);
+                child = AddDisplay(attribute);
             }
             child.GetComponentInChildren<Text>().text = attribute.Value.ToString();
         }
 
-        private Transform AddRow(EntityAttribute attribute)
+        /// <summary>
+        /// Adds a new item to the panel to display an attribute.
+        /// </summary>
+        /// <param name="attribute">The attribute to be displayed.</param>
+        /// <returns>The transform of the component that will display the attribute value.</returns>
+        private Transform AddDisplay(EntityAttribute attribute)
         {
-            GameObject row = (GameObject)Instantiate(rowPrefab, transform);
-            row.name = attribute.Alias + "Row";
-            var attrName = row.transform.FindChild("attributeName");
+            GameObject display = (GameObject)Instantiate(displayPrefab, transform);
+            display.name = attribute.Alias + "Display";
+
+            var attrName = display.transform.FindChild("attributeName");
             attrName.GetComponent<Text>().text = attribute.Alias;
-            var attrValue = row.transform.FindChild("attributeValue");
-            attrValue.name = attribute.Alias;
-            return attrValue;
+
+            var attrValueField = display.transform.FindChild("attributeValue");
+            attrValueField.name = attribute.Alias;
+            return attrValueField;
         }
     }
 }
