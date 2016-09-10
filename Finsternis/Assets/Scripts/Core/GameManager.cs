@@ -142,7 +142,7 @@
 
         public IEnumerator _GameOver()
         {
-            yield return Yields.Seconds(2);
+            yield return Yields.SEC(2);
             LoadScene("GameOver");
         }
 
@@ -180,7 +180,7 @@
 
         private IEnumerator CallDelayed(float delay, Action a)
         {
-            yield return Yields.Seconds(delay);
+            yield return Yields.SEC(delay);
             a();
         }
 

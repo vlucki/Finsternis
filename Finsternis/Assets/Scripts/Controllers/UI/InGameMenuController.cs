@@ -52,7 +52,7 @@ namespace Finsternis
             GetComponentsInChildren<MenuButtonController>(this.options);
 
             if (this.options.Count <= 0)
-                Log.Warn("Not a single option found on the menu.");
+                this.Warn("Not a single option found on the menu.");
 
             else if (this.options.Count > 1)
             {

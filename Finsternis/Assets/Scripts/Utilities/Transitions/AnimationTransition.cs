@@ -42,7 +42,7 @@
             float elapsed = 0;
             while(Transitioning && elapsed <= duration)
             {
-                yield return Yields.Frame();
+                yield return Yields.EoF();
                 elapsed += Time.deltaTime;
             }
 

@@ -8,15 +8,26 @@ namespace UnityQuery
 {
 
     using UnityEngine;
-    using System.Collections;
 
     public static class Vectors
     {
+        /// <summary>
+        /// Calculates the angle between two Vector2.
+        /// </summary>
+        /// <param name="v">Caller of the mwthod.</param>
+        /// <param name="other">Vector to be used in order to obtain the angle.</param>
+        /// <returns>Float representing the angle, in degrees.</returns>
         public static float Angle(this Vector2 v, Vector3 other)
         {
             return Vector2.Angle(v, other);
         }
 
+        /// <summary>
+        /// Calculates the angle between two Vector3.
+        /// </summary>
+        /// <param name="v">Caller of the mwthod.</param>
+        /// <param name="other">Vector to be used in order to obtain the angle.</param>
+        /// <returns>Float representing the angle, in degrees.</returns>
         public static float Angle(this Vector3 v, Vector3 other)
         {
             return Vector3.Angle(v, other);

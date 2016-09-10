@@ -97,7 +97,7 @@ namespace Finsternis
             }
             catch (Exception e)
             {
-                Log.Error("Exception thrown when initializing controller for " + gameObject);
+                this.Error("Exception thrown when initializing controller for ");
                 throw e;
             }
         }
@@ -283,17 +283,17 @@ namespace Finsternis
         {
             if (this.equippedSkills == null)
             {
-                Log.Error("Variable 'equippedSkills' not initialized.");
+                this.Error("Variable 'equippedSkills' not initialized.");
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
-                Log.Error("Invalid skill slot (" + slot + ")");
+                this.Error("Invalid skill slot (" + slot + ")");
                 return false;
             }
             else if(checkForEmptySlot && !this.equippedSkills[slot])
             {
-                Log.Warn("No skill equipped in slot " + slot);
+                this.Warn("No skill equipped in slot " + slot);
                 return false;
             }
             return true;

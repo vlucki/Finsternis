@@ -63,7 +63,7 @@
 
         private IEnumerator _DisableCollider()
         {
-            yield return Yields.Seconds(1);
+            yield return Yields.SEC(1);
             GetComponent<Collider>().enabled = false;
         }
     }

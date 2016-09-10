@@ -12,7 +12,7 @@ namespace UnityQuery
 
     public static class GameObjects
     {
-        #region Public Methods and Operators
+        #region Public Methods and Operators by Nick Prühs
 
         /// <summary>
         ///   Instantiates a new game object and parents it to this one.

@@ -43,7 +43,7 @@
             if (isActiveAndEnabled)
                 StartCoroutine(_Begin());
             else
-                Log.Error(this, "Cannot start transition with innactive game object!");
+                this.Error("Cannot start transition with innactive game object!");
         }
 
         public void End()
@@ -57,7 +57,7 @@
             if (!this.transitioning)
             {
                 if (waitBeforeStart > 0)
-                    yield return Yields.Seconds(waitBeforeStart);
+                    yield return Yields.SEC(waitBeforeStart);
                 this.transitioning = true;
                 OnTransitionStarted.Invoke(this);
             }
@@ -69,7 +69,7 @@
             {
                 this.transitioning = false;
                 if (waitBeforeEnding > 0)
-                    yield return Yields.Seconds(waitBeforeEnding);
+                    yield return Yields.SEC(waitBeforeEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }

@@ -209,7 +209,7 @@ namespace Finsternis
         {
             if  (this.doors == null || this.doors.Length == 0)
             {
-                Log.Warn("No doors found.");
+                this.Warn("No doors found.");
                 return;
             }
 

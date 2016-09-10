@@ -12,11 +12,6 @@ namespace UnityQuery
     {
         #region Public Methods and Operators
 
-        public static void Error(string s)
-        {
-            Debug.LogError(s);
-        }
-
         public static void Error(Object context, string s)
         {
             Debug.LogError(s.ToLogString(context), context);
@@ -35,11 +30,6 @@ namespace UnityQuery
         public static void Info(Object context, string s, params object[] args)
         {
             Debug.LogFormat(context, s.ToLogString(context), args);
-        }
-
-        public static void Warn(string s)
-        {
-            Debug.LogWarning(s);
         }
 
         public static void Warn(Object context, string s)

@@ -109,7 +109,7 @@
             }
             else
             {
-                Log.Error("No game object asigned as pupil");
+                this.Error("No game object asigned as pupil");
             }
         }
 

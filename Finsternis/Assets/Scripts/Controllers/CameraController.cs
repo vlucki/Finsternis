@@ -127,7 +127,7 @@ public class CameraController : MonoBehaviour
         float amplitude = this.shakeAmplitude;
         while (shakeTime > 0)
         {
-            yield return Yields.Seconds(1 / this.shakeFrequency);
+            yield return Yields.SEC(1 / this.shakeFrequency);
             shakeTime -= Time.deltaTime + 1 / this.shakeFrequency;
 
             Vector3 shakeOffset = Random.insideUnitSphere / 10;

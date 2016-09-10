@@ -61,7 +61,7 @@ namespace Finsternis
             {
                 if (lockDuringCast)
                     user.Lock(castTime);
-                yield return Yields.Seconds(castTime);
+                yield return Yields.SEC(castTime);
             }
 
             CastSkill();
