@@ -19,13 +19,14 @@ public class InputRouter : MonoBehaviour
 
         public string name;
 
+        public bool enabled = true;
+
         [Tooltip("If true, will wait for the input to stop firing before triggering again.")]
         public bool toggleOnly = false;
 
         public InputControl[] controls;
 
         public AxisInputEvent onAxisActive;
-
 
         private bool active;
 
@@ -105,16 +106,30 @@ public class InputRouter : MonoBehaviour
     {
         if (this.triggers != null && this.triggers.Length > 0)
         {
-            foreach(var trigger in this.triggers) trigger.Trigger();
+            foreach(var trigger in this.triggers) if(trigger.enabled) trigger.Trigger();
         }
     }
 
-    public void Disable(string axis)
+    public void DisableTrigger(string name)
+    {
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.enabled = false;
+    }
+
+    public void EnableTrigger(string name)
+    {
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.enabled = true;
+    }
+
+    public void DisableAxis(string axis)
     {
         foreach (var trigger in this.triggers) trigger.SetControlState(axis, false);
     }
 
-    public void Enable(string axis)
+    public void EnableAxis(string axis)
     {
         foreach (var trigger in this.triggers) trigger.SetControlState(axis, true);
     }

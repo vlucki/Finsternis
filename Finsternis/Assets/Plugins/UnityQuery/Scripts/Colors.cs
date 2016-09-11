@@ -10,7 +10,7 @@ namespace UnityQuery
 
     public static class Colors
     {
-        #region Public Methods and Operators
+        #region Public Methods and Operators by Nick Prühs
 
         public static Color WithAlpha(this Color c, float newAlpha)
         {
@@ -56,6 +56,24 @@ namespace UnityQuery
             return new Color32(newRed, color.g, color.b, color.a);
         }
 
+        #endregion
+
+        #region Public Methods and Operators by Victor Lucki
+        public static string ToHex(this Color c)
+        {
+            string hexValue = ToHex(c.r * 255)
+                              + ToHex(c.g * 255)
+                              + ToHex(c.b * 255)
+                              + ToHex(c.a * 255);
+
+            return hexValue;
+        }
+
+        static string ToHex(float f)
+        {
+            string hexValue = Mathf.RoundToInt(f * 255).ToString("X2");
+            return hexValue.Substring(0, 2);
+        }
         #endregion
     }
 }

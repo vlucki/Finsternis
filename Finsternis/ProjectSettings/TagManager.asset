@@ -20,6 +20,7 @@ TagManager:
   - Entity
   - Wall
   - Invisible
+  - Props
   - 
   - 
   - 
@@ -38,8 +39,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - locked
   m_SortingLayers:
   - name: Default
     uniqueID: 0

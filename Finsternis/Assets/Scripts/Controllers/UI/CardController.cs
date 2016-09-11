@@ -17,12 +17,17 @@
 
         public Card Card { get { return this.card; } }
 
-        void Awake()
+        void Awake() //don't initialize player on awake because it may have not been spawned yet
         {
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();
             this.cardCostField = transform.FindDescendant("CardCostField").GetComponent<Text>();
             this.attributesNamesField = transform.FindDescendant("AttributesNamesField").GetComponent<Text>();
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
+        }
+
+        void Start()
+        {
+            //LoadCard(CardFactory.MakeCard()); //TEST CODE
         }
 
         private Entity GetPlayer()
@@ -37,8 +42,10 @@
             return this.player;
         }
 
-        void LoadCard(Card c)
+        public void LoadCard(Card c)
         {
+            if (c.Equals(this.card))
+                return;
             this.card = c;
             this.cardNameField.text = c.name;
             this.cardCostField.text = c.Cost.ToString();
@@ -64,7 +71,7 @@
                     float modifiedValue = CalculateModifiedValue(modifier, attr.Value);
                     if(modifiedValue != attr.Value)
                     {
-                        result += "(";
+                        result += " (";
                         result += Colorize(modifiedValue.ToString(), modifiedValue > attr.Value ? Color.green : Color.red);
                         result += ")";
                     }
@@ -76,10 +83,7 @@
 
         private string Colorize(string s, Color c)
         {
-            return "<color=#" + Mathf.RoundToInt(c.r * 255).ToString("X") 
-                              + Mathf.RoundToInt(c.g * 255).ToString("X") 
-                              + Mathf.RoundToInt(c.b * 255).ToString("X") 
-                              + Mathf.RoundToInt(c.a * 255).ToString("X") + ">" + s + "</color>";
+            return "<color=#" + c.ToHex() + ">" + s + "</color>";
         }
 
         private float CalculateModifiedValue(AttributeModifier modifier, float value)

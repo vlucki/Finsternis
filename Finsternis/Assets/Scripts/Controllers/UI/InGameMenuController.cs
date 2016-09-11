@@ -16,11 +16,15 @@ namespace Finsternis
     [DisallowMultipleComponent]
     public class InGameMenuController : MenuController
     {
+        [SerializeField]
+        private ConfirmationDialogController confirmationDialog;
+
         private List<MenuButtonController> options;
         private Circle menuBounds;
         private MenuEyeController eyeController;
         private bool transitioning;
         private float targetPercentage;
+
 
         private MenuButtonController lastSelected;
 
@@ -60,11 +64,11 @@ namespace Finsternis
             }
 
             showNewGameDialog = new UnityAction(() =>
-                ConfirmationDialogController.Show("Start a new game?\n(current progress will be lost)", GameManager.Instance.NewGame, BeginOpening)
+                this.confirmationDialog.Show("Start a new game?\n(current progress will be lost)", GameManager.Instance.NewGame, BeginOpening)
             );
 
             showExitGameDialog = new UnityAction(() =>
-                ConfirmationDialogController.Show("Exit game?", GameManager.Instance.Exit, BeginOpening)
+                this.confirmationDialog.Show("Exit game?", GameManager.Instance.Exit, BeginOpening)
             );
         }
 
@@ -142,7 +146,7 @@ namespace Finsternis
         private void PositionButtons(float percentage = 1)
         {
             float angleBetweenOptions = -360 / options.Count;
-            Vector2 optionPosition = this.menuBounds.center + Vector2.up * this.menuBounds.radius;
+            Vector2 optionPosition = this.menuBounds.center + Vector2.up * this.menuBounds.radius * percentage;
             for (int index = 0; index < options.Count; index++)
             {
                 this.options[index].GetComponent<RectTransform>().anchoredPosition = optionPosition;
@@ -177,6 +181,12 @@ namespace Finsternis
             {
                 GameManager.Instance.Exit();
             }
+        }
+
+        public void CloseAndThenOpen(MenuController menu)
+        {
+            BeginClosing();
+            OnFinishedToggling.AddListener(() => menu.BeginOpening());
         }
     }
 }
