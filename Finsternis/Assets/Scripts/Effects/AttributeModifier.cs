@@ -47,7 +47,7 @@ public class AttributeModifier : Effect
         else if (this.valueChange > 0)
             str += "+"; 
 
-        return str + valueChange;
+        return str + valueChange.ToString("n2");
     }
 
     /// <summary>

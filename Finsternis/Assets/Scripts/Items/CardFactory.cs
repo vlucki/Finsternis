@@ -169,6 +169,11 @@ namespace Finsternis
             CardName name = ScriptableObject.CreateInstance<CardName>();
             name.Init(nameString, type);
             Random = new MTRandom(name.name);
+            if (!nameParameters.GetField("effects"))
+            {
+                Debug.LogWarning("Could not load effects for name: " + nameParameters);
+                return null;
+            }
             AddEffects(name, nameParameters.GetField("effects").list);
             JSONObject prepositions = nameParameters.GetField("prepositions");
             if (prepositions != null)

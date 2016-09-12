@@ -47,6 +47,8 @@
             if (c.Equals(this.card))
                 return;
             this.card = c;
+            this.attributesNamesField.text = "";
+            this.attributesValuesField.text = "";
             this.cardNameField.text = c.name;
             this.cardCostField.text = c.Cost.ToString();
             foreach(var effect in c.GetEffects())
@@ -72,7 +74,7 @@
                     if(modifiedValue != attr.Value)
                     {
                         result += " (";
-                        result += Colorize(modifiedValue.ToString(), modifiedValue > attr.Value ? Color.green : Color.red);
+                        result += Colorize(modifiedValue.ToString("n2"), modifiedValue > attr.Value ? Color.green : Color.red);
                         result += ")";
                     }
                 }

@@ -1,32 +1,50 @@
 ﻿{
   "PreNames": [
-    {
-      "Mystical": {
-        "effects": [ "+atk", "+mp", "+int" ],
+    { "Mystical": {
+        "effects": [ "+dmg", "+mp", "+int" ],
         "flavour": "Magic is"
-      }
-    },
+      } },
 
     {
       "Curious": {
-        "effects": [ "+mp", "*int" ]
+        "effects": [ "+mp", "*int" ],
+        "flavour": "A peculiar"
       }
+    },
 
+    { "Cursed": {
+      "effects": [ "-str", "/hp", "/mp" ],
+      "flavour" : "Damned be "
+      } },
+
+    {
+      "Blessed": {
+        "effects": [ "*hp", "*mp" ],
+        "flavour": "Graced be "
+      }
     },
 
     {
-      "Cursed": {
-        "effects": [ "-str", "/hp", "/mp" ]
+      "Holy": {
+        "effects": [ "*hp", "*mp", "+str", "+int", "+spd", "+dmg", "+def" ],
+        "flavour": "Ascend all"
       }
-
     },
 
     {
       "Evil": {
-        "effects": [ "+str", "-hp" ]
+        "effects": [ "+str", "-hp" ],
+        "flavour": "The malicious"
       }
+    },
 
+    {
+      "Unholy": {
+        "effects": [ "/hp", "+mp", "*str", "+int", "+spd", "*dmg", "-def" ],
+        "flavour": "Drag me down, oh"
+      }
     }
+
   ],
 
   "MainNames": [
@@ -34,7 +52,6 @@
       "Tome": {
         "effects": [ "+dmg", "+int", "+mp" ]
       }
-
     },
 
     {
@@ -43,27 +60,30 @@
       }
     },
 
-    {
-      "Staff": {
-        "effects": [ "+dmg", "+int", "+mp" ]
-      }
+    { "Cape": { "effects": [ "+spd" ] } },
 
-    }
+    { "Chainmail": { "effects": [ "+def", "-spd" ] } },
+
+    { "Boots": { "effects": [ "+def", "+spd" ] } },
+
+    { "Staff": { "effects": [ "+dmg", "+int", "+mp" ] } }
   ],
 
   "PostNames": [
     {
       "Wisdom": {
         "prepositions": [ "of" ],
-        "effects": [ "+mp", "*int" ]
+        "effects": [ "+mp", "*int" ],
+        "flavour": "knowledge"
       }
 
     },
 
     {
       "Fear": {
-        "prepositions": ["of"],
-        "effects": [ "-int" ]
+        "prepositions": [ "of" ],
+        "effects": [ "-int" ],
+        "flavour": "terror"
       }
 
     },
@@ -71,7 +91,8 @@
     {
       "the Shadows": {
         "prepositions": [ "from", "of" ],
-        "effects": [ "+spd" ]
+        "effects": [ "+spd" ],
+        "flavour": "darkness and silence"
       }
 
     }

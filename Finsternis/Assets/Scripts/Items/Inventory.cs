@@ -45,9 +45,10 @@
         public bool EquipCard(Card card)
         {
             bool cardEquipped = false;
-            if (totalEquippedCost <= maxEquippedCost - card.Cost)
+            if (totalEquippedCost <= maxEquippedCost - card.Cost && !this.equippedCards.Contains(card))
             {
                 cardEquipped = true;
+                this.equippedCards.Add(card);
                 totalEquippedCost += card.Cost;
 
                 foreach (var effect in card.GetEffects())
@@ -107,6 +108,11 @@
                 }
             }
             onCardRemoved.Invoke(c);
+        }
+
+        internal bool IsEquipped(Card card)
+        {
+            return this.equippedCards.Contains(card);
         }
     }
 }
