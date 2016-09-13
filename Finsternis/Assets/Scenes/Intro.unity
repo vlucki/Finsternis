@@ -233,6 +233,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeOut
   duration: 1
   presetAlpha: 0
 --- !u!114 &361281149
@@ -282,6 +283,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeIn
   duration: 0.4
   presetAlpha: 1
 --- !u!225 &361281150
@@ -533,6 +535,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: 
   duration: 1
 --- !u!95 &1148114904
 Animator:
@@ -631,6 +634,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeIn
   duration: 1
   presetAlpha: 1
 --- !u!225 &1148114909
@@ -790,6 +794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggers:
   - name: Skip
+    enabled: 1
     toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: ccb84e579757abe488d3642e3b0c2e0e, type: 2}
@@ -850,6 +855,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeIn
   duration: 1
   presetAlpha: 1
 --- !u!95 &1723705586
@@ -917,7 +923,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1372, y: 0}
+  m_SizeDelta: {x: -1465, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1769240252
 MonoBehaviour:
@@ -988,6 +994,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeOut
   duration: 2
   presetAlpha: 0
 --- !u!114 &1769240255
@@ -1026,6 +1033,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeIn
   duration: 3
   presetAlpha: 1
 --- !u!225 &1769240256
@@ -1177,6 +1185,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeIn
   duration: 6
   presetAlpha: 1
 --- !u!114 &1778952076
@@ -1215,6 +1224,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  trigger: FadeOut
   duration: 1
   presetAlpha: 0
 --- !u!225 &1778952077
@@ -1305,7 +1315,7 @@ Prefab:
     - target: {fileID: 224000012111150812, guid: 1d9ad491829069a409b389d90f338fdf,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 512
+      value: 858
       objectReference: {fileID: 0}
     - target: {fileID: 224000012111150812, guid: 1d9ad491829069a409b389d90f338fdf,
         type: 2}
@@ -1341,6 +1351,86 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000012235644988, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000012235644988, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 506
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000012235644988, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000012235644988, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 506
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013104506404, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -310
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013104506404, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -310
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011586471516, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011586471516, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -43
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011586471516, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -43
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011246341082, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -72.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011246341082, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -33.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011246341082, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011246341082, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -42.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011586471516, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012513369278, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010909048324, guid: 1d9ad491829069a409b389d90f338fdf,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000011473396212, guid: 1d9ad491829069a409b389d90f338fdf, type: 2}
@@ -1383,7 +1473,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -242}
+  m_AnchoredPosition: {x: 0, y: -298.5}
   m_SizeDelta: {x: 1922.1, y: 483}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2119197505
@@ -1406,7 +1496,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: aebe59e195806f54283e7749d4c6fa06, type: 3}
+    m_Font: {fileID: 12800000, guid: af59567a2a7595649b359fae2ef69d5e, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1

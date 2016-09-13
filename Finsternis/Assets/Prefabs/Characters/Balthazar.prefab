@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012650177972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_arm_pullvector1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010429034926}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013038513406}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_fingers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010602776254}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_foot_toe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010281276784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_calcanhar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013187004882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_arm_pullvector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010493872240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012758640456}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013534881006}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_tumb_middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014076653288}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_tumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010554729404}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013698232320}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011951490644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: middle_torso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012315371290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: right_arm_manipulator1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013510354412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: master_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013388701264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_arm_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012631552736}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_arm_IK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010032272096}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_tumb_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013072250250}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_leg_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011046074256}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013753963640}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_foot_toe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014292468664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_fingers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010418941174}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011030952992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011718874544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_tumb_middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013191209528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010106781470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_leg_IK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +450,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013821956940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_knee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010053854226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_arm_IK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +480,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013991913284}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tophead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012870120164}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013252568756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_calcanhar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010840888726}
   - 137: {fileID: 137000013759913240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: corpo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011981860970}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_tumb_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +556,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012974092614}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_knee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +571,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013644728604}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_leg_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014111068862}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013403308226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_tumb_final
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -616,7 +616,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012879183366}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: right_arm_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014252440042}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011818878586}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +661,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013088211628}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_tumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010615022112}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_leg_IK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -691,7 +691,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013177526878}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_tumb_final
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +706,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010859306432}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_arm_start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1477,6 +1477,7 @@ MonoBehaviour:
     m_TypeName: Finsternis.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   cards: []
+  equippedCards: []
 --- !u!114 &114000012510893494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1501,6 +1502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggers:
   - name: Movement On X Axis
+    enabled: 1
     toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: 8f78b1f9457f03249b5bfa2da14fbb6b, type: 2}
@@ -1521,6 +1523,7 @@ MonoBehaviour:
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - name: Movement On Z Axis
+    enabled: 1
     toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: d88faa801aba0d94d947bc192f4b60cf, type: 2}
@@ -1541,6 +1544,7 @@ MonoBehaviour:
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - name: Attacks
+    enabled: 1
     toggleOnly: 0
     controls:
     - {fileID: 11400000, guid: 0fd45a7014728b34884844f08d0d3848, type: 2}
@@ -1601,8 +1605,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityScale: 0.3
-  maxVelocityMagnitude: 2
+  velocityScale: 0.25
+  maxVelocityMagnitude: 3
 --- !u!114 &114000014202934784
 MonoBehaviour:
   m_ObjectHideFlags: 1

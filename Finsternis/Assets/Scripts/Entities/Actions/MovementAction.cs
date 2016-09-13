@@ -54,10 +54,11 @@
             {
                 float velMagnitude = GetVelocityMagnitude();
 
-                rbody.AddForce((Direction * Speed.Value) * velocityScale, ForceMode.VelocityChange);
+                if (velMagnitude <= maxVelocityMagnitude)
+                {
+                    rbody.AddForce((Direction * Speed.Value) * velocityScale, ForceMode.VelocityChange);
+                }
 
-                if (velMagnitude > maxVelocityMagnitude)
-                    rbody.AddForce(-Direction * Speed.Value * velocityScale, ForceMode.Acceleration);
 
                 LastDirection = this.direction;
                 this.direction = Vector3.zero;

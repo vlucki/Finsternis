@@ -25,11 +25,6 @@
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
         }
 
-        void Start()
-        {
-            //LoadCard(CardFactory.MakeCard()); //TEST CODE
-        }
-
         private Entity GetPlayer()
         {
             if (!this.player)
@@ -65,7 +60,7 @@
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
-            if (GetPlayer())
+            if (GetPlayer() && !this.player.GetComponent<Inventory>().IsEquipped(this.card))
             {
                 var attr = this.player.GetAttribute(modifier.AttributeAlias);
                 if (attr)
