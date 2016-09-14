@@ -50,12 +50,22 @@
         
         public bool IsOpen { get; private set; }
 
-        public void Toggle()
+        public void Toggle(bool immediately = false)
         {
             if (!IsOpen)
-                BeginOpening();
+            {
+                if (immediately)
+                    Open();
+                else
+                    BeginOpening();
+            }
             else
-                BeginClosing();
+            {
+                if (immediately)
+                    Close();
+                else
+                    BeginClosing();
+            }
         }
 
         /// <summary>
@@ -78,8 +88,8 @@
 
         public virtual void Open()
         {
-            this.CanvasGroup.interactable = true;
             IsOpen = true;
+            this.CanvasGroup.interactable = true;
             OnOpen.Invoke();
         }
 

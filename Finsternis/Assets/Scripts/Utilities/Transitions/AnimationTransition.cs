@@ -52,5 +52,11 @@
             if(Transitioning)
                 End();
         }
+
+        public void BeginWithTrigger(string trigger)
+        {
+            this.trigger = trigger;
+            Begin();
+        }
     }
 }
