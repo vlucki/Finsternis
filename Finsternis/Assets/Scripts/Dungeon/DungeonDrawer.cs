@@ -24,9 +24,9 @@ namespace Finsternis
         public PhysicMaterial defaultFloorPhysicMaterial;
         public Material corridorMaterial;
 
-        [Header("Prefabs")]
-        public GameObject[] walls;
+        public WallParts[] walls;
 
+        [Header("Prefabs")]
         public GameObject[] floorTiles;
         public GameObject[] exits;
 
@@ -151,17 +151,10 @@ namespace Finsternis
             DungeonFeature feature = dungeon[cellX, cellY].GetFeature(cellX, cellY);
             if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
             {
-                cell = MakeQuad(pos,
-                                new Vector3(cellScale.x, cellScale.z, 1),
-                                Vector3.right * 90,
-                                dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
-                                name);
-
                 if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
                 {
                     if (exits != null && exits.Length > 0)
                     {
-                        ClearObject(cell);
                         cell = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
                     }
                     else
@@ -173,10 +166,17 @@ namespace Finsternis
                 }
                 else
                 {
-                    if (floorTiles != null && floorTiles.Length > 0 && Random.value > 0.5f)
+                    if (floorTiles != null && floorTiles.Length > 0)
                     {
                         cell = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                        cell.transform.localScale = cellScale;
+                    }
+                    else
+                    {
+                        cell = MakeQuad(pos,
+                                        new Vector3(cellScale.x, cellScale.z, 1),
+                                        Vector3.right * 90,
+                                        dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
+                                        name);
                     }
                     if (cellX == (int)dungeon.Entrance.x && cellY == (int)dungeon.Entrance.y)
                     {
@@ -185,7 +185,7 @@ namespace Finsternis
                         pedestal.transform.SetParent(cell.transform);
                         pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
                         pedestal.transform.localPosition = Vector3.zero;
-                        ClearObject(pedestal.GetComponent<CapsuleCollider>());
+                        pedestal.GetComponent<CapsuleCollider>().DestroyNow();
                     }
                 }
                 if (feature)
@@ -263,72 +263,54 @@ namespace Finsternis
 
             drawnWalls.Add(coords);
 
-            GameObject wall;
-            Vector3 wallPosition = GetWorldPosition(coords);
+            GameObject wall = new GameObject("Wall ("+coords+")");
+            wall.transform.position = GetWorldPosition(coords + Vector2.one / 2);
+            var wallGroup = walls[Random.Range(0, walls.Length)];
+            int wallNeighbourhood = GetWallNeighbourhood(coords);
 
-            if (walls != null && walls.Length > 0)
-            {
-                wall = walls[Random.Range(0, walls.Length)];
-            }
-            else
-            {
-                wall = new GameObject("Wall (" + cellX + ";" + cellY + ")");
-                //GameObject top = MakeQuad(Vector3.up, Vector3.one, Vector3.right * 90, defaultWallMaterial, "WallTop");
-                //top.transform.SetParent(wall.transform);
+            var wallLateral = wallGroup.GetLateral();
+            for(int i = 1; i <= 8; i*= 2)
+                if ((wallNeighbourhood & i) == i)
+                    Instantiate(
+                        wallLateral,
+                        wall.transform.position, 
+                        Quaternion.Euler(0, 90 * ((Mathf.CeilToInt((float)i / 3) - i%2)), 0), 
+                        wall.transform);
 
-                for (int i = -1; i < 2; i++)
-                {
-                    for (int j = -1; j < 2; j++)
-                    {
-                        if (Mathf.Abs(i) == Mathf.Abs(j))
-                            continue;
-                        int x = cellX + j;
-                        int y = cellY + i;
-                        if (!dungeon.IsWithinDungeon(x, y))
-                            continue;
-
-                        if (dungeon[x, y] != null)
-                        {
-                            var offset = Vector2.down;
-                            float angle = 0;
-                            if (x < cellX)
-                            {
-                                offset = Vector2.right;
-                                angle = 90;
-                            }
-                            else if (x > cellX)
-                            {
-                                offset = Vector2.left;
-                                angle = -90;
-                            }
-                            else if (y < cellY)
-                            {
-                                offset = Vector2.up;
-                                angle = 180; //make wall face away the camera
-                            }
-
-                            float angleB = offset.y <= 0 ? -angle : 0;
-                            GameObject sideA = MakeQuad(new Vector3((float)j / 2, 0.5f, -(float)i / 2), Vector3.one, new Vector3(0, angle, 0), defaultWallMaterial, "WallSideA");
-                            GameObject sideB = MakeQuad(new Vector3((float)j / 2 + offset.x / 50, 0.5f, -(float)i / 2 - offset.y / 50), Vector3.one, new Vector3(0, angleB, 0), defaultWallMaterial, "WallSideB");
-
-                            sideA.GetComponent<Collider>().sharedMaterial = defaultWallPhysicMaterial;
-                            sideA.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
-                            sideA.transform.SetParent(wall.transform);
-
-                            ClearObject(sideB.GetComponent<Collider>());
-                            sideB.GetComponent<MeshRenderer>().sharedMaterial = defaultWallMaterial;
-                            sideB.transform.SetParent(wall.transform);
-                        }
-                    }
-                }
-
-                wall.transform.localScale = new Vector3(cellScale.x, cellScale.y + extraWallHeight, cellScale.z);
-                wallPosition = GetWorldPosition(coords + Vector2.one / 2);
-            }
-
-            wall.transform.position = wallPosition;
             wall.layer = LayerMask.NameToLayer("Wall");
-            return MergeMeshes(wall, true)[0];
+            var bc = wall.AddComponent<BoxCollider>();
+            bc.size = cellScale.WithY(wallLateral.GetComponent<MeshRenderer>().bounds.size.y);
+            bc.center = bc.size.OnlyY() / 2;
+            return wall;
+        }
+
+        private int GetWallNeighbourhood(Vector2 cell)
+        {
+            int neighbourhood = 0;
+            /*
+             * x   1    x
+             * 8  cell  2
+             * x   4    x
+             */
+
+            Type[] types = { typeof(Corridor), typeof(Room) };
+            var neighbour = cell - Vector2.up;
+            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
+                neighbourhood = 1;
+
+            neighbour = cell + Vector2.right;
+            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
+                neighbourhood += 2;
+
+            neighbour = cell + Vector2.up;
+            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
+                neighbourhood += 4;
+
+            neighbour = cell - Vector2.right;
+            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
+                neighbourhood += 8;
+
+            return neighbourhood;
         }
 
         /// <summary>
@@ -424,10 +406,10 @@ namespace Finsternis
 
             foreach (MeshFilter m in meshFilters)
             {
-                ClearObject(m.gameObject);
+                m.gameObject.DestroyNow();
             }
 
-            ClearObject(parent);
+            parent.DestroyNow();
 
             foreach (GameObject section in sections)
                 section.transform.Translate(originalPos);
@@ -459,18 +441,6 @@ namespace Finsternis
 
             sectionContainer.layer = original.layer;
             return sectionContainer;
-        }
-
-        private void ClearObject(UnityEngine.Object obj)
-        {
-#if UNITY_EDITOR
-            if (!UnityEditor.EditorApplication.isPlaying)
-                DestroyImmediate(obj);
-            else
-                Destroy(obj);
-#else
-        Destroy(obj);
-#endif
         }
     }
 }

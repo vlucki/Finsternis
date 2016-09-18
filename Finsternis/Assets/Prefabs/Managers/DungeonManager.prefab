@@ -107,6 +107,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: GivePlayerCard
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.DungeonFactory+DungeonGenerationEndEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   dungeonName: Simple Dungeon
@@ -144,15 +155,18 @@ MonoBehaviour:
   cellScale: {x: 2, y: 1, z: 2}
   extraWallHeight: 3
   defaultWallMaterial: {fileID: 2100000, guid: e9ce62b9ccf5dbe4ea8ee91197bbb2d4, type: 2}
-  defaultWallPhysicMaterial: {fileID: 13400000, guid: 81fbc45ea39fd2c488a0dcab688d127e,
-    type: 2}
+  defaultWallPhysicMaterial: {fileID: 0}
   defaultFloorMaterial: {fileID: 2100000, guid: a25fb5e44fcb7ed43bf1a94ec58bb62e,
     type: 2}
-  defaultFloorPhysicMaterial: {fileID: 13400000, guid: f4d44aa0236957b438f8dceeec87eb44,
-    type: 2}
+  defaultFloorPhysicMaterial: {fileID: 0}
   corridorMaterial: {fileID: 2100000, guid: d1d5441484a060e49bb3419c4d6f6d12, type: 2}
-  walls: []
-  floorTiles: []
+  walls:
+  - {fileID: 1000012945835608, guid: d906a17ebc09d03409a852db47030dd5, type: 2}
+  floorTiles:
+  - {fileID: 1000013675684728, guid: 020ecace1add6414aa056f9eaacba529, type: 2}
+  - {fileID: 1000010128955084, guid: 900a5c981c596254ca37c297851ac8e7, type: 2}
+  - {fileID: 1000013591209812, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
+  - {fileID: 1000012591517738, guid: b30382e07031e3140873d91395066179, type: 2}
   exits:
   - {fileID: 192690, guid: def4ae95ec8083e40875473ef25091bb, type: 2}
   - {fileID: 101834, guid: ec37950c69a0fdb4a865b59ffde99ca2, type: 2}

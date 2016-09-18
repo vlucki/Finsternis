@@ -13,8 +13,10 @@ ModelImporter:
     400004: frame
     2300000: door
     2300002: frame
+    2300004: //RootNode
     3300000: door
     3300002: frame
+    3300004: //RootNode
     4300000: frame
     4300002: door
     7400000: Idle_exit02
@@ -28,7 +30,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 

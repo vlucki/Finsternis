@@ -121,6 +121,16 @@ namespace UnityQuery
         }
 
         /// <summary>
+        /// Calculates the largest between three axis of a given Vector3.
+        /// </summary>
+        /// <param name="v">The vector to be used.</param>
+        /// <returns>The largest value between the x, y and z coordinates of the given Vector3.</returns>
+        public static float Max(this Vector3 v)
+        {
+            return Mathf.Max(v.x, v.y, v.z);
+        }
+
+        /// <summary>
         /// Calculates the smallest between two axis of a given Vector2.
         /// </summary>
         /// <param name="v">The vector to be used.</param>
