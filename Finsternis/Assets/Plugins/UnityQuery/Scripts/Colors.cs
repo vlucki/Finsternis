@@ -66,7 +66,7 @@ namespace UnityQuery
                               + ToHex(c.b * 255)
                               + ToHex(c.a * 255);
 
-            return hexValue;
+            return "#"+hexValue;
         }
 
         static string ToHex(float f)

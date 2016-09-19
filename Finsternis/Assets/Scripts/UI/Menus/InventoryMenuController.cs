@@ -7,7 +7,7 @@
     using UnityQuery;
     using System.Linq;
 
-    public class InventoryController : MenuController
+    public class InventoryMenuController : MenuController
     {
         [SerializeField]
         private ConfirmationDialogController confirmationDialog;

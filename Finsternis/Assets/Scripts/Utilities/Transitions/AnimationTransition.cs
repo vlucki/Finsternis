@@ -26,11 +26,14 @@
             OnTransitionStarted.AddListener(
                 t =>
                 {
-                    if(!animator.enabled)
+                    if (!animator.enabled)
                         animator.enabled = true;
-                    animator.speed = 1 / duration;
-                    if(!trigger.IsNullOrEmpty())
+
+                    animator.SetFloat(trigger+"Speed", 1 / duration);
+
+                    if (!trigger.IsNullOrEmpty())
                         animator.SetTrigger(trigger);
+
                     if(isActiveAndEnabled)
                         StartCoroutine(WaitForAnimation(duration));
                 }

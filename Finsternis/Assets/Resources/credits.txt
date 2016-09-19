@@ -1,4 +1,4 @@
-﻿<b>Pontifícia Universidade Católica de São Paulo</b>
+﻿<b><size=60>Pontifícia Universidade Católica de São Paulo</size></b>
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-curso Superior de Tecnologia em Jogos Digitais
+<b>Curso Superior de Tecnologia em Jogos Digitais</b>
 
 
 
@@ -30,12 +30,41 @@ Trabalho de Conclusão de Curso
 
 
 
-- FINSTERNIS -
+<b>- FINSTERNIS -</b>
 
 
 
 
 
+
+
+
+<b>MECÂNICA E AMBIENTAÇÃO</b>
+
+
+Lucas Keven
+
+Victor Portela Diniz Lucki
+
+
+
+<b>INTERFACE</b>
+
+
+Lucas Keven
+
+Victor Portela Diniz Lucki
+
+
+
+<b>MODELAGEM 3D</b>
+
+
+Dreiky Fraga
+
+Lucas Keven
+
+Victor Portela Diniz Lucki
 
 
 
@@ -51,31 +80,3 @@ Victor Portela Diniz Lucki
 
 
 
-
-
-
-
-<b>MODELAGEM 3D</b>
-
-Dreiky Fraga
-
-Victor Portela Diniz Lucki
-
-
-
-
-
-
-
-
-
-
-
-
-<b>INTERFACE</b>
-
-
-
-Lucas Keven
-
-Victor Portela Diniz Lucki
