@@ -11,6 +11,7 @@ namespace Finsternis
 
     using UnityQuery;
     using System.Collections;
+    using System;
 
     [RequireComponent(typeof(InputRouter))]
     [DisallowMultipleComponent]
@@ -18,7 +19,8 @@ namespace Finsternis
     {
         [SerializeField]
         private ConfirmationDialogController confirmationDialog;
-
+        
+        private GameObject optionsContainer;
         private List<MenuButtonController> options;
         private Circle menuBounds;
         private MenuEyeController eyeController;
@@ -34,7 +36,7 @@ namespace Finsternis
         protected override void Awake()
         {
             base.Awake();
-
+            this.optionsContainer = transform.FindChild("OptionsContainer").gameObject;
             this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min() / 2, GetComponent<RectTransform>().anchoredPosition);
             this.options = new List<MenuButtonController>();
             this.eyeController = GetComponentInChildren<MenuEyeController>();
@@ -53,15 +55,7 @@ namespace Finsternis
                     EvtSystem.SetSelectedGameObject(lastSelected.gameObject);
             });
 
-            GetComponentsInChildren<MenuButtonController>(this.options);
-
-            if (this.options.Count <= 0)
-                this.Warn("Not a single option found on the menu.");
-
-            else if (this.options.Count > 1)
-            {
-                InitOptions();
-            }
+            LoadOptions(optionsContainer);
 
             showNewGameDialog = new UnityAction(() =>
                 this.confirmationDialog.Show("Start a new game?\n(current progress will be lost)", GameManager.Instance.NewGame, BeginOpening)
@@ -72,22 +66,43 @@ namespace Finsternis
             );
         }
 
+        public void LoadOptions(GameObject optionsContainer)
+        {
+            optionsContainer.GetComponentsInChildren<MenuButtonController>(this.options);
+#if UNITY_EDITOR
+            if (this.options.Count <= 0)
+                this.Warn("Not a single option found on the menu.");
+            else
+#endif
+            if (this.options.Count > 1)
+            {
+                InitOptions();
+            }
+        }
+
         private void InitOptions()
         {
             for (int i = 0; i < this.options.Count; i++)
             {
-                int left = i - 1;
-                int right = i + 1;
-                if (left < 0)
-                    left = this.options.Count - 1;
-                if (right >= this.options.Count)
-                    right = 0;
+                int leftOption = i - 1;
+                int rightOption = i + 1;
+
+                if (leftOption < 0)
+                    leftOption = this.options.Count - 1;
+                if (rightOption >= this.options.Count)
+                    rightOption = 0;
+
                 Navigation n = options[i].navigation;
-                n.selectOnRight = options[right];
-                n.selectOnLeft = options[left];
-                options[i].OnSelectionChanged.AddListener(
-                    (selected, button) => lastSelected = selected ? (MenuButtonController)button : lastSelected);
+                n.selectOnRight = options[rightOption];
+                n.selectOnLeft = options[leftOption];
+                options[i].OnSelectionChanged.RemoveListener(UpdateSelectedButton);
+                options[i].OnSelectionChanged.AddListener(UpdateSelectedButton);
             }
+        }
+
+        private void UpdateSelectedButton(bool selected, Selectable button)
+        {
+            lastSelected = selected ? (MenuButtonController)button : lastSelected;
         }
 
         /// <summary>

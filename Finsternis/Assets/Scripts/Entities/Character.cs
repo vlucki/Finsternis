@@ -16,7 +16,7 @@
 
         private EntityAttribute health
         {
-            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("hp", true)); }
+            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("vit", true)); }
         }
 
         private EntityAttribute defense
@@ -40,7 +40,7 @@
         protected override void InitializeAttribute(int attributeIndex)
         {
             base.InitializeAttribute(attributeIndex);
-            if (attributes[attributeIndex].Alias.Equals("hp"))
+            if (attributes[attributeIndex].Alias.Equals("vit"))
                 attributes[attributeIndex].onValueChanged.AddListener(CheckHealth);
         }
 

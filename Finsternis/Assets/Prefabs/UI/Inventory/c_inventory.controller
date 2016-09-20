@@ -22,13 +22,13 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: OpenSpeed
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 200
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: CloseSpeed
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 30
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -157,12 +157,12 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_Motion: {fileID: 7400000, guid: b2ba423d9ff5bbd45bb5813b96476f87, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: CloseSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
 --- !u!1102 &1102000010657015388
@@ -206,12 +206,12 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 744193f42c5686249937195a650214fa, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: OpenSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
 --- !u!1107 &1107000012289594522

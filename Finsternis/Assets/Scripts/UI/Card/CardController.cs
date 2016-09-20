@@ -69,18 +69,13 @@
                     if(modifiedValue != attr.Value)
                     {
                         result += " (";
-                        result += Colorize(modifiedValue.ToString("n2"), modifiedValue > attr.Value ? Color.green : Color.red);
+                        result += modifiedValue.ToString("n2").Colorize(modifiedValue > attr.Value ? Color.green : Color.red);
                         result += ")";
                     }
                 }
             }
 
             return result;
-        }
-
-        private string Colorize(string s, Color c)
-        {
-            return "<color=#" + c.ToHex() + ">" + s + "</color>";
         }
 
         private float CalculateModifiedValue(AttributeModifier modifier, float value)

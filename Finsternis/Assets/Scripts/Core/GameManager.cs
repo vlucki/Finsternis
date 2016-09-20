@@ -117,7 +117,7 @@
 
             if (this.player)
             {
-                this.player.GetAttribute("hp").onValueChanged.AddListener(
+                this.player.GetAttribute("vit").onValueChanged.AddListener(
                     (attribute) => { if (attribute.Value <= 0) StartCoroutine(_GameOver()); });
             }
             else
@@ -151,7 +151,7 @@
             Entity e = obj.GetComponent<Entity>();
             if (e)
             {
-                EntityAttribute hp = e.GetAttribute("hp");
+                EntityAttribute hp = e.GetAttribute("vit");
                 if (hp)
                     hp.SetBaseValue(0);
 

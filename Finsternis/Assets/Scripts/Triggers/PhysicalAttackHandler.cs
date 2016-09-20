@@ -28,7 +28,7 @@ namespace Finsternis
             this.str = owner.GetAttribute("str") as EntityAttribute;
             if (!activeOnDeath)
             {
-                EntityAttribute health = owner.GetAttribute("hp") as EntityAttribute;
+                EntityAttribute health = owner.GetAttribute("vit") as EntityAttribute;
                 if (health)
                     health.onValueChanged.AddListener(HealthChanged);
             }

@@ -1,14 +1,31 @@
 fileFormatVersion: 2
 guid: 16925785e8c28614f8b5687ece512eaa
-timeCreated: 1473763586
+timeCreated: 1474371993
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: attributes_icons_0
-    21300002: attributes_icons_2
-    21300004: attributes_icons_3
-    21300006: attributes_icons_5
+    21300000: icon_vit_B
+    21300002: icon_str_B
+    21300004: icon_int_B
+    21300006: icon_def_B
     21300008: attributes_icons_6
+    21300010: icon_mag_B
+    21300012: icon_spd_B
+    21300014: attributes_icons_7
+    21300016: attributes_icons_8
+    21300018: attributes_icons_10
+    21300020: icon_vit
+    21300022: icon_mag
+    21300024: icon_str
+    21300026: icon_int
+    21300028: icon_dmg
+    21300030: icon_def
+    21300032: icon_spd
+    21300034: attributes_icons_20
+    21300036: attributes_icons_21
+    21300038: attributes_icons_22
+    21300040: attributes_icons_24
+    21300042: icon_dmg_B
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +49,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -58,52 +75,78 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attributes_icons_0
+      name: icon_vit_B
       rect:
         serializedVersion: 2
         x: 0
-        y: 1443
-        width: 473
-        height: 598
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: attributes_icons_2
-      rect:
-        serializedVersion: 2
-        x: 1354
-        y: 1473
-        width: 651
-        height: 499
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: attributes_icons_3
-      rect:
-        serializedVersion: 2
-        x: 592
-        y: 1440
-        width: 676
-        height: 604
+        y: 701
+        width: 117
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: attributes_icons_5
+      name: icon_mag_B
       rect:
         serializedVersion: 2
-        x: 0
-        y: 823
-        width: 492
-        height: 591
+        x: 151
+        y: 708
+        width: 111
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_str_B
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 721
+        width: 119
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_int_B
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 730
+        width: 182
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_spd_B
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 731
+        width: 150
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_def_B
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 734
+        width: 108
+        height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,10 +156,205 @@ TextureImporter:
       name: attributes_icons_6
       rect:
         serializedVersion: 2
-        x: 596
-        y: 767
-        width: 595
-        height: 638
+        x: 6
+        y: 521
+        width: 107
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_7
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 536
+        width: 155
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_8
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 551
+        width: 180
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_10
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 544
+        width: 130
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_vit
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 324
+        width: 117
+        height: 168
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_mag
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 332
+        width: 111
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_str
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 344
+        width: 119
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_int
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 354
+        width: 182
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_dmg
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 331
+        width: 165
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_def
+      rect:
+        serializedVersion: 2
+        x: 916
+        y: 357
+        width: 108
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_spd
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 354
+        width: 150
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_20
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 151
+        width: 107
+        height: 152
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_21
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 158
+        width: 155
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_22
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 174
+        width: 180
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: attributes_icons_24
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 171
+        width: 139
+        height: 131
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: icon_dmg_B
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 708
+        width: 165
+        height: 165
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

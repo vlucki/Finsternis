@@ -202,5 +202,13 @@ namespace UnityQuery
         }
 
         #endregion
+
+        public static bool AddUnique<T>(this IList<T> e, T value)
+        {
+            if (e.Contains(value))
+                return false;
+            e.Add(value);
+            return true;
+        }
     }
 }

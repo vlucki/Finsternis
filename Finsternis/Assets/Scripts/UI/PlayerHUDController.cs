@@ -62,8 +62,8 @@
                 if (String.IsNullOrEmpty(this.txtName.text))
                     this.txtName.text = this.character.name;
 
-                this.health = UpdateRangedField("hp", this.health, this.txtHP);
-                this.mana = UpdateRangedField("mp", this.mana, this.txtMP);
+                this.health = UpdateRangedField("vit", this.health, this.txtHP);
+                this.mana = UpdateRangedField("mag", this.mana, this.txtMP);
             }
         }
 

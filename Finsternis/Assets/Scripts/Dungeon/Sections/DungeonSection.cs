@@ -1,11 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityQuery;
+
     public abstract class DungeonSection : ScriptableObject, IEnumerable<Vector2>
     {
+        public enum Types { BASIC = 0, SYNTHETIC = 1, ORGANIC = 2 }
+        private List<Types> sectionTypes;
+
         protected Rect bounds;
         protected HashSet<DungeonSection> connections;
 
@@ -17,6 +21,21 @@ namespace Finsternis
         public float Height { get { return bounds.height; } }
         public float X { get { return bounds.x; } }
         public float Y { get { return bounds.y; } }
+
+        public void AddType(Types type)
+        {
+            sectionTypes.AddUnique(type);
+        }
+
+        public bool HasType(Types type)
+        {
+            return sectionTypes.Contains(type);
+        }
+
+        public List<Types> GetTypes()
+        {
+            return sectionTypes; 
+        }
 
         public virtual Vector2 Position
         {
@@ -41,6 +60,8 @@ namespace Finsternis
         protected DungeonSection(Rect bounds)
         {
             this.bounds = bounds;
+            this.sectionTypes = new List<Types>();
+            
             connections = new HashSet<DungeonSection>();
             features = new Dictionary<Vector2, DungeonFeature>();
         }

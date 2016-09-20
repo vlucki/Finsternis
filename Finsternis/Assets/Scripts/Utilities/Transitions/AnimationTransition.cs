@@ -56,6 +56,11 @@
                 End();
         }
 
+        public void SetDuration(float duration)
+        {
+            this.duration = Mathf.Max(0.1f, duration);
+        }
+
         public void BeginWithTrigger(string trigger)
         {
             this.trigger = trigger;

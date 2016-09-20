@@ -28,7 +28,7 @@ namespace Finsternis
 
         public static MTRandom Random;
 
-        public static readonly string[] AttributeAlias = { "hp", "mp", "str", "spd", "def", "int" };
+        public static readonly string[] AttributeAlias = { "vit", "mag", "str", "spd", "def", "int" };
 
         public const int MaxNameSelectionTries = 4;
         private static bool initialized;

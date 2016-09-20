@@ -15,7 +15,7 @@
 
         protected override void Die()
         {
-            if (lastInteraction.Agent.CompareTag("Player"))
+            if(lastInteraction && lastInteraction.Agent && lastInteraction.Agent.CompareTag("Player"))
             {
                 enemyRandom.SetSeed(name.GetHashCode());
                 FindObjectOfType<CardsManager>().GivePlayerCard(enemyRandom.IntRange(1, 4, true));

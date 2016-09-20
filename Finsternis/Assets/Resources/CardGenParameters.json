@@ -1,46 +1,46 @@
 ﻿{
   "PreNames": [
     { "Mystical": {
-        "effects": [ "+dmg", "+mp", "+int" ],
+        "effects": [ "+dmg", "+mag", "+int" ],
         "flavour": "Magic is"
       } },
 
     {
       "Curious": {
-        "effects": [ "+mp", "*int" ],
+        "effects": [ "+mag", "*int" ],
         "flavour": "A peculiar"
       }
     },
 
     { "Cursed": {
-      "effects": [ "-str", "/hp", "/mp" ],
+      "effects": [ "-str", "/vit", "/mag" ],
       "flavour" : "Damned be "
       } },
 
     {
       "Blessed": {
-        "effects": [ "*hp", "*mp" ],
+        "effects": [ "*vit", "*mag" ],
         "flavour": "Graced be "
       }
     },
 
     {
       "Holy": {
-        "effects": [ "*hp", "*mp", "+str", "+int", "+spd", "+dmg", "+def" ],
+        "effects": [ "*vit", "*mag", "+str", "+int", "+spd", "+dmg", "+def" ],
         "flavour": "Ascend all"
       }
     },
 
     {
       "Evil": {
-        "effects": [ "+str", "-hp" ],
+        "effects": [ "+str", "-vit" ],
         "flavour": "The malicious"
       }
     },
 
     {
       "Unholy": {
-        "effects": [ "/hp", "+mp", "*str", "+int", "+spd", "*dmg", "-def" ],
+        "effects": [ "/vit", "+mag", "*str", "+int", "+spd", "*dmg", "-def" ],
         "flavour": "Drag me down, oh"
       }
     }
@@ -50,13 +50,13 @@
   "MainNames": [
     {
       "Tome": {
-        "effects": [ "+dmg", "+int", "+mp" ]
+        "effects": [ "+dmg", "+int", "+mag" ]
       }
     },
 
     {
       "Robe": {
-        "effects": [ "+def", "+int", "+mp" ]
+        "effects": [ "+def", "+int", "+mag" ]
       }
     },
 
@@ -66,14 +66,14 @@
 
     { "Boots": { "effects": [ "+def", "+spd" ] } },
 
-    { "Staff": { "effects": [ "+dmg", "+int", "+mp" ] } }
+    { "Staff": { "effects": [ "+dmg", "+int", "+mag" ] } }
   ],
 
   "PostNames": [
     {
       "Wisdom": {
         "prepositions": [ "of" ],
-        "effects": [ "+mp", "*int" ],
+        "effects": [ "+mag", "*int" ],
         "flavour": "knowledge"
       }
 
