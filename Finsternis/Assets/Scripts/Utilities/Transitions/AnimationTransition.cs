@@ -29,7 +29,8 @@
                     if (!animator.enabled)
                         animator.enabled = true;
 
-                    animator.SetFloat(trigger+"Speed", 1 / duration);
+                    if(!trigger.IsNullOrEmpty())
+                        animator.SetFloat(trigger+"Speed", 1 / duration);
 
                     if (!trigger.IsNullOrEmpty())
                         animator.SetTrigger(trigger);
