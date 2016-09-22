@@ -203,6 +203,24 @@ namespace UnityQuery
 
         #endregion
 
+        public static T GetRandom<T>(this IEnumerable<T> e, Func<int, int, int> randomFunction)
+        {
+            int count = 0;
+            var collection = e as ICollection<T>;
+            if (collection != null)
+                count = collection.Count;
+            else
+                count = e.Count();
+
+            int random = randomFunction(0, count);
+
+            var list = e as IList<T>;
+            if (list != null)
+                return list[random];
+
+            return e.ElementAt(random);
+        }
+
         public static bool AddUnique<T>(this IList<T> e, T value)
         {
             if (e.Contains(value))

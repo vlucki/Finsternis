@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using UnityEngine;
-
+    using UnityQuery;
     using Random = UnityEngine.Random;
 
     public class EnemySpawner : MonoBehaviour
@@ -60,11 +60,10 @@
             int remainingEnemies = enemiesToSpawn;
             do
             {
-                int enemyToSpawn = enemies.Count == 1 ? 0 : Dungeon.Random.IntRange(0, enemies.Count, false);
                 int remainingEnemiesOfChosenType = 1; //Dungeon.Random.IntRange(0, remainingEnemies, true);
                 if (remainingEnemiesOfChosenType > 0)
                 {
-                    KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies[enemyToSpawn]);
+                    KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies.GetRandom(Dungeon.Random.IntRange));
                     goal.quantity += remainingEnemiesOfChosenType;
                     SpawnEnemy(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
                 }

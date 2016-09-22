@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/DungeonFeature/Generic Feature", order = 1)]
+[CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/Dungeon/Features/Door Feature", order = 1)]
 public class DoorFeature : DungeonFeature
 {
     [SerializeField]
@@ -12,6 +12,7 @@ public class DoorFeature : DungeonFeature
         get { return _closed; }
         set { _closed = value; }
     }
+
     public bool Locked {
         get { return _locked; }
         set { _locked = value; }

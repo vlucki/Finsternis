@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityQuery;
+
     public class Room : DungeonSection
     {
         private List<Vector2> _cells;
@@ -173,7 +174,7 @@ namespace Finsternis
 
         public Vector2 GetRandomCell()
         {
-            return _cells[this.random.IntRange(0, _cells.Count, false)];
+            return _cells.GetRandom(this.random.IntRange);
         }
 
         public override bool ContainsCell(Vector2 cell)
@@ -193,7 +194,7 @@ namespace Finsternis
         {
             foreach (Vector2 cell in other)
             {
-                if  (  this.ContainsCell(new Vector2(cell.x - 1, cell.y))
+                if (this.ContainsCell(new Vector2(cell.x - 1, cell.y))
                     || this.ContainsCell(new Vector2(cell.x + 1, cell.y))
                     || this.ContainsCell(new Vector2(cell.x, cell.y - 1))
                     || this.ContainsCell(new Vector2(cell.x, cell.y + 1))
@@ -210,9 +211,9 @@ namespace Finsternis
             if (this.Overlaps(roomB))
                 return true;
 
-            if (   Position.x <= roomB.bounds.xMax 
+            if (Position.x <= roomB.bounds.xMax
                 && bounds.xMax >= roomB.Position.x
-                && Position.y <= roomB.bounds.yMax 
+                && Position.y <= roomB.bounds.yMax
                 && bounds.yMax >= roomB.Position.y)
                 return ContainsAdjacentCells(roomB);
 

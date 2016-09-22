@@ -51,12 +51,17 @@
 
         public GameObject GetRandomWall()
         {
-            return this.wallPrefabs[Dungeon.Random.IntRange(0, this.wallPrefabs.Count)];
+            return GetRandomElement(this.wallPrefabs);
         }
 
         public GameObject GetRandomFloor()
         {
-            return this.floorPrefabs[Dungeon.Random.IntRange(0, this.floorPrefabs.Count)];
+            return GetRandomElement(this.floorPrefabs);
+        }
+
+        protected T GetRandomElement<T>(List<T> list)
+        {
+            return list.GetRandom(Dungeon.Random.IntRange);
         }
 
     }

@@ -84,12 +84,12 @@ namespace Finsternis
         private bool allowDeadEnds = false;
 
         [Space]
-        [Header("Features")]
         [SerializeField]
-        private DungeonFeature[] traps;
+        private RoomTheme[] roomThemes;
 
         [SerializeField]
-        private DoorFeature[] doors;
+        private CorridorTheme[] corridorThemes;
+        
         #endregion
 
         private Room lastRoom;
@@ -103,12 +103,12 @@ namespace Finsternis
         {
             dungeon.Init(this.dungeonWidth, this.dungeonHeight);
 
-            this.maximumBrushHeight = Mathf.Clamp (this.maximumBrushHeight, 0, dungeon.Height);
-            this.maximumBrushWidth = Mathf.Clamp (this.maximumBrushWidth, 0, dungeon.Width);
-            this.minimumBrushHeight = Mathf.Clamp (this.minimumBrushHeight, 0, this.maximumBrushHeight);
-            this.minimumBrushWidth = Mathf.Clamp (this.minimumBrushWidth, 0, this.maximumBrushWidth);
-            this.maximumCorridorLength = Mathf.Clamp (this.maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
-            this.minimumCorridorLength = Mathf.Clamp (this.minimumCorridorLength, 0, this.maximumCorridorLength);
+            this.maximumBrushHeight     = Mathf.Clamp (this.maximumBrushHeight, 0, dungeon.Height);
+            this.maximumBrushWidth      = Mathf.Clamp (this.maximumBrushWidth, 0, dungeon.Width);
+            this.minimumBrushHeight     = Mathf.Clamp (this.minimumBrushHeight, 0, this.maximumBrushHeight);
+            this.minimumBrushWidth      = Mathf.Clamp (this.minimumBrushWidth, 0, this.maximumBrushWidth);
+            this.maximumCorridorLength  = Mathf.Clamp (this.maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
+            this.minimumCorridorLength  = Mathf.Clamp (this.minimumCorridorLength, 0, this.maximumCorridorLength);
         }
 
         /// <summary>
@@ -187,16 +187,10 @@ namespace Finsternis
         /// <param name="corridor">The corridor to be trapped.</param>
         private void AddTrap(Corridor corridor)
         {
-            if  (this.traps == null || this.traps.Length == 0)
-            {
-                Debug.LogWarning("No traps found.");
-                return;
-            }
             if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
             {
-                int pos = Dungeon.Random.IntRange(1, corridor.Length - 1, false);
-                DungeonFeature feature =  (this.traps[Dungeon.Random.IntRange(0, this.traps.Length, false)]);
-                corridor.AddFeature(feature, corridor[pos]);
+                int pos = Dungeon.Random.IntRange(1, corridor.Length);
+                corridor.AddTrap(corridor[pos]);
             }
         }
 
@@ -207,43 +201,52 @@ namespace Finsternis
         /// <param name="index">Is this door being added the the first (0) or last (1) cell of the corridor?</param>
         private void AddDoors(Dungeon dungeon, Corridor corridor, int index = 0)
         {
-            if  (this.doors == null || this.doors.Length == 0)
-            {
-                this.Warn("No doors found.");
-                return;
-            }
+            //if  (this.doors == null || this.doors.Length == 0)
+            //{
+            //    this.Warn("No doors found.");
+            //    return;
+            //}
 
-            DoorFeature door = DoorFeature.Instantiate (this.doors[Dungeon.Random.IntRange(0, this.doors.Length, false)]);
-            Vector2 pos = corridor[index];
-            corridor.AddFeature(door, pos);
 
-            foreach (DungeonSection section in corridor.Connections)
-            {
-                if (section is Room && ((Room)section).Locked)
-                {
-                    door.Locked = true;
-                    break;
-                }
-            }
+            //Add door at the start
+            var cell = corridor[0];
+            corridor.AddDoor(cell, -corridor.Direction * 0.75f);
 
-            if (corridor.Length > 1)
-            {
-                Vector3 offset = new Vector3(corridor.Direction.x / 2, 0, corridor.Direction.y / 2);
-                if (corridor.Direction.y != 0)
-                    offset *= -1;
+            //Add door at the end
+            cell = corridor.End;
+            corridor.AddDoor(cell, corridor.Direction * 0.75f);
 
-                if (index == 0)
-                {
-                    door.Offset = -offset;
-                    if (dungeon.IsWithinDungeon(corridor.LastCell + corridor.Direction)
-                    && !dungeon.IsOfAnyType(corridor.LastCell + corridor.Direction, typeof(Corridor), null))
-                        AddDoors(dungeon, corridor, corridor.Length - 1);
-                }
-                else
-                {
-                    door.Offset = offset;
-                }
-            }
+            //DoorFeature door = DoorFeature.Instantiate (this.doors[Dungeon.Random.IntRange(0, this.doors.Length, false)]);
+            //Vector2 pos = corridor[index];
+            //corridor.AddFeature(door, pos);
+
+            //foreach (DungeonSection section in corridor.Connections)
+            //{
+            //    if (section is Room && ((Room)section).Locked)
+            //    {
+            //        door.Locked = true;
+            //        break;
+            //    }
+            //}
+
+            //if (corridor.Length > 1)
+            //{
+            //    Vector3 offset = new Vector3(corridor.Direction.x / 2, 0, corridor.Direction.y / 2);
+            //    if (corridor.Direction.y != 0)
+            //        offset *= -1;
+
+            //    if (index == 0)
+            //    {
+            //        door.Offset = -offset;
+            //        if (dungeon.IsWithinDungeon(corridor.End + corridor.Direction)
+            //        && !dungeon.IsOfAnyType(corridor.End + corridor.Direction, typeof(Corridor), null))
+            //            AddDoors(dungeon, corridor, corridor.Length - 1);
+            //    }
+            //    else
+            //    {
+            //        door.Offset = offset;
+            //    }
+            //}
 
         }
 
@@ -412,13 +415,13 @@ namespace Finsternis
 
             while (corridor.Bounds.xMax < dungeon.Width - corridor.Direction.x
                 && corridor.Bounds.yMax < dungeon.Height - corridor.Direction.y
-                && dungeon[corridor.LastCell + corridor.Direction] == null)
+                && dungeon[corridor.End + corridor.Direction] == null)
             {
                 corridor.Length++;
             }
 
             if (oldLength != corridor.Length
-                && dungeon[corridor.LastCell + corridor.Direction] != null)
+                && dungeon[corridor.End + corridor.Direction] != null)
             {
                 dungeon.MarkCells(corridor);
                 return true;
@@ -444,12 +447,12 @@ namespace Finsternis
             while (corridor.Length > 0 && !intersectionFound)
             {
                 //look around the last cell of the corridor
-                intersectionFound = (dungeon.SearchAround(corridor.LastCell, 2, false, typeof(Corridor), typeof(Room)) >= 2);
+                intersectionFound = (dungeon.SearchAround(corridor.End, 2, false, typeof(Corridor), typeof(Room)) >= 2);
 
                 if (!intersectionFound)
                 {
                     //Remove "excess cells" from the corridor
-                    dungeon[corridor.LastCell] = null;
+                    dungeon[corridor.End] = null;
                     corridor.Length--;
                 }
             }
@@ -459,6 +462,16 @@ namespace Finsternis
                 if (corridor.Length < this.minimumCorridorLength)
                     dungeon.Corridors.Remove(corridor);
             }
+        }
+
+        public T GetRandomTheme<T>() where T : DungeonSectionTheme
+        {
+            if (typeof(RoomTheme).Equals(typeof(T)))
+                return roomThemes.GetRandom(Dungeon.Random.IntRange) as T;
+            else if (typeof(CorridorTheme).Equals(typeof(T)))
+                return corridorThemes.GetRandom(Dungeon.Random.IntRange) as T;
+
+            return default(T);
         }
 
         /// <summary>

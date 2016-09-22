@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Finsternis
@@ -38,7 +39,7 @@ namespace Finsternis
             }
         }
 
-        public Vector2 LastCell
+        public Vector2 End
         {
             get { return _length > 0 ? this[Length - 1] : Position; }
         }
@@ -112,7 +113,7 @@ namespace Finsternis
             {
                 if (result[0] && connection.ContainsCell(Position - Direction))
                     result[0].AddConnection(connection);
-                else if (result[1] && connection.ContainsCell(LastCell + Direction))
+                else if (result[1] && connection.ContainsCell(End + Direction))
                     result[1].AddConnection(connection);
 
                 connection.RemoveConnection(this);
@@ -122,7 +123,7 @@ namespace Finsternis
 
         public override bool ContainsCell(Vector2 cell)
         {
-            return cell.x >= X && cell.x <= LastCell.x && cell.y >= Y && cell.y <= LastCell.y;
+            return cell.x >= X && cell.x <= End.x && cell.y >= Y && cell.y <= End.y;
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace Finsternis
                 Position -= Direction;
                 Length++;
             }
-            else if (cell == LastCell + Direction)
+            else if (cell == End + Direction)
                 Length++;
             else
                 return false;
@@ -150,9 +151,23 @@ namespace Finsternis
         {
             if (ContainsCell(cell))
             {
-                while (LastCell != cell)
+                while (End != cell)
                     Length--;
             }
         }
+
+        internal void AddTrap(Vector2 cell)
+        {
+            var trap = Theme<CorridorTheme>().GetRandomTrap();
+            AddFeature(trap, cell);
+        }
+
+        internal void AddDoor(Vector2 cell, Vector2 offset)
+        {
+            var door = Instantiate(Theme<CorridorTheme>().GetRandomDoor());
+            door.Offset = offset;
+            AddFeature(door, cell);
+        }
+
     }
 }

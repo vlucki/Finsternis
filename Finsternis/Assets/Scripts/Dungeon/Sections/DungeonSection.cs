@@ -2,19 +2,17 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
-    using UnityQuery;
 
     public abstract class DungeonSection : ScriptableObject, IEnumerable<Vector2>
     {
-        public enum Types { BASIC = 0, SYNTHETIC = 1, ORGANIC = 2 }
-        private List<Types> sectionTypes;
-
+        private DungeonSectionTheme theme;
         protected Rect bounds;
         protected HashSet<DungeonSection> connections;
 
         public HashSet<DungeonSection> Connections { get { return connections; } }
-        public Dictionary<Vector2, DungeonFeature> features;
+        private Dictionary<Vector2, List<DungeonFeature>> features;
 
         public Vector2 Size { get { return bounds.size; } }
         public float Width { get { return bounds.width; } }
@@ -22,20 +20,8 @@
         public float X { get { return bounds.x; } }
         public float Y { get { return bounds.y; } }
 
-        public void AddType(Types type)
-        {
-            sectionTypes.AddUnique(type);
-        }
-
-        public bool HasType(Types type)
-        {
-            return sectionTypes.Contains(type);
-        }
-
-        public List<Types> GetTypes()
-        {
-            return sectionTypes; 
-        }
+        public void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
+        public T Theme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
 
         public virtual Vector2 Position
         {
@@ -59,11 +45,9 @@
 
         protected DungeonSection(Rect bounds)
         {
-            this.bounds = bounds;
-            this.sectionTypes = new List<Types>();
-            
+            this.bounds = bounds;            
             connections = new HashSet<DungeonSection>();
-            features = new Dictionary<Vector2, DungeonFeature>();
+            features = new Dictionary<Vector2, List<DungeonFeature>>();
         }
 
         public abstract bool ContainsCell(Vector2 cell);
@@ -90,21 +74,39 @@
         public void AddFeature(DungeonFeature feature, Vector2 cell)
         {
             if (!features.ContainsKey(cell))
-            {
-                features.Add(cell, feature);
-            }
+                features.Add(cell, new List<DungeonFeature>());
+            features[cell].Add(feature);
         }
 
-        public virtual DungeonFeature GetFeature(Vector2 cell)
+        public List<DungeonFeature> GetFeaturesAt(Vector2 cell)
+        {
+            List<DungeonFeature> features = null;
+            this.features.TryGetValue(cell, out features);
+            return features;
+        }
+
+        public DungeonFeature GetFeatureAt(Vector2 cell)
         {
             DungeonFeature feature = null;
-            features.TryGetValue(cell, out feature);
+            List<DungeonFeature> features = GetFeaturesAt(cell);
+            if (features != null && features.Count > 0)
+                    feature = features[0];
+
             return feature;
         }
 
-        public virtual DungeonFeature GetFeature(float cellX, float cellY)
+        public DungeonFeature GetFeatureAt(float cellX, float cellY)
         {
-            return GetFeature(new Vector2(cellX, cellY));
+            return GetFeatureAt(new Vector2(cellX, cellY));
+        }
+
+        public bool HasFeature<T>(Vector2 cell) where T : DungeonFeature
+        {
+            var features = GetFeaturesAt(cell);
+            if (features.Any(feature => feature is T))
+                return true;
+
+            return false;
         }
 
         public abstract bool AddCell(Vector2 cell);

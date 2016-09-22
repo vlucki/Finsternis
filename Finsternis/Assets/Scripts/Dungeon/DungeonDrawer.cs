@@ -148,14 +148,14 @@ namespace Finsternis
             Vector3 pos = GetWorldPosition(new Vector2(cellX, cellY) + Vector2.one / 2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
-            DungeonFeature feature = dungeon[cellX, cellY].GetFeature(cellX, cellY);
+            DungeonFeature feature = dungeon[cellX, cellY].GetFeatureAt(cellX, cellY);
             if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
             {
                 if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
                 {
                     if (exits != null && exits.Length > 0)
                     {
-                        cell = Instantiate(exits[Random.Range(0, exits.Length)], pos, Quaternion.identity) as GameObject;
+                        cell = Instantiate(exits.GetRandom(Random.Range), pos, Quaternion.identity) as GameObject;
                     }
                     else
                     {

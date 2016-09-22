@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -53,6 +54,9 @@ namespace Finsternis
 
         [SerializeField]
         private List<DungeonGoal> goals;
+        
+        private HashSet<RoomTheme> roomThemes;
+        private HashSet<CorridorTheme> corridorThemes;
 
         private int availableCardPoints = -1;
 
@@ -160,8 +164,31 @@ namespace Finsternis
             this.corridors = new List<Corridor>();
             this.rooms = new List<Room>();
             this.goals = new List<DungeonGoal>();
+            this.roomThemes = new HashSet<RoomTheme>();
+            this.corridorThemes = new HashSet<CorridorTheme>();
+
             if (OnGoalCleared == null)
                 OnGoalCleared = new UnityEvent();
+        }
+
+        public void AddCorridorTheme(CorridorTheme t)
+        {
+            corridorThemes.Add(t);
+        }
+
+        public void AddRoomTheme(RoomTheme t)
+        {
+            roomThemes.Add(t);
+        }
+
+        public CorridorTheme GetRandomCorridorTheme()
+        {
+            return this.corridorThemes.GetRandom(Dungeon.Random.IntRange);
+        }
+
+        public RoomTheme GetRandomRoomTheme()
+        {
+            return this.roomThemes.GetRandom(Dungeon.Random.IntRange);
         }
 
         public T GetGoal<T>() where T : DungeonGoal
@@ -198,7 +225,7 @@ namespace Finsternis
 
         public Room GetRandomRoom()
         {
-            return this.rooms[Random.IntRange(0, this.rooms.Count, false)];
+            return this.rooms.GetRandom(Random.IntRange);
         }
 
         /// <summary>

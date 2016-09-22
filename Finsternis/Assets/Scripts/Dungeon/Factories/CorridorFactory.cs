@@ -85,7 +85,7 @@ namespace Finsternis
                 return false;
 
             //move the end of the corridor to the very edge of the room bounds (on the direction the corridor should go)
-            while ((direction.x != 0 && corridor.LastCell.x < room.Bounds.xMax) || (direction.y != 0 && corridor.LastCell.y < room.Bounds.yMax))
+            while ((direction.x != 0 && corridor.End.x < room.Bounds.xMax) || (direction.y != 0 && corridor.End.y < room.Bounds.yMax))
                 corridor.Length++;
 
             corridor.Length += Mathf.CeilToInt(Dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
