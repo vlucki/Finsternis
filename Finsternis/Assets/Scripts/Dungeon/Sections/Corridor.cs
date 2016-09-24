@@ -1,39 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     public class Corridor : DungeonSection
     {
-        private Vector2 _direction;
-        private int _length;
+        private Vector2 direction;
+        private int length;
 
-        public Vector2 Direction { get { return _direction; } set { _direction = value; } }
+        public Vector2 Direction { get { return this.direction; } set { this.direction = value; } }
         public override Rect Bounds
         {
             get { return bounds; }
             set
             {
                 bounds = value;
-                _length = Mathf.RoundToInt(Mathf.Max(bounds.size.x, bounds.size.y));
+                this.length = Mathf.RoundToInt(Mathf.Max(bounds.size.x, bounds.size.y));
             }
         }
 
         public int Length
         {
-            get { return _length; }
+            get { return this.length; }
 
             set
             {
                 if (value > 0)
                 {
-                    _length = value;
-                    bounds.size = new Vector2(value * _direction.x + _direction.y, value * _direction.y + _direction.x);
+                    this.length = value;
+                    bounds.size = new Vector2(value * this.direction.x + this.direction.y, value * this.direction.y + this.direction.x);
                 }
                 else
                 {
-                    _length = 0;
+                    this.length = 0;
                     bounds.size = Vector2.zero;
                 }
             }
@@ -41,23 +40,23 @@ namespace Finsternis
 
         public Vector2 End
         {
-            get { return _length > 0 ? this[Length - 1] : Position; }
+            get { return this.length > 0 ? this[Length - 1] : Position; }
         }
 
         public Vector2 this[int index]
         {
             get
             {
-                if (index < 0 || index >= _length)
+                if (index < 0 || index >= this.length)
                     throw new System.ArgumentOutOfRangeException("index", "Trying to access a cell with index " + index + " within " + ToString());
-                return bounds.position + _direction * index;
+                return bounds.position + this.direction * index;
             }
         }
 
         public static Corridor CreateInstance(Rect bounds, Vector2 direction)
         {
             Corridor c = CreateInstance<Corridor>(bounds);
-            c._direction = direction;
+            c.direction = direction;
             return c;
         }
 
@@ -68,12 +67,12 @@ namespace Finsternis
 
         public override string ToString()
         {
-            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + _length + "]";
+            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + this.length + "]";
         }
 
         public override IEnumerator<Vector2> GetEnumerator()
         {
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < this.length; i++)
                 yield return this[i];
         }
 
@@ -91,8 +90,8 @@ namespace Finsternis
         public void RemoveFirst()
         {
             Rect newBounds = new Rect();
-            newBounds.position = Position + _direction;
-            newBounds.size = Size - _direction;
+            newBounds.position = Position + this.direction;
+            newBounds.size = Size - this.direction;
             Bounds = newBounds;
         }
 
@@ -104,10 +103,16 @@ namespace Finsternis
             Corridor[] result = new Corridor[2];
 
             if (index > 0)
-                result[0] = CreateInstance(bounds.position, index, _direction);
+            {
+                result[0] = CreateInstance(bounds.position, index, this.direction);
+                result[0].SetTheme(this.Theme);
+            }
 
-            if (index < _length - 1)
-                result[1] = CreateInstance(this[index + 1], _length - index - 1, _direction);
+            if (index < this.length - 1)
+            {
+                result[1] = CreateInstance(this[index + 1], this.length - index - 1, this.direction);
+                result[1].SetTheme(this.Theme);
+            }
 
             foreach (DungeonSection connection in connections)
             {
@@ -158,13 +163,13 @@ namespace Finsternis
 
         internal void AddTrap(Vector2 cell)
         {
-            var trap = Theme<CorridorTheme>().GetRandomTrap();
+            var trap = GetTheme<CorridorTheme>().GetRandomTrap();
             AddFeature(trap, cell);
         }
 
         internal void AddDoor(Vector2 cell, Vector2 offset)
         {
-            var door = Instantiate(Theme<CorridorTheme>().GetRandomDoor());
+            var door = Instantiate(GetTheme<CorridorTheme>().GetRandomDoor());
             door.Offset = offset;
             AddFeature(door, cell);
         }

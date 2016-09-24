@@ -2,7 +2,8 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
-    [CreateAssetMenu(fileName = "RoomTheme", menuName = "Finsternis/Dungeon/Themes/Room Theme")]
+
+    [CreateAssetMenu(fileName = "RoomTheme", menuName = "Finsternis/Dungeon/Themes/Room")]
     public class RoomTheme : DungeonSectionTheme
     {
         [SerializeField]
@@ -10,7 +11,7 @@
 
         public GameObject GetRandomDecoration()
         {
-            return this.decorationPrefabs;
+            return GetRandomElement(this.decorationPrefabs);
         }
     }
 }

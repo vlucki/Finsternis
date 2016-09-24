@@ -3,20 +3,21 @@
     using UnityEngine;
     using System.Collections.Generic;
 
+    [CreateAssetMenu(fileName = "CorridorTheme", menuName = "Finsternis/Dungeon/Themes/Corridor")]
     public class CorridorTheme : DungeonSectionTheme
     {
         [SerializeField]
-        private List<TrapFeature> traps;
+        private List<DungeonFeature> traps;
 
         [SerializeField]
-        private List<DoorFeature> doors;
+        private List<DungeonFeature> doors;
 
-        public TrapFeature GetRandomTrap()
+        public DungeonFeature GetRandomTrap()
         {
             return GetRandomElement(this.traps);
         }
 
-        public DoorFeature GetRandomDoor()
+        public DungeonFeature GetRandomDoor()
         {
             return GetRandomElement(this.doors);
         }

@@ -8,12 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 122370051ad384644b5a3ab8e00d3c1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_door02
   m_EditorClassIdentifier: 
   prefab: {fileID: 1000012990961818, guid: 527c6334dfa51734b9c06e521426f4ba, type: 2}
   type: 0
   alignment: 0
   offset: {x: 0, y: 0, z: 0}
-  _closed: 1
-  _locked: 0

@@ -24,10 +24,10 @@ namespace Finsternis
         public PhysicMaterial defaultFloorPhysicMaterial;
         public Material corridorMaterial;
 
-        public WallParts[] walls;
+        //public WallParts[] walls;
 
-        [Header("Prefabs")]
-        public GameObject[] floorTiles;
+        //[Header("Prefabs")]
+        //public GameObject[] floorTiles;
         public GameObject[] exits;
 
         [Header("Events")]
@@ -145,7 +145,8 @@ namespace Finsternis
         private GameObject MakeCell(int cellX, int cellY)
         {
             GameObject cell = null;
-            Vector3 pos = GetWorldPosition(new Vector2(cellX, cellY) + Vector2.one / 2);
+            Vector2 dungeonPos = new Vector2(cellX, cellY);
+            Vector3 worldPos = GetWorldPosition(dungeonPos + Vector2.one / 2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
             DungeonFeature feature = dungeon[cellX, cellY].GetFeatureAt(cellX, cellY);
@@ -155,7 +156,7 @@ namespace Finsternis
                 {
                     if (exits != null && exits.Length > 0)
                     {
-                        cell = Instantiate(exits.GetRandom(Random.Range), pos, Quaternion.identity) as GameObject;
+                        cell = Instantiate(exits.GetRandom(Random.Range), worldPos, Quaternion.identity) as GameObject;
                     }
                     else
                     {
@@ -166,18 +167,8 @@ namespace Finsternis
                 }
                 else
                 {
-                    if (floorTiles != null && floorTiles.Length > 0)
-                    {
-                        cell = Instantiate(floorTiles[Random.Range(0, floorTiles.Length)], pos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                    }
-                    else
-                    {
-                        cell = MakeQuad(pos,
-                                        new Vector3(cellScale.x, cellScale.z, 1),
-                                        Vector3.right * 90,
-                                        dungeon.IsOfType(cellX, cellY, typeof(Corridor)) ? corridorMaterial : defaultFloorMaterial,
-                                        name);
-                    }
+                    cell = Instantiate(dungeon[dungeonPos].Theme.GetRandomFloor(), worldPos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+ 
                     if (cellX == (int)dungeon.Entrance.x && cellY == (int)dungeon.Entrance.y)
                     {
                         GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -202,7 +193,7 @@ namespace Finsternis
                         Vector2 corridorDir = ((Corridor)dungeon[cellX, cellY]).Direction;
                         cell.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
                     }
-                    cell.transform.position = pos;
+                    cell.transform.position = worldPos;
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -230,14 +221,14 @@ namespace Finsternis
 
             switch (feature.Alignment)
             {
-                case DungeonFeature.CellAlignment.FLOOR:
+                case DungeonFeature.CellAlignment.CENTER:
 
                     if (!feature.Offset.IsZero())
                         featureGO.transform.forward = feature.Offset;
 
                     break;
 
-                case DungeonFeature.CellAlignment.WALL:
+                case DungeonFeature.CellAlignment.X_Pos:
 
                     if (dungeon.IsOfType(position + Vector2.up, null))
                         featureGO.transform.up = Vector3.forward;   //wall is "above"
@@ -254,6 +245,7 @@ namespace Finsternis
             return featureGO;
         }
 
+        //TODO: get walls from adjascent room instead of from wall coordinate
         private GameObject MakeWall(int cellX, int cellY)
         {
             var coords = new Vector2(cellX, cellY);
@@ -265,7 +257,7 @@ namespace Finsternis
 
             GameObject wall = new GameObject("Wall ("+coords+")");
             wall.transform.position = GetWorldPosition(coords + Vector2.one / 2);
-            var wallGroup = walls[Random.Range(0, walls.Length)];
+            var wallGroup = dungeon[coords].Theme.GetRandomWall();
             int wallNeighbourhood = GetWallNeighbourhood(coords);
 
             var wallLateral = wallGroup.GetLateral();

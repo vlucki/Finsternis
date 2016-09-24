@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using UnityQuery;
 
-    public class DungeonSectionTheme : ScriptableObject
+    public abstract class DungeonSectionTheme : ScriptableObject
     {
         [SerializeField]
         private List<string> tags;
@@ -13,7 +13,7 @@
         private List<GameObject> floorPrefabs;
 
         [SerializeField]
-        private List<GameObject> wallPrefabs;
+        private List<WallParts> walls;
 
         public void AddTag(string tag)
         {
@@ -49,9 +49,9 @@
             return tagFound;
         }
 
-        public GameObject GetRandomWall()
+        public WallParts GetRandomWall()
         {
-            return GetRandomElement(this.wallPrefabs);
+            return GetRandomElement(this.walls);
         }
 
         public GameObject GetRandomFloor()
@@ -63,6 +63,5 @@
         {
             return list.GetRandom(Dungeon.Random.IntRange);
         }
-
     }
 }

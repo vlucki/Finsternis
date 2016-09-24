@@ -20,8 +20,7 @@
         public float X { get { return bounds.x; } }
         public float Y { get { return bounds.y; } }
 
-        public void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
-        public T Theme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
+        public DungeonSectionTheme Theme { get { return this.theme; } }
 
         public virtual Vector2 Position
         {
@@ -33,6 +32,10 @@
             get { return bounds; }
             set { bounds = value; }
         }
+
+
+        public void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
+        public T GetTheme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
 
         public static T CreateInstance<T>(Rect bounds) where T : DungeonSection
         {
