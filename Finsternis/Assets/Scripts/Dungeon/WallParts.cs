@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[CreateAssetMenu(fileName ="WallParts", menuName ="Finsternis/Dungeon/Walls")]
+[CreateAssetMenu(fileName = "WallParts", menuName = "Finsternis/Dungeon/Walls")]
 public class WallParts : ScriptableObject
 {
     [SerializeField]
@@ -10,9 +10,14 @@ public class WallParts : ScriptableObject
     [SerializeField]
     private GameObject wallPrefab;
 
+    private GameObject lateral;
+
     public GameObject GetLateral()
     {
-        return wallPrefab.transform.FindChild("lateral").gameObject;
+        if (!this.lateral)
+            this.lateral = wallPrefab.transform.FindChild("lateral").gameObject;
+
+        return this.lateral;
     }
 
     public GameObject GetTop()
@@ -22,10 +27,10 @@ public class WallParts : ScriptableObject
 
     public bool HasTags(params string[] tags)
     {
-        foreach(var tag in this.tags)
+        foreach (var tag in this.tags)
         {
             bool tagFound = false;
-            foreach(var searchedTag in tags)
+            foreach (var searchedTag in tags)
             {
                 if (tag.Equals(searchedTag))
                     tagFound = true;

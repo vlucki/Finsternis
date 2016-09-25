@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System.Collections.Generic;
     using UnityEngine;
 
     [CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/Dungeon/Features/Generic Feature", order = 0)]
@@ -32,6 +33,9 @@
         [SerializeField]
         private Vector3 offset = Vector3.zero;
 
+        [SerializeField][Tooltip("What kind of features may be on the same cell as this one?")]
+        private List<DungeonFeature> stackWhiteList = new List<DungeonFeature>();
+
         public GameObject Prefab
         {
             get { return this.prefab; }
@@ -49,6 +53,11 @@
         {
             get { return this.offset; }
             set { this.offset = value; }
+        }
+
+        public bool MayStackWith<T>(T feature) where T : DungeonFeature
+        {
+            return stackWhiteList.Contains(feature);
         }
     }
 }

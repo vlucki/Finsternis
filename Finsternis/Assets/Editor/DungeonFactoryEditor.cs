@@ -6,7 +6,9 @@ namespace Finsternis
     [CustomEditor(typeof(DungeonFactory), true)]
     public class DungeonFactoryEditor : QuickReorder
     {
+        [SerializeField]
         string seed = "0";
+        [SerializeField]
         bool deleteExisting;
 
         public override void OnInspectorGUI()

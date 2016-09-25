@@ -161,17 +161,18 @@
             }
         }
 
-        internal void AddTrap(Vector2 cell)
+        internal bool AddTrap(Vector2 cell)
         {
             var trap = GetTheme<CorridorTheme>().GetRandomTrap();
-            AddFeature(trap, cell);
+            return AddFeature(trap, cell);
         }
 
-        internal void AddDoor(Vector2 cell, Vector2 offset)
+        internal bool AddDoor(Vector2 cell, Vector2 offset)
         {
             var door = Instantiate(GetTheme<CorridorTheme>().GetRandomDoor());
-            door.Offset = offset;
-            AddFeature(door, cell);
+
+            door.Offset = new Vector3(offset.x, 0, -offset.y);
+            return AddFeature(door, cell);
         }
 
     }

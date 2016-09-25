@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a8fdade69ef8fc41b39bbfbbcb09411, type: 3}
-  m_Name: CorridorTheme
+  m_Name: CorridorTheme01
   m_EditorClassIdentifier: 
   tags: []
   floorPrefabs:

@@ -74,11 +74,15 @@
             return GetEnumerator();
         }
 
-        public void AddFeature(DungeonFeature feature, Vector2 cell)
+        public bool AddFeature(DungeonFeature feature, Vector2 cell)
         {
             if (!features.ContainsKey(cell))
                 features.Add(cell, new List<DungeonFeature>());
+            foreach (var f in features[cell])
+                if (!f.MayStackWith(feature))
+                    return false;
             features[cell].Add(feature);
+            return true;
         }
 
         public List<DungeonFeature> GetFeaturesAt(Vector2 cell)

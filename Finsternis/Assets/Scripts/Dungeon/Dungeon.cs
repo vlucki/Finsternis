@@ -423,5 +423,27 @@ namespace Finsternis
                 this[cell] = section;
             }
         }
+
+        public override string ToString()
+        {
+            string s = this.name;
+
+            for(int i = 0; i < this.Height; i++)
+            {
+                s += "\n|";
+                for (int j = 0; j < this.Width; j++)
+                {
+                    var cell = this[j, i];
+                    if (!cell)
+                        s += " 0 |";
+                    else if (cell is Corridor)
+                        s += " 1 |";
+                    else
+                        s += " 2 |";
+                }
+            }
+
+            return s;
+        }
     }
 }

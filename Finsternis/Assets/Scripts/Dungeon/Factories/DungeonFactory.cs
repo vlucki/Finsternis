@@ -6,6 +6,7 @@ using UnityQuery;
 
 namespace Finsternis
 {
+    [DisallowMultipleComponent]
     public class DungeonFactory : MonoBehaviour
     {
 
@@ -74,7 +75,7 @@ namespace Finsternis
 
         [SerializeField]
         private CorridorTheme[] corridorThemes;
-        
+
         #endregion
 
         private Room lastRoom;
@@ -88,8 +89,8 @@ namespace Finsternis
         {
             dungeon.Init(this.dungeonWidth, this.dungeonHeight);
             this.brushSizeVariation.Validate(this.dungeonWidth, this.dungeonHeight);
-            this.maximumCorridorLength  = Mathf.Clamp (this.maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
-            this.minimumCorridorLength  = Mathf.Clamp (this.minimumCorridorLength, 0, this.maximumCorridorLength);
+            this.maximumCorridorLength = Mathf.Clamp(this.maximumCorridorLength, 0, Mathf.Min(dungeon.Height, dungeon.Width));
+            this.minimumCorridorLength = Mathf.Clamp(this.minimumCorridorLength, 0, this.maximumCorridorLength);
         }
 
         /// <summary>
@@ -112,13 +113,12 @@ namespace Finsternis
             Queue<Corridor> hangingCorridors = null;
             Queue<Room> hangingRooms = new Queue<Room>();
 
-            Vector2 maxRoomSize = new Vector2 (this.maximumRoomWidth, this.maximumRoomHeight);
+            Vector2 maxRoomSize = new Vector2(this.maximumRoomWidth, this.maximumRoomHeight);
 
             Room room;
             if (RoomFactory.CarveRoom(dungeon, null, brushSizeVariation, maxRoomSize, this.maximumTries, out room))
             {
                 dungeon.MarkCells(room);
-                room.SetTheme(roomThemes.GetRandom(Dungeon.Random.IntRange));
                 hangingRooms.Enqueue(room);
                 dungeon.Rooms.Add(room);
                 dungeon.Entrance = room.GetRandomCell();
@@ -135,9 +135,12 @@ namespace Finsternis
                 roomCount = GenerateRooms(dungeon, hangingRooms, hangingCorridors, maxRoomSize, roomCount);
             }
 
-            if (!this.allowDeadEnds) ConnectLeftoverCorridors(dungeon, hangingCorridors);
+            if (!this.allowDeadEnds)
+                ConnectLeftoverCorridors(dungeon, hangingCorridors);
 
             CleanUp(dungeon);
+
+            DefineThemes(dungeon);
 
             AddFeatures(dungeon);
 
@@ -147,6 +150,15 @@ namespace Finsternis
 
             if (onGenerationEnd)
                 onGenerationEnd.Invoke(dungeon);
+        }
+
+        void DefineThemes(Dungeon dungeon)
+        {
+            foreach (var room in dungeon.Rooms)
+                room.SetTheme(this.roomThemes.GetRandom(Dungeon.Random.IntRange));
+
+            foreach (var corridor in dungeon.Corridors)
+                corridor.SetTheme(this.corridorThemes.GetRandom(Dungeon.Random.IntRange));
         }
 
         /// <summary>
@@ -170,14 +182,18 @@ namespace Finsternis
         {
             if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
             {
-                int pos = Dungeon.Random.IntRange(1, corridor.Length);
-                corridor.AddTrap(corridor[pos]);
+                int pos = 0;
+                int count = 0, maxTries = 10;
+                do
+                    pos = Dungeon.Random.IntRange(1, corridor.Length-1); //-1 because we don't want to count the last cell either (it should never have a trap)
+                while((++count) <= maxTries && !corridor.AddTrap(corridor[pos]));
             }
         }
 
         /// <summary>
         /// Add doors at the junction between rooms and corridors.
         /// </summary>
+        /// <param name="dungeon">Reference to the dungeon.</param>
         /// <param name="corridor">The corridor that will have doors added to it.</param>
         /// <param name="index">Is this door being added the the first (0) or last (1) cell of the corridor?</param>
         private void AddDoors(Dungeon dungeon, Corridor corridor, int index = 0)
@@ -196,10 +212,42 @@ namespace Finsternis
         /// Removes corridors that don't really look like corridors (eg. have walls only on one side) 
         /// and merge rooms that overlap or don't have walls between one or more cells
         /// </summary>
+        /// <param name="dungeon">Reference to the dungeon.</param>
         private void CleanUp(Dungeon dungeon)
         {
             FixCorridors(dungeon);
             MergeRooms(dungeon);
+            RemoveUnnecessaryCorridors(dungeon);
+
+            foreach (var corridor in dungeon.Corridors)
+                dungeon.MarkCells(corridor);
+
+            foreach (var room in dungeon.Rooms)
+                dungeon.MarkCells(room);
+        }
+
+        /// <summary>
+        /// Incorporates corridors that have only 1 of length and connect a room to itself with said room. 
+        /// </summary>
+        /// <param name="dungeon">Reference to the dungeon.</param>
+        void RemoveUnnecessaryCorridors(Dungeon dungeon)
+        {
+
+            for (int i = dungeon.Corridors.Count - 1; i >= 0; i--)
+            {
+                Corridor corridor = dungeon.Corridors[i];
+
+                if (corridor.Length != 1 || corridor.Connections.Count > 1)
+                    continue;
+
+                Room connectedRoom = dungeon[corridor[0] - corridor.Direction] as Room;
+                if (connectedRoom)
+                {
+                    connectedRoom.AddCell(corridor[0]);
+                    connectedRoom.RemoveConnection(corridor);
+                    dungeon.Corridors.RemoveAt(i);
+                }
+            }
         }
 
         /// <summary>
@@ -220,7 +268,6 @@ namespace Finsternis
                     TrimCorridor(dungeon, corridor);
             }
         }
-
         /// <summary>
         /// Splits corridors that have cells without walls on at least two sides.
         /// </summary>
@@ -334,7 +381,8 @@ namespace Finsternis
                 if (!ExtendCorridor(dungeon, corridor)) //first of all, try to extend the corridor untils it intersects something
                 {
                     //if it fails, them remove every corridor that is not connected to another one
-                    if (!this.allowDeadEnds) corridorsStillHanging.Enqueue(corridor);
+                    if (!this.allowDeadEnds)
+                        corridorsStillHanging.Enqueue(corridor);
                 }
             }
 
@@ -476,11 +524,10 @@ namespace Finsternis
                 Corridor corridor;
                 for (int i = 0; i < 2; i++)
                 {
-                    if (CorridorFactory.CarveCorridor(dungeon, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2 (this.minimumCorridorLength, this.maximumCorridorLength), this.brushSizeVariation.Min, out corridor))
+                    if (CorridorFactory.CarveCorridor(dungeon, room, (i == 0 ? Vector2.right : Vector2.up), new Vector2(this.minimumCorridorLength, this.maximumCorridorLength), this.brushSizeVariation.Min, out corridor))
                     {
                         hangingCorridors.Enqueue(corridor);
                         dungeon.Corridors.Add(corridor);
-                        corridor.SetTheme(this.corridorThemes.GetRandom(Dungeon.Random.IntRange));
                         corridor.AddConnection(room);
                         dungeon.MarkCells(corridor);
                     }

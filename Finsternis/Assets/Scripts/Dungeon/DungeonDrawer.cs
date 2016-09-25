@@ -23,11 +23,7 @@ namespace Finsternis
         public Material defaultFloorMaterial;
         public PhysicMaterial defaultFloorPhysicMaterial;
         public Material corridorMaterial;
-
-        //public WallParts[] walls;
-
-        //[Header("Prefabs")]
-        //public GameObject[] floorTiles;
+        
         public GameObject[] exits;
 
         [Header("Events")]
@@ -82,8 +78,10 @@ namespace Finsternis
             Type type = section.GetType();
             GameObject sectionGO = new GameObject(type.ToString() + " " + section.Position.ToString("F0"));
             sectionGO.transform.position = GetWorldPosition(section.Bounds.center);
+
             foreach (Vector2 cell in section)
             {
+
                 for (int i = -1; i < 2; i++)
                 {
                     for (int j = -1; j < 2; j++)
@@ -91,10 +89,11 @@ namespace Finsternis
                         if (Mathf.Abs(i) == Mathf.Abs(j))
                             continue;
 
-                        GameObject wall = MakeWall((int)cell.x + i, (int)cell.y + j);
+                        var wall = MakeWall(cell, new Vector2(i, j));
                         if (wall)
                             wall.transform.SetParent(sectionGO.transform);
                     }
+
                 }
                 GameObject sectionCell = MakeCell((int)cell.x, (int)cell.y);
                 sectionCell.transform.SetParent(sectionGO.transform);
@@ -103,35 +102,31 @@ namespace Finsternis
             return sectionGO;
         }
 
-        private void MakeWalls()
+        private GameObject MakeWall(Vector2 cell, Vector2 wallOffset)
         {
-            GameObject wallsContainer = new GameObject("WALLS");
-            wallsContainer.transform.SetParent(dungeon.transform);
-            int width = dungeon.Width;
-            int height = dungeon.Height;
-            for (int cellY = -1; cellY <= height; cellY++)
+            var wallPos = cell + wallOffset;
+            if (ShouldMakeWall(wallPos))
             {
-                for (int cellX = -1; cellX <= width; cellX++)
+                try
                 {
-                    if (ShouldMakeWall(cellX, cellY))
-                    {
-                        GameObject wall = MakeWall(cellX, cellY);
-                        bool mayBlockPlayer = ShouldAddScript(cellX, cellY);
-                        if (mayBlockPlayer
-                            || ShouldAddScript(cellX, cellY - 1)
-                            || ShouldAddScript(cellX - 1, cellY - 1)
-                            || ShouldAddScript(cellX + 1, cellY - 1))
-                        {
-                            if (wall.GetComponent<Renderer>())
-                            {
-                                Wall w = wall.AddComponent<Wall>();
-                                w.canFadeCompletely = mayBlockPlayer;
-                            }
-                        }
-                        wall.transform.SetParent(wallsContainer.transform);
-                    }
+                    var theme = dungeon[cell].Theme;
+                    theme.GetRandomWall();
+                    var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + Vector2.one / 2), Quaternion.identity);
+                    wall.transform.forward = new Vector3(-wallOffset.x, 0, wallOffset.y);
+                    return wall;
+                } catch(NullReferenceException ex)
+                {
+                    string msg = "Failed to creat wall for cell " + cell.ToString("0") + "\n";
+                    if (!dungeon[cell])
+                        msg += "Position was null";
+                    else if (dungeon[cell].Theme == null)
+                        msg += "No theme set for cell " + dungeon[cell];
+                    Log.Error(this, msg);
+                    throw ex;
                 }
             }
+
+            return null;
         }
 
         private bool ShouldAddScript(int cellX, int cellY)
@@ -168,19 +163,9 @@ namespace Finsternis
                 else
                 {
                     cell = Instantiate(dungeon[dungeonPos].Theme.GetRandomFloor(), worldPos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
- 
-                    if (cellX == (int)dungeon.Entrance.x && cellY == (int)dungeon.Entrance.y)
-                    {
-                        GameObject pedestal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                        pedestal.name = "Entrance";
-                        pedestal.transform.SetParent(cell.transform);
-                        pedestal.transform.localScale = new Vector3(1, 0.05f, 1);
-                        pedestal.transform.localPosition = Vector3.zero;
-                        pedestal.GetComponent<CapsuleCollider>().DestroyNow();
-                    }
                 }
                 if (feature)
-                    MakeFeature(feature, new Vector3(cellX, cellY)).transform.SetParent(cell.transform);
+                    MakeFeature(feature, new Vector2(cellX, cellY)).transform.SetParent(cell.transform);
             }
             else
             {
@@ -245,64 +230,71 @@ namespace Finsternis
             return featureGO;
         }
 
-        //TODO: get walls from adjascent room instead of from wall coordinate
         private GameObject MakeWall(int cellX, int cellY)
         {
-            var coords = new Vector2(cellX, cellY);
+            var dungeonPos = new Vector2(cellX, cellY);
 
-            if (drawnWalls.Contains(coords) || (dungeon.IsWithinDungeon(coords) && !dungeon.IsOfType(cellX, cellY, null)))
+            if (drawnWalls.Contains(dungeonPos) || (dungeon.IsWithinDungeon(dungeonPos) && !dungeon.IsOfType(cellX, cellY, null)))
                 return null;
 
-            drawnWalls.Add(coords);
+            drawnWalls.Add(dungeonPos);
 
-            GameObject wall = new GameObject("Wall ("+coords+")");
-            wall.transform.position = GetWorldPosition(coords + Vector2.one / 2);
-            var wallGroup = dungeon[coords].Theme.GetRandomWall();
-            int wallNeighbourhood = GetWallNeighbourhood(coords);
-
-            var wallLateral = wallGroup.GetLateral();
-            for(int i = 1; i <= 8; i*= 2)
-                if ((wallNeighbourhood & i) == i)
-                    Instantiate(
-                        wallLateral,
-                        wall.transform.position, 
-                        Quaternion.Euler(0, 90 * ((Mathf.CeilToInt((float)i / 3) - i%2)), 0), 
-                        wall.transform);
-
+            GameObject wall = new GameObject("Wall (" + dungeonPos.ToString("0") + ")");
+            wall.transform.position = GetWorldPosition(dungeonPos + Vector2.one / 2);
             wall.layer = LayerMask.NameToLayer("Wall");
-            var bc = wall.AddComponent<BoxCollider>();
-            bc.size = cellScale.WithY(wallLateral.GetComponent<MeshRenderer>().bounds.size.y);
-            bc.center = bc.size.OnlyY() / 2;
+
+            //var wallNeighbourhood = GetWallNeighbourhood(dungeonPos);
+
+            //foreach (var neighbourPos in wallNeighbourhood)
+            //{
+            //    try
+            //    {
+            //        var rotation = Quaternion.identity;
+            //        if (neighbourPos.x < dungeonPos.x)
+            //            rotation = Quaternion.Euler(0, 270, 0);
+            //        else if (neighbourPos.x > dungeonPos.x)
+            //            rotation = Quaternion.Euler(0, 90, 0);
+            //        else if (neighbourPos.y > dungeonPos.y)
+            //            rotation = Quaternion.Euler(0, 180, 0);
+
+            //        var wallSide = ((GameObject)Instantiate(
+            //            dungeon[neighbourPos].Theme.GetRandomWall().GetLateral(),
+            //            wall.transform.position,
+            //            rotation,
+            //            wall.transform));
+
+            //    } catch (NullReferenceException ex)
+            //    {
+            //        Log.Error(this, "Failed to create wall side at {0} for neighbour at {1}", dungeonPos, neighbourPos);
+            //        throw ex;
+            //    }
+            //}
+
             return wall;
         }
 
-        private int GetWallNeighbourhood(Vector2 cell)
+        private List<Vector2> GetWallNeighbourhood(Vector2 cell)
         {
-            int neighbourhood = 0;
-            /*
-             * x   1    x
-             * 8  cell  2
-             * x   4    x
-             */
+            var neighbours = new List<Vector2>();
 
             Type[] types = { typeof(Corridor), typeof(Room) };
             var neighbour = cell - Vector2.up;
             if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbourhood = 1;
+                neighbours.Add(neighbour);
 
             neighbour = cell + Vector2.right;
             if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbourhood += 2;
+                neighbours.Add(neighbour);
 
             neighbour = cell + Vector2.up;
             if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbourhood += 4;
+                neighbours.Add(neighbour);
 
             neighbour = cell - Vector2.right;
             if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbourhood += 8;
+                neighbours.Add(neighbour);
 
-            return neighbourhood;
+            return neighbours;
         }
 
         /// <summary>
@@ -325,6 +317,11 @@ namespace Finsternis
             return plane;
         }
 
+        public bool ShouldMakeWall(Vector2 pos)
+        {
+            return (!dungeon.IsWithinDungeon(pos) || !dungeon[pos]);
+        }
+
         /// <summary>
         /// Checks if a wall should be made at a given position in the dungeon.
         /// </summary>
@@ -333,7 +330,7 @@ namespace Finsternis
         /// <returns>True if the given coordinates are outside the dungeon or represent a wall within it.</returns>
         private bool ShouldMakeWall(int cellX, int cellY)
         {
-            return (!dungeon.IsWithinDungeon(cellX, cellY) || dungeon[cellX, cellY] == null);
+            return (!dungeon.IsWithinDungeon(cellX, cellY) || !dungeon[cellX, cellY]);
         }
 
         /// <summary>
