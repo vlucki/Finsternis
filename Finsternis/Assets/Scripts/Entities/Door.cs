@@ -9,8 +9,8 @@
     {
         private Animator anim;
 
-        private static readonly int DoorLockedBool = Animator.StringToHash("locked");
-        private static readonly int DoorOpenedBool = Animator.StringToHash("opened");
+        public static readonly int LockedBool = Animator.StringToHash("locked");
+        public static readonly int OpenBool = Animator.StringToHash("open");
 
         protected override void Awake()
         {
@@ -20,18 +20,18 @@
 
         public bool IsLocked()
         {
-            return anim.GetBool(DoorLockedBool);
+            return anim.GetBool(LockedBool);
         }
 
         public void Lock()
         {
-            if (!anim.GetBool(DoorOpenedBool))
-                anim.SetBool(DoorLockedBool, true);
+            if (!anim.GetBool(OpenBool))
+                anim.SetBool(LockedBool, true);
         }
 
         public void Unlock()
         {
-            anim.SetBool(DoorLockedBool, false);
+            anim.SetBool(LockedBool, false);
         }
 
         private void CheckInteraction()
@@ -64,7 +64,7 @@
         private IEnumerator _DisableCollider()
         {
             yield return Yields.SEC(1);
-            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Collider>().enabled = false;
         }
     }
 }

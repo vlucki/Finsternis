@@ -9,19 +9,25 @@ ModelImporter:
     100002: crystal
     100004: frame
     100006: transform1
+    100008: door
     400000: //RootNode
     400002: crystal
     400004: frame
     400006: transform1
+    400008: door
     2300000: //RootNode
     2300002: crystal
     2300004: frame
+    2300006: door
     3300000: //RootNode
     3300002: crystal
     3300004: frame
+    3300006: door
     4300000: polySurface40
     4300002: frame
     4300004: crystal
+    4300006: door
+    7400000: a_door02_open
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -43,7 +49,43 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: a_door02_open
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: crystal
+        weight: 1
+      - path: door
+        weight: 1
+      - path: frame
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

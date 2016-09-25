@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Finsternis {
+    using UnityEngine;
+    using System.Collections;
 
-public class DoorOpenController : StateMachineBehaviour {
+    public class DoorOpenController : StateMachineBehaviour {
 
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.SetBool("opened", true);
+        // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            animator.SetBool(Door.OpenBool, true);
+        }
     }
 }
