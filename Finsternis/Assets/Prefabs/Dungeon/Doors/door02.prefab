@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011152168090}
   - 33: {fileID: 33000011498230312}
   - 23: {fileID: 23000010906545112}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000011419704314}
   - 33: {fileID: 33000012312944074}
   - 23: {fileID: 23000011610842616}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - 4: {fileID: 4000012132652316}
   - 95: {fileID: 95000012272415248}
   - 114: {fileID: 114000011394653676}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: door02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - 33: {fileID: 33000012641304498}
   - 23: {fileID: 23000013142301888}
   - 65: {fileID: 65000011361524684}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteraction:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000011394653676}
+        m_MethodName: Open
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   lastInteraction: {fileID: 0}

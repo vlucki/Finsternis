@@ -34,26 +34,16 @@
             anim.SetBool(LockedBool, false);
         }
 
-        private void CheckInteraction()
-        {
-            Open();
-        }
-
-        public override void Interact(EntityAction action)
-        {
-            base.Interact(action);
-            if(!IsLocked())
-                Open();
-        }
-
         public void Open()
         {
+            if (IsLocked())
+                return;
             int dir = (int)-transform.forward.z;
 
             if (lastInteraction)
             {
                 Vector3 interactionSource = transform.position - lastInteraction.Agent.transform.position;
-                
+
                 dir = (transform.forward.Angle(interactionSource) < 90) ? -1 : 1;
             }
             anim.SetInteger("direction", dir);
