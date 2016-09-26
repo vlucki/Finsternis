@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityQuery;
@@ -185,8 +186,8 @@ namespace Finsternis
                 int pos = 0;
                 int count = 0, maxTries = 10;
                 do
-                    pos = Dungeon.Random.IntRange(1, corridor.Length-1); //-1 because we don't want to count the last cell either (it should never have a trap)
-                while((++count) <= maxTries && !corridor.AddTrap(corridor[pos]));
+                    pos = Dungeon.Random.IntRange(1, corridor.Length - 1); //-1 because we don't want to count the last cell either (it should never have a trap)
+                while ((++count) <= maxTries && !corridor.AddTrap(corridor[pos]));
             }
         }
 
@@ -232,7 +233,6 @@ namespace Finsternis
         /// <param name="dungeon">Reference to the dungeon.</param>
         void RemoveUnnecessaryCorridors(Dungeon dungeon)
         {
-
             for (int i = dungeon.Corridors.Count - 1; i >= 0; i--)
             {
                 Corridor corridor = dungeon.Corridors[i];
@@ -259,7 +259,7 @@ namespace Finsternis
             for (int i = dungeon.Corridors.Count - 1; i >= 0; i--)
             {
                 Corridor corridor = dungeon.Corridors[i];
-                if (SplitCorridor(dungeon, corridor))
+                if (ReduceCorridor(dungeon, corridor))
                 {
                     i = dungeon.Corridors.Count;
                     continue;
@@ -268,17 +268,37 @@ namespace Finsternis
                     TrimCorridor(dungeon, corridor);
             }
         }
+
+        private bool CheckCell<T>(Dungeon dungeon, Vector2 cell) where T : DungeonSection
+        {
+            return (dungeon.IsWithinDungeon(cell) && dungeon[cell] && !(dungeon[cell] is T));
+        }
+
+        private Corridor[] RemoveCell(Dungeon dungeon, int index, Corridor corridor, Vector2 offsetCell)
+        {
+            Corridor[] halves = null;
+            Vector2 cell = corridor[index];
+            dungeon[cell] = dungeon[offsetCell];
+            dungeon[offsetCell].AddCell(cell);
+            if (index < corridor.Length - 1)
+                halves = corridor.RemoveAt(index);
+            else
+                corridor.Length--;
+            return halves;
+        }
+
         /// <summary>
-        /// Splits corridors that have cells without walls on at least two sides.
+        /// Splits or shorten corridors that have cells without walls on at least two sides.
         /// </summary>
         /// <param name="dungeon">Reference to the dungeon.</param>
         /// <param name="corridor">Corridor to be split.</param>
         /// <returns>True is the corridor was split.</returns>
-        private bool SplitCorridor(Dungeon dungeon, Corridor corridor)
+        private bool ReduceCorridor(Dungeon dungeon, Corridor corridor)
         {
             Corridor[] halves = null;
             Vector2 offset = corridor.Direction.YX();
-            bool hasToSplit = false;
+
+            bool corridorChanged = false;
             int index = corridor.Length - 1;
 
             while (index >= 0)
@@ -286,56 +306,76 @@ namespace Finsternis
                 Vector2 cell = corridor[index];
                 Vector2 offsetCellA = cell + offset;
                 Vector2 offsetCellB = cell - offset;
-                if (dungeon.IsWithinDungeon(offsetCellA))
+                if (CheckCell<Corridor>(dungeon, offsetCellA))
                 {
-                    if (dungeon[offsetCellA] && !(dungeon[offsetCellA] is Corridor))
-                    {
-                        dungeon[cell] = dungeon[offsetCellA];
-                        dungeon[offsetCellA].AddCell(cell);
-                        if (hasToSplit)
-                        {
-                            halves = corridor.RemoveAt(index);
-                            break;
-                        }
-                        else
-                        {
-                            corridor.Length--;
-                        }
-                    }
+                    corridorChanged = true;
+                    halves = RemoveCell(dungeon, index, corridor, offsetCellA);
+                    if (halves != null)
+                        break;
+
                 }
-                if (dungeon.IsWithinDungeon(offsetCellB))
+                if (CheckCell<Corridor>(dungeon, offsetCellB))
                 {
-                    if (dungeon[offsetCellB] && !(dungeon[offsetCellB] is Corridor))
-                    {
-                        dungeon[cell] = dungeon[offsetCellB];
-                        dungeon[offsetCellB].AddCell(cell);
-                        if (hasToSplit)
-                        {
-                            halves = corridor.RemoveAt(index);
-                            break;
-                        }
-                        else
-                        {
-                            corridor.Length--;
-                        }
-                    }
+                    corridorChanged = true;
+                    halves = RemoveCell(dungeon, index, corridor, offsetCellB);
+
+                    if (halves != null)
+                        break;
                 }
                 index--;
                 if (index >= corridor.Length)
                     index = corridor.Length - 1;
-                hasToSplit = true;
+
             }
             if (halves != null)
             {
                 if (halves[0])
+                {
                     dungeon.Corridors.Add(halves[0]);
+                    UpdateConnections(dungeon, halves[0]);
+                }
                 if (halves[1])
+                {
                     dungeon.Corridors.Add(halves[1]);
+                    UpdateConnections(dungeon, halves[1]);
+                }
                 dungeon.Corridors.Remove(corridor);
             }
             if (corridor.Length == 0)
                 dungeon.Corridors.Remove(corridor);
-            return halves != null;
+            return corridorChanged;
+        }
+
+        private void UpdateConnections(Dungeon dungeon, Corridor corridor)
+        {
+            foreach (var cell in corridor)
+            {
+                foreach (var neighbour in GetNeighbourhood(dungeon, cell))
+                {
+                    if (neighbour && neighbour != corridor)
+                    {
+                        neighbour.AddConnection(corridor, true);
+                    }
+                }
+            }
+        }
+
+        private List<DungeonSection> GetNeighbourhood(Dungeon dungeon, Vector2 cell)
+        {
+            var neighbourhood = new List<DungeonSection>(4);
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (Mathf.Abs(i) == Mathf.Abs(j)) //ignore diagonals and the cell itself
+                        continue;
+                    Vector2 neighbour = cell + new Vector2(i, j);
+                    if (dungeon.IsWithinDungeon(neighbour))
+                        neighbourhood.Add(dungeon[neighbour]);
+                }
+            }
+
+            return neighbourhood;
         }
 
         /// <summary>
@@ -414,6 +454,7 @@ namespace Finsternis
                 && dungeon[corridor.End + corridor.Direction] != null)
             {
                 dungeon.MarkCells(corridor);
+                corridor.AddConnection(dungeon[corridor.End + corridor.Direction], true);
                 return true;
             }
             else

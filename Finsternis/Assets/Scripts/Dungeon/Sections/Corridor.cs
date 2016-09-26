@@ -117,9 +117,9 @@
             foreach (DungeonSection connection in connections)
             {
                 if (result[0] && connection.ContainsCell(Position - Direction))
-                    result[0].AddConnection(connection);
+                    result[0].AddConnection(connection, true);
                 else if (result[1] && connection.ContainsCell(End + Direction))
-                    result[1].AddConnection(connection);
+                    result[1].AddConnection(connection, true);
 
                 connection.RemoveConnection(this);
             }

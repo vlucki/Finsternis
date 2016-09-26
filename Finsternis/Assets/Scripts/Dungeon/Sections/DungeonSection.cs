@@ -57,6 +57,9 @@
 
         public void AddConnection(DungeonSection connection, bool updateNewConennection = false)
         {
+            if (connections.Contains(connection))
+                return;
+
             connections.Add(connection);
             if (updateNewConennection)
                 connection.AddConnection(this);

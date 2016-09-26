@@ -428,18 +428,33 @@ namespace Finsternis
         {
             string s = this.name;
 
-            for(int i = 0; i < this.Height; i++)
+            for(int i = -1; i < this.Height; i++)
             {
                 s += "\n|";
-                for (int j = 0; j < this.Width; j++)
+                for (int j = -1; j < this.Width; j++)
                 {
-                    var cell = this[j, i];
-                    if (!cell)
-                        s += " 0 |";
-                    else if (cell is Corridor)
-                        s += " 1 |";
-                    else
-                        s += " 2 |";
+                    if (j >= 0 && i >= 0)
+                    {
+                        var cell = this[j, i];
+                        if (!cell)
+                            s += " 00 |";
+                        else if (cell is Corridor)
+                            s += " 11 |";
+                        else
+                            s += " 22 |";
+                    }
+                    else if (j < 0 && i < 0)
+                    {
+                        s += " - - |";
+                    }
+                    else if (j >= 0 && i < 0)
+                    {
+                        s += " " + j.ToString("D2") + " |";
+                    }
+                    else if (j < 0 && i >= 0)
+                    {
+                        s += " " + i.ToString("D2") + " |";
+                    }
                 }
             }
 
