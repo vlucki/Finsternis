@@ -116,9 +116,9 @@
 
             foreach (DungeonSection connection in connections)
             {
-                if (result[0] && connection.ContainsCell(Position - Direction))
+                if (result[0] && connection.Contains(Position - Direction))
                     result[0].AddConnection(connection, true);
-                else if (result[1] && connection.ContainsCell(End + Direction))
+                else if (result[1] && connection.Contains(End + Direction))
                     result[1].AddConnection(connection, true);
 
                 connection.RemoveConnection(this);
@@ -126,7 +126,7 @@
             return result;
         }
 
-        public override bool ContainsCell(Vector2 cell)
+        public override bool Contains(Vector2 cell)
         {
             return cell.x >= X && cell.x <= End.x && cell.y >= Y && cell.y <= End.y;
         }
@@ -154,7 +154,7 @@
 
         public override void RemoveCell(Vector2 cell)
         {
-            if (ContainsCell(cell))
+            if (Contains(cell))
             {
                 while (End != cell)
                     Length--;

@@ -33,6 +33,9 @@
         [SerializeField]
         private Vector3 offset = Vector3.zero;
 
+        [SerializeField][Tooltip("May this feature stack with other of the same type?")]
+        private bool stackable = false;
+
         [SerializeField][Tooltip("What kind of features may be on the same cell as this one?")]
         private List<DungeonFeature> stackWhiteList = new List<DungeonFeature>();
 
@@ -57,7 +60,7 @@
 
         public bool MayStackWith<T>(T feature) where T : DungeonFeature
         {
-            return stackWhiteList.Contains(feature);
+            return (stackable && feature.GetType().Equals(this.GetType())) || stackWhiteList.Contains(feature);
         }
     }
 }

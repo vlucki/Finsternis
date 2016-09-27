@@ -53,7 +53,7 @@
             features = new Dictionary<Vector2, List<DungeonFeature>>();
         }
 
-        public abstract bool ContainsCell(Vector2 cell);
+        public abstract bool Contains(Vector2 cell);
 
         public void AddConnection(DungeonSection connection, bool updateNewConennection = false)
         {

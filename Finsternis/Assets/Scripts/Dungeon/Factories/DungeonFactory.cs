@@ -78,8 +78,7 @@ namespace Finsternis
         private CorridorTheme[] corridorThemes;
 
         #endregion
-
-        private Room lastRoom;
+        
         public const string SEED_KEY = "LastSeed";
 
         /// <summary>
@@ -145,12 +144,38 @@ namespace Finsternis
 
             AddFeatures(dungeon);
 
-            dungeon.Exit = this.lastRoom.GetRandomCell();
+            Room r = GetFarthestRoom(dungeon);
+
+            dungeon.Exit = GetFarthestCell(dungeon, r);
 
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
             if (onGenerationEnd)
                 onGenerationEnd.Invoke(dungeon);
+        }
+
+        private Vector2 GetFarthestCell(Dungeon dungeon, Room r, int tries = 20)
+        {
+            Vector2 farthest = r.GetRandomCell();
+
+            while(--tries > 0)
+            {
+                Vector2 candidate = r.GetRandomCell();
+                if (dungeon.Entrance.Distance(candidate) > dungeon.Entrance.Distance(farthest))
+                    farthest = candidate;
+            }
+            return farthest;
+        }
+
+        private Room GetFarthestRoom(Dungeon dungeon)
+        {
+            Room farthest = dungeon.Rooms[0];
+            for(int i = 1; i < dungeon.Rooms.Count; i++)
+            {
+                if (dungeon.Entrance.Distance(farthest.Bounds.center) < dungeon.Entrance.Distance(dungeon.Rooms[i].Bounds.center))
+                    farthest = dungeon.Rooms[i];
+            }
+            return farthest;
         }
 
         void DefineThemes(Dungeon dungeon)
@@ -196,8 +221,7 @@ namespace Finsternis
         /// </summary>
         /// <param name="dungeon">Reference to the dungeon.</param>
         /// <param name="corridor">The corridor that will have doors added to it.</param>
-        /// <param name="index">Is this door being added the the first (0) or last (1) cell of the corridor?</param>
-        private void AddDoors(Dungeon dungeon, Corridor corridor, int index = 0)
+        private void AddDoors(Dungeon dungeon, Corridor corridor)
         {
             //Add door at the start
             var cell = corridor[0];
@@ -206,7 +230,6 @@ namespace Finsternis
             //Add door at the end
             cell = corridor.End;
             corridor.AddDoor(cell, corridor.Direction * 0.75f);
-
         }
 
         /// <summary>
@@ -323,25 +346,21 @@ namespace Finsternis
                         break;
                 }
                 index--;
-                if (index >= corridor.Length)
-                    index = corridor.Length - 1;
 
             }
+
             if (halves != null)
             {
-                if (halves[0])
+                foreach (var half in halves)
                 {
-                    dungeon.Corridors.Add(halves[0]);
-                    UpdateConnections(dungeon, halves[0]);
-                }
-                if (halves[1])
-                {
-                    dungeon.Corridors.Add(halves[1]);
-                    UpdateConnections(dungeon, halves[1]);
+                    if (half)
+                    {
+                        dungeon.Corridors.Add(half);
+                        UpdateConnections(dungeon, half);
+                    }
                 }
                 dungeon.Corridors.Remove(corridor);
-            }
-            if (corridor.Length == 0)
+            } else if (corridor.Length == 0)
                 dungeon.Corridors.Remove(corridor);
             return corridorChanged;
         }
@@ -532,7 +551,6 @@ namespace Finsternis
                     generatedRooms.Enqueue(room);
                     dungeon.MarkCells(room);
                     dungeon.Rooms.Add(room);
-                    this.lastRoom = room;
                     corridor.AddConnection(room);
                     roomCount++;
                 }

@@ -45,7 +45,7 @@ namespace Finsternis
                 corridorStart = room.GetRandomCell();
 
                 //move the corridor starting point outside the room
-                while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && room.ContainsCell(corridorStart))
+                while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && room.Contains(corridorStart))
                     corridorStart += direction;
 
                 Vector2 offsetA = corridorStart + sideOffset;

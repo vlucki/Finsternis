@@ -15,4 +15,5 @@ MonoBehaviour:
   type: 0
   alignment: 0
   offset: {x: 0, y: 0, z: 0}
+  stackable: 1
   stackWhiteList: []

@@ -170,27 +170,28 @@
             }
         }
 
-
         private void UpdateUnequippedSelection(int v = 0)
         {
-            this.unequippedSelection += v;
-            if (this.unequippedSelection < 0)
-                this.unequippedSelection = this.unequipped.Count - 1;
-            else if (this.unequippedSelection >= this.unequipped.Count)
-                this.unequippedSelection = 0;
+            this.unequippedSelection = UpdateSelection(this.unequippedSelection, this.unequipped, v);
 
             UpdateUnequippedDisplay();
         }
 
         private void UpdateEquipmentSelection(int v = 0)
         {
-            this.equipmentSelection += v;
-            if (this.equipmentSelection < 0)
-                this.equipmentSelection = this.inventory.EquippedCards.Count - 1;
-            else if (this.equipmentSelection >= this.inventory.EquippedCards.Count)
-                this.equipmentSelection = 0;
-
+            this.equipmentSelection = UpdateSelection(this.equipmentSelection, this.inventory.EquippedCards, v);
             UpdateEquippedDisplay();
+        }
+
+        private int UpdateSelection(int currentlySelected, IList list, int amount)
+        {
+            currentlySelected += amount;
+            if (currentlySelected < 0)
+                currentlySelected = list.Count - 1;
+            else if (currentlySelected >= list.Count)
+                currentlySelected = 0;
+
+            return currentlySelected;
         }
     }
 }

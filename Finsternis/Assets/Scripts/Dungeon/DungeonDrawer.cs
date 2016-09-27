@@ -23,7 +23,7 @@ namespace Finsternis
         public Material defaultFloorMaterial;
         public PhysicMaterial defaultFloorPhysicMaterial;
         public Material corridorMaterial;
-        
+
         public GameObject[] exits;
 
         [Header("Events")]
@@ -81,7 +81,6 @@ namespace Finsternis
 
             foreach (Vector2 cell in section)
             {
-
                 for (int i = -1; i < 2; i++)
                 {
                     for (int j = -1; j < 2; j++)
@@ -114,7 +113,8 @@ namespace Finsternis
                     var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + Vector2.one / 2), Quaternion.identity);
                     wall.transform.forward = new Vector3(-wallOffset.x, 0, wallOffset.y);
                     return wall;
-                } catch(NullReferenceException ex)
+                }
+                catch (NullReferenceException ex)
                 {
                     string msg = "Failed to creat wall for cell " + cell.ToString("0") + "\n";
                     if (!dungeon[cell])
@@ -139,39 +139,40 @@ namespace Finsternis
 
         private GameObject MakeCell(int cellX, int cellY)
         {
-            GameObject cell = null;
             Vector2 dungeonPos = new Vector2(cellX, cellY);
             Vector3 worldPos = GetWorldPosition(dungeonPos + Vector2.one / 2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
-            DungeonFeature feature = dungeon[cellX, cellY].GetFeatureAt(cellX, cellY);
-            if (!feature || feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
+
+            GameObject cell;
+            if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
             {
-                if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
-                {
-                    if (exits != null && exits.Length > 0)
-                    {
-                        cell = Instantiate(exits.GetRandom(Random.Range), worldPos, Quaternion.identity) as GameObject;
-                    }
-                    else
-                    {
-                        cell.name = "Exit " + name;
-                        cell.tag = "Exit";
-                        cell.AddComponent<Exit>();
-                    }
-                }
-                else
-                {
-                    cell = Instantiate(dungeon[dungeonPos].Theme.GetRandomFloor(), worldPos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                }
-                if (feature)
-                    MakeFeature(feature, new Vector2(cellX, cellY)).transform.SetParent(cell.transform);
+                cell = Instantiate(exits.GetRandom(Random.Range), worldPos, Quaternion.identity) as GameObject;
             }
             else
             {
+                cell = Instantiate(dungeon[dungeonPos].Theme.GetRandomFloor(), worldPos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
+                cell.name = name;
+            }
+            cell.name = name;
+            DungeonFeature replacement = null;
+            var featuresList = dungeon[cellX, cellY].GetFeaturesAt(dungeonPos);
+            if (featuresList != null)
+            {
+                foreach (var feature in dungeon[cellX, cellY].GetFeaturesAt(dungeonPos))
+                {
+                    if (feature.Type == DungeonFeature.FeatureType.REPLACEMENT)
+                        replacement = feature;
+                    MakeFeature(feature, new Vector2(cellX, cellY)).transform.SetParent(cell.transform);
+                }
+            }
+
+            if (replacement)
+            {
                 try
                 {
-                    cell = Instantiate(feature.Prefab);
+                    cell.DestroyNow();
+                    cell = Instantiate(replacement.Prefab);
 
                     if (dungeon[cellX, cellY] is Corridor)
                     {
@@ -242,33 +243,6 @@ namespace Finsternis
             GameObject wall = new GameObject("Wall (" + dungeonPos.ToString("0") + ")");
             wall.transform.position = GetWorldPosition(dungeonPos + Vector2.one / 2);
             wall.layer = LayerMask.NameToLayer("Wall");
-
-            //var wallNeighbourhood = GetWallNeighbourhood(dungeonPos);
-
-            //foreach (var neighbourPos in wallNeighbourhood)
-            //{
-            //    try
-            //    {
-            //        var rotation = Quaternion.identity;
-            //        if (neighbourPos.x < dungeonPos.x)
-            //            rotation = Quaternion.Euler(0, 270, 0);
-            //        else if (neighbourPos.x > dungeonPos.x)
-            //            rotation = Quaternion.Euler(0, 90, 0);
-            //        else if (neighbourPos.y > dungeonPos.y)
-            //            rotation = Quaternion.Euler(0, 180, 0);
-
-            //        var wallSide = ((GameObject)Instantiate(
-            //            dungeon[neighbourPos].Theme.GetRandomWall().GetLateral(),
-            //            wall.transform.position,
-            //            rotation,
-            //            wall.transform));
-
-            //    } catch (NullReferenceException ex)
-            //    {
-            //        Log.Error(this, "Failed to create wall side at {0} for neighbour at {1}", dungeonPos, neighbourPos);
-            //        throw ex;
-            //    }
-            //}
 
             return wall;
         }
