@@ -14,12 +14,6 @@ namespace UnityQuery
         {
             return s.Replace(toRemove, "");
         }
-
-        public static char Last(this string s)
-        {
-            return s[s.Length - 1];
-        }
-
     }
 
 }

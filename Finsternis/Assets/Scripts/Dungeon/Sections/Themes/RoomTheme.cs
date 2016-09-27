@@ -7,11 +7,19 @@
     public class RoomTheme : DungeonSectionTheme
     {
         [SerializeField]
-        private List<GameObject> decorationPrefabs;
+        private List<GameObject> decorations = new List<GameObject>();
+
+        [SerializeField]
+        private List<DungeonFeature> exits = new List<DungeonFeature>();
 
         public GameObject GetRandomDecoration()
         {
-            return GetRandomElement(this.decorationPrefabs);
+            return GetRandomElement(this.decorations);
+        }
+
+        public DungeonFeature GetRandomExit()
+        {
+            return GetRandomElement(this.exits);
         }
     }
 }

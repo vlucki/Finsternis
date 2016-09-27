@@ -15,8 +15,8 @@ MonoBehaviour:
   floorPrefabs:
   - {fileID: 1000012591517738, guid: b30382e07031e3140873d91395066179, type: 2}
   - {fileID: 1000013591209812, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
-  - {fileID: 1000010128955084, guid: 900a5c981c596254ca37c297851ac8e7, type: 2}
-  - {fileID: 1000013675684728, guid: 020ecace1add6414aa056f9eaacba529, type: 2}
   walls:
   - {fileID: 11400000, guid: b6bf55d6f0f6f444291bf6717c33bedd, type: 2}
-  decorationPrefabs: []
+  decorations: []
+  exits:
+  - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}

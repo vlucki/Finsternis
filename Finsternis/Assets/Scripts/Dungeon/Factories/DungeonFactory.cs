@@ -148,6 +148,8 @@ namespace Finsternis
 
             dungeon.Exit = GetFarthestCell(dungeon, r);
 
+            r.AddFeature(r.GetTheme<RoomTheme>().GetRandomExit(), dungeon.Exit);
+
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
             if (onGenerationEnd)

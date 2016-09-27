@@ -144,17 +144,11 @@ namespace Finsternis
 
             string name = "floor (" + cellX + ";" + cellY + ")";
 
-            GameObject cell;
-            if (cellX == (int)dungeon.Exit.x && cellY == (int)dungeon.Exit.y)
-            {
-                cell = Instantiate(exits.GetRandom(Random.Range), worldPos, Quaternion.identity) as GameObject;
-            }
-            else
-            {
-                cell = Instantiate(dungeon[dungeonPos].Theme.GetRandomFloor(), worldPos, Quaternion.Euler(0, 90 * Random.Range(0, 4), 0)) as GameObject;
-                cell.name = name;
-            }
-            cell.name = name;
+            GameObject cell = new GameObject(name);
+            cell.transform.position = worldPos;
+            cell.layer = LayerMask.NameToLayer("Floor");
+            cell.transform.SetParent(dungeon.transform);
+
             DungeonFeature replacement = null;
             var featuresList = dungeon[cellX, cellY].GetFeaturesAt(dungeonPos);
             if (featuresList != null)
@@ -167,29 +161,10 @@ namespace Finsternis
                 }
             }
 
-            if (replacement)
+            if (!replacement)
             {
-                try
-                {
-                    cell.DestroyNow();
-                    cell = Instantiate(replacement.Prefab);
-
-                    if (dungeon[cellX, cellY] is Corridor)
-                    {
-                        Vector2 corridorDir = ((Corridor)dungeon[cellX, cellY]).Direction;
-                        cell.transform.forward = new Vector3(corridorDir.y, 0, corridorDir.x);
-                    }
-                    cell.transform.position = worldPos;
-                }
-                catch (IndexOutOfRangeException ex)
-                {
-                    throw new IndexOutOfRangeException("Trying to access cell (" + cellX + "; " + cellY + ")", ex);
-                }
-            }
-            if (cell)
-            {
-                cell.layer = LayerMask.NameToLayer("Floor");
-                cell.transform.SetParent(dungeon.transform);
+                var floor = cell.AddChild(dungeon[dungeonPos].Theme.GetRandomFloor());
+                floor.transform.Rotate(Vector3.up, Random.Range(0, 4) * 90);
             }
 
             return cell;
