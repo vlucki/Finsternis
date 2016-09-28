@@ -49,10 +49,6 @@ namespace Finsternis
         [SerializeField][ReadOnly]
         private bool couldBeFalling = false;
 
-        [Range(0, 1)]
-        [SerializeField]
-        private float turningSpeed = 0.05f;
-
         [SerializeField]
         private List<Skill> skills;
 
@@ -116,7 +112,6 @@ namespace Finsternis
 
                 if (!actionsLocked)
                 {
-                    UpdateRotation();
                     characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.GetVelocityMagnitude());
                 }
             }
@@ -182,17 +177,6 @@ namespace Finsternis
             {
                 characterMovement.Direction = (direction.WithY(0));
             }
-        }
-
-        private void UpdateRotation()
-        {
-            float currentVelocity = characterMovement.GetVelocityMagnitude();
-            if (currentVelocity <= 0.1f)
-                return;
-            transform.forward = Vector3.Slerp(
-                transform.forward, 
-                characterMovement.Velocity, 
-                turningSpeed);
         }
 
         protected virtual bool CanMove()

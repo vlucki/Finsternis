@@ -200,6 +200,24 @@ namespace Finsternis
                 AddTrap(corridor);
                 AddDoors(dungeon, corridor);
             }
+
+            foreach (Room room in dungeon.Rooms)
+            {
+                Decorate(room);
+            }
+        }
+
+        private void Decorate(Room room)
+        {
+            var theme = room.GetTheme<RoomTheme>();
+            if (!theme.HasDecorations())
+                return;
+
+            int amount = Dungeon.Random.IntRange(0, room.CellCount/2);
+            while (--amount >= 0)
+            {
+                room.AddFeature(theme.GetRandomDecoration(), room.GetRandomCell());
+            }
         }
 
         /// <summary>
@@ -339,7 +357,7 @@ namespace Finsternis
                         break;
 
                 }
-                if (CheckCell<Corridor>(dungeon, offsetCellB))
+                else if (CheckCell<Corridor>(dungeon, offsetCellB))
                 {
                     corridorChanged = true;
                     halves = RemoveCell(dungeon, index, corridor, offsetCellB);

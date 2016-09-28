@@ -854,13 +854,13 @@ MonoBehaviour:
       PublicKeyToken=null
   confirmationDialog: {fileID: 1708963572}
   visibleUnequippedCards:
-  - {fileID: 0}
+  - {fileID: 125109967}
   - {fileID: 368298087}
-  - {fileID: 0}
+  - {fileID: 2082329592}
   visibleEquippedCards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 796425288}
+  - {fileID: 1525481771}
+  - {fileID: 1953884034}
 --- !u!224 &82319831
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6961,6 +6961,11 @@ Prefab:
     - target: {fileID: 4000010221855148, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014202934784, guid: 65c8a0f35a6611a4285464649e0044ef,
+        type: 2}
+      propertyPath: turningSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65c8a0f35a6611a4285464649e0044ef, type: 2}

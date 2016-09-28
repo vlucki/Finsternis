@@ -21,5 +21,10 @@
         {
             return GetRandomElement(this.exits);
         }
+
+        public bool HasDecorations()
+        {
+            return this.decorations.Count > 0;
+        }
     }
 }
