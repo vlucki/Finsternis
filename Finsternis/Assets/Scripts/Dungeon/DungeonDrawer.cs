@@ -173,35 +173,22 @@ namespace Finsternis
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
         {
             position += Vector2.one / 2; //needed to align the feature with the center of each cell
-
+            var offset = feature.Alignment.minOffset;
+            var maxOffset = feature.Alignment.maxOffset;
+            if (maxOffset != offset)
+            {
+                offset.x = Dungeon.Random.Range(offset.x, maxOffset.x, 2);
+                offset.y = Dungeon.Random.Range(offset.y, maxOffset.y, 2);
+                offset.z = Dungeon.Random.Range(offset.z, maxOffset.z, 2);
+            }
             GameObject featureGO =
                 (GameObject)Instantiate(
                 feature.Prefab,
-                GetWorldPosition(position) + feature.Offset,
+                GetWorldPosition(position) + offset,
                 Quaternion.identity);
 
-            switch (feature.Alignment)
-            {
-                case DungeonFeature.CellAlignment.CENTER:
-
-                    if (!feature.Offset.IsZero())
-                        featureGO.transform.forward = feature.Offset;
-
-                    break;
-
-                case DungeonFeature.CellAlignment.X_Pos:
-
-                    if (dungeon.IsOfType(position + Vector2.up, null))
-                        featureGO.transform.up = Vector3.forward;   //wall is "above"
-                    else if (dungeon.IsOfType(position + Vector2.down, null))
-                        featureGO.transform.up = Vector3.back;      //wall is "below"
-                    else if (dungeon.IsOfType(position + Vector2.right, null))
-                        featureGO.transform.up = Vector3.right;     //wall is to the right
-                    else if (dungeon.IsOfType(position + Vector2.left, null))
-                        featureGO.transform.up = Vector3.left;      //wall is to the left
-
-                    break;
-            }
+            if (feature.Alignment.faceOffset)
+                featureGO.transform.forward = offset.normalized;
 
             return featureGO;
         }

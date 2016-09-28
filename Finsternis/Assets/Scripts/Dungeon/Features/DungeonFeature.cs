@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -21,6 +22,22 @@
             Z_Neg = 4
         }
 
+        [Serializable]
+        public struct AlignmentParameters
+        {
+            public CellAlignment pivot;
+            public Vector3 minOffset;
+            public Vector3 maxOffset;
+            public bool faceOffset;
+            public AlignmentParameters(CellAlignment pivot, Vector3 minOffset, Vector3 maxOffset, bool faceOffset)
+            {
+                this.pivot = pivot;
+                this.minOffset = minOffset;
+                this.maxOffset = maxOffset;
+                this.faceOffset = faceOffset;
+            }
+        }
+
         [SerializeField]
         private GameObject prefab;
 
@@ -28,10 +45,7 @@
         private FeatureType type = FeatureType.ADD_ON;
 
         [SerializeField]
-        private CellAlignment alignment = CellAlignment.CENTER;
-
-        [SerializeField]
-        private Vector3 offset = Vector3.zero;
+        private AlignmentParameters alignment = new AlignmentParameters(CellAlignment.CENTER, Vector3.zero, Vector3.zero, false);
 
         [SerializeField][Tooltip("May this feature stack with other of the same type?")]
         private bool stackable = false;
@@ -46,21 +60,30 @@
 
         public FeatureType Type { get { return this.type; } }
 
-        public CellAlignment Alignment
+        public AlignmentParameters Alignment
         {
             get { return this.alignment; }
-            set { this.alignment = value; }
-        }
-
-        public Vector3 Offset
-        {
-            get { return this.offset; }
-            set { this.offset = value; }
         }
 
         public bool MayStackWith<T>(T feature) where T : DungeonFeature
         {
-            return (stackable && feature.GetType().Equals(this.GetType())) || stackWhiteList.Contains(feature);
+            if (this.type == FeatureType.REPLACEMENT && feature.type == FeatureType.REPLACEMENT)
+                return false;
+            if (!stackable && feature.GetType().Equals(this.GetType()))
+                return false;
+
+            return stackWhiteList.Contains(feature);
+        }
+
+        internal void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, bool? faceOffet = null)
+        {
+            this.alignment.minOffset = minOffset;
+            if (maxOffset == null)
+                maxOffset = minOffset;
+            this.alignment.maxOffset = (Vector3)maxOffset;
+
+            if (faceOffet != null)
+                this.alignment.faceOffset = (bool)faceOffet;
         }
     }
 }

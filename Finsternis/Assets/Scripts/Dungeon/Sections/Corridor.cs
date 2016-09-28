@@ -171,7 +171,8 @@
         {
             var door = Instantiate(GetTheme<CorridorTheme>().GetRandomDoor());
 
-            door.Offset = new Vector3(offset.x, 0, -offset.y);
+            door.SetOffset(new Vector3(offset.x, 0, -offset.y), null, true);
+            
             return AddFeature(door, cell);
         }
 

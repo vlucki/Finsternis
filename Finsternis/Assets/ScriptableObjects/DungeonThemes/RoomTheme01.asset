@@ -17,6 +17,7 @@ MonoBehaviour:
   - {fileID: 1000013591209812, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
   walls:
   - {fileID: 11400000, guid: b6bf55d6f0f6f444291bf6717c33bedd, type: 2}
-  decorations: []
+  decorations:
+  - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
   exits:
   - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}

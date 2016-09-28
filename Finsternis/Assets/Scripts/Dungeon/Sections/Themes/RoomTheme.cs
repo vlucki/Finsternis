@@ -7,12 +7,12 @@
     public class RoomTheme : DungeonSectionTheme
     {
         [SerializeField]
-        private List<GameObject> decorations = new List<GameObject>();
+        private List<DungeonFeature> decorations = new List<DungeonFeature>();
 
         [SerializeField]
         private List<DungeonFeature> exits = new List<DungeonFeature>();
 
-        public GameObject GetRandomDecoration()
+        public DungeonFeature GetRandomDecoration()
         {
             return GetRandomElement(this.decorations);
         }
