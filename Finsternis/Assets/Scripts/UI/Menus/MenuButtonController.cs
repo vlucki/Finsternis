@@ -11,14 +11,13 @@
     public class MenuButtonController : Button
     {
         [Serializable]
-        public class SelectionChangedEvent : UnityEvent<bool, Selectable>{
-            public static implicit operator bool(SelectionChangedEvent evt) { return evt != null; }
-        }
+        public class SelectionChangedEvent : CustomEvent<bool, Selectable> { }
 
         public SelectionChangedEvent OnSelectionChanged;
         [SerializeField]
         private Vector3 unselectedScale = Vector3.one/2;
-        [SerializeField][Range(0.01f, 1f)]
+        [SerializeField]
+        [Range(0.01f, 1f)]
         private float transitionInterpolationFactor = 0.2f;
 
         private Text label;

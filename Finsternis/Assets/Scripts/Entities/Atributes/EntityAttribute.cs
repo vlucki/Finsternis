@@ -9,13 +9,7 @@
     public class EntityAttribute : ScriptableObject
     {
         [Serializable]
-        public class AttributeValueChangedEvent : UnityEvent<EntityAttribute>
-        {
-            public static implicit operator bool(AttributeValueChangedEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class AttributeValueChangedEvent : CustomEvent<EntityAttribute> { }
 
         public enum ValueConstraint
         {

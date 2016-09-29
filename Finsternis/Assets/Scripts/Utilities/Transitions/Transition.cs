@@ -9,11 +9,7 @@
     public abstract class Transition : MonoBehaviour
     {
         [System.Serializable]
-        public class TransitionEvent : UnityEvent<Transition>
-        {
-            public static implicit operator bool(TransitionEvent evt)
-            { return evt != null; }
-        }
+        public class TransitionEvent : CustomEvent<Transition> { }
 
         [SerializeField]
         protected bool skippable = true;
@@ -57,7 +53,7 @@
             if (!this.transitioning)
             {
                 if (waitBeforeStart > 0)
-                    yield return Yields.SEC(waitBeforeStart);
+                    yield return Wait.Sec(waitBeforeStart);
                 this.transitioning = true;
                 OnTransitionStarted.Invoke(this);
             }
@@ -69,7 +65,7 @@
             {
                 this.transitioning = false;
                 if (waitBeforeEnding > 0)
-                    yield return Yields.SEC(waitBeforeEnding);
+                    yield return Wait.Sec(waitBeforeEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }

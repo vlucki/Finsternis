@@ -1,11 +1,10 @@
-﻿
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+
+    using System.Collections;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityQuery;
     [RequireComponent(typeof(CharController))]
     public abstract class Skill : MonoBehaviour
     {
@@ -61,7 +60,7 @@ namespace Finsternis
             {
                 if (lockDuringCast)
                     user.Lock(castTime);
-                yield return Yields.SEC(castTime);
+                yield return Wait.Sec(castTime);
             }
 
             CastSkill();

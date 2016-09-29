@@ -9,13 +9,7 @@ public class InputRouter : MonoBehaviour
     public class InputTrigger
     {
         [System.Serializable]
-        public class AxisInputEvent : UnityEvent<float>
-        {
-            public static implicit operator bool(AxisInputEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class AxisInputEvent : CustomEvent<float> { }
 
         public string name;
 
@@ -90,10 +84,12 @@ public class InputRouter : MonoBehaviour
 
         internal void SetControlState(string axis, bool enabled)
         {
-            System.Array.ForEach(controls, (control) => {
+            System.Array.ForEach(controls, (control) =>
+            {
                 if (control.Axis.Equals(axis))
                 {
-                    if (!(enabled && control.IsEnabled())) control.Toggle(); //if the control stat does not match the desired one, toggle it
+                    if (!(enabled && control.IsEnabled()))
+                        control.Toggle(); //if the control stat does not match the desired one, toggle it
                 }
             });
         }
@@ -106,7 +102,9 @@ public class InputRouter : MonoBehaviour
     {
         if (this.triggers != null && this.triggers.Length > 0)
         {
-            foreach(var trigger in this.triggers) if(trigger.enabled) trigger.Trigger();
+            foreach (var trigger in this.triggers)
+                if (trigger.enabled)
+                    trigger.Trigger();
         }
     }
 
@@ -126,11 +124,13 @@ public class InputRouter : MonoBehaviour
 
     public void DisableAxis(string axis)
     {
-        foreach (var trigger in this.triggers) trigger.SetControlState(axis, false);
+        foreach (var trigger in this.triggers)
+            trigger.SetControlState(axis, false);
     }
 
     public void EnableAxis(string axis)
     {
-        foreach (var trigger in this.triggers) trigger.SetControlState(axis, true);
+        foreach (var trigger in this.triggers)
+            trigger.SetControlState(axis, true);
     }
 }

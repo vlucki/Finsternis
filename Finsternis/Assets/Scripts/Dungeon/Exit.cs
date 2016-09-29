@@ -7,13 +7,7 @@
     public class Exit : Trigger
     {
         [Serializable]
-        public class ExitCrossedEvent : UnityEvent<Exit>
-        {
-            public static implicit operator bool(ExitCrossedEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class ExitCrossedEvent : CustomEvent<Exit> { }
 
         [SerializeField]
         private GameObject player;

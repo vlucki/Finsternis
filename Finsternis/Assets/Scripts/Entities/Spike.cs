@@ -1,6 +1,6 @@
 ﻿namespace Finsternis
 {
-    public class Spikes : TrapBehaviour
+    public class Spike : TrapBehaviour
     {
         /// <summary>
         /// Spikes can't be attacked and will damage any entity that interacts with it, provided said entity can be damaged

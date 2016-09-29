@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Yields.cs">
+// <copyright file="Wait.cs">
 //   Copyright (c) Victor Lucki. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -8,14 +8,14 @@ namespace UnityQuery
 {
     using UnityEngine;
 
-    public static class Yields
+    public static class Wait
     {
         /// <summary>
         /// Shorthand for yield statements that need to wait some amount of time.
         /// </summary>
         /// <param name="seconds">How many seconds to wait for.</param>
         /// <returns>A WaitForSeconds object with the specified amount of time.</returns>
-        public static WaitForSeconds SEC(float seconds)
+        public static WaitForSeconds Sec(float seconds)
         {
             return new WaitForSeconds(seconds);
         }
@@ -24,7 +24,7 @@ namespace UnityQuery
         /// Shorthand for yield statements that need to wait for the end of frame.
         /// </summary>
         /// <returns>A WaitForEnfOfFrame object.</returns>
-        public static WaitForEndOfFrame EoF()
+        public static WaitForEndOfFrame Frame()
         {
             return new WaitForEndOfFrame();
         }

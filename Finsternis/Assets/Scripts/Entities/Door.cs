@@ -40,9 +40,9 @@
                 return;
             int dir = (int)-transform.forward.z;
 
-            if (lastInteraction)
+            if (LastInteraction)
             {
-                Vector3 interactionSource = transform.position - lastInteraction.Agent.transform.position;
+                Vector3 interactionSource = transform.position - LastInteraction.Agent.transform.position;
 
                 dir = (transform.forward.Angle(interactionSource) < 90) ? -1 : 1;
             }
@@ -53,7 +53,7 @@
 
         private IEnumerator _DisableCollider()
         {
-            yield return Yields.SEC(1);
+            yield return Wait.Sec(1);
             GetComponentInChildren<Collider>().enabled = false;
         }
     }

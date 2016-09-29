@@ -12,7 +12,7 @@
     {
         public UnityEvent onInteraction;
 
-        public EntityAction lastInteraction;
+        public EntityAction LastInteraction { get; private set; }
 
         [SerializeField]
         protected bool interactable = true;
@@ -21,9 +21,7 @@
         protected List<EntityAttribute> attributes;
 
         [Serializable]
-        public class AttributeInitializedEvent : UnityEvent<EntityAttribute> {
-            public static implicit operator bool(AttributeInitializedEvent evt)
-            { return evt != null; }
+        public class AttributeInitializedEvent : CustomEvent<EntityAttribute> {
         }
         public AttributeInitializedEvent onAttributeInitialized;
 
@@ -74,7 +72,9 @@
         /// <param name="action">The type of interaction that should take place (eg. Attack).</param>
         public virtual void Interact(EntityAction action)
         {
-            lastInteraction = action;
+            if (!interactable)
+                return;
+            LastInteraction = action;
             if (onInteraction != null)
                 onInteraction.Invoke();
         }
@@ -82,6 +82,16 @@
         public void Kill()
         {
             Destroy(gameObject);
+        }
+
+        public void DisableInteraction()
+        {
+            this.interactable = false;
+        }
+
+        public void EnableInteraction()
+        {
+            this.interactable = true;
         }
     }
 }

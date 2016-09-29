@@ -12,13 +12,7 @@ namespace Finsternis
     {
 
         [Serializable]
-        public class DungeonGenerationEndEvent : UnityEvent<Dungeon>
-        {
-            public static implicit operator bool(DungeonGenerationEndEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class DungeonGenerationEndEvent : CustomEvent<Dungeon> { }
 
         public UnityEvent onGenerationBegin;
         public DungeonGenerationEndEvent onGenerationEnd;

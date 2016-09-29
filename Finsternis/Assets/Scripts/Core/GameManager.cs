@@ -1,7 +1,5 @@
 ﻿namespace Finsternis
 {
-
-    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using System;
@@ -9,6 +7,7 @@
     using System.Collections;
 
     [AddComponentMenu("Finsternis/Game Manager")]
+    [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
         private static GameManager instance;
@@ -51,7 +50,7 @@
         {
             if (instance != null)
             {
-                DestroyImmediate(gameObject);
+                gameObject.DestroyNow();
                 return;
             }
 
@@ -59,6 +58,7 @@
             DontDestroyOnLoad(gameObject);
             this.clearedDungeons = 0;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            Init();
 
 #if !UNITY_EDITOR
         Cursor.lockState = CursorLockMode.Locked;
@@ -68,12 +68,15 @@
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name.Equals(mainGameName))
+            {
                 Init();
+                CreateDungeon();
+            }
         }
 
         void Start()
         {
-            Init();
+            CreateDungeon();
         }
 
         public void LoadScene(int sceneIndex)
@@ -99,8 +102,13 @@
             if (this.dungeonManager)
             {
                 this.dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
-                this.dungeonManager.CreateDungeon();
             }
+        }
+
+        private void CreateDungeon()
+        {
+            if(this.dungeonManager)
+                this.dungeonManager.CreateDungeon();
         }
 
         private void SearchPlayer()
@@ -118,12 +126,17 @@
             if (this.player)
             {
                 this.player.GetAttribute("vit").onValueChanged.AddListener(
-                    (attribute) => { if (attribute.Value <= 0) StartCoroutine(_GameOver()); });
+                    (attribute) => { if (attribute.Value <= 0) CallDelayed(2, GameOver); });
             }
             else
             {
                 Debug.LogWarning("Could not find a player in the scene.");
             }
+        }
+
+        private void GameOver()
+        {
+            LoadScene("GameOver");
         }
 
         public void Exit()
@@ -138,12 +151,6 @@
         public bool GoalReached()
         {
             return this.clearedDungeons >= this.dungeonsToClear;
-        }
-
-        public IEnumerator _GameOver()
-        {
-            yield return Yields.SEC(2);
-            LoadScene("GameOver");
         }
 
         public void Kill(GameObject obj)
@@ -180,7 +187,7 @@
 
         private IEnumerator CallDelayed(float delay, Action a)
         {
-            yield return Yields.SEC(delay);
+            yield return Wait.Sec(delay);
             a();
         }
 

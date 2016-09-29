@@ -59,32 +59,29 @@
 
         public override void Interact(EntityAction action)
         {
-            if (interactable)
-            {
-                base.Interact(action);
-                if (!Dead && action is AttackAction)
-                {
-                    ReceiveDamage(((AttackAction)action).DamageInfo);
-                }
-            }
+            if (!interactable)
+                return;
+            base.Interact(action);
+            if (!this.dead && action is AttackAction)
+                ReceiveDamage(((AttackAction)action).DamageInfo);
         }
 
         protected virtual void ReceiveDamage(DamageInfo info)
         {
-            if (!this.invincible)
-            {
-                this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
-                if (!Dead)
-                    StartCoroutine(_TickInvincibility(this.invincibiltyTime));
-            }
+            if (this.invincible)
+                return;
+
+            this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
+            if (!Dead)
+                StartCoroutine(_TickInvincibility(this.invincibiltyTime));
         }
 
-        private IEnumerator _TickInvincibility(float remainingInvincibility)
+        private IEnumerator _TickInvincibility(float remainingInvincibilityTime)
         {
             this.invincible = true;
-            while (remainingInvincibility > 0)
+            while (remainingInvincibilityTime > 0)
             {
-                remainingInvincibility -= Time.deltaTime;
+                remainingInvincibilityTime -= Time.deltaTime;
                 yield return null;
             }
             this.invincible = false;

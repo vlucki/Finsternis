@@ -11,7 +11,7 @@
         private Text attributesNamesField;
         private Text attributesValuesField;
 
-        private Entity player;
+        private Character player;
 
         private Card card;
 
@@ -32,7 +32,7 @@
                 var playerGO = GameObject.FindGameObjectWithTag("Player");
                 if (!playerGO)
                     return null;
-                this.player = playerGO.GetComponent<Entity>();
+                this.player = playerGO.GetComponent<Character>();
             }
             return this.player;
         }
