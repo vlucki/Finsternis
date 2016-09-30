@@ -3,41 +3,34 @@
     using UnityEngine;
     using UnityQuery;
     using System.Collections;
+    using System.Collections.Generic;
 
     [RequireComponent(typeof(Animator))]
-    public class Door : Entity
+    public class Door : OpeneableEntity
     {
         private Animator anim;
 
         public static readonly int LockedBool = Animator.StringToHash("locked");
         public static readonly int OpenBool = Animator.StringToHash("open");
+        
 
         protected override void Awake()
         {
             base.Awake();
+
             anim = GetComponent<Animator>();
+            anim.SetBool(LockedBool, IsLocked);
+
         }
 
-        public bool IsLocked()
+        public void ForceOpen()
         {
-            return anim.GetBool(LockedBool);
+            if (!IsOpen)
+                OpenDoor();
         }
 
-        public void Lock()
+        public void OpenDoor()
         {
-            if (!anim.GetBool(OpenBool))
-                anim.SetBool(LockedBool, true);
-        }
-
-        public void Unlock()
-        {
-            anim.SetBool(LockedBool, false);
-        }
-
-        public void Open()
-        {
-            if (IsLocked())
-                return;
             int dir = (int)-transform.forward.z;
 
             if (LastInteraction)
@@ -48,13 +41,8 @@
             }
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");
-            StartCoroutine(_DisableCollider());
-        }
-
-        private IEnumerator _DisableCollider()
-        {
-            yield return Wait.Sec(1);
             GetComponentInChildren<Collider>().enabled = false;
+            this.interactable = false;
         }
     }
 }

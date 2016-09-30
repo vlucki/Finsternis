@@ -369,12 +369,13 @@ GameObject:
   - 136: {fileID: 136000012293342078}
   - 114: {fileID: 114000010772638696}
   - 114: {fileID: 114000014202934784}
+  - 114: {fileID: 114000011170435340}
   - 114: {fileID: 114000012510893494}
   - 114: {fileID: 114000013232726630}
   - 114: {fileID: 114000010186636824}
   - 114: {fileID: 114000013109680362}
   - 114: {fileID: 114000014005836754}
-  - 114: {fileID: 114000011170435340}
+  - 114: {fileID: 114000011464325068}
   m_Layer: 9
   m_Name: Balthazar
   m_TagString: Player
@@ -1433,7 +1434,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  lastInteraction: {fileID: 0}
   interactable: 1
   attributes:
   - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
@@ -1478,6 +1478,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   cards: []
   equippedCards: []
+--- !u!114 &114000011464325068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011578542928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092b4a556bf48574ba5d88d378a3de95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0.3
 --- !u!114 &114000012510893494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1567,6 +1579,27 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+  - name: Open
+    enabled: 1
+    toggleOnly: 0
+    controls:
+    - {fileID: 11400000, guid: 742040c697054d44ea5bb34146ce539e, type: 2}
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114000011464325068}
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000013232726630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1607,6 +1640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityScale: 0.25
   maxVelocityMagnitude: 3
+  turningSpeed: 2
 --- !u!114 &114000014202934784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1659,7 +1693,6 @@ MonoBehaviour:
   fallingStateChecks: 3
   fallingStateCheckCount: 0
   couldBeFalling: 0
-  turningSpeed: 0.1
   skills: []
   equippedSkills:
   - {fileID: 114000013232726630}

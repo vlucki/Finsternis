@@ -3,7 +3,6 @@ using UnityQuery;
 
 namespace Finsternis
 {
-
     [UnityEngine.DisallowMultipleComponent]
     public class AttackAction : EntityAction
     {
@@ -18,6 +17,7 @@ namespace Finsternis
         protected override void Awake()
         {
             base.Awake();
+            Type = ActionType.ATTACK;
             agent.onAttributeInitialized.AddListener(
                 attribute => 
                 {
