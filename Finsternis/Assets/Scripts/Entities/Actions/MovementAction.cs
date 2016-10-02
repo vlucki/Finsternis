@@ -12,11 +12,14 @@
         private Rigidbody rbody;
 
         [SerializeField]
-        private float velocityScale = 3f;
+        [Range(1f, 20f)]
+        [Tooltip("The base velocity for a character")]
+        private float baseVelocityMultiplier = 100f;
 
         [SerializeField]
-        [Range(1, 10)]
-        private float maxVelocityMagnitude = 5;
+        [Range(0f, 10f)]
+        [Tooltip("The max velocity granted by Speed attribute")]
+        private float speedMultiplier = 10f;
 
         [Range(1, 10)]
         [SerializeField]
@@ -27,11 +30,6 @@
         private EntityAttribute Speed
         {
             get { return cachedSpeed ?? (cachedSpeed = agent.GetAttribute("spd", true)); }
-        }
-
-        public float MaxVelocityMagnitude
-        {
-            get { return this.maxVelocityMagnitude; }
         }
 
         public Vector3 Velocity { get { return rbody.velocity; } }
@@ -54,22 +52,14 @@
 
         void Update()
         {
-            if(!LastDirection.IsZero() && transform.forward != LastDirection)
-            {
+            if (!this.direction.IsZero() && transform.forward != this.direction)
                 UpdateRotation();
-            }
         }
-
 
         private void UpdateRotation()
         {
-            float currentVelocity = GetVelocityMagnitude();
-            if (currentVelocity <= 0.1f)
-                return;
-
             Quaternion rot = transform.rotation;
-            rot.SetLookRotation(this.LastDirection, transform.up);
-            float angle = (transform.forward.Angle(this.LastDirection));
+            rot.SetLookRotation(this.direction, transform.up);
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -81,14 +71,18 @@
         {
             if (!this.direction.IsZero())
             {
-                float velMagnitude = GetVelocityMagnitude();
+                var forceToAdd = Direction * (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max);
+                rbody.AddForce(forceToAdd, ForceMode.Acceleration);
 
-                if (velMagnitude <= maxVelocityMagnitude)
-                {
-                    rbody.AddForce((Direction * Speed.Value) * velocityScale, ForceMode.VelocityChange);
-                }
                 this.LastDirection = this.direction;
-                this.direction = Vector3.zero;
+            }
+            else
+            {
+                Vector3 rbodyVel = rbody.velocity.WithY(0);
+                if (!rbodyVel.IsZero())
+                {
+                    rbody.AddForce(-rbodyVel * baseVelocityMultiplier, ForceMode.Acceleration);
+                }
             }
         }
 

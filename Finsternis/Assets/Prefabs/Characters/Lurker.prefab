@@ -904,9 +904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityScale: 0.02
-  maxVelocityMagnitude: 5
-  minVelocityThreshold: 0.1
+  velocityMultiplier: 3
+  turningSpeed: 1
 --- !u!114 &114000011811933878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -934,7 +933,9 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fallSpeedThreshold: -0.2
-  turningSpeed: 0.05
+  fallingStateChecks: 3
+  fallingStateCheckCount: 0
+  couldBeFalling: 0
   skills: []
   equippedSkills:
   - {fileID: 0}
@@ -965,7 +966,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  lastInteraction: {fileID: 0}
   interactable: 1
   attributes:
   - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
@@ -975,6 +975,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
   - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
   - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
+  onAttributeInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1031,7 +1036,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011908864442}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 381d14b867e82254ba02b7c0b26ab2ba, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

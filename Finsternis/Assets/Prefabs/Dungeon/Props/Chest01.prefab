@@ -20,12 +20,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012287060868}
   - 95: {fileID: 95000012876151516}
-  - 135: {fileID: 135000012407890378}
   - 114: {fileID: 114000011455442282}
   - 82: {fileID: 82000013532152132}
-  - 114: {fileID: 114000012024017202}
   m_Layer: 12
-  m_Name: Chest
+  m_Name: Chest01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,32 +296,4 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.OpeneableEntity+OpeneableEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114000012024017202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011469356220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f59d71470224774c88dda62e4b06f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnUnlock:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Lock+UnlockableEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  permanentLock: 0
---- !u!135 &135000012407890378
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011469356220}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.25
-  m_Center: {x: 0, y: 0.5, z: 0}
+  allowedActions: 01000000

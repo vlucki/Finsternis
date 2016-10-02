@@ -12,9 +12,17 @@
         [SerializeField]
         private List<DungeonFeature> exits = new List<DungeonFeature>();
 
+        [SerializeField]
+        private List<DungeonFeature> chests = new List<DungeonFeature>();
+
         public DungeonFeature GetRandomDecoration()
         {
             return GetRandomElement(this.decorations);
+        }
+
+        public DungeonFeature GetRandomChest()
+        {
+            return GetRandomElement(this.chests);
         }
 
         public DungeonFeature GetRandomExit()

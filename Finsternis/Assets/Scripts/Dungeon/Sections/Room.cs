@@ -14,6 +14,8 @@
 
         public int CellCount { get { return this.cells.Count; } }
 
+        public new RoomTheme Theme { get { return base.Theme as RoomTheme; } }
+
         public static Room CreateInstance(Vector2 position)
         {
             Room r = CreateInstance<Room>(new Rect(position, Vector2.zero));
@@ -27,6 +29,7 @@
             r.cells = new List<Vector2>();
             return r;
         }
+
         public override string ToString()
         {
             System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(this.cells.ToString());
@@ -77,6 +80,18 @@
                 }
             }
             return false;
+        }
+
+        public override void SetTheme<T>(T theme)
+        {
+            if (!(theme is RoomTheme))
+                return;
+            base.SetTheme<T>(theme);
+        }
+
+        public void SetTheme(RoomTheme theme)
+        {
+            this.SetTheme<RoomTheme>(theme);
         }
 
         /// <summary>

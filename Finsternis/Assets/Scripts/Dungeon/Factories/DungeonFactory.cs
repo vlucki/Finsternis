@@ -140,7 +140,7 @@ namespace Finsternis
 
             Room r = GetFarthestRoom(dungeon);
 
-            dungeon.Exit = GetFarthestCell(dungeon, r);
+            dungeon.Exit = GetRandomCellWithBias(dungeon, r);
 
             r.AddFeature(r.GetTheme<RoomTheme>().GetRandomExit(), dungeon.Exit);
 
@@ -150,7 +150,7 @@ namespace Finsternis
                 onGenerationEnd.Invoke(dungeon);
         }
 
-        private Vector2 GetFarthestCell(Dungeon dungeon, Room r, int tries = 20)
+        private Vector2 GetRandomCellWithBias(Dungeon dungeon, Room r, int tries = 20)
         {
             Vector2 farthest = r.GetRandomCell();
 
@@ -198,6 +198,20 @@ namespace Finsternis
             foreach (Room room in dungeon.Rooms)
             {
                 Decorate(room);
+                AddTreasures(room);
+            }
+        }
+
+        private void AddTreasures(Room room)
+        {
+            float chanceThreshold = Dungeon.Random.value();
+            int maxTreasures = Dungeon.Random.IntRange(0, room.CellCount / 5);
+            while(maxTreasures >= 0 && Dungeon.Random.value() < chanceThreshold)
+            {
+                room.AddFeature(room.Theme.GetRandomChest(), room.GetRandomCell());
+
+                maxTreasures--;
+                chanceThreshold += chanceThreshold;
             }
         }
 

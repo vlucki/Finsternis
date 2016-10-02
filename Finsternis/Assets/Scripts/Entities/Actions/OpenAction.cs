@@ -7,7 +7,7 @@
     {
 
         [SerializeField]
-        [Range(0.1f, 1f)]
+        [Range(0.1f, 5f)]
         private float range = 0.3f;
         public KeyCard KeyCard { get; set; }
 
@@ -19,13 +19,24 @@
 
         public void Execute()
         {
-            RaycastHit hit;
-            if(Physics.SphereCast(new Ray(transform.position, transform.forward), range, out hit))
-            {
-                var openeable = hit.collider.GetComponentInSibling<OpeneableEntity>();
-
-                if (openeable)
-                    openeable.Interact(this);
+            var hits = Physics.SphereCastAll(new Ray(transform.position + transform.up / 2, transform.forward), 0.5f, range);
+            if(hits != null){
+                OpeneableEntity closestOpeneable = null;
+                foreach(var hit in hits)
+                {
+                    var openeable = hit.collider.GetComponentInParentsOrChildren<OpeneableEntity>();
+                    if (openeable)
+                    {
+                        if (!closestOpeneable ||
+                            closestOpeneable.transform.position.Distance(transform.position) > openeable.transform.position.Distance(transform.position))
+                        {
+                                closestOpeneable = openeable;
+                        }
+                    }
+                        
+                }
+                if(closestOpeneable)
+                    closestOpeneable.Interact(this);
             }
         }
     }

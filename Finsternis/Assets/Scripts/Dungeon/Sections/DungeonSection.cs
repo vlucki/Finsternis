@@ -34,7 +34,7 @@
         }
 
 
-        public void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
+        public virtual void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
         public T GetTheme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
 
         public static T CreateInstance<T>(Rect bounds) where T : DungeonSection

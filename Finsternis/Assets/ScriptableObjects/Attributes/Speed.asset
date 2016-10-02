@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   alias: spd
-  constraints: 1
-  value: 3
-  min: 3
-  max: 0
+  constraints: 3
+  baseValue: 2
+  min: 1
+  max: 99
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  autoNotifyEntity: 0
+    m_TypeName: Finsternis.EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  modifiers: []

@@ -20,3 +20,5 @@ MonoBehaviour:
   decorations: []
   exits:
   - {fileID: 11400000, guid: ec22a3aadc666344ebac91a44e018e29, type: 2}
+  chests:
+  - {fileID: 11400000, guid: 0c81b5cdb11803a4bab16e42041f57cb, type: 2}

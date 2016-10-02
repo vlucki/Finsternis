@@ -38,6 +38,7 @@ GameObject:
   - 4: {fileID: 4000010192602296}
   - 95: {fileID: 95000010655676786}
   - 65: {fileID: 65000012054251888}
+  - 54: {fileID: 54000011767234878}
   m_Layer: 0
   m_Name: Floor03
   m_TagString: Untagged
@@ -242,13 +243,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014146628914}
   m_Mesh: {fileID: 4300002, guid: 79f65d492fa5ef041b5f9989f3282ae9, type: 3}
+--- !u!54 &54000011767234878
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013591209812}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!65 &65000012054251888
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013591209812}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fad97253048f3914a9e11455557bc729, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

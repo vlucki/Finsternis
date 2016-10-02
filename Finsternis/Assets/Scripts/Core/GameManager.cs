@@ -74,11 +74,6 @@
             }
         }
 
-        void Start()
-        {
-            CreateDungeon();
-        }
-
         public void LoadScene(int sceneIndex)
         {
             LoadScene(SceneManager.GetSceneAt(sceneIndex).name);

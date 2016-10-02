@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: Intelligence
   m_EditorClassIdentifier: 
   alias: int
-  constraints: 1
-  baseValue: 1
-  min: 0
-  max: 0
+  constraints: 3
+  baseValue: 2
+  min: 1
+  max: 99
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []

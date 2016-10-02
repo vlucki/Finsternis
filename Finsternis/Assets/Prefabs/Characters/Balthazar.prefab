@@ -1581,18 +1581,18 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   - name: Open
     enabled: 1
-    toggleOnly: 0
+    toggleOnly: 1
     controls:
     - {fileID: 11400000, guid: 742040c697054d44ea5bb34146ce539e, type: 2}
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114000011464325068}
-          m_MethodName: 
+          m_MethodName: Execute
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1638,9 +1638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityScale: 0.25
-  maxVelocityMagnitude: 3
-  turningSpeed: 2
+  velocityMultiplier: 4
+  maxVelocityMagnitude: 4
+  turningSpeed: 3
 --- !u!114 &114000014202934784
 MonoBehaviour:
   m_ObjectHideFlags: 1

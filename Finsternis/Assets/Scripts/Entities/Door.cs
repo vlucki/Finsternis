@@ -41,7 +41,8 @@
             }
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");
-            GetComponentInChildren<Collider>().enabled = false;
+            var colliders = this.GetComponentsInParentsOrChildren<Collider>();
+            colliders.ForEach(collider => collider.enabled = false);
             this.interactable = false;
         }
     }

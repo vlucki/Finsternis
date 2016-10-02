@@ -21,3 +21,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
   exits:
   - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}
+  chests:
+  - {fileID: 11400000, guid: 0c81b5cdb11803a4bab16e42041f57cb, type: 2}
