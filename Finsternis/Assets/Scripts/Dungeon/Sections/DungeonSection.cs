@@ -33,7 +33,6 @@
             set { bounds = value; }
         }
 
-
         public virtual void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
         public T GetTheme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
 
@@ -53,8 +52,6 @@
             features = new Dictionary<Vector2, List<DungeonFeature>>();
         }
 
-        public abstract bool Contains(Vector2 cell);
-
         public void AddConnection(DungeonSection connection, bool updateNewConennection = false)
         {
             if (connections.Contains(connection))
@@ -70,15 +67,11 @@
             connections.Remove(connection);
         }
 
-        public abstract IEnumerator<Vector2> GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator()
+        public bool AddFeature(DungeonFeature feature, Vector2 cell, float frequencyModifier = 1)
         {
-            return GetEnumerator();
-        }
+            if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
+                return false;
 
-        public bool AddFeature(DungeonFeature feature, Vector2 cell)
-        {
             if (!features.ContainsKey(cell))
                 features.Add(cell, new List<DungeonFeature>());
             foreach (var f in features[cell])
@@ -122,5 +115,16 @@
         public abstract bool AddCell(Vector2 cell);
 
         public abstract void RemoveCell(Vector2 cell);
+
+        public abstract bool Contains(Vector2 cell);
+
+        public abstract Vector2 GetRandomCell();
+
+        public abstract IEnumerator<Vector2> GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

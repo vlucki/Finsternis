@@ -38,6 +38,12 @@
             }
         }
 
+        #region private variables
+        [SerializeField]
+        [Range(0.01f, 1f)]
+        [Tooltip("How often should this feature actually appear when chosen by the generator?")]
+        private float baseFrequency = 0.5f;
+
         [SerializeField]
         private GameObject prefab;
 
@@ -47,23 +53,28 @@
         [SerializeField]
         private AlignmentParameters alignment = new AlignmentParameters(CellAlignment.CENTER, Vector3.zero, Vector3.zero, false);
 
-        [SerializeField][Tooltip("May this feature stack with other of the same type?")]
+        [SerializeField]
+        [Tooltip("May this feature stack with other of the same type?")]
         private bool stackable = false;
 
-        [SerializeField][Tooltip("What kind of features may be on the same cell as this one?")]
+        [SerializeField]
+        [Tooltip("What kind of features may be on the same cell as this one?")]
         private List<DungeonFeature> stackWhiteList = new List<DungeonFeature>();
+        #endregion
 
-        public GameObject Prefab
-        {
-            get { return this.prefab; }
-        }
+        #region public Properties
+
+        public GameObject Prefab { get { return this.prefab; } }
 
         public FeatureType Type { get { return this.type; } }
 
-        public AlignmentParameters Alignment
-        {
-            get { return this.alignment; }
-        }
+        public AlignmentParameters Alignment { get { return this.alignment; } }
+
+        public float BaseFrequency { get { return this.baseFrequency; } }
+
+        #endregion
+
+        #region methods
 
         public bool MayStackWith<T>(T feature) where T : DungeonFeature
         {
@@ -85,5 +96,7 @@
             if (faceOffet != null)
                 this.alignment.faceOffset = (bool)faceOffet;
         }
+
+        #endregion
     }
 }

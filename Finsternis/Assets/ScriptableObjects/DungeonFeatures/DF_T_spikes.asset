@@ -9,11 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
-  m_Name: DF_door02
+  m_Name: DF_T_spikes
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1000013885008798, guid: 527c6334dfa51734b9c06e521426f4ba, type: 2}
-  type: 0
-  alignment: 0
-  offset: {x: 0, y: 0, z: 0}
-  stackable: 1
+  baseFrequency: 0.8
+  prefab: {fileID: 193676, guid: 7387be7d254b68a4cb4de31844937f2d, type: 2}
+  type: 1
+  alignment:
+    pivot: 0
+    minOffset: {x: 0, y: 0, z: 0}
+    maxOffset: {x: 0, y: 0, z: 0}
+    faceOffset: 0
+  stackable: 0
   stackWhiteList: []

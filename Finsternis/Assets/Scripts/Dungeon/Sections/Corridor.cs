@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -161,10 +162,15 @@
             }
         }
 
-        internal bool AddTrap(Vector2 cell)
+        public bool AddTrap()
+        {
+            return this.AddTrap(GetRandomCell());
+        }
+
+        public bool AddTrap(Vector2 cell)
         {
             var trap = GetTheme<CorridorTheme>().GetRandomTrap();
-            return AddFeature(trap, cell);
+            return AddFeature(trap.feature, cell, trap.frequencyModifier);
         }
 
         internal bool AddDoor(Vector2 cell, Vector2 offset)
@@ -174,6 +180,14 @@
             door.SetOffset(new Vector3(offset.x, 0, -offset.y), null, true);
             
             return AddFeature(door, cell);
+        }
+
+        public override Vector2 GetRandomCell()
+        {
+            if (this.Length == 1)
+                return this[0];
+            else
+                return this[Dungeon.Random.IntRange(0, this.Length)];
         }
 
     }

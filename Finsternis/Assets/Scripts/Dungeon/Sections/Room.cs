@@ -185,7 +185,7 @@
             }
         }
 
-        public Vector2 GetRandomCell()
+        public override Vector2 GetRandomCell()
         {
             return this.cells.GetRandom(Dungeon.Random.IntRange);
         }

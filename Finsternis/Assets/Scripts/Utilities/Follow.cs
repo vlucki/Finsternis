@@ -7,21 +7,40 @@ public class Follow : MonoBehaviour
 {
     [SerializeField]
     private bool focusTarget = true;
+
     [SerializeField]
     private Transform target;
+
     [SerializeField]
     private Transform originalTarget;
+
     [SerializeField]
     private float tempTargetFocusTime = 0.3f;
 
     private float timeFocusingTempTarget = 0;
 
     public UnityEvent OnTargetReached;
+    
+    [System.Serializable]
+    public struct AxesRotationLock
+    {
+        public bool x;
+        public bool y;
+        public bool z;
 
-    [Header("Lock Rotation Axis")]
-    public bool x;
-    public bool y;
-    public bool z;
+        public AxesRotationLock(bool x, bool y, bool z)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public AxesRotationLock(bool xyz) : this(xyz, xyz, xyz)
+        {
+        }
+    }
+
+    public AxesRotationLock LockedRotationAxes = new AxesRotationLock(false);
 
     public Vector3 offset = Vector3.back + Vector3.up;
 
@@ -76,7 +95,7 @@ public class Follow : MonoBehaviour
     public void ResetOffset(bool toOriginal = false)
     {
         if (toOriginal)
-            this.offset = originalOffset;
+            this.offset = this.originalOffset;
         else
             this.offset = this.memorizedOffset;
     }
@@ -86,10 +105,11 @@ public class Follow : MonoBehaviour
         return this.originalTarget != this.target;
     }
     
-    void FixedUpdate()
+    void Update()
     {
         if (!this.target)
             return;
+
         Vector3 idealPosition = this.target.position + offset;
         float distance = idealPosition.Distance(transform.position);
 
@@ -108,17 +128,17 @@ public class Follow : MonoBehaviour
         if (timeFocusingTempTarget >= tempTargetFocusTime)
             target = originalTarget;
 
-        if (focusTarget && !(x && y && z))
+        if (focusTarget && !(LockedRotationAxes.x && LockedRotationAxes.y && LockedRotationAxes.z))
         {
             Vector3 direction = (target.position - transform.position).normalized;
             Vector3 rotation = transform.eulerAngles;
             transform.forward = Vector3.Slerp(transform.forward, direction, this.rotationInterpolation);
             Vector3 newRotation = transform.eulerAngles;
-            if (x)
+            if (LockedRotationAxes.x)
                 newRotation.x = rotation.x;
-            if (y)
+            if (LockedRotationAxes.y)
                 newRotation.y = rotation.y;
-            if (z)
+            if (LockedRotationAxes.z)
                 newRotation.z = rotation.z;
             transform.eulerAngles = newRotation;
         }

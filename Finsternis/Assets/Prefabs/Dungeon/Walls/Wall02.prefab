@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013209839166}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 23: {fileID: 23000012540317400}
   - 65: {fileID: 65000012745256748}
   - 54: {fileID: 54000011148724244}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: lateral
   m_TagString: Untagged
   m_Icon: {fileID: 0}

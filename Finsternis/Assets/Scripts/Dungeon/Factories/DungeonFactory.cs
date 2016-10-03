@@ -234,13 +234,9 @@ namespace Finsternis
         /// <param name="corridor">The corridor to be trapped.</param>
         private void AddTrap(Corridor corridor)
         {
-            if (corridor.Length > 2 && Dungeon.Random.value() <= 0.3f)
+            if (corridor.Length > 2)
             {
-                int pos = 0;
-                int count = 0, maxTries = 10;
-                do
-                    pos = Dungeon.Random.IntRange(1, corridor.Length - 1); //-1 because we don't want to count the last cell either (it should never have a trap)
-                while ((++count) <= maxTries && !corridor.AddTrap(corridor[pos]));
+                corridor.AddTrap();
             }
         }
 

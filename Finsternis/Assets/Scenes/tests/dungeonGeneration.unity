@@ -4599,9 +4599,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  x: 0
-  y: 0
-  z: 0
+  LockedRotationAxes:
+    x: 0
+    y: 0
+    z: 0
   offset: {x: 0, y: 9, z: -5}
   translationInterpolation: 0.1
   rotationInterpolation: 0.1
@@ -7015,7 +7016,7 @@ Prefab:
     - target: {fileID: 136000012293342078, guid: 65c8a0f35a6611a4285464649e0044ef,
         type: 2}
       propertyPath: m_Radius
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 136000012293342078, guid: 65c8a0f35a6611a4285464649e0044ef,
         type: 2}
@@ -9592,8 +9593,7 @@ MonoBehaviour:
   shakeDamping: 2
   shakeFrequency: 20
   shakeAmplitude: 20
-  occludeWalls: 0
-  occludingObject: {fileID: 0}
+  reactToOcclusion: 1
 --- !u!114 &1789356846
 MonoBehaviour:
   m_ObjectHideFlags: 0

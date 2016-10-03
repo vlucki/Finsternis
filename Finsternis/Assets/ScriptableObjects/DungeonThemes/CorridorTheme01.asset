@@ -20,8 +20,10 @@ MonoBehaviour:
   walls:
   - {fileID: 11400000, guid: 8df4557522a71ac49a5945ca9694c905, type: 2}
   traps:
-  - {fileID: 11400000, guid: 60fea911ad260b94a974ff51719ee04f, type: 2}
-  - {fileID: 11400000, guid: 9fadb522a6f577e499bf9c09998e5224, type: 2}
+  - feature: {fileID: 11400000, guid: 60fea911ad260b94a974ff51719ee04f, type: 2}
+    frequencyModifier: 1
+  - feature: {fileID: 11400000, guid: 9fadb522a6f577e499bf9c09998e5224, type: 2}
+    frequencyModifier: 0.5
   doors:
   - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
   - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}

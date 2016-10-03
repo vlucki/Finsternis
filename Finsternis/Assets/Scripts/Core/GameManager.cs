@@ -120,8 +120,9 @@
 
             if (this.player)
             {
-                this.player.GetAttribute("vit").onValueChanged.AddListener(
-                    (attribute) => { if (attribute.Value <= 0) CallDelayed(2, GameOver); });
+                this.player.GetComponent<Character>().onDeath.AddListener(() => {
+                        StartCoroutine(_CallDelayed(2, GameOver));
+                });
             }
             else
             {
@@ -156,8 +157,8 @@
                 EntityAttribute hp = e.GetAttribute("vit");
                 if (hp)
                     hp.SetBaseValue(0);
-
-                e.Kill();
+                else
+                    e.Kill();
                 return;
             }
             else
@@ -175,12 +176,12 @@
             this.player.transform.forward = -Vector3.forward;
             clearedDungeons++;
             if (!GoalReached())
-                StartCoroutine(CallDelayed(1, this.dungeonManager.CreateDungeon));
+                StartCoroutine(_CallDelayed(1, this.dungeonManager.CreateDungeon));
             else
                 Win();
         }
 
-        private IEnumerator CallDelayed(float delay, Action a)
+        private IEnumerator _CallDelayed(float delay, Action a)
         {
             yield return Wait.Sec(delay);
             a();
