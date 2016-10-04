@@ -80,10 +80,11 @@
         {
             if (this.type == FeatureType.REPLACEMENT && feature.type == FeatureType.REPLACEMENT)
                 return false;
-            if (!stackable && feature.GetType().Equals(this.GetType()))
+            else if (!stackable && feature.GetType().Equals(this.GetType()))
                 return false;
-
-            return stackWhiteList.Contains(feature);
+            else if(!stackable)
+                return stackWhiteList.Contains(feature);
+            return true;
         }
 
         internal void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, bool? faceOffet = null)

@@ -292,7 +292,7 @@ namespace Finsternis
                 {
                     connectedRoom.AddCell(corridor[0]);
                     connectedRoom.RemoveConnection(corridor);
-                    dungeon.Corridors.RemoveAt(i);
+                    RemoveSection(dungeon.Corridors, corridor);
                 }
             }
         }
@@ -383,9 +383,10 @@ namespace Finsternis
                         UpdateConnections(dungeon, half);
                     }
                 }
-                dungeon.Corridors.Remove(corridor);
+                RemoveSection(dungeon.Corridors, corridor);
             } else if (corridor.Length == 0)
-                dungeon.Corridors.Remove(corridor);
+                RemoveSection(dungeon.Corridors, corridor);
+
             return corridorChanged;
         }
 
@@ -438,7 +439,7 @@ namespace Finsternis
                     {
                         roomA.Merge(roomB);
                         roomB.Disconnect();
-                        dungeon.Rooms.RemoveAt(j);
+                        RemoveSection(dungeon.Rooms, roomB);
                         i = dungeon.Rooms.Count;
                         break;
                     }
@@ -534,8 +535,14 @@ namespace Finsternis
             if (corridor.Length != originalLength)
             {
                 if (corridor.Length < this.minimumCorridorLength)
-                    dungeon.Corridors.Remove(corridor);
+                    RemoveSection(dungeon.Corridors, corridor);
             }
+        }
+
+        private void RemoveSection<T>(List<T> sections, T section) where T : DungeonSection
+        {
+            sections.Remove(section);
+            section.DestroyNow();
         }
 
         public T GetRandomTheme<T>() where T : DungeonSectionTheme

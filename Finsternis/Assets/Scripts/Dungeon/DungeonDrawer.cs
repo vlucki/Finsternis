@@ -185,7 +185,7 @@ namespace Finsternis
                 (GameObject)Instantiate(
                 feature.Prefab,
                 GetWorldPosition(position) + offset,
-                Quaternion.identity);
+                feature.Prefab.transform.rotation);
 
             if (feature.Alignment.faceOffset)
                 featureGO.transform.forward = offset.normalized;

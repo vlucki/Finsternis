@@ -118,7 +118,7 @@
 
         public abstract bool Contains(Vector2 cell);
 
-        public abstract Vector2 GetRandomCell();
+        public abstract Vector2 GetRandomCell(params int[] constraints);
 
         public abstract IEnumerator<Vector2> GetEnumerator();
 

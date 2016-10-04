@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: []
   floorPrefabs:
-  - {fileID: 1000013675684728, guid: 020ecace1add6414aa056f9eaacba529, type: 2}
-  - {fileID: 1000010128955084, guid: 900a5c981c596254ca37c297851ac8e7, type: 2}
-  - {fileID: 1000013591209812, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
-  - {fileID: 1000012591517738, guid: b30382e07031e3140873d91395066179, type: 2}
+  - {fileID: 1000013659143498, guid: 6070c6a3573d75643813b3a3f9e18060, type: 2}
+  - {fileID: 1000013833967056, guid: f0db1a85ec4e6c04bac704fb55090fdb, type: 2}
+  - {fileID: 1000012089547530, guid: 5d43b75100db13f499651f70c58e1fd5, type: 2}
+  - {fileID: 1000012856286756, guid: 89b2fa2eae2f74746bd92a31c3a53d75, type: 2}
   walls:
   - {fileID: 11400000, guid: 8df4557522a71ac49a5945ca9694c905, type: 2}
   traps:

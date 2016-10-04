@@ -13,13 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags: []
   floorPrefabs:
-  - {fileID: 1000012591517738, guid: b30382e07031e3140873d91395066179, type: 2}
-  - {fileID: 1000013591209812, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
+  - {fileID: 1000010623611778, guid: a5d4d4f149436a047a501543d8caf63a, type: 2}
+  - {fileID: 1000011340873866, guid: 057a6f4a54d6ddb44a2b4d3679fd8f58, type: 2}
+  - {fileID: 1000010727205410, guid: 491deb068c386d640981b26b339d860b, type: 2}
+  - {fileID: 1000011740983040, guid: a42cf104df52b634b9c69e33be7690e3, type: 2}
+  - {fileID: 1000013031858822, guid: 01318bafbcdfbbc40be2e0d1950436f0, type: 2}
   walls:
   - {fileID: 11400000, guid: b6bf55d6f0f6f444291bf6717c33bedd, type: 2}
   decorations:
   - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
+  - {fileID: 11400000, guid: 0dd543a5d1bb341448d421e2be3cd1a3, type: 2}
   exits:
   - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}
   chests:
+  - {fileID: 11400000, guid: 5927b898af65c4d4d9e19f46b555c64f, type: 2}
   - {fileID: 11400000, guid: 0c81b5cdb11803a4bab16e42041f57cb, type: 2}

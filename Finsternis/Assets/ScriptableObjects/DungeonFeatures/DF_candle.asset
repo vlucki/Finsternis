@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_candle
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1000011064750200, guid: 986b3259dabe73c4a88e87c93ff232d9, type: 2}
+  baseFrequency: 0.5
+  prefab: {fileID: 1000013061167952, guid: 986b3259dabe73c4a88e87c93ff232d9, type: 2}
   type: 0
   alignment:
     pivot: 0
     minOffset: {x: 0, y: 0, z: 0}
-    maxOffset: {x: 1, y: 0, z: 1}
+    maxOffset: {x: 0.9, y: 0, z: 0.9}
+    faceOffset: 0
   stackable: 1
   stackWhiteList: []

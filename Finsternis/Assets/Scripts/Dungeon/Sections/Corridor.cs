@@ -164,7 +164,7 @@
 
         public bool AddTrap()
         {
-            return this.AddTrap(GetRandomCell());
+            return this.AddTrap(GetRandomCell(1, this.Length-1));
         }
 
         public bool AddTrap(Vector2 cell)
@@ -182,12 +182,21 @@
             return AddFeature(door, cell);
         }
 
-        public override Vector2 GetRandomCell()
+        public override Vector2 GetRandomCell(params int[] constraints)
         {
             if (this.Length == 1)
                 return this[0];
             else
-                return this[Dungeon.Random.IntRange(0, this.Length)];
+            {
+                int min = 0, max = this.Length;
+                if (constraints != null)
+                {
+                    min = constraints[0];
+                    if (constraints.Length > 1)
+                        max = constraints[1];
+                }
+                return this[Dungeon.Random.IntRange(min, max)];
+            }
         }
 
     }

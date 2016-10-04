@@ -9,7 +9,7 @@ namespace Finsternis
         [SerializeField]
         string seed = "0";
         [SerializeField]
-        bool deleteExisting;
+        bool deleteExisting = true;
 
         public override void OnInspectorGUI()
         {

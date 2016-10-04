@@ -185,7 +185,7 @@
             }
         }
 
-        public override Vector2 GetRandomCell()
+        public override Vector2 GetRandomCell(params int[] constraints)
         {
             return this.cells.GetRandom(Dungeon.Random.IntRange);
         }

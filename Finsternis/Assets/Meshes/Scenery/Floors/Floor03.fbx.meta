@@ -9,19 +9,34 @@ ModelImporter:
     100002: pCube1
     100004: pCube2
     100006: pPlane1
+    100008: ceramic
+    100010: ceramic1
+    100012: floor
     400000: //RootNode
     400002: pCube1
     400004: pCube2
     400006: pPlane1
+    400008: ceramic
+    400010: ceramic1
+    400012: floor
     2300000: pCube1
     2300002: pCube2
     2300004: pPlane1
+    2300006: ceramic
+    2300008: ceramic1
+    2300010: floor
     3300000: pCube1
     3300002: pCube2
     3300004: pPlane1
+    3300006: ceramic
+    3300008: ceramic1
+    3300010: floor
     4300000: pPlane1
     4300002: pCube1
     4300004: pCube2
+    4300006: floor
+    4300008: ceramic
+    4300010: ceramic1
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -47,7 +62,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
