@@ -76,23 +76,36 @@
 
         #region methods
 
+        /// <summary>
+        /// Checks whether a given feature could be stacked with this one.
+        /// </summary>
+        /// <typeparam name="T">Subtype of feature being checked.</typeparam>
+        /// <param name="feature">Feature being checked.</param>
+        /// <returns>True if this feature is allowed to stack with the given one.</returns>
         public bool MayStackWith<T>(T feature) where T : DungeonFeature
         {
             if (this.type == FeatureType.REPLACEMENT && feature.type == FeatureType.REPLACEMENT)
                 return false;
-            else if (!stackable && feature.GetType().Equals(this.GetType()))
+            else if (!stackable && this is T)
                 return false;
             else if(!stackable)
                 return stackWhiteList.Contains(feature);
             return true;
         }
 
-        internal void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, bool? faceOffet = null)
+        /// <summary>
+        /// Defines a range for the the possible offset (in world units) that this feature may have.
+        /// </summary>
+        /// <param name="minOffset">Minimum value for offset.</param>
+        /// <param name="maxOffset">Maximum value for offset.</param>
+        /// <param name="faceOffet">Should the prefab of this feature have it's forward vector pointing towards the direction it was offset to?</param>
+        public void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, bool? faceOffet = null)
         {
             this.alignment.minOffset = minOffset;
             if (maxOffset == null)
-                maxOffset = minOffset;
-            this.alignment.maxOffset = (Vector3)maxOffset;
+                this.alignment.maxOffset = minOffset;
+            else
+                this.alignment.maxOffset = Vector3.Max((Vector3)maxOffset, minOffset);
 
             if (faceOffet != null)
                 this.alignment.faceOffset = (bool)faceOffet;

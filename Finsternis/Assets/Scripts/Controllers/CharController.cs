@@ -117,18 +117,28 @@ namespace Finsternis
             }
         }
 
+        /// <summary>
+        /// Verifies wheter the character is falling.
+        /// </summary>
+        /// <returns>True if character is actually falling.</returns>
         private bool UpdateFallingState()
         {
-            bool wasFalling = this.couldBeFalling;
+            bool wasFalling = this.couldBeFalling; //stores current state
             float fallingSpeed = GetComponent<Rigidbody>().velocity.y;
+
+            //compares Y velocity to threshold to account for some variations due to how the physics engine work
             this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
 
+            //if the state is consisten (that is, the character was falling and, apparently, still is)
             if (wasFalling == this.couldBeFalling)
                 if(this.fallingStateChecks > this.fallingStateCheckCount)
-                    this.fallingStateCheckCount++;
+                    this.fallingStateCheckCount++; //update the counter
             else
                 this.fallingStateCheckCount = 0;
 
+            //use the counter in order to define if the character is actually falling
+            //this is used in order to account for the tiny variations that may occur from frame to frame
+            //i.e. to avoid thinking a "physics hiccup" meant the character was falling
             bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
 
             return isFallingNow;

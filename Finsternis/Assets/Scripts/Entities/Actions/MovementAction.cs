@@ -27,22 +27,21 @@
 
         private EntityAttribute cachedSpeed;
 
+        private Vector3 direction;
+
         private EntityAttribute Speed
         {
-            get { return cachedSpeed ?? (cachedSpeed = agent.GetAttribute("spd", true)); }
+            get { return this.cachedSpeed ?? (this.cachedSpeed = agent.GetAttribute("spd", true)); }
         }
 
-        public Vector3 Velocity { get { return rbody.velocity; } }
+        public Vector3 Velocity { get { return this.rbody.velocity; } }
 
-        private Vector3 direction;
 
         public Vector3 Direction
         {
             get { return this.direction; }
             set { this.direction = value.normalized; }
         }
-
-        public Vector3 LastDirection { get; private set; }
 
         protected override void Awake()
         {
@@ -70,30 +69,28 @@
         void FixedUpdate()
         {
             if (!this.direction.IsZero())
-            {
-                var forceToAdd = Direction * (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max);
-                rbody.AddForce(forceToAdd, ForceMode.Acceleration);
-
-                this.LastDirection = this.direction;
-            }
+                Move(Direction);
             else
-            {
-                Vector3 rbodyVel = rbody.velocity.WithY(0);
-                if (!rbodyVel.IsZero())
-                {
-                    rbody.AddForce(-rbodyVel * baseVelocityMultiplier, ForceMode.Acceleration);
-                }
-            }
+                Move(-Velocity.WithY(0).normalized);
+        }
+
+        private void Move(Vector3 direction)
+        {
+            if (!direction.IsZero())
+                this.rbody.AddForce(
+                    direction * 
+                    (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max), 
+                    ForceMode.Acceleration);
         }
 
         internal float GetVelocityMagnitude(bool ignoreY = true)
         {
-            if (rbody)
+            if (this.rbody)
             {
                 if (ignoreY)
-                    return rbody.velocity.XZ().sqrMagnitude;
+                    return Velocity.WithY(0).sqrMagnitude;
                 else
-                    return rbody.velocity.sqrMagnitude;
+                    return Velocity.sqrMagnitude;
             }
             return 0;
         }

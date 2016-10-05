@@ -13,9 +13,9 @@
 
         public enum ValueConstraint
         {
-            NONE    = 0, //0b0000
-            MIN     = 1, //0b0001
-            MAX     = 2, //0b0010
+            NONE = 0, //0b0000
+            MIN = 1, //0b0001
+            MAX = 2, //0b0010
             MIN_MAX = 3  //0b0011
         }
 
@@ -65,8 +65,10 @@
             set { this.alias = value; }
         }
 
-        public float Value {
-            get {
+        public float Value
+        {
+            get
+            {
                 if (this.valueWithModifiers != this.baseValue && !(modifiers != null && modifiers.Count > 0)) //make sure the value is initialized if the "SetValue" method was not called yet
                     this.valueWithModifiers = this.baseValue;
                 return this.valueWithModifiers;
@@ -75,15 +77,9 @@
 
         public float BaseValue { get { return this.baseValue; } }
 
-        public float Min
-        {
-            get { return this.min; }
-        }
+        public float Min { get { return this.min; } }
 
-        public float Max
-        {
-            get { return this.max; }
-        }
+        public float Max { get { return this.max; } }
 
         public int IntValue { get { return (int)Value; } }
 
@@ -136,24 +132,28 @@
             }
         }
 
-        private void RecalculateValue()
+        private void RecalculateFullValue()
         {
-            float currentValue = this.valueWithModifiers;
-            this.valueWithModifiers = this.baseValue;
+            float newValue = this.baseValue;
 
             if (this.modifiers != null)
             {
                 modifiers.ForEach(modifier =>
                 {
-                    if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
-                        this.valueWithModifiers += modifier.ValueChange;
-                    else
-                        this.valueWithModifiers *= modifier.ValueChange;
+                    newValue = ApplyModifier(modifier, newValue);
                 });
             }
+            SetValue(newValue);
+        }
 
-            if (Value != currentValue && onValueChanged)
-                onValueChanged.Invoke(this);
+        private float ApplyModifier(AttributeModifier modifier, float valueToChange)
+        {
+            if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
+                valueToChange += modifier.ValueChange;
+            else
+                valueToChange += modifier.ValueChange * this.baseValue;
+
+            return valueToChange;
         }
 
         /// <summary>
@@ -162,17 +162,35 @@
         /// <param name="newValue">The new value of the attribute.</param>
         public void SetBaseValue(float newValue)
         {
-            if (LimitMinimum)
-                newValue = Mathf.Max(this.min, newValue);
-
-            if (LimitMaximum)
-                newValue = Mathf.Min(this.max, newValue);
+            newValue = EnforceLimits(newValue);
 
             if (this.baseValue != newValue)
-            {                
+            {
                 this.baseValue = newValue;
-                RecalculateValue();
+                RecalculateFullValue();
             }
+        }
+
+        public void SetValue(float newValue)
+        {
+            newValue = EnforceLimits(newValue);
+
+            if (this.valueWithModifiers != newValue)
+            {
+                this.valueWithModifiers = newValue;
+                onValueChanged.Invoke(this);
+            }
+        }
+
+        private float EnforceLimits(float rawValue)
+        {
+            if (LimitMinimum)
+                rawValue = Mathf.Max(this.min, rawValue);
+
+            if (LimitMaximum)
+                rawValue = Mathf.Min(this.max, rawValue);
+
+            return rawValue;
         }
 
         public void AddModifier(AttributeModifier newModifier)
@@ -183,14 +201,14 @@
                     this.modifiers = new List<AttributeModifier>();
 
                 this.modifiers.Add(newModifier);
-                RecalculateValue();
+                SetValue(ApplyModifier(newModifier, this.valueWithModifiers));
             }
         }
 
         public void RemoveModifier(AttributeModifier toRemove)
         {
             if (this.modifiers != null && this.modifiers.Remove(toRemove))
-                RecalculateValue();
+                RecalculateFullValue();
         }
 
         /// <summary>
@@ -297,12 +315,12 @@
 
         public void Subtract(float value)
         {
-            SetBaseValue(Value - value);
+            SetValue(Value - value);
         }
 
         public void Add(float value)
         {
-            SetBaseValue(Value + value);
+            SetValue(Value + value);
         }
 
         public override string ToString()

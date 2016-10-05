@@ -28,6 +28,8 @@
 
         private UnityEvent onFinishedToggling;
 
+        public bool SkipCloseEvent { get; set; }
+
         protected UnityEvent OnFinishedToggling
         {
             get
@@ -90,13 +92,15 @@
         {
             IsOpen = true;
             this.CanvasGroup.interactable = true;
+            SkipCloseEvent = false;
             OnOpen.Invoke();
         }
 
         public virtual void Close()
         {
             IsOpen = false;
-            OnClose.Invoke();
+            if(!SkipCloseEvent)
+                OnClose.Invoke();
             gameObject.SetActive(false);
         }
     }
