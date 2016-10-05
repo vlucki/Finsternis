@@ -78,9 +78,9 @@
             return result;
         }
 
-        private float CalculateModifiedValue(AttributeModifier modifier, float value)
+        private float CalculateModifiedValue(AttributeModifier modifier, EntityAttribute attribute)
         {
-            float result = value;
+            float result = attribute.Value;
 
             switch (modifier.ChangeType)
             {
@@ -88,11 +88,11 @@
                     result += modifier.ValueChange;
                     break;
                 case AttributeModifier.ModifierType.Relative:
-                    result *= modifier.ValueChange;
+                    result += attribute.BaseValue * modifier.ValueChange;
                     break;
             }
 
-            return result;
+            return Mathf.Max(result, 0); //no need to display negative values
         }
 
         private void Append(Text field, string text)
