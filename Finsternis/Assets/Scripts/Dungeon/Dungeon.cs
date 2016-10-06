@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityQuery;
@@ -301,12 +302,13 @@ namespace Finsternis
 
                     Vector2 neighbourCell = pos + new Vector2(i, j);
                     if (IsWithinDungeon(neighbourCell) && IsOfAnyType(neighbourCell, types))
+                    {
                         cellsFound++;
+                    }
                     if (requiredNumberOfMatches > 0 && cellsFound == requiredNumberOfMatches)
                         return cellsFound;
                 }
             }
-
             return cellsFound;
         }
 
@@ -347,43 +349,20 @@ namespace Finsternis
         /// <summary>
         /// Checks if there is an instance of the provided type at a given coordinate.
         /// </summary>
-        /// <param name="cellX">The column to be checked.</param>
-        /// <param name="cellY">The row to be checked.</param>
+        /// <param name="cell">Position be checked.</param>
         /// <param name="type">The type to be considered.</param>
         /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
-        public bool IsOfType(float cellX, float cellY, Type type)
+        public bool IsOfType(Vector2 cell, Type type)
         {
-            if (this[cellX, cellY])
+            if (this[cell])
             {
-                if (this[cellX, cellY].GetType().Equals(type))
+                if (this[cell].GetType().Equals(type))
                     return true;
             }
             else if (type == null) //Wall
                 return true;
 
             return false;
-        }
-
-        /// <summary>
-        /// Checks if there is an instance of the provided type at a given coordinate.
-        /// </summary>
-        /// <param name="cell">The coordinates to be checked.</param>
-        /// <param name="type">The type to be considered.</param>
-        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
-        public bool IsOfType(Vector2 cell, Type type)
-        {
-            return IsOfType(cell.x, cell.y, type);
-        }
-
-        /// <summary>
-        /// Checks if there is an instance of the provided type at a given coordinate.
-        /// </summary>
-        /// <typeparam name="T">The type to be considered.</typeparam>
-        /// <param name="cell">The coordinates to be checked.</param>
-        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
-        public bool IsOfType<T>(Vector2 cell)
-        {
-            return IsOfType(cell.x, cell.y, typeof(T));
         }
 
         /// <summary>

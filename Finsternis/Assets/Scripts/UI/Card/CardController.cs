@@ -65,7 +65,7 @@
                 var attr = this.player.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
-                    float modifiedValue = CalculateModifiedValue(modifier, attr.Value);
+                    float modifiedValue = CalculateModifiedValue(modifier, attr);
                     if(modifiedValue != attr.Value)
                     {
                         result += " (";

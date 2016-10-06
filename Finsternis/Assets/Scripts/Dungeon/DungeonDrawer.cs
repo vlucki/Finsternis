@@ -197,7 +197,7 @@ namespace Finsternis
         {
             var dungeonPos = new Vector2(cellX, cellY);
 
-            if (drawnWalls.Contains(dungeonPos) || (dungeon.IsWithinDungeon(dungeonPos) && !dungeon.IsOfType(cellX, cellY, null)))
+            if (drawnWalls.Contains(dungeonPos) || (dungeon.IsWithinDungeon(dungeonPos) && !dungeon.IsOfType(dungeonPos, null)))
                 return null;
 
             drawnWalls.Add(dungeonPos);

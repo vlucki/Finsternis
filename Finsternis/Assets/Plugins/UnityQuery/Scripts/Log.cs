@@ -22,6 +22,12 @@ namespace UnityQuery
             Debug.LogErrorFormat(context, s.ToLogString(context), args);
         }
 
+        public static void Info(Object context, bool condition, string s)
+        {
+            if(condition)
+                Debug.Log(s.ToLogString(context), context);
+        }
+
         public static void Info(Object context, string s)
         {
             Debug.Log(s.ToLogString(context), context);
@@ -30,6 +36,12 @@ namespace UnityQuery
         public static void Info(Object context, string s, params object[] args)
         {
             Debug.LogFormat(context, s.ToLogString(context), args);
+        }
+
+        public static void Info(Object context, bool condition, string s, params object[] args)
+        {
+            if(condition)
+                Debug.LogFormat(context, s.ToLogString(context), args);
         }
 
         public static void Warn(Object context, string s)

@@ -247,13 +247,35 @@ namespace Finsternis
         /// <param name="corridor">The corridor that will have doors added to it.</param>
         private void AddDoors(Dungeon dungeon, Corridor corridor)
         {
-            //Add door at the start
-            var cell = corridor[0];
-            corridor.AddDoor(cell, -corridor.Direction * 0.75f);
+            //try adding a door at the start of a corridor
+            int index = 0;
+            while (index < 2 && !AddDoor(dungeon, corridor, corridor[index], -corridor.Direction))
+                index++;
 
-            //Add door at the end
-            cell = corridor.End;
-            corridor.AddDoor(cell, corridor.Direction * 0.75f);
+            //And then at the end
+            index = corridor.Length -1;
+            while (index > corridor.Length - 2 && !AddDoor(dungeon, corridor, corridor[index], corridor.Direction))
+                index--;
+        }
+
+        private bool AddDoor(Dungeon dungeon, Corridor corridor, Vector2 cell, Vector2 offset)
+        {
+            //if there's a wall right after the cell where the door is to be placed, no point doing so
+            if (!dungeon.IsWithinDungeon(cell + offset) || !dungeon[cell + offset])
+                return false;
+
+
+            //Same if there aren't walls on both sides of the cell where the door would be
+            var lateralOffset = offset.YX();
+
+            if (dungeon.IsWithinDungeon(cell + lateralOffset) && dungeon[cell + lateralOffset])
+                return false;
+
+            if (dungeon.IsWithinDungeon(cell - lateralOffset) && dungeon[cell - lateralOffset])
+                return false;
+
+            corridor.AddDoor(cell, offset * 0.75f);
+            return true;
         }
 
         /// <summary>
@@ -297,6 +319,9 @@ namespace Finsternis
             }
         }
 
+
+        //PROBLEM SEED: 1754516660, NO EXIT
+
         /// <summary>
         /// Ensures every corridor within the dungeon "looks right"
         /// </summary>
@@ -306,6 +331,7 @@ namespace Finsternis
             for (int i = dungeon.Corridors.Count - 1; i >= 0; i--)
             {
                 Corridor corridor = dungeon.Corridors[i];
+
                 if (ReduceCorridor(dungeon, corridor))
                 {
                     i = dungeon.Corridors.Count;
@@ -325,12 +351,17 @@ namespace Finsternis
         {
             Corridor[] halves = null;
             Vector2 cell = corridor[index];
+
+            Log.Info(this, corridor.Y == 17, "Removing cell {0} from corridor", cell);
+
             dungeon[cell] = dungeon[offsetCell];
             dungeon[offsetCell].AddCell(cell);
             if (index < corridor.Length - 1)
                 halves = corridor.RemoveAt(index);
             else
                 corridor.Length--;
+
+            Log.Info(this, corridor.Y == 17, "Corridor is {0} and halves are {1}", corridor, halves.SequenceToString());
             return halves;
         }
 
@@ -356,6 +387,7 @@ namespace Finsternis
                 if (CheckCell<Corridor>(dungeon, offsetCellA))
                 {
                     corridorChanged = true;
+                    
                     halves = RemoveCell(dungeon, index, corridor, offsetCellA);
                     if (halves != null)
                         break;
@@ -364,6 +396,9 @@ namespace Finsternis
                 else if (CheckCell<Corridor>(dungeon, offsetCellB))
                 {
                     corridorChanged = true;
+
+                    Log.Info(this, corridor.Y == 17, "Cell at offsetB {0} was {1}", offsetCellB, dungeon[offsetCellB]);
+
                     halves = RemoveCell(dungeon, index, corridor, offsetCellB);
 
                     if (halves != null)
@@ -380,6 +415,7 @@ namespace Finsternis
                     if (half)
                     {
                         dungeon.Corridors.Add(half);
+                        dungeon.MarkCells(half);
                         UpdateConnections(dungeon, half);
                     }
                 }
@@ -521,6 +557,7 @@ namespace Finsternis
 
             while (corridor.Length > 0 && !intersectionFound)
             {
+                
                 //look around the last cell of the corridor
                 intersectionFound = (dungeon.SearchAround(corridor.End, 2, false, typeof(Corridor), typeof(Room)) >= 2);
 
@@ -529,6 +566,7 @@ namespace Finsternis
                     //Remove "excess cells" from the corridor
                     dungeon[corridor.End] = null;
                     corridor.Length--;
+                    Log.Info(this, corridor.Y == 17, "Trimming corridor {0}", corridor);
                 }
             }
 

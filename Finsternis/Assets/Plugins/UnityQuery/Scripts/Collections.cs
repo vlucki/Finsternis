@@ -177,7 +177,9 @@ namespace UnityQuery
             foreach (var element in sequence)
             {
                 var elementString = element as string;
-                if (elementString == null)
+                if (elementString == null && element == null)
+                    elementString = "null";
+                else if (elementString == null)
                 {
                     // Handle nested enumerables.
                     var elementEnumerable = element as IEnumerable;

@@ -143,16 +143,5 @@ namespace UnityQuery
         {
             return new Vector3(v.x, v.z, v.y);
         }
-
-        /// <summary>
-        /// Uses the Y value of a Vector2 as the Z value of a Vector3 and assigns an arbitrary value to Vector3.y
-        /// </summary>
-        /// <param name="v">The Vector2 to be used as base.</param>
-        /// <param name="newY">The (optional) value to be used for the Y value of the returned Vector3.</param>
-        /// <returns>A Vector3.</returns>
-        public static Vector3 Y_as_Z(this Vector2 v, float newY = 0)
-        {
-            return new Vector3(v.x, newY, v.y);
-        }
     }
 }
