@@ -49,11 +49,16 @@
         {
             get
             {
-                if (index < 0 || index >= this.length)
-                    throw new System.ArgumentOutOfRangeException("index", "Trying to access a cell with index " + index + " within " + ToString());
+                if (index < 0 || index >= this.Length)
+                {
+                    index = Mathf.Clamp(index, 0, this.Length - 1);
+                    Log.Error(this, "index", "Trying to access a cell with index {0} within {1}", index, this);
+                }
                 return bounds.position + this.direction * index;
             }
         }
+        
+        public new CorridorTheme Theme { get { return base.Theme as CorridorTheme; } }
 
         public static Corridor CreateInstance(Rect bounds, Vector2 direction)
         {
@@ -163,26 +168,6 @@
             }
         }
 
-        public bool AddTrap()
-        {
-            return this.AddTrap(GetRandomCell(1, this.Length-1));
-        }
-
-        public bool AddTrap(Vector2 cell)
-        {
-            var trap = GetTheme<CorridorTheme>().GetRandomTrap();
-            return AddFeature(trap.feature, cell, trap.frequencyModifier);
-        }
-
-        internal bool AddDoor(Vector2 cell, Vector2 offset)
-        {
-            var door = Instantiate(GetTheme<CorridorTheme>().GetRandomDoor());
-
-            door.SetOffset(new Vector3(offset.x, 0, -offset.y), null, true);
-            
-            return AddFeature(door, cell);
-        }
-
         public override Vector2 GetRandomCell(params int[] constraints)
         {
             if (this.Length == 1)
@@ -192,10 +177,13 @@
                 int min = 0, max = this.Length;
                 if (constraints != null)
                 {
-                    min = constraints[0];
+                    min = Mathf.Max(constraints[0], 0);
                     if (constraints.Length > 1)
-                        max = constraints[1];
+                        max = Mathf.Max(constraints[1], min);
                 }
+                if (min == max)
+                    return this[min];
+
                 return this[Dungeon.Random.IntRange(min, max)];
             }
         }

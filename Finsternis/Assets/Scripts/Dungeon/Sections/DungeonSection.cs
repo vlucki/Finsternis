@@ -67,17 +67,33 @@
             connections.Remove(connection);
         }
 
-        public bool AddFeature(DungeonFeature feature, Vector2 cell, float frequencyModifier = 1)
+        /// <summary>
+        /// Adds a feature to this section at a given position.
+        /// </summary>
+        /// <param name="feature">Feature to be added.</param>
+        /// <param name="cell">Coordinates of the feature to be added.</param>
+        /// <returns>True if the feature was added.</returns>
+        public bool AddFeature(DungeonFeature feature, Vector2 cell)
         {
-            if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
-                return false;
-
-            if (!features.ContainsKey(cell))
+            List<DungeonFeature> cellFeatures = null;
+            if (features.TryGetValue(cell, out cellFeatures))
+            {
+                if (feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
+                {
+                    if (cellFeatures.Any((f) => !f.MayStackWith(feature)))
+                        return false;
+                }
+            }
+            else
+            {
                 features.Add(cell, new List<DungeonFeature>());
-            foreach (var f in features[cell])
-                if (!f.MayStackWith(feature))
-                    return false;
-            features[cell].Add(feature);
+                cellFeatures = features[cell];
+            }
+
+            if (feature.Type == DungeonFeature.FeatureType.REPLACEMENT)
+                cellFeatures.RemoveAll((f) => f.Type == DungeonFeature.FeatureType.REPLACEMENT);
+
+            cellFeatures.Add(feature);
             return true;
         }
 

@@ -137,12 +137,16 @@ namespace Finsternis
             DefineThemes(dungeon);
 
             AddFeatures(dungeon);
+            
+            //PROBLEM SEED: 1754516660, NO EXIT
 
             Room r = GetFarthestRoom(dungeon);
 
             dungeon.Exit = GetRandomCellWithBias(dungeon, r);
 
             r.AddFeature(r.GetTheme<RoomTheme>().GetRandomExit(), dungeon.Exit);
+
+            Log.Info(this, "Exit is at cell {0}, within room {1}", dungeon.Exit, r);
 
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
@@ -204,14 +208,13 @@ namespace Finsternis
 
         private void AddTreasures(Room room)
         {
-            float chanceThreshold = Dungeon.Random.value();
-            int maxTreasures = Dungeon.Random.IntRange(0, room.CellCount / 5);
+            float chanceThreshold = Mathf.Pow(1 + Dungeon.Random.value(), 2);
+            int maxTreasures = Dungeon.Random.IntRange(0, Mathf.CeilToInt(Mathf.Sqrt(room.CellCount)));
             while(maxTreasures >= 0 && Dungeon.Random.value() < chanceThreshold)
             {
-                room.AddFeature(room.Theme.GetRandomChest(), room.GetRandomCell());
-
+                AddFeature(room, room.GetRandomCell(), room.Theme.GetRandomChest());
                 maxTreasures--;
-                chanceThreshold += chanceThreshold;
+                chanceThreshold /= 2;
             }
         }
 
@@ -224,8 +227,16 @@ namespace Finsternis
             int amount = Dungeon.Random.IntRange(0, room.CellCount/2);
             while (--amount >= 0)
             {
-                room.AddFeature(theme.GetRandomDecoration(), room.GetRandomCell());
+                AddFeature(room, room.GetRandomCell(), theme.GetRandomDecoration());
             }
+        }
+
+        bool AddFeature(DungeonSection section, Vector2 cell, DungeonFeature feature, float frequencyModifier = 1)
+        {
+            if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
+                return false;
+
+            return section.AddFeature(feature, cell);
         }
 
         /// <summary>
@@ -236,7 +247,8 @@ namespace Finsternis
         {
             if (corridor.Length > 2)
             {
-                corridor.AddTrap();
+                var trap = corridor.Theme.GetRandomTrap();
+                AddFeature(corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, trap.frequencyModifier);
             }
         }
 
@@ -249,24 +261,33 @@ namespace Finsternis
         {
             //try adding a door at the start of a corridor
             int index = 0;
-            while (index < 2 && !AddDoor(dungeon, corridor, corridor[index], -corridor.Direction))
+            while (index < 2 && index < corridor.Length && !AddDoor(dungeon, corridor, corridor[index], -corridor.Direction))
                 index++;
 
             //And then at the end
             index = corridor.Length -1;
-            while (index > corridor.Length - 2 && !AddDoor(dungeon, corridor, corridor[index], corridor.Direction))
+            while (index >= corridor.Length - 2 && !AddDoor(dungeon, corridor, corridor[index], corridor.Direction))
                 index--;
         }
 
-        private bool AddDoor(Dungeon dungeon, Corridor corridor, Vector2 cell, Vector2 offset)
+        /// <summary>
+        /// Adds a single door to a corridor at a specified cell, with the given offset
+        /// </summary>
+        /// <param name="dungeon">Reference to the dungeon.</param>
+        /// <param name="corridor">The corridor to add the door.</param>
+        /// <param name="cell">Position where the door should go.</param>
+        /// <param name="doorForwardDirection">Which direction should the door face.</param>
+        /// <returns>True if the door was successfully added</returns>
+        private bool AddDoor(Dungeon dungeon, Corridor corridor, Vector2 cell, Vector2 doorForwardDirection)
         {
-            //if there's a wall right after the cell where the door is to be placed, no point doing so
-            if (!dungeon.IsWithinDungeon(cell + offset) || !dungeon[cell + offset])
+            //if there's a wall right before/after the cell where the door is to be placed, no point doing so
+            if (!dungeon.IsWithinDungeon(cell + doorForwardDirection) || !dungeon[cell + doorForwardDirection])
+                return false;
+            if (!dungeon.IsWithinDungeon(cell - doorForwardDirection) || !dungeon[cell - doorForwardDirection])
                 return false;
 
-
             //Same if there aren't walls on both sides of the cell where the door would be
-            var lateralOffset = offset.YX();
+            var lateralOffset = doorForwardDirection.YX();
 
             if (dungeon.IsWithinDungeon(cell + lateralOffset) && dungeon[cell + lateralOffset])
                 return false;
@@ -274,8 +295,12 @@ namespace Finsternis
             if (dungeon.IsWithinDungeon(cell - lateralOffset) && dungeon[cell - lateralOffset])
                 return false;
 
-            corridor.AddDoor(cell, offset * 0.75f);
-            return true;
+            doorForwardDirection *= 0.75f; //shift the offset a little so the door is not right at the edge of the cell
+
+            var door = Instantiate(corridor.Theme.GetRandomDoor());
+
+            door.SetOffset(new Vector3(doorForwardDirection.x, 0, -doorForwardDirection.y), null, true);
+            return corridor.AddFeature(door, cell);
         }
 
         /// <summary>
@@ -318,9 +343,6 @@ namespace Finsternis
                 }
             }
         }
-
-
-        //PROBLEM SEED: 1754516660, NO EXIT
 
         /// <summary>
         /// Ensures every corridor within the dungeon "looks right"
