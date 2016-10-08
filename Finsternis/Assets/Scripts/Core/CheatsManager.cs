@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -14,36 +15,56 @@ namespace Finsternis
             WIN = 2,
             NEXT = 3,
             KILL = 4,
-            CARD = 5
+            CARD = 5,
+            IDCLIP = 6
         }
-
-        private KeyCode[][] _cheatCodes;
 
         private CheatCodes _currentCode;
-        private int _currentCodeLetter;
 
-        void Awake()
-        {
-            InitCodes();
-        }
-
-        private void InitCodes()
-        {
-            _cheatCodes = new KeyCode[][] {
-                new KeyCode[] { KeyCode.E, KeyCode.X, KeyCode.I, KeyCode.T },
-                new KeyCode[] { KeyCode.D, KeyCode.I, KeyCode.E },
-                new KeyCode[] { KeyCode.W, KeyCode.I, KeyCode.N },
-                new KeyCode[] { KeyCode.N, KeyCode.E, KeyCode.X, KeyCode.T },
-                new KeyCode[] { KeyCode.K, KeyCode.I, KeyCode.L, KeyCode.L },
-                new KeyCode[] { KeyCode.C, KeyCode.A, KeyCode.R, KeyCode.D }
-            };
-        }
+        private string storedCode;
+        private static readonly string[] codes = {"ISEXIT", "ISDIE", "ISWIN", "ISNEXT", "ISKILL", "ISCARD", "IDCLIP"};
+        private string lastFrameInput;
 
         void Update()
         {
-            if (!SceneManager.GetActiveScene().name.Equals("main_menu"))
+            if (SceneManager.GetActiveScene().name.Equals("DungeonGeneration"))
             {
-                CheckCommands();
+                string latestInput = Input.inputString.ToUpper();
+
+                if (lastFrameInput.IsNullOrEmpty() || !lastFrameInput.Equals(latestInput))
+                    lastFrameInput = latestInput;
+                else
+                    lastFrameInput = null;
+
+                if (lastFrameInput.IsNullOrEmpty())
+                    return;
+
+
+                storedCode += lastFrameInput;
+                int codeToExecute = 0;
+                bool inputMatchesAny = false;
+                
+                while (codeToExecute < codes.Length)
+                {
+                    if (codes[codeToExecute].Equals(storedCode))
+                    {
+                        print("EXECUTING CHEAT CODE N" + codeToExecute + ": " + storedCode);
+                        _currentCode = (CheatCodes)codeToExecute;
+                        CheckExecutedCommand();
+                        return;
+                    }
+                    else if (codes[codeToExecute].StartsWith(storedCode))
+                    {
+                        return;
+                    }
+                    else if (codes[codeToExecute].StartsWith(lastFrameInput))
+                    {
+                        inputMatchesAny = true;
+                    }
+                    codeToExecute++;
+                }
+
+                storedCode = inputMatchesAny ? lastFrameInput : "";
             }
         }
 
@@ -52,59 +73,52 @@ namespace Finsternis
             switch (_currentCode)
             {
                 case CheatCodes.EXIT:
+                    print("Open sesame");
                     foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
                         obj.GetComponent<Exit>().Unlock();
                     break;
                 case CheatCodes.DIE:
+                    print("Death comes to all");
                     GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
                     break;
                 case CheatCodes.WIN:
+                    print("Victorious reign");
                     GameManager.Instance.Win();
                     break;
                 case CheatCodes.NEXT:
+                    print("I pass");
                     GameManager.Instance.DungeonManager.CreateDungeon();
                     break;
                 case CheatCodes.KILL:
+                    print("Destroy my enemies... and my life is yours");
                     foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
                     {
                         GameManager.Instance.Kill(e);
                     }
                     break;
                 case CheatCodes.CARD:
+                    print("Pick a card... any card");
                     GameObject.FindObjectOfType<CardsManager>().GivePlayerCard(1);
+                    break;
+                case CheatCodes.IDCLIP:
+                    print("Straight out of Doom!");
+                    if (GameManager.Instance.Player)
+                    {
+                        var coll = GameManager.Instance.Player.GetComponent<Collider>();
+                        if (coll)
+                            coll.enabled = !coll.enabled;
+
+                        var rbd = GameManager.Instance.Player.GetComponent<Rigidbody>();
+                        if (rbd)
+                            rbd.useGravity = coll.enabled;
+                    }
+                    else
+                    {
+                        print("no player found");
+                    }
                     break;
                 default:
                     return;
-            }
-            _currentCodeLetter = 0;
-        }
-
-        private void CheckCommands()
-        {
-            if (_cheatCodes == null)
-                InitCodes();
-
-            if (_currentCodeLetter >= _cheatCodes[(int)_currentCode].Length)
-            {
-                CheckExecutedCommand();
-            }
-            else if (Input.anyKeyDown)
-            {
-                if (Input.GetKeyDown(_cheatCodes[(int)_currentCode][_currentCodeLetter]))
-                    _currentCodeLetter++;
-                else
-                {
-                    _currentCodeLetter = 0;
-                    for (int i = 0; i < _cheatCodes.Length; i++)
-                    {
-                        if (Input.GetKeyDown(_cheatCodes[i][_currentCodeLetter]))
-                        {
-                            _currentCodeLetter++;
-                            _currentCode = (CheatCodes)i;
-                            break;
-                        }
-                    }
-                }
             }
         }
     }

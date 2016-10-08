@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -42,9 +42,9 @@ namespace Finsternis
 
             GameObject summonedFireball = Instantiate(this.fireballPrefab, this.summonPoint.position + transform.forward * this.summonOffset, transform.rotation) as GameObject;
 
-            var pAtkHandler = summonedFireball.GetComponent<PhysicalAttackHandler>();
-            pAtkHandler.Ignore(gameObject);
-            pAtkHandler.owner = user.Character;
+            var damageHandler = summonedFireball.GetComponent<TouchDamageHandler>();
+            damageHandler.Ignore(gameObject);
+            damageHandler.owner = user.Character;
 
             summonedFireball.SetActive(true);
             
@@ -55,6 +55,7 @@ namespace Finsternis
         {
             yield return new WaitForFixedUpdate();
             summonedFireball.GetComponent<Rigidbody>().AddForce(summonedFireball.transform.forward * 75, ForceMode.Impulse);
+            summonedFireball.GetComponent<AnimationEventInvoker>().onInvoked.AddListener(summonedFireball.DestroyNow);
         }
     }
 }

@@ -20,9 +20,8 @@ namespace Finsternis
 
         protected AttackAction attack;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             entitiesInContact = new HashSet<Entity>();
             if (!attack)
                 attack = GetComponent<AttackAction>();

@@ -3,22 +3,19 @@
     using UnityEngine;
 
     public class EnemyChar : Character
-    {
-        private IRandom enemyRandom;
-
-        protected override void Awake()
+    {        
+        protected override void Start()
         {
-            enemyRandom = Dungeon.Random;
-            enemyRandom.SetSeed(name.GetHashCode());
-            base.Awake();
+            Dungeon.Random.SetSeed(name.GetHashCode());
+            base.Start();
         }
 
         protected override void Die()
         {
             if(LastInteraction && LastInteraction.Agent && LastInteraction.Agent.CompareTag("Player"))
             {
-                enemyRandom.SetSeed(name.GetHashCode());
-                FindObjectOfType<CardsManager>().GivePlayerCard(enemyRandom.IntRange(1, 4));
+                Dungeon.Random.SetSeed(name.GetHashCode());
+                FindObjectOfType<CardsManager>().GivePlayerCard(Dungeon.Random.IntRange(1, 4));
             }
             base.Die();
         }
@@ -28,7 +25,7 @@
             base.InitializeAttribute(attributeIndex);
             var attribute = attributes[attributeIndex];
 
-            int value = Mathf.CeilToInt(enemyRandom.value() * 10);
+            int value = Mathf.CeilToInt(Dungeon.Random.value() * 10);
 
             if (attribute.LimitMaximum)
             {

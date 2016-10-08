@@ -51,14 +51,6 @@
             set { this.name = value; }
         }
 
-        internal void SetOwner(Entity entity)
-        {
-            if (!Owner)
-            {
-                Owner = entity;
-            }
-        }
-
         public string Alias
         {
             get { return this.alias; }
@@ -129,6 +121,14 @@
                     }
                 }
 
+            }
+        }
+
+        public void SetOwner(Entity entity)
+        {
+            if (!Owner)
+            {
+                Owner = entity;
             }
         }
 

@@ -234,9 +234,9 @@ GameObject:
   - 135: {fileID: 135000010942280056}
   - 54: {fileID: 54000012934047690}
   - 114: {fileID: 114000013790254882}
+  - 114: {fileID: 114000011405039278}
   - 114: {fileID: 114000013332447426}
   - 114: {fileID: 114000012480000234}
-  - 114: {fileID: 114000011405039278}
   m_Layer: 9
   m_Name: Beholder
   m_TagString: Enemy
@@ -991,8 +991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMultiplier: 3
-  turningSpeed: 2
+  baseVelocityMultiplier: 9.5
+  speedMultiplier: 3
+  turningSpeed: 3.5
 --- !u!114 &114000013332447426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1004,6 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
 --- !u!114 &114000013790254882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,6 +1082,8 @@ MonoBehaviour:
   modeOnExecution: 1
   activeOnDeath: 0
   ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage: []
+  attributesThatInfluenceImpact: []
 --- !u!135 &135000010942280056
 SphereCollider:
   m_ObjectHideFlags: 1

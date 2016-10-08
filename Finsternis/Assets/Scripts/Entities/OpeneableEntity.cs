@@ -27,9 +27,8 @@
 
         public bool IsOpen { get { return this.isOpen; } }
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             locks = new List<Lock>();
             GetComponents<Lock>(locks);
             foreach (Lock l in locks)

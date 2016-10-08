@@ -27,7 +27,7 @@
 
         public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             for (int i = 0; i < attributes.Count; i++)
                 InitializeAttribute(i);
@@ -35,7 +35,6 @@
 
         protected virtual void InitializeAttribute(int attributeIndex)
         {
-
             var attribute = Instantiate(attributes[attributeIndex]);
             attribute.name = attributes[attributeIndex].name; //remove the annoying (Clone) that Unity appends to the name
             attribute.SetOwner(this);

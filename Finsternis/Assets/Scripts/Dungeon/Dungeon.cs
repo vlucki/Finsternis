@@ -16,9 +16,14 @@ namespace Finsternis
 
         public DungeonRandom(int seed) : base(seed) { }
 
+        public int GetSeed()
+        {
+            return _rand.GetSeed();
+        }
+
         public void SetSeed(int seed)
         {
-            this._rand.init((uint)seed);
+            _rand.SetSeed(seed);
         }
 
         public void SetSeed(string seed)

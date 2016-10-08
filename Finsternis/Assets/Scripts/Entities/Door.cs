@@ -17,10 +17,8 @@
         protected override void Awake()
         {
             base.Awake();
-
             anim = GetComponent<Animator>();
             anim.SetBool(LockedBool, IsLocked);
-
         }
 
         public void ForceOpen()

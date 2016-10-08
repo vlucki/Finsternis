@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -37,33 +39,44 @@ namespace Finsternis
         protected override void CastSkill()
         {
             base.CastSkill();
-            float dist = this.maxBlinkDistance;
-            RaycastHit info;
+
             Vector3 origin = transform.position + this.offset;
-            Vector3 direction = transform.forward;
+            Vector3 direction = GetBlinkDirection();
 
-            if (this.collider is CapsuleCollider)
-            {
-                CapsuleCollider cc = collider as CapsuleCollider;
-                if (Physics.CapsuleCast(cc.bounds.center + transform.up * cc.radius, cc.bounds.center - transform.up * cc.radius, cc.radius, direction, out info, dist, this.blockingLayers))
-                    dist = info.distance - cc.radius;
-            }
-            else if (this.collider is SphereCollider)
-            {
-                SphereCollider sc = collider as SphereCollider;
-                if (Physics.SphereCast(origin, sc.radius, direction, out info, dist, this.blockingLayers))
-                    dist = info.distance - sc.radius;
-            }
-            else if (this.collider is BoxCollider)
-            {
-                BoxCollider bc = collider as BoxCollider;
-                if (Physics.BoxCast(bc.center, bc.size / 2, direction, out info, Quaternion.identity, dist, this.blockingLayers))
-                    dist = info.distance - bc.size.magnitude / 2;
-            }
+            float maxValidDistance = maxBlinkDistance;
+            RaycastHit hit;
+            if(Physics.Raycast(new Ray(origin, direction), out hit, maxValidDistance, blockingLayers))
+                maxValidDistance = hit.distance;
 
-            //Check if there's a floor where the character may stand at the destination
-            if (Physics.Raycast(transform.position + direction * dist, Vector3.down, out info))
-                transform.position += direction * dist;
+            int floorLayer = (1 << LayerMask.NameToLayer("Floor"));
+            int layersThatCantIntersect = (1 << LayerMask.NameToLayer("Wall"));
+            while (maxValidDistance > 0)
+            {
+                var ray = new Ray(origin + direction * maxValidDistance, Vector3.down);
+
+                if (Physics.Raycast(ray, 2f, floorLayer)) //if there's a floor tile below the future position of this entity
+                {
+                    var overlap = Physics.OverlapSphere(ray.origin, 0.25f, blockingLayers | layersThatCantIntersect);
+                        //and sayd position can fit the entity
+                        if (overlap.Length == 0)
+                            break; //no need to keep on checking
+                }
+                maxValidDistance -= 0.1f;
+            }
+            if(maxValidDistance > 0)
+            {
+                transform.position += direction * maxValidDistance;
+            }
+        }
+
+        private Vector3 GetBlinkDirection()
+        {
+            Vector3 blinkDirection = transform.forward;
+            var movementAction = GetComponent<MovementAction>();
+            if (movementAction && !movementAction.Direction.IsZero())
+                blinkDirection = movementAction.Direction.normalized;
+
+            return blinkDirection;
         }
     }
 }

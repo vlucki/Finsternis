@@ -370,10 +370,10 @@ GameObject:
   - 114: {fileID: 114000010772638696}
   - 114: {fileID: 114000014202934784}
   - 114: {fileID: 114000011170435340}
-  - 114: {fileID: 114000012510893494}
+  - 114: {fileID: 114000013109680362}
   - 114: {fileID: 114000013232726630}
   - 114: {fileID: 114000010186636824}
-  - 114: {fileID: 114000013109680362}
+  - 114: {fileID: 114000012510893494}
   - 114: {fileID: 114000014005836754}
   - 114: {fileID: 114000011464325068}
   m_Layer: 9
@@ -1501,6 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
 --- !u!114 &114000013109680362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1638,8 +1639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMultiplier: 4
-  maxVelocityMagnitude: 4
+  baseVelocityMultiplier: 9.5
+  speedMultiplier: 3
   turningSpeed: 3
 --- !u!114 &114000014202934784
 MonoBehaviour:

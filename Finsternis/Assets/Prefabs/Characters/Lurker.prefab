@@ -893,6 +893,8 @@ MonoBehaviour:
   modeOnExecution: 1
   activeOnDeath: 0
   ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage: []
+  attributesThatInfluenceImpact: []
 --- !u!114 &114000011460988776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -904,8 +906,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMultiplier: 3
-  turningSpeed: 1
+  baseVelocityMultiplier: 9
+  speedMultiplier: 2.5
+  turningSpeed: 2
 --- !u!114 &114000011811933878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1019,6 +1022,8 @@ MonoBehaviour:
   modeOnExecution: 1
   activeOnDeath: 0
   ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage: []
+  attributesThatInfluenceImpact: []
 --- !u!114 &114000013491772252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1030,6 +1035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
 --- !u!136 &136000013030091710
 CapsuleCollider:
   m_ObjectHideFlags: 1

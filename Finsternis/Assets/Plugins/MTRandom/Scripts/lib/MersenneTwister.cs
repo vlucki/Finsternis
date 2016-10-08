@@ -368,6 +368,16 @@ namespace UMT
 
 		private static readonly UInt32[] _mag01 = { 0x0, MatrixA };
 
+        public int GetSeed()
+        {
+            return (int)_mt[0];
+        }
+
+        public void SetSeed(int seed)
+        {
+            _mt[0] = (UInt32)seed;
+        }
+
 		public void init(UInt32 seed)
 		{
 			_mt[0] = seed & 0xffffffffU;

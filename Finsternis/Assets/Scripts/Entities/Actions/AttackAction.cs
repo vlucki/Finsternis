@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityQuery;
 
 namespace Finsternis
@@ -6,7 +7,8 @@ namespace Finsternis
     [UnityEngine.DisallowMultipleComponent]
     public class AttackAction : EntityAction
     {
-        private EntityAttribute damage;
+        [SerializeField]
+        private EntityAttribute baseDamage;
         private DamageInfo dmgInfo;
 
         public DamageInfo DamageInfo
@@ -18,15 +20,18 @@ namespace Finsternis
         {
             base.Awake();
             Type = ActionType.ATTACK;
-            agent.onAttributeInitialized.AddListener(
-                attribute => 
-                {
-                    if (attribute.Alias.Equals("dmg"))
+            if (baseDamage)
+            {
+                agent.onAttributeInitialized.AddListener(
+                    attribute =>
                     {
-                        damage = attribute;
+                        if (attribute.Alias.Equals(baseDamage.Alias))
+                        {
+                            baseDamage = attribute;
+                        }
                     }
-                }
-                );
+                    );
+            }
         }
 
         public void Execute(params IInteractable[] targets)
@@ -55,7 +60,7 @@ namespace Finsternis
             if(targets == null || targets.Length < 1)
                 throw new ArgumentException("Cannot execute the attack logic without a target.");
 
-            float totalDamage = (damage ? damage.Value : 0) + extraDamage;
+            float totalDamage = (baseDamage ? baseDamage.Value : 0) + extraDamage;
 
             dmgInfo = new DamageInfo(damageType, totalDamage, agent);
             foreach (Entity target in targets)

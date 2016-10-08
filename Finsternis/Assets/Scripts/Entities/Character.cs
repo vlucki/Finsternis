@@ -11,19 +11,9 @@
 
         public UnityEvent onDeath;
 
-        private EntityAttribute cachedHealth;
-        private EntityAttribute cachedDefense;
-
-        private EntityAttribute health
-        {
-            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("vit", true)); }
-        }
-
-        private EntityAttribute defense
-        {
-            get { return this.cachedDefense ?? (this.cachedDefense = GetAttribute("def", true)); }
-        }
-
+        private EntityAttribute health;
+        private EntityAttribute defense;
+        
         private bool dead;
 
         [SerializeField]
@@ -37,11 +27,18 @@
 
         public bool Dead { get { return this.dead; } }
 
-        protected override void InitializeAttribute(int attributeIndex)
+        protected override void Start()
         {
-            base.InitializeAttribute(attributeIndex);
-            if (attributes[attributeIndex].Alias.Equals("vit"))
-                attributes[attributeIndex].onValueChanged.AddListener(CheckHealth);
+            base.Start();
+            this.health = GetAttribute("vit");
+            if (!this.health)
+                throw new System.InvalidOperationException("Characters must have \"vit\" attribute!");
+            this.health.onValueChanged.AddListener(CheckHealth);
+
+            this.defense = GetAttribute("def");
+            if(!this.defense)
+                throw new System.InvalidOperationException("Characters must have \"def\" attribute!");
+
         }
 
         public virtual void CheckHealth(EntityAttribute health)
