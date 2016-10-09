@@ -6,6 +6,8 @@
 
 namespace UnityQuery
 {
+    using System;
+    using System.Collections;
     using UnityEngine;
 
     public static class MonoBehaviours
@@ -20,14 +22,15 @@ namespace UnityQuery
             b.enabled = false;
         }
 
-        public static void Error(this MonoBehaviour b, string message)
+        public static void CallDelayed(this MonoBehaviour mb, float delayInSeconds, Action callback)
         {
-            Debug.LogError(message, b);
+            mb.StartCoroutine(DelayRoutine(delayInSeconds, callback));
         }
 
-        public static void Warn(this MonoBehaviour b, string message)
+        private static IEnumerator DelayRoutine(float delayInSeconds, Action callback)
         {
-            Debug.LogWarning(message, b);
+            yield return Wait.Sec(delayInSeconds);
+            callback();
         }
     }
 }

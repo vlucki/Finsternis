@@ -5,6 +5,7 @@
     using System;
     using UnityQuery;
     using System.Collections;
+    using UnityEngine.Events;
 
     [AddComponentMenu("Finsternis/Game Manager")]
     [DisallowMultipleComponent]
@@ -13,7 +14,7 @@
         private static GameManager instance;
 
         [SerializeField]
-        private Entity player;
+        private CharController player;
 
         [SerializeField]
         [Range(1, 99)]
@@ -27,16 +28,16 @@
         [SerializeField]
         private DungeonManager dungeonManager;
 
-        public GameObject playerPrefab;
-
         [SceneSelection]
         public string mainGameName = "DungeonGeneration";
 
-        private bool hasManagerStarted;
+        public UnityEvent OnPlayerSpawned;
+
+        private bool isNewGame;
 
         public static GameManager Instance { get { return instance; } }
 
-        public Entity Player { get { return this.player; } }
+        public CharController Player { get { return this.player; } }
 
         public DungeonManager DungeonManager { get { return this.dungeonManager; } }
 
@@ -53,12 +54,11 @@
                 gameObject.DestroyNow();
                 return;
             }
-
+            isNewGame = true;
             instance = this;
             DontDestroyOnLoad(gameObject);
             this.clearedDungeons = 0;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-            Init();
 
 #if !UNITY_EDITOR
         Cursor.lockState = CursorLockMode.Locked;
@@ -67,10 +67,17 @@
 
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            if (this.dungeonManager)
+                return;
+
             if (scene.name.Equals(mainGameName))
             {
                 Init();
-                CreateDungeon();
+                if (!LoadSavedGame())
+                {
+                    CreateDungeon();
+                    FindObjectOfType<CharacterSelectionMenu>().BeginOpening();
+                }
             }
         }
 
@@ -87,9 +94,6 @@
 
         private void Init()
         {
-            if (this.player)
-                return;
-            SearchPlayer();
             this.clearedDungeons = 0;
             this.dungeonsToClear = UnityEngine.Random.Range(1, 99);
             this.fallDeathZone = GameObject.Find("FallDeathZone");
@@ -100,38 +104,50 @@
             }
         }
 
+        private bool LoadSavedGame()
+        {
+            return false;
+            //set dungeon seed
+            //generate dungeon without spawning enemies
+            //load and place enemies
+            //update state of interactable props (doors, chests and whatnot)
+            //spawn player and set its position
+        }
+
+        private void SaveGame()
+        {
+
+        }
+
+        void OnApplicationQuit()
+        {
+            if (SceneManager.GetActiveScene().name.Equals(mainGameName))
+                SaveGame();
+        }
+
+        public void SpawnPlayer(GameObject playerPrefab, Vector3 position)
+        {
+            this.player = ((GameObject)Instantiate(playerPrefab, position, Quaternion.identity)).GetComponent<CharController>();
+            this.player.Character.onDeath.AddListener(() => {
+                this.CallDelayed(2, GameOver);
+            });
+            OnPlayerSpawned.Invoke();
+        }
+
+        public void SpawnPlayerAtEntrance(GameObject playerPrefab)
+        {
+            SpawnPlayer(playerPrefab, this.dungeonManager.GetComponent<DungeonDrawer>().GetWorldPosition(this.dungeonManager.CurrentDungeon.Entrance));
+        }
+
         private void CreateDungeon()
         {
             if(this.dungeonManager)
                 this.dungeonManager.CreateDungeon();
         }
 
-        private void SearchPlayer()
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj)
-            {
-                this.player = playerObj.GetComponent<Entity>();
-            }
-            else if (playerPrefab)
-            {
-                this.player = Instantiate(playerPrefab).GetComponent<Entity>();
-            }
-
-            if (this.player)
-            {
-                this.player.GetComponent<Character>().onDeath.AddListener(() => {
-                        StartCoroutine(_CallDelayed(2, GameOver));
-                });
-            }
-            else
-            {
-                Debug.LogWarning("Could not find a player in the scene.");
-            }
-        }
-
         private void GameOver()
         {
+            this.clearedDungeons = 0;
             LoadScene("GameOver");
         }
 
@@ -176,15 +192,9 @@
             this.player.transform.forward = -Vector3.forward;
             clearedDungeons++;
             if (!GoalReached())
-                StartCoroutine(_CallDelayed(1, this.dungeonManager.CreateDungeon));
+                this.CallDelayed(1, this.dungeonManager.CreateDungeon);
             else
                 Win();
-        }
-
-        private IEnumerator _CallDelayed(float delay, Action a)
-        {
-            yield return Wait.Sec(delay);
-            a();
         }
 
         private void BeginNewLevel(Dungeon dungeon)
@@ -192,20 +202,24 @@
             if (!dungeon)
                 throw new ArgumentNullException("dungeon", "There must exist a dungeon for a new level to begin.");
 
-            GameObject cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
-            Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
+            if (this.player)
+            {
+                GameObject cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
+                Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-            Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2).WithY(3);
+                Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2).WithY(3);
 
-            this.player.transform.position = pos;
+                this.player.transform.position = pos;
 
-            cameraHolder.transform.position = this.player.transform.position - currOffset;
-
+                cameraHolder.transform.position = this.player.transform.position - currOffset;
+            }
             this.fallDeathZone.GetComponent<Collider>().enabled = true;
         }
 
         internal void NewGame()
         {
+            this.clearedDungeons = 0;
+            isNewGame = true;
             LoadScene("DungeonGeneration");
         }
 

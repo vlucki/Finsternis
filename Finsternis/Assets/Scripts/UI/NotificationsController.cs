@@ -7,9 +7,7 @@
     using UnityQuery;
 
     public class NotificationsController : MonoBehaviour {
-
-        private Entity player;
-
+        
         [SerializeField]
         private GameObject notificationPrefab;
         [SerializeField]
@@ -17,10 +15,14 @@
 
         private Queue<GameObject> notificationsQueue;
 
-
         void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+            GameManager.Instance.OnPlayerSpawned.AddListener(Init);
+        }
+
+        void Init()
+        {
+            var player = GameManager.Instance.Player;
             if (!notificationCanvas)
                 notificationCanvas = FindObjectOfType<Canvas>();
             Inventory i = player.GetComponent<Inventory>();

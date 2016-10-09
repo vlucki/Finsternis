@@ -39,6 +39,7 @@
         void Awake()
         {
             owner = GetComponent<Entity>();
+            this.equippedCards = new List<Card>();
         }
 
         public bool EquipCard(Card card)

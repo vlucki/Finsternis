@@ -5,16 +5,21 @@
     public class CardsManager : MonoBehaviour
     {
 
-        Entity player;
-        void Awake()
+        Inventory playerInventory;
+        private Inventory PlayerInventory
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
+            get
+            {
+                if (!this.playerInventory)
+                    this.playerInventory = GameManager.Instance.Player.GetComponent<Inventory>();
+                return this.playerInventory;
+            }
         }
 
         public void GivePlayerCard(int quantity)
         {
             while(quantity-- > 0)
-                player.GetComponent<Inventory>().AddCard(CardFactory.MakeCard());
+                PlayerInventory.AddCard(CardFactory.MakeCard());
         }
     }
 }

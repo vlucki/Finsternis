@@ -46,9 +46,6 @@ namespace Finsternis
         [ReadOnly]
         private int fallingStateCheckCount;
 
-        [SerializeField][ReadOnly]
-        private bool couldBeFalling = false;
-
         [SerializeField]
         private List<Skill> skills;
 
@@ -93,7 +90,7 @@ namespace Finsternis
             }
             catch (Exception e)
             {
-                this.Error("Exception thrown when initializing controller for ");
+                Log.Error(this, "Exception thrown when initializing controller for character!");
                 throw e;
             }
         }
@@ -102,17 +99,24 @@ namespace Finsternis
         {
             if (!IsDead() && !IsDying())
             {
-                if (this.waitingForDelay)
+                if (this.actionsLocked)
                 {
-                    if (this.unlockDelay > 0)
-                        this.unlockDelay -= Time.deltaTime;
-                    else
+                    if (this.waitingForDelay)
+                    {
+                        if (this.unlockDelay > 0)
+                            this.unlockDelay -= Time.deltaTime;
+                        else if(!IsFalling())
+                            Unlock();
+                    }
+                    else if (!IsFalling())
                         Unlock();
                 }
-
-                if (!actionsLocked)
+                else
                 {
-                    characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.GetVelocityMagnitude());
+                    if (IsFalling())
+                        Lock();
+                    else
+                        this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
                 }
             }
         }
@@ -121,18 +125,20 @@ namespace Finsternis
         /// Verifies wheter the character is falling.
         /// </summary>
         /// <returns>True if character is actually falling.</returns>
-        private bool UpdateFallingState()
+        private bool ShouldUpdateFallingState()
         {
-            bool wasFalling = this.couldBeFalling; //stores current state
-            float fallingSpeed = GetComponent<Rigidbody>().velocity.y;
+            bool wasFalling = IsFalling(); //stores current state
+            float fallingSpeed = this.characterMovement.Velocity.y;
 
             //compares Y velocity to threshold to account for some variations due to how the physics engine work
-            this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
+            bool couldBeFalling = (fallingSpeed <= this.fallSpeedThreshold);
 
-            //if the state is consisten (that is, the character was falling and, apparently, still is)
-            if (wasFalling == this.couldBeFalling)
-                if(this.fallingStateChecks > this.fallingStateCheckCount)
+            //if the state is consistent (that is, the character was falling and, apparently, still is)
+            if (couldBeFalling)
+            {
+                if (this.fallingStateChecks > this.fallingStateCheckCount)
                     this.fallingStateCheckCount++; //update the counter
+            }
             else
                 this.fallingStateCheckCount = 0;
 
@@ -141,26 +147,17 @@ namespace Finsternis
             //i.e. to avoid thinking a "physics hiccup" meant the character was falling
             bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
 
-            return isFallingNow;
+            return isFallingNow != wasFalling;
         }
 
         public virtual void FixedUpdate()
         {
             if (!IsDead())
             {
-                if(UpdateFallingState())
+                if (ShouldUpdateFallingState())
                 {
-                    if (!this.couldBeFalling && this.actionsLocked && IsFalling() && !this.waitingForDelay)
-                    {
-                        characterAnimator.SetBool(CharController.FallingBool, false);
-                        Unlock();
-                    }
-                    else if (this.couldBeFalling && !this.actionsLocked)
-                    {
-                        Lock();
-                        characterAnimator.SetBool(CharController.FallingBool, true);
-                        characterAnimator.SetFloat(CharController.SpeedFloat, 0);
-                    }
+                    bool falling = !IsFalling();
+                    characterAnimator.SetBool(CharController.FallingBool, falling);
                 }
             }
         }
@@ -189,6 +186,11 @@ namespace Finsternis
             }
         }
 
+        public bool ShouldWalk()
+        {
+            return !characterMovement.Direction.IsZero();
+        }
+
         protected virtual bool CanMove()
         {
             bool staggered = IsStaggered();
@@ -197,6 +199,7 @@ namespace Finsternis
             return !(this.actionsLocked || staggered || attacking);
         }
 
+        #region Shorthand for booleans in mecanim
         public bool IsAttacking()
         {
             return characterAnimator.GetBool(CharController.AttackTrigger);
@@ -222,10 +225,8 @@ namespace Finsternis
             return characterAnimator.GetBool(CharController.HitTrigger);
         }
 
-        public bool ShouldWalk()
-        {
-            return !characterMovement.Direction.IsZero();
-        }
+        #endregion
+
 
         public virtual void Hit(int type = 0, bool lockMovement = true)
         {
@@ -255,6 +256,17 @@ namespace Finsternis
             if (this.equippedSkills[(int)slot].MayUse())
             {
                 this.equippedSkills[(int)slot].Use();
+            }
+        }
+
+        public void ExecuteSkill(Skill skill)
+        {
+            int slot = -1;
+            for (slot = 0; slot < this.equippedSkills.Length; slot++)
+                if (this.equippedSkills[slot].Equals(skill))
+                    break;
+            if (slot >= 0 && slot < this.equippedSkills.Length)
+            {
                 characterAnimator.SetInteger(AttackSlot, (int)slot);
                 characterAnimator.SetTrigger(AttackTrigger);
                 onAttack.Invoke((int)slot);
@@ -277,17 +289,17 @@ namespace Finsternis
         {
             if (this.equippedSkills == null)
             {
-                this.Error("Variable 'equippedSkills' not initialized.");
+                Log.Error(this, "Variable 'equippedSkills' not initialized.");
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
-                this.Error("Invalid skill slot (" + slot + ")");
+                Log.Error(this, "Invalid skill slot: {0}", slot);
                 return false;
             }
             else if(checkForEmptySlot && !this.equippedSkills[slot])
             {
-                this.Warn("No skill equipped in slot " + slot);
+                Log.Warn(this, "No skill equipped in slot {0}", slot);
                 return false;
             }
             return true;
@@ -304,6 +316,12 @@ namespace Finsternis
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.Direction = (characterMovement.Direction.OnlyY());
             onLock.Invoke();
+        }
+
+        public void LockAndDisable()
+        {
+            Lock();
+            this.Disable();
         }
 
         public void Lock(float duration)

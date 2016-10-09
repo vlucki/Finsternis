@@ -27,36 +27,36 @@
         {
             if (!this.inventory)
             {
-                this.inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+                this.inventory = GameManager.Instance.Player.GetComponent<Inventory>();
                 this.unequipped = new List<Card>(this.inventory.Cards.SkipWhile(this.inventory.EquippedCards.Contains));
                 this.inventory.onCardAdded.AddListener(this.unequipped.Add);
-                this.inventory.onCardRemoved.AddListener((card) => { this.unequipped.Remove(card); });
+                this.inventory.onCardRemoved.AddListener((card) => { this.unequipped.Remove(card); });                
             }
             return this.inventory;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (!GetInventory())
+            {
+                Log.Error(this, "Could not find player inventory!");
+            }
         }
 
         public override void BeginOpening()
         {
             base.BeginOpening();
+
             UpdateUnequippedDisplay();
+            
             UpdateEquippedDisplay();
         }
 
         void UpdateUnequippedDisplay()
         {
-            if(!GetInventory())
-            {
-                this.Error("Could not find player inventory!");
+            if (!ActivateCards(this.visibleUnequippedCards, this.unequipped, ref this.unequippedSelection))
                 return;
-            }
-            foreach (var visibleCard in this.visibleUnequippedCards)
-                visibleCard.SetActive(false);
-
-            if (this.unequipped.Count == 0)
-                return;
-
-            if (this.unequippedSelection < 0)
-                this.unequippedSelection = 0;
 
             ShowCardDisplay(1, this.unequippedSelection, this.visibleUnequippedCards, this.unequipped);
 
@@ -77,23 +77,23 @@
             }
         }
 
+        private bool ActivateCards(GameObject[] display, List<Card> cardsList, ref int selection)
+        {
+            foreach (var visibleCard in display)
+                visibleCard.SetActive(false);
+            
+            if (cardsList.Count == 0)
+                return false;
+
+            selection = Mathf.Max(selection, 0);
+            return true;
+        }
+
         void UpdateEquippedDisplay()
         {
-            if (!GetInventory())
-            {
-                this.Error("Could not find player inventory!");
+            var equipped = this.inventory.EquippedCards; 
+            if(!ActivateCards(this.visibleEquippedCards, equipped, ref this.equipmentSelection))
                 return;
-            }
-
-            foreach (var visibleCard in this.visibleEquippedCards)
-                visibleCard.SetActive(false);
-
-            var equipped = this.inventory.EquippedCards;
-            if (equipped.Count == 0)
-                return;
-
-            if (this.equipmentSelection < 0)
-                this.equipmentSelection = 0;
 
             ShowCardDisplay(1, this.equipmentSelection, this.visibleEquippedCards, equipped);
 

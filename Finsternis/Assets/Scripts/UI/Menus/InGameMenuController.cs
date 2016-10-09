@@ -55,6 +55,13 @@ namespace Finsternis
                     EvtSystem.SetSelectedGameObject(lastSelected.gameObject);
             });
 
+            OnClose.AddListener(() =>
+            {
+               var charCtrl = GameManager.Instance.Player;
+               if (charCtrl)
+                   charCtrl.Enable();
+            });
+
             LoadOptions(optionsContainer);
 
             showNewGameDialog = new UnityAction(() =>
@@ -71,7 +78,7 @@ namespace Finsternis
             optionsContainer.GetComponentsInChildren<MenuButtonController>(this.options);
 #if UNITY_EDITOR
             if (this.options.Count <= 0)
-                this.Warn("Not a single option found on the menu.");
+                Log.Warn(this, "Not a single option found on the menu.");
             else
 #endif
             if (this.options.Count > 1)
@@ -110,6 +117,10 @@ namespace Finsternis
         /// </summary>
         public override void BeginOpening()
         {
+            var charCtrl = GameManager.Instance.Player;
+            if(charCtrl)
+                charCtrl.LockAndDisable();
+
             this.targetPercentage = 1;
             OnFinishedToggling.AddListener(Open);
             base.BeginOpening();

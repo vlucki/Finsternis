@@ -11,7 +11,7 @@
         private Text attributesNamesField;
         private Text attributesValuesField;
 
-        private Character player;
+        private Character playerChar;
 
         private Card card;
 
@@ -27,14 +27,14 @@
 
         private Entity GetPlayer()
         {
-            if (!this.player)
+            if (!this.playerChar)
             {
-                var playerGO = GameObject.FindGameObjectWithTag("Player");
+                var playerGO = GameManager.Instance.Player;
                 if (!playerGO)
                     return null;
-                this.player = playerGO.GetComponent<Character>();
+                this.playerChar = playerGO.Character;
             }
-            return this.player;
+            return this.playerChar;
         }
 
         public void LoadCard(Card c)
@@ -60,9 +60,9 @@
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
-            if (GetPlayer() && !this.player.GetComponent<Inventory>().IsEquipped(this.card))
+            if (GetPlayer() && !this.playerChar.GetComponent<Inventory>().IsEquipped(this.card))
             {
-                var attr = this.player.GetAttribute(modifier.AttributeAlias);
+                var attr = this.playerChar.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
                     float modifiedValue = CalculateModifiedValue(modifier, attr);

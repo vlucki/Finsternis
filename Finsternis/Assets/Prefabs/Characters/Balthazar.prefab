@@ -1366,12 +1366,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 75
   m_Drag: 1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!95 &95000010390180250
 Animator:
   serializedVersion: 3
@@ -1403,21 +1403,39 @@ MonoBehaviour:
   castTime: 0.4
   cooldownTime: 1
   lockDuringCast: 1
-  onUse:
+  onBeginUse:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onSkillCast:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: ExecuteSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 0
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  minBlinkDistance: 0.5
   maxBlinkDistance: 3
   offset: {x: 0, y: 1, z: 0}
   blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
+  clipToPlay: {fileID: 7400010, guid: 05a5653751bbba04fb9b18df157fc675, type: 3}
 --- !u!114 &114000010772638696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1615,15 +1633,31 @@ MonoBehaviour:
   castTime: 0.2
   cooldownTime: 0.5
   lockDuringCast: 1
-  onUse:
+  onBeginUse:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onSkillCast:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: ExecuteSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
   summonPoint: {fileID: 4000012879183366}
@@ -1693,7 +1727,6 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  couldBeFalling: 0
   skills: []
   equippedSkills:
   - {fileID: 114000013232726630}
@@ -1706,13 +1739,13 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011578542928}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 381d14b867e82254ba02b7c0b26ab2ba, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.42935532
-  m_Height: 2.114626
+  m_Radius: 0.5
+  m_Height: 2.15
   m_Direction: 1
-  m_Center: {x: 0, y: 1.04, z: 0.24}
+  m_Center: {x: 0, y: 1, z: 0.24}
 --- !u!137 &137000013759913240
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

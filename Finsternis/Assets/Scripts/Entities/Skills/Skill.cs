@@ -3,11 +3,13 @@
 
     using System.Collections;
     using UnityEngine;
-    using UnityEngine.Events;
     using UnityQuery;
     [RequireComponent(typeof(CharController))]
     public abstract class Skill : MonoBehaviour
     {
+        [System.Serializable]
+        public class SkillEvent : CustomEvent<Skill> { }
+
         [Header("General Skill attributes")]
 
         [SerializeField]
@@ -21,8 +23,9 @@
         [SerializeField]
         protected bool lockDuringCast = true;
 
-        public UnityEvent onUse;
-        public UnityEvent onCoolDownEnd;
+        public SkillEvent onBeginUse;
+        public SkillEvent onSkillCast;
+        public SkillEvent onCoolDownEnd;
 
         protected float lastUsed = 0;
 
@@ -44,8 +47,8 @@
         {
             lastUsed = Time.timeSinceLevelLoad;
             StartCoroutine(_BeginCasting());
-            if (onUse != null)
-                onUse.Invoke();
+            if (onBeginUse)
+                onBeginUse.Invoke(this);
         }
 
         public virtual bool MayUse()
@@ -68,6 +71,7 @@
 
         protected virtual void CastSkill()
         {
+            onSkillCast.Invoke(this);
             if (cooldownTime > 0)
                 StartCoroutine(_Cooldown());
         }
@@ -80,8 +84,8 @@
 
             CoolingDown = false;
 
-            if (onCoolDownEnd != null)
-                onCoolDownEnd.Invoke();
+            if (onCoolDownEnd)
+                onCoolDownEnd.Invoke(this);
         }
 
         public virtual void Equip()

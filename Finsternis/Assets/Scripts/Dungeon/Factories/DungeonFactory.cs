@@ -146,8 +146,6 @@ namespace Finsternis
 
             r.AddFeature(r.GetTheme<RoomTheme>().GetRandomExit(), dungeon.Exit);
 
-            Log.Info(this, "Exit is at cell {0}, within room {1}", dungeon.Exit, r);
-
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
             if (onGenerationEnd)
@@ -374,8 +372,6 @@ namespace Finsternis
             Corridor[] halves = null;
             Vector2 cell = corridor[index];
 
-            Log.Info(this, corridor.Y == 17, "Removing cell {0} from corridor", cell);
-
             dungeon[cell] = dungeon[offsetCell];
             dungeon[offsetCell].AddCell(cell);
             if (index < corridor.Length - 1)
@@ -383,7 +379,6 @@ namespace Finsternis
             else
                 corridor.Length--;
 
-            Log.Info(this, corridor.Y == 17, "Corridor is {0} and halves are {1}", corridor, halves.SequenceToString());
             return halves;
         }
 
@@ -418,8 +413,6 @@ namespace Finsternis
                 else if (CheckCell<Corridor>(dungeon, offsetCellB))
                 {
                     corridorChanged = true;
-
-                    Log.Info(this, corridor.Y == 17, "Cell at offsetB {0} was {1}", offsetCellB, dungeon[offsetCellB]);
 
                     halves = RemoveCell(dungeon, index, corridor, offsetCellB);
 
@@ -588,7 +581,6 @@ namespace Finsternis
                     //Remove "excess cells" from the corridor
                     dungeon[corridor.End] = null;
                     corridor.Length--;
-                    Log.Info(this, corridor.Y == 17, "Trimming corridor {0}", corridor);
                 }
             }
 
