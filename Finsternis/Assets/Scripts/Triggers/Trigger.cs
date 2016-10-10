@@ -9,22 +9,22 @@ namespace Finsternis
     public class Trigger : MonoBehaviour
     {
         [Serializable]
-        public class OnTriggerEvent : UnityEvent<GameObject> { }
+        public class OnTriggerEvent : CustomEvent<GameObject> { }
 
         public OnTriggerEvent onEnter;
         public OnTriggerEvent onExit;
 
-        public LayerMask ignoreLayers;
+        public LayerMask layersToIgnore;
         [SerializeField]
-        protected List<Collider> ignoreColliders;
+        protected List<Collider> collidersToIgnore;
 
         protected new Collider collider;
 
-        private GameObject _objectEntered;
-        private GameObject _objectExited;
+        private GameObject objectEntered;
+        private GameObject objectExited;
 
-        public GameObject ObjectEntered { get { return _objectEntered; } }
-        public GameObject ObjectExited { get { return _objectExited; } }
+        public GameObject ObjectEntered { get { return this.objectEntered; } }
+        public GameObject ObjectExited  { get { return this.objectExited; } }
 
         protected virtual void Awake()
         {
@@ -36,8 +36,9 @@ namespace Finsternis
         {
             if (ShouldTrigger(other))
             {
-                _objectEntered = other.gameObject;
-                onEnter.Invoke(_objectEntered);
+                this.objectEntered = other.gameObject;
+                if(onEnter)
+                    onEnter.Invoke(objectEntered);
             }
         }
 
@@ -45,8 +46,9 @@ namespace Finsternis
         {
             if (ShouldTrigger(other))
             {
-                _objectExited = other.gameObject;
-                onExit.Invoke(_objectExited);
+                this.objectExited = other.gameObject;
+                if(onExit)
+                    onExit.Invoke(objectExited);
             }
         }
 
@@ -56,10 +58,10 @@ namespace Finsternis
                 return false;
 
             LayerMask otherLayer = 1 << other.gameObject.layer;
-            if ((otherLayer & ignoreLayers) == otherLayer)
+            if ((otherLayer & this.layersToIgnore) == otherLayer)
                 return false;
 
-            if (ignoreColliders != null && ignoreColliders.Contains(other))
+            if (this.collidersToIgnore != null && this.collidersToIgnore.Contains(other))
                 return false;
 
             return true;
@@ -70,8 +72,8 @@ namespace Finsternis
             if (obj && obj != gameObject)
             {
                 Collider c = obj.GetComponent<Collider>();
-                if (c && !ignoreColliders.Contains(c))
-                    ignoreColliders.Add(c);
+                if (c && !this.collidersToIgnore.Contains(c))
+                    this.collidersToIgnore.Add(c);
             }
         }
     }

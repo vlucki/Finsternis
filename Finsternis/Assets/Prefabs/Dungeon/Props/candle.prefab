@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011134997192}
   - 33: {fileID: 33000010007216282}
   - 23: {fileID: 23000010848457750}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000010505581540}
   - 33: {fileID: 33000013555279552}
   - 23: {fileID: 23000014172260048}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: string
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012404985176}
   - 95: {fileID: 95000011696362968}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: candle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - 33: {fileID: 33000010521507198}
   - 23: {fileID: 23000011460702844}
   - 108: {fileID: 108000011495692770}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}

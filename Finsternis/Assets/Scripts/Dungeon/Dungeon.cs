@@ -400,11 +400,13 @@ namespace Finsternis
             return false;
         }
 
-        public void MarkCells(DungeonSection section)
+        public void MarkCells(DungeonSection section, DungeonSection[,] grid = null)
         {
+            if (grid == null)
+                grid = this.dungeonGrid;
             foreach (Vector2 cell in section)
             {
-                this[cell] = section;
+                this.dungeonGrid[(int)cell.x, (int)cell.y] = section;
             }
         }
 

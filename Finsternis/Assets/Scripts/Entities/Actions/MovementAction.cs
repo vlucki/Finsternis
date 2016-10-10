@@ -36,12 +36,13 @@
 
         public Vector3 Velocity { get { return this.rbody.velocity; } }
 
-
         public Vector3 Direction
         {
             get { return this.direction; }
             set { this.direction = value.normalized; }
         }
+
+        public Rigidbody Rbody { get { return this.rbody; } }
 
         protected override void Awake()
         {
@@ -78,8 +79,8 @@
         {
             if (!direction.IsZero())
                 this.rbody.AddForce(
-                    direction * 
-                    (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max), 
+                    direction *
+                    (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max),
                     ForceMode.Acceleration);
         }
 

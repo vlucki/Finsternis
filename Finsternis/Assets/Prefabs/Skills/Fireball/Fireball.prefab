@@ -47,8 +47,9 @@ GameObject:
   - 23: {fileID: 2327942}
   - 54: {fileID: 5483820}
   - 95: {fileID: 9545300}
-  - 114: {fileID: 11411926}
   - 114: {fileID: 11409246}
+  - 114: {fileID: 114000011756219920}
+  - 114: {fileID: 114000011510634882}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -207,7 +208,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 2
 --- !u!95 &9545300
 Animator:
@@ -292,16 +293,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 2147492128
+  collidersToIgnore:
+  - {fileID: 13589054}
   owner: {fileID: 0}
   impactMultiplier: {x: 3, y: 2}
   modeOnImpact: 2
-  executionMultiplier: {x: 0, y: 0}
-  modeOnExecution: 0
-  activeOnDeath: 0
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage:
   - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
@@ -311,22 +310,6 @@ MonoBehaviour:
   - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
     influenceType: 1
     attributeMultiplier: 1
---- !u!114 &11411926
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 150224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6b600e7dd3daac47812b93f11c2026a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onInvoked:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!135 &13589054
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -5724,3 +5707,69 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150224}
   m_IsPrefabParent: 1
+--- !u!114 &114000011510634882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseVelocityMultiplier: 20
+  speedMultiplier: 10
+  turningSpeed: 5
+--- !u!114 &114000011756219920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 964cd818260e50c41a2e5b436f78e2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  interactable: 1
+  attributes:
+  - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
+  - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onAttributeInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  activeTime: 1
+  OnTimeUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9545300}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Explode
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null

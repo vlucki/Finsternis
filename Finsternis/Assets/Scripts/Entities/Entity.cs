@@ -5,14 +5,24 @@
     using System.Collections.Generic;
     using System;
     using UnityQuery;
+    using System.Collections;
 
     [SelectionBase]
     [DisallowMultipleComponent]
-    public abstract class Entity : MonoBehaviour, IInteractable
+    public abstract class Entity : MonoBehaviour, IInteractable, IEnumerable<EntityAttribute>
     {
+        [Serializable]
+        public class AttributeInitializedEvent : CustomEvent<EntityAttribute>
+        {
+        }
+
+        [Serializable]
+        public class EntityStateChanged : CustomEvent<Entity> { }
+
         public UnityEvent onInteraction;
 
-        public EntityAction LastInteraction { get; private set; }
+        public EntityStateChanged onEnable;
+        public EntityStateChanged onDisable;
 
         [SerializeField]
         protected bool interactable = true;
@@ -20,12 +30,9 @@
         [SerializeField]
         protected List<EntityAttribute> attributes;
 
-        [Serializable]
-        public class AttributeInitializedEvent : CustomEvent<EntityAttribute> {
-        }
         public AttributeInitializedEvent onAttributeInitialized;
 
-        public System.Collections.ObjectModel.ReadOnlyCollection<EntityAttribute> Attributes { get { return attributes.AsReadOnly(); } }
+        public EntityAction LastInteraction { get; private set; }
 
         protected virtual void Start()
         {
@@ -91,6 +98,26 @@
         public void EnableInteraction()
         {
             this.interactable = true;
+        }
+
+        protected virtual void OnDisable()
+        {
+            onDisable.Invoke(this);
+        }
+
+        protected virtual void OnEnable()
+        {
+            onEnable.Invoke(this);
+        }
+
+        public IEnumerator<EntityAttribute> GetEnumerator()
+        {
+            return attributes.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

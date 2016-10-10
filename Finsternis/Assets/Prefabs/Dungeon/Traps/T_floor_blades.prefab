@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2320486}
   - 65: {fileID: 6597158}
   - 114: {fileID: 11410828}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: blade01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ GameObject:
   - 23: {fileID: 2368962}
   - 65: {fileID: 6561528}
   - 114: {fileID: 11496398}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: blade03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   - 23: {fileID: 2352290}
   - 65: {fileID: 6510280}
   - 114: {fileID: 11423866}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: blade02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: {fileID: 0}
 --- !u!114 &11410828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,10 +397,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11421364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,7 +417,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  lastInteraction: {fileID: 0}
   interactable: 1
   attributes: []
   onAttributeInitialized:
@@ -469,10 +469,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11496398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,10 +516,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

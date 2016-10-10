@@ -23,9 +23,6 @@
         private int clearedDungeons;
 
         [SerializeField]
-        private GameObject fallDeathZone;
-
-        [SerializeField]
         private DungeonManager dungeonManager;
 
         [SceneSelection]
@@ -96,7 +93,6 @@
         {
             this.clearedDungeons = 0;
             this.dungeonsToClear = UnityEngine.Random.Range(1, 99);
-            this.fallDeathZone = GameObject.Find("FallDeathZone");
             this.dungeonManager = FindObjectOfType<DungeonManager>();
             if (this.dungeonManager)
             {
@@ -131,12 +127,13 @@
             this.player.Character.onDeath.AddListener(() => {
                 this.CallDelayed(2, GameOver);
             });
+            this.CallDelayed(1, this.player.GetComponent<InputRouter>().Enable);
             OnPlayerSpawned.Invoke();
         }
 
         public void SpawnPlayerAtEntrance(GameObject playerPrefab)
         {
-            SpawnPlayer(playerPrefab, this.dungeonManager.GetComponent<DungeonDrawer>().GetWorldPosition(this.dungeonManager.CurrentDungeon.Entrance));
+            SpawnPlayer(playerPrefab, this.dungeonManager.GetComponent<DungeonDrawer>().GetEntrancePosition().WithY(0.5f));
         }
 
         private void CreateDungeon()
@@ -186,7 +183,6 @@
 
         internal void EndCurrentLevel(Exit e)
         {
-            this.fallDeathZone.GetComponent<Collider>().enabled = false;
 
             this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
             this.player.transform.forward = -Vector3.forward;
@@ -213,7 +209,6 @@
 
                 cameraHolder.transform.position = this.player.transform.position - currOffset;
             }
-            this.fallDeathZone.GetComponent<Collider>().enabled = true;
         }
 
         internal void NewGame()

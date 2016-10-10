@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012842484784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_clavicula
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010300895018}
   - 137: {fileID: 137000013105593796}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012963593448}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bot_tip_eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013450184682}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bot_eye 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012779006882}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013216549338}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_wing_tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011731057678}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_manipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013843076286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bot_eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010605416054}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013893462926}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pelvis_tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013928724808}
-  m_Layer: 0
+  - 135: {fileID: 135000010805056252}
+  - 114: {fileID: 114000010472643726}
+  m_Layer: 9
   m_Name: corpo_olho
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +187,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013299366592}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +202,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011512869576}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: top_eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +217,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011567143798}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_ik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,9 +256,7 @@ GameObject:
   - 4: {fileID: 4000011895452214}
   - 33: {fileID: 33000013985216126}
   - 23: {fileID: 23000012257531462}
-  - 64: {fileID: 64000013498925882}
-  - 114: {fileID: 114000013901317930}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012381708714}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: master_olho
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012182481926}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_clavicula
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012338027836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: locator2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012872034332}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011377616172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011102136744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: transform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012486351412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011177274544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: locator1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012200633712}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014214346730}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011847472934}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_elbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,7 +436,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013265166702}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: r_wing_tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012071322424}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: l_ik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,18 +914,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!64 &64000013498925882
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012405632454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: 05efb6f14a863a640a7ed4c7eaa3ee59, type: 3}
 --- !u!95 &95000013943945114
 Animator:
   serializedVersion: 3
@@ -943,6 +931,40 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010472643726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011793509206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 5408
+  collidersToIgnore: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  executionMultiplier: {x: 1, y: 1}
+  modeOnExecution: 1
+  activeOnDeath: 0
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage: []
+  attributesThatInfluenceImpact: []
 --- !u!114 &114000011405039278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1035,7 +1057,6 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  couldBeFalling: 0
   skills: []
   equippedSkills:
   - {fileID: 0}
@@ -1050,40 +1071,18 @@ MonoBehaviour:
   target: {fileID: 0}
   interestPersistence: 5
   ragdoll: {fileID: 0}
---- !u!114 &114000013901317930
-MonoBehaviour:
+--- !u!135 &135000010805056252
+SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012405632454}
+  m_GameObject: {fileID: 1000011793509206}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
-  owner: {fileID: 0}
-  impactMultiplier: {x: 1, y: 1}
-  modeOnImpact: 2
-  executionMultiplier: {x: 1, y: 1}
-  modeOnExecution: 1
-  activeOnDeath: 0
-  ignoreOthersFromOwner: 1
-  attributesThatInfluenceDamage: []
-  attributesThatInfluenceImpact: []
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 1.6, z: 0.3}
 --- !u!135 &135000010942280056
 SphereCollider:
   m_ObjectHideFlags: 1

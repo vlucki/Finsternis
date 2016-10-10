@@ -158,5 +158,18 @@ namespace UnityQuery
         }
 
         #endregion
+
+
+        #region Public Methods and Operators by Victor Lucki
+        public static void Deactivate(this GameObject go)
+        {
+            go.SetActive(false);
+        }
+
+        public static void Activate(this GameObject go)
+        {
+            go.SetActive(true);
+        }
+        #endregion
     }
 }

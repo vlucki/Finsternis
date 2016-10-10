@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityQuery;
+
 namespace Finsternis
 {
-    [RequireComponent(typeof(Entity))]
     public class TouchDamageHandler : Trigger
     {
-        public Entity owner;
-        public Vector2 impactMultiplier = Vector2.one;
-        public ForceMode modeOnImpact = ForceMode.VelocityChange;
-        public Vector2 executionMultiplier = Vector2.one;
-        public ForceMode modeOnExecution = ForceMode.Impulse;
-        public bool activeOnDeath = false;
-        public bool ignoreOthersFromOwner = true;
+        [SerializeField]
+        private Entity owner;
+        [SerializeField]
+        private Vector2 impactMultiplier = Vector2.one;
+        [SerializeField]
+        private ForceMode modeOnImpact = ForceMode.VelocityChange;
+        [SerializeField]
+        private bool ignoreOthersFromOwner = true;
 
         [SerializeField]
         private List<EntityAttributeInfluence> attributesThatInfluenceDamage;
@@ -20,32 +22,34 @@ namespace Finsternis
         [SerializeField]
         private List<EntityAttributeInfluence> attributesThatInfluenceImpact;
 
-        protected override void Awake()
+        public Entity Owner {
+            get { return this.owner; }
+            set { this.owner = value; }
+        }
+
+        void Start()
         {
-            base.Awake();
+            ValidateOwner();
+            onEnter.AddListener(DoCollide);
+        }
+
+        void ValidateOwner()
+        {
             if (!owner)
             {
                 owner = GetComponentInParent<Entity>();
                 if (!owner)
                     throw new System.InvalidOperationException("Attack handler needs an owner!");
-                owner.onAttributeInitialized.AddListener(AttributeInitialized);
             }
-
-            if (!activeOnDeath)
-            {
-                EntityAttribute health = owner.GetAttribute("vit") as EntityAttribute;
-                if (health)
-                    health.onValueChanged.AddListener(HealthChanged);
-            }
+            owner.onAttributeInitialized.AddListener(AttributeInitialized);
             Ignore(owner.gameObject);
-            onEnter.AddListener(DoCollide);
         }
 
         private void AttributeInitialized(EntityAttribute attributeInOwner)
         {
             for (int i = 0; i < this.attributesThatInfluenceDamage.Count || i < this.attributesThatInfluenceImpact.Count; i++)
             {
-                if (i < this.attributesThatInfluenceDamage.Count 
+                if (i < this.attributesThatInfluenceDamage.Count
                     && this.attributesThatInfluenceDamage[i].Attribute.Alias.Equals(attributeInOwner.Alias))
                 {
                     this.attributesThatInfluenceDamage[i].Attribute = attributeInOwner; //replace default scriptable object with instance in owner
@@ -58,50 +62,22 @@ namespace Finsternis
             }
         }
 
-        void Start()
-        {
-            for(int i = 0; i < this.attributesThatInfluenceDamage.Count || i < this.attributesThatInfluenceImpact.Count; i++)
-            {
-                if(i < this.attributesThatInfluenceDamage.Count)
-                {
-                    var attributeInOwner = this.owner.GetAttribute(this.attributesThatInfluenceDamage[i].Attribute.Alias);
-                    if (attributeInOwner)
-                        this.attributesThatInfluenceDamage[i].Attribute = attributeInOwner; //replace default scriptable object with instance in owner
-                }
-                if (i < this.attributesThatInfluenceImpact.Count)
-                {
-                    var attributeInOwner = this.owner.GetAttribute(this.attributesThatInfluenceImpact[i].Attribute.Alias);
-                    if (attributeInOwner)
-                        this.attributesThatInfluenceImpact[i].Attribute = attributeInOwner; //replace default scriptable object with instance in owner
-                }
-            }
-        }
-
         protected override bool ShouldTrigger(Collider other)
         {
             bool result = base.ShouldTrigger(other);
-            if (result && ignoreOthersFromOwner)
+            if (result && this.ignoreOthersFromOwner)
             {
-                TouchDamageHandler pAtkHandler = other.GetComponent<TouchDamageHandler>();
-                if (pAtkHandler && pAtkHandler.owner == owner)
-                    result = false;
+                var handler = other.transform.GetComponentInParentsOrChildren<TouchDamageHandler>();
+                result = !(handler && handler.owner == owner);
             }
 
             return result;
         }
 
-        private void HealthChanged(EntityAttribute attribute)
-        {
-            if (attribute.Value <= 0)
-            {
-                collider.enabled = activeOnDeath;
-            }
-        }
-
         private void DoCollide(GameObject collidedObject)
         {
             Collider other = collidedObject.GetComponent<Collider>();
-            if (ignoreColliders != null && ignoreColliders.Contains(other))
+            if (collidersToIgnore != null && collidersToIgnore.Contains(other))
                 return;
 
             IInteractable interactable = collidedObject.GetComponentInParent<IInteractable>();
@@ -111,7 +87,8 @@ namespace Finsternis
                 if (interactable is Entity)
                 {
                     CharController controller = collidedObject.GetComponent<CharController>();
-                    if (controller) controller.Hit();
+                    if (controller)
+                        controller.Hit();
                 }
 
                 //float strBonus = str ? str.Value * 0.5f : 0;
@@ -127,9 +104,9 @@ namespace Finsternis
         {
             float bonus = 0;
 
-            if(listOfAttributes != null)
+            if (listOfAttributes != null)
             {
-                foreach(var influence in listOfAttributes)
+                foreach (var influence in listOfAttributes)
                 {
                     bonus += influence.CalculateInfluencedValue(bonus);
                 }

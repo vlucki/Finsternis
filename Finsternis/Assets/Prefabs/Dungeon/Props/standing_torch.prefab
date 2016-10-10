@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000010744409428}
   - 23: {fileID: 23000010417028950}
   - 108: {fileID: 108000010290146554}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: light_rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - 33: {fileID: 33000013518928202}
   - 23: {fileID: 23000011197123000}
   - 95: {fileID: 95000010921470216}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: standing_torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

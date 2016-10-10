@@ -1452,6 +1452,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   interactable: 1
   attributes:
   - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
@@ -1526,7 +1536,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011578542928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
   m_Name: 
@@ -1630,8 +1640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0077f36e68a650a47a60230a48b1f77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castTime: 0.2
-  cooldownTime: 0.5
+  castTime: 0.6
+  cooldownTime: 1
   lockDuringCast: 1
   onBeginUse:
     m_PersistentCalls:

@@ -21,7 +21,7 @@
             if (initialized)
                 return;
             initialized = true;
-            foreach (var attribute in player.Attributes)
+            foreach (var attribute in player)
             {
                 GameObject display = (GameObject)Instantiate(displayPrefab, transform);
                 display.GetComponent<AttributeDisplay>().SetAttribute(attribute);

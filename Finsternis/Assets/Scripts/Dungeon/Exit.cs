@@ -10,9 +10,6 @@
         public class ExitCrossedEvent : CustomEvent<Exit> { }
 
         [SerializeField]
-        private GameObject player;
-
-        [SerializeField]
         private GameObject cameraHolder;
 
         private bool locked;
@@ -25,13 +22,14 @@
 
         public bool Triggered { get { return this.triggered; } }
 
+        public GameObject player { get { return GameManager.Instance.Player.gameObject; } }
+
         protected override void Awake()
         {
             base.Awake();
             if (!onExitCrossed)
                 onExitCrossed = new ExitCrossedEvent();
             onExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
-            this.player = GameObject.FindGameObjectWithTag("Player");
             this.cameraHolder = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject;
             this.locked = true;
 

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: SkillSlot4
   m_EditorClassIdentifier: 
   axis: SkillSlot4
-  enabled: 1
   thresholdType: 17
   thresholdValue: 0
   repeatDelay: 0

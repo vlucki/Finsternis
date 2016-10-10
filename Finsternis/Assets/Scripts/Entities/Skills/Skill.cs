@@ -58,7 +58,6 @@
 
         private IEnumerator _BeginCasting()
         {
-
             if (castTime > 0)
             {
                 if (lockDuringCast)

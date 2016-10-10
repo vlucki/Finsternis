@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010010859144}
   - 33: {fileID: 33000011999438696}
   - 23: {fileID: 23000013162797252}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: chest001_cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - 114: {fileID: 114000013873970280}
   - 82: {fileID: 82000010629932454}
   - 65: {fileID: 65000013087357190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: chest001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

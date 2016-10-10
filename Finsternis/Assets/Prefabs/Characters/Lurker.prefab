@@ -882,10 +882,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
@@ -938,7 +938,6 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  couldBeFalling: 0
   skills: []
   equippedSkills:
   - {fileID: 0}
@@ -1011,10 +1010,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2

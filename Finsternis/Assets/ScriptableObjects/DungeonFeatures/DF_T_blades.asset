@@ -11,7 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_T_blades
   m_EditorClassIdentifier: 
+  baseFrequency: 0.5
   prefab: {fileID: 178118, guid: a53f62b4ab99d704387d95b1ec057aa5, type: 2}
   type: 1
-  alignment: 0
-  offset: {x: 0, y: 0, z: 0}
+  alignment:
+    pivot: 0
+    minOffset: {x: 0, y: 0, z: 0}
+    maxOffset: {x: 0, y: 0, z: 0}
+    faceOffset: 0
+  stackable: 0
+  stackWhiteList: []

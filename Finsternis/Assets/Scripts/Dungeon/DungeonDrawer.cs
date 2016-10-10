@@ -45,6 +45,14 @@ namespace Finsternis
 
             if (!this.dungeon)
                 throw new ArgumentException("Failed to find dungeon!");
+            this.dungeon.gameObject.SetLayer("Dungeon");
+            var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
+            deathZoneBorders.isTrigger = true;
+            Vector3 dungeonCenter = GetWorldPosition(new Vector2(this.dungeon.Width, this.dungeon.Height) / 2);
+
+            deathZoneBorders.center = dungeonCenter.WithY(this.cellScale.y / 2);
+            deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 10, (this.dungeon.Height + 2) * this.cellScale.z);
+            dungeon.gameObject.AddComponent<DeathZone>();
 
             this.drawnWalls = new HashSet<Vector2>();
             GameObject rooms = new GameObject("ROOMS");
@@ -62,7 +70,6 @@ namespace Finsternis
             {
                 MakeSection(corridor).transform.SetParent(corridors.transform);
             }
-
             onDrawEnd.Invoke();
         }
 
@@ -367,5 +374,10 @@ namespace Finsternis
             sectionContainer.layer = original.layer;
             return sectionContainer;
         }
+        public Vector3 GetEntrancePosition()
+        {
+            return GetWorldPosition(this.dungeon.Entrance + Vector2.one/2);
+        }
     }
+
 }

@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2380742}
   - 65: {fileID: 6535084}
   - 114: {fileID: 11497344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ GameObject:
   - 23: {fileID: 2396256}
   - 65: {fileID: 6516854}
   - 114: {fileID: 11428858}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - 23: {fileID: 2379858}
   - 65: {fileID: 6501698}
   - 114: {fileID: 11427810}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - 23: {fileID: 2327182}
   - 65: {fileID: 6514954}
   - 114: {fileID: 11494892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - 23: {fileID: 2321342}
   - 65: {fileID: 6566052}
   - 114: {fileID: 11496768}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - 23: {fileID: 2372950}
   - 65: {fileID: 6506210}
   - 114: {fileID: 11402970}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - 23: {fileID: 2393114}
   - 65: {fileID: 6556750}
   - 114: {fileID: 11461624}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - 23: {fileID: 2326978}
   - 65: {fileID: 6553554}
   - 114: {fileID: 11437900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   - 23: {fileID: 2365612}
   - 65: {fileID: 6596790}
   - 114: {fileID: 11409298}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike012
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - 23: {fileID: 2373666}
   - 65: {fileID: 6515064}
   - 114: {fileID: 11424448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - 23: {fileID: 2383008}
   - 65: {fileID: 6503764}
   - 114: {fileID: 11450488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - 23: {fileID: 2345430}
   - 65: {fileID: 6511966}
   - 114: {fileID: 11464508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spike01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1114,10 +1114,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11404476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: {fileID: 0}
 --- !u!114 &11409298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1172,10 +1173,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11424448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1219,10 +1220,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11427810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1266,10 +1267,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11428858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1313,10 +1314,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11437900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,10 +1361,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11449388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1380,7 +1381,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  lastInteraction: {fileID: 0}
   interactable: 1
   attributes: []
   onAttributeInitialized:
@@ -1433,10 +1433,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11461624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1480,10 +1480,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11464508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1527,10 +1527,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11494892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1574,10 +1574,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11496768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1621,10 +1621,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!114 &11497344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1668,10 +1668,10 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  ignoreColliders: []
+    m_Bits: 5408
+  collidersToIgnore: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

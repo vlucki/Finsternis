@@ -255,6 +255,8 @@ namespace Finsternis
 
             if (this.equippedSkills[(int)slot].MayUse())
             {
+                characterAnimator.SetInteger(AttackSlot, (int)slot);
+                characterAnimator.SetTrigger(AttackTrigger);
                 this.equippedSkills[(int)slot].Use();
             }
         }
@@ -267,8 +269,6 @@ namespace Finsternis
                     break;
             if (slot >= 0 && slot < this.equippedSkills.Length)
             {
-                characterAnimator.SetInteger(AttackSlot, (int)slot);
-                characterAnimator.SetTrigger(AttackTrigger);
                 onAttack.Invoke((int)slot);
             }
         }
