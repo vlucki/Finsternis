@@ -23,8 +23,6 @@ namespace Finsternis
         [SerializeField]
         private LayerMask blockingLayers;
 
-        public AnimationClip clipToPlay;
-
         private new Collider collider;
 
         private Animator animator;
@@ -58,7 +56,6 @@ namespace Finsternis
 
                 if (GetValidDestination(maxValidDistance, origin, direction, out destination))
                 {
-                    
                     transform.position = destination;
                     base.CastSkill();
                 }

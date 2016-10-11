@@ -43,6 +43,7 @@ namespace Finsternis
 
             OnOpen.AddListener(() =>
             {
+                GameManager.Instance.Player.LockAndDisable();
                 if (!lastSelected)
                     lastSelected = options[0];
 
@@ -187,6 +188,7 @@ namespace Finsternis
 
             if (askForConfirmation)
             {
+                SkipCloseEvent = true;
                 BeginClosing();
                 OnFinishedToggling.AddListener(showNewGameDialog);
             }
@@ -200,6 +202,7 @@ namespace Finsternis
         {
             if (askForConfirmation)
             {
+                SkipCloseEvent = true;
                 BeginClosing();
                 OnFinishedToggling.AddListener(showExitGameDialog);
             }

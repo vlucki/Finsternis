@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: c_character
+  m_Name: CTRL_character
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: speed
@@ -857,7 +857,7 @@ AnimatorStateMachine:
     m_Position: {x: 264, y: 264, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 110207574}
-    m_Position: {x: 264, y: 36, z: 0}
+    m_Position: {x: 216, y: -12, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -865,6 +865,6 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 36, y: -72, z: 0}
   m_EntryPosition: {x: -288, y: 168, z: 0}
-  m_ExitPosition: {x: 816, y: 168, z: 0}
-  m_ParentStateMachinePosition: {x: 576, y: 96, z: 0}
+  m_ExitPosition: {x: 984, y: 168, z: 0}
+  m_ParentStateMachinePosition: {x: 696, y: 180, z: 0}
   m_DefaultState: {fileID: 110257372}

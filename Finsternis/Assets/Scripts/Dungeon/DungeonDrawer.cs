@@ -45,7 +45,7 @@ namespace Finsternis
 
             if (!this.dungeon)
                 throw new ArgumentException("Failed to find dungeon!");
-            this.dungeon.gameObject.SetLayer("Dungeon");
+            this.dungeon.gameObject.SetLayer("Ignore Raycast");
             var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
             deathZoneBorders.isTrigger = true;
             Vector3 dungeonCenter = GetWorldPosition(new Vector2(this.dungeon.Width, this.dungeon.Height) / 2);

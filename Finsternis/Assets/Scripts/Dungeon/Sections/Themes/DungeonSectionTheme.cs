@@ -15,6 +15,11 @@
         [SerializeField]
         private List<WallParts> walls;
 
+        [SerializeField][Range(0, 2)]
+        private float spawnDensityModifier = 1;
+
+        public float SpawnDensityModifier { get { return this.spawnDensityModifier; } }
+
         public void AddTag(string tag)
         {
             tags.AddUnique(tag);

@@ -12,12 +12,12 @@
         private Rigidbody rbody;
 
         [SerializeField]
-        [Range(1f, 20f)]
+        [Range(1f, 30f)]
         [Tooltip("The base velocity for a character")]
-        private float baseVelocityMultiplier = 100f;
+        private float baseVelocityMultiplier = 10f;
 
         [SerializeField]
-        [Range(0f, 10f)]
+        [Range(0f, 30f)]
         [Tooltip("The max velocity granted by Speed attribute")]
         private float speedMultiplier = 10f;
 
@@ -71,7 +71,7 @@
         {
             if (!this.direction.IsZero())
                 Move(Direction);
-            else
+            else if (!this.Velocity.IsZero())
                 Move(-Velocity.WithY(0).normalized);
         }
 

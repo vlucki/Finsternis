@@ -35,7 +35,7 @@
 
         public void OpenChest()
         {
-            if (LastInteraction && LastInteraction.Agent.Equals(GameManager.Instance.Player))
+            if (LastInteraction && LastInteraction.Agent.Equals(GameManager.Instance.Player.Character))
             {
                 FindObjectOfType<CardsManager>().GivePlayerCard(cardsToGive);
             }

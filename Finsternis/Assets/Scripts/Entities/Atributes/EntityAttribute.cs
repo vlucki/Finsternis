@@ -43,6 +43,8 @@
         [ReadOnly]
         private List<AttributeModifier> modifiers;
 
+        private bool valueInitialized = false;
+
         public Entity Owner { get; private set; }
 
         public string Name
@@ -61,7 +63,7 @@
         {
             get
             {
-                if (this.valueWithModifiers != this.baseValue && !(modifiers != null && modifiers.Count > 0)) //make sure the value is initialized if the "SetValue" method was not called yet
+                if (!valueInitialized) //make sure the value is initialized if the "SetValue" method was not called yet
                     this.valueWithModifiers = this.baseValue;
                 return this.valueWithModifiers;
             }
@@ -173,6 +175,8 @@
 
         public void SetValue(float newValue)
         {
+            valueInitialized = true;
+
             newValue = EnforceLimits(newValue);
 
             if (this.valueWithModifiers != newValue)

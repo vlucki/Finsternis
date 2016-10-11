@@ -295,7 +295,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 2147492128
+    m_Bits: 2147492132
   collidersToIgnore:
   - {fileID: 13589054}
   owner: {fileID: 0}
@@ -5718,8 +5718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 20
-  speedMultiplier: 10
+  baseVelocityMultiplier: 30
+  speedMultiplier: 30
   turningSpeed: 5
 --- !u!114 &114000011756219920
 MonoBehaviour:
@@ -5756,7 +5756,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  activeTime: 1
+  activeTime: 3
   OnTimeUp:
     m_PersistentCalls:
       m_Calls:
@@ -5771,5 +5771,10 @@ MonoBehaviour:
           m_StringArgument: Explode
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null

@@ -17,7 +17,7 @@
         [SerializeField]
         [ReadOnly]
         [Tooltip("Set during runtime, by the Dungeon's RNG.")]
-        private float enemyDensity = 0.1f;
+        private float baseEnemyDensity = 0.1f;
 
         void Awake()
         {
@@ -33,43 +33,47 @@
             if (enemiesHolder)
                 Destroy(enemiesHolder);
 
-            enemyDensity = Dungeon.Random.Range(0, 0.2f);
+            baseEnemyDensity = 0.01f + Dungeon.Random.value() / 10;
             enemiesHolder = new GameObject("Enemies");
 
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
+            int enemiesSpawned = 0;
             if (enemies != null && enemies.Count > 0)
             {
-                int roomsToSpawn = 1; //Dungeon.Random.IntRange(1, dungeon.Rooms.Count, false);
+                int roomsToSpawn = dungeon.Rooms.Count - 1; //subtract 1 for the starting room
                 do
                 {
-                    SpawnEnemies(dungeon, goals);
+                    enemiesSpawned += SpawnEnemies(dungeon, goals);
                 }
-                while (--roomsToSpawn > 0);
+                while (--roomsToSpawn > 0 || enemiesSpawned == 0);
             }
         }
 
-        private void SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
+        private int SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
         {
             Room room;
             do
             { room = dungeon.GetRandomRoom(); }
             while (room.Equals(dungeon[dungeon.Entrance]));
 
-            int enemiesToSpawn = 1; //Mathf.CeilToInt(Dungeon.Random.Range(0, room.CellCount * enemyDensity));
-
+            int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.value() * room.CellCount * (room.Theme.SpawnDensityModifier * this.baseEnemyDensity));
+            int enemiesSpawned = 0;
             int remainingEnemies = enemiesToSpawn;
             do
             {
-                int remainingEnemiesOfChosenType = 1; //Dungeon.Random.IntRange(0, remainingEnemies, true);
+                int remainingEnemiesOfChosenType = Dungeon.Random.IntRange(0, remainingEnemies);
                 if (remainingEnemiesOfChosenType > 0)
                 {
                     KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies.GetRandom(Dungeon.Random.IntRange));
                     goal.quantity += remainingEnemiesOfChosenType;
                     SpawnEnemy(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
+                    enemiesSpawned += remainingEnemiesOfChosenType;
                 }
-                --remainingEnemies;
+                remainingEnemies -= Mathf.Max(1, remainingEnemiesOfChosenType);
             }
             while (remainingEnemies > 0);
+
+            return enemiesSpawned;
         }
 
         private KillEnemyGoal MakeGoal(Dungeon dungeon, List<KillEnemyGoal> goals, GameObject enemy)

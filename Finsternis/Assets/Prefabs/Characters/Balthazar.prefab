@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc6d1d21c8e530458929b5ca406de2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castTime: 0.4
+  castTime: 0.6
   cooldownTime: 1
   lockDuringCast: 1
   onBeginUse:
@@ -1410,18 +1410,7 @@ MonoBehaviour:
       PublicKeyToken=null
   onSkillCast:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114000014202934784}
-        m_MethodName: ExecuteSkill
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
+      m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -1430,12 +1419,11 @@ MonoBehaviour:
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   minBlinkDistance: 0.5
-  maxBlinkDistance: 3
-  offset: {x: 0, y: 1, z: 0}
+  maxBlinkDistance: 4
+  offset: {x: 0, y: 0.5, z: 0}
   blockingLayers:
     serializedVersion: 2
     m_Bits: 2048
-  clipToPlay: {fileID: 7400010, guid: 05a5653751bbba04fb9b18df157fc675, type: 3}
 --- !u!114 &114000010772638696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1641,7 +1629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castTime: 0.6
-  cooldownTime: 1
+  cooldownTime: 0.5
   lockDuringCast: 1
   onBeginUse:
     m_PersistentCalls:
@@ -1661,7 +1649,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -1671,7 +1659,7 @@ MonoBehaviour:
       PublicKeyToken=null
   fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
   summonPoint: {fileID: 4000012879183366}
-  summonOffset: 0
+  summonOffset: 0.3
 --- !u!114 &114000014005836754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1683,7 +1671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 9.5
+  baseVelocityMultiplier: 9.75
   speedMultiplier: 3
   turningSpeed: 3
 --- !u!114 &114000014202934784

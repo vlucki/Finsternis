@@ -19,7 +19,8 @@
 
         public void Execute()
         {
-            var hits = Physics.SphereCastAll(new Ray(transform.position + transform.up / 2, transform.forward), 0.5f, range);
+            int mask = 1 << LayerMask.NameToLayer("Props");
+            var hits = Physics.SphereCastAll(new Ray(transform.position + transform.up / 2, transform.forward), 0.5f, range, mask);
             if(hits != null){
                 OpeneableEntity closestOpeneable = null;
                 foreach(var hit in hits)

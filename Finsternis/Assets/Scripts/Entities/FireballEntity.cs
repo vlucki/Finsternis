@@ -11,7 +11,8 @@
         private float activeTime = 1;
         
         public UnityEvent OnTimeUp;
-        
+        public UnityEvent OnShoot;
+
         private MovementAction movement;
 
         void Awake()
@@ -23,7 +24,9 @@
         {
             base.InitializeAttribute(attributeIndex);
             if (attributes[attributeIndex].Alias.Equals("spd"))
-                attributes[attributeIndex].SetValue(10);
+            {
+                attributes[attributeIndex].SetValue(99);
+            }
         }
 
         internal void Explode()
@@ -46,6 +49,8 @@
             {
                 this.CallDelayed(this.activeTime, OnTimeUp.Invoke);
             }
+            OnShoot.Invoke();
+            OnShoot.RemoveAllListeners();
             movement.Rbody.isKinematic = false;
             movement.enabled = true;
         }

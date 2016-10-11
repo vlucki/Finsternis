@@ -98,12 +98,16 @@ ModelImporter:
     400088: tophead
     400090: torso
     4300000: corpo
-    7400000: Idle_Balthazar
-    7400002: Attack_Balthazar
-    7400004: Walk_Balthazar
-    7400006: Hit_Balthazar
-    7400008: Death_Balthazar
-    7400010: Attack02_Balthazar
+    7400000: A_idle01_balthazar
+    7400002: A_atk_fireball_summon_start_balthazar
+    7400004: A_walk_balthazar
+    7400006: A_hit01_balthazar
+    7400008: A_death01_balthazar
+    7400010: A_teleport_start_balthazar
+    7400012: A_atk_fireball_summon_end_balthazar
+    7400014: A_atk_fireball_summon_balthazar
+    7400016: A_teleport_execute_balthazar
+    7400018: A_teleport_end_balthazar
     9500000: //RootNode
     13700000: corpo
   materials:
@@ -113,7 +117,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -128,7 +132,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle_Balthazar
+      name: A_idle01_balthazar
       takeName: Take 001
       firstFrame: 2
       lastFrame: 54
@@ -248,10 +252,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: Attack_Balthazar
+      name: A_atk_fireball_summon_start_balthazar
       takeName: Take 001
       firstFrame: 65
-      lastFrame: 124
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -368,7 +372,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: Walk_Balthazar
+      name: A_walk_balthazar
       takeName: Take 001
       firstFrame: 141
       lastFrame: 164
@@ -488,7 +492,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: Hit_Balthazar
+      name: A_hit01_balthazar
       takeName: Take 001
       firstFrame: 170
       lastFrame: 195
@@ -608,7 +612,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: Death_Balthazar
+      name: A_death01_balthazar
       takeName: Take 001
       firstFrame: 210
       lastFrame: 258
@@ -728,9 +732,489 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: Attack02_Balthazar
+      name: A_teleport_start_balthazar
       takeName: Take 001
       firstFrame: 260
+      lastFrame: 265
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo
+        weight: 1
+      - path: master_manipulator
+        weight: 1
+      - path: master_manipulator/l_arm_IK
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator/l_leg_IK
+        weight: 1
+      - path: master_manipulator/pelvis
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar/l_foot_toe
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand/l_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle/l_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck/tophead
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand/r_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle/r_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar/r_foot_toe
+        weight: 1
+      - path: master_manipulator/r_arm_IK
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector1
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator/r_leg_IK
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: A_atk_fireball_summon_end_balthazar
+      takeName: Take 001
+      firstFrame: 96
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo
+        weight: 1
+      - path: master_manipulator
+        weight: 1
+      - path: master_manipulator/l_arm_IK
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator/l_leg_IK
+        weight: 1
+      - path: master_manipulator/pelvis
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar/l_foot_toe
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand/l_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle/l_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck/tophead
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand/r_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle/r_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar/r_foot_toe
+        weight: 1
+      - path: master_manipulator/r_arm_IK
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector1
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator/r_leg_IK
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: A_atk_fireball_summon_balthazar
+      takeName: Take 001
+      firstFrame: 95
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo
+        weight: 1
+      - path: master_manipulator
+        weight: 1
+      - path: master_manipulator/l_arm_IK
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator/l_leg_IK
+        weight: 1
+      - path: master_manipulator/pelvis
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar/l_foot_toe
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand/l_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle/l_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck/tophead
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand/r_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle/r_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar/r_foot_toe
+        weight: 1
+      - path: master_manipulator/r_arm_IK
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector1
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator/r_leg_IK
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: A_teleport_execute_balthazar
+      takeName: Take 001
+      firstFrame: 265
+      lastFrame: 270
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: corpo
+        weight: 1
+      - path: master_manipulator
+        weight: 1
+      - path: master_manipulator/l_arm_IK
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator
+        weight: 1
+      - path: master_manipulator/l_leg_manipulator/l_leg_IK
+        weight: 1
+      - path: master_manipulator/pelvis
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/l_leg/l_knee/l_calcanhar/l_foot_toe
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_hand/l_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/l_arm_start/l_shoulder/l_elbow/l_wrist/l_tumb_start/l_tumb/l_tumb_middle/l_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/neck/tophead
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_hand/r_fingers
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle
+        weight: 1
+      - path: master_manipulator/pelvis/middle_torso/torso/r_arm_start/r_shoulder/r_elbow/r_wrist/r_tumb_start/r_tumb/r_tumb_middle/r_tumb_final
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar
+        weight: 1
+      - path: master_manipulator/pelvis/r_leg/r_knee/r_calcanhar/r_foot_toe
+        weight: 1
+      - path: master_manipulator/r_arm_IK
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector
+        weight: 1
+      - path: master_manipulator/r_arm_pullvector1
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator
+        weight: 1
+      - path: master_manipulator/r_leg_manipulator/r_leg_IK
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator
+        weight: 1
+      - path: master_manipulator/right_arm_manipulator1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: A_teleport_end_balthazar
+      takeName: Take 001
+      firstFrame: 270
       lastFrame: 280
       wrapMode: 0
       orientationOffsetY: 0

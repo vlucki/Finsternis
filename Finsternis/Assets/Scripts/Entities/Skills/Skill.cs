@@ -34,6 +34,7 @@
         private float timeDisabled;
         private bool equipped;
 
+        public bool Casting { get; private set; }
         public bool CoolingDown { get; private set; }
         public bool LockDuringCast { get { return lockDuringCast; } }
         public bool Equipped { get { return this.equipped; } }
@@ -53,11 +54,12 @@
 
         public virtual bool MayUse()
         {
-            return !CoolingDown;
+            return !CoolingDown && !Casting;
         }
 
         private IEnumerator _BeginCasting()
         {
+            Casting = true;
             if (castTime > 0)
             {
                 if (lockDuringCast)
@@ -65,6 +67,7 @@
                 yield return Wait.Sec(castTime);
             }
 
+            Casting = false;
             CastSkill();
         }
 
@@ -79,7 +82,7 @@
         {
             CoolingDown = true;
 
-            yield return cooldownTime;
+            yield return Wait.Sec(cooldownTime);
 
             CoolingDown = false;
 

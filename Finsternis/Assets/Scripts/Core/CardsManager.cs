@@ -18,7 +18,7 @@
 
         public void GivePlayerCard(int quantity)
         {
-            while(quantity-- > 0)
+            while((--quantity) >= 0)
                 PlayerInventory.AddCard(CardFactory.MakeCard());
         }
     }

@@ -5,8 +5,8 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: o_c_enemy01
-  m_Controller: {fileID: 9100000, guid: d8fc317f1ce207e44bae50c9b325d892, type: 2}
+  m_Name: OCTRL_enemy01
+  m_Controller: {fileID: 9100000, guid: 9701d7ce90c022542b82418301fd0fbb, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: dfa9dd007e9fedc4b869bfd63bb3b284, type: 3}
     m_OverrideClip: {fileID: 7400002, guid: 721ba907af1b9a24eb6afc1a8cec2ebd, type: 3}

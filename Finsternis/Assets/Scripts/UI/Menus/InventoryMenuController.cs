@@ -148,6 +148,9 @@
 
         public void EquipSelected(bool askForConfirmation)
         {
+            if (this.unequipped.Count == 0)
+                return;
+
             if (askForConfirmation)
             {
                 var input = GetComponent<InputRouter>();

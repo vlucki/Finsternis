@@ -183,9 +183,9 @@
 
         internal void EndCurrentLevel(Exit e)
         {
-
             this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
             this.player.transform.forward = -Vector3.forward;
+            this.dungeonManager.CurrentDungeon.GetComponent<DeathZone>().Disable();
             clearedDungeons++;
             if (!GoalReached())
                 this.CallDelayed(1, this.dungeonManager.CreateDungeon);

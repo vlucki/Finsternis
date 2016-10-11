@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: o_c_exit02
+  m_Name: OCTRL_exit02
   m_Controller: {fileID: 9100000, guid: b083bf733a7ba4c4b9a14d4c729f98c9, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 32f1a3c3cfd7a5f47b30194eade21b66, type: 3}

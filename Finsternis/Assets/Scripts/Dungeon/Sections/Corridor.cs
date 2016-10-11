@@ -52,7 +52,7 @@
                 if (index < 0 || index >= this.Length)
                 {
                     index = Mathf.Clamp(index, 0, this.Length - 1);
-                    Log.Error(this, "index", "Trying to access a cell with index {0} within {1}", index, this);
+                    Log.Error(this, "Trying to access a cell with index {0} within {1}", index, this);
                 }
                 return bounds.position + this.direction * index;
             }

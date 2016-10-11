@@ -884,14 +884,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 5408
+    m_Bits: 13604
   collidersToIgnore: []
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
-  executionMultiplier: {x: 1, y: 1}
-  modeOnExecution: 1
-  activeOnDeath: 0
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
@@ -968,6 +965,16 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   interactable: 1
   attributes:
   - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
@@ -1012,14 +1019,11 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 5408
+    m_Bits: 13604
   collidersToIgnore: []
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
-  executionMultiplier: {x: 1, y: 1}
-  modeOnExecution: 1
-  activeOnDeath: 0
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []

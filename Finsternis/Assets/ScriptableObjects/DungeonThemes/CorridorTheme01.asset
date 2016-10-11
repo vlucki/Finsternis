@@ -19,6 +19,7 @@ MonoBehaviour:
   - {fileID: 1000012856286756, guid: 89b2fa2eae2f74746bd92a31c3a53d75, type: 2}
   walls:
   - {fileID: 11400000, guid: 8df4557522a71ac49a5945ca9694c905, type: 2}
+  spawnDensityModifier: 0
   traps:
   - feature: {fileID: 11400000, guid: 60fea911ad260b94a974ff51719ee04f, type: 2}
     frequencyModifier: 1
