@@ -27,11 +27,12 @@ ModelImporter:
     4300006: blade03
     7400000: Idle
     7400002: Idle
-    7400004: Rise
-    7400006: SwipeIn
-    7400008: Hold
-    7400010: SwipeBack
-    7400012: GoDown
+    7400004: A_trap01_rise
+    7400006: A_trap01_swipe_in
+    7400008: A_trap01_hold_up
+    7400010: A_trap01_swipe_back
+    7400012: A_trap01_go_down
+    7400014: A_trap01_hold_down
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -40,7 +41,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -55,43 +56,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Take 001
-      firstFrame: 1
-      lastFrame: 15
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: blade01
-        weight: 1
-      - path: blade02
-        weight: 1
-      - path: blade03
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 15
-    - serializedVersion: 16
-      name: Rise
+      name: A_trap01_rise
       takeName: Take 001
       firstFrame: 15
       lastFrame: 30
@@ -127,7 +92,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 15
     - serializedVersion: 16
-      name: SwipeIn
+      name: A_trap01_swipe_in
       takeName: Take 001
       firstFrame: 31
       lastFrame: 50
@@ -163,7 +128,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 15
     - serializedVersion: 16
-      name: Hold
+      name: A_trap01_hold_up
       takeName: Take 001
       firstFrame: 51
       lastFrame: 55
@@ -173,7 +138,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -199,7 +164,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 15
     - serializedVersion: 16
-      name: SwipeBack
+      name: A_trap01_swipe_back
       takeName: Take 001
       firstFrame: 56
       lastFrame: 75
@@ -235,7 +200,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 15
     - serializedVersion: 16
-      name: GoDown
+      name: A_trap01_go_down
       takeName: Take 001
       firstFrame: 76
       lastFrame: 90
@@ -246,6 +211,42 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: blade01
+        weight: 1
+      - path: blade02
+        weight: 1
+      - path: blade03
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 15
+    - serializedVersion: 16
+      name: A_trap01_hold_down
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

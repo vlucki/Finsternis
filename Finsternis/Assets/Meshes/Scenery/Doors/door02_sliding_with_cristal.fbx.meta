@@ -27,7 +27,7 @@ ModelImporter:
     4300002: frame
     4300004: crystal
     4300006: door
-    7400000: a_door02_open
+    7400000: A_door02_open
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -51,7 +51,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: a_door02_open
+      name: A_door02_open
       takeName: Take 001
       firstFrame: 1
       lastFrame: 30

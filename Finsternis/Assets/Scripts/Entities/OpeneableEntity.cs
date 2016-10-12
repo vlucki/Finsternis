@@ -1,23 +1,24 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
     using System.Collections.Generic;
     using System;
 
     public class OpeneableEntity : Entity, IOpeneable
     {
+        [Serializable]
+        public struct OpeneableEvts
+        {
+            public EntityEvent onOpen;
+            public EntityEvent onClose;
+            public EntityEvent onLockRemoved;
+        }
 
-        [System.Serializable]
-        public class OpeneableEvent : CustomEvent<OpeneableEntity> { }
-
-        [Header("Open/Close events")]
-        public OpeneableEvent OnOpen;
-        public OpeneableEvent OnClose;
-        public OpeneableEvent OnLockRemoved;
+        [Header("OpeneableEntity fields")]
+        [Space]
 
         [SerializeField]
-        private List<EntityAction.ActionType> allowedActions;
+        private OpeneableEvts openeableEvents;
 
         private bool isOpen;
 
@@ -26,6 +27,8 @@
         public bool IsLocked { get { return this.locks.Count > 0; } }
 
         public bool IsOpen { get { return this.isOpen; } }
+
+        public OpeneableEvts OpeneableEvents { get { return this.openeableEvents; } }
 
         protected virtual void Awake()
         {
@@ -40,26 +43,26 @@
         private void RemoveLock(Lock removedLock)
         {
             locks.Remove(removedLock);
-            OnLockRemoved.Invoke(this);
+            OpeneableEvents.onLockRemoved.Invoke(this);
             Open();
         }
 
-        public void Open()
+        public virtual void Open()
         {
-            if (this.isOpen || IsLocked || !allowedActions.Contains(LastInteraction.Type))
+            if (this.isOpen || IsLocked)
                 return;
 
             this.isOpen = true;
-            OnOpen.Invoke(this);
+            OpeneableEvents.onOpen.Invoke(this);
         }
 
-        public void Close()
+        public virtual void Close()
         {
             if (!this.isOpen)
                 return;
 
             this.isOpen = false;
-            OnClose.Invoke(this);
+            OpeneableEvents.onClose.Invoke(this);
         }
     }
 }

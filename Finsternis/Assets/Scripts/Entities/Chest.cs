@@ -22,7 +22,8 @@
             }
         }
 
-        public RangedValue rangeOfCardsToGive = new RangedValue(1, 3);
+        [SerializeField]
+        private RangedValue rangeOfCardsToGive = new RangedValue(1, 3);
 
         private int cardsToGive;
 
@@ -33,8 +34,18 @@
             this.cardsToGive = Dungeon.Random.IntRange(this.rangeOfCardsToGive.min, this.rangeOfCardsToGive.max);
         }
 
-        public void OpenChest()
+        public override void Interact(EntityAction action)
         {
+            if(action is OpenAction)
+                base.Interact(action);
+        }
+
+        public override void Open()
+        {
+            base.Open();
+            if (!IsOpen)
+                return;
+
             if (LastInteraction && LastInteraction.Agent.Equals(GameManager.Instance.Player.Character))
             {
                 FindObjectOfType<CardsManager>().GivePlayerCard(cardsToGive);

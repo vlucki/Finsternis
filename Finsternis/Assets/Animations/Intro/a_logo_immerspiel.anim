@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: a_logo_immerspiel
+  m_Name: A_logo_immerspiel
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -32,31 +32,31 @@ AnimationClip:
       value: {fileID: 21300010, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
     - time: 0.3
       value: {fileID: 21300012, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.35
+    - time: 0.35000002
       value: {fileID: 21300014, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.4
+    - time: 0.40000004
       value: {fileID: 21300016, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.45
+    - time: 0.45000005
       value: {fileID: 21300018, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.5
+    - time: 0.50000006
       value: {fileID: 21300020, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.55
+    - time: 0.5500001
       value: {fileID: 21300022, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.6
+    - time: 0.6000001
       value: {fileID: 21300024, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.65000004
+    - time: 0.6500001
       value: {fileID: 21300026, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.70000005
+    - time: 0.7000001
       value: {fileID: 21300028, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.75000006
+    - time: 0.7500001
       value: {fileID: 21300030, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.8000001
+    - time: 0.80000013
       value: {fileID: 21300032, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.8500001
+    - time: 0.85000014
       value: {fileID: 21300034, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.9000001
+    - time: 0.90000015
       value: {fileID: 21300036, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
-    - time: 0.9500001
+    - time: 0.95000017
       value: {fileID: 21300038, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}
     - time: 1.0000001
       value: {fileID: 21300040, guid: 17db4b9d26b0f5348810db109d5ad205, type: 3}

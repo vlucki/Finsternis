@@ -16,6 +16,8 @@
         [Range(0.1f, 10f)]
         protected float duration = 1f;
 
+        public float Duration { get { return this.duration; } }
+
         protected virtual void Awake()
         {
             this.animator = GetComponent<Animator>();

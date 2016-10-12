@@ -11,12 +11,14 @@
         {
             if (!onExit)
                 onExit = new OnTriggerEvent();
+
+            layersToIgnore = 1 << LayerMask.NameToLayer("UI");
             onExit.AddListener(OnExit);
         }
 
         private void OnExit(GameObject go)
         {
-            print("Exiting deathzone");
+            UnityQuery.Log.Info(this, "{0} exiting deathzone", go);
             GameManager.Instance.Kill(go);
         }
     }

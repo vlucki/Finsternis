@@ -6,12 +6,34 @@
     using UnityQuery;
     using System.Collections;
     using UnityEngine.Events;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [AddComponentMenu("Finsternis/Game Manager")]
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
+
+        [SerializeField]
+        public struct Callback
+        {
+            public readonly UnityEngine.Object owner;
+            public readonly Action<object[]> callback;
+            public readonly object[] parameters;
+
+            public Callback(UnityEngine.Object owner, Action<object[]> callback, params object[] parameters)
+            {
+                this.owner = owner;
+                this.callback = callback;
+                this.parameters = parameters;
+            }
+        }
+
         private static GameManager instance;
+
+        #region editor variables
+        [SerializeField]
+        private GameObject messagePrefab;
 
         [SerializeField]
         private CharController player;
@@ -20,17 +42,20 @@
         [Range(1, 99)]
         private int dungeonsToClear = 13;
 
-        private int clearedDungeons;
-
         [SerializeField]
         private DungeonManager dungeonManager;
 
-        [SceneSelection]
-        public string mainGameName = "DungeonGeneration";
+        [SerializeField][SceneSelection]
+        private string mainGameName = "DungeonGeneration";
 
         public UnityEvent OnPlayerSpawned;
+        #endregion
 
-        private bool isNewGame;
+        private Dictionary<string, List<Callback>> globalEvents;
+
+        private int clearedDungeons;
+
+        private List<MessageController> messagePool;
 
         public static GameManager Instance { get { return instance; } }
 
@@ -51,7 +76,7 @@
                 gameObject.DestroyNow();
                 return;
             }
-            isNewGame = true;
+            globalEvents = new Dictionary<string, List<Callback>>();
             instance = this;
             DontDestroyOnLoad(gameObject);
             this.clearedDungeons = 0;
@@ -67,7 +92,7 @@
             if (this.dungeonManager)
                 return;
 
-            if (scene.name.Equals(mainGameName))
+            if (scene.name.Equals(this.mainGameName))
             {
                 Init();
                 if (!LoadSavedGame())
@@ -117,7 +142,7 @@
 
         void OnApplicationQuit()
         {
-            if (SceneManager.GetActiveScene().name.Equals(mainGameName))
+            if (SceneManager.GetActiveScene().name.Equals(this.mainGameName))
                 SaveGame();
         }
 
@@ -145,6 +170,7 @@
         private void GameOver()
         {
             this.clearedDungeons = 0;
+            DeleteSave();
             LoadScene("GameOver");
         }
 
@@ -196,7 +222,14 @@
         private void BeginNewLevel(Dungeon dungeon)
         {
             if (!dungeon)
-                throw new ArgumentNullException("dungeon", "There must exist a dungeon for a new level to begin.");
+            {
+                dungeon = dungeonManager.CurrentDungeon;
+                if (!dungeon)
+                {
+                    Log.Error(this, "There was no dungeon ready for a new level to begin!");
+                    dungeonManager.CreateDungeon();
+                }
+            }
 
             if (this.player)
             {
@@ -209,18 +242,82 @@
 
                 cameraHolder.transform.position = this.player.transform.position - currOffset;
             }
+
+            foreach(var evt in globalEvents)
+            {
+                evt.Value.RemoveAll((subscriber) => !subscriber.owner);
+            }
         }
 
         internal void NewGame()
         {
             this.clearedDungeons = 0;
-            isNewGame = true;
+            DeleteSave();
             LoadScene("DungeonGeneration");
         }
 
         public void Win()
         {
             NewGame();
+        }
+
+        private void DeleteSave()
+        {
+
+        }
+
+        public void ShowMessage(Vector3 position, string message, Sprite graphic = null, float duration = 2f)
+        {
+            if (messagePool == null)
+            {
+                messagePool = new List<MessageController>();
+            }
+            var freeMessage = messagePool.Find((msg) => !msg.gameObject.activeSelf);
+            if (!freeMessage)
+            {
+                freeMessage = Instantiate(messagePrefab).GetComponent<MessageController>();
+                messagePool.Add(freeMessage);
+            }
+
+            freeMessage.transform.position = position;
+            freeMessage.Show(message, graphic, duration);
+        }
+
+        public void TriggerGlobalEvent(string eventName, params object[] parameters)
+        {
+            List<Callback> callbacks;
+            if(globalEvents.TryGetValue(eventName, out callbacks))
+            {
+                foreach (var callback in callbacks)
+                    callback.callback(parameters);
+            }
+        }
+
+        public void SubscribeToEvent(string eventName, UnityEngine.Object owner, Action<object[]> callback)
+        {
+            List<Callback> callbacks;
+            if (!globalEvents.TryGetValue(eventName, out callbacks))
+            {
+                globalEvents.Add(eventName, new List<Callback>(1));
+            }
+            else
+            {
+                foreach(var existingCallback in callbacks)
+                {
+                    if (existingCallback.owner.Equals(owner))
+                        return;
+                }
+            }
+            globalEvents[eventName].Add(new Callback(owner, callback));
+        }
+
+        public void UnsubscribeFromEvent(string eventName, UnityEngine.Object owner)
+        {
+            List<Callback> callbacks;
+            if (globalEvents.TryGetValue(eventName, out callbacks))
+            {
+                callbacks.RemoveAll((callback) => callback.owner.Equals(owner));
+            }
         }
     }
 }

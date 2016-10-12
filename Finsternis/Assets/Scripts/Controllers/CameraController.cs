@@ -42,6 +42,8 @@
             if (!this.follow)
                 this.follow = GetComponentInParent<Follow>();
             shaking = false;
+            if (GameManager.Instance)
+                GameManager.Instance.SubscribeToEvent("Explosion", this, OnExplosion);
         }
 
         void FixedUpdate()
@@ -81,6 +83,28 @@
             this.follow.translationInterpolation = 0.1f;
             this.follow.MemorizeOffset(this.follow.OriginalOffset);
             this.follow.OnTargetReached.RemoveListener(FinishedInterpolating);
+        }
+
+        private void OnExplosion(params object[] parameters)
+        {
+            Vector3? explosionPoint = null;
+            if(parameters.Length > 0)
+            {
+                explosionPoint = parameters[0] as Vector3?;
+            }
+            if (explosionPoint == null)
+                return;
+
+            Vector3 relativePosition = transform.position;
+            if (GameManager.Instance.Player)
+                relativePosition = GameManager.Instance.Player.transform.position;
+
+            float dist = Vector3.Distance(
+                new Vector3(relativePosition.x, ((Vector3)explosionPoint).y, relativePosition.z),
+                ((Vector3)explosionPoint));
+            if (dist <= 0)
+                dist = 1;
+            Shake(0.75f, 4, 20 / dist, 20);
         }
 
         internal void Shake(float time, float damping, float amplitude, float frequency, bool overrideShake = true)

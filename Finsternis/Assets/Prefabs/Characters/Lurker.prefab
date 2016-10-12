@@ -903,9 +903,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 9
+  baseVelocityMultiplier: 8.5
   speedMultiplier: 2.5
   turningSpeed: 2
+  modeWhenApplyingForce: 5
 --- !u!114 &114000011811933878
 MonoBehaviour:
   m_ObjectHideFlags: 1

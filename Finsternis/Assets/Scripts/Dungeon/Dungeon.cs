@@ -229,9 +229,9 @@ namespace Finsternis
             return goal;
         }
 
-        public Room GetRandomRoom()
+        public Room GetRandomRoom(int min = 0, int max = -1)
         {
-            return this.rooms.GetRandom(Random.IntRange);
+            return this.rooms.GetRandom(Random.IntRange, min, max);
         }
 
         /// <summary>

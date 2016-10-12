@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 17db4b9d26b0f5348810db109d5ad205
-timeCreated: 1473162333
+timeCreated: 1476265069
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -29,7 +29,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 4096
   textureSettings:
     filterMode: 2
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -78,12 +78,12 @@ TextureImporter:
       name: logo_immerspiel_frames_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 3521
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 0
+        y: 3584
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -91,12 +91,12 @@ TextureImporter:
       name: logo_immerspiel_frames_1
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 3521
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 3584
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -104,12 +104,12 @@ TextureImporter:
       name: logo_immerspiel_frames_2
       rect:
         serializedVersion: 2
-        x: 2049
-        y: 3521
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2048
+        y: 3584
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -117,12 +117,12 @@ TextureImporter:
       name: logo_immerspiel_frames_3
       rect:
         serializedVersion: 2
-        x: 3073
-        y: 3521
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3072
+        y: 3584
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -130,12 +130,12 @@ TextureImporter:
       name: logo_immerspiel_frames_4
       rect:
         serializedVersion: 2
-        x: 1
-        y: 2945
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 3072
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -143,12 +143,12 @@ TextureImporter:
       name: logo_immerspiel_frames_5
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 2945
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 3072
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -156,12 +156,12 @@ TextureImporter:
       name: logo_immerspiel_frames_6
       rect:
         serializedVersion: 2
-        x: 2049
-        y: 2945
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2048
+        y: 3072
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -169,12 +169,12 @@ TextureImporter:
       name: logo_immerspiel_frames_7
       rect:
         serializedVersion: 2
-        x: 3073
-        y: 2945
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3072
+        y: 3072
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -182,12 +182,12 @@ TextureImporter:
       name: logo_immerspiel_frames_8
       rect:
         serializedVersion: 2
-        x: 1
-        y: 2369
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 2560
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -195,12 +195,12 @@ TextureImporter:
       name: logo_immerspiel_frames_9
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 2369
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 2560
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -208,12 +208,12 @@ TextureImporter:
       name: logo_immerspiel_frames_10
       rect:
         serializedVersion: 2
-        x: 2049
-        y: 2369
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2048
+        y: 2560
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -221,12 +221,12 @@ TextureImporter:
       name: logo_immerspiel_frames_11
       rect:
         serializedVersion: 2
-        x: 3073
-        y: 2369
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3072
+        y: 2560
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -234,12 +234,12 @@ TextureImporter:
       name: logo_immerspiel_frames_12
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1793
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 2048
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -247,12 +247,12 @@ TextureImporter:
       name: logo_immerspiel_frames_13
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 1793
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 2048
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -260,12 +260,12 @@ TextureImporter:
       name: logo_immerspiel_frames_14
       rect:
         serializedVersion: 2
-        x: 2049
-        y: 1793
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2048
+        y: 2048
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -273,12 +273,12 @@ TextureImporter:
       name: logo_immerspiel_frames_15
       rect:
         serializedVersion: 2
-        x: 3073
-        y: 1793
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3072
+        y: 2048
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -286,12 +286,12 @@ TextureImporter:
       name: logo_immerspiel_frames_16
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1217
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 1536
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -299,12 +299,12 @@ TextureImporter:
       name: logo_immerspiel_frames_17
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 1217
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 1536
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -312,12 +312,12 @@ TextureImporter:
       name: logo_immerspiel_frames_18
       rect:
         serializedVersion: 2
-        x: 2049
-        y: 1217
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 2048
+        y: 1536
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -325,12 +325,12 @@ TextureImporter:
       name: logo_immerspiel_frames_19
       rect:
         serializedVersion: 2
-        x: 3073
-        y: 1217
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 3072
+        y: 1536
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -338,12 +338,12 @@ TextureImporter:
       name: logo_immerspiel_frames_20
       rect:
         serializedVersion: 2
-        x: 1
-        y: 641
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 1024
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -351,12 +351,12 @@ TextureImporter:
       name: logo_immerspiel_frames_21
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 641
-        width: 1022
-        height: 574
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 1024
+        y: 1024
+        width: 1024
+        height: 512
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

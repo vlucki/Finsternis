@@ -25,6 +25,9 @@
         [SerializeField]
         private float turningSpeed = 2;
 
+        [SerializeField]
+        private ForceMode modeWhenApplyingForce = ForceMode.Acceleration;
+
         private EntityAttribute cachedSpeed;
 
         private Vector3 direction;
@@ -81,7 +84,7 @@
                 this.rbody.AddForce(
                     direction *
                     (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max),
-                    ForceMode.Acceleration);
+                    modeWhenApplyingForce);
         }
 
         internal float GetVelocityMagnitude(bool ignoreY = true)

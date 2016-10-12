@@ -80,8 +80,8 @@ ModelImporter:
     4300024: spike011
     4300026: metal
     4300028: spike012
-    7400000: spikes_in
-    7400002: spikes_out
+    7400000: A_trap02_spikes_down
+    7400002: A_trap02_spikes_out
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -90,7 +90,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -105,7 +105,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: spikes_in
+      name: A_trap02_spikes_down
       takeName: Take 001
       firstFrame: 1
       lastFrame: 1
@@ -159,7 +159,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: spikes_out
+      name: A_trap02_spikes_out
       takeName: Take 001
       firstFrame: 1
       lastFrame: 20
@@ -169,7 +169,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

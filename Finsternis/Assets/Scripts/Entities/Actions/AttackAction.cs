@@ -19,7 +19,7 @@ namespace Finsternis
         protected override void Awake()
         {
             base.Awake();
-            Type = ActionType.ATTACK;
+
             if (baseDamage)
             {
                 agent.onAttributeInitialized.AddListener(

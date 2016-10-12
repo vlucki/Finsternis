@@ -6,33 +6,47 @@
     using System;
     using UnityQuery;
     using System.Collections;
+    using System.Linq;
 
     [SelectionBase]
     [DisallowMultipleComponent]
     public abstract class Entity : MonoBehaviour, IInteractable, IEnumerable<EntityAttribute>
     {
+        #region inner classes and structs
         [Serializable]
-        public class AttributeInitializedEvent : CustomEvent<EntityAttribute>
+        public class AttributeInitializedEvent : CustomEvent<EntityAttribute> { }
+
+        [Serializable]
+        public class EntityEvent : CustomEvent<Entity> { }
+
+        [Serializable]
+        public struct GeneralEntityEvents
         {
+            public UnityEvent onInteraction;
+            public EntityEvent onEnable;
+            public EntityEvent onDisable;
         }
+        #endregion
 
-        [Serializable]
-        public class EntityStateChanged : CustomEvent<Entity> { }
-
-        public UnityEvent onInteraction;
-
-        public EntityStateChanged onEnable;
-        public EntityStateChanged onDisable;
-
+        #region variables
         [SerializeField]
         protected bool interactable = true;
+
+        [SerializeField]
+        protected List<InteractionConstraint> interactionConstraints;
+
+        [SerializeField]
+        private GeneralEntityEvents entityEvents;
 
         [SerializeField]
         protected List<EntityAttribute> attributes;
 
         public AttributeInitializedEvent onAttributeInitialized;
+        #endregion
 
         public EntityAction LastInteraction { get; private set; }
+
+        public GeneralEntityEvents EntityEvents { get { return this.entityEvents; } }
 
         protected virtual void Start()
         {
@@ -80,9 +94,13 @@
         {
             if (!interactable)
                 return;
+
+            if (interactionConstraints != null)
+                if (interactionConstraints.Any((constraint) => !constraint.Check(action)))
+                    return;
+
             LastInteraction = action;
-            if (onInteraction != null)
-                onInteraction.Invoke();
+            entityEvents.onInteraction.Invoke();
         }
 
         public void Kill()
@@ -102,12 +120,12 @@
 
         protected virtual void OnDisable()
         {
-            onDisable.Invoke(this);
+            entityEvents.onDisable.Invoke(this);
         }
 
         protected virtual void OnEnable()
         {
-            onEnable.Invoke(this);
+            entityEvents.onEnable.Invoke(this);
         }
 
         public IEnumerator<EntityAttribute> GetEnumerator()

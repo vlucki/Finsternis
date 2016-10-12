@@ -71,12 +71,14 @@
             originalOffset = offset;
             memorizedOffset = offset;
             originalTarget = target;
-            GameManager.Instance.OnPlayerSpawned.AddListener(Init);
+            if(GameManager.Instance)
+                GameManager.Instance.OnPlayerSpawned.AddListener(Init);
         }
 
         void OnDestroy()
         {
-            GameManager.Instance.OnPlayerSpawned.RemoveListener(Init);
+            if (GameManager.Instance)
+                GameManager.Instance.OnPlayerSpawned.RemoveListener(Init);
         }
 
         private void Init()

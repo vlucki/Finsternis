@@ -11,12 +11,6 @@
         private float range = 0.3f;
         public KeyCard KeyCard { get; set; }
 
-        protected override void Awake()
-        {
-            base.Awake();
-            Type = ActionType.OPEN;
-        }
-
         public void Execute()
         {
             int mask = 1 << LayerMask.NameToLayer("Props");

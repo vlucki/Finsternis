@@ -25,7 +25,7 @@
             base.InitializeAttribute(attributeIndex);
             if (attributes[attributeIndex].Alias.Equals("spd"))
             {
-                attributes[attributeIndex].SetValue(99);
+                attributes[attributeIndex].SetValue(Random.Range(5, 9));
             }
         }
 
@@ -33,14 +33,10 @@
         {
             movement.enabled = false;
             movement.Rbody.isKinematic = true;
-            GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
-            var player = GameManager.Instance.Player.transform;
-            float dist = Vector3.Distance(
-                new Vector3(player.position.x, transform.position.y, player.position.z),
-                transform.position);
-            if (dist <= 0)
-                dist = 1;
-            cam.GetComponent<CameraController>().Shake(0.75f, 4, 20 / dist, 20);
+            if (GameManager.Instance)
+            {
+                GameManager.Instance.TriggerGlobalEvent("Explosion", transform.position);
+            }
         }
 
         public void Shoot()

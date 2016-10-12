@@ -41,52 +41,46 @@
             if (enemies != null && enemies.Count > 0)
             {
                 int roomsToSpawn = dungeon.Rooms.Count - 1; //subtract 1 for the starting room
-                do
-                {
-                    enemiesSpawned += SpawnEnemies(dungeon, goals);
-                }
-                while (--roomsToSpawn > 0 || enemiesSpawned == 0);
+                bool everyRoomFilled = Loop.Do(
+                    () => (--roomsToSpawn) > 0,
+                    () => enemiesSpawned += SpawnEnemies(dungeon, goals)
+                    );
+                Log.Info(this,
+                    "Managed to spawn {0} enemies, rooms ignored = {1}",
+                    enemiesSpawned,
+                    roomsToSpawn);
             }
         }
 
         private int SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
         {
-            Room room;
-            do
-            { room = dungeon.GetRandomRoom(); }
-            while (room.Equals(dungeon[dungeon.Entrance]));
+            Room room = dungeon.GetRandomRoom(1);
 
             int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.value() * room.CellCount * (room.Theme.SpawnDensityModifier * this.baseEnemyDensity));
             int enemiesSpawned = 0;
             int remainingEnemies = enemiesToSpawn;
-            do
-            {
-                int remainingEnemiesOfChosenType = Dungeon.Random.IntRange(0, remainingEnemies);
-                if (remainingEnemiesOfChosenType > 0)
+
+            Loop.Do(
+                () => remainingEnemies > 0,
+                () =>
                 {
+                    int remainingEnemiesOfChosenType = remainingEnemies == 1 ? 1 : Dungeon.Random.IntRange(1, remainingEnemies);
+
                     KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies.GetRandom(Dungeon.Random.IntRange));
                     goal.quantity += remainingEnemiesOfChosenType;
-                    SpawnEnemy(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
+                    SpawnEnemyOfType(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
                     enemiesSpawned += remainingEnemiesOfChosenType;
+                    remainingEnemies -= remainingEnemiesOfChosenType;
+
                 }
-                remainingEnemies -= Mathf.Max(1, remainingEnemiesOfChosenType);
-            }
-            while (remainingEnemies > 0);
+                );
 
             return enemiesSpawned;
         }
 
         private KillEnemyGoal MakeGoal(Dungeon dungeon, List<KillEnemyGoal> goals, GameObject enemy)
         {
-            KillEnemyGoal goal = null;
-            foreach (KillEnemyGoal g in goals)
-            {
-                if (g.enemy.Equals(enemy))
-                {
-                    goal = g;
-                    break;
-                }
-            }
+            KillEnemyGoal goal = goals.Find((g) => g.enemy.Equals(enemy));
 
             if (!goal)
             {
@@ -99,7 +93,7 @@
             return goal;
         }
 
-        private void SpawnEnemy(Transform parent, Room room, KillEnemyGoal goal, int amount)
+        private void SpawnEnemyOfType(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
             do
             {

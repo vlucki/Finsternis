@@ -24,7 +24,7 @@
         void Awake()
         {
             this.lockedEntity = GetComponent<OpeneableEntity>();
-            this.lockedEntity.onInteraction.AddListener(TryUnlocking);
+            this.lockedEntity.EntityEvents.onInteraction.AddListener(TryUnlocking);
         }
 
         private KeyCard key;

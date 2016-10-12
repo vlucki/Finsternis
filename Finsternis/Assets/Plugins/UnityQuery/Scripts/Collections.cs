@@ -11,6 +11,7 @@ namespace UnityQuery
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using UnityEngine;
 
     public static class Collections
     {
@@ -205,7 +206,7 @@ namespace UnityQuery
 
         #endregion
 
-        public static T GetRandom<T>(this IEnumerable<T> e, Func<int, int, int> randomFunction)
+        public static T GetRandom<T>(this IEnumerable<T> e, Func<int, int, int> randomFunction, int min = 0, int max = -1)
         {
             int count = 0;
             var collection = e as ICollection<T>;
@@ -213,6 +214,11 @@ namespace UnityQuery
                 count = collection.Count;
             else
                 count = e.Count();
+
+            if (max < 0 || max > count)
+                max = count;
+            else if (max < min)
+                max = min;
 
             int random = randomFunction(0, count);
 
