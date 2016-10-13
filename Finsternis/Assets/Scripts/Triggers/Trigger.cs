@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+
+    //TODO: ADD CONSTRAINTS (just like the ones for interaction between entities)
     [RequireComponent(typeof(Collider))]
     public class Trigger : MonoBehaviour
     {
@@ -24,7 +25,7 @@ namespace Finsternis
         private GameObject objectExited;
 
         public GameObject ObjectEntered { get { return this.objectEntered; } }
-        public GameObject ObjectExited  { get { return this.objectExited; } }
+        public GameObject ObjectExited { get { return this.objectExited; } }
 
         protected virtual void Awake()
         {
@@ -37,7 +38,7 @@ namespace Finsternis
             if (ShouldTrigger(other))
             {
                 this.objectEntered = other.gameObject;
-                if(onEnter)
+                if (onEnter)
                     onEnter.Invoke(objectEntered);
             }
         }
@@ -47,7 +48,7 @@ namespace Finsternis
             if (ShouldTrigger(other))
             {
                 this.objectExited = other.gameObject;
-                if(onExit)
+                if (onExit)
                     onExit.Invoke(objectExited);
             }
         }

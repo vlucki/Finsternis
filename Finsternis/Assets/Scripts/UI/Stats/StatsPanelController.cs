@@ -9,19 +9,22 @@
         [SerializeField]
         private GameObject displayPrefab;
         private bool initialized = false;
-        Entity player;
-        protected override void Awake()
-        {
-            base.Awake();
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Entity>();
-        }
 
         void Start()
         {
+            if (GameManager.Instance.Player)
+                Init();
+            else
+                GameManager.Instance.OnPlayerSpawned.AddListener(Init);
+        }
+
+        private void Init()
+        {
+            GameManager.Instance.OnPlayerSpawned.RemoveListener(Init);
             if (initialized)
                 return;
             initialized = true;
-            foreach (var attribute in player)
+            foreach (var attribute in GameManager.Instance.Player.Character)
             {
                 GameObject display = (GameObject)Instantiate(displayPrefab, transform);
                 display.GetComponent<AttributeDisplay>().SetAttribute(attribute);

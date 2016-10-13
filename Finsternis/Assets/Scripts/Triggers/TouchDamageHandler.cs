@@ -29,20 +29,25 @@ namespace Finsternis
 
         void Start()
         {
-            ValidateOwner();
-            onEnter.AddListener(DoCollide);
+            if(ValidateOwner())
+                onEnter.AddListener(DoCollide);
         }
 
-        void ValidateOwner()
+        private bool ValidateOwner()
         {
             if (!owner)
             {
                 owner = GetComponentInParent<Entity>();
                 if (!owner)
-                    throw new System.InvalidOperationException("Attack handler needs an owner!");
+                {
+                    Log.Error(this, "Touch damage handler needs an owner!");
+                    this.DestroyNow();
+                    return false;
+                }
             }
             owner.onAttributeInitialized.AddListener(AttributeInitialized);
             Ignore(owner.gameObject);
+            return true;
         }
 
         private void AttributeInitialized(EntityAttribute attributeInOwner)

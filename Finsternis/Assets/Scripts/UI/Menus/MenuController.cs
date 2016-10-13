@@ -6,7 +6,7 @@
     using UnityEngine.EventSystems;
 
     [RequireComponent(typeof(CanvasGroup))]
-    public abstract class MenuController : ExtendedBehaviour
+    public abstract class MenuController : MonoBehaviour
     {
         private EventSystem evtSystem;
         protected EventSystem EvtSystem

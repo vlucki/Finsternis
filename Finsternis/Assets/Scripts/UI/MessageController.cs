@@ -47,13 +47,21 @@
                 Graphic = graphic;
 
             fadeIn.Begin();
-            this.CallDelayed(fadeIn.Duration + duration, fadeOut.Begin);
+            if(duration > 0)
+                this.CallDelayed(fadeIn.Duration + duration, Hide);
         }
 
         public void Hide()
         {
-            fadeIn.Skip();
-            fadeOut.Begin();
+            if (fadeOut.Transitioning)
+            {
+                fadeOut.Skip();
+            }
+            else
+            {
+                fadeIn.Skip();
+                fadeOut.Begin();
+            }
         }
     }
 }

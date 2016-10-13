@@ -35,9 +35,8 @@
             return this.inventory;
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             if (!GetInventory())
             {
                 Log.Error(this, "Could not find player inventory!");

@@ -47,7 +47,10 @@
         {
             var ctrl = obj.GetComponentInParentsOrChildren<CharController>();
             if (ctrl == GameManager.Instance.Player)
+            {
+
                 GameManager.Instance.ShowMessage(transform.position.WithY(2), "Press 'E' to open");
+            }
         }
     }
 }

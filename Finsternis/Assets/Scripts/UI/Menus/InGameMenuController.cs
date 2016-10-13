@@ -33,9 +33,8 @@ namespace Finsternis
         private UnityAction showNewGameDialog;
         private UnityAction showExitGameDialog;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             this.optionsContainer = transform.FindChild("OptionsContainer").gameObject;
             this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min() / 2, GetComponent<RectTransform>().anchoredPosition);
             this.options = new List<MenuButtonController>();

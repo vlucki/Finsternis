@@ -24,9 +24,8 @@
             set { this.messageField.text = value; }
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             Init();
         }
 
