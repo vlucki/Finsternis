@@ -228,19 +228,13 @@ namespace Finsternis
         #endregion
 
 
-        public virtual void Hit(int type = 0, float secondsToStagger = 0.5f)
+        public virtual void Hit(int type = 0)
         {
             if (this.character.Invincible)
                 return;
 
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
-
-            if (secondsToStagger > 0)
-            {
-                Lock();
-                UnlockWithDelay(secondsToStagger);
-            }
         }
 
         public virtual void Attack(float slot = 0)

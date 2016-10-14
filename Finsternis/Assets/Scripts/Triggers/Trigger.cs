@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.Events;
 
-    //TODO: ADD CONSTRAINTS (just like the ones for interaction between entities)
     [RequireComponent(typeof(Collider))]
     public class Trigger : MonoBehaviour
     {
@@ -19,13 +19,10 @@
         [SerializeField]
         protected List<Collider> collidersToIgnore;
 
+        [SerializeField]
+        private List<TriggerConstraint> constraints;
+
         protected new Collider collider;
-
-        private GameObject objectEntered;
-        private GameObject objectExited;
-
-        public GameObject ObjectEntered { get { return this.objectEntered; } }
-        public GameObject ObjectExited { get { return this.objectExited; } }
 
         protected virtual void Awake()
         {
@@ -37,9 +34,8 @@
         {
             if (ShouldTrigger(other))
             {
-                this.objectEntered = other.gameObject;
                 if (onEnter)
-                    onEnter.Invoke(objectEntered);
+                    onEnter.Invoke(other.gameObject);
             }
         }
 
@@ -47,9 +43,8 @@
         {
             if (ShouldTrigger(other))
             {
-                this.objectExited = other.gameObject;
                 if (onExit)
-                    onExit.Invoke(objectExited);
+                    onExit.Invoke(other.gameObject);
             }
         }
 
@@ -63,6 +58,9 @@
                 return false;
 
             if (this.collidersToIgnore != null && this.collidersToIgnore.Contains(other))
+                return false;
+
+            if (this.constraints != null && this.constraints.Any((constraint) => !constraint.Check(this, other)))
                 return false;
 
             return true;

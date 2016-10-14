@@ -99,12 +99,12 @@ ModelImporter:
     400090: torso
     4300000: corpo
     7400000: A_idle01_balthazar
-    7400002: A_atk_fireball_summon_start_balthazar
+    7400002: A_atk_fireball_start_balthazar
     7400004: A_walk_balthazar
     7400006: A_hit01_balthazar
     7400008: A_death01_balthazar
     7400010: A_teleport_start_balthazar
-    7400012: A_atk_fireball_summon_end_balthazar
+    7400012: A_atk_fireball_end_balthazar
     7400014: A_atk_fireball_summon_balthazar
     7400016: A_teleport_execute_balthazar
     7400018: A_teleport_end_balthazar
@@ -252,7 +252,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_atk_fireball_summon_start_balthazar
+      name: A_atk_fireball_start_balthazar
       takeName: Take 001
       firstFrame: 65
       lastFrame: 110
@@ -852,7 +852,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_atk_fireball_summon_end_balthazar
+      name: A_atk_fireball_end_balthazar
       takeName: Take 001
       firstFrame: 96
       lastFrame: 125

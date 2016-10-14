@@ -17,8 +17,8 @@
         private bool dead;
 
         [SerializeField]
-        [Range(0, 5)]
-        private float invincibiltyTime = 1f;
+        [Range(0, 10)]
+        private float invincibilityTime = 1;
 
         [SerializeField]
         private bool invincible = false;
@@ -30,15 +30,22 @@
         protected override void Start()
         {
             base.Start();
-            this.health = GetAttribute("vit");
+
             if (!this.health)
                 throw new System.InvalidOperationException("Characters must have \"vit\" attribute!");
-            this.health.onValueChanged.AddListener(CheckHealth);
-
-            this.defense = GetAttribute("def");
-            if(!this.defense)
+            if (!this.defense)
                 throw new System.InvalidOperationException("Characters must have \"def\" attribute!");
 
+            this.health.onValueChanged.AddListener(CheckHealth);
+        }
+
+        protected override void InitializeAttribute(int attributeIndex)
+        {
+            base.InitializeAttribute(attributeIndex);
+            if (this[attributeIndex].Alias == "vit")
+                this.health = this[attributeIndex];
+            else if (this[attributeIndex].Alias == "def")
+                this.defense = this[attributeIndex];
         }
 
         public virtual void CheckHealth(EntityAttribute health)
@@ -70,15 +77,15 @@
 
             this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
             if (!Dead)
-                StartCoroutine(_TickInvincibility(this.invincibiltyTime));
+                StartCoroutine(_TickInvincibility(this.invincibilityTime));
         }
 
-        private IEnumerator _TickInvincibility(float remainingInvincibilityTime)
+        private IEnumerator _TickInvincibility(float remainingTime)
         {
             this.invincible = true;
-            while (remainingInvincibilityTime > 0)
+            while (remainingTime > 0)
             {
-                remainingInvincibilityTime -= Time.deltaTime;
+                remainingTime-= Time.deltaTime;
                 yield return null;
             }
             this.invincible = false;

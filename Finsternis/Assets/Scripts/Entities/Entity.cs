@@ -48,6 +48,8 @@
 
         public GeneralEntityEvents EntityEvents { get { return this.entityEvents; } }
 
+        public EntityAttribute this[int index] { get { return this.attributes[index]; } }
+
         protected virtual void Start()
         {
             for (int i = 0; i < attributes.Count; i++)

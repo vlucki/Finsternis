@@ -385,3 +385,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 13600
   collidersToIgnore: []
+  constraints:
+  - {fileID: 11400000, guid: 16dbb685540230545ac1ac71cda42f00, type: 2}

@@ -65,7 +65,7 @@
                 return;
 
             base.OnTriggerExit(other);
-            if (ObjectExited == this.player)
+            if (other.gameObject == this.player)
             {
                 if (other.transform.position.y < transform.position.y)
                 {
