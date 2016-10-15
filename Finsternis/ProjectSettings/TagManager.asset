@@ -7,6 +7,8 @@ TagManager:
   - Dungeon
   - Exit
   - Enemy
+  - Intro
+  - MessageManager
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Wall
   - Invisible
   - Props
-  - 
+  - Dungeon
   - 
   - 
   - 

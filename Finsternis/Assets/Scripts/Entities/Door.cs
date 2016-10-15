@@ -4,6 +4,7 @@
     using UnityQuery;
     using System.Collections;
     using System.Collections.Generic;
+    using System;
 
     [RequireComponent(typeof(Animator))]
     public class Door : OpeneableEntity
@@ -12,7 +13,8 @@
 
         public static readonly int LockedBool = Animator.StringToHash("locked");
         public static readonly int OpenBool = Animator.StringToHash("open");
-        
+        private MessageController displayedTooltip;
+
         protected override void Awake()
         {
             base.Awake();
@@ -41,16 +43,6 @@
             var colliders = this.GetComponentsInParentsOrChildren<Collider>();
             colliders.ForEach(collider => collider.enabled = false);
             this.interactable = false;
-        }
-
-        public void ObjectInRange(GameObject obj)
-        {
-            var ctrl = obj.GetComponentInParentsOrChildren<CharController>();
-            if (ctrl == GameManager.Instance.Player)
-            {
-
-                GameManager.Instance.ShowMessage(transform.position.WithY(2), "Press 'E' to open");
-            }
         }
     }
 }

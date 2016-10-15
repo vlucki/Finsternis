@@ -33,9 +33,6 @@
 
         #region editor variables
         [SerializeField]
-        private GameObject messagePrefab;
-
-        [SerializeField]
         private CharController player;
 
         [SerializeField]
@@ -264,23 +261,6 @@
         private void DeleteSave()
         {
 
-        }
-
-        public void ShowMessage(Vector3 position, string message, Sprite graphic = null, float duration = 2f)
-        {
-            if (messagePool == null)
-            {
-                messagePool = new List<MessageController>();
-            }
-            var freeMessage = messagePool.Find((msg) => !msg.gameObject.activeSelf);
-            if (!freeMessage)
-            {
-                freeMessage = Instantiate(messagePrefab).GetComponent<MessageController>();
-                messagePool.Add(freeMessage);
-            }
-
-            freeMessage.transform.position = position;
-            freeMessage.Show(message, graphic, duration);
         }
 
         public void TriggerGlobalEvent(string eventName, params object[] parameters)

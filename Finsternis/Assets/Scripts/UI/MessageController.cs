@@ -45,9 +45,13 @@
             this.messageGraphic.enabled = graphic != null;
             if (this.messageGraphic.enabled)
                 Graphic = graphic;
+            Show(duration);
+        }
 
+        public void Show(float duration)
+        {
             fadeIn.Begin();
-            if(duration > 0)
+            if (duration > 0)
                 this.CallDelayed(fadeIn.Duration + duration, Hide);
         }
 
