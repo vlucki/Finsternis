@@ -45,7 +45,7 @@ namespace Finsternis
                 if (nameIndex != 1)
                 {
                     float nameChance = 0.5f;
-                    int count = Random.Range(0, 2);
+                    int count = Random.IntRange(0, 2);
                     for (int i = 0; i < count; i++) //Try to add up to 2 pre and post names
                     {
                         if (Random.value() <= nameChance) //if they pass the test
@@ -98,7 +98,7 @@ namespace Finsternis
                     return "and";
                 else if (name.Type == CardName.NameType.PostName)
                 {
-                    return name.prepositions[Random.Range(0, name.prepositions.Count - 1)];
+                    return name.prepositions[Random.IntRange(0, name.prepositions.Count - 1)];
                 }
             }
             return null;
@@ -114,7 +114,7 @@ namespace Finsternis
                 if (name)
                     triedNames.Add(name);
 
-                name = availableNames[Random.Range(0, availableNames.Count - 1)];
+                name = availableNames[Random.IntRange(0, availableNames.Count - 1)];
 
             } while (++tries < MaxNameSelectionTries
                     && !triedNames.Contains(name));

@@ -54,9 +54,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012132652316}
   - 95: {fileID: 95000012272415248}
-  - 114: {fileID: 114000011394653676}
   - 65: {fileID: 65000010306120476}
-  - 114: {fileID: 114000013422826676}
+  - 114: {fileID: 114000011394653676}
+  - 114: {fileID: 114000010039652962}
+  - 114: {fileID: 114000013713135686}
   m_Layer: 12
   m_Name: door02
   m_TagString: Untagged
@@ -255,7 +256,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3, z: 1}
+  m_Size: {x: 1.75, y: 2, z: 1.2}
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!65 &65000011361524684
 BoxCollider:
@@ -286,6 +287,57 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010039652962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013885008798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013713135686}
+        m_MethodName: ShowMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000012588667658, guid: 43e52f631e8208a49bc13ea4d899ae18,
+          type: 2}
+        m_MethodName: HideMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 13604
+  collidersToIgnore: []
+  constraints:
+  - {fileID: 11400000, guid: 9891d13d0c79b5a45b5d61848bda653d, type: 2}
+  - {fileID: 11400000, guid: 86cd0338145e2a34db37ae91d75cba38, type: 2}
 --- !u!114 &114000011394653676
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,8 +389,18 @@ MonoBehaviour:
     onOpen:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114000013089911500, guid: 43e52f631e8208a49bc13ea4d899ae18,
-            type: 2}
+        - m_Target: {fileID: 114000013713135686}
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 114000010039652962}
           m_MethodName: set_enabled
           m_Mode: 6
           m_Arguments:
@@ -354,8 +416,18 @@ MonoBehaviour:
     onClose:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114000013089911500, guid: 43e52f631e8208a49bc13ea4d899ae18,
-            type: 2}
+        - m_Target: {fileID: 114000013713135686}
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 114000010039652962}
           m_MethodName: set_enabled
           m_Mode: 6
           m_Arguments:
@@ -373,7 +445,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
---- !u!114 &114000013422826676
+--- !u!114 &114000013713135686
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -384,20 +456,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e13c9cb59b720f4d8304db3d1cd016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 13604
-  collidersToIgnore: []
-  constraints:
-  - {fileID: 11400000, guid: 16dbb685540230545ac1ac71cda42f00, type: 2}
-  messageToDisplay: Press "E" to Open
+  messageToDisplay: Press "E" to open

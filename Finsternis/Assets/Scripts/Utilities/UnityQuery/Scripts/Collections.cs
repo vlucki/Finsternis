@@ -220,7 +220,7 @@ namespace UnityQuery
             else if (max < min)
                 max = min;
 
-            int random = randomFunction(0, count);
+            int random = randomFunction(min, count);
 
             var list = e as IList<T>;
             if (list != null)

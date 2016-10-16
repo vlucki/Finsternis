@@ -6,7 +6,7 @@
     using UnityQuery;
 
     [CreateAssetMenu(fileName = "AngleTriggerConstraint", menuName = "Finsternis/Triggers/Constraints/Angle")]
-    public class DirectionConstraint : TriggerConstraint
+    public class AngleTriggerConstraint : TriggerConstraint
     {
         [SerializeField]
         [Range(0, 360)]

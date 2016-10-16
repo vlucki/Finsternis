@@ -75,8 +75,7 @@ namespace Finsternis
 
         public void RemoveName(CardName nameToRemove)
         {
-            if (this.names.RemoveAll(cardName => cardName.Equals(nameToRemove)) > 0)
-                RefreshEffects();
+            RemoveName(nameToRemove.name);
         }
 
         public void RemoveName(string nameStr)
@@ -89,20 +88,6 @@ namespace Finsternis
         {
             this.effects.Clear();
             this.names.ForEach(cardName => AddEffects(cardName.Effects));
-        }
-
-        private void RemoveName(System.Func<CardName, bool> condition)
-        {
-            effects.Clear(); //will have to recompute all effects since some may have been overwritte by the ones in the name that will be removed
-
-            names.RemoveAll((cardName) =>
-            {
-                if (condition(cardName))
-                    return true;
-
-                AddEffects(cardName.Effects); //if this name won't be removed, re-add it's effects to the card
-                return false;
-            });
         }
 
         public void AddEffect(Effect effectToAdd)
@@ -132,6 +117,22 @@ namespace Finsternis
                 effectsStr = effectsStr.Substring(0, effectsStr.Length - 3);
             }
             return base.ToString() + " -> Cost: " + this.cost + ", Effects: {" + effectsStr + "}";
+        }
+
+        public override bool Equals(object o)
+        {
+            var otherCard = o as Card;
+            if (!otherCard)
+                return false;
+            if (!otherCard.name.Equals(this.name))
+                return false;
+            
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.name.GetHashCode();
         }
     }
 }

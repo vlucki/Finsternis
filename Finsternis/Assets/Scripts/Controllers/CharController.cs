@@ -345,5 +345,23 @@ namespace Finsternis
             characterAnimator.SetBool(CharController.DyingBool, true);
             characterMovement.Direction = Vector3.zero;
         }
+
+        void OnValidate()
+        {
+            GetComponents<Skill>(this.skills);
+            if(this.equippedSkills.Length != 4)
+            {
+                var tmp = this.equippedSkills;
+                this.equippedSkills = new Skill[4];
+                for (int i = 0; i < tmp.Length && i < 4; i++)
+                    this.equippedSkills[i] = tmp[i];
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (!this.skills.Contains(this.equippedSkills[i]))
+                    this.equippedSkills[i] = null;
+            }
+        }
     }
 }

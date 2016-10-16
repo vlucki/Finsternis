@@ -1435,22 +1435,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onEnable:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDisable:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   interactable: 1
+  interactionConstraints: []
+  entityEvents:
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    onEnable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   attributes:
   - {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
   - {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
@@ -1469,7 +1471,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  invincibiltyTime: 1
+  invincibilityTime: 1
   invincible: 0
 --- !u!114 &114000011170435340
 MonoBehaviour:
@@ -1492,7 +1494,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  cards: []
+  onCardEquipped:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCardUnequipped:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  unequippedCards: []
   equippedCards: []
 --- !u!114 &114000011464325068
 MonoBehaviour:
@@ -1639,7 +1651,7 @@ MonoBehaviour:
   onSkillCast:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000014202934784}
+      - m_Target: {fileID: 0}
         m_MethodName: ExecuteSkill
         m_Mode: 0
         m_Arguments:
@@ -1658,7 +1670,7 @@ MonoBehaviour:
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
-  summonPoint: {fileID: 4000012879183366}
+  summonPoint: {fileID: 0}
   summonOffset: 0.3
 --- !u!114 &114000014005836754
 MonoBehaviour:
@@ -1674,6 +1686,7 @@ MonoBehaviour:
   baseVelocityMultiplier: 9.75
   speedMultiplier: 3
   turningSpeed: 3
+  modeWhenApplyingForce: 5
 --- !u!114 &114000014202934784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1725,7 +1738,9 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  skills: []
+  skills:
+  - {fileID: 114000013232726630}
+  - {fileID: 114000010186636824}
   equippedSkills:
   - {fileID: 114000013232726630}
   - {fileID: 114000010186636824}

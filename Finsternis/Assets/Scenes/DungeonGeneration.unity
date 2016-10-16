@@ -299,6 +299,18 @@ Prefab:
       propertyPath: drawer
       value: 
       objectReference: {fileID: 2137514735}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 1000011908864442, guid: 12b8c14a29e8f9244bf5fe1888713449,
+        type: 2}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 1000012345338928, guid: e349ba598c8b58d4cacaffa8d1f85de3,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
   m_IsPrefabParent: 0
@@ -11698,8 +11710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 734eba1e402d474479833c0a872296ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notificationPrefab: {fileID: 1000013316748468, guid: 2751616d470daa049955e78e5bbc8274,
-    type: 2}
+  notificationPrefab: {fileID: 0}
   notificationCanvas: {fileID: 2038061821}
 --- !u!114 &2038061820
 MonoBehaviour:

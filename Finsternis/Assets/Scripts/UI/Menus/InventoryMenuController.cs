@@ -21,16 +21,18 @@
 
         private Inventory inventory;
 
-        private List<Card> unequipped;
-
         private Inventory GetInventory()
         {
             if (!this.inventory)
             {
-                this.inventory = GameManager.Instance.Player.GetComponent<Inventory>();
-                this.unequipped = new List<Card>(this.inventory.Cards.SkipWhile(this.inventory.EquippedCards.Contains));
-                this.inventory.onCardAdded.AddListener(this.unequipped.Add);
-                this.inventory.onCardRemoved.AddListener((card) => { this.unequipped.Remove(card); });                
+                this.inventory = GameManager.Instance.Player.GetComponent<Inventory>();            
+            }
+            if (this.inventory)
+            {
+                this.inventory.onCardAdded.AddListener(card => UpdateUnequippedDisplay());
+                this.inventory.onCardRemoved.AddListener(card => UpdateUnequippedDisplay());
+                this.inventory.onCardEquipped.AddListener(card => UpdateEquippedDisplay());
+                this.inventory.onCardUnequipped.AddListener(card => UpdateEquippedDisplay());
             }
             return this.inventory;
         }
@@ -54,29 +56,31 @@
 
         void UpdateUnequippedDisplay()
         {
-            if (!ActivateCards(this.visibleUnequippedCards, this.unequipped, ref this.unequippedSelection))
+            var unequipped = this.inventory.UnequippedCards;
+
+            if (!ActivateCards(this.visibleUnequippedCards, unequipped, ref this.unequippedSelection))
                 return;
 
-            ShowCardDisplay(1, this.unequippedSelection, this.visibleUnequippedCards, this.unequipped);
+            ShowCardDisplay(1, this.unequippedSelection, this.visibleUnequippedCards, unequipped);
 
-            if (this.unequipped.Count > 1)
+            if (unequipped.Count > 1)
             {
-                if (this.unequipped.Count == 2) //if only 2 cards are not equipped, either the display above or below won't be visible
+                if (unequipped.Count == 2) //if only 2 cards are not equipped, either the display above or below won't be visible
                 {
                     //if currently selected = 0, display the card "below" (visibleCards[2]) -> 2 - 0 * 2 = 2
                     //if currently selected = 1, display the card "above" (visibleCards[0]) -> 2 - 1 * 2 = 0
                     int visibleCardIndex = 2 - this.unequippedSelection * 2;
-                    ShowCardDisplay(visibleCardIndex, this.unequippedSelection, this.visibleUnequippedCards, this.unequipped);
+                    ShowCardDisplay(visibleCardIndex, this.unequippedSelection, this.visibleUnequippedCards, unequipped);
                 }
                 else
                 {
-                    ShowCardDisplay(0, this.unequippedSelection, this.visibleUnequippedCards, this.unequipped);
-                    ShowCardDisplay(2, this.unequippedSelection, this.visibleUnequippedCards, this.unequipped);
+                    ShowCardDisplay(0, this.unequippedSelection, this.visibleUnequippedCards, unequipped);
+                    ShowCardDisplay(2, this.unequippedSelection, this.visibleUnequippedCards, unequipped);
                 }
             }
         }
 
-        private bool ActivateCards(GameObject[] display, List<Card> cardsList, ref int selection)
+        private bool ActivateCards(GameObject[] display, IList cardsList, ref int selection)
         {
             foreach (var visibleCard in display)
                 visibleCard.SetActive(false);
@@ -113,7 +117,7 @@
             }
         }
 
-        void ShowCardDisplay(int displayIndex, int selectedIndex, GameObject[] displayArray, List<Card> cardsList)
+        void ShowCardDisplay(int displayIndex, int selectedIndex, GameObject[] displayArray, List<CardStack> cardsList)
         {
             //if display = 0, index in list = selected - 1
             //if display = 1, index in list = selected
@@ -127,7 +131,8 @@
                 listIndex = 0;
 
             displayArray[displayIndex].SetActive(true);
-            displayArray[displayIndex].GetComponent<CardController>().LoadCard(cardsList[listIndex]);
+            
+            displayArray[displayIndex].GetComponent<CardController>().LoadCard(cardsList[listIndex].card);
         }
 
         public void MoveAlbum(float value)
@@ -147,7 +152,9 @@
 
         public void EquipSelected(bool askForConfirmation)
         {
-            if (this.unequipped.Count == 0)
+            var unequipped = this.inventory.UnequippedCards;
+
+            if (unequipped.Count == 0)
                 return;
 
             if (askForConfirmation)
@@ -163,9 +170,9 @@
             }
             else
             {
-                if (inventory.EquipCard(this.unequipped[this.unequippedSelection]))
+                if (inventory.EquipCard(unequipped[this.unequippedSelection]))
                 {
-                    this.unequipped.RemoveAt(this.unequippedSelection);
+                    unequipped.RemoveAt(this.unequippedSelection);
                     UpdateUnequippedSelection();
                     UpdateEquipmentSelection(this.inventory.EquippedCards.Count - this.equipmentSelection - 1); //select the newly equiped card
                 }
@@ -174,7 +181,7 @@
 
         private void UpdateUnequippedSelection(int v = 0)
         {
-            this.unequippedSelection = UpdateSelection(this.unequippedSelection, this.unequipped, v);
+            this.unequippedSelection = UpdateSelection(this.unequippedSelection, this.inventory.UnequippedCards, v);
 
             UpdateUnequippedDisplay();
         }

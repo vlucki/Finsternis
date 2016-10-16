@@ -123,20 +123,11 @@ public class MTRandom
 
     #region RANGE
     /// <summary>
-    /// Returns the next pseudo-random number integer between <paramref name="min"/> [inclusive] and <paramref name="max"/> [inclusive].
-    /// </summary>
-    /// <param name="min">Minimum.</param>
-    /// <param name="max">Maximum.</param>
-    public int Range(int min, int max)
-    {
-        return _rand.Next(min, max + 1);
-    }
-    /// <summary>
     /// Returns the next pseudo-random number integer between <paramref name="min"/> [inclusive] and <paramref name="max"/> [depend on <paramref name="includeMax"/>].
     /// </summary>
     /// <param name="min">Minimum.</param>
     /// <param name="max">Max.</param>
-    /// <param name="includeMax">If set to <c>true</c> include <paramref name="Max"/>.</param>
+    /// <returns>A pseudo-random integer.</returns>
     public int IntRange(int min, int max)
     {
         return _rand.Next(min, max);
