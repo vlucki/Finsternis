@@ -43,7 +43,7 @@ GameObject:
   - 82: {fileID: 82000010629932454}
   - 65: {fileID: 65000013087357190}
   m_Layer: 12
-  m_Name: chest001_red
+  m_Name: PFAB_chest001_red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

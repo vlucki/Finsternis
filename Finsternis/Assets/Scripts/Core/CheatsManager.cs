@@ -14,15 +14,16 @@ namespace Finsternis
             DIE = 1,
             WIN = 2,
             NEXT = 3,
-            KILL = 4,
+            PURGE = 4,
             CARD = 5,
-            IDCLIP = 6
+            CARDS = 6,
+            IDCLIP = 7
         }
 
         private CheatCodes _currentCode;
 
         private string storedCode;
-        private static readonly string[] codes = {"ISEXIT", "ISDIE", "ISWIN", "ISNEXT", "ISKILL", "ISCARD", "IDCLIP"};
+        private static readonly string[] codes = {"ISEXIT", "ISDIE", "ISWIN", "ISNEXT", "ISPURGE", "ISCARD", "ISXCARDS%n", "IDCLIP"};
         private string lastFrameInput;
 
         void Update()
@@ -39,27 +40,48 @@ namespace Finsternis
                 if (lastFrameInput.IsNullOrEmpty())
                     return;
 
-
                 storedCode += lastFrameInput;
+
+                print(lastFrameInput);
+                print(storedCode);
+
                 int codeToExecute = 0;
                 bool inputMatchesAny = false;
-                
+
                 while (codeToExecute < codes.Length)
                 {
-                    if (codes[codeToExecute].Equals(storedCode))
+                    string code = codes[codeToExecute];
+                    if (code.Equals(storedCode))
                     {
                         print("EXECUTING CHEAT CODE N" + codeToExecute + ": " + storedCode);
                         _currentCode = (CheatCodes)codeToExecute;
                         CheckExecutedCommand();
                         return;
                     }
-                    else if (codes[codeToExecute].StartsWith(storedCode))
+                    else
                     {
-                        return;
-                    }
-                    else if (codes[codeToExecute].StartsWith(lastFrameInput))
-                    {
-                        inputMatchesAny = true;
+                        int val;
+                        if (int.TryParse(lastFrameInput, out val))
+                        {
+                            code = code.Replace("%n", lastFrameInput);
+                            Log.Info(this, codeToExecute == 6, "Parsed input to obtain code {0}, now comparing with code stored {1}", code, storedCode);
+                            if (code.Equals(storedCode))
+                            {
+                                print("EXECUTING CHEAT CODE N" + codeToExecute + ": " + storedCode);
+                                _currentCode = (CheatCodes)codeToExecute;
+                                CheckExecutedCommand(val);
+                                return;
+                            }
+                        }
+                        
+                        if (codes[codeToExecute].StartsWith(storedCode))
+                        {
+                            return;
+                        }
+                        else if (codes[codeToExecute].StartsWith(lastFrameInput))
+                        {
+                            inputMatchesAny = true;
+                        }
                     }
                     codeToExecute++;
                 }
@@ -68,18 +90,76 @@ namespace Finsternis
             }
         }
 
-        private void CheckExecutedCommand()
+        private void UnlockExits()
+        {
+            print("Open sesame");
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
+                obj.GetComponent<Exit>().Unlock();
+        }
+
+        private void KillPlayer()
+        {
+            print("Death comes to all...");
+            if (GameManager.Instance.Player)
+            {
+                GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
+            }
+            else
+            {
+                Log.Warn(this, "except to a non-existing player.");
+            }
+        }
+
+        private void KillEnemies()
+        {
+            print("Destroy my enemies... and my life is yours");
+            foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                GameManager.Instance.Kill(e);
+            }
+        }
+
+        private void SummonCard(int amount = 1)
+        {
+            print("Pick a card... any card");
+            if (GameManager.Instance.Player)
+            {
+                GameObject.FindObjectOfType<CardsManager>().GivePlayerCard(amount);
+            }
+            else
+            {
+                Log.Warn(this, "is what I would ask the player, if there was one....");
+            }
+        }
+
+        private void TogglePlayerCollision()
+        {
+            print("Straight out of Doom!");
+            if (GameManager.Instance.Player)
+            {
+                var coll = GameManager.Instance.Player.GetComponent<Collider>();
+                if (coll)
+                    coll.enabled = !coll.enabled;
+
+                var rbd = GameManager.Instance.Player.GetComponent<Rigidbody>();
+                if (rbd)
+                    rbd.useGravity = coll.enabled;
+            }
+            else
+            {
+                Log.Warn(this, "and out of player....");
+            }
+        }
+
+        private void CheckExecutedCommand(params object[] parameters)
         {
             switch (_currentCode)
             {
                 case CheatCodes.EXIT:
-                    print("Open sesame");
-                    foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Exit"))
-                        obj.GetComponent<Exit>().Unlock();
+                    UnlockExits();
                     break;
                 case CheatCodes.DIE:
-                    print("Death comes to all");
-                    GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
+                    KillPlayer();
                     break;
                 case CheatCodes.WIN:
                     print("Victorious reign");
@@ -89,37 +169,22 @@ namespace Finsternis
                     print("I pass");
                     GameManager.Instance.DungeonManager.CreateDungeon();
                     break;
-                case CheatCodes.KILL:
-                    print("Destroy my enemies... and my life is yours");
-                    foreach (var e in GameObject.FindGameObjectsWithTag("Enemy"))
-                    {
-                        GameManager.Instance.Kill(e);
-                    }
+                case CheatCodes.PURGE:
+                    KillEnemies();
                     break;
                 case CheatCodes.CARD:
-                    print("Pick a card... any card");
-                    GameObject.FindObjectOfType<CardsManager>().GivePlayerCard(1);
+                    SummonCard();
+                    break;
+                case CheatCodes.CARDS:
+                    SummonCard((int)parameters[0]);
                     break;
                 case CheatCodes.IDCLIP:
-                    print("Straight out of Doom!");
-                    if (GameManager.Instance.Player)
-                    {
-                        var coll = GameManager.Instance.Player.GetComponent<Collider>();
-                        if (coll)
-                            coll.enabled = !coll.enabled;
-
-                        var rbd = GameManager.Instance.Player.GetComponent<Rigidbody>();
-                        if (rbd)
-                            rbd.useGravity = coll.enabled;
-                    }
-                    else
-                    {
-                        print("no player found");
-                    }
+                    TogglePlayerCollision();
                     break;
                 default:
                     return;
             }
+            this.storedCode = string.Empty;
         }
     }
 }

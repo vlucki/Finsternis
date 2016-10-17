@@ -29,7 +29,7 @@
 
             HideMessage();
 
-            this.displayedMessage = MessagesManager.Instance.ShowMessage(transform.position.WithY(1), this.messageToDisplay);
+            this.displayedMessage = MessagesManager.Instance.ShowStaticMessage(transform.position.WithY(1), this.messageToDisplay);
         }
 
         void OnDisable()

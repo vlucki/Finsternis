@@ -40,7 +40,7 @@ GameObject:
   - 114: {fileID: 114000010054629304}
   - 114: {fileID: 114000011473396212}
   m_Layer: 5
-  m_Name: Eye
+  m_Name: PFAB_menu_eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,10 +205,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bca3fc2a974834c8540f2dcdb9380b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolationAmount: 0.2
   eyeBounds:
     radius: 160
     center: {x: 0, y: 0}
+  movementInterpolationAmount: 0.2
+  distanceThreshold: 0.1
+  OnBeganMoving:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  OnTargetReached:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114000011650178846
 MonoBehaviour:
   m_ObjectHideFlags: 1

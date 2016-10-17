@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using UnityEngine;
     using UnityEngine.UI;
     using UnityQuery;
@@ -8,19 +9,21 @@
     {
         private Text cardNameField;
         private Text cardCostField;
+        private Text cardQuantityField;
         private Text attributesNamesField;
         private Text attributesValuesField;
 
         private Character player;
 
-        private Card card;
+        private CardStack stack;
 
-        public Card Card { get { return this.card; } }
+        public Card Card { get { return this.stack.card; } }
 
         void Awake() //don't initialize player on awake because it may have not been spawned yet
         {
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();
             this.cardCostField = transform.FindDescendant("CardCostField").GetComponent<Text>();
+            this.cardQuantityField = transform.FindDescendant("CardQtdField").GetComponent<Text>();
             this.attributesNamesField = transform.FindDescendant("AttributesNamesField").GetComponent<Text>();
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
         }
@@ -37,16 +40,28 @@
             return this.player;
         }
 
-        public void LoadCard(Card c)
+        public void LoadStack(CardStack c)
         {
-            if (c.Equals(this.card))
+            if (c.Equals(this.stack))
                 return;
-            this.card = c;
+            else if (this.stack)
+            {
+                this.stack.onCardAdded.RemoveListener(UpdateStackSize);
+                this.stack.onCardRemoved.RemoveListener(UpdateStackSize);
+            }
+
+            this.stack = c;
+
+            UpdateStackSize();
+
+            this.stack.onCardAdded.AddListener(UpdateStackSize);
+            this.stack.onCardRemoved.AddListener(UpdateStackSize);
+
             this.attributesNamesField.text = "";
             this.attributesValuesField.text = "";
-            this.cardNameField.text = c.name;
-            this.cardCostField.text = c.Cost.ToString();
-            foreach(var effect in c.GetEffects())
+            this.cardNameField.text = c.card.name;
+            this.cardCostField.text = c.card.Cost.ToString();
+            foreach (var effect in c.card.GetEffects())
             {
                 var modifier = effect as AttributeModifier;
                 if (modifier)
@@ -57,16 +72,23 @@
             }
         }
 
+        private void UpdateStackSize()
+        {
+            this.cardQuantityField.enabled = this.stack.Count > 1;
+            if (this.cardQuantityField.isActiveAndEnabled)
+                this.cardQuantityField.text = "x" + this.stack.Count;
+        }
+
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
-            if (GetPlayer() && !this.player.GetComponent<Inventory>().IsEquipped(this.card))
+            if (GetPlayer() && !this.player.GetComponent<Inventory>().IsEquipped(this.stack.card))
             {
                 var attr = this.player.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
                     float modifiedValue = CalculateModifiedValue(modifier, attr);
-                    if(modifiedValue != attr.Value)
+                    if (modifiedValue != attr.Value)
                     {
                         result += " (";
                         result += modifiedValue.ToString("n2").Colorize(modifiedValue > attr.Value ? Color.green : Color.red);

@@ -41,7 +41,7 @@ GameObject:
   - 23: {fileID: 23000011197123000}
   - 95: {fileID: 95000010921470216}
   m_Layer: 12
-  m_Name: standing_torch
+  m_Name: PFAB_standing_torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

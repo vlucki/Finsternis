@@ -8,10 +8,14 @@
     {
 
         [SerializeField]
-        private GameObject messagePrefab;
+        private GameObject staticMessagePrefab;
 
-        private List<MessageController> messagePool;
-        private Dictionary<GameObject, MessageController> displayedMessages;
+        [SerializeField]
+        private GameObject dynamicMessagePrefab;
+
+        private List<MessageController> staticMessagePool;
+        private List<MessageController> dynamicMessagePool;
+
 
         private static MessagesManager activeManager;
 
@@ -30,16 +34,34 @@
             }
         }
 
-        public MessageController ShowMessage(Vector3 position, string message, Sprite graphic = null, float duration = -1)
+        public MessageController ShowStaticMessage(Vector3 position, string message, Sprite graphic = null, float duration = -1)
         {
-            if (messagePool == null)
+            if (staticMessagePool == null)
             {
-                messagePool = new List<MessageController>();
+                staticMessagePool = new List<MessageController>();
             }
-            var freeMessage = messagePool.Find((msg) => !msg.gameObject.activeSelf);
+
+            return ShowMessage(this.staticMessagePool, this.staticMessagePrefab, position, message, graphic, duration);
+        }
+
+        public MessageController ShowDynamicMessage(Vector3 position, string message, Vector3 force = default(Vector3), Sprite graphic = null, float duration = -1)
+        {
+            if (dynamicMessagePool == null)
+            {
+                dynamicMessagePool = new List<MessageController>();
+            }
+            MessageController ctrl = ShowMessage(this.staticMessagePool, this.staticMessagePrefab, position, message, graphic, duration);
+            if (force != Vector3.zero)
+                ctrl.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+
+            return ctrl;
+        }
+        public MessageController ShowMessage(List<MessageController> messagePool, GameObject prefab, Vector3 position, string message, Sprite graphic, float duration)
+        {
+            MessageController freeMessage = messagePool.Find(msg => !msg.gameObject.activeSelf);
             if (!freeMessage)
             {
-                freeMessage = Instantiate(messagePrefab).GetComponent<MessageController>();
+                freeMessage = Instantiate(prefab).GetComponent<MessageController>();
                 messagePool.Add(freeMessage);
             }
 

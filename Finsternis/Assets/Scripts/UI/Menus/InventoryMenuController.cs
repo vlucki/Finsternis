@@ -31,8 +31,8 @@
             {
                 this.inventory.onCardAdded.AddListener(card => UpdateUnequippedDisplay());
                 this.inventory.onCardRemoved.AddListener(card => UpdateUnequippedDisplay());
-                this.inventory.onCardEquipped.AddListener(card => UpdateEquippedDisplay());
-                this.inventory.onCardUnequipped.AddListener(card => UpdateEquippedDisplay());
+                this.inventory.onCardEquipped.AddListener(card => UpdateEquipmentDisplay());
+                this.inventory.onCardUnequipped.AddListener(card => UpdateEquipmentDisplay());
             }
             return this.inventory;
         }
@@ -51,7 +51,7 @@
 
             UpdateUnequippedDisplay();
             
-            UpdateEquippedDisplay();
+            UpdateEquipmentDisplay();
         }
 
         void UpdateUnequippedDisplay()
@@ -92,7 +92,7 @@
             return true;
         }
 
-        void UpdateEquippedDisplay()
+        void UpdateEquipmentDisplay()
         {
             var equipped = this.inventory.EquippedCards; 
             if(!ActivateCards(this.visibleEquippedCards, equipped, ref this.equipmentSelection))
@@ -132,7 +132,7 @@
 
             displayArray[displayIndex].SetActive(true);
             
-            displayArray[displayIndex].GetComponent<CardController>().LoadCard(cardsList[listIndex].card);
+            displayArray[displayIndex].GetComponent<CardController>().LoadStack(cardsList[listIndex]);
         }
 
         public void MoveAlbum(float value)
@@ -170,26 +170,37 @@
             }
             else
             {
+                var card = unequipped[this.unequippedSelection].card;
                 if (inventory.EquipCard(unequipped[this.unequippedSelection]))
                 {
-                    unequipped.RemoveAt(this.unequippedSelection);
-                    UpdateUnequippedSelection();
-                    UpdateEquipmentSelection(this.inventory.EquippedCards.Count - this.equipmentSelection - 1); //select the newly equiped card
+                    if (this.unequippedSelection > unequipped.Count ||
+                        unequipped.Count == 0 ||
+                        unequipped[this.unequippedSelection] != this.inventory.EquippedCards[this.equipmentSelection])
+                    {
+                        UpdateUnequippedSelection();
+                        this.equipmentSelection = this.inventory.EquippedCards.IndexOf(
+                                this.inventory.GetStack(this.inventory.EquippedCards, card));
+                        UpdateEquipmentDisplay();
+                    }
+                    else
+                    {
+                        UpdateEquipmentSelection(this.inventory.EquippedCards.IndexOf(unequipped[this.unequippedSelection]) - this.equipmentSelection - 1); //select the newly equiped card
+                    }
                 }
             }
         }
 
-        private void UpdateUnequippedSelection(int v = 0)
+        private void UpdateUnequippedSelection(int displayOffset = 0)
         {
-            this.unequippedSelection = UpdateSelection(this.unequippedSelection, this.inventory.UnequippedCards, v);
+            this.unequippedSelection = UpdateSelection(this.unequippedSelection, this.inventory.UnequippedCards, displayOffset);
 
             UpdateUnequippedDisplay();
         }
 
-        private void UpdateEquipmentSelection(int v = 0)
+        private void UpdateEquipmentSelection(int displayOffset = 0)
         {
-            this.equipmentSelection = UpdateSelection(this.equipmentSelection, this.inventory.EquippedCards, v);
-            UpdateEquippedDisplay();
+            this.equipmentSelection = UpdateSelection(this.equipmentSelection, this.inventory.EquippedCards, displayOffset);
+            UpdateEquipmentDisplay();
         }
 
         private int UpdateSelection(int currentlySelected, IList list, int amount)

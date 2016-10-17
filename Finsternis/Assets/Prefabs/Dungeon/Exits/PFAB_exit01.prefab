@@ -50,7 +50,7 @@ GameObject:
   - 65: {fileID: 6517148}
   - 114: {fileID: 11445162}
   m_Layer: 0
-  m_Name: exit01
+  m_Name: PFAB_exit01
   m_TagString: Exit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,11 +279,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  ignoreLayers:
+  layersToIgnore:
     serializedVersion: 2
     m_Bits: 0
-  ignoreColliders: []
-  player: {fileID: 0}
+  collidersToIgnore: []
+  constraints: []
   cameraHolder: {fileID: 0}
   onExitCrossed:
     m_PersistentCalls:
