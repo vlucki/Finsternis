@@ -42,9 +42,6 @@ namespace Finsternis
 
                 storedCode += lastFrameInput;
 
-                print(lastFrameInput);
-                print(storedCode);
-
                 int codeToExecute = 0;
                 bool inputMatchesAny = false;
 
@@ -53,7 +50,7 @@ namespace Finsternis
                     string code = codes[codeToExecute];
                     if (code.Equals(storedCode))
                     {
-                        print("EXECUTING CHEAT CODE N" + codeToExecute + ": " + storedCode);
+                        print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + storedCode);
                         _currentCode = (CheatCodes)codeToExecute;
                         CheckExecutedCommand();
                         return;

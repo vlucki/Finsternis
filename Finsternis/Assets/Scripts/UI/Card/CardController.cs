@@ -9,11 +9,10 @@
     {
         private Text cardNameField;
         private Text cardCostField;
-        private Text cardQuantityField;
+        private Text cardStackSize;
+        private Text newCardLabel;
         private Text attributesNamesField;
         private Text attributesValuesField;
-
-        private Character player;
 
         private CardStack stack;
 
@@ -23,21 +22,10 @@
         {
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();
             this.cardCostField = transform.FindDescendant("CardCostField").GetComponent<Text>();
-            this.cardQuantityField = transform.FindDescendant("CardQtdField").GetComponent<Text>();
+            this.cardStackSize = transform.FindDescendant("CardQtdField").GetComponent<Text>();
+            this.newCardLabel = transform.FindDescendant("NewCardLabel").GetComponent<Text>();
             this.attributesNamesField = transform.FindDescendant("AttributesNamesField").GetComponent<Text>();
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
-        }
-
-        private Entity GetPlayer()
-        {
-            if (!this.player)
-            {
-                var playerGO = GameManager.Instance.Player;
-                if (!playerGO)
-                    return null;
-                this.player = playerGO.Character;
-            }
-            return this.player;
         }
 
         public void LoadStack(CardStack c)
@@ -59,6 +47,8 @@
 
             this.attributesNamesField.text = "";
             this.attributesValuesField.text = "";
+
+            this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
             this.cardNameField.text = c.card.name;
             this.cardCostField.text = c.card.Cost.ToString();
             foreach (var effect in c.card.GetEffects())
@@ -74,17 +64,17 @@
 
         private void UpdateStackSize()
         {
-            this.cardQuantityField.enabled = this.stack.Count > 1;
-            if (this.cardQuantityField.isActiveAndEnabled)
-                this.cardQuantityField.text = "x" + this.stack.Count;
+            this.cardStackSize.enabled = this.stack.Count > 1;
+            if (this.cardStackSize.isActiveAndEnabled)
+                this.cardStackSize.text = "x" + this.stack.Count;
         }
 
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
-            if (GetPlayer() && !this.player.GetComponent<Inventory>().IsEquipped(this.stack.card))
+            if (!GameManager.Instance.Player.GetComponent<Inventory>().IsEquipped(this.stack.card))
             {
-                var attr = this.player.GetAttribute(modifier.AttributeAlias);
+                var attr = GameManager.Instance.Player.Character.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
                     float modifiedValue = CalculateModifiedValue(modifier, attr);

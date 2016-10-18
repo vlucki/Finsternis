@@ -24,27 +24,31 @@
         [ReadOnly]
         private List<CardStack> equippedCards;
 
+        private HashSet<Card> newCards;
+
         private Entity owner;
 
         private int totalEquippedCost;
 
-        private int maxEquippedCost = 10;
+        private int maximumCostAllowed = 10;
 
         public int MaximumCostAllowed
         {
-            get { return this.maxEquippedCost; }
-            set { this.maxEquippedCost = Mathf.Max(0, value); }
+            get { return this.maximumCostAllowed; }
+            set { this.maximumCostAllowed = Mathf.Max(0, value); }
         }
 
         public List<CardStack> EquippedCards { get { return this.equippedCards; } }
         public List<CardStack> UnequippedCards { get { return this.unequippedCards; } }
-
-        public List<Card> GetAllCards()
+        
+        public bool IsCardNew(Card card)
         {
-            HashSet<Card> cards = new HashSet<Card>();
-            this.equippedCards.ForEach(stack => cards.Add(stack.card));
-            this.unequippedCards.ForEach(stack => cards.Add(stack.card));
-            return cards.ToList();
+            return newCards.Contains(card);
+        }
+
+        public void RemoveFromNew(Card card)
+        {
+            newCards.Remove(card);
         }
 
         void Awake()
@@ -52,6 +56,7 @@
             this.owner = GetComponent<Entity>();
             this.unequippedCards = new List<CardStack>();
             this.equippedCards = new List<CardStack>();
+            this.newCards = new HashSet<Card>();
         }
 
         public bool EquipCard(CardStack stack)
@@ -68,9 +73,9 @@
 
         public bool EquipCard(Card card)
         {
-            if (this.totalEquippedCost + card.Cost >= maxEquippedCost)
+            if (this.totalEquippedCost + card.Cost >= maximumCostAllowed)
                 return false;
-
+            
             StackCard(this.equippedCards, card);
 
             this.totalEquippedCost += card.Cost;
@@ -116,22 +121,32 @@
         //return true if the item was successfuly added to the inventory
         public void AddCard(Card card)
         {
-            StackCard(this.unequippedCards, card);
+            if (!StackCard(this.unequippedCards, card))
+                newCards.Add(card);
             onCardAdded.Invoke(card);
         }
 
         public void RemoveCard(Card card)
         {
+            //If the card is not on the unequipped list
             if(!RemoveCardFromList(this.unequippedCards, card))
             {
+                //try removing it from the equipped list
                 if (!RemoveCardFromList(this.equippedCards, card))
                     return;
+
                 onCardUnequipped.Invoke(card);
             }
 
             onCardRemoved.Invoke(card);
         }
 
+        /// <summary>
+        /// Tries to add a card to a pre-existing stack on a given list, creating a new stack if needed.
+        /// </summary>
+        /// <param name="list">List of card stacks.</param>
+        /// <param name="card">Card do be added.</param>
+        /// <returns>True if the card was stacked, false if a new stack was created.</returns>
         private bool StackCard(List<CardStack> list, Card card)
         {
             CardStack stack = GetStack(list, card);
