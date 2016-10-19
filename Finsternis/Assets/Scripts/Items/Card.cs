@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     public class Card : ScriptableObject
     {
         public enum RARITY : byte
@@ -25,7 +25,9 @@ namespace Finsternis
 
         private List<Effect> effects;
 
-        private List<CardName> names;
+        private List<CardName> preNames;
+        private CardName mainName;
+        private List<CardName> postNames;
 
         public RARITY Rarity { get { return (RARITY)this.rarity; } }
 
@@ -33,44 +35,78 @@ namespace Finsternis
 
         public string Description { get { return this.description; } }
 
+        public CardName MainName { get { return this.mainName; } }
+
         public Card()
         {
             this.effects = new List<Effect>();
-            this.names = new List<CardName>();
+            this.preNames = new List<CardName>();
+            this.postNames = new List<CardName>();
         }
         #region Name String Creation
         public string UpdateName()
         {
             this.name = "";
-            int index = -1;
-            names.ForEach(cardName =>
-            {
-                this.name += (GetAdditionalNameString(cardName, ++index) ?? "") + cardName.name + " ";
-            });
+
+            this.name += MergeNames(this.preNames) + this.mainName.name + MergeNames(this.postNames);
+
             this.name = this.name.TrimEnd();
             return this.name;
         }
 
-        private string GetAdditionalNameString(CardName cardName, int index)
+        /// <summary>
+        /// Creates a single string from a list of names.
+        /// </summary>
+        /// <param name="namesList">The list of names to be used.</param>
+        /// <returns>A (hopefully) comprehensible string containing all the names passed.</returns>
+        private string MergeNames(List<CardName> namesList)
         {
+            string merged = "";
+            for (int index = 0; index < namesList.Count; index++)
+            {
+                merged += GetAdditionalNameString(namesList, index);
+                merged += namesList[index].name + " ";
+            }
+            return merged;
+        }
+
+        private string GetAdditionalNameString(List<CardName> names, int index)
+        {
+            CardName cardName = names[index];
             if (index > 0 && cardName.Type != CardName.NameType.MainName)
             {
-                if (names[index-1].Type == cardName.Type)
+                if (names[index - 1].Type == cardName.Type)
                     return "and ";
                 else if (cardName.Type == CardName.NameType.PostName)
                 {
                     return cardName.prepositions[Random.Range(0, cardName.prepositions.Count - 1)] + " ";
                 }
             }
-            return null;
+            return "";
         }
         #endregion
 
         public void AppendName(CardName name)
         {
-            this.names.Add(name);
+            AddName(name);
             this.rarity += name.Rarity;
             AddEffects(name.Effects);
+        }
+
+        private void AddName(CardName name)
+        {
+            switch (name.Type)
+            {
+                case CardName.NameType.PreName:
+                    preNames.Add(name);
+                    break;
+                case CardName.NameType.MainName:
+                    mainName = name;
+                    break;
+                case CardName.NameType.PostName:
+                    postNames.Add(name);
+                    break;
+            }
         }
 
         public void RemoveName(CardName nameToRemove)
@@ -80,14 +116,18 @@ namespace Finsternis
 
         public void RemoveName(string nameStr)
         {
-            if (this.names.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0)
+            bool nameRemoved = this.preNames.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0;
+            nameRemoved |= this.postNames.RemoveAll(cardName => cardName.name.Equals(nameStr)) > 0;
+            if(nameRemoved)
                 RefreshEffects();
         }
 
         private void RefreshEffects()
         {
             this.effects.Clear();
-            this.names.ForEach(cardName => AddEffects(cardName.Effects));
+            AddEffects(this.mainName.Effects);
+            this.preNames.ForEach(cardName => AddEffects(cardName.Effects));
+            this.postNames.ForEach(cardName => AddEffects(cardName.Effects));
         }
 
         public void AddEffect(Effect effectToAdd)
@@ -124,15 +164,15 @@ namespace Finsternis
             var otherCard = o as Card;
             if (!otherCard)
                 return false;
-            if (!otherCard.name.Equals(this.name))
+            if (!otherCard.mainName.Equals(this.mainName))
                 return false;
-            
+
             return true;
         }
 
         public override int GetHashCode()
         {
-            return this.name.GetHashCode();
+            return this.mainName.GetHashCode();
         }
     }
 }

@@ -7,6 +7,7 @@
 
     public class CardController : MonoBehaviour
     {
+        private Image cardImage;
         private Text cardNameField;
         private Text cardCostField;
         private Text cardStackSize;
@@ -20,12 +21,20 @@
 
         void Awake() //don't initialize player on awake because it may have not been spawned yet
         {
+            this.cardImage = transform.FindDescendant("CardImage").GetComponent<Image>();
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();
             this.cardCostField = transform.FindDescendant("CardCostField").GetComponent<Text>();
             this.cardStackSize = transform.FindDescendant("CardQtdField").GetComponent<Text>();
             this.newCardLabel = transform.FindDescendant("NewCardLabel").GetComponent<Text>();
             this.attributesNamesField = transform.FindDescendant("AttributesNamesField").GetComponent<Text>();
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
+        }
+
+        void OnEnable()
+        {
+            if(this.stack)
+                this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+
         }
 
         public void LoadStack(CardStack c)
@@ -47,6 +56,17 @@
 
             this.attributesNamesField.text = "";
             this.attributesValuesField.text = "";
+
+            this.cardImage.sprite = null;
+            var sprites = Resources.LoadAll<Sprite>("SPRITE_equipment_icons");
+            foreach(var sprite in sprites)
+            {
+                if (sprite.name.Contains(this.stack.card.MainName.name.ToLower()))
+                {
+                    this.cardImage.sprite = sprite;
+                    break;
+                }
+            }
 
             this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
             this.cardNameField.text = c.card.name;

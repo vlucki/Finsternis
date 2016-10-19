@@ -11,9 +11,12 @@
     {
         [SerializeField]
         private ConfirmationDialogController confirmationDialog;
-        [SerializeField]
+
+        [SerializeField][ReadOnly]
         private GameObject[] visibleUnequippedCards;
+
         [SerializeField]
+        [ReadOnly]
         private GameObject[] visibleEquippedCards;
 
         private int unequippedSelection = -1;
@@ -23,10 +26,24 @@
 
         private void Awake()
         {
+            Transform unequippedPanel = transform.Find("UnequippedPanel");
+            visibleUnequippedCards = GetCards(unequippedPanel);
+
+            Transform equippedPanel = transform.Find("EquippedPanel");
+            visibleEquippedCards = GetCards(equippedPanel);
             if (!GetInventory())
-            {
                 Log.Error(this, "Could not find player inventory!");
-            }
+        }
+
+        private GameObject[] GetCards(Transform cardsPanel)
+        {
+            return new GameObject[]
+            {
+                cardsPanel.FindDescendant("TopCard").gameObject,
+                cardsPanel.FindDescendant("SelectedCard").gameObject,
+                cardsPanel.FindDescendant("BottomCard").gameObject
+
+            };
         }
 
         private Inventory GetInventory()
