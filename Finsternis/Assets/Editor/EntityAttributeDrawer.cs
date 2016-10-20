@@ -13,6 +13,10 @@ public class EntityAttributeDrawer : PropertyDrawer
         {
             EditorGUI.PropertyField(position, property, GetAttributeLabel(attribute));
         }
+        else
+        {
+            EditorGUI.PropertyField(position, property);
+        }
     }
 
     private GUIContent GetAttributeLabel(EntityAttribute attribute)

@@ -116,10 +116,12 @@
 
             switch (modifier.ChangeType)
             {
-                case AttributeModifier.ModifierType.Absolute:
+                case AttributeModifier.ModifierType.SUM:
+                case AttributeModifier.ModifierType.SUBTRACT:
                     result += modifier.ValueChange;
                     break;
-                case AttributeModifier.ModifierType.Relative:
+                case AttributeModifier.ModifierType.MULTIPLY:
+                case AttributeModifier.ModifierType.DIVIDE:
                     result += attribute.BaseValue * modifier.ValueChange;
                     break;
             }

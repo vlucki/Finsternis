@@ -1,11 +1,11 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityEngine.Events;
     using System;
     using System.Collections.Generic;
 
     [CreateAssetMenu(fileName = "EntityAttribute", menuName = "Finsternis/Attribute")]
+    [Serializable]
     public class EntityAttribute : ScriptableObject
     {
         [Serializable]
@@ -150,7 +150,7 @@
 
         private float ApplyModifier(AttributeModifier modifier, float valueToChange)
         {
-            if (modifier.ChangeType == AttributeModifier.ModifierType.Absolute)
+            if (modifier.ChangeType == AttributeModifier.ModifierType.SUM || modifier.ChangeType == AttributeModifier.ModifierType.SUBTRACT)
                 valueToChange += modifier.ValueChange;
             else
                 valueToChange += modifier.ValueChange * this.baseValue;
