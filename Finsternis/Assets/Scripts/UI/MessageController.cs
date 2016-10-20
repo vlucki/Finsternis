@@ -16,6 +16,8 @@
         private FadeInTransition fadeIn;
         private FadeOutTransition fadeOut;
 
+        public float Duration { get; private set; }
+
         public string Message
         {
             get { return this.messageField.text; }
@@ -50,6 +52,7 @@
 
         public void Show(float duration)
         {
+            this.Duration = duration;
             fadeIn.Begin();
             if (duration > 0)
                 this.CallDelayed(fadeIn.Duration + duration, Hide);

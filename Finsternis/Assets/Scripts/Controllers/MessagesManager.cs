@@ -50,13 +50,14 @@
             {
                 dynamicMessagePool = new List<MessageController>();
             }
-            MessageController ctrl = ShowMessage(this.staticMessagePool, this.staticMessagePrefab, position, message, graphic, duration);
+            MessageController ctrl = ShowMessage(this.dynamicMessagePool, this.dynamicMessagePrefab, position, message, graphic, duration);
             if (force != Vector3.zero)
                 ctrl.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
 
             return ctrl;
         }
-        public MessageController ShowMessage(List<MessageController> messagePool, GameObject prefab, Vector3 position, string message, Sprite graphic, float duration)
+
+        private MessageController ShowMessage(List<MessageController> messagePool, GameObject prefab, Vector3 position, string message, Sprite graphic, float duration)
         {
             MessageController freeMessage = messagePool.Find(msg => !msg.gameObject.activeSelf);
             if (!freeMessage)

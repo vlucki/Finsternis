@@ -13,8 +13,12 @@
 
         [SerializeField]
         protected bool skippable = true;
+
         [SerializeField]
         protected bool beginOnStart = false;
+
+        [SerializeField]
+        private bool enableOnBegin = false;
 
         [Range(0, 5)]
         public float waitBeforeStart = 0f;
@@ -36,6 +40,12 @@
 
         public void Begin()
         {
+            if (this.enableOnBegin)
+            {
+                this.gameObject.SetActive(true);
+                this.Enable();
+            }
+
             if (isActiveAndEnabled)
                 StartCoroutine(_Begin());
             else
