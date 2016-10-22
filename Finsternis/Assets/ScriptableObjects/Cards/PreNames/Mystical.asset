@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 0
   isStackable: 0
-  rarity: 0.35000002
+  rarity: 0.41192955
   effects:
   - valueChange: 0
     modifierType: 0
     affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
       type: 2}
   - valueChange: 0
-    modifierType: 15
+    modifierType: 30
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
   - valueChange: 0

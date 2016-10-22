@@ -13,14 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 0
   isStackable: 1
-  rarity: 1
+  rarity: 0.49553818
   effects:
   - valueChange: 0
-    modifierType: 15
+    modifierType: 30
     affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
       type: 2}
   - valueChange: 0
-    modifierType: 5
+    modifierType: 10
     affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
       type: 2}
   - valueChange: 0
@@ -36,11 +36,11 @@ MonoBehaviour:
     affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
       type: 2}
   - valueChange: 0
-    modifierType: 15
+    modifierType: 0
     affectedAttribute: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16,
       type: 2}
   - valueChange: 0
-    modifierType: 10
+    modifierType: 20
     affectedAttribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14,
       type: 2}
   prepositions: []

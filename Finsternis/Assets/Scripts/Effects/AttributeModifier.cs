@@ -10,9 +10,9 @@
         public enum ModifierType
         {
             SUM = 0,
-            SUBTRACT = 5,
-            DIVIDE = 10,
-            MULTIPLY = 15
+            SUBTRACT = 10,
+            DIVIDE = 20,
+            MULTIPLY = 30
         }
         
         [SerializeField][ReadOnly]
@@ -33,9 +33,12 @@
                 return this.affectedAttribute ? this.affectedAttribute.Alias : null;
             } }
 
+        public EntityAttribute AffectedAttribute { get { return this.affectedAttribute; } }
+
         public float ValueChange
         {
             get { return this.valueChange; }
+            set { this.valueChange = value; }
         }
 
         public AttributeModifier(EntityAttribute affectedAttribute, float valueChange, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
@@ -119,16 +122,19 @@
         public override object Clone()
         {
             AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.valueChange, this.TypeOfModifier, this.Name);
-            constraints.ForEach(
-                constraint =>
-                {
-                    ICloneable cloneable = constraint as ICloneable;
-                    if (cloneable != null)
-                        clone.AddConstraint((IConstraint)(cloneable.Clone())); //try to make a deep copy of the constraint list
-                else
-                        clone.AddConstraint(constraint); //fallback, if the ICloneable interface is not implemented by the constraint
+            if (this.constraints != null)
+            {
+                constraints.ForEach(
+                    constraint =>
+                    {
+                        ICloneable cloneable = constraint as ICloneable;
+                        if (cloneable != null)
+                            clone.AddConstraint((IConstraint)(cloneable.Clone())); //try to make a deep copy of the constraint list
+                    else
+                            clone.AddConstraint(constraint); //fallback, if the ICloneable interface is not implemented by the constraint
                 }
-                );
+                    );
+            }
             return clone;
         }
     }

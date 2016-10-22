@@ -26,6 +26,9 @@ namespace Finsternis
         private static readonly string[] codes = {"ISEXIT", "ISDIE", "ISWIN", "ISNEXT", "ISPURGE", "ISCARD", "ISXCARDS%n", "IDCLIP"};
         private string lastFrameInput;
 
+        [SerializeField]
+        private CardsManager cardsManager;
+
         void Update()
         {
             if (SceneManager.GetActiveScene().name.Equals("DungeonGeneration"))
@@ -96,14 +99,14 @@ namespace Finsternis
 
         private void KillPlayer()
         {
-            print("Death comes to all...");
+            print("The easy way out, huh?");
             if (GameManager.Instance.Player)
             {
                 GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
             }
             else
             {
-                Log.Warn(this, "except to a non-existing player.");
+                Log.Warn(this, "or so it would be if there existed a player to die.");
             }
         }
 
@@ -118,14 +121,43 @@ namespace Finsternis
 
         private void SummonCard(int amount = 1)
         {
-            print("Pick a card... any card");
+            switch (amount)
+            {
+                case 1:
+                    print("Pick a card... any card");
+                    break;
+                case 2:
+                    print("Deuce!");
+                    break;
+                case 3:
+                    print("Three-of-a-kind");
+                    break;
+                case 4:
+                    print("Four-of-a-kind");
+                    break;
+                case 5:
+                    print("FULL HOUSE");
+                    break;
+                case 6:
+                    print("We ain't playing poker anymore, are we?");
+                    break;
+                case 7:
+                    print("Mulligan!");
+                    break;
+                case 8:
+                    print("Well that is just getting ridiculous...");
+                    break;
+                case 9:
+                    print("It's over 9...!");
+                    break;
+            }
             if (GameManager.Instance.Player)
             {
-                GameObject.FindObjectOfType<CardsManager>().GivePlayerCard(amount);
+                this.cardsManager.GivePlayerCard(amount);
             }
             else
             {
-                Log.Warn(this, "is what I would ask the player, if there was one....");
+                Log.Warn(this, "is what I would say to the player, if there was one....");
             }
         }
 

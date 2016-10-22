@@ -5,6 +5,7 @@
     using System;
     using Random = UnityEngine.Random;
     using System.Linq;
+    using UnityQuery;
 
     [Serializable]
     public class CardFactory
@@ -42,7 +43,7 @@
 
         public CardFactory(List<CardName> names)
         {
-            this.names = new NameList[3];
+            this.names = new NameList[3] { new NameList(), new NameList(), new NameList() };
             names.ForEach(name =>
             {
                 this.names[(int)name.Type].Add(name);
@@ -103,19 +104,17 @@
 
         private CardName GetRandomName(List<CardName> namesBeingUsed, List<CardName> availableNames)
         {
-            CardName name = null;
-            int tries = 0;
-            HashSet<CardName> triedNames = new HashSet<CardName>(namesBeingUsed);
-            do
-            {
-                if (name)
-                    triedNames.Add(name);
+            float rarityThreshold = Random.value;
+            var preferableNames = availableNames.FindAll(
+                n => n.Rarity < rarityThreshold && (n.IsStackable || !namesBeingUsed.Contains(n))
+                );
 
-                name = availableNames[UnityEngine.Random.Range(0, availableNames.Count - 1)];
-
-            } while (++tries < MaxNameSelectionTries
-                    && !triedNames.Contains(name));
-            return name;
+            if (preferableNames == null || preferableNames.Count == 0)
+                return availableNames.GetRandom(Random.Range);
+            if (preferableNames.Count == 1)
+                return preferableNames[0];
+            else
+                return preferableNames.GetRandom(Random.Range);
         }
         
     }

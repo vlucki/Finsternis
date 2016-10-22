@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using UnityQuery;
     using System;
+    using Random = UnityEngine.Random;
 
     [CreateAssetMenu(fileName = "Card Name", menuName = "Finsternis/Cards/Card Name")]
     public class CardName : ScriptableObject
@@ -15,7 +16,7 @@
         private NameType nameType;
 
         [SerializeField]
-        private bool isStackable = true;
+        private bool isStackable = false;
 
         [SerializeField]
         [ReadOnly]
@@ -111,33 +112,67 @@
 
         public override int GetHashCode()
         {
-            return Mathf.RoundToInt((this.name.GetHashCode() * 73 + this.Type.GetHashCode() * 919));
+            return Mathf.RoundToInt((this.name.GetHashCode() * 73 + this.Type.GetHashCode() * 919 + this.isStackable.GetHashCode()));
         }
 
 #if UNITY_EDITOR
         void OnValidate()
         {
-            float rarity = 0;
+            Random.InitState(GetHashCode());
+            foreach(var effect in this.effects)
+            {
+                float min = 1f;
+                float max = 10f;
+                if (effect.TypeOfModifier > AttributeModifier.ModifierType.SUBTRACT)
+                {
+                    min = 1.1f;
+                    max = 5;
+                }
+                float value = Random.Range(min, max) * 100;
+                effect.ValueChange = (int)value / 100;
+                value %= 100;
+                value = (float)(5 * Mathf.RoundToInt(value / 5)) / 100f;
+                if (this.isStackable)
+                    value /= 2;
+                effect.ValueChange += value;
+                effect.ValueChange = (float)Math.Round(effect.ValueChange, 2, MidpointRounding.AwayFromZero);
+                
+            }
+
+            float rarity = 0.01f;
+            float multiplier = 1;
             switch (this.Type)
             {
                 case NameType.PreName:
-                    rarity = 0.1f;
+                    rarity = 0.125f;
+                    multiplier = 1.01f;
                     break;
                 case NameType.PostName:
-                    rarity = 0.15f;
+                    rarity = 0.3f;
+                    multiplier = 1.02f;
                     break;
                 case NameType.MainName:
                     this.isStackable = false;
                     break;
             }
-            
+            float[] effectsOfEachType = new float[4];
             foreach (var effect in this.effects)
-                rarity *= (1 + ComputeRarity(effect));
+            {
+                effectsOfEachType[(int)(effect.TypeOfModifier)/10]++;
+                rarity *= (1 + ComputeRarity(effect)) * multiplier;
+            }
+
+            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10] / effects.Count * 0.2f;
+            rarity -= effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10] / effects.Count * 0.2f;
+            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10] / effects.Count * 0.3f;
+            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10] / effects.Count * 0.3f;
 
             if (this.isStackable)
                 rarity *= 1.5f;
 
             this.rarity = Mathf.Abs(rarity);
+
+            
         }
 #endif
     }

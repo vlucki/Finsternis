@@ -7,9 +7,6 @@
     public class CardsManager : MonoBehaviour
     {
         [SerializeField]
-        private CardGenerationParameters parameters;
-
-        [SerializeField]
         private List<CardName> cardNames;
 
         private Inventory playerInventory;
@@ -26,16 +23,23 @@
             }
         }
 
-        void Awake()
+        public void Start()
         {
             this.cardFactory = new CardFactory(this.cardNames);
         }
 
         public void GivePlayerCard(int quantity)
         {
-            if (!this.parameters)
+            if (this.cardNames == null || this.cardNames.Count == 0)
             {
-                Log.Error(this, "No parameters attatched to manager. Aborting card generation.");
+                Log.Error(this, "No names attatched to manager. Aborting card generation.");
+                return;
+            }
+
+            if(this.cardFactory == null)
+            {
+                Log.Error(this, "No card factory found. Aborting card generation.");
+                return;
             }
             while((--quantity) >= 0)
                 PlayerInventory.AddCard(this.cardFactory.MakeCard());

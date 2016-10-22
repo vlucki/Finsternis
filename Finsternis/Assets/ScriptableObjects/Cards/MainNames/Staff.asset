@@ -9,19 +9,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51f99fc1fff2c344a8c7265d0ccab11a, type: 3}
-  m_Name: Curious
+  m_Name: Staff
   m_EditorClassIdentifier: 
-  nameType: 0
+  nameType: 1
   isStackable: 0
-  rarity: 0.41449112
+  rarity: 0.21242297
   effects:
-  - valueChange: 0
+  - valueChange: 3.85
+    modifierType: 0
+    affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
+      type: 2}
+  - valueChange: 5.75
+    modifierType: 0
+    affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
+      type: 2}
+  - valueChange: 7.65
     modifierType: 0
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
-  - valueChange: 0
-    modifierType: 30
-    affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
-      type: 2}
   prepositions: []
-  flavourText: A peculiar
+  flavourText: 
