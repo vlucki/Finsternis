@@ -3,7 +3,7 @@
     using System;
     using UnityEngine;
 
-    [System.Serializable]
+    [Serializable]
     public class AttributeModifier : Effect
     {
         [Serializable]
@@ -15,17 +15,23 @@
             MULTIPLY = 15
         }
         
+        [SerializeField][ReadOnly]
         private float valueChange;
 
+        [Space(5)]
         [SerializeField]
         private ModifierType modifierType;
 
+        [Space(1)]
         [SerializeField]
         private EntityAttribute affectedAttribute;
 
-        public ModifierType ChangeType { get { return this.modifierType; } }
-
-        public string AttributeAlias { get { return this.affectedAttribute.Alias; } }
+        public ModifierType TypeOfModifier { get { return this.modifierType; } }
+        
+        public string AttributeAlias {
+            get {
+                return this.affectedAttribute ? this.affectedAttribute.Alias : null;
+            } }
 
         public float ValueChange
         {
@@ -36,26 +42,7 @@
         {
             this.affectedAttribute = affectedAttribute;
             this.modifierType = modifierType;
-            SetValue(valueChange);
-        }
-
-        private void SetValue(float valueChange)
-        {
-            switch (this.modifierType)
-            {
-                case ModifierType.SUM:
-                    this.valueChange = Mathf.Max(0, valueChange);
-                    break;
-                case ModifierType.SUBTRACT:
-                    this.valueChange = Mathf.Min(0, valueChange);
-                    break;
-                case ModifierType.DIVIDE:
-                    this.valueChange = Mathf.Min(1, Mathf.Abs(valueChange));
-                    break;
-                case ModifierType.MULTIPLY:
-                    this.valueChange = Mathf.Max(1, valueChange);
-                    break;
-            }
+            this.valueChange = valueChange;
         }
 
         public override string ToString()
@@ -70,10 +57,22 @@
         public string StringfyValue()
         {
             string str = "";
-            if (ChangeType == ModifierType.MULTIPLY || ChangeType == ModifierType.DIVIDE)
-                str += "x";
-            else if (this.valueChange > 0)
-                str += "+";
+
+            switch (this.modifierType)
+            {
+                case ModifierType.SUM:
+                    str += "+";
+                    break;
+                case ModifierType.SUBTRACT:
+                    str += "-";
+                    break;
+                case ModifierType.DIVIDE:
+                    str += "/";
+                    break;
+                case ModifierType.MULTIPLY:
+                    str += "x";
+                    break;
+            }
 
             return str + valueChange.ToString("n2");
         }
@@ -95,7 +94,7 @@
                     result = this.AttributeAlias.CompareTo(otherModifier.AttributeAlias);
                     if (result == 0)
                     {
-                        result = this.ChangeType.CompareTo(otherModifier.ChangeType);
+                        result = this.TypeOfModifier.CompareTo(otherModifier.TypeOfModifier);
                     }
                 }
             }
@@ -119,7 +118,7 @@
 
         public override object Clone()
         {
-            AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.valueChange, this.ChangeType, this.Name);
+            AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.valueChange, this.TypeOfModifier, this.Name);
             constraints.ForEach(
                 constraint =>
                 {

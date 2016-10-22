@@ -10,6 +10,13 @@ public abstract class Effect : IComparable<Effect>, ICloneable
 
     public string Name { get; protected set; }
 
+    public int ConstraintsCount {
+        get
+        {
+            return (this.constraints != null ? this.constraints.Count :  0);
+        }
+    }
+
     public Effect(string name = null)
     {
         this.constraints = new List<IConstraint>();

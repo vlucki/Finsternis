@@ -620,6 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8216f489dd72c4bbc31c33bac271e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parameters: {fileID: 11400000, guid: 35054544c621e6d428ebf0d62fed05cc, type: 2}
 --- !u!1 &108217379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,6 +2888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 1
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -2927,6 +2929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 1
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -5366,6 +5369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -5405,6 +5409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -6672,6 +6677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -6711,6 +6717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -6750,6 +6757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -6790,6 +6798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -7104,6 +7113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -7144,6 +7154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -7878,6 +7889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 1
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -7918,6 +7930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 1
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:
@@ -8157,6 +8170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skippable: 0
   beginOnStart: 0
+  enableOnBegin: 0
   waitBeforeStart: 0
   waitBeforeEnding: 0
   OnTransitionStarted:

@@ -218,10 +218,10 @@
         private void UpdateEquippedSelection(Card equippedCard)
         { 
             //if the newly equipped card wasn't already selected, select it
-            var unequippedCards = this.inventory.UnequippedCards;
             var equippedCards = this.inventory.EquippedCards;
 
-            if (equippedCard != equippedCards[this.equipmentSelection].card)
+            if (this.equipmentSelection >= equippedCards.Count ||
+                equippedCard != equippedCards[this.equipmentSelection].card)
             {
                 this.equipmentSelection = this.inventory.EquippedCards.IndexOf(
                            this.inventory.GetStack(this.inventory.EquippedCards, equippedCard));

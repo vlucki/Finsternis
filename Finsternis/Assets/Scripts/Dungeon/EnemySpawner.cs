@@ -40,7 +40,7 @@
             if (enemies != null && enemies.Count > 0)
             {
                 int roomsToSpawn = dungeon.Rooms.Count - 1; //subtract 1 for the starting room
-                bool everyRoomFilled = Loop.Do(
+                Loop.Do(
                     () => (--roomsToSpawn) > 0,
                     () => enemiesSpawned += SpawnEnemies(dungeon, goals)
                     );

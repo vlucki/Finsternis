@@ -2,58 +2,93 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
+    using UnityQuery;
+    using System;
 
+    [CreateAssetMenu(fileName = "Card Name", menuName = "Finsternis/Cards/Card Name")]
     public class CardName : ScriptableObject
     {
 
         public enum NameType { PreName = 0, MainName = 1, PostName = 2 }
 
-        public bool IsStackable { get; private set; }
+        [SerializeField]
+        private NameType nameType;
 
-        private List<Effect> effects;
+        [SerializeField]
+        private bool isStackable = true;
 
-        public float Rarity { get; private set; }
+        [SerializeField]
+        [ReadOnly]
+        private float rarity;
 
-        public List<string> prepositions;
+        [SerializeField]
+        private List<AttributeModifier> effects;
 
-        public List<Effect> Effects { get { return effects; } }
+        [SerializeField]
+        private List<string> prepositions;
 
-        public NameType Type { get; private set; }
+        [SerializeField]
+        private string flavourText;
 
-        public void Init(string name, NameType type, bool stackable = true)
+        public List<AttributeModifier> Effects { get { return this.effects; } }
+
+        public float Rarity { get { return this.rarity; } }
+
+        public bool IsStackable { get { return this.isStackable; } }
+
+        public NameType Type { get { return this.nameType; } }
+
+        public string FlavourText { get { return this.flavourText; } }
+
+        public int PrepositionsCount { get { return this.prepositions.Count; } }
+
+        public string GetPreposition(int index)
         {
-            this.name = name;
-            this.Type = type;
-            this.IsStackable = stackable;
-            this.effects = new List<Effect>();
-            this.prepositions = new List<string>();
-        }
-
-        public void AddEffect(Effect effect)
-        {
-            UnityEngine.Assertions.Assert.IsNotNull(this.effects);
-
-            effects.Add(effect);
-            Rarity += ComputeRarity(effect);
+            return this.prepositions[index];
         }
 
         private float ComputeRarity(Effect effect)
         {
-            float value = 1; //start at maximum
+            //float value = 0.2f / Mathf.Max(1, effect.ConstraintsCount);
+            //value = ComputeConstraints(value, effect);
+            //value += ComputeAttributeModifiers( effect);
+
+            return ComputeAttributeModifiers(effect);
+        }
+
+        private float ComputeAttributeModifiers(Effect effect)
+        {
+            AttributeModifier modifier = effect as AttributeModifier;
+            float value = 0;
+            if (modifier && !modifier.AttributeAlias.IsNullOrEmpty())
+            {
+                switch (modifier.TypeOfModifier)
+                {
+                    case AttributeModifier.ModifierType.SUM:
+                        value = 0.075f;
+                        break;
+                    case AttributeModifier.ModifierType.SUBTRACT:
+                        value = -0.075f;
+                        break;
+                    case AttributeModifier.ModifierType.MULTIPLY:
+                        value = 0.2f;
+                        break;
+                    case AttributeModifier.ModifierType.DIVIDE:
+                        value = -0.2f;
+                        break;
+                }
+            }
+            return value;
+        }
+
+        private float ComputeConstraints(float value, Effect effect)
+        {
             var timeConstraint = effect.GetConstraint<TimeConstraint>();
             if (timeConstraint != null)
             {
-                value -= Mathf.Clamp(0.5f / timeConstraint.Duration, 0, 0.5f);
+                value *= 0.6f - Mathf.Clamp(0.5f / timeConstraint.Duration, 0.1f, 0.5f);
             }
-
-            AttributeModifier modifier = effect as AttributeModifier;
-
-            if (modifier)
-            {
-                value += (modifier.ValueChange / 100); //negative modifiers decrease the rarity
-            }
-
-            return Mathf.Clamp01(value);
+            return value;
         }
 
         public override bool Equals(object o)
@@ -71,15 +106,39 @@
             if (!name.Type.Equals(this.Type))
                 return false;
 
-            if (name.Rarity != this.Rarity)
-                return false;
-
             return true;
         }
 
         public override int GetHashCode()
         {
-            return Mathf.RoundToInt((1 + this.Rarity) * (this.name.GetHashCode() + this.Type.GetHashCode()));
+            return Mathf.RoundToInt((this.name.GetHashCode() * 73 + this.Type.GetHashCode() * 919));
         }
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            float rarity = 0;
+            switch (this.Type)
+            {
+                case NameType.PreName:
+                    rarity = 0.1f;
+                    break;
+                case NameType.PostName:
+                    rarity = 0.15f;
+                    break;
+                case NameType.MainName:
+                    this.isStackable = false;
+                    break;
+            }
+            
+            foreach (var effect in this.effects)
+                rarity *= (1 + ComputeRarity(effect));
+
+            if (this.isStackable)
+                rarity *= 1.5f;
+
+            this.rarity = Mathf.Abs(rarity);
+        }
+#endif
     }
 }

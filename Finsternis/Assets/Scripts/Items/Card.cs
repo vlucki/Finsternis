@@ -14,10 +14,10 @@
             godlike = 8  //1000
         };
 
-        [SerializeField]
+        [SerializeField][ReadOnly]
         private float rarity;
 
-        [SerializeField]
+        [SerializeField][ReadOnly]
         private int cost;
 
         [SerializeField]
@@ -29,7 +29,7 @@
         private CardName mainName;
         private List<CardName> postNames;
 
-        public RARITY Rarity { get { return (RARITY)this.rarity; } }
+        public RARITY Rarity { get { return (RARITY)(Mathf.RoundToInt(this.rarity * (int)RARITY.godlike)); } }
 
         public int Cost { get { return this.cost; } }
 
@@ -79,7 +79,7 @@
                     return "and ";
                 else if (cardName.Type == CardName.NameType.PostName)
                 {
-                    return cardName.prepositions[Random.Range(0, cardName.prepositions.Count - 1)] + " ";
+                    return cardName.GetPreposition(Random.Range(0, cardName.PrepositionsCount - 1)) + " ";
                 }
             }
             return "";
@@ -139,7 +139,7 @@
             }
         }
 
-        public void AddEffects(IEnumerable<Effect> effects)
+        public void AddEffects(IEnumerable<AttributeModifier> effects)
         {
             foreach (Effect e in effects)
                 AddEffect(e);

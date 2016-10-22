@@ -150,10 +150,21 @@
 
         private float ApplyModifier(AttributeModifier modifier, float valueToChange)
         {
-            if (modifier.ChangeType == AttributeModifier.ModifierType.SUM || modifier.ChangeType == AttributeModifier.ModifierType.SUBTRACT)
-                valueToChange += modifier.ValueChange;
-            else
-                valueToChange += modifier.ValueChange * this.baseValue;
+            switch (modifier.TypeOfModifier)
+            {
+                case AttributeModifier.ModifierType.SUM:
+                    valueToChange += modifier.ValueChange;
+                    break;
+                case AttributeModifier.ModifierType.SUBTRACT:
+                    valueToChange -= modifier.ValueChange;
+                    break;
+                case AttributeModifier.ModifierType.DIVIDE:
+                    valueToChange += this.baseValue / modifier.ValueChange;
+                    break;
+                case AttributeModifier.ModifierType.MULTIPLY:
+                    valueToChange += this.baseValue / modifier.ValueChange;
+                    break;
+            }
 
             return valueToChange;
         }
