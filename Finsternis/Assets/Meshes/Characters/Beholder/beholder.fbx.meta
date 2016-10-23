@@ -67,10 +67,10 @@ ModelImporter:
     3300000: polySurface1
     4300000: polySurface1
     4300002: polySurface2
-    7400000: A_beholder_idle
-    7400002: A_beholder_atk
-    7400004: A_beholder_hit01
-    7400006: A_beholder_death
+    7400000: A_idle01_beholder
+    7400002: A_atk_beholder
+    7400004: A_hit01_beholder
+    7400006: A_death_beholder
     9500000: //RootNode
     13700000: polySurface2
   materials:
@@ -95,7 +95,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_beholder_idle
+      name: A_idle01_beholder
       takeName: Take 001
       firstFrame: 1
       lastFrame: 21
@@ -181,7 +181,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: A_beholder_atk
+      name: A_atk_beholder
       takeName: Take 001
       firstFrame: 24
       lastFrame: 40
@@ -267,7 +267,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: A_beholder_hit01
+      name: A_hit01_beholder
       takeName: Take 001
       firstFrame: 41
       lastFrame: 60
@@ -353,7 +353,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: A_beholder_death
+      name: A_death_beholder
       takeName: Take 001
       firstFrame: 63
       lastFrame: 80

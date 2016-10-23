@@ -368,15 +368,15 @@ GameObject:
   - 54: {fileID: 54000011812949706}
   - 136: {fileID: 136000012293342078}
   - 114: {fileID: 114000010772638696}
-  - 114: {fileID: 114000014202934784}
   - 114: {fileID: 114000011170435340}
+  - 114: {fileID: 114000014202934784}
   - 114: {fileID: 114000013109680362}
+  - 114: {fileID: 114000010093465424}
   - 114: {fileID: 114000013232726630}
   - 114: {fileID: 114000010186636824}
   - 114: {fileID: 114000012510893494}
   - 114: {fileID: 114000014005836754}
   - 114: {fileID: 114000011464325068}
-  - 114: {fileID: 114000010093465424}
   m_Layer: 9
   m_Name: PFAB_Balthazar
   m_TagString: Player
@@ -1372,7 +1372,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!95 &95000010390180250
 Animator:
   serializedVersion: 3
@@ -1690,18 +1690,7 @@ MonoBehaviour:
       PublicKeyToken=null
   onSkillCast:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ExecuteSkill
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
+      m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:

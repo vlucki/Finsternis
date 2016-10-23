@@ -1,0 +1,979 @@
+fileFormatVersion: 2
+guid: 65dbd64e65456f5438e0f2a5df3ff48f
+timeCreated: 1477214463
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: abs
+    100004: chest
+    100006: l_ankle
+    100008: l_ankleControl
+    100010: l_arm_IK
+    100012: l_armManip
+    100014: l_armPVManip
+    100016: l_ballControl
+    100018: l_elbow
+    100020: l_fingers
+    100022: l_footManip
+    100024: l_heelControl
+    100026: l_innershoulder
+    100028: l_knee
+    100030: l_leg_IK
+    100032: l_legtop
+    100034: l_shoulder
+    100036: l_thumb
+    100038: l_thumbtop
+    100040: l_toeControl
+    100042: l_toefingers
+    100044: l_topfingers
+    100046: l_toptoefinger
+    100048: l_wrist
+    100050: MasterNode
+    100052: neck
+    100054: pelvis
+    100056: r_ankle
+    100058: r_ankleControl
+    100060: r_arm_IK
+    100062: r_armManip
+    100064: r_armPVManip
+    100066: r_ballControl
+    100068: r_elbow
+    100070: r_fingers
+    100072: r_footManip
+    100074: r_heelControl
+    100076: r_innershoulder
+    100078: r_knee
+    100080: r_leg_IK
+    100082: r_legtop
+    100084: r_shoulder
+    100086: r_thumb
+    100088: r_thumbtop
+    100090: r_toeControl
+    100092: r_toefingers
+    100094: r_topfingers
+    100096: r_toptoefinger
+    100098: r_wrist
+    100100: Sieg_Polygono
+    100102: top_head
+    400000: //RootNode
+    400002: abs
+    400004: chest
+    400006: l_ankle
+    400008: l_ankleControl
+    400010: l_arm_IK
+    400012: l_armManip
+    400014: l_armPVManip
+    400016: l_ballControl
+    400018: l_elbow
+    400020: l_fingers
+    400022: l_footManip
+    400024: l_heelControl
+    400026: l_innershoulder
+    400028: l_knee
+    400030: l_leg_IK
+    400032: l_legtop
+    400034: l_shoulder
+    400036: l_thumb
+    400038: l_thumbtop
+    400040: l_toeControl
+    400042: l_toefingers
+    400044: l_topfingers
+    400046: l_toptoefinger
+    400048: l_wrist
+    400050: MasterNode
+    400052: neck
+    400054: pelvis
+    400056: r_ankle
+    400058: r_ankleControl
+    400060: r_arm_IK
+    400062: r_armManip
+    400064: r_armPVManip
+    400066: r_ballControl
+    400068: r_elbow
+    400070: r_fingers
+    400072: r_footManip
+    400074: r_heelControl
+    400076: r_innershoulder
+    400078: r_knee
+    400080: r_leg_IK
+    400082: r_legtop
+    400084: r_shoulder
+    400086: r_thumb
+    400088: r_thumbtop
+    400090: r_toeControl
+    400092: r_toefingers
+    400094: r_topfingers
+    400096: r_toptoefinger
+    400098: r_wrist
+    400100: Sieg_Polygono
+    400102: top_head
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Sieg_Polygono
+    7400000: A_idle01_siegfried
+    7400002: A_walk_siegfried
+    7400004: A_atk01_punch_siegfried
+    7400006: A_death_siegfried
+    7400008: A_atk_punch_begin_siegfried
+    7400010: A_atk_punch_execute_siegfried
+    7400012: A_atk_punch_finish_siegfried
+    9500000: //RootNode
+    13700000: Sieg_Polygono
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_idle01_siegfried
+      takeName: Take 001
+      firstFrame: 2
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_walk_siegfried
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 114
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_death_siegfried
+      takeName: Take 001
+      firstFrame: 121
+      lastFrame: 167
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_punch_begin_siegfried
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_punch_execute_siegfried
+      takeName: Take 001
+      firstFrame: 50
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_punch_finish_siegfried
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 73
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: MasterNode
+        weight: 1
+      - path: MasterNode/l_arm_IK
+        weight: 1
+      - path: MasterNode/l_armManip
+        weight: 1
+      - path: MasterNode/l_armPVManip
+        weight: 1
+      - path: MasterNode/l_footManip
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+        weight: 1
+      - path: MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+        weight: 1
+      - path: MasterNode/l_leg_IK
+        weight: 1
+      - path: MasterNode/pelvis
+        weight: 1
+      - path: MasterNode/pelvis/abs
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/neck/top_head
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
+        weight: 1
+      - path: MasterNode/r_arm_IK
+        weight: 1
+      - path: MasterNode/r_armManip
+        weight: 1
+      - path: MasterNode/r_armPVManip
+        weight: 1
+      - path: MasterNode/r_footManip
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
+        weight: 1
+      - path: MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
+        weight: 1
+      - path: MasterNode/r_leg_IK
+        weight: 1
+      - path: Sieg_Polygono
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

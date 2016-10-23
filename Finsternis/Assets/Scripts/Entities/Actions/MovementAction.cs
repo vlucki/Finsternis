@@ -19,7 +19,7 @@
         [SerializeField]
         [Range(0f, 30f)]
         [Tooltip("The max velocity granted by Speed attribute")]
-        private float speedMultiplier = 10f;
+        private float speedMultiplier = 3f;
 
         [Range(1, 10)]
         [SerializeField]

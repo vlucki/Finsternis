@@ -99,15 +99,15 @@ ModelImporter:
     400090: torso
     4300000: corpo
     7400000: A_idle01_balthazar
-    7400002: A_atk_fireball_start_balthazar
+    7400002: A_atk_fireball_begin_balthazar
     7400004: A_walk_balthazar
     7400006: A_hit01_balthazar
     7400008: A_death01_balthazar
-    7400010: A_teleport_start_balthazar
-    7400012: A_atk_fireball_end_balthazar
-    7400014: A_atk_fireball_summon_balthazar
-    7400016: A_teleport_execute_balthazar
-    7400018: A_teleport_end_balthazar
+    7400010: A_atk_teleport_begin_balthazar
+    7400012: A_atk_fireball_finish_balthazar
+    7400014: A_atk_fireball_execute_balthazar
+    7400016: A_atk_teleport_execute_balthazar
+    7400018: A_atk_teleport_finish_balthazar
     9500000: //RootNode
     13700000: corpo
   materials:
@@ -252,7 +252,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_atk_fireball_start_balthazar
+      name: A_atk_fireball_begin_balthazar
       takeName: Take 001
       firstFrame: 65
       lastFrame: 110
@@ -732,7 +732,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_teleport_start_balthazar
+      name: A_atk_teleport_begin_balthazar
       takeName: Take 001
       firstFrame: 260
       lastFrame: 265
@@ -852,7 +852,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_atk_fireball_end_balthazar
+      name: A_atk_fireball_finish_balthazar
       takeName: Take 001
       firstFrame: 96
       lastFrame: 125
@@ -972,7 +972,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_atk_fireball_summon_balthazar
+      name: A_atk_fireball_execute_balthazar
       takeName: Take 001
       firstFrame: 95
       lastFrame: 110
@@ -1092,7 +1092,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_teleport_execute_balthazar
+      name: A_atk_teleport_execute_balthazar
       takeName: Take 001
       firstFrame: 265
       lastFrame: 270
@@ -1212,7 +1212,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 2
     - serializedVersion: 16
-      name: A_teleport_end_balthazar
+      name: A_atk_teleport_finish_balthazar
       takeName: Take 001
       firstFrame: 270
       lastFrame: 280

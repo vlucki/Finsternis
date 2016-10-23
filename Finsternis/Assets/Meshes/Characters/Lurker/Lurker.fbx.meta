@@ -60,11 +60,11 @@ ModelImporter:
     400050: r_shoulder
     400052: r_wrist
     4300000: corpo_mob
-    7400000: A_enemy01_lurker_atk
-    7400002: A_enemy01_lurker_idle
-    7400004: A_enemy01_lurker_walk
-    7400006: A_enemy01_lurker_hit01
-    7400008: A_enemy01_lurker_death
+    7400000: A_atk_enemy01_lurker
+    7400002: A_idle_enemy01_lurker
+    7400004: A_walk_enemy01_lurker
+    7400006: A_hit01_enemy01_lurker
+    7400008: A_death_enemy01_lurker
     9500000: //RootNode
     13700000: corpo_mob
   materials:
@@ -89,7 +89,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_enemy01_lurker_idle
+      name: A_idle_enemy01_lurker
       takeName: Take 001
       firstFrame: 0
       lastFrame: 56
@@ -172,7 +172,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_enemy01_lurker_atk
+      name: A_atk_enemy01_lurker
       takeName: Take 001
       firstFrame: 60
       lastFrame: 100
@@ -255,7 +255,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_enemy01_lurker_walk
+      name: A_walk_enemy01_lurker
       takeName: Take 001
       firstFrame: 105
       lastFrame: 135
@@ -338,7 +338,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 110
     - serializedVersion: 16
-      name: A_enemy01_lurker_hit01
+      name: A_hit01_enemy01_lurker
       takeName: Take 001
       firstFrame: 140
       lastFrame: 169
@@ -421,7 +421,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_enemy01_lurker_death
+      name: A_death_enemy01_lurker
       takeName: Take 001
       firstFrame: 170
       lastFrame: 210
