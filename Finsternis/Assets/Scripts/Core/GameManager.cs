@@ -41,7 +41,7 @@
 
         [SerializeField]
         private DungeonManager dungeonManager;
-
+        
         [SerializeField][SceneSelection]
         private string mainGameName = "DungeonGeneration";
 
@@ -146,6 +146,7 @@
         public void SpawnPlayer(GameObject playerPrefab, Vector3 position)
         {
             this.player = ((GameObject)Instantiate(playerPrefab, position, Quaternion.identity)).GetComponent<CharController>();
+            this.player.gameObject.SetActive(true);
             this.player.Character.onDeath.AddListener(() => {
                 this.CallDelayed(2, GameOver);
             });

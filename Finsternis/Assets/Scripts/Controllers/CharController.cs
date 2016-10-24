@@ -58,6 +58,7 @@ namespace Finsternis
 
         public bool ActionsLocked { get { return this.actionsLocked; } }
         public Character Character { get { return character; } }
+        public Skill[] EquippedSkills { get { return this.equippedSkills; } }
 
         static CharController()
         {

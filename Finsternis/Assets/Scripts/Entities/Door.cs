@@ -37,7 +37,6 @@
 
                 dir = (transform.forward.Angle(interactionSource) < 90) ? -1 : 1;
             }
-            Log.Info(this, "Animator = {0}", anim);
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");
             var colliders = this.GetComponentsInParentsOrChildren<Collider>();

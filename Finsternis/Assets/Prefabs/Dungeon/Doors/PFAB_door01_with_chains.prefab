@@ -51,7 +51,7 @@ GameObject:
   - 114: {fileID: 114000013425987296}
   - 114: {fileID: 114000012588667658}
   m_Layer: 12
-  m_Name: door01
+  m_Name: PFAB_door01_with_chains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4412,6 +4412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageToDisplay: Press "E" to open
+  messageGraphic: {fileID: 0}
+  duration: 0
 --- !u!114 &114000013425987296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4460,5 +4462,5 @@ MonoBehaviour:
     m_Bits: 13604
   collidersToIgnore: []
   constraints:
-  - {fileID: 11400000, guid: 9891d13d0c79b5a45b5d61848bda653d, type: 2}
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
   - {fileID: 11400000, guid: 86cd0338145e2a34db37ae91d75cba38, type: 2}

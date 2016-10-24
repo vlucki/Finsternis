@@ -43,7 +43,7 @@
                 this.follow = GetComponentInParent<Follow>();
             shaking = false;
             if (GameManager.Instance)
-                GameManager.Instance.SubscribeToEvent("Explosion", this, OnExplosion);
+                GameManager.Instance.SubscribeToEvent("ShakeCamera", this, OnCameraShake);
         }
 
         void FixedUpdate()
@@ -85,7 +85,7 @@
             this.follow.OnTargetReached.RemoveListener(FinishedInterpolating);
         }
 
-        private void OnExplosion(params object[] parameters)
+        private void OnCameraShake(params object[] parameters)
         {
             Vector3? explosionPoint = null;
             if(parameters.Length > 0)

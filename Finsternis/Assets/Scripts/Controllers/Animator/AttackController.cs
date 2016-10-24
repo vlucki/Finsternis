@@ -18,6 +18,10 @@
             if (stateInfo.IsTag("AtkEnd"))
             {
                 animator.SetInteger(CharController.AttackSlot, -1);
+                var controller = animator.GetComponent<CharController>();
+                foreach (var skill in controller.EquippedSkills)
+                    if(skill)
+                        skill.SkillFinished();
             }
         }
     }

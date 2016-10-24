@@ -50,8 +50,9 @@ GameObject:
   - 114: {fileID: 11409246}
   - 114: {fileID: 114000011756219920}
   - 114: {fileID: 114000011510634882}
+  - 114: {fileID: 114000011914851888}
   m_Layer: 0
-  m_Name: Fireball
+  m_Name: PFAB_Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,15 +276,15 @@ MonoBehaviour:
   onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9545300}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 114000011756219920}
+        m_MethodName: Explode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Explode
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
@@ -298,6 +299,7 @@ MonoBehaviour:
     m_Bits: 2147492132
   collidersToIgnore:
   - {fileID: 13589054}
+  constraints: []
   owner: {fileID: 0}
   impactMultiplier: {x: 3, y: 2}
   modeOnImpact: 2
@@ -5733,22 +5735,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964cd818260e50c41a2e5b436f78e2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onEnable:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onDisable:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+EntityStateChanged, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   interactable: 1
+  interactionConstraints: []
+  entityEvents:
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    onEnable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   attributes:
   - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
   - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
@@ -5761,9 +5765,9 @@ MonoBehaviour:
   OnTimeUp:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9545300}
-        m_MethodName: SetTrigger
-        m_Mode: 5
+      - m_Target: {fileID: 114000011756219920}
+        m_MethodName: Explode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5779,3 +5783,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114000011914851888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca549bdab477c7540b5a5f770594330c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

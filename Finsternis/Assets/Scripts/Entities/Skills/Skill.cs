@@ -1,6 +1,6 @@
 ﻿namespace Finsternis
 {
-
+    using System;
     using System.Collections;
     using UnityEngine;
     using UnityQuery;
@@ -8,7 +8,9 @@
     public abstract class Skill : MonoBehaviour
     {
         [System.Serializable]
-        public class SkillEvent : CustomEvent<Skill> { }
+        public class SkillEvent : CustomEvent<Skill>
+        {
+        }
 
         [Header("General Skill attributes")]
 
@@ -25,6 +27,7 @@
 
         public SkillEvent onBeginUse;
         public SkillEvent onSkillCast;
+        public SkillEvent onSkillFinished;
         public SkillEvent onCoolDownEnd;
 
         protected float lastUsed = 0;
@@ -98,6 +101,14 @@
         public virtual void Unequip()
         {
             this.equipped = enabled = false;
+        }
+
+        public void SkillFinished()
+        {
+            if (Casting)
+                return;
+            if (onSkillFinished)
+                onSkillFinished.Invoke(this);
         }
 
         protected virtual void OnDisable()

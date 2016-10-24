@@ -8,6 +8,22 @@ public class EntityAttributeDrawer : PropertyDrawer
 {
     private GUIContent emptyLabel = new GUIContent();
     private GUIContent basicLabel = new GUIContent("Attribute");
+    private GUIStyle labelStyle;
+
+    private GUIStyle LabelStyle
+    {
+        get
+        {
+            if (this.labelStyle == null)
+            {
+
+                this.labelStyle = new GUIStyle();
+                this.labelStyle.alignment = TextAnchor.MiddleRight;
+            }
+            return this.labelStyle;
+        }
+    }
+
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EntityAttribute attribute = property.objectReferenceValue as EntityAttribute;
@@ -15,8 +31,8 @@ public class EntityAttributeDrawer : PropertyDrawer
         {
             var rect = position;
             rect.x += position.width * 0.1f;
-            rect.width *= 0.4f;
-            EditorGUI.LabelField(rect, GetAttributeLabel(attribute));
+            rect.width *= 0.3f;
+            EditorGUI.LabelField(rect, GetAttributeLabel(attribute), LabelStyle);
             rect.x += position.width * 0.3f;
             rect.width = position.width * 0.6f;
             EditorGUI.PropertyField(rect, property, emptyLabel);

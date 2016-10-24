@@ -4,7 +4,7 @@
     using UnityEngine.Events;
     using UnityQuery;
 
-    [RequireComponent(typeof(Animator), typeof(MovementAction))]
+    [RequireComponent(typeof(Animator), typeof(MovementAction), typeof(ShakeCameraEvent))]
     public class FireballEntity : Entity
     {
         [SerializeField]
@@ -14,10 +14,20 @@
         public UnityEvent OnShoot;
 
         private MovementAction movement;
+        private Animator animator;
+        private ShakeCameraEvent explosionEvent;
+        private readonly static int explosionTrigger;
+
+        static FireballEntity()
+        {
+            explosionTrigger = Animator.StringToHash("Explode");
+        }
 
         void Awake()
         {
-            movement = GetComponent<MovementAction>();
+            this.movement = GetComponent<MovementAction>();
+            this.animator = GetComponent<Animator>();
+            this.explosionEvent = GetComponent<ShakeCameraEvent>();
         }
 
         protected override void InitializeAttribute(int attributeIndex)
@@ -29,14 +39,13 @@
             }
         }
 
-        internal void Explode()
+        public void Explode()
         {
-            movement.enabled = false;
-            movement.Rbody.isKinematic = true;
-            if (GameManager.Instance)
-            {
-                GameManager.Instance.TriggerGlobalEvent("Explosion", transform.position);
-            }
+            this.animator.SetTrigger(explosionTrigger);
+            this.StopAllCoroutines();
+            this.movement.enabled = false;
+            this.movement.Rbody.isKinematic = true;
+            this.explosionEvent.TriggerEvent();
         }
 
         public void Shoot()
