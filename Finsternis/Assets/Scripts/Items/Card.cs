@@ -149,6 +149,11 @@
 
         public override string ToString()
         {
+            return this.name;
+        }
+
+        public string ToObjectString()
+        {
             string effectsStr = "";
             if (this.effects.Count > 0)
             {

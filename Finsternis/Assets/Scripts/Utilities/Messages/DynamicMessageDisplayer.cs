@@ -40,8 +40,8 @@
             }
             
             return MessagesManager.Instance.ShowDynamicMessage(
-                transform.position.WithY(1), 
-                this.messageToDisplay,
+                transform.position + this.messageOffset, 
+                this.messageText,
                 force,
                 this.messageGraphic,
                 this.duration);

@@ -22,6 +22,7 @@
 
         [Range(0, 5)]
         public float waitBeforeStart = 0f;
+
         [Range(0, 5)]
         public float waitBeforeEnding = 0f;
 
@@ -42,7 +43,7 @@
         {
             if (this.enableOnBegin)
             {
-                this.gameObject.SetActive(true);
+                this.gameObject.Activate();
                 this.Enable();
             }
 

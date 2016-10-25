@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 1e53bfe376bfaa9408abcad92733dd36
-timeCreated: 1473451370
+guid: 5b9be1043039e174f97dfe968dd5867d
+timeCreated: 1477386738
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: CardFrame_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -20,7 +19,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
@@ -28,7 +27,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 512
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -52,20 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: CardFrame_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 136
-        width: 1023
-        height: 1719
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 

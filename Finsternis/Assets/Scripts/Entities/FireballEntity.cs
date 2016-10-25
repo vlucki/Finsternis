@@ -18,6 +18,8 @@
         private ShakeCameraEvent explosionEvent;
         private readonly static int explosionTrigger;
 
+        private bool exploded = false;
+
         static FireballEntity()
         {
             explosionTrigger = Animator.StringToHash("Explode");
@@ -41,6 +43,9 @@
 
         public void Explode()
         {
+            if (this.exploded)
+                return;
+            this.exploded = true;
             this.animator.SetTrigger(explosionTrigger);
             this.StopAllCoroutines();
             this.movement.enabled = false;
@@ -56,8 +61,9 @@
             }
             OnShoot.Invoke();
             OnShoot.RemoveAllListeners();
-            movement.Rbody.isKinematic = false;
-            movement.enabled = true;
+            this.movement.Rbody.isKinematic = false;
+            this.movement.enabled = true;
+            this.exploded = false;
         }
 
         void OnValidate()

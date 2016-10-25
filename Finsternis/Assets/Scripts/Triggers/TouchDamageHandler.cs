@@ -22,6 +22,9 @@ namespace Finsternis
         [SerializeField]
         private List<EntityAttributeInfluence> attributesThatInfluenceImpact;
 
+        [SerializeField]
+        private DamageInfo.DamageType damageType = DamageInfo.DamageType.physical;
+
         public Entity Owner {
             get { return this.owner; }
             set { this.owner = value; }
@@ -100,7 +103,7 @@ namespace Finsternis
                 AttackAction attack = owner.GetComponent<AttackAction>();
 
                 if (attack)
-                    attack.Execute(GetAttributesInfluence(this.attributesThatInfluenceDamage), interactable);
+                    attack.Execute(this.damageType, GetAttributesInfluence(this.attributesThatInfluenceDamage), interactable);
             }
             SimulateImpact(collidedObject, impactMultiplier, true);
         }

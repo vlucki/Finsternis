@@ -1,6 +1,7 @@
 ﻿namespace Finsternis
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
     using UnityQuery;
@@ -17,10 +18,16 @@
 
         private CardStack stack;
 
-        public Card Card { get { return this.stack.card; } }
+        private static Sprite[] sprites;
 
+        public Card Card { get { return this.stack.card; } }
+        
         void Awake() //don't initialize player on awake because it may have not been spawned yet
         {
+            if(sprites == null)
+            {
+                sprites = Resources.LoadAll<Sprite>("Sprites/card_sprites");
+            }
             this.cardImage = transform.FindDescendant("CardImage").GetComponent<Image>();
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();
             this.cardCostField = transform.FindDescendant("CardCostField").GetComponent<Text>();
@@ -34,7 +41,6 @@
         {
             if(this.stack)
                 this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
-
         }
 
         public void LoadStack(CardStack c)
@@ -54,24 +60,20 @@
             this.stack.onCardAdded.AddListener(UpdateStackSize);
             this.stack.onCardRemoved.AddListener(UpdateStackSize);
 
+
+            UpdateCardImage();
+            UpdateCardText();
+        }
+
+        private void UpdateCardText()
+        {
+            this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+            this.cardNameField.text = this.stack.card.name;
+            this.cardCostField.text = this.stack.card.Cost.ToString();
             this.attributesNamesField.text = "";
             this.attributesValuesField.text = "";
 
-            this.cardImage.sprite = null;
-            var sprites = Resources.LoadAll<Sprite>("SPRITE_equipment_icons");
-            foreach(var sprite in sprites)
-            {
-                if (sprite.name.Contains(this.stack.card.MainName.name.ToLower()))
-                {
-                    this.cardImage.sprite = sprite;
-                    break;
-                }
-            }
-
-            this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
-            this.cardNameField.text = c.card.name;
-            this.cardCostField.text = c.card.Cost.ToString();
-            foreach (var effect in c.card.GetEffects())
+            foreach (var effect in this.stack.card.GetEffects())
             {
                 var modifier = effect as AttributeModifier;
                 if (modifier)
@@ -79,6 +81,29 @@
                     Append(this.attributesNamesField, modifier.AttributeAlias);
                     Append(this.attributesValuesField, GetValueWithComparison(modifier));
                 }
+            }
+        }
+
+        private void UpdateCardImage()
+        {
+            this.cardImage.sprite = null;
+            
+            List<Sprite> usableSprites = new List<Sprite>();
+            foreach (var sprite in sprites)
+            {
+                if (sprite.name.ToLower().Contains(this.stack.card.MainName.name.ToLower()))
+                {
+                    usableSprites.Add(sprite);
+                }
+            }
+            if (usableSprites.Count > 0)
+            {
+                this.cardImage.Enable();
+                this.cardImage.sprite = usableSprites.GetRandom(UnityEngine.Random.Range);
+            }
+            else
+            {
+                this.cardImage.Disable();
             }
         }
 

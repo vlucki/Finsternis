@@ -372,6 +372,7 @@ GameObject:
   - 114: {fileID: 114000014202934784}
   - 114: {fileID: 114000013109680362}
   - 114: {fileID: 114000010093465424}
+  - 114: {fileID: 114000013865656420}
   - 114: {fileID: 114000013232726630}
   - 114: {fileID: 114000010186636824}
   - 114: {fileID: 114000012510893494}
@@ -1401,12 +1402,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea70472a8e922114cbea017cfa9ae027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messageToDisplay: 
+  messageText: 
   messageGraphic: {fileID: 21300002, guid: c9a90110d66e58d4dbee469889456aa5, type: 3}
+  messageOffset: {x: 0, y: 3, z: 0}
   duration: 2
   forceDirection:
-    min: {x: -1, y: 1, z: -1}
-    max: {x: 1, y: 2, z: 1}
+    min: {x: -4, y: 10, z: -4}
+    max: {x: 4, y: 20, z: 4}
 --- !u!114 &114000010186636824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1427,6 +1429,11 @@ MonoBehaviour:
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onSkillCast:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onSkillFinished:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -1517,6 +1524,28 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114000010093465424}
+        m_MethodName: ShowMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000013865656420}
+        m_MethodName: SetMessage
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Excellent!
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000013865656420}
         m_MethodName: ShowMessage
         m_Mode: 1
         m_Arguments:
@@ -1693,6 +1722,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  onSkillFinished:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   onCoolDownEnd:
     m_PersistentCalls:
       m_Calls: []
@@ -1701,6 +1735,21 @@ MonoBehaviour:
   fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
   summonPoint: {fileID: 4000012879183366}
   summonOffset: 0.3
+--- !u!114 &114000013865656420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011578542928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e13c9cb59b720f4d8304db3d1cd016c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: 
+  messageGraphic: {fileID: 0}
+  messageOffset: {x: 0, y: 3, z: 0}
+  duration: 1
 --- !u!114 &114000014005836754
 MonoBehaviour:
   m_ObjectHideFlags: 1

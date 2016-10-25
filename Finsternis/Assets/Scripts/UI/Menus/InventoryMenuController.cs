@@ -234,7 +234,8 @@
             var unequippedCards = this.inventory.UnequippedCards;
             this.unequippedSelection = Mathf.Clamp(this.unequippedSelection, 0, unequippedCards.Count - 1);
             //If the equipped card was removed from the unequipped list, update the unequipped selection
-            if (unequippedCards[this.unequippedSelection].card != equippedCard)
+            if (this.unequippedSelection >= unequippedCards.Count || this.unequippedSelection < 0 ||
+                unequippedCards[this.unequippedSelection].card != equippedCard)
             {
                 UpdateUnequippedDisplay();
             }

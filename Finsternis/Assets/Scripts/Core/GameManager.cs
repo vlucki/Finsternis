@@ -264,8 +264,10 @@
 
         }
 
+        #region Events
         public void TriggerGlobalEvent(string eventName, params object[] parameters)
         {
+            Log.Info(this, "Triggering event {0}", eventName);
             List<Callback> callbacks;
             if(globalEvents.TryGetValue(eventName, out callbacks))
             {
@@ -274,12 +276,20 @@
             }
         }
 
+        public void SubscribeToEveryEvent(UnityEngine.Object owner, Action<object[]> callback)
+        {
+            foreach(var evt in this.globalEvents)
+            {
+                SubscribeToEvent(evt.Key, owner, callback);
+            }
+        }
+
         public void SubscribeToEvent(string eventName, UnityEngine.Object owner, Action<object[]> callback)
         {
             List<Callback> callbacks;
-            if (!globalEvents.TryGetValue(eventName, out callbacks))
+            if (!this.globalEvents.TryGetValue(eventName, out callbacks))
             {
-                globalEvents.Add(eventName, new List<Callback>(1));
+                this.globalEvents.Add(eventName, new List<Callback>(1));
             }
             else
             {
@@ -289,16 +299,17 @@
                         return;
                 }
             }
-            globalEvents[eventName].Add(new Callback(owner, callback));
+            this.globalEvents[eventName].Add(new Callback(owner, callback));
         }
 
         public void UnsubscribeFromEvent(string eventName, UnityEngine.Object owner)
         {
             List<Callback> callbacks;
-            if (globalEvents.TryGetValue(eventName, out callbacks))
+            if (this.globalEvents.TryGetValue(eventName, out callbacks))
             {
-                callbacks.RemoveAll((callback) => callback.owner.Equals(owner));
+                callbacks.RemoveAll(callback => callback.owner.Equals(owner));
             }
         }
+        #endregion
     }
 }

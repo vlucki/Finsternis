@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e13c9cb59b720f4d8304db3d1cd016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  messageToDisplay: Press "E" to open
+  messageText: Press "E" to open
   messageGraphic: {fileID: 0}
+  messageOffset: {x: 0, y: 2, z: 0}
   duration: 0

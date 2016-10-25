@@ -312,6 +312,7 @@ MonoBehaviour:
   - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
     influenceType: 1
     attributeMultiplier: 1
+  damageType: 10
 --- !u!135 &13589054
 SphereCollider:
   m_ObjectHideFlags: 1

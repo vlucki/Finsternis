@@ -8,10 +8,13 @@
     {
 
         [SerializeField]
-        protected string messageToDisplay;
+        protected string messageText;
 
         [SerializeField]
         protected Sprite messageGraphic;
+
+        [SerializeField]
+        protected Vector3 messageOffset = Vector3.up;
 
         [SerializeField][Tooltip("How long should this message be displayed (0 = indefinitely)")]
         protected float duration;
@@ -20,13 +23,32 @@
         
         public void SetMessage(string message)
         {
-            this.messageToDisplay = message;
+            this.messageText = message;
         }
 
         public void SetMessage(UnityEngine.Object objMessage)
         {
             if(objMessage)
-                this.messageToDisplay = objMessage.ToString();
+                this.messageText = objMessage.ToString();
+        }
+
+        public void AppendMessage(string message)
+        {
+            if (this.messageText.IsNullOrEmpty())
+                SetMessage(message);
+            else
+                this.messageText += message;
+        }
+
+        public void AppendMessage(UnityEngine.Object objMessage)
+        {
+            if (objMessage)
+            {
+                if (this.messageText.IsNullOrEmpty())
+                   SetMessage(objMessage.ToString());
+                else
+                    this.messageText += objMessage.ToString();
+            }
         }
 
 
@@ -38,7 +60,7 @@
 
         public void ShowMessage()
         {
-            if (!this.isActiveAndEnabled || this.messageToDisplay.IsNullOrEmpty())
+            if (!this.isActiveAndEnabled || this.messageText.IsNullOrEmpty())
                 return;
 
             HideMessage();
@@ -49,8 +71,8 @@
         protected virtual MessageController DisplayMessage()
         {
             return MessagesManager.Instance.ShowStaticMessage(
-                transform.position.WithY(1), 
-                this.messageToDisplay, 
+                transform.position + this.messageOffset, 
+                this.messageText, 
                 this.messageGraphic, 
                 this.duration);
         }
