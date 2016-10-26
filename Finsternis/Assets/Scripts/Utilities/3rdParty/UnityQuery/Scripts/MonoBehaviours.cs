@@ -22,9 +22,9 @@ namespace UnityQuery
             b.enabled = false;
         }
 
-        public static void CallDelayed(this MonoBehaviour mb, float delayInSeconds, Action callback)
+        public static Coroutine CallDelayed(this MonoBehaviour mb, float delayInSeconds, Action callback)
         {
-            mb.StartCoroutine(DelayRoutine(delayInSeconds, callback));
+            return mb.StartCoroutine(DelayRoutine(delayInSeconds, callback));
         }
 
         private static IEnumerator DelayRoutine(float delayInSeconds, Action callback)

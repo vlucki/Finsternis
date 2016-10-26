@@ -67,7 +67,7 @@ namespace Finsternis
                         }
                     }
 
-                    if (!IsAttacking())
+                    if (CanAct())
                     {
                         if (canSeeTarget && CheckRange())
                         {
