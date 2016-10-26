@@ -1423,17 +1423,12 @@ MonoBehaviour:
   castTime: 0.6
   cooldownTime: 1
   lockDuringCast: 1
-  onBeginUse:
+  onBeginCasting:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onSkillCast:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onSkillFinished:
+  onEndCasting:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -1709,22 +1704,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0077f36e68a650a47a60230a48b1f77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castTime: 0.6
+  castTime: 0.5
   cooldownTime: 0.5
   lockDuringCast: 1
-  onBeginUse:
+  onBeginCasting:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: Lock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onSkillCast:
+  onEndCasting:
     m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onSkillFinished:
-    m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: Unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -1776,11 +1788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e63472012b142d4a84cf9787c874748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAttack:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLock:
     m_PersistentCalls:
       m_Calls:

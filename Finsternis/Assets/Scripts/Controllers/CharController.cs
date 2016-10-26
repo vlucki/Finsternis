@@ -25,11 +25,12 @@ namespace Finsternis
         public static readonly int HitType;
         public static readonly int SpeedFloat;
 
-        public AttackEvent onAttack;
+        //public AttackEvent onAttack;
         public UnityEvent onLock;
         public UnityEvent onUnlock;
 
         protected Character character;
+
         protected Animator characterAnimator;
         protected MovementAction characterMovement;
 
@@ -58,7 +59,9 @@ namespace Finsternis
 
         public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
+        public Animator Animator { get { return characterAnimator; } }
         public Skill[] EquippedSkills { get { return this.equippedSkills; } }
+        public Skill ActiveSkill { get; private set; }
 
         static CharController()
         {
@@ -86,8 +89,6 @@ namespace Finsternis
             try
             {
                 character.onDeath.AddListener(CharacterController_death);
-                Array.ForEach<Skill>(this.equippedSkills, (skill) => { if (skill) skill.Equip(); }); //make sure every skill that is equipped knows it
-
             }
             catch (Exception e)
             {
@@ -102,7 +103,7 @@ namespace Finsternis
             {
                 if (this.isLocked)
                 {
-                    if (!this.waitingForDelay && !IsFalling())
+                    if (!this.waitingForDelay && !IsFalling() && !this.ActiveSkill)
                         Unlock();
                 }
 
@@ -222,7 +223,7 @@ namespace Finsternis
             if (!CanAct())
             {
 #if UNITY_EDITOR
-                print(ToString() + " can't attack right now");
+                Log.Warn(this, " can't attack right now");
 #endif
                 return;
             }
@@ -232,34 +233,26 @@ namespace Finsternis
 
             if (this.equippedSkills[(int)slot].MayUse())
             {
+                ActiveSkill = this.equippedSkills[(int)slot];
+                ActiveSkill.onEndCasting.AddListener(SkillCastEnd);
                 characterAnimator.SetInteger(AttackSlot, (int)slot);
+                characterAnimator.SetFloat(AttackSpeed, 1 / ActiveSkill.CastTime);
                 characterAnimator.SetTrigger(AttackTrigger);
-                this.equippedSkills[(int)slot].Use();
             }
         }
 
-        public void ExecuteSkill(Skill skill)
+        private void SkillCastEnd(Skill skill)
         {
-            int slot = -1;
-            for (slot = 0; slot < this.equippedSkills.Length; slot++)
-                if (this.equippedSkills[slot].Equals(skill))
-                    break;
-            if (slot >= 0 && slot < this.equippedSkills.Length)
-            {
-                onAttack.Invoke((int)slot);
-            }
+            ActiveSkill = null;
+            skill.onEndCasting.RemoveListener(SkillCastEnd);
         }
 
         public void EquipSkill(Skill skill, int slot)
         {
             if (!ValidateSkillSlot(slot, false))
                 return;
-
-            if (equippedSkills[slot])
-                equippedSkills[slot].Unequip();
-
+            
             equippedSkills[slot] = skill;
-            skill.Equip();
         }
 
         private bool ValidateSkillSlot(int slot, bool checkForEmptySlot = true)
@@ -281,11 +274,6 @@ namespace Finsternis
             }
             return true;
         }
-
-        //public virtual bool CanAttack()
-        //{
-        //    return !IsAttacking();
-        //}
 
         public void Lock()
         {

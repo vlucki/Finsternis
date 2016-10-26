@@ -13,15 +13,23 @@
             EndAttackAnimationTrigger = Animator.StringToHash("endAttack");
         }
 
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            if (stateInfo.IsTag("Execution"))
+            {
+                var controller = animator.GetComponent<CharController>();
+                controller.ActiveSkill.CastSkill();
+            }
+        }
+
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (stateInfo.IsTag("AtkEnd"))
+            if (stateInfo.IsTag("End"))
             {
                 animator.SetInteger(CharController.AttackSlot, -1);
+                animator.ResetTrigger(CharController.AttackTrigger);
                 var controller = animator.GetComponent<CharController>();
-                foreach (var skill in controller.EquippedSkills)
-                    if(skill)
-                        skill.SkillFinished();
+                controller.ActiveSkill.End();
             }
         }
     }

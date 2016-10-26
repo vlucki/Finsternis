@@ -255,7 +255,7 @@ ModelImporter:
       name: A_atk_fireball_begin_balthazar
       takeName: Take 001
       firstFrame: 65
-      lastFrame: 110
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -854,7 +854,7 @@ ModelImporter:
     - serializedVersion: 16
       name: A_atk_fireball_finish_balthazar
       takeName: Take 001
-      firstFrame: 96
+      firstFrame: 110
       lastFrame: 125
       wrapMode: 0
       orientationOffsetY: 0
@@ -974,7 +974,7 @@ ModelImporter:
     - serializedVersion: 16
       name: A_atk_fireball_execute_balthazar
       takeName: Take 001
-      firstFrame: 95
+      firstFrame: 80
       lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0

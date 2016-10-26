@@ -25,9 +25,8 @@
         [SerializeField]
         protected bool lockDuringCast = true;
 
-        public SkillEvent onBeginUse;
-        public SkillEvent onSkillCast;
-        public SkillEvent onSkillFinished;
+        public SkillEvent onBeginCasting;
+        public SkillEvent onEndCasting;
         public SkillEvent onCoolDownEnd;
 
         protected float lastUsed = 0;
@@ -35,52 +34,35 @@
         protected CharController user;
 
         private float timeDisabled;
-        private bool equipped;
 
         public bool Casting { get; private set; }
         public bool CoolingDown { get; private set; }
-        public bool LockDuringCast { get { return lockDuringCast; } }
-        public bool Equipped { get { return this.equipped; } }
+        public float CastTime { get { return this.castTime; } }
+
 
         protected virtual void Awake()
         {
             user = GetComponent<CharController>();
         }
 
-        public virtual void Use()
-        {
-            lastUsed = Time.timeSinceLevelLoad;
-            StartCoroutine(_BeginCasting());
-            if (onBeginUse)
-                onBeginUse.Invoke(this);
-        }
-
-        public virtual bool MayUse()
-        {
-            return !CoolingDown && !Casting;
-        }
-
-        private IEnumerator _BeginCasting()
+        public virtual void CastSkill()
         {
             Casting = true;
-            if (castTime > 0)
-            {
-                if (lockDuringCast)
-                    user.Lock(castTime);
-                yield return Wait.Sec(castTime);
-            }
-
-            Casting = false;
-            CastSkill();
+            onBeginCasting.Invoke(this);
         }
 
-        protected virtual void CastSkill()
+        public virtual void End()
         {
-            onSkillCast.Invoke(this);
-            if (cooldownTime > 0)
-                StartCoroutine(_Cooldown());
+            Casting = false;
+            user.Animator.SetFloat(CharController.AttackSpeed, 1);
+            onEndCasting.Invoke(this);
         }
 
+        public bool MayUse()
+        {
+            return !Casting && !CoolingDown;
+        }
+        
         private IEnumerator _Cooldown()
         {
             CoolingDown = true;
@@ -91,24 +73,6 @@
 
             if (onCoolDownEnd)
                 onCoolDownEnd.Invoke(this);
-        }
-
-        public virtual void Equip()
-        {
-            this.equipped = enabled = true;
-        }
-
-        public virtual void Unequip()
-        {
-            this.equipped = enabled = false;
-        }
-
-        public void SkillFinished()
-        {
-            if (Casting)
-                return;
-            if (onSkillFinished)
-                onSkillFinished.Invoke(this);
         }
 
         protected virtual void OnDisable()

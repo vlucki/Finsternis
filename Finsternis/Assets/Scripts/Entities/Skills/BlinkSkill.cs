@@ -25,22 +25,13 @@ namespace Finsternis
 
         private new Collider collider;
 
-        private Animator animator;
-
         protected override void Awake()
         {
             this.collider = GetComponent<Collider>();
-            this.animator = GetComponent<Animator>();
             base.Awake();
         }
 
-        public override void Use()
-        {
-            this.animator.SetFloat(CharController.AttackSpeed, 1f);
-            base.Use();
-        }
-
-        protected override void CastSkill()
+        public override void CastSkill()
         {
             Vector3 origin = transform.position + this.offset;
             Vector3 direction = GetBlinkDirection();

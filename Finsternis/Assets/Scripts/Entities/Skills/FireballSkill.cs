@@ -34,16 +34,8 @@ namespace Finsternis
             this.animator = GetComponent<Animator>();
         }
 
-        public override void Use()
+        public override void CastSkill()
         {
-            this.animator.SetFloat(CharController.AttackSpeed, 5f);
-            base.Use();
-        }
-
-        protected override void CastSkill()
-        {
-            base.CastSkill();
-
             GameObject summonedFireball = GetFireball();
             summonedFireball.transform.position = this.summonPoint.position + transform.forward * this.summonOffset;
             summonedFireball.transform.rotation = transform.rotation;
@@ -56,6 +48,8 @@ namespace Finsternis
             movement.Direction = transform.forward;
             summonedFireball.GetComponent<FireballEntity>().OnShoot.AddListener(() => this.animator.SetTrigger(AttackController.EndAttackAnimationTrigger));
             summonedFireball.Activate();
+
+            base.CastSkill();
         }
 
         private GameObject GetFireball()
