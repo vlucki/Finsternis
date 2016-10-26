@@ -27,6 +27,7 @@
             foreach (var attribute in GameManager.Instance.Player.Character)
             {
                 GameObject display = (GameObject)Instantiate(displayPrefab, transform);
+                display.transform.localScale = Vector3.one;
                 display.GetComponent<AttributeDisplay>().SetAttribute(attribute);
             }
         }

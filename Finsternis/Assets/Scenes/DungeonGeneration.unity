@@ -281,6 +281,11 @@ Prefab:
       propertyPath: onExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010832182240, guid: a12df8b8f5cde9b46a0666a6835a4f8b,
+        type: 2}
+      propertyPath: layersToIgnore.m_Bits
+      value: 28932
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
   m_IsPrefabParent: 0
@@ -537,6 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe5f3d5ebe41b54dbc91a6ab0fe152d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 1
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -2322,6 +2328,7 @@ GameObject:
   - 222: {fileID: 679247703}
   - 114: {fileID: 679247702}
   - 114: {fileID: 679247701}
+  - 114: {fileID: 679247704}
   m_Layer: 5
   m_Name: BalthazarBtn
   m_TagString: Untagged
@@ -2436,6 +2443,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679247699}
+--- !u!114 &679247704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 679247699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+  delegates: []
 --- !u!1 &685689134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2757,10 +2777,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 82319831}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000030994415, y: 0}
-  m_SizeDelta: {x: 179.1, y: 181.1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1660.9, y: -874.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &738784577
 MonoBehaviour:
@@ -2856,6 +2876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4df1ca5cb2b124ba76cf9d5e438210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 1
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -5539,6 +5560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108b4343466ed684da659e4d188bd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 1
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -6728,7 +6750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1660314274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6741,6 +6763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee584e33c78a6b45ae871c50336b9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 0
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -7107,7 +7130,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1708963571
 GameObject:
@@ -7145,6 +7168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc88763ada3f56e4b855e9ce8e339084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 1
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -7910,6 +7934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79a86aa20d101848bc1697fdce3166c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keepPlayerLocked: 1
   OnBeganOpening:
     m_PersistentCalls:
       m_Calls:
@@ -9269,7 +9294,7 @@ Prefab:
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: totalRooms
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
@@ -9306,12 +9331,12 @@ Prefab:
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: brushSizeVariation.maxWidth
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: brushSizeVariation.minHeight
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
@@ -9337,12 +9362,12 @@ Prefab:
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: brushSizeVariation.maxHeight
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: brushSizeVariation.minWidth
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
@@ -9388,6 +9413,11 @@ Prefab:
         type: 2}
       propertyPath: onGenerationEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: maximumCorridorLength
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}

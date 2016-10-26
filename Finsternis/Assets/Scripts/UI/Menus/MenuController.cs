@@ -1,6 +1,6 @@
 ﻿namespace Finsternis
 {
-    using System.Collections.Generic;
+    using System;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.EventSystems;
@@ -8,16 +8,14 @@
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class MenuController : MonoBehaviour
     {
+        #region variables
         private EventSystem evtSystem;
-        protected EventSystem EvtSystem
-        {
-            get
-            {
-                if(!this.evtSystem)
-                    this.evtSystem = FindObjectOfType<EventSystem>();
-                return this.evtSystem;
-            }
-        }
+        private UnityEvent onFinishedToggling;
+        private CanvasGroup canvasGroup;
+
+        [SerializeField]
+        private bool keepPlayerLocked = true;
+
         [Header("Transition events")]
         [Space]
         public UnityEvent OnBeganOpening;
@@ -25,8 +23,18 @@
 
         public UnityEvent OnOpen;
         public UnityEvent OnClose;
+        #endregion
 
-        private UnityEvent onFinishedToggling;
+        #region Properties
+        protected EventSystem EvtSystem
+        {
+            get
+            {
+                if (!this.evtSystem)
+                    this.evtSystem = FindObjectOfType<EventSystem>();
+                return this.evtSystem;
+            }
+        }
 
         public bool SkipCloseEvent { get; set; }
 
@@ -40,17 +48,47 @@
             }
         }
 
-        private CanvasGroup canvasGroup;
-
-        protected CanvasGroup CanvasGroup {
-            get {
-                if(!this.canvasGroup)
+        protected CanvasGroup CanvasGroup
+        {
+            get
+            {
+                if (!this.canvasGroup)
                     this.canvasGroup = GetComponent<CanvasGroup>();
                 return this.canvasGroup;
             }
         }
-        
+
         public bool IsOpen { get; private set; }
+        #endregion
+
+        #region methods
+
+        protected virtual void Awake()
+        {
+            if (this.keepPlayerLocked)
+            {
+                if (!GameManager.Instance.Player)
+                    GameManager.Instance.OnPlayerSpawned.AddListener(AddPlayerCheck);
+                else
+                    AddPlayerCheck();
+            }
+        }
+
+        private void AddPlayerCheck()
+        {
+            GameManager.Instance.Player.onUnlock.AddListener(LockPlayerBack);
+        }
+
+        private void LockPlayerBack()
+        {
+            if (this.IsOpen && !GameManager.Instance.Player.IsLocked)
+                GameManager.Instance.Player.LockAndDisable();
+        }
+
+        void OnDestroy()
+        {
+            GameManager.Instance.OnPlayerSpawned.RemoveListener(AddPlayerCheck);
+        }
 
         public void Toggle(bool immediately = false)
         {
@@ -99,9 +137,10 @@
         public virtual void Close()
         {
             IsOpen = false;
-            if(!SkipCloseEvent)
+            if (!SkipCloseEvent)
                 OnClose.Invoke();
             gameObject.SetActive(false);
         }
     }
+    #endregion
 }

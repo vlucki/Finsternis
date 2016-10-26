@@ -34,7 +34,7 @@
 
         private EntityAttribute Speed
         {
-            get { return this.cachedSpeed ?? (this.cachedSpeed = agent.GetAttribute("spd", true)); }
+            get { return this.cachedSpeed ?? (this.cachedSpeed = agent.GetAttribute("spd")); }
         }
 
         public Vector3 Velocity { get { return this.rbody.velocity; } }

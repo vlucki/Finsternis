@@ -115,6 +115,27 @@
             return Mathf.RoundToInt((this.name.GetHashCode() * 73 + this.Type.GetHashCode() * 919 + this.isStackable.GetHashCode()));
         }
 
+        public override string ToString()
+        {
+            return this.name;
+        }
+
+        public string ToString(int prepositionIndex)
+        {
+            string s = "";
+            if (this.PrepositionsCount > 0)
+            {
+                if (prepositionIndex >= 0)
+                    s = GetPreposition(prepositionIndex);
+                else
+                    s = this.prepositions.GetRandom(Random.Range);
+                s += " ";
+            }
+            s += this.name;
+
+            return s;
+        }
+
 #if UNITY_EDITOR
         void OnValidate()
         {

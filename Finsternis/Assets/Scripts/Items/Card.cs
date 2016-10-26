@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityQuery;
 
     public class Card : ScriptableObject
     {
@@ -43,12 +44,11 @@
             this.preNames = new List<CardName>();
             this.postNames = new List<CardName>();
         }
+
         #region Name String Creation
         public string UpdateName()
         {
-            this.name = "";
-
-            this.name += MergeNames(this.preNames) + this.mainName.name + MergeNames(this.postNames);
+            this.name = MergeNames(this.preNames) + this.mainName + " " + MergeNames(this.postNames);
 
             this.name = this.name.TrimEnd();
             return this.name;
@@ -64,25 +64,16 @@
             string merged = "";
             for (int index = 0; index < namesList.Count; index++)
             {
-                merged += GetAdditionalNameString(namesList, index);
-                merged += namesList[index].name + " ";
-            }
-            return merged;
-        }
-
-        private string GetAdditionalNameString(List<CardName> names, int index)
-        {
-            CardName cardName = names[index];
-            if (index > 0 && cardName.Type != CardName.NameType.MainName)
-            {
-                if (names[index - 1].Type == cardName.Type)
-                    return "and ";
-                else if (cardName.Type == CardName.NameType.PostName)
+                if (index > 0)
+                    merged += "and " + namesList[index] + " ";
+                else if (namesList[0].PrepositionsCount > 0)
                 {
-                    return cardName.GetPreposition(Random.Range(0, cardName.PrepositionsCount - 1)) + " ";
-                }
+                    merged = namesList[0].ToString(-1) + " ";
+                } else 
+                    merged += namesList[index] + " ";
             }
-            return "";
+
+            return merged;
         }
         #endregion
 

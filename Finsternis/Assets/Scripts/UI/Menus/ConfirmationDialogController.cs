@@ -24,13 +24,9 @@
             set { this.messageField.text = value; }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
-            Init();
-        }
-
-        void Init()
-        {
+            base.Awake();
             this.messageField = GetComponentInChildren<Text>();
             this.yesButtonLbl = transform.Find("YesBtn").GetComponentInChildren<Text>();
             this.noButtonLbl = transform.Find("NoBtn").GetComponentInChildren<Text>();

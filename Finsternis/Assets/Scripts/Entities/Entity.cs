@@ -67,15 +67,9 @@
             attributes[attributeIndex] = attribute;
         }
 
-        public EntityAttribute GetAttribute(string alias, bool createIfNotFound = false)
+        public EntityAttribute GetAttribute(string alias)
         {
             EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
-            if (!attribute && createIfNotFound)
-            {
-                attribute = ScriptableObject.CreateInstance<EntityAttribute>();
-                attribute.Alias = alias;
-            }
-
             return attribute;
         }
 

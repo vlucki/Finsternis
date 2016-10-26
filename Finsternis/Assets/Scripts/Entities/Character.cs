@@ -75,7 +75,23 @@
             if (this.invincible)
                 return;
 
-            this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
+            float finalDamage = info.Amount;
+            if (info.Type == DamageInfo.DamageType.physical)
+            {
+                finalDamage -= this.defense.Value * 0.9f;
+            }
+            else
+            {
+                var inteligence = GetAttribute("int");
+                if (inteligence)
+                {
+                    finalDamage -= (this.defense.Value / 5 + inteligence.Value / 2);
+                }
+            }
+
+            finalDamage = Mathf.Max(0, finalDamage);
+
+            this.health.Subtract(finalDamage);
             if (!Dead)
                 StartCoroutine(_TickInvincibility(this.invincibilityTime));
         }

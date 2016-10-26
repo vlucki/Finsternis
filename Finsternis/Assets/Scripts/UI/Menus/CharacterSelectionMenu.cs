@@ -10,5 +10,9 @@
             GameManager.Instance.SpawnPlayerAtEntrance(prefab);
             BeginClosing();
         }
+
+        protected override void Awake()
+        {
+        }
     }
 }

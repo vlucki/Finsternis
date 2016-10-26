@@ -24,8 +24,9 @@
 
         private Inventory inventory;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             Transform unequippedPanel = transform.Find("UnequippedPanel");
             visibleUnequippedCards = GetCards(unequippedPanel);
 

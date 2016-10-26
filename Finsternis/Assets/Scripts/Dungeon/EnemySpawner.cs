@@ -97,7 +97,7 @@
             do
             {
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
-                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell), Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(1.5f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                 enemy.transform.SetParent(parent);
                 enemy.GetComponent<EnemyChar>().onDeath.AddListener(goal.EnemyKilled);
             } while (--amount > 0);

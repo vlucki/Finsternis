@@ -52,11 +52,11 @@ namespace Finsternis
         [SerializeField]
         private Skill[] equippedSkills = new Skill[4];
 
-        private bool actionsLocked;
+        private bool isLocked;
         private float unlockDelay;
         private bool waitingForDelay;
 
-        public bool ActionsLocked { get { return this.actionsLocked; } }
+        public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
         public Skill[] EquippedSkills { get { return this.equippedSkills; } }
 
@@ -75,7 +75,7 @@ namespace Finsternis
 
         public virtual void Awake()
         {
-            this.actionsLocked = false;
+            this.isLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
             character         = GetComponent<Character>();
@@ -100,7 +100,7 @@ namespace Finsternis
         {
             if (!IsDead() && !IsDying())
             {
-                if (this.actionsLocked)
+                if (this.isLocked)
                 {
                     if (this.waitingForDelay)
                     {
@@ -197,7 +197,7 @@ namespace Finsternis
             bool staggered = IsStaggered();
             bool attacking = IsAttacking();
 
-            return !(this.actionsLocked || staggered || attacking);
+            return !(this.isLocked || staggered || attacking);
         }
 
         #region Shorthand for booleans in mecanim
@@ -310,7 +310,7 @@ namespace Finsternis
 
         public void Lock()
         {
-            this.actionsLocked = true;
+            this.isLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.Direction = (characterMovement.Direction.OnlyY());
             onLock.Invoke();
@@ -336,8 +336,10 @@ namespace Finsternis
 
         public void Unlock()
         {
+            if (!this.isActiveAndEnabled)
+                return;
             this.waitingForDelay = false;
-            this.actionsLocked = false;
+            this.isLocked = false;
             onUnlock.Invoke();
         }
 
