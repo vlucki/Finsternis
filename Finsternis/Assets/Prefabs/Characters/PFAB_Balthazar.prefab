@@ -1420,17 +1420,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc6d1d21c8e530458929b5ca406de2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startUpTime: 1
   castTime: 0.6
+  endTime: 1
   cooldownTime: 1
-  lockDuringCast: 1
-  onBeginCasting:
+  onBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: Lock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionStart:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onEndCasting:
+  onExecutionEnd:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000014202934784}
+        m_MethodName: Unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -1704,10 +1737,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0077f36e68a650a47a60230a48b1f77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startUpTime: 0.4
   castTime: 0.5
-  cooldownTime: 0.5
-  lockDuringCast: 1
-  onBeginCasting:
+  endTime: 0.2
+  cooldownTime: 0.2
+  onBegin:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000014202934784}
@@ -1723,7 +1757,12 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onEndCasting:
+  onExecutionStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionEnd:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000014202934784}
@@ -1737,6 +1776,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnd:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:

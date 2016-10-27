@@ -234,9 +234,8 @@ namespace Finsternis
             if (this.equippedSkills[(int)slot].MayUse())
             {
                 ActiveSkill = this.equippedSkills[(int)slot];
-                ActiveSkill.onEndCasting.AddListener(SkillCastEnd);
+                ActiveSkill.onEnd.AddListener(SkillCastEnd);
                 characterAnimator.SetInteger(AttackSlot, (int)slot);
-                characterAnimator.SetFloat(AttackSpeed, 1 / ActiveSkill.CastTime);
                 characterAnimator.SetTrigger(AttackTrigger);
             }
         }
@@ -244,7 +243,7 @@ namespace Finsternis
         private void SkillCastEnd(Skill skill)
         {
             ActiveSkill = null;
-            skill.onEndCasting.RemoveListener(SkillCastEnd);
+            skill.onEnd.RemoveListener(SkillCastEnd);
         }
 
         public void EquipSkill(Skill skill, int slot)

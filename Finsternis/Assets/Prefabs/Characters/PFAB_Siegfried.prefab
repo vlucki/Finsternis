@@ -1240,7 +1240,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013911521486}
-  m_LocalRotation: {x: -0.2750112, y: 0.7101828, z: -0.6323205, w: -0.14205697}
+  m_LocalRotation: {x: -0.27501118, y: 0.7101827, z: -0.63232046, w: -0.14205696}
   m_LocalPosition: {x: 0.12316096, y: 0.11709311, z: -0.0149521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1776,11 +1776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e63472012b142d4a84cf9787c874748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAttack:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLock:
     m_PersistentCalls:
       m_Calls:
@@ -1883,22 +1878,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7d5aba3d05604f91713efae11688c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castTime: 0.2
-  cooldownTime: 0.5
-  lockDuringCast: 1
-  onBeginUse:
+  startUpTime: 0.5
+  castTime: 1
+  endTime: 0.3
+  cooldownTime: 0.2
+  onBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011350240356}
+        m_MethodName: Lock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionStart:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onSkillCast:
+  onExecutionEnd:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onSkillFinished:
+  onEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000011350240356}
+        m_MethodName: Unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -1907,7 +1930,6 @@ MonoBehaviour:
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fist: {fileID: 1000012443253582}
-  colliderActivationDelay: 0.4
 --- !u!114 &114000013237908674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2020,7 +2042,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011107040148}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 381d14b867e82254ba02b7c0b26ab2ba, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

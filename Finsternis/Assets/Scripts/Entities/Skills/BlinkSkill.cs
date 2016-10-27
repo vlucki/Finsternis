@@ -31,7 +31,7 @@ namespace Finsternis
             base.Awake();
         }
 
-        public override void CastSkill()
+        public override void StartExecution()
         {
             Vector3 origin = transform.position + this.offset;
             Vector3 direction = GetBlinkDirection();
@@ -48,7 +48,11 @@ namespace Finsternis
                 if (GetValidDestination(maxValidDistance, origin, direction, out destination))
                 {
                     transform.position = destination;
-                    base.CastSkill();
+                    base.StartExecution();
+                }
+                else
+                {
+                    End();
                 }
             }
         }

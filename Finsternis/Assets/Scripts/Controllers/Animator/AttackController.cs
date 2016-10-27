@@ -15,16 +15,26 @@
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (stateInfo.IsTag("Execution"))
+            if (stateInfo.IsTag("Beginning"))
             {
                 var controller = animator.GetComponent<CharController>();
-                controller.ActiveSkill.CastSkill();
+                controller.ActiveSkill.Begin();
+            }
+            else if (stateInfo.IsTag("Execution"))
+            {
+                var controller = animator.GetComponent<CharController>();
+                controller.ActiveSkill.StartExecution();
             }
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (stateInfo.IsTag("End"))
+            if (stateInfo.IsTag("Execution"))
+            {
+                var controller = animator.GetComponent<CharController>();
+                controller.ActiveSkill.EndExecution();
+            }
+            else if (stateInfo.IsTag("End"))
             {
                 animator.SetInteger(CharController.AttackSlot, -1);
                 animator.ResetTrigger(CharController.AttackTrigger);

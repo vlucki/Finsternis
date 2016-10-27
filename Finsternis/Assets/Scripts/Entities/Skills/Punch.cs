@@ -20,15 +20,15 @@
             fistDamageHandler = fist.GetComponent<TouchDamageHandler>();
         }
 
-        public override void CastSkill()
+        public override void StartExecution()
         {
-            base.CastSkill();
+            base.StartExecution();
             TogglePunch(true);
         }
 
-        public override void End()
+        public override void EndExecution()
         {
-            base.End();
+            base.EndExecution();
             TogglePunch(false);
         }
 

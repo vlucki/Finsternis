@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Intro
   - MessageManager
+  - Message
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Invisible
   - Props
   - Dungeon
-  - 
-  - 
+  - DynamicNotifications
+  - Features
   - 
   - 
   - 
