@@ -264,7 +264,8 @@ namespace Finsternis
 
             //And then at the end
             index = corridor.Length -1;
-            while (index >= corridor.Length - 2 && !AddDoor(dungeon, corridor, corridor[index], corridor.Direction))
+            while (index >= corridor.Length - 2 && 
+                (index >= corridor.Length || !AddDoor(dungeon, corridor, corridor[index], corridor.Direction)))
                 index--;
         }
 

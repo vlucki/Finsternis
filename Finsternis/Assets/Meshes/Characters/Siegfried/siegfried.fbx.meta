@@ -124,7 +124,7 @@ ModelImporter:
   materials:
     importMaterials: 1
     materialName: 0
-    materialSearch: 1
+    materialSearch: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -806,7 +806,7 @@ ModelImporter:
       name: A_atk_punch_finish_siegfried
       takeName: Take 001
       firstFrame: 61
-      lastFrame: 73
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -1240,7 +1240,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013911521486}
-  m_LocalRotation: {x: -0.27501118, y: 0.7101827, z: -0.63232046, w: -0.14205696}
+  m_LocalRotation: {x: -0.2750112, y: 0.7101828, z: -0.6323205, w: -0.14205697}
   m_LocalPosition: {x: 0.12316096, y: 0.11709311, z: -0.0149521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1543,8 +1543,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011107040148}
   serializedVersion: 2
-  m_Mass: 120
-  m_Drag: 1
+  m_Mass: 180
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1878,9 +1878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7d5aba3d05604f91713efae11688c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startUpTime: 0.5
-  castTime: 1
-  endTime: 0.3
+  startUpTime: 0.3
+  castTime: 0.75
+  endTime: 0.4
   cooldownTime: 0.2
   onBegin:
     m_PersistentCalls:
@@ -1929,6 +1929,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  skillOverrideController: {fileID: 0}
   fist: {fileID: 1000012443253582}
 --- !u!114 &114000013237908674
 MonoBehaviour:
@@ -2062,7 +2063,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 86c3aee9a2e441e41b312de1c3e11d70, type: 2}
+  - {fileID: 2100000, guid: e9e13c716488cd84c8cc17277fb05520, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
