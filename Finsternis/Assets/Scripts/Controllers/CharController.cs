@@ -16,7 +16,6 @@ namespace Finsternis
         public class AttackEvent : UnityEvent<int> { }
 
         public static readonly int AttackTrigger;
-        public static readonly int AttackSlot;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;
         public static readonly int DeadBool;
@@ -59,14 +58,13 @@ namespace Finsternis
 
         public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
-        public Animator Animator { get { return characterAnimator; } }
+        public Animator Controller { get { return characterAnimator; } }
         public Skill[] EquippedSkills { get { return this.equippedSkills; } }
         public Skill ActiveSkill { get; private set; }
 
         static CharController()
         {
             AttackTrigger = Animator.StringToHash("attack");
-            AttackSlot = Animator.StringToHash("attackSlot");
             AttackSpeed = Animator.StringToHash("attackSpeed");
             DyingBool = Animator.StringToHash("dying");
             DeadBool = Animator.StringToHash("dead");
@@ -235,8 +233,7 @@ namespace Finsternis
             {
                 ActiveSkill = this.equippedSkills[(int)slot];
                 ActiveSkill.onEnd.AddListener(SkillCastEnd);
-                characterAnimator.SetInteger(AttackSlot, (int)slot);
-                characterAnimator.SetTrigger(AttackTrigger);
+                ActiveSkill.Begin();
             }
         }
 

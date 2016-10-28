@@ -99,9 +99,11 @@ namespace Finsternis
             return blinkDirection;
         }
 
+#if UNITY_EDITOR
         void OnValidate()
         {
             this.maxBlinkDistance = Mathf.Max(this.maxBlinkDistance, this.minBlinkDistance);
         }
+#endif
     }
 }

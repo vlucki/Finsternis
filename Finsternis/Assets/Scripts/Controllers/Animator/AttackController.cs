@@ -15,13 +15,9 @@
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            if (stateInfo.IsTag("Beginning"))
+            if (stateInfo.IsTag("Execution"))
             {
-                var controller = animator.GetComponent<CharController>();
-                controller.ActiveSkill.Begin();
-            }
-            else if (stateInfo.IsTag("Execution"))
-            {
+                Debug.Log("Executing skill animator");
                 var controller = animator.GetComponent<CharController>();
                 controller.ActiveSkill.StartExecution();
             }
@@ -36,7 +32,6 @@
             }
             else if (stateInfo.IsTag("End"))
             {
-                animator.SetInteger(CharController.AttackSlot, -1);
                 animator.ResetTrigger(CharController.AttackTrigger);
                 var controller = animator.GetComponent<CharController>();
                 controller.ActiveSkill.End();

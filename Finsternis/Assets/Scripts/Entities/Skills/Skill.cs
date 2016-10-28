@@ -29,11 +29,13 @@
         [Range(0, 5)]
         protected float cooldownTime = 0.5f;
 
+        [Header("Skill phase events")]
         public SkillEvent onBegin;
         public SkillEvent onExecutionStart;
         public SkillEvent onExecutionEnd;
         public SkillEvent onEnd;
         public SkillEvent onCoolDownEnd;
+        [Space(20)]
 
         protected float lastUsed = 0;
 
@@ -41,21 +43,33 @@
 
         private float timeDisabled;
 
+        public bool Using { get; private set; }
         public bool Casting { get; private set; }
         public bool Executing { get; private set; }
         public bool CoolingDown { get; private set; }
-
+        
+        [SerializeField]
+        private AnimatorOverrideController skillOverrideController;
+        private RuntimeAnimatorController defaultOverrideController;
 
         protected virtual void Awake()
         {
             user = GetComponent<CharController>();
+            defaultOverrideController = user.Controller.runtimeAnimatorController;
         }
 
         public virtual void Begin()
         {
+            Using = true;
             Casting = true;
+            if (this.skillOverrideController)
+                user.Controller.runtimeAnimatorController = this.skillOverrideController;
 
-            user.Animator.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
+            user.Controller.SetTrigger(CharController.AttackTrigger);
+
+            Log.Info(this, "casting skill");
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
 
             onBegin.Invoke(this);
         }
@@ -65,7 +79,9 @@
             Casting = false;
             Executing = true;
 
-            user.Animator.SetFloat(CharController.AttackSpeed, 1 / this.castTime);
+            Log.Info(this, "executing skill");
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.castTime);
 
             onExecutionStart.Invoke(this);
         }
@@ -74,24 +90,29 @@
         {
             Executing = false;
 
-            user.Animator.SetFloat(CharController.AttackSpeed, 1 / this.endTime);
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.endTime);
 
             onExecutionEnd.Invoke(this);
         }
 
         public virtual void End()
         {
-            user.Animator.SetFloat(CharController.AttackSpeed, 1);
+            Using = false;
+            user.Controller.SetFloat(CharController.AttackSpeed, 1);
 
             if (cooldownTime > 0)
                 StartCoroutine(_Cooldown());
 
+            if(this.skillOverrideController)
+                user.Controller.runtimeAnimatorController = this.defaultOverrideController;
+
+            Log.Info(this, "ending skill");
             onEnd.Invoke(this);
         }
 
         public bool MayUse()
         {
-            return !Casting && !Executing && !CoolingDown;
+            return !Using;
         }
         
         private IEnumerator _Cooldown()
