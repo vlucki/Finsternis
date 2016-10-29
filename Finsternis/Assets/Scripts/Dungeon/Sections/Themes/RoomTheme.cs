@@ -7,7 +7,10 @@
     public class RoomTheme : DungeonSectionTheme
     {
         [SerializeField]
-        private List<DungeonFeature> decorations = new List<DungeonFeature>();
+        private List<DungeonFeature> floorDecorations = new List<DungeonFeature>();
+
+        [SerializeField]
+        private List<DungeonFeature> wallDecorations = new List<DungeonFeature>();
 
         [SerializeField]
         private List<DungeonFeature> exits = new List<DungeonFeature>();
@@ -15,9 +18,14 @@
         [SerializeField]
         private List<DungeonFeature> chests = new List<DungeonFeature>();
 
-        public DungeonFeature GetRandomDecoration()
+        public DungeonFeature GetRandomFloorDecoration()
         {
-            return GetRandomElement(this.decorations);
+            return GetRandomElement(this.floorDecorations);
+        }
+
+        public DungeonFeature GetRandomWallDecoration()
+        {
+            return GetRandomElement(this.wallDecorations);
         }
 
         public DungeonFeature GetRandomChest()
@@ -32,7 +40,7 @@
 
         public bool HasDecorations()
         {
-            return this.decorations.Count > 0;
+            return this.floorDecorations.Count + this.wallDecorations.Count > 0;
         }
     }
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
     pivot: 0
     minOffset: {x: 0, y: 0, z: 0}
     maxOffset: {x: 0, y: 0, z: 0}
-    faceOffset: 0
+    faceOffset: 1
   stackable: 0
   stackWhiteList: []
+  restrictions: []

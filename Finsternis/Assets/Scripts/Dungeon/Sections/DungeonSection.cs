@@ -1,9 +1,11 @@
 ﻿namespace Finsternis
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using UnityQuery;
 
     public abstract class DungeonSection : ScriptableObject, IEnumerable<Vector2>
     {
@@ -13,6 +15,7 @@
 
         public HashSet<DungeonSection> Connections { get { return connections; } }
         private Dictionary<Vector2, List<DungeonFeature>> features;
+        private List<Vector2> walls;
 
         public Vector2 Size { get { return bounds.size; } }
         public float Width { get { return bounds.width; } }
@@ -27,6 +30,7 @@
             get { return bounds.position; }
             set { bounds.position = value; }
         }
+
         public virtual Rect Bounds
         {
             get { return bounds; }
@@ -76,7 +80,7 @@
         public bool AddFeature(DungeonFeature feature, Vector2 cell)
         {
             List<DungeonFeature> cellFeatures = null;
-            if (features.TryGetValue(cell, out cellFeatures))
+            if (this.features.TryGetValue(cell, out cellFeatures))
             {
                 if (feature.Type != DungeonFeature.FeatureType.REPLACEMENT)
                 {
@@ -86,7 +90,7 @@
             }
             else
             {
-                features.Add(cell, new List<DungeonFeature>());
+                this.features.Add(cell, new List<DungeonFeature>());
                 cellFeatures = features[cell];
             }
 
@@ -126,6 +130,37 @@
                 return true;
 
             return false;
+        }
+
+        public Vector2 GetRandomWall()
+        {
+            if (this.walls.IsNullOrEmpty())
+                FindWalls();
+            return this.walls.GetRandom(Dungeon.Random.IntRange);
+        }
+
+        public void FindWalls()
+        {
+            this.walls = new List<Vector2>();
+            foreach(var cell in this)
+            {
+                var up = cell.SumY(1);
+                var down = cell.SumY(-1);
+                var left = cell.SumX(-1);
+                var right = cell.SumX(1);
+                if (!this.ContainsAll(up, down, left, right) &&
+                    !this.connections.Any(c => ContainsAll(up, down, left, right)))
+                    walls.Add(cell);
+
+            }
+        }
+
+        public virtual bool ContainsAll(params Vector2[] cells)
+        {
+            foreach (var cell in cells)
+                if (!Contains(cell))
+                    return false;
+            return true;
         }
 
         public abstract bool AddCell(Vector2 cell);

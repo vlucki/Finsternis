@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
+    using UnityQuery;
 
     [CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/Dungeon/Features/Generic Feature", order = 0)]
     public class DungeonFeature : ScriptableObject
@@ -13,29 +15,31 @@
             REPLACEMENT = 1 //should this feature replace the tile it's on?
         }
 
-        public enum CellAlignment //from where should the offset be computed?
-        {
-            CENTER = 0,
-            X_Pos = 1,
-            X_Neg = 2,
-            Z_Pos = 3,
-            Z_Neg = 4
-        }
-
         [Serializable]
         public struct AlignmentParameters
         {
-            public CellAlignment pivot;
+            public bool alignToWall;
             public Vector3 minOffset;
             public Vector3 maxOffset;
-            public bool faceOffset;
-            public AlignmentParameters(CellAlignment pivot, Vector3 minOffset, Vector3 maxOffset, bool faceOffset)
+            public int faceOffset;
+
+            public AlignmentParameters(Vector3 minOffset, Vector3 maxOffset, int faceOffset, bool alignToWall)
             {
-                this.pivot = pivot;
                 this.minOffset = minOffset;
                 this.maxOffset = maxOffset;
                 this.faceOffset = faceOffset;
+                this.alignToWall = alignToWall;
             }
+        }
+
+        [Serializable]
+        public struct PerimeterRestriction
+        {
+            public bool above;
+            public bool below;
+            public bool left;
+            public bool right;
+            public List<DungeonFeature> features;
         }
 
         #region private variables
@@ -51,7 +55,8 @@
         private FeatureType type = FeatureType.ADD_ON;
 
         [SerializeField]
-        private AlignmentParameters alignment = new AlignmentParameters(CellAlignment.CENTER, Vector3.zero, Vector3.zero, false);
+        private AlignmentParameters alignment = 
+            new AlignmentParameters(Vector3.zero, Vector3.zero, 0, false);
 
         [SerializeField]
         [Tooltip("May this feature stack with other of the same type?")]
@@ -60,6 +65,10 @@
         [SerializeField]
         [Tooltip("What kind of features may be on the same cell as this one?")]
         private List<DungeonFeature> stackWhiteList = new List<DungeonFeature>();
+
+        [SerializeField]
+        private List<PerimeterRestriction> restrictions;
+
         #endregion
 
         #region public Properties
@@ -88,9 +97,51 @@
                 return false;
             else if (!stackable && this is T)
                 return false;
-            else if(!stackable)
+            else if (!stackable)
                 return stackWhiteList.Contains(feature);
             return true;
+        }
+
+        public bool IsPositionValid(Dungeon d, Vector2 pos)
+        {
+            return !restrictions.Any(restriction =>
+            {
+                if (restriction.above)
+                {
+                    if (Check(d, pos.SumY(1), restriction))
+                        return true;
+                }
+                if (restriction.below)
+                {
+                    if (Check(d, pos.SumY(-1), restriction))
+                        return true;
+                }
+                if (restriction.left)
+                {
+                    if (Check(d, pos.SumX(-1), restriction))
+                        return true;
+                }
+                if (restriction.right)
+                {
+                    if (Check(d, pos.SumX(1), restriction))
+                        return true;
+                }
+                return false;
+            });
+        }
+
+        private bool Check(Dungeon d, Vector2 cell, PerimeterRestriction restriction)
+        {
+            if (restriction.features.IsNullOrEmpty() ||
+                !d.IsWithinDungeon(cell) ||
+                !d[cell])
+                return false;
+
+            var features = d.GetFeaturesAt(cell);
+            if (features.IsNullOrEmpty())
+                return false;
+            
+            return (features.Intersect(restriction.features).Any());
         }
 
         /// <summary>
@@ -99,7 +150,7 @@
         /// <param name="minOffset">Minimum value for offset.</param>
         /// <param name="maxOffset">Maximum value for offset.</param>
         /// <param name="faceOffet">Should the prefab of this feature have it's forward vector pointing towards the direction it was offset to?</param>
-        public void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, bool? faceOffet = null)
+        public void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, int faceOffset = 0)
         {
             this.alignment.minOffset = minOffset;
             if (maxOffset == null)
@@ -107,10 +158,37 @@
             else
                 this.alignment.maxOffset = Vector3.Max((Vector3)maxOffset, minOffset);
 
-            if (faceOffet != null)
-                this.alignment.faceOffset = (bool)faceOffet;
+            if (faceOffset != 0)
+                this.alignment.faceOffset = Mathf.Clamp(faceOffset, -1, 1);
         }
 
+        public override bool Equals(object o)
+        {
+            if (o == null)
+                return false;
+            DungeonFeature f = o as DungeonFeature;
+            if (!f)
+                return false;
+
+            if (!f.GetType().Equals(this.GetType()))
+                return false;
+
+            if (f.type != this.type)
+                return false;
+
+            if (!f.name.Equals(this.name))
+                return false;
+
+            if (!f.prefab.Equals(this.prefab))
+                return false;
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.type.GetHashCode() + this.name.GetHashCode() * 3 + this.prefab.GetHashCode() * 77;
+        }
         #endregion
     }
 }

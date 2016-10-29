@@ -137,19 +137,23 @@ namespace Finsternis
             DefineThemes(dungeon);
 
             AddFeatures(dungeon);
-            
-            //PROBLEM SEED: 1754516660, NO EXIT
 
-            Room r = GetFarthestRoom(dungeon);
-
-            dungeon.Exit = GetRandomCellWithBias(dungeon, r);
-
-            r.AddFeature(r.GetTheme<RoomTheme>().GetRandomExit(), dungeon.Exit);
+            AddExit(dungeon);
 
             PlayerPrefs.SetInt(SEED_KEY, dungeon.Seed);
 
             if (onGenerationEnd)
                 onGenerationEnd.Invoke(dungeon);
+        }
+
+        private void AddExit(Dungeon dungeon)
+        {
+            Room r = GetFarthestRoom(dungeon);
+
+            dungeon.Exit = GetRandomCellWithBias(dungeon, r);
+            var exit = r.GetTheme<RoomTheme>().GetRandomExit();
+            while (!AddFeature(dungeon, r, dungeon.Exit, exit))
+                dungeon.Exit = GetRandomCellWithBias(dungeon, r, Dungeon.Random.IntRange(2, 20));
         }
 
         private Vector2 GetRandomCellWithBias(Dungeon dungeon, Room r, int tries = 20)
@@ -193,30 +197,30 @@ namespace Finsternis
         {
             foreach (Corridor corridor in dungeon.Corridors)
             {
-                AddTrap(corridor);
+                AddTrap(dungeon, corridor);
                 AddDoors(dungeon, corridor);
             }
 
             foreach (Room room in dungeon.Rooms)
             {
-                Decorate(room);
-                AddTreasures(room);
+                Decorate(dungeon, room);
+                AddTreasures(dungeon, room);
             }
         }
 
-        private void AddTreasures(Room room)
+        private void AddTreasures(Dungeon d, Room room)
         {
             float chanceThreshold = Mathf.Pow(1 + Dungeon.Random.value(), 2);
             int maxTreasures = Dungeon.Random.IntRange(0, Mathf.CeilToInt(Mathf.Sqrt(room.CellCount)));
             while(maxTreasures >= 0 && Dungeon.Random.value() < chanceThreshold)
             {
-                AddFeature(room, room.GetRandomCell(), room.Theme.GetRandomChest());
+                AddFeature(d, room, room.GetRandomCell(), room.Theme.GetRandomChest());
                 maxTreasures--;
                 chanceThreshold /= 2;
             }
         }
 
-        private void Decorate(Room room)
+        private void Decorate(Dungeon d, Room room)
         {
             var theme = room.GetTheme<RoomTheme>();
             if (!theme.HasDecorations())
@@ -225,15 +229,18 @@ namespace Finsternis
             int amount = Dungeon.Random.IntRange(0, room.CellCount/2);
             while (--amount >= 0)
             {
-                AddFeature(room, room.GetRandomCell(), theme.GetRandomDecoration());
+                AddFeature(d, room, room.GetRandomCell(), theme.GetRandomFloorDecoration());
+
+                AddFeature(d, room, room.GetRandomWall(), theme.GetRandomWallDecoration(), true);
             }
         }
 
-        bool AddFeature(DungeonSection section, Vector2 cell, DungeonFeature feature, float frequencyModifier = 1)
+        bool AddFeature(Dungeon d, DungeonSection section, Vector2 cell, DungeonFeature feature, bool alignToWall = false, float frequencyModifier = 1)
         {
             if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
                 return false;
-
+            if (!feature.IsPositionValid(d, cell))
+                return false;
             return section.AddFeature(feature, cell);
         }
 
@@ -241,12 +248,12 @@ namespace Finsternis
         /// Randomly adds a trap to a corridor.
         /// </summary>
         /// <param name="corridor">The corridor to be trapped.</param>
-        private void AddTrap(Corridor corridor)
+        private void AddTrap(Dungeon dungeon, Corridor corridor)
         {
             if (corridor.Length > 2)
             {
                 var trap = corridor.Theme.GetRandomTrap();
-                AddFeature(corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, trap.frequencyModifier);
+                AddFeature(dungeon, corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, false, trap.frequencyModifier);
             }
         }
 
@@ -264,7 +271,8 @@ namespace Finsternis
 
             //And then at the end
             index = corridor.Length -1;
-            while (index >= corridor.Length - 2 && 
+            while (index >= 0 &&
+                index >= corridor.Length - 2 && 
                 (index >= corridor.Length || !AddDoor(dungeon, corridor, corridor[index], corridor.Direction)))
                 index--;
         }
@@ -296,9 +304,11 @@ namespace Finsternis
 
             doorForwardDirection *= 0.75f; //shift the offset a little so the door is not right at the edge of the cell
 
-            var door = Instantiate(corridor.Theme.GetRandomDoor());
+            var baseDoor = corridor.Theme.GetRandomDoor();
+            var door = Instantiate(baseDoor);
+            door.name = baseDoor.name;
 
-            door.SetOffset(new Vector3(doorForwardDirection.x, 0, -doorForwardDirection.y), null, true);
+            door.SetOffset(new Vector3(doorForwardDirection.x, 0, -doorForwardDirection.y), null, 1);
             return corridor.AddFeature(door, cell);
         }
 

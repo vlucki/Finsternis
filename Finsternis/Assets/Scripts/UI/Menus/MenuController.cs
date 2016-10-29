@@ -10,7 +10,7 @@
     {
         #region variables
         private EventSystem evtSystem;
-        private UnityEvent onFinishedToggling;
+        protected UnityEvent onFinishedToggling;
         private CanvasGroup canvasGroup;
 
         [SerializeField]
@@ -38,16 +38,6 @@
 
         public bool SkipCloseEvent { get; set; }
 
-        protected UnityEvent OnFinishedToggling
-        {
-            get
-            {
-                if (onFinishedToggling == null)
-                    onFinishedToggling = new UnityEvent();
-                return onFinishedToggling;
-            }
-        }
-
         protected CanvasGroup CanvasGroup
         {
             get
@@ -58,6 +48,7 @@
             }
         }
 
+        public bool IsOpening { get; private set; }
         public bool IsOpen { get; private set; }
         #endregion
 
@@ -65,6 +56,7 @@
 
         protected virtual void Awake()
         {
+            onFinishedToggling = new UnityEvent();
             if (this.keepPlayerLocked)
             {
                 if (!GameManager.Instance.Player)
@@ -81,8 +73,8 @@
 
         private void LockPlayerBack()
         {
-            if (this.IsOpen && !GameManager.Instance.Player.IsLocked)
-                GameManager.Instance.Player.LockAndDisable();
+            if ((this.IsOpen || this.IsOpening) && !GameManager.Instance.Player.IsLocked)
+                GameManager.Instance.Player.Lock();
         }
 
         void OnDestroy()
@@ -113,6 +105,9 @@
         /// </summary>
         public virtual void BeginOpening()
         {
+            if (this.keepPlayerLocked && GameManager.Instance.Player)
+                GameManager.Instance.Player.Lock();
+            IsOpening = true;
             gameObject.SetActive(true);
             this.OnBeganOpening.Invoke();
         }
@@ -128,6 +123,7 @@
 
         public virtual void Open()
         {
+            IsOpening = false;
             IsOpen = true;
             this.CanvasGroup.interactable = true;
             SkipCloseEvent = false;
@@ -140,6 +136,9 @@
             if (!SkipCloseEvent)
                 OnClose.Invoke();
             gameObject.SetActive(false);
+
+            if (this.keepPlayerLocked && GameManager.Instance.Player)
+                GameManager.Instance.Player.Unlock();
         }
     }
     #endregion

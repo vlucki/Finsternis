@@ -11,13 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_standing_torch
   m_EditorClassIdentifier: 
-  baseFrequency: 0.05
-  prefab: {fileID: 1000014178283164, guid: 804cf36ee81f3384bb865885109a51ac, type: 2}
+  baseFrequency: 0.1
+  prefab: {fileID: 1000011043288598, guid: 414d5e4651431b744a2ea53aece81e7e, type: 2}
   type: 0
   alignment:
-    pivot: 0
-    minOffset: {x: 0, y: 0, z: 0}
+    alignToWall: 0
+    minOffset: {x: -0.5, y: 0, z: -0.5}
     maxOffset: {x: 0.5, y: 0, z: 0.5}
     faceOffset: 0
   stackable: 0
   stackWhiteList: []
+  restrictions:
+  - above: 1
+    below: 1
+    left: 1
+    right: 1
+    features:
+    - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
+    - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}

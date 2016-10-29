@@ -15,9 +15,10 @@ MonoBehaviour:
   prefab: {fileID: 1000013885008798, guid: 527c6334dfa51734b9c06e521426f4ba, type: 2}
   type: 0
   alignment:
-    pivot: 0
+    alignToWall: 0
     minOffset: {x: 0, y: 0, z: 0}
     maxOffset: {x: 0, y: 0, z: 0}
     faceOffset: 0
   stackable: 1
   stackWhiteList: []
+  restrictions: []

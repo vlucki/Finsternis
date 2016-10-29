@@ -317,6 +317,29 @@ namespace Finsternis
             return cellsFound;
         }
 
+        public List<Vector2> GetNeighbours(Vector2 center, bool checkDiagonals, params Type[] exclude)
+        {
+            List<Vector2> neighbours = new List<Vector2>();
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    if (i == j || (!checkDiagonals && i+j == 0))
+                        continue;
+
+                    Vector2 neighbourCell = center + new Vector2(i, j);
+                    if (IsWithinDungeon(neighbourCell))
+                    {
+                        if (exclude.Length > 0 && IsOfAnyType(neighbourCell, exclude))
+                        {
+                            continue;
+                        }
+                        neighbours.Add(neighbourCell);
+                    }
+                }
+            }
+            return neighbours;
+        }
         /// <summary>
         /// Checks if a given rectangle overlaps a corridor
         /// </summary>
@@ -398,6 +421,16 @@ namespace Finsternis
             }
 
             return false;
+        }
+
+        public List<DungeonFeature> GetFeaturesAt(Vector2 cell)
+        {
+            List<DungeonFeature> features = null;
+
+            if (IsWithinDungeon(cell) && this[cell])
+                features = this[cell].GetFeaturesAt(cell);
+
+            return features;
         }
 
         public void MarkCells(DungeonSection section, DungeonSection[,] grid = null)

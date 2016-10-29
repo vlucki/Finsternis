@@ -206,7 +206,6 @@ namespace Finsternis
 
         #endregion
 
-
         public virtual void Hit(int type = 0)
         {
             if (this.character.Invincible)

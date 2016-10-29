@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Name: DF_candle
   m_EditorClassIdentifier: 
   baseFrequency: 0.5
-  prefab: {fileID: 1000013061167952, guid: 986b3259dabe73c4a88e87c93ff232d9, type: 2}
+  prefab: {fileID: 1000013925747964, guid: 986adcb6a66734b41b7aa29cb699833e, type: 2}
   type: 0
   alignment:
-    pivot: 0
+    alignToWall: 0
     minOffset: {x: 0, y: 0, z: 0}
     maxOffset: {x: 0.9, y: 0, z: 0.9}
     faceOffset: 0
   stackable: 1
-  stackWhiteList: []
+  stackWhiteList:
+  - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
+  - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
+  restrictions: []

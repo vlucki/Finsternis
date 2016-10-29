@@ -20,9 +20,11 @@ MonoBehaviour:
   - {fileID: 1000013031858822, guid: 01318bafbcdfbbc40be2e0d1950436f0, type: 2}
   walls:
   - {fileID: 11400000, guid: b6bf55d6f0f6f444291bf6717c33bedd, type: 2}
-  decorations:
+  spawnDensityModifier: 1
+  floorDecorations:
   - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
-  - {fileID: 11400000, guid: 0dd543a5d1bb341448d421e2be3cd1a3, type: 2}
+  wallDecorations:
+  - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
   exits:
   - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}
   chests:

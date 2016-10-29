@@ -67,8 +67,6 @@
 
             user.Controller.SetTrigger(CharController.AttackTrigger);
 
-            Log.Info(this, "casting skill");
-
             user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
 
             onBegin.Invoke(this);
@@ -78,8 +76,6 @@
         {
             Casting = false;
             Executing = true;
-
-            Log.Info(this, "executing skill");
 
             user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.castTime);
 
@@ -105,8 +101,7 @@
 
             if(this.skillOverrideController)
                 user.Controller.runtimeAnimatorController = this.defaultOverrideController;
-
-            Log.Info(this, "ending skill");
+            
             onEnd.Invoke(this);
         }
 

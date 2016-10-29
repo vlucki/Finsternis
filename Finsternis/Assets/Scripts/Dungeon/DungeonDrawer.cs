@@ -157,10 +157,10 @@ namespace Finsternis
             cell.transform.SetParent(dungeon.transform);
 
             DungeonFeature replacement = null;
-            var featuresList = dungeon[cellX, cellY].GetFeaturesAt(dungeonPos);
+            var featuresList = dungeon.GetFeaturesAt(dungeonPos);
             if (featuresList != null)
             {
-                foreach (var feature in dungeon[cellX, cellY].GetFeaturesAt(dungeonPos))
+                foreach (var feature in featuresList)
                 {
                     if (feature.Type == DungeonFeature.FeatureType.REPLACEMENT)
                         replacement = feature;
@@ -179,9 +179,48 @@ namespace Finsternis
 
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
         {
-            position += Vector2.one / 2; //needed to align the feature with the center of each cell
             var offset = feature.Alignment.minOffset;
             var maxOffset = feature.Alignment.maxOffset;
+
+            if (!feature.Alignment.alignToWall)
+                position += Vector2.one / 2; //needed to align the feature with the center of each cell
+            else
+            {
+                var wall = dungeon.GetNeighbours(position, false, typeof(Room), typeof(Corridor)).GetRandom(Dungeon.Random.IntRange);
+                if (wall.x != position.x)
+                {
+                    offset.z = maxOffset.z = 0;
+                    if (wall.x > position.x)
+                    {
+                        offset.x = maxOffset.x;
+                        position.x++;
+                    }
+                    else
+                    {
+
+                        maxOffset.x = offset.x;
+                    }
+                } else
+                    position.x += .5f;
+
+                if (wall.y != position.y)
+                {
+                    offset.x = maxOffset.x = 0;
+                    if (wall.y > position.y)
+                    {
+                        position.y ++;
+                    }
+                    else
+                    {
+                        offset.z = maxOffset.z;
+                        maxOffset.z = offset.z;
+                    }
+                }
+                else
+                    position.y -= .5f;
+
+
+            }
             if (maxOffset != offset)
             {
                 offset.x = Dungeon.Random.Range(offset.x, maxOffset.x, 2);
@@ -194,8 +233,8 @@ namespace Finsternis
                 GetWorldPosition(position) + offset,
                 feature.Prefab.transform.rotation);
 
-            if (feature.Alignment.faceOffset)
-                featureGO.transform.forward = offset.normalized;
+            if (feature.Alignment.faceOffset != 0 && !offset.IsZero())
+                featureGO.transform.forward = offset.normalized * feature.Alignment.faceOffset;
 
             return featureGO;
         }

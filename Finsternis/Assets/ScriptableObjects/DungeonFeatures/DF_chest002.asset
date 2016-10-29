@@ -21,3 +21,11 @@ MonoBehaviour:
     faceOffset: 0
   stackable: 0
   stackWhiteList: []
+  restrictions:
+  - above: 1
+    below: 1
+    left: 1
+    right: 1
+    features:
+    - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
+    - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}

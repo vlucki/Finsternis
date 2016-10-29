@@ -43,7 +43,6 @@ namespace Finsternis
 
             OnOpen.AddListener(() =>
             {
-                GameManager.Instance.Player.LockAndDisable();
                 if (!lastSelected)
                     lastSelected = options[0];
 
@@ -54,13 +53,6 @@ namespace Finsternis
 
                 if (EvtSystem.currentSelectedGameObject != lastSelected.gameObject)
                     EvtSystem.SetSelectedGameObject(lastSelected.gameObject);
-            });
-
-            OnClose.AddListener(() =>
-            {
-               var charCtrl = GameManager.Instance.Player;
-               if (charCtrl)
-                   charCtrl.Enable();
             });
 
             LoadOptions(optionsContainer);
@@ -118,13 +110,9 @@ namespace Finsternis
         /// </summary>
         public override void BeginOpening()
         {
-            var charCtrl = GameManager.Instance.Player;
-            if(charCtrl)
-                charCtrl.LockAndDisable();
-
             this.targetPercentage = 1;
-            OnFinishedToggling.AddListener(Open);
             base.BeginOpening();
+            onFinishedToggling.AddListener(Open);
             StartCoroutine(_ToggleMenu());
         }
 
@@ -135,7 +123,7 @@ namespace Finsternis
         {
             this.targetPercentage = 0;
             this.eyeController.Reset();
-            OnFinishedToggling.AddListener(Close);
+            onFinishedToggling.AddListener(Close);
             base.BeginClosing();
             StartCoroutine(_ToggleMenu());
         }
@@ -159,8 +147,8 @@ namespace Finsternis
 
                 PositionButtons(targetPercentage); //call once more to avoid precision errors
 
-                OnFinishedToggling.Invoke();
-                OnFinishedToggling.RemoveAllListeners();
+                onFinishedToggling.Invoke();
+                onFinishedToggling.RemoveAllListeners();
 
                 transitioning = false;
             }
@@ -190,7 +178,7 @@ namespace Finsternis
             {
                 SkipCloseEvent = true;
                 BeginClosing();
-                OnFinishedToggling.AddListener(showNewGameDialog);
+                onFinishedToggling.AddListener(showNewGameDialog);
             }
             else
             {
@@ -204,7 +192,7 @@ namespace Finsternis
             {
                 SkipCloseEvent = true;
                 BeginClosing();
-                OnFinishedToggling.AddListener(showExitGameDialog);
+                onFinishedToggling.AddListener(showExitGameDialog);
             }
             else
             {
@@ -215,7 +203,7 @@ namespace Finsternis
         public void CloseAndThenOpen(MenuController menu)
         {
             BeginClosing();
-            OnFinishedToggling.AddListener(() => menu.BeginOpening());
+            onFinishedToggling.AddListener(() => menu.BeginOpening());
         }
     }
 }

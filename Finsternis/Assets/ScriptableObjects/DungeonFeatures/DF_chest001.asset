@@ -12,12 +12,20 @@ MonoBehaviour:
   m_Name: DF_chest001
   m_EditorClassIdentifier: 
   baseFrequency: 0.5
-  prefab: {fileID: 1000011949347506, guid: b1dac01781ceff54c977651da9588a89, type: 2}
+  prefab: {fileID: 1000014290679588, guid: ab166bcb06f317143a1e62ca1d04d6a1, type: 2}
   type: 0
   alignment:
-    pivot: 0
+    alignToWall: 0
     minOffset: {x: 0, y: 0, z: 0}
     maxOffset: {x: 0, y: 0, z: 0}
     faceOffset: 0
   stackable: 0
   stackWhiteList: []
+  restrictions:
+  - above: 1
+    below: 1
+    left: 1
+    right: 1
+    features:
+    - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
+    - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}

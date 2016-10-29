@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: A_d_Land
+  m_Name: A_d_land
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
