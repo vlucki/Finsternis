@@ -111,7 +111,7 @@ Material:
       second: 0.02
     - first:
         name: _Power
-      second: 2
+      second: 10.2
     - first:
         name: _SmoothnessTextureChannel
       second: 0

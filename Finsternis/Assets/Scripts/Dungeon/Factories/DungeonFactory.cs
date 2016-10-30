@@ -231,16 +231,17 @@ namespace Finsternis
             {
                 AddFeature(d, room, room.GetRandomCell(), theme.GetRandomFloorDecoration());
 
-                AddFeature(d, room, room.GetRandomWall(), theme.GetRandomWallDecoration(), true);
+                AddFeature(d, room, room.GetRandomEdgeCell(), theme.GetRandomWallDecoration());
             }
         }
 
-        bool AddFeature(Dungeon d, DungeonSection section, Vector2 cell, DungeonFeature feature, bool alignToWall = false, float frequencyModifier = 1)
+        bool AddFeature(Dungeon d, DungeonSection section, Vector2 cell, DungeonFeature feature, float frequencyModifier = 1)
         {
             if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
                 return false;
             if (!feature.IsPositionValid(d, cell))
                 return false;
+
             return section.AddFeature(feature, cell);
         }
 
@@ -253,7 +254,7 @@ namespace Finsternis
             if (corridor.Length > 2)
             {
                 var trap = corridor.Theme.GetRandomTrap();
-                AddFeature(dungeon, corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, false, trap.frequencyModifier);
+                AddFeature(dungeon, corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, trap.frequencyModifier);
             }
         }
 
@@ -288,28 +289,25 @@ namespace Finsternis
         private bool AddDoor(Dungeon dungeon, Corridor corridor, Vector2 cell, Vector2 doorForwardDirection)
         {
             //if there's a wall right before/after the cell where the door is to be placed, no point doing so
-            if (!dungeon.IsWithinDungeon(cell + doorForwardDirection) || !dungeon[cell + doorForwardDirection])
+            if (!dungeon.IsWithinDungeon(cell + doorForwardDirection) || 
+                dungeon.IsOfType(cell + doorForwardDirection, Dungeon.wall))
                 return false;
-            if (!dungeon.IsWithinDungeon(cell - doorForwardDirection) || !dungeon[cell - doorForwardDirection])
+            if (!dungeon.IsWithinDungeon(cell - doorForwardDirection) ||
+                dungeon.IsOfType(cell - doorForwardDirection, Dungeon.wall))
                 return false;
 
             //Same if there aren't walls on both sides of the cell where the door would be
             var lateralOffset = doorForwardDirection.YX();
 
-            if (dungeon.IsWithinDungeon(cell + lateralOffset) && dungeon[cell + lateralOffset])
+            if (dungeon.IsWithinDungeon(cell + lateralOffset) && 
+                !dungeon.IsOfType(cell + lateralOffset, Dungeon.wall))
                 return false;
 
-            if (dungeon.IsWithinDungeon(cell - lateralOffset) && dungeon[cell - lateralOffset])
+            if (dungeon.IsWithinDungeon(cell - lateralOffset) &&
+                !dungeon.IsOfType(cell - lateralOffset, Dungeon.wall))
                 return false;
 
-            doorForwardDirection *= 0.75f; //shift the offset a little so the door is not right at the edge of the cell
-
-            var baseDoor = corridor.Theme.GetRandomDoor();
-            var door = Instantiate(baseDoor);
-            door.name = baseDoor.name;
-
-            door.SetOffset(new Vector3(doorForwardDirection.x, 0, -doorForwardDirection.y), null, 1);
-            return corridor.AddFeature(door, cell);
+            return corridor.AddFeature(corridor.Theme.GetRandomDoor(), cell);
         }
 
         /// <summary>

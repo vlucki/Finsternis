@@ -19,7 +19,7 @@ namespace Finsternis
             brushInUse.x -= corridorDirection.y;
             brushInUse.y -= corridorDirection.x;
 
-            room = Room.CreateInstance(brushInUse.position);
+            room = Room.CreateInstance(brushInUse.position, dungeon);
 
             if (brushInUse.x < 0 || brushInUse.y < 0
                 || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brushInUse))

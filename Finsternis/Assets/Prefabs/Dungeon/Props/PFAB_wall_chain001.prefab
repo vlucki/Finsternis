@@ -162,12 +162,12 @@ GameObject:
   - 23: {fileID: 23000012883720558}
   - 54: {fileID: 54000010115854116}
   - 59: {fileID: 59000010621952566}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PFAB_wall_chain001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000010215970400
 Transform:

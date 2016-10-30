@@ -219,8 +219,10 @@ namespace UnityQuery
                 max = count;
             else if (max < min)
                 max = min;
-
-            int random = randomFunction(min, count);
+            
+            int random = (min == max ? min : randomFunction(min, count));
+            if (random >= count)
+                return default(T);
 
             var list = e as IList<T>;
             if (list != null)

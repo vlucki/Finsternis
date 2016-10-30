@@ -16,16 +16,9 @@
 
         public new RoomTheme Theme { get { return base.Theme as RoomTheme; } }
 
-        public static Room CreateInstance(Vector2 position)
+        public static Room CreateInstance(Vector2 position, Dungeon dungeon)
         {
-            Room r = CreateInstance<Room>(new Rect(position, Vector2.zero));
-            r.cells = new List<Vector2>();
-            return r;
-        }
-
-        public static Room CreateInstance(Rect bounds, IRandom random)
-        {
-            Room r = CreateInstance<Room>(bounds);
+            Room r = CreateInstance<Room>(new Rect(position, Vector2.zero), dungeon);
             r.cells = new List<Vector2>();
             return r;
         }

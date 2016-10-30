@@ -150,5 +150,33 @@ namespace UnityQuery
         {
             return Quaternion.Euler(0, 0, degrees) * v;
         }
+
+        public static Vector2 SumX(this Vector2 v, float value)
+        {
+            return new Vector2(v.x + value, v.y);
+        }
+
+        public static Vector2 SumY(this Vector2 v, float value)
+        {
+            return new Vector2(v.x, v.y + value);
+        }
+
+        public static Vector3 SumZ(this Vector3 v, float value)
+        {
+            return new Vector3(v.x, v.y, v.z + value);
+        }
+
+        public static bool Compare(this Vector2 v, float x, float y, bool approximate = false)
+        {
+            if (approximate)
+                return Mathf.Approximately(v.x, x) && Mathf.Approximately(v.y, y);
+            else
+                return v.x == x && v.y == y;
+        }
+
+        public static float Dot(this Vector3 v, Vector3 other)
+        {
+            return Vector3.Dot(v, other);
+        }
     }
 }

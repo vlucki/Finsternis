@@ -11,7 +11,7 @@ GameObject:
   - 95: {fileID: 9508118}
   - 65: {fileID: 6598464}
   - 114: {fileID: 11470736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFAB_exit02
   m_TagString: Exit
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 33: {fileID: 3367626}
   - 23: {fileID: 2328962}
   - 65: {fileID: 6565042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - 33: {fileID: 3343964}
   - 23: {fileID: 2371592}
   - 64: {fileID: 6485436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}

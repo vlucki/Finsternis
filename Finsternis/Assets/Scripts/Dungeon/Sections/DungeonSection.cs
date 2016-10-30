@@ -15,8 +15,9 @@
 
         public HashSet<DungeonSection> Connections { get { return connections; } }
         private Dictionary<Vector2, List<DungeonFeature>> features;
-        private List<Vector2> walls;
+        private List<Vector2> edgeCells;
 
+        public Dungeon Dungeon { get; protected set; }
         public Vector2 Size { get { return bounds.size; } }
         public float Width { get { return bounds.width; } }
         public float Height { get { return bounds.height; } }
@@ -40,9 +41,10 @@
         public virtual void SetTheme<T>(T theme) where T : DungeonSectionTheme { this.theme = theme; }
         public T GetTheme<T>() where T : DungeonSectionTheme { return (T)this.theme; }
 
-        public static T CreateInstance<T>(Rect bounds) where T : DungeonSection
+        public static T CreateInstance<T>(Rect bounds, Dungeon dungeon) where T : DungeonSection
         {
             T section = CreateInstance<T>();
+            section.Dungeon = dungeon;
             section.Bounds = bounds;
             return section;
         }
@@ -132,25 +134,40 @@
             return false;
         }
 
-        public Vector2 GetRandomWall()
+        public Vector2 GetRandomEdgeCell()
         {
-            if (this.walls.IsNullOrEmpty())
-                FindWalls();
-            return this.walls.GetRandom(Dungeon.Random.IntRange);
+            if (this.edgeCells.IsNullOrEmpty())
+                FindEdgeCells();
+            return this.edgeCells.GetRandom(Dungeon.Random.IntRange);
         }
 
-        public void FindWalls()
+        public void FindEdgeCells()
         {
-            this.walls = new List<Vector2>();
+            this.edgeCells = new List<Vector2>();
             foreach(var cell in this)
             {
+
                 var up = cell.SumY(1);
-                var down = cell.SumY(-1);
-                var left = cell.SumX(-1);
-                var right = cell.SumX(1);
-                if (!this.ContainsAll(up, down, left, right) &&
-                    !this.connections.Any(c => ContainsAll(up, down, left, right)))
-                    walls.Add(cell);
+                bool edgeCellFound = this.Dungeon.IsOfType(up, null);
+
+                if (!edgeCellFound)
+                {
+                    var down = cell.SumY(-1);
+                    edgeCellFound = this.Dungeon.IsOfType(down, null);
+                }
+                if (!edgeCellFound)
+                {
+                    var left = cell.SumX(-1);
+                    edgeCellFound = this.Dungeon.IsOfType(left, null);
+                }
+                if (!edgeCellFound)
+                {
+                    var right = cell.SumX(1);
+                    edgeCellFound = this.Dungeon.IsOfType(right, null);
+                }
+
+                if(edgeCellFound)
+                    edgeCells.Add(cell);
 
             }
         }

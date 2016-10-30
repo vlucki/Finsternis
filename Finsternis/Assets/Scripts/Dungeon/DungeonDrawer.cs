@@ -179,62 +179,17 @@ namespace Finsternis
 
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
         {
-            var offset = feature.Alignment.minOffset;
-            var maxOffset = feature.Alignment.maxOffset;
-
-            if (!feature.Alignment.alignToWall)
-                position += Vector2.one / 2; //needed to align the feature with the center of each cell
-            else
-            {
-                var wall = dungeon.GetNeighbours(position, false, typeof(Room), typeof(Corridor)).GetRandom(Dungeon.Random.IntRange);
-                if (wall.x != position.x)
-                {
-                    offset.z = maxOffset.z = 0;
-                    if (wall.x > position.x)
-                    {
-                        offset.x = maxOffset.x;
-                        position.x++;
-                    }
-                    else
-                    {
-
-                        maxOffset.x = offset.x;
-                    }
-                } else
-                    position.x += .5f;
-
-                if (wall.y != position.y)
-                {
-                    offset.x = maxOffset.x = 0;
-                    if (wall.y > position.y)
-                    {
-                        position.y ++;
-                    }
-                    else
-                    {
-                        offset.z = maxOffset.z;
-                        maxOffset.z = offset.z;
-                    }
-                }
-                else
-                    position.y -= .5f;
-
-
-            }
-            if (maxOffset != offset)
-            {
-                offset.x = Dungeon.Random.Range(offset.x, maxOffset.x, 2);
-                offset.y = Dungeon.Random.Range(offset.y, maxOffset.y, 2);
-                offset.z = Dungeon.Random.Range(offset.z, maxOffset.z, 2);
-            }
             GameObject featureGO =
                 (GameObject)Instantiate(
                 feature.Prefab,
-                GetWorldPosition(position) + offset,
+                GetWorldPosition(position + Vector2.one / 2),
                 feature.Prefab.transform.rotation);
-
-            if (feature.Alignment.faceOffset != 0 && !offset.IsZero())
-                featureGO.transform.forward = offset.normalized * feature.Alignment.faceOffset;
+            if (!feature.Alignment.IsNullOrEmpty())
+            {
+                feature.Alignment.ForEach(
+                    alignment => alignment.Align(this.dungeon, this.cellScale, position, featureGO)
+                    );
+            }
 
             return featureGO;
         }
@@ -255,50 +210,11 @@ namespace Finsternis
             return wall;
         }
 
-        private List<Vector2> GetWallNeighbourhood(Vector2 cell)
-        {
-            var neighbours = new List<Vector2>();
-
-            Type[] types = { typeof(Corridor), typeof(Room) };
-            var neighbour = cell - Vector2.up;
-            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbours.Add(neighbour);
-
-            neighbour = cell + Vector2.right;
-            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbours.Add(neighbour);
-
-            neighbour = cell + Vector2.up;
-            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbours.Add(neighbour);
-
-            neighbour = cell - Vector2.right;
-            if (dungeon.IsWithinDungeon(neighbour) && dungeon.IsOfAnyType(neighbour, types))
-                neighbours.Add(neighbour);
-
-            return neighbours;
-        }
-
         /// <summary>
-        /// Creates a game object with a primitive quad mesh.
+        /// Checks if a wall should be made at a given position in the dungeon.
         /// </summary>
-        /// <param name="pos">Position where the quad should be.</param>
-        /// <param name="scale">Scale of the resulting quad.</param>
-        /// <param name="rotation">Rotation of the resulting quad.</param>
-        /// <param name="mat">Material to be used on the resulting quad.</param>
-        /// <param name="name">Name of the resulting gameobject.</param>
-        /// <returns></returns>
-        private GameObject MakeQuad(Vector3 pos, Vector3 scale, Vector3 rotation, Material mat, string name = "Ceiling")
-        {
-            GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Quad);
-            plane.GetComponent<MeshRenderer>().sharedMaterial = mat;
-            plane.transform.localScale = scale;
-            plane.transform.rotation = Quaternion.Euler(rotation);
-            plane.transform.position = pos;
-            plane.name = name;
-            return plane;
-        }
-
+        /// <param name="pos">Position to check.</param>
+        /// <returns>True if the given coordinates are outside the dungeon or represent a wall within it.</returns>
         public bool ShouldMakeWall(Vector2 pos)
         {
             return (!dungeon.IsWithinDungeon(pos) || !dungeon[pos]);
@@ -315,107 +231,9 @@ namespace Finsternis
             return (!dungeon.IsWithinDungeon(cellX, cellY) || !dungeon[cellX, cellY]);
         }
 
-        /// <summary>
-        /// Merge every mesh within a game object and its children.
-        /// </summary>
-        /// <param name="parent">Game object containing the mesh and/or children with meshes.</param>
-        /// <param name="nameAfterParent">Should the merged mesh have the same name as the parent mesh?</param>
-        /// <param name="mergeThreshold">How many meshes may be combined at once?</param>
-        /// <returns></returns>
-        private GameObject[] MergeMeshes(GameObject parent, bool nameAfterParent = false, int mergeThreshold = 5)
-        {
-            Vector3 originalPos = parent.transform.position;
-            parent.transform.position = Vector3.zero;
-            List<GameObject> sections = new List<GameObject>(1);
-            MeshFilter[] meshFilters = parent.GetComponentsInChildren<MeshFilter>();
-            if (meshFilters.Length < 1)
-            {
-                sections.Add(parent);
-                return sections.ToArray();
-            }
-
-            CombineInstance[] combine = new CombineInstance[System.Math.Min(meshFilters.Length, mergeThreshold)];
-            bool combined = false;
-            int i = 0;
-            int j = 0;
-            while (i < meshFilters.Length)
-            {
-                if (j >= combine.Length)
-                {
-                    sections.Add(CreateSection(j, combine, parent, nameAfterParent ? parent.name : null));
-                    combine = new CombineInstance[Mathf.Min(meshFilters.Length - i, mergeThreshold)];
-                    j = 0;
-                    combined = true;
-                }
-                else
-                {
-                    combined = false;
-                }
-                try
-                {
-                    combine[j].mesh = meshFilters[meshFilters.Length - 1 - i].sharedMesh;
-                    combine[j].transform = meshFilters[meshFilters.Length - 1 - i].transform.localToWorldMatrix;
-                    j++;
-                }
-                catch (IndexOutOfRangeException ex)
-                {
-                    Debug.Log(
-                        "j = " + j +
-                        "\ni = " + i +
-                        "\nmeshFilters.Length = " + meshFilters.Length +
-                        "\ncombine.Length = " + combine.Length
-                        );
-                    throw new IndexOutOfRangeException(ex.Message);
-                }
-                i++;
-            }
-
-            if (!combined)
-            {
-                sections.Add(CreateSection(j, combine, parent, nameAfterParent ? parent.name : null));
-            }
-
-            foreach (MeshFilter m in meshFilters)
-            {
-                m.gameObject.DestroyNow();
-            }
-
-            parent.DestroyNow();
-
-            foreach (GameObject section in sections)
-                section.transform.Translate(originalPos);
-
-            return sections.ToArray();
-        }
-
-        private GameObject CreateSection(int j, CombineInstance[] combine, GameObject original, string name = null, bool useBoxCollider = true)
-        {
-            if (String.IsNullOrEmpty(name))
-                name = "section" + j;
-
-            GameObject sectionContainer = new GameObject(name);
-
-            Mesh m = new Mesh();
-            m.CombineMeshes(combine);
-            sectionContainer.AddComponent<MeshFilter>().mesh = m;
-
-            MeshRenderer r = sectionContainer.GetComponent<MeshRenderer>();
-            if (!r)
-                r = sectionContainer.AddComponent<MeshRenderer>();
-
-            r.material = Material.Instantiate<Material>(defaultWallMaterial);
-
-            if (useBoxCollider)
-                sectionContainer.AddComponent<BoxCollider>().sharedMaterial = defaultWallPhysicMaterial;
-            else
-                sectionContainer.AddComponent<MeshCollider>().sharedMaterial = defaultWallPhysicMaterial;
-
-            sectionContainer.layer = original.layer;
-            return sectionContainer;
-        }
         public Vector3 GetEntrancePosition()
         {
-            return GetWorldPosition(this.dungeon.Entrance + Vector2.one/2);
+            return GetWorldPosition(this.dungeon.Entrance + Vector2.one / 2);
         }
     }
 

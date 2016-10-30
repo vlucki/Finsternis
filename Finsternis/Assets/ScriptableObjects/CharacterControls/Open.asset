@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Open
   m_EditorClassIdentifier: 
   axis: Open
-  thresholdType: 17
+  thresholdType: 16
   thresholdValue: 0
   repeatDelay: 0

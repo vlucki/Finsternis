@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: MovementX
   m_EditorClassIdentifier: 
   axis: Horizontal
-  enabled: 1
   thresholdType: 273
   thresholdValue: 0
-  repeatDelay: 0.1
+  repeatDelay: 0

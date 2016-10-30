@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3330160}
   - 23: {fileID: 2354014}
   - 65: {fileID: 6573164}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rightDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 33: {fileID: 3305978}
   - 23: {fileID: 2368350}
   - 65: {fileID: 6566700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: leftDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   - 95: {fileID: 9555778}
   - 65: {fileID: 6517148}
   - 114: {fileID: 11445162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PFAB_exit01
   m_TagString: Exit
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}

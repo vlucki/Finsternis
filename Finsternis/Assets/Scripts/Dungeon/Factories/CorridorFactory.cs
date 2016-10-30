@@ -29,7 +29,7 @@ namespace Finsternis
         /// <returns>True if a corridor was created without any intersections.</returns>
         public static bool CarveCorridor(Dungeon dungeon, Room room, Vector2 direction, Vector2 minMaxCorridorLength, Vector2 minRoomDimensions, out Corridor corridor)
         {
-            corridor = Corridor.CreateInstance(new Rect(), direction);
+            corridor = Corridor.CreateInstance(new Rect(), direction, dungeon);
 
             if (!CanFitCorridor(dungeon, direction, room.Bounds, minMaxCorridorLength))
             {

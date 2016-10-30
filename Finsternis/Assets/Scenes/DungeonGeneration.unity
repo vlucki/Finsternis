@@ -14,29 +14,29 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: 0.1
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 10
-  m_AmbientSkyColor: {r: 0.37967128, g: 0.382131, b: 0.39117646, a: 0.4}
-  m_AmbientEquatorColor: {r: 0.16760382, g: 0.2765929, b: 0.36764705, a: 0.4}
-  m_AmbientGroundColor: {r: 0.20847896, g: 0.14907007, b: 0.33235297, a: 0.4}
+  m_LinearFogStart: 11.5
+  m_LinearFogEnd: 14
+  m_AmbientSkyColor: {r: 0.39607844, g: 0.25490198, b: 0.1882353, a: 0.4}
+  m_AmbientEquatorColor: {r: 0.22794116, g: 0.12215425, b: 0.05363321, a: 0.4}
+  m_AmbientGroundColor: {r: 0, g: 0, b: 0, a: 0.4}
   m_AmbientIntensity: 0.4
   m_AmbientMode: 1
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: 0.5
+  m_HaloStrength: 0.1
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
-  m_HaloTexture: {fileID: 0}
+  m_HaloTexture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
-  m_ReflectionBounces: 3
-  m_ReflectionIntensity: 0.585
-  m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_ReflectionBounces: 2
+  m_ReflectionIntensity: 0.5
+  m_CustomReflection: {fileID: 8900000, guid: e150e48f05f638247bbd7a995b8dd46b, type: 3}
+  m_Sun: {fileID: 976683703}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 4
-    m_Resolution: 8
+    m_Resolution: 6
     m_BakeResolution: 40
     m_TextureWidth: 1024
     m_TextureHeight: 1024
@@ -63,17 +63,16 @@ LightmapSettings:
     m_CompAOExponent: 0
     m_CompAOExponentDirect: 0
     m_Padding: 2
-    m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000,
-      type: 0}
-    m_LightmapsBakeMode: 1
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 0
     m_TextureCompression: 1
     m_DirectLightInLightProbes: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
+    m_ReflectionCompression: 1
   m_LightingDataAsset: {fileID: 0}
-  m_RuntimeCPUUsage: 100
+  m_RuntimeCPUUsage: 50
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -212,19 +211,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011835815476, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.2750112
+      value: -0.27501118
       objectReference: {fileID: 0}
     - target: {fileID: 4000011835815476, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7101828
+      value: 0.7101827
       objectReference: {fileID: 0}
     - target: {fileID: 4000011835815476, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.6323205
+      value: -0.63232046
       objectReference: {fileID: 0}
     - target: {fileID: 4000011835815476, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.14205697
+      value: -0.14205696
       objectReference: {fileID: 0}
     - target: {fileID: 114000010832182240, guid: a12df8b8f5cde9b46a0666a6835a4f8b,
         type: 2}
@@ -1697,6 +1696,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1278578826}
     m_Modifications:
+    - target: {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_Delegates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -1796,7 +1800,29 @@ Prefab:
       propertyPath: m_Name
       value: Balthazar
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_TypeName
+      value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0d169698ce9d7db4e9d49e076610bcee, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &671627153
@@ -2515,6 +2541,41 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 917, y: 830}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &747883532 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013497388984, guid: 0d169698ce9d7db4e9d49e076610bcee,
+    type: 2}
+  m_PrefabInternal: {fileID: 1537247330}
+--- !u!114 &747883533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 747883532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1278578832}
+          m_MethodName: Select
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!4 &769769428 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755,
@@ -3466,7 +3527,7 @@ GameObject:
   - 4: {fileID: 976683704}
   - 108: {fileID: 976683703}
   m_Layer: 0
-  m_Name: Light
+  m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3482,7 +3543,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 0.8693771, g: 0.9181422, b: 0.9852941, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3497,7 +3558,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5194,6 +5255,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1278578826}
     m_Modifications:
+    - target: {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_Delegates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -5318,7 +5384,29 @@ Prefab:
       value: 
       objectReference: {fileID: 1000011107040148, guid: a12df8b8f5cde9b46a0666a6835a4f8b,
         type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_TypeName
+      value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013332242388, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114000010915339582, guid: 0d169698ce9d7db4e9d49e076610bcee, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0d169698ce9d7db4e9d49e076610bcee, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &1537247331 stripped
@@ -5737,6 +5825,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1001 &1652674386
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 8.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 496460, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 19810448, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: randomSeed
+      value: -1080055605
+      objectReference: {fileID: 0}
+    - target: {fileID: 19859880, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: randomSeed
+      value: 1553421919
+      objectReference: {fileID: 0}
+    - target: {fileID: 19866072, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: randomSeed
+      value: 221101607
+      objectReference: {fileID: 0}
+    - target: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1660314273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6773,6 +6919,7 @@ GameObject:
   - 114: {fileID: 1789356845}
   - 114: {fileID: 1789356849}
   - 114: {fileID: 1789356846}
+  - 114: {fileID: 1789356851}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6911,6 +7058,23 @@ Transform:
   - {fileID: 265967395}
   m_Father: {fileID: 890291368}
   m_RootOrder: 0
+--- !u!114 &1789356851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1789356843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4975a6e437fc3b149a8cd508ce5bdd69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.25
+  intensity: 0.75
+  blurSize: 1
+  blurIterations: 1
+  blurType: 0
+  fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
 --- !u!1 &1827870795
 GameObject:
   m_ObjectHideFlags: 0
@@ -7262,6 +7426,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1863600037 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013497388984, guid: 0d169698ce9d7db4e9d49e076610bcee,
+    type: 2}
+  m_PrefabInternal: {fileID: 588527694}
+--- !u!114 &1863600039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1863600037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1278578832}
+          m_MethodName: Select
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!1 &1893797427
 GameObject:
   m_ObjectHideFlags: 0

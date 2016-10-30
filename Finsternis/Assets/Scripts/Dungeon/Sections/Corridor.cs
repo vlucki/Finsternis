@@ -60,16 +60,18 @@
         
         public new CorridorTheme Theme { get { return base.Theme as CorridorTheme; } }
 
-        public static Corridor CreateInstance(Rect bounds, Vector2 direction)
+        public static Corridor CreateInstance(Rect bounds, Vector2 direction, Dungeon dungeon)
         {
-            Corridor c = CreateInstance<Corridor>(bounds);
+            Corridor c = CreateInstance<Corridor>(bounds, dungeon);
             c.direction = direction;
             return c;
         }
 
-        public static Corridor CreateInstance(Vector2 position, int length, Vector2 direction)
+        public static Corridor CreateInstance(Vector2 position, int length, Vector2 direction, Dungeon dungeon)
         {
-            return Corridor.CreateInstance(new Rect(position, direction * length + new Vector2(direction.y, direction.x)), direction);
+            return Corridor.CreateInstance(
+                new Rect(position, direction * length + new Vector2(direction.y, direction.x)), 
+                direction, dungeon);
         }
 
         public override string ToString()
@@ -111,13 +113,13 @@
 
             if (index > 0)
             {
-                result[0] = CreateInstance(bounds.position, index, this.direction);
+                result[0] = CreateInstance(bounds.position, index, this.direction, this.Dungeon);
                 result[0].SetTheme(this.Theme);
             }
 
             if (index < this.length - 1)
             {
-                result[1] = CreateInstance(this[index + 1], this.length - index - 1, this.direction);
+                result[1] = CreateInstance(this[index + 1], this.length - index - 1, this.direction, this.Dungeon);
                 result[1].SetTheme(this.Theme);
             }
 

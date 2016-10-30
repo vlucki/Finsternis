@@ -46,6 +46,8 @@ namespace Finsternis
             }
         }
 
+        public const Type wall = null;
+
         [SerializeField]
         private int seed;
 
@@ -317,7 +319,7 @@ namespace Finsternis
             return cellsFound;
         }
 
-        public List<Vector2> GetNeighbours(Vector2 center, bool checkDiagonals, params Type[] exclude)
+        public List<Vector2> GetNeighbours(Vector2 center, bool checkDiagonals, params Type[] type)
         {
             List<Vector2> neighbours = new List<Vector2>();
             for (int i = -1; i < 2; i++)
@@ -328,18 +330,15 @@ namespace Finsternis
                         continue;
 
                     Vector2 neighbourCell = center + new Vector2(i, j);
-                    if (IsWithinDungeon(neighbourCell))
+                    if (type.Length == 0 || IsOfAnyType(neighbourCell, type))
                     {
-                        if (exclude.Length > 0 && IsOfAnyType(neighbourCell, exclude))
-                        {
-                            continue;
-                        }
                         neighbours.Add(neighbourCell);
                     }
                 }
             }
             return neighbours;
         }
+
         /// <summary>
         /// Checks if a given rectangle overlaps a corridor
         /// </summary>
@@ -382,12 +381,12 @@ namespace Finsternis
         /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
         public bool IsOfType(Vector2 cell, Type type)
         {
-            if (this[cell])
+            if (IsWithinDungeon(cell) && this[cell])
             {
                 if (this[cell].GetType().Equals(type))
                     return true;
             }
-            else if (type == null) //Wall
+            else if (type == Dungeon.wall)
                 return true;
 
             return false;

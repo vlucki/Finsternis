@@ -21,12 +21,12 @@ GameObject:
   - 4: {fileID: 4000011000501790}
   - 33: {fileID: 33000010472196454}
   - 23: {fileID: 23000013839876352}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: string
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1000012265673780
 GameObject:
@@ -39,12 +39,12 @@ GameObject:
   - 33: {fileID: 33000013332564180}
   - 23: {fileID: 23000011010345478}
   - 108: {fileID: 108000012887424730}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1000013001410694
 GameObject:
@@ -56,12 +56,12 @@ GameObject:
   - 4: {fileID: 4000012385751068}
   - 33: {fileID: 33000010890980966}
   - 23: {fileID: 23000012327414158}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1000013925747964
 GameObject:
@@ -71,12 +71,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011250104436}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PFAB_candle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000011000501790
 Transform:
@@ -98,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013925747964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.367, y: -0, z: 3.4}
+  m_LocalPosition: {x: 2.1, y: -0, z: 0.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -252,7 +252,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.70980394, b: 0.27058825, a: 1}
   m_Intensity: 1
-  m_Range: 1
+  m_Range: 1.5
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -264,12 +264,12 @@ Light:
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
+  m_DrawHalo: 1
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1792
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0

@@ -11,7 +11,7 @@
 
         [SerializeField]
         [Range(1, 100)]
-        private float shakeDamping = 2;
+        private float shakeDamping = 4;
 
         [SerializeField]
         [Range(1, 20)]
@@ -104,7 +104,15 @@
                 ((Vector3)explosionPoint));
             if (dist <= 0)
                 dist = 1;
-            Shake(0.75f, 4, 20 / dist, 20);
+            if(parameters.Length > 2)
+                Shake(
+                    (float)parameters[2], 
+                    (float)parameters[3], 
+                    (float)parameters[4] / dist, 
+                    (float)parameters[5],
+                    (bool)parameters[1]);
+            else
+               Shake(0.75f, 4, 20 / dist, 20);
         }
 
         internal void Shake(float time, float damping, float amplitude, float frequency, bool overrideShake = true)

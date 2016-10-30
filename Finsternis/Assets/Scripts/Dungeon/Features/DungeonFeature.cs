@@ -16,23 +16,6 @@
         }
 
         [Serializable]
-        public struct AlignmentParameters
-        {
-            public bool alignToWall;
-            public Vector3 minOffset;
-            public Vector3 maxOffset;
-            public int faceOffset;
-
-            public AlignmentParameters(Vector3 minOffset, Vector3 maxOffset, int faceOffset, bool alignToWall)
-            {
-                this.minOffset = minOffset;
-                this.maxOffset = maxOffset;
-                this.faceOffset = faceOffset;
-                this.alignToWall = alignToWall;
-            }
-        }
-
-        [Serializable]
         public struct PerimeterRestriction
         {
             public bool above;
@@ -55,10 +38,6 @@
         private FeatureType type = FeatureType.ADD_ON;
 
         [SerializeField]
-        private AlignmentParameters alignment = 
-            new AlignmentParameters(Vector3.zero, Vector3.zero, 0, false);
-
-        [SerializeField]
         [Tooltip("May this feature stack with other of the same type?")]
         private bool stackable = false;
 
@@ -69,6 +48,9 @@
         [SerializeField]
         private List<PerimeterRestriction> restrictions;
 
+        [SerializeField]
+        private List<FeatureAlignment> alignment;
+
         #endregion
 
         #region public Properties
@@ -77,7 +59,7 @@
 
         public FeatureType Type { get { return this.type; } }
 
-        public AlignmentParameters Alignment { get { return this.alignment; } }
+        public List<FeatureAlignment> Alignment { get { return this.alignment; } }
 
         public float BaseFrequency { get { return this.baseFrequency; } }
 
@@ -142,24 +124,6 @@
                 return false;
             
             return (features.Intersect(restriction.features).Any());
-        }
-
-        /// <summary>
-        /// Defines a range for the the possible offset (in world units) that this feature may have.
-        /// </summary>
-        /// <param name="minOffset">Minimum value for offset.</param>
-        /// <param name="maxOffset">Maximum value for offset.</param>
-        /// <param name="faceOffet">Should the prefab of this feature have it's forward vector pointing towards the direction it was offset to?</param>
-        public void SetOffset(Vector3 minOffset, Vector3? maxOffset = null, int faceOffset = 0)
-        {
-            this.alignment.minOffset = minOffset;
-            if (maxOffset == null)
-                this.alignment.maxOffset = minOffset;
-            else
-                this.alignment.maxOffset = Vector3.Max((Vector3)maxOffset, minOffset);
-
-            if (faceOffset != 0)
-                this.alignment.faceOffset = Mathf.Clamp(faceOffset, -1, 1);
         }
 
         public override bool Equals(object o)

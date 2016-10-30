@@ -14,11 +14,9 @@ MonoBehaviour:
   baseFrequency: 1
   prefab: {fileID: 101268, guid: 43e52f631e8208a49bc13ea4d899ae18, type: 2}
   type: 0
-  alignment:
-    alignToWall: 0
-    minOffset: {x: 0, y: 0, z: 0}
-    maxOffset: {x: 0, y: 0, z: 0}
-    faceOffset: 0
   stackable: 1
-  stackWhiteList: []
+  stackWhiteList:
+  - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
   restrictions: []
+  alignment:
+  - {fileID: 11400000, guid: 687976c0eb65082439c1ba1504d920a6, type: 2}

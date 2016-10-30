@@ -14,11 +14,8 @@ MonoBehaviour:
   baseFrequency: 0.5
   prefab: {fileID: 178118, guid: a53f62b4ab99d704387d95b1ec057aa5, type: 2}
   type: 1
-  alignment:
-    pivot: 0
-    minOffset: {x: 0, y: 0, z: 0}
-    maxOffset: {x: 0, y: 0, z: 0}
-    faceOffset: 1
   stackable: 0
   stackWhiteList: []
   restrictions: []
+  alignment:
+  - {fileID: 11400000, guid: b9b17705196994c46893dccf7ee8923e, type: 2}
