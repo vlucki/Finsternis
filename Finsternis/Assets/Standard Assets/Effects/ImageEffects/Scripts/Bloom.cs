@@ -39,32 +39,52 @@ namespace UnityStandardAssets.ImageEffects
             Cheap = 0,
             High = 1,
         }
-
+        [HideInInspector]
         public TweakMode tweakMode = 0;
+        [HideInInspector]
         public BloomScreenBlendMode screenBlendMode = BloomScreenBlendMode.Add;
 
+        [HideInInspector]
         public HDRBloomMode hdr = HDRBloomMode.Auto;
         private bool doHdr = false;
+        [HideInInspector]
         public float sepBlurSpread = 2.5f;
 
+        [HideInInspector]
         public BloomQuality quality = BloomQuality.High;
 
+        [HideInInspector]
         public float bloomIntensity = 0.5f;
+        [HideInInspector]
         public float bloomThreshold = 0.5f;
+        [HideInInspector]
         public Color bloomThresholdColor = Color.white;
+        [HideInInspector]
         public int bloomBlurIterations = 2;
 
+        [HideInInspector]
         public int hollywoodFlareBlurIterations = 2;
+        [HideInInspector]
         public float flareRotation = 0.0f;
+        [HideInInspector]
         public LensFlareStyle lensflareMode = (LensFlareStyle) 1;
+        [HideInInspector]
         public float hollyStretchWidth = 2.5f;
+        [HideInInspector]
         public float lensflareIntensity = 0.0f;
+        [HideInInspector]
         public float lensflareThreshold = 0.3f;
+        [HideInInspector]
         public float lensFlareSaturation = 0.75f;
+        [HideInInspector]
         public Color flareColorA = new Color (0.4f, 0.4f, 0.8f, 0.75f);
+        [HideInInspector]
         public Color flareColorB = new Color (0.4f, 0.8f, 0.8f, 0.75f);
+        [HideInInspector]
         public Color flareColorC = new Color (0.8f, 0.4f, 0.8f, 0.75f);
+        [HideInInspector]
         public Color flareColorD = new Color (0.8f, 0.4f, 0.0f, 0.75f);
+        [HideInInspector]
         public Texture2D lensFlareVignetteMask;
 
         public Shader lensFlareShader;

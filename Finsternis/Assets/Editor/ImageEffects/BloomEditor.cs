@@ -69,7 +69,7 @@ namespace UnityStandardAssets.ImageEffects
 
         public override void OnInspectorGUI () {
             serObj.Update();
-
+            base.OnInspectorGUI();
             EditorGUILayout.LabelField("Glow and Lens Flares for bright screen pixels", EditorStyles.miniLabel);
 
             EditorGUILayout.PropertyField (quality, new GUIContent("Quality", "High quality preserves high frequencies with bigger blurs and uses a better blending and down-/upsampling"));
