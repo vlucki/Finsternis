@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: c9a90110d66e58d4dbee469889456aa5
-timeCreated: 1476021499
+timeCreated: 1477990250
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: BG_0
-    21300002: card_background_0
+    21300002: card_frame
+    21300004: card_background
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,15 +56,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: card_background_0
+      name: card_frame
       rect:
         serializedVersion: 2
         x: 0
-        y: 113
+        y: 106
         width: 512
         height: 819
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: card_background
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 106
+        width: 512
+        height: 816
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

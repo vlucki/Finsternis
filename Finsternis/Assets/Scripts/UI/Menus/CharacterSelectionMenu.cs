@@ -25,27 +25,25 @@
             {
                 if(btn.gameObject != data.selectedObject)
                 {
-                    this.StartCoroutine(_ScaleButton(btn.gameObject, 0.75f));
-                    var color = btn.targetGraphic.color;
-                    color.a = .5f;
-                    btn.targetGraphic.color = color;
+                    this.StartCoroutine(_ScaleButton(btn.gameObject, .75f, .5f));
+                    btn.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.white/5;
                 }
                 else
                 {
-                    this.StartCoroutine(_ScaleButton(btn.gameObject, 1));
-                    var color = btn.targetGraphic.color;
-                    color.a = 1;
-                    btn.targetGraphic.color = color;
+                    this.StartCoroutine(_ScaleButton(btn.gameObject, 1, 1));
+                    btn.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.white;
                 }
             }
         }
 
-        private IEnumerator _ScaleButton(GameObject button, float targetScale)
+        private IEnumerator _ScaleButton(GameObject button, float targetScale, float targetAlpha)
         {
             Vector3 finalScale = new Vector3(targetScale, targetScale, targetScale);
+            var canvas = button.GetComponent<CanvasGroup>();
             while (button.transform.localScale != finalScale)
             {
-                button.transform.localScale = Vector3.Lerp(button.transform.localScale, finalScale, 0.2f);
+                button.transform.localScale = Vector3.Lerp(button.transform.localScale, finalScale, .2f);
+                canvas.alpha = Mathf.Lerp(canvas.alpha, targetAlpha, .2f);
                 yield return null;
             }
         }

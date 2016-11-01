@@ -14,7 +14,12 @@
 
         public override bool Check(Trigger t, Collider c)
         {
-            return t.transform.position.Towards(c.transform.position).Angle(t.transform.forward) < maxAllowedAngle;
+            var dir = t.transform.position.Towards(c.transform.position);
+            var angle = dir.Angle(t.transform.forward);
+            if (angle > 180)
+                angle -= 180;
+            
+            return angle <= maxAllowedAngle;
         }
     }
 }
