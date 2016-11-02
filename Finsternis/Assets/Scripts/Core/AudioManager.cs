@@ -27,10 +27,15 @@
         [Range(.01f, 1f)]
         private float fadeOutLerpAmount = .05f;
 
+        [SerializeField]
         private AudioSource bgmSourceA;
+        [SerializeField]
         private AudioSource bgmSourceB;
 
+        [SerializeField]
         private AudioSource bsgSourceA;
+
+        [SerializeField]
         private AudioSource bsgSourceB;
 
         private Dictionary<AudioSource, Coroutine> transitions;
@@ -38,18 +43,10 @@
         [Space]
         public AudioClip toPlayA;
         public AudioClip toPlayB;
-
+        
         void Awake()
         {
             this.transitions = new Dictionary<AudioSource, Coroutine>();
-
-            this.bgmSourceA = this.gameObject.AddComponent<AudioSource>();
-            this.bgmSourceA.loop = true;
-            this.bgmSourceA.outputAudioMixerGroup = this.audioMixers.bgmMixer.outputAudioMixerGroup;
-
-            this.bgmSourceB = this.gameObject.AddComponent<AudioSource>();
-            this.bgmSourceB.loop = true;
-            this.bgmSourceB.outputAudioMixerGroup = this.audioMixers.bgmMixer.outputAudioMixerGroup;
         }
 
         void Start()
