@@ -46,7 +46,7 @@ namespace Finsternis
 
             var movement = summonedFireball.GetComponent<MovementAction>();
             movement.Direction = transform.forward;
-            summonedFireball.GetComponent<FireballEntity>().OnShoot.AddListener(() => this.animator.SetTrigger(AttackController.EndAttackAnimationTrigger));
+            summonedFireball.GetComponent<FireballEntity>().onShoot.AddListener(() => this.animator.SetTrigger(AttackController.EndAttackAnimationTrigger));
             summonedFireball.Activate();
 
             base.StartExecution();

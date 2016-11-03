@@ -10,8 +10,9 @@
         [SerializeField]
         private float activeTime = 1;
         
-        public UnityEvent OnTimeUp;
-        public UnityEvent OnShoot;
+        public UnityEvent onTimeUp;
+        public UnityEvent onShoot;
+        public UnityEvent onExplode;
 
         private MovementAction movement;
         private Animator animator;
@@ -50,6 +51,7 @@
             this.StopAllCoroutines();
             this.movement.enabled = false;
             this.movement.Rbody.isKinematic = true;
+            onExplode.Invoke();
             this.explosionEvent.TriggerEvent();
         }
 
@@ -57,10 +59,10 @@
         {
             if (activeTime > 0)
             {
-                this.CallDelayed(this.activeTime, OnTimeUp.Invoke);
+                this.CallDelayed(this.activeTime, onTimeUp.Invoke);
             }
-            OnShoot.Invoke();
-            OnShoot.RemoveAllListeners();
+            onShoot.Invoke();
+            onShoot.RemoveAllListeners();
             this.movement.Rbody.isKinematic = false;
             this.movement.enabled = true;
             this.exploded = false;

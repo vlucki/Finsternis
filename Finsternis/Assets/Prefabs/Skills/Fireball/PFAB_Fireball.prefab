@@ -52,6 +52,8 @@ GameObject:
   - 114: {fileID: 114000011510634882}
   - 114: {fileID: 114000011914851888}
   - 108: {fileID: 108000012896329518}
+  - 82: {fileID: 82000011225028100}
+  - 114: {fileID: 114000012614010864}
   m_Layer: 9
   m_Name: PFAB_Fireball
   m_TagString: Untagged
@@ -5647,6 +5649,81 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150224}
   m_IsPrefabParent: 1
+--- !u!82 &82000011225028100
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: fbb621fc70daedf44bf1de114eb0e662,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 0.9
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 2
+  MaxDistance: 30
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0.027777778
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1.05
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!108 &108000012896329518
 Light:
   m_ObjectHideFlags: 1
@@ -5734,7 +5811,7 @@ MonoBehaviour:
     m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   activeTime: 3
-  OnTimeUp:
+  onTimeUp:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000011756219920}
@@ -5745,14 +5822,30 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Explode
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  OnShoot:
+  onShoot:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExplode:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000012614010864}
+        m_MethodName: PlayRandom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &114000011914851888
@@ -5766,3 +5859,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca549bdab477c7540b5a5f770594330c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 1
+  shakeDamping: 2
+  shakeAmplitude: 20
+  shakeFrequency: 20
+  compoundShaking: 0
+--- !u!114 &114000012614010864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 42aa52c2ff4b24242a7040ae616b4f26, type: 3}
+  - {fileID: 8300000, guid: f19e56a58fc0d7b46a2d2cc163f160c8, type: 3}
+  - {fileID: 8300000, guid: 519c1a9ee628ac041ac51e5698080c09, type: 3}
+  - {fileID: 8300000, guid: 9b0e7bbec52858942b0f34c32a03588f, type: 3}
+  - {fileID: 8300000, guid: fb67af4f45bf141428c9fddaed92a958, type: 3}
