@@ -16,8 +16,32 @@
             public AudioMixer sfxMixer;
         }
 
+        [Serializable]
+        public struct BGMSources
+        {
+            public AudioSource A;
+            public AudioSource B;
+        }
+
+        [Serializable]
+        public struct BGSSources
+        {
+            public AudioSource A;
+            public AudioSource B;
+        }
+
+
         [SerializeField]
         private AudioMixers audioMixers;
+
+        [SerializeField]
+        private GameObject SFXSourcePrefab;
+
+        [SerializeField]
+        private BGMSources BGM;
+
+        [SerializeField]
+        private BGSSources BGS;
 
         [SerializeField]
         [Range(.01f, 1f)]
@@ -27,27 +51,17 @@
         [Range(.01f, 1f)]
         private float fadeOutLerpAmount = .05f;
 
-        [SerializeField]
-        private AudioSource bgmSourceA;
-        [SerializeField]
-        private AudioSource bgmSourceB;
-
-        [SerializeField]
-        private AudioSource bsgSourceA;
-
-        [SerializeField]
-        private AudioSource bsgSourceB;
+        [SerializeField][Range(1, 20)]
+        private int maxSFXSources = 10;
 
         private Dictionary<AudioSource, Coroutine> transitions;
 
-        [Space]
+        private List<AudioSource> sfxSourcesPool;
+
+#if UNITY_EDITOR
+        [Header("Debug only")]
         public AudioClip toPlayA;
         public AudioClip toPlayB;
-        
-        void Awake()
-        {
-            this.transitions = new Dictionary<AudioSource, Coroutine>();
-        }
 
         void Start()
         {
@@ -55,36 +69,52 @@
             this.CallDelayed(10, TestXFade);
         }
 
+
         private void TestXFade()
         {
             PlayBGM(toPlayB);
         }
-
-        public void PlayBGM(AudioClip newBgm)
+#endif
+        void Awake()
         {
-            if (bgmSourceA.isPlaying || bgmSourceB.isPlaying)
-            {
-                CrossFade(bgmSourceA, bgmSourceB, newBgm, 1);
-            }
-            else
-            {
-                bgmSourceA.clip = newBgm;
-                FadeIn(bgmSourceA, 1);
-            }
+            this.transitions = new Dictionary<AudioSource, Coroutine>();
+            this.sfxSourcesPool = new List<AudioSource>(this.maxSFXSources);
         }
 
-        private void CrossFade(AudioSource sourceA, AudioSource sourceB, AudioClip newClip, float newClipVolume)
+        #region play methods
+        public void PlayBGS(AudioClip bgs)
         {
-            var currentlyPlaying = sourceA.isPlaying ? sourceA : sourceB;
-            var toBePlayed = sourceA.isPlaying ? sourceB : sourceA;
+            Play(BGS.A, BGS.B, bgs);
+        }
 
-            toBePlayed.clip = newClip;
-            toBePlayed.volume = 0;
+        public void PlayBGM(AudioClip bgm)
+        {
+            Play(BGM.A, BGM.B, bgm);
+        }
 
-            FadeOut(currentlyPlaying);
-            FadeIn(toBePlayed, newClipVolume);
+        public AudioSource PlayEffect(AudioClip clip)
+        {
+            var source = GetFreeSFXSource();
 
-        } 
+            source.clip = clip;
+            source.Play();
+
+            return source;
+        }
+        #endregion
+
+        #region audio transitions
+        public void CrossFade(AudioSource sourceA, AudioSource sourceB, AudioClip newClip, float newClipVolume)
+        {
+            var activeAudioSource = sourceA.isPlaying ? sourceA : sourceB;
+            var freeAudioSource = sourceA.isPlaying ? sourceB : sourceA;
+
+            freeAudioSource.clip = newClip;
+            freeAudioSource.volume = 0;
+
+            FadeOut(activeAudioSource);
+            FadeIn(freeAudioSource, newClipVolume);
+        }
 
         public void FadeIn(AudioSource source, float targetVolume, Action callback = null)
         {
@@ -97,6 +127,7 @@
             StopTransition(source);
             this.transitions.Add(source, StartCoroutine(_FadeOut(source, callback)));
         }
+        #endregion
 
         private void StopTransition(AudioSource source)
         {
@@ -108,6 +139,41 @@
             }
         }
 
+        private AudioSource GetFreeSFXSource()
+        {
+            var freeAudioSource = this.sfxSourcesPool.Find(source => !source.isPlaying);
+            if (!freeAudioSource)
+            {
+                if (this.sfxSourcesPool.Count < this.maxSFXSources)
+                {
+                    freeAudioSource = Instantiate(this.SFXSourcePrefab).GetComponent<AudioSource>();
+                    this.sfxSourcesPool.Add(freeAudioSource);
+                }
+            }
+
+            if (!freeAudioSource)
+            {
+                freeAudioSource = this.sfxSourcesPool[0];
+                freeAudioSource.Stop();
+            }
+
+            return freeAudioSource;
+        }
+        
+        private void Play(AudioSource sourceA, AudioSource sourceB, AudioClip clip)
+        {
+            if (sourceA.isPlaying || sourceB.isPlaying)
+            {
+                CrossFade(sourceA, sourceB, clip, 1);
+            }
+            else
+            {
+                sourceA.clip = clip;
+                FadeIn(sourceA, 1);
+            }
+        }
+
+        #region transitions enumerators
         private IEnumerator _FadeIn(AudioSource source, float targetVolume, Action callback = null)
         {
             source.volume = 0;
@@ -136,5 +202,6 @@
             if (callback != null)
                 callback();
         }
+        #endregion
     }
 }

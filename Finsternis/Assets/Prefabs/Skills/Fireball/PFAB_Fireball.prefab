@@ -54,6 +54,7 @@ GameObject:
   - 108: {fileID: 108000012896329518}
   - 82: {fileID: 82000011225028100}
   - 114: {fileID: 114000012614010864}
+  - 114: {fileID: 114000010622212884}
   m_Layer: 9
   m_Name: PFAB_Fireball
   m_TagString: Untagged
@@ -5758,6 +5759,18 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000010622212884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
 --- !u!114 &114000011510634882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5829,7 +5842,19 @@ MonoBehaviour:
       PublicKeyToken=null
   onShoot:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000010622212884}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 6416fffb16808b54b81c50fb48864d57,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExplode:
@@ -5875,6 +5900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 114000010622212884}
   clips:
   - {fileID: 8300000, guid: 42aa52c2ff4b24242a7040ae616b4f26, type: 3}
   - {fileID: 8300000, guid: f19e56a58fc0d7b46a2d2cc163f160c8, type: 3}
