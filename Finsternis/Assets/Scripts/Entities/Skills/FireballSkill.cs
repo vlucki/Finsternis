@@ -21,8 +21,7 @@ namespace Finsternis
         [Tooltip("How much in front of the summon point the fireball will appear.")]
         [Range(-1, 1)]
         private float summonOffset = 0;
-
-        private Animator animator;
+        
 
         private List<GameObject> fireballs;
 
@@ -31,7 +30,6 @@ namespace Finsternis
             base.Awake();
             if (!this.summonPoint)
                 this.summonPoint = transform;
-            this.animator = GetComponent<Animator>();
         }
 
         public override void StartExecution()
@@ -46,7 +44,6 @@ namespace Finsternis
 
             var movement = summonedFireball.GetComponent<MovementAction>();
             movement.Direction = transform.forward;
-            summonedFireball.GetComponent<FireballEntity>().onShoot.AddListener(() => this.animator.SetTrigger(AttackController.EndAttackAnimationTrigger));
             summonedFireball.Activate();
 
             base.StartExecution();

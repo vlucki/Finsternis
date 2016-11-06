@@ -12,6 +12,8 @@
         }
 
         [Header("General Skill attributes")]
+        [SerializeField]
+        private new string name;
 
         [SerializeField]
         [Range(0, 100)]
@@ -43,33 +45,25 @@
 
         private float timeDisabled;
 
+        public string Name { get { return this.name; } }
         public bool Using { get; private set; }
         public bool Casting { get; private set; }
         public bool Executing { get; private set; }
         public bool CoolingDown { get; private set; }
-        
-        [SerializeField]
-        private AnimatorOverrideController skillOverrideController;
-        private RuntimeAnimatorController defaultOverrideController;
 
         protected virtual void Awake()
         {
             user = GetComponent<CharController>();
-            defaultOverrideController = user.Controller.runtimeAnimatorController;
         }
 
         public virtual void Begin()
         {
             Using = true;
             Casting = true;
-            if (this.skillOverrideController)
-                user.Controller.runtimeAnimatorController = this.skillOverrideController;
-
-            user.Controller.SetTrigger(CharController.AttackTrigger);
-
-            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
 
             onBegin.Invoke(this);
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
         }
 
         public virtual void StartExecution()
@@ -98,9 +92,6 @@
 
             if (cooldownTime > 0)
                 StartCoroutine(_Cooldown());
-
-            if(this.skillOverrideController)
-                user.Controller.runtimeAnimatorController = this.defaultOverrideController;
             
             onEnd.Invoke(this);
         }

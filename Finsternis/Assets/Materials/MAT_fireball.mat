@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MAT_fireball
-  m_Shader: {fileID: 4800000, guid: 7ef45774bfcc8434893e84fdb2fc0abe, type: 3}
+  m_Shader: {fileID: 4800000, guid: 48dca5b99d113b8d11006bab44295342, type: 3}
   m_ShaderKeywords: _ALPHABLEND_ON _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -54,7 +54,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5fdf7562c3cbb4cc6bbf0e1071c642b5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -75,7 +75,25 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Ramp
+      second:
+        m_Texture: {fileID: 2800000, guid: 5fdf7562c3cbb4cc6bbf0e1071c642b5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ToonShade
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - first:
+        name: _Alpha
+      second: 0.75
+    - first:
+        name: _AlphaSub
+      second: 0
     - first:
         name: _BumpScale
       second: 1
@@ -93,9 +111,15 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 1
+      second: 0.263
     - first:
         name: _GlossyReflections
+      second: 1
+    - first:
+        name: _Intensity
+      second: 0.5
+    - first:
+        name: _InvFade
       second: 1
     - first:
         name: _Metallic
@@ -107,11 +131,20 @@ Material:
         name: _OcclusionStrength
       second: 1
     - first:
+        name: _Outline
+      second: 0.005
+    - first:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Pow
+      second: 1
+    - first:
         name: _Power
-      second: 10.2
+      second: 7.28
+    - first:
+        name: _Scale
+      second: 1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -126,17 +159,23 @@ Material:
       second: 0
     - first:
         name: _WaveSpeed
-      second: 0.639
+      second: 1
     - first:
         name: _ZWrite
       second: 0
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 0.5586207, b: 0, a: 0.341}
+      second: {r: 0.8235294, g: 0.6519747, b: 0.3451557, a: 1}
     - first:
         name: _Emission
-      second: {r: 1, g: 0.5568628, b: 0, a: 0.634}
+      second: {r: 1, g: 0.5568628, b: 0, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0.5, g: 0.4422414, b: 0.25367647, a: 1}
+    - first:
+        name: _OutlineColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _TintColor
+      second: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

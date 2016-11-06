@@ -1,41 +1,104 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
     [ExecuteInEditMode]
-    [RequireComponent (typeof(Camera))]
-    [AddComponentMenu ("Image Effects/Rendering/Global Fog")]
-    class GlobalFog : PostEffectsBase
-	{
-		[Tooltip("Apply distance-based fog?")]
+    [RequireComponent(typeof(Camera))]
+    [AddComponentMenu("Image Effects/Rendering/Global Fog")]
+    public class GlobalFog : PostEffectsBase
+    {
+        [Tooltip("Apply distance-based fog?")]
         public bool  distanceFog = true;
-		[Tooltip("Exclude far plane pixels from distance-based fog? (Skybox or clear color)")]
-		public bool  excludeFarPixels = true;
-		[Tooltip("Distance fog is based on radial distance from camera when checked")]
-		public bool  useRadialDistance = false;
-		[Tooltip("Apply height-based fog?")]
-		public bool  heightFog = true;
-		[Tooltip("Fog top Y coordinate")]
+        [Tooltip("Exclude far plane pixels from distance-based fog? (Skybox or clear color)")]
+        public bool  excludeFarPixels = true;
+        [Tooltip("Distance fog is based on radial distance from camera when checked")]
+        public bool  useRadialDistance = false;
+        [Tooltip("Apply height-based fog?")]
+        public bool  heightFog = true;
+        [Tooltip("Fog top Y coordinate")]
         public float height = 1.0f;
         [Range(0.001f,10.0f)]
         public float heightDensity = 2.0f;
-		[Tooltip("Push fog away from the camera by this amount")]
-        public float startDistance = 0.0f;
+        [SerializeField]
+        [Tooltip("Push fog away from the camera by this amount")]
+        private float startDistance = 0.0f;
+
+
+        [SerializeField]
+        [Range(1, 1000)]
+        private float defaultStartDistance = 3;
+
+        [SerializeField]
+        [Range(1, 1000)]
+        private float dissipatedDistance = 10;
 
         public Shader fogShader = null;
         private Material fogMaterial = null;
+        
+        private bool fading;
 
+        protected override void Start()
+        {
+            base.Start();
+        }
 
-        public override bool CheckResources ()
-		{
-            CheckSupport (true);
+        public void SetFogStartDistance(float value)
+        {
+            startDistance = value;
+        }
 
-            fogMaterial = CheckShaderAndCreateMaterial (fogShader, fogMaterial);
+        public override bool CheckResources()
+        {
+            CheckSupport(true);
+
+            fogMaterial = CheckShaderAndCreateMaterial(fogShader, fogMaterial);
 
             if (!isSupported)
-                ReportAutoDisable ();
+                ReportAutoDisable();
             return isSupported;
+        }
+
+        public void Dissipate(float time)
+        {
+            this.StopAllCoroutines();
+            this.StartCoroutine(_Fade(time, this.dissipatedDistance));
+            this.StartCoroutine(_Toggle(false));
+        }
+
+        public void Accumulate(float time)
+        {
+            this.StopAllCoroutines();
+            this.StartCoroutine(_Fade(time, this.defaultStartDistance));
+            this.StartCoroutine(_Toggle(true));
+        }
+
+        private IEnumerator _Toggle(bool enable)
+        {
+            if (enable)
+                this.distanceFog = true;
+            yield return new WaitWhile(() => fading);
+            if(!enable)
+                this.distanceFog = false;
+        }
+
+        private IEnumerator _Fade(float time, float target)
+        {
+            this.fading = true;
+            if (startDistance != target)
+            {
+                float elapsed = Time.deltaTime;
+                do
+                {
+                    startDistance = Mathf.Lerp(this.startDistance, target, elapsed / time);
+                    yield return null;
+                    elapsed += Time.deltaTime;
+                } while (time > elapsed && Mathf.Abs(target - startDistance) > .1f);
+
+                startDistance = target;
+            }
+            this.fading = false;
         }
 
         [ImageEffectOpaque]

@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012842945100}
   - 95: {fileID: 95000011664334392}
+  - 65: {fileID: 65000010533750710}
   m_Layer: 8
   m_Name: Floor08
   m_TagString: Untagged
@@ -54,7 +55,6 @@ GameObject:
   - 4: {fileID: 4000011026907844}
   - 33: {fileID: 33000011052049198}
   - 23: {fileID: 23000012007472412}
-  - 64: {fileID: 64000011738721788}
   m_Layer: 8
   m_Name: floor 1
   m_TagString: Untagged
@@ -94,8 +94,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010727205410}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: -2}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.458584, y: -3.8846364, z: -1.3115549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -175,18 +175,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011075086274}
   m_Mesh: {fileID: 4300002, guid: 2f5fc116d1e293e48a5e832b66748dcc, type: 3}
---- !u!64 &64000011738721788
-MeshCollider:
+--- !u!65 &65000010533750710
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012563988802}
+  m_GameObject: {fileID: 1000010727205410}
   m_Material: {fileID: 13400000, guid: fad97253048f3914a9e11455557bc729, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 2f5fc116d1e293e48a5e832b66748dcc, type: 3}
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!95 &95000011664334392
 Animator:
   serializedVersion: 3

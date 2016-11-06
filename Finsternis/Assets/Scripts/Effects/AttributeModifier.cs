@@ -125,14 +125,7 @@
             if (this.constraints != null)
             {
                 constraints.ForEach(
-                    constraint =>
-                    {
-                        ICloneable cloneable = constraint as ICloneable;
-                        if (cloneable != null)
-                            clone.AddConstraint((IConstraint)(cloneable.Clone())); //try to make a deep copy of the constraint list
-                    else
-                            clone.AddConstraint(constraint); //fallback, if the ICloneable interface is not implemented by the constraint
-                }
+                    constraint => clone.AddConstraint(EffectConstraint.Instantiate(constraint))
                     );
             }
             return clone;

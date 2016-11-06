@@ -97,17 +97,20 @@ namespace Finsternis
 
         public virtual void Update()
         {
+            if (this.ActiveSkill)
+                return;
+
             if (!IsDead() && !IsDying())
             {
                 if (this.isLocked)
                 {
-                    if (!this.waitingForDelay && !IsFalling() && !this.ActiveSkill)
+                    if (!this.waitingForDelay && !IsFalling())
                         Unlock();
                 }
 
                 if (IsFalling())
                     Lock();
-                else
+                else if(CanAct())
                     this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
 
             }
@@ -144,7 +147,7 @@ namespace Finsternis
 
         public virtual void FixedUpdate()
         {
-            if (!IsDead())
+            if (!this.ActiveSkill && !IsDead())
             {
                 if (ShouldUpdateFallingState())
                 {
@@ -230,6 +233,7 @@ namespace Finsternis
 
             if (this.equippedSkills[(int)slot].MayUse())
             {
+                this.Controller.SetTrigger(AttackTrigger);
                 ActiveSkill = this.equippedSkills[(int)slot];
                 ActiveSkill.onEnd.AddListener(SkillCastEnd);
                 ActiveSkill.Begin();
@@ -338,6 +342,14 @@ namespace Finsternis
             {
                 if (!this.skills.Contains(this.equippedSkills[i]))
                     this.equippedSkills[i] = null;
+                else
+                {
+                    for(int j = 0; j < 4; j++)
+                    {
+                        if (i != j && this.equippedSkills[i] == this.equippedSkills[j])
+                            this.equippedSkills[j] = null;
+                    }
+                }
             }
         }
 #endif

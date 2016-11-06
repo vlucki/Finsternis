@@ -27,10 +27,21 @@ namespace UnityQuery
             return mb.StartCoroutine(DelayRoutine(delayInSeconds, callback));
         }
 
+        public static Coroutine CallDelayed<T>(this MonoBehaviour mb, float delayInSeconds, Action<T> callback, T arg)
+        {
+            return mb.StartCoroutine(DelayRoutine(delayInSeconds, callback, arg));
+        }
+
         private static IEnumerator DelayRoutine(float delayInSeconds, Action callback)
         {
             yield return Wait.Sec(delayInSeconds);
             callback();
+        }
+
+        private static IEnumerator DelayRoutine<T>(float delayInSeconds, Action<T> callback, T arg)
+        {
+            yield return Wait.Sec(delayInSeconds);
+            callback(arg);
         }
     }
 }

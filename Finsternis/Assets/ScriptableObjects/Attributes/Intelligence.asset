@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: Intelligence
   m_EditorClassIdentifier: 
   alias: int
-  constraints: 3
-  baseValue: 2
+  constraints: 1
+  baseValue: 1
   min: 1
   max: 99
   onValueChanged:

@@ -7,19 +7,6 @@
 
     public class Follow : MonoBehaviour
     {
-        [SerializeField]
-        private bool focusTarget = true;
-
-        [SerializeField]
-        private Transform target;
-
-        [SerializeField]
-        private Transform originalTarget;
-
-        [SerializeField][Range(.01f, 10f)]
-        private float tempTargetFocusTime = 0.3f;
-
-        public UnityEvent OnTargetReached;
 
         [System.Serializable]
         public struct AxesRotationLock
@@ -27,6 +14,8 @@
             public bool x;
             public bool y;
             public bool z;
+
+            public bool all { get { return x && y && z; } }
 
             public AxesRotationLock(bool x, bool y, bool z)
             {
@@ -40,21 +29,39 @@
             }
         }
 
-        public AxesRotationLock LockedRotationAxes = new AxesRotationLock(false);
+        [SerializeField]
+        private Transform target;
 
-        public Vector3 offset = Vector3.back + Vector3.up;
+        [SerializeField]
+        private Transform originalTarget;
+
+        [SerializeField][Range(.01f, 10f)]
+        private float tempTargetFocusTime = 0.3f;
+
+        public UnityEvent onTargetChanged;
+        public UnityEvent OnTargetReached;
+
+        [SerializeField]
+        private AxesRotationLock LockedRotationAxes = new AxesRotationLock(false);
+
+        [SerializeField]
+        private Vector3 offset = Vector3.back + Vector3.up;
 
         private Vector3 originalOffset;
 
+        [SerializeField]
         [Range(0, 1)]
-        public float translationInterpolation = 0.1f;
+        private float translationInterpolation = 0.1f;
 
+        [SerializeField]
         [Range(0, 1)]
-        public float rotationInterpolation = 0.2f;
+        private float rotationInterpolation = 0.2f;
 
+        [SerializeField]
         [Range(0,1)]
-        public float distanceThreshold = 0.025f;
+        private float distanceThreshold = 0.025f;
 
+        private bool justReachedTarged = false;
         private Vector3 memorizedOffset;
         private Coroutine targetResetCoroutine;
 
@@ -64,6 +71,8 @@
         public bool WasOffsetChanged { get { return offset == originalOffset; } }
 
         public Transform Target { get { return this.target; } }
+
+        public float TranslationInterpolation { get { return this.translationInterpolation; } set { this.translationInterpolation = Mathf.Clamp01(value); } }
 
         void Awake()
         {
@@ -85,17 +94,16 @@
             SetTarget(GameManager.Instance.Player.transform);
         }
 
-        public void SetTarget(Transform target)
+        public void SetTarget(Transform target, bool setAsOriginal = true)
         {
-            this.originalTarget = target;
+            if(setAsOriginal) this.originalTarget = target;
             this.target = target;
+            onTargetChanged.Invoke();
         }
 
         public void SetTemporaryTarget(Transform target)
         {
-            if (this.originalTarget == null)
-                this.originalTarget = this.target;
-            this.target = target;
+            SetTarget(target, false);
             this.StopCoroutine(this.targetResetCoroutine);
             this.targetResetCoroutine = this.CallDelayed(this.tempTargetFocusTime, ResetTarget);
         }
@@ -110,6 +118,19 @@
             if (offset == null)
                 offset = this.offset;
             this.memorizedOffset = (Vector3)offset;
+        }
+
+        public void SetOffsetX(float x)
+        {
+            MemorizeOffset(this.offset.WithX(x));
+        }
+        public void SetOffsetY(float y)
+        {
+            MemorizeOffset(this.offset.WithY(y));
+        }
+        public void SetOffsetZ(float z)
+        {
+            MemorizeOffset(this.offset.WithZ(z));
         }
 
         public void ResetOffset(bool toOriginal = false)
@@ -130,20 +151,37 @@
             if (!this.target)
                 return;
 
+            MoveToTarget();
+            LookAtTarget();
+        }
+
+        private void MoveToTarget()
+        {
             Vector3 idealPosition = this.target.position + offset;
-            float distance = idealPosition.Distance(transform.position);
-
-            if (distance <= this.distanceThreshold)
+            if (transform.position != idealPosition)
             {
-                transform.position = idealPosition;
-                OnTargetReached.Invoke();
-            }
-            else
-            {
-                transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
-            }
+                float distance = idealPosition.Distance(transform.position);
 
-            if (focusTarget && !(LockedRotationAxes.x && LockedRotationAxes.y && LockedRotationAxes.z))
+                if (distance <= this.distanceThreshold)
+                {
+                    if (!this.justReachedTarged)
+                    {
+                        this.justReachedTarged = true;
+                        transform.position = idealPosition;
+                        OnTargetReached.Invoke();
+                    }
+                }
+                else
+                {
+                    this.justReachedTarged = false;
+                    transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
+                }
+            }
+        }
+
+        private void LookAtTarget()
+        {
+            if (!LockedRotationAxes.all)
             {
                 Vector3 direction = (target.position - transform.position).normalized;
                 Vector3 rotation = transform.eulerAngles;

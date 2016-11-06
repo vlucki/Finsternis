@@ -357,7 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixers:
     bgmMixer: {fileID: 24100000, guid: 6e582a1bb9f222a4682e28dff53b18bc, type: 2}
-    bsgMixer: {fileID: 24100000, guid: bc531bee25fe99045a4bad91748928a7, type: 2}
+    bgsMixer: {fileID: 24100000, guid: bc531bee25fe99045a4bad91748928a7, type: 2}
     sfxMixer: {fileID: 24100000, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
   SFXSourcePrefab: {fileID: 1000011583208836, guid: 3857cc4d949c98a4e99b421bc03c4804,
     type: 2}
@@ -372,3 +372,4 @@ MonoBehaviour:
   maxSFXSources: 30
   toPlayA: {fileID: 8300000, guid: a52335b88d454f94e8cd4a93917e45e2, type: 3}
   toPlayB: {fileID: 8300000, guid: 2e001634770632b428633f86cf58a30d, type: 3}
+  delay: 5

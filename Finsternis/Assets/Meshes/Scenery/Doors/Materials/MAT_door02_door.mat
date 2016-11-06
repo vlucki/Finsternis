@@ -93,7 +93,7 @@ Material:
       second: 0
     - first:
         name: _FadeDstThreshold
-      second: 0.462
+      second: 0.4
     - first:
         name: _GlossMapScale
       second: 1
@@ -105,7 +105,7 @@ Material:
       second: 1
     - first:
         name: _MaxY
-      second: 3.5
+      second: 3
     - first:
         name: _Metallic
       second: 0.12

@@ -80,7 +80,7 @@
 
         private void FinishedInterpolating()
         {
-            this.follow.translationInterpolation = 0.1f;
+            this.follow.TranslationInterpolation = 0.1f;
             this.follow.MemorizeOffset(this.follow.OriginalOffset);
             this.follow.OnTargetReached.RemoveListener(FinishedInterpolating);
         }

@@ -41,8 +41,12 @@
         [SerializeField]
         protected List<EntityAttribute> attributes;
 
+        [SerializeField]
+        private AttributeInitializationTable initializationTable;
+
         public AttributeInitializedEvent onAttributeInitialized;
         #endregion
+
 
         public EntityAction LastInteraction { get; private set; }
 
@@ -59,12 +63,29 @@
         protected virtual void InitializeAttribute(int attributeIndex)
         {
             var attribute = Instantiate(attributes[attributeIndex]);
-            attribute.name = attributes[attributeIndex].name; //remove the annoying (Clone) that Unity appends to the name
+            attribute.name = attributes[attributeIndex].name;
             attribute.SetOwner(this);
             if (onAttributeInitialized)
                 onAttributeInitialized.Invoke(attribute);
 
             attributes[attributeIndex] = attribute;
+
+            if (this.initializationTable)
+            {
+                var influence = this.initializationTable.GetInfluence(attribute.Alias);
+                if (influence.attribute)
+                {
+                    UnityEngine.Random.InitState(this.name.GetHashCode() + attribute.name.GetHashCode());
+                    int value = Mathf.CeilToInt(Mathf.Max(attribute.Min, UnityEngine.Random.Range(influence.range.min, influence.range.max)));
+
+                    if (attribute.LimitMaximum)
+                    {
+                        attribute.SetMax(value);
+                    }
+
+                    attribute.SetBaseValue(value);
+                }
+            }
         }
 
         public EntityAttribute GetAttribute(string alias)

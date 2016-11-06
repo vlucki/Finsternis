@@ -58,6 +58,12 @@
                 this.displayedMessage.Hide();
         }
 
+        public void ShowMessage(UnityEngine.Object objMessage)
+        {
+            SetMessage(objMessage);
+            ShowMessage();
+        }
+
         public void ShowMessage()
         {
             if (!this.isActiveAndEnabled || this.messageText.IsNullOrEmpty())

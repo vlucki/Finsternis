@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011885161566}
   - 33: {fileID: 33000012303409444}
-  - 64: {fileID: 64000013326371876}
   - 23: {fileID: 23000010281304998}
   m_Layer: 8
   m_Name: plane
@@ -37,6 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013634263344}
+  - 65: {fileID: 65000010083343200}
   m_Layer: 8
   m_Name: Floor11
   m_TagString: Untagged
@@ -63,8 +63,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012856286756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.458584, y: -3.8846364, z: -3.311555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -107,15 +107,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010995862126}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64000013326371876
-MeshCollider:
+--- !u!65 &65000010083343200
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010995862126}
+  m_GameObject: {fileID: 1000012856286756}
   m_Material: {fileID: 13400000, guid: fad97253048f3914a9e11455557bc729, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: -0.5, z: 0}

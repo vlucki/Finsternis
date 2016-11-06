@@ -984,6 +984,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
   - {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
   - {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
+  initializationTable: {fileID: 11400000, guid: 47cf4e4fd32639743842d22876870620,
+    type: 2}
   onAttributeInitialized:
     m_PersistentCalls:
       m_Calls: []

@@ -1,31 +1,27 @@
-﻿using System;
-using UnityEngine;
-
-public class TimeConstraint : IConstraint
+﻿namespace Finsternis
 {
-    public float Duration { get; private set; }
+    using System;
+    using UnityEngine;
 
-    public float StartTime { get; private set; }
-
-    public TimeConstraint(float duration)
+    public class TimeConstraint : EffectConstraint
     {
-        this.Duration = duration;
-        Reset();
-    }
+        public float Duration { get; private set; }
 
-    public void Reset()
-    {
-        this.StartTime = Time.time;
-    }
+        public float StartTime { get; private set; }
 
-    public bool IsValid()
-    {
-        return Time.time - this.StartTime < Duration;
-    }
+        public void Reset()
+        {
+            this.StartTime = Time.time;
+        }
 
-    public bool AllowMultiple()
-    {
-        return false;
+        public bool AllowMultiple()
+        {
+            return false;
+        }
+
+        public override bool IsValid(Effect e)
+        {
+            return Time.time - this.StartTime < Duration;
+        }
     }
 }
-
