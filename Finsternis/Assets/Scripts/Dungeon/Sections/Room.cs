@@ -180,7 +180,7 @@
 
         public override Vector2 GetRandomCell(params int[] constraints)
         {
-            return this.cells.GetRandom(Dungeon.Random.IntRange);
+            return this.cells.GetRandom(UnityEngine.Random.Range);
         }
 
         public override bool Contains(Vector2 cell)

@@ -3,6 +3,8 @@
     using UnityEngine;
     using System.Collections;
     using System;
+    using UnityQuery;
+    using System.Collections.Generic;
 
     public class SFXPlayer : AudioPlayer
     {
@@ -12,19 +14,59 @@
             WORLD = 1,
             LOCAL = 2
         }
+
+        [SerializeField][Range(1, 20)]
+        private int maxSimultaneousClips = 10;
+
         [SerializeField][Tooltip("GLOBAL = listen everywhere, WORLD = play at transform.position, LOCAL = play at transform.position and follow object around")]
         private EffectType type = EffectType.GLOBAL;
 
+        private List<AudioSource> activeSources;
+        
+        protected override void Awake()
+        {
+            base.Awake();
+            this.activeSources = new List<AudioSource>(10);
+        }
+
         public override void Play(AudioClip clip)
         {
-            var source = this.Manager.PlayEffect(clip);
-            if(this.type != EffectType.GLOBAL)
+            if (!MayPlayAnotherClip())
+                return;
+
+            var source = this.Manager.GetFreeSFXSource();
+            this.activeSources.Add(source);
+            if (this.group)
+                source.outputAudioMixerGroup = this.group;
+
+            var follow = source.GetComponent<Follow>();
+            if (this.type != EffectType.GLOBAL)
             {
-                source.transform.position = this.transform.position;
+                source.transform.SetParent(this.transform);
+                source.transform.position = Vector3.zero;
+                source.transform.SetParent(null);
                 source.spatialBlend = 1;
                 if (this.type == EffectType.LOCAL)
-                    source.transform.SetParent(this.transform);
+                {
+                    follow.SetTarget(this.transform);
+                    follow.Enable();
+                }
             }
+            else
+            {
+                follow.Disable();
+                source.spatialBlend = 0;
+            }
+
+            source.gameObject.SetActive(true);
+            source.PlayOneShot(clip);
+        }
+
+        private bool MayPlayAnotherClip()
+        {
+            this.activeSources.RemoveAll(source => !source || !source.gameObject.activeSelf);
+
+            return this.activeSources.Count < this.maxSimultaneousClips;
         }
     }
 }

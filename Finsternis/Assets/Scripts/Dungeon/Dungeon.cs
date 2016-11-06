@@ -8,43 +8,8 @@ using UnityQuery;
 namespace Finsternis
 {
 
-    public class DungeonRandom : MTRandom, IRandom
-    {
-        public DungeonRandom() : base()
-        {
-        }
-
-        public DungeonRandom(int seed) : base(seed) { }
-
-        public int GetSeed()
-        {
-            return _rand.GetSeed();
-        }
-
-        public void SetSeed(int seed)
-        {
-            _rand.SetSeed(seed);
-        }
-
-        public void SetSeed(string seed)
-        {
-            SetSeed(seed.GetHashCode());
-        }
-    }
-
     public class Dungeon : MonoBehaviour
     {
-        private static IRandom random;
-
-        public static IRandom Random
-        {
-            get
-            {
-                if (random == null)
-                    random = new DungeonRandom();
-                return random;
-            }
-        }
 
         public const Type wall = null;
 
@@ -102,7 +67,8 @@ namespace Finsternis
             {
                 if (customSeed)
                 {
-                    random = new DungeonRandom(value);
+                    //random = new DungeonRandom(value);
+                    UnityEngine.Random.InitState(value);
                     this.seed = value;
                 }
             }
@@ -156,17 +122,39 @@ namespace Finsternis
         public List<Corridor> Corridors { get { return corridors; } }
         public List<Room> Rooms { get { return rooms; } }
 
+        public Vector2 GetCenter()
+        {
+            Vector2 farthesCell = Vector2.zero;
+            for(int col = 0; col < this.Width; col++)
+            {
+                for (int row = 0; row < this.Height; row++)
+                {
+                    if (this[col, row])
+                    {
+                        if (col > farthesCell.y)
+                            farthesCell.y = col;
+                        if (row > farthesCell.x)
+                            farthesCell.x = row;
+                    }
+                }
+            }
+
+            return farthesCell / 2;
+        }
+
         public UnityEvent OnGoalCleared;
 
         public void Init(int width, int height)
         {
-            if (Dungeon.Random == null)
-            {
-                if (customSeed)
-                    random = new DungeonRandom(this.seed);
-                else
-                    random = new DungeonRandom();
-            }
+            //if (Dungeon.Random == null)
+            //{
+            //    if (customSeed)
+            //        random = new DungeonRandom(this.seed);
+            //    else
+            //        random = new DungeonRandom();
+            //}
+            if(customSeed)
+                UnityEngine.Random.InitState(this.seed);
 
             this.dungeonGrid = new DungeonSection[width, height];
             this.corridors = new List<Corridor>();
@@ -191,12 +179,12 @@ namespace Finsternis
 
         public CorridorTheme GetRandomCorridorTheme()
         {
-            return this.corridorThemes.GetRandom(Dungeon.Random.IntRange);
+            return this.corridorThemes.GetRandom(UnityEngine.Random.Range);
         }
 
         public RoomTheme GetRandomRoomTheme()
         {
-            return this.roomThemes.GetRandom(Dungeon.Random.IntRange);
+            return this.roomThemes.GetRandom(UnityEngine.Random.Range);
         }
 
         public T GetGoal<T>() where T : DungeonGoal
@@ -233,7 +221,7 @@ namespace Finsternis
 
         public Room GetRandomRoom(int min = 0, int max = -1)
         {
-            return this.rooms.GetRandom(Random.IntRange, min, max);
+            return this.rooms.GetRandom(UnityEngine.Random.Range, min, max);
         }
 
         /// <summary>

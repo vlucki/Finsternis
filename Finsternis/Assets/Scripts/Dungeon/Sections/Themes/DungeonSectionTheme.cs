@@ -66,7 +66,7 @@
 
         protected T GetRandomElement<T>(List<T> list)
         {
-            return list.GetRandom(Dungeon.Random.IntRange);
+            return list.GetRandom(UnityEngine.Random.Range);
         }
     }
 }

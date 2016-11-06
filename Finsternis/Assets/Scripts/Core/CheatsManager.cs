@@ -10,24 +10,33 @@ namespace Finsternis
     {
         public enum CheatCodes
         {
-            EXIT = 0,
-            DIE = 1,
-            WIN = 2,
-            NEXT = 3,
-            PURGE = 4,
-            CARD = 5,
-            CARDS = 6,
-            IDCLIP = 7
+            ISEXIT = 0,
+            ISDIE = 1,
+            ISWIN = 2,
+            ISNEXT = 3,
+            ISPURGE = 4,
+            ISCARD = 5,
+            IDCLIP = 6,
+            ISSKYCAM = 7
         }
 
-        private CheatCodes _currentCode;
+        private CheatCodes currentCode;
 
         private string storedCode;
-        private static readonly string[] codes = {"ISEXIT", "ISDIE", "ISWIN", "ISNEXT", "ISPURGE", "ISCARD", "ISXCARDS%n", "IDCLIP"};
+        private string[] codes;
         private string lastFrameInput;
 
         [SerializeField]
+        private Camera skyCamera;
+
+        [SerializeField]
         private CardsManager cardsManager;
+        private int storedValue;
+
+        void Awake()
+        {
+            codes = Enum.GetNames(typeof(CheatCodes));
+        }
 
         void Update()
         {
@@ -43,51 +52,50 @@ namespace Finsternis
                 if (lastFrameInput.IsNullOrEmpty())
                     return;
 
-                storedCode += lastFrameInput;
-
-                int codeToExecute = 0;
-                bool inputMatchesAny = false;
-
-                while (codeToExecute < codes.Length)
+                int value = 0;
+                if (int.TryParse(latestInput, out value))
                 {
-                    string code = codes[codeToExecute];
-                    if (code.Equals(storedCode))
+                    this.storedValue = 10 * Mathf.Max(this.storedValue, 0) + value;
+
+                    return;
+                }
+                else
+                {
+                    this.storedCode += latestInput;
+                    bool inputMatchesAny = false;
+                    for (int codeToExecute = 0; codeToExecute < codes.Length; codeToExecute++)
                     {
-                        print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + storedCode);
-                        _currentCode = (CheatCodes)codeToExecute;
-                        CheckExecutedCommand();
-                        return;
-                    }
-                    else
-                    {
-                        int val;
-                        if (int.TryParse(lastFrameInput, out val))
+                        string code = codes[codeToExecute];
+                        if (code.Equals(this.storedCode))
                         {
-                            code = code.Replace("%n", lastFrameInput);
-                            Log.Info(this, codeToExecute == 6, "Parsed input to obtain code {0}, now comparing with code stored {1}", code, storedCode);
-                            if (code.Equals(storedCode))
-                            {
-                                print("EXECUTING CHEAT CODE N" + codeToExecute + ": " + storedCode);
-                                _currentCode = (CheatCodes)codeToExecute;
-                                CheckExecutedCommand(val);
-                                return;
-                            }
+                            print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + this.storedCode);
+                            this.currentCode = (CheatCodes)codeToExecute;
+                            CheckExecutedCommand();
+                            ResetInputs();
+                            return;
                         }
-                        
-                        if (codes[codeToExecute].StartsWith(storedCode))
+                        else if (this.codes[codeToExecute].StartsWith(storedCode))
                         {
                             return;
                         }
-                        else if (codes[codeToExecute].StartsWith(lastFrameInput))
+                        else if (this.codes[codeToExecute].StartsWith(lastFrameInput))
                         {
                             inputMatchesAny = true;
                         }
                     }
-                    codeToExecute++;
-                }
 
-                storedCode = inputMatchesAny ? lastFrameInput : "";
+                    if (inputMatchesAny)
+                        this.storedCode = latestInput;
+                    else
+                        ResetInputs();
+                }
             }
+        }
+
+        private void ResetInputs()
+        {
+            this.storedValue = -1;
+            this.storedCode = "";
         }
 
         private void UnlockExits()
@@ -182,38 +190,51 @@ namespace Finsternis
 
         private void CheckExecutedCommand(params object[] parameters)
         {
-            switch (_currentCode)
+            switch (this.currentCode)
             {
-                case CheatCodes.EXIT:
+                case CheatCodes.ISEXIT:
                     UnlockExits();
                     break;
-                case CheatCodes.DIE:
+                case CheatCodes.ISDIE:
                     KillPlayer();
                     break;
-                case CheatCodes.WIN:
+                case CheatCodes.ISWIN:
                     print("Victorious reign");
                     GameManager.Instance.Win();
                     break;
-                case CheatCodes.NEXT:
+                case CheatCodes.ISNEXT:
                     print("I pass");
-                    GameManager.Instance.DungeonManager.CreateDungeon();
+                    GameManager.Instance.DungeonManager.CreateDungeon(
+                        (this.storedValue == - 1)? null : (int?)this.storedValue);
                     break;
-                case CheatCodes.PURGE:
+                case CheatCodes.ISPURGE:
                     KillEnemies();
                     break;
-                case CheatCodes.CARD:
-                    SummonCard();
-                    break;
-                case CheatCodes.CARDS:
-                    SummonCard((int)parameters[0]);
+                case CheatCodes.ISCARD:
+                    SummonCard(Mathf.Max(1, this.storedValue));
                     break;
                 case CheatCodes.IDCLIP:
                     TogglePlayerCollision();
                     break;
+                case CheatCodes.ISSKYCAM:
+                    ToggleSkyCam();
+                    break;
                 default:
                     return;
             }
-            this.storedCode = string.Empty;
+        }
+
+        private void ToggleSkyCam()
+        {
+            this.skyCamera.gameObject.SetActive(!this.skyCamera.gameObject.activeSelf);
+            if (this.skyCamera.isActiveAndEnabled)
+            {
+                float camY = this.storedValue > 0 ? this.storedValue : this.skyCamera.transform.position.y;
+                this.skyCamera.transform.position = 
+                    GameManager.Instance.DungeonManager.GetComponent<DungeonDrawer>().GetWorldPosition(
+                        GameManager.Instance.DungeonManager.CurrentDungeon.GetCenter()).WithY(camY);
+            }
+
         }
     }
 }

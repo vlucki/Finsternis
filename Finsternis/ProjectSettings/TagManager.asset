@@ -10,6 +10,7 @@ TagManager:
   - Intro
   - MessageManager
   - Message
+  - AudioManager
   layers:
   - Default
   - TransparentFX

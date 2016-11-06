@@ -22,7 +22,7 @@
                 Log.Error(this, "Could not find any wall around {0} to align {1}", position, gObject);
                 return;
             }
-            var wall = walls.GetRandom(Dungeon.Random.IntRange);
+            var wall = walls.GetRandom(UnityEngine.Random.Range);
             var direction = wall.Towards(position);
             if (direction.y > 0)
                 gObject.transform.Rotate(Vector3.up, 180, Space.World);

@@ -30,10 +30,9 @@
         }
 
         private static GameManager instance;
+        private CharController player;
 
         #region editor variables
-        [SerializeField]
-        private CharController player;
 
         [SerializeField]
         [Range(1, 99)]
@@ -68,6 +67,8 @@
 
         void Awake()
         {
+            Application.targetFrameRate = 60;
+
             if (instance != null)
             {
                 gameObject.DestroyNow();

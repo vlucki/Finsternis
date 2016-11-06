@@ -51,7 +51,7 @@
         [Range(.01f, 1f)]
         private float fadeOutLerpAmount = .05f;
 
-        [SerializeField][Range(1, 20)]
+        [SerializeField][Range(1, 50)]
         private int maxSFXSources = 10;
 
         private Dictionary<AudioSource, Coroutine> transitions;
@@ -69,7 +69,6 @@
             this.CallDelayed(10, TestXFade);
         }
 
-
         private void TestXFade()
         {
             PlayBGM(toPlayB);
@@ -79,6 +78,26 @@
         {
             this.transitions = new Dictionary<AudioSource, Coroutine>();
             this.sfxSourcesPool = new List<AudioSource>(this.maxSFXSources);
+        }
+
+        public void SetBGMVolume(float value)
+        {
+            SetVolume(this.audioMixers.bgmMixer, value);
+        }
+
+        public void SetBGSVolume(float value)
+        {
+            SetVolume(this.audioMixers.bgsMixer, value);
+        }
+
+        public void SetSFXVolume(float value)
+        {
+            SetVolume(this.audioMixers.sfxMixer, value);
+        }
+
+        private void SetVolume(AudioMixer mixer, float value)
+        {
+            mixer.SetFloat("Volume", value);
         }
 
         #region play methods
@@ -91,16 +110,7 @@
         {
             Play(BGM.A, BGM.B, bgm);
         }
-
-        public AudioSource PlayEffect(AudioClip clip)
-        {
-            var source = GetFreeSFXSource();
-
-            source.clip = clip;
-            source.Play();
-
-            return source;
-        }
+        
         #endregion
 
         #region audio transitions
@@ -139,8 +149,9 @@
             }
         }
 
-        private AudioSource GetFreeSFXSource()
+        public AudioSource GetFreeSFXSource()
         {
+            this.sfxSourcesPool.RemoveAll(source => !source);
             var freeAudioSource = this.sfxSourcesPool.Find(source => !source.isPlaying);
             if (!freeAudioSource)
             {

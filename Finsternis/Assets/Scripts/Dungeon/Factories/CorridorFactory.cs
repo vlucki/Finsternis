@@ -88,7 +88,7 @@ namespace Finsternis
             while ((direction.x != 0 && corridor.End.x < room.Bounds.xMax) || (direction.y != 0 && corridor.End.y < room.Bounds.yMax))
                 corridor.Length++;
 
-            corridor.Length += Mathf.CeilToInt(Dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
+            corridor.Length += Mathf.CeilToInt(Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
 
             if (corridor.Length == 0)
             {

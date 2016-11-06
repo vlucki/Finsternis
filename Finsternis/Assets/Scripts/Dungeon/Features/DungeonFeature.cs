@@ -18,10 +18,14 @@
         [Serializable]
         public struct PerimeterRestriction
         {
-            public bool above;
-            public bool below;
-            public bool left;
-            public bool right;
+            [Range(0, 3)]
+            public int above;
+            [Range(0, 3)]
+            public int below;
+            [Range(0, 3)]
+            public int left;
+            [Range(0, 3)]
+            public int right;
             public List<DungeonFeature> features;
         }
 
@@ -88,24 +92,28 @@
         {
             return !restrictions.Any(restriction =>
             {
-                if (restriction.above)
+                if (restriction.above > 0)
                 {
-                    if (Check(d, pos.SumY(1), restriction))
+                    for(int i = 1; i <= restriction.above; i++)
+                        if (Check(d, pos.SumY(i), restriction))
+                            return true;
+                }
+                if (restriction.below > 0)
+                {
+                    for (int i = 1; i <= restriction.below; i++)
+                        if (Check(d, pos.SumY(-i), restriction))
                         return true;
                 }
-                if (restriction.below)
+                if (restriction.left > 0)
                 {
-                    if (Check(d, pos.SumY(-1), restriction))
+                    for (int i = 1; i <= restriction.left; i++)
+                        if (Check(d, pos.SumX(-i), restriction))
                         return true;
                 }
-                if (restriction.left)
+                if (restriction.right > 0)
                 {
-                    if (Check(d, pos.SumX(-1), restriction))
-                        return true;
-                }
-                if (restriction.right)
-                {
-                    if (Check(d, pos.SumX(1), restriction))
+                    for (int i = 1; i <= restriction.right; i++)
+                        if (Check(d, pos.SumX(i), restriction))
                         return true;
                 }
                 return false;

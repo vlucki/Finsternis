@@ -49,12 +49,17 @@
 
         public void CreateDungeon()
         {
+            this.CreateDungeon(null);
+        }
+
+        public void CreateDungeon(int? seed)
+        {
             Dungeon d = CurrentDungeon;
             if (d)
             {
                 d.gameObject.DestroyNow();
             }
-            _dFactory.Generate();
+            _dFactory.Generate(seed);
         }
     }
 }

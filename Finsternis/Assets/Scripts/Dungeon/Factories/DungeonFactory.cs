@@ -99,7 +99,13 @@ namespace Finsternis
             Dungeon dungeon = dungeonGO.AddComponent<Dungeon>();
             if (seed != null)
                 dungeon.Seed = (int)seed;
-
+#if LOG_INFO || DEBUG_DUNGEON_GEN
+            else
+            {
+                Log.Info(this, "debug mode enabled, setting seed to 0");
+                dungeon.Seed = 0;
+            }
+#endif
             Init(dungeon);
 
             onGenerationBegin.Invoke();
@@ -153,7 +159,7 @@ namespace Finsternis
             dungeon.Exit = GetRandomCellWithBias(dungeon, r);
             var exit = r.GetTheme<RoomTheme>().GetRandomExit();
             while (!AddFeature(dungeon, r, dungeon.Exit, exit))
-                dungeon.Exit = GetRandomCellWithBias(dungeon, r, Dungeon.Random.IntRange(2, 20));
+                dungeon.Exit = GetRandomCellWithBias(dungeon, r, UnityEngine.Random.Range(2, 20));
         }
 
         private Vector2 GetRandomCellWithBias(Dungeon dungeon, Room r, int tries = 20)
@@ -183,10 +189,10 @@ namespace Finsternis
         void DefineThemes(Dungeon dungeon)
         {
             foreach (var room in dungeon.Rooms)
-                room.SetTheme(this.roomThemes.GetRandom(Dungeon.Random.IntRange));
+                room.SetTheme(this.roomThemes.GetRandom(UnityEngine.Random.Range));
 
             foreach (var corridor in dungeon.Corridors)
-                corridor.SetTheme(this.corridorThemes.GetRandom(Dungeon.Random.IntRange));
+                corridor.SetTheme(this.corridorThemes.GetRandom(UnityEngine.Random.Range));
         }
 
         /// <summary>
@@ -210,9 +216,9 @@ namespace Finsternis
 
         private void AddTreasures(Dungeon d, Room room)
         {
-            float chanceThreshold = Mathf.Pow(1 + Dungeon.Random.value(), 2);
-            int maxTreasures = Dungeon.Random.IntRange(0, Mathf.CeilToInt(Mathf.Sqrt(room.CellCount)));
-            while(maxTreasures >= 0 && Dungeon.Random.value() < chanceThreshold)
+            float chanceThreshold = Mathf.Pow(1 + UnityEngine.Random.value, 2);
+            int maxTreasures = UnityEngine.Random.Range(0, Mathf.CeilToInt(Mathf.Sqrt(room.CellCount)));
+            while(maxTreasures >= 0 && UnityEngine.Random.value < chanceThreshold)
             {
                 AddFeature(d, room, room.GetRandomCell(), room.Theme.GetRandomChest());
                 maxTreasures--;
@@ -226,7 +232,7 @@ namespace Finsternis
             if (!theme.HasDecorations())
                 return;
 
-            int amount = Dungeon.Random.IntRange(0, room.CellCount/2);
+            int amount = UnityEngine.Random.Range(0, room.CellCount/2);
             while (--amount >= 0)
             {
                 AddFeature(d, room, room.GetRandomCell(), theme.GetRandomFloorDecoration());
@@ -237,7 +243,7 @@ namespace Finsternis
 
         bool AddFeature(Dungeon d, DungeonSection section, Vector2 cell, DungeonFeature feature, float frequencyModifier = 1)
         {
-            if (Dungeon.Random.value() > feature.BaseFrequency * frequencyModifier)
+            if (UnityEngine.Random.value > feature.BaseFrequency * frequencyModifier)
                 return false;
             if (!feature.IsPositionValid(d, cell))
                 return false;
@@ -609,9 +615,9 @@ namespace Finsternis
         public T GetRandomTheme<T>() where T : DungeonSectionTheme
         {
             if (typeof(RoomTheme).Equals(typeof(T)))
-                return roomThemes.GetRandom(Dungeon.Random.IntRange) as T;
+                return roomThemes.GetRandom(UnityEngine.Random.Range) as T;
             else if (typeof(CorridorTheme).Equals(typeof(T)))
-                return corridorThemes.GetRandom(Dungeon.Random.IntRange) as T;
+                return corridorThemes.GetRandom(UnityEngine.Random.Range) as T;
 
             return default(T);
         }

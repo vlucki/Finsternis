@@ -2,9 +2,14 @@
 {
     using UnityEngine;
     using System.Collections;
+    using UnityEngine.Audio;
 
     public abstract class AudioPlayer : MonoBehaviour
     {
+
+        [SerializeField]
+        protected AudioMixerGroup group;
+
         protected AudioManager Manager { get; private set; }
 
         protected virtual void Awake()

@@ -1240,7 +1240,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013911521486}
-  m_LocalRotation: {x: -0.2750112, y: 0.7101828, z: -0.6323205, w: -0.14205697}
+  m_LocalRotation: {x: -0.27501118, y: 0.7101827, z: -0.63232046, w: -0.14205696}
   m_LocalPosition: {x: 0.12316096, y: 0.11709311, z: -0.0149521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1548,7 +1548,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!95 &95000010553463780

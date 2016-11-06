@@ -31,7 +31,7 @@
         {
             base.Awake();
             this.animator = GetComponent<Animator>();
-            this.cardsToGive = Dungeon.Random.IntRange(this.rangeOfCardsToGive.min, this.rangeOfCardsToGive.max);
+            this.cardsToGive = UnityEngine.Random.Range(this.rangeOfCardsToGive.min, this.rangeOfCardsToGive.max);
         }
 
         public override void Interact(EntityAction action)

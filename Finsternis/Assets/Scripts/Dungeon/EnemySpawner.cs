@@ -32,7 +32,7 @@
             if (enemiesHolder)
                 Destroy(enemiesHolder);
 
-            baseEnemyDensity = 0.01f + Dungeon.Random.value() / 10;
+            baseEnemyDensity = 0.01f + Random.value / 10;
             enemiesHolder = new GameObject("Enemies");
 
             List<KillEnemyGoal> goals = new List<KillEnemyGoal>();
@@ -55,7 +55,7 @@
         {
             Room room = dungeon.GetRandomRoom(1);
 
-            int enemiesToSpawn = Mathf.CeilToInt(Dungeon.Random.value() * room.CellCount * (room.Theme.SpawnDensityModifier * this.baseEnemyDensity));
+            int enemiesToSpawn = Mathf.CeilToInt(Random.value * room.CellCount * (room.Theme.SpawnDensityModifier * this.baseEnemyDensity));
             int enemiesSpawned = 0;
             int remainingEnemies = enemiesToSpawn;
 
@@ -63,9 +63,9 @@
                 () => remainingEnemies > 0,
                 () =>
                 {
-                    int remainingEnemiesOfChosenType = remainingEnemies == 1 ? 1 : Dungeon.Random.IntRange(1, remainingEnemies);
+                    int remainingEnemiesOfChosenType = remainingEnemies == 1 ? 1 : Random.Range(1, remainingEnemies);
 
-                    KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies.GetRandom(Dungeon.Random.IntRange));
+                    KillEnemyGoal goal = MakeGoal(dungeon, goals, enemies.GetRandom(Random.Range));
                     goal.quantity += remainingEnemiesOfChosenType;
                     SpawnEnemyOfType(enemiesHolder.transform, room, goal, remainingEnemiesOfChosenType);
                     enemiesSpawned += remainingEnemiesOfChosenType;
@@ -97,7 +97,8 @@
             do
             {
                 Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
-                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(1.5f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(1f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
+                enemy.name = goal.enemy.name;
                 enemy.transform.SetParent(parent);
                 enemy.GetComponent<EnemyChar>().onDeath.AddListener(goal.EnemyKilled);
             } while (--amount > 0);

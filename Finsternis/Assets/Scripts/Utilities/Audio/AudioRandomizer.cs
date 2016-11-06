@@ -14,7 +14,10 @@
 
         public void PlayRandom()
         {
-            this.player.Play(clips.GetRandom(Random.Range));
+            if (this.player)
+                this.player.Play(clips.GetRandom(Random.Range));
+            else
+                Log.Error(this, "No player found!");
         }
     }
 }

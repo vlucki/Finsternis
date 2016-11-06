@@ -138,7 +138,7 @@
         {
             if (this.edgeCells.IsNullOrEmpty())
                 FindEdgeCells();
-            return this.edgeCells.GetRandom(Dungeon.Random.IntRange);
+            return this.edgeCells.GetRandom(UnityEngine.Random.Range);
         }
 
         public void FindEdgeCells()

@@ -24,6 +24,9 @@ GameObject:
   - 54: {fileID: 54000010884554088}
   - 59: {fileID: 59000011263967292}
   - 136: {fileID: 136000013813192556}
+  - 65: {fileID: 65000010131241954}
+  - 114: {fileID: 114000014016048558}
+  - 114: {fileID: 114000013020411858}
   m_Layer: 12
   m_Name: link04
   m_TagString: Untagged
@@ -44,6 +47,9 @@ GameObject:
   - 54: {fileID: 54000013859094404}
   - 59: {fileID: 59000011599865090}
   - 136: {fileID: 136000011975062906}
+  - 65: {fileID: 65000010675940888}
+  - 114: {fileID: 114000012207948142}
+  - 114: {fileID: 114000011399819692}
   m_Layer: 12
   m_Name: link01
   m_TagString: Untagged
@@ -64,6 +70,9 @@ GameObject:
   - 54: {fileID: 54000010083662310}
   - 59: {fileID: 59000010995801814}
   - 136: {fileID: 136000010212640108}
+  - 65: {fileID: 65000014251908948}
+  - 114: {fileID: 114000013098848868}
+  - 114: {fileID: 114000011913779672}
   m_Layer: 12
   m_Name: link05
   m_TagString: Untagged
@@ -84,6 +93,9 @@ GameObject:
   - 54: {fileID: 54000012635689544}
   - 59: {fileID: 59000011446751760}
   - 136: {fileID: 136000011397488838}
+  - 65: {fileID: 65000011869154610}
+  - 114: {fileID: 114000014119243730}
+  - 114: {fileID: 114000012454457346}
   m_Layer: 12
   m_Name: link02
   m_TagString: Untagged
@@ -103,6 +115,9 @@ GameObject:
   - 23: {fileID: 23000013348266874}
   - 54: {fileID: 54000013401270518}
   - 136: {fileID: 136000013052290610}
+  - 65: {fileID: 65000012297545438}
+  - 114: {fileID: 114000011897923192}
+  - 114: {fileID: 114000013048137624}
   m_Layer: 12
   m_Name: link07
   m_TagString: Untagged
@@ -123,6 +138,9 @@ GameObject:
   - 54: {fileID: 54000011441253906}
   - 59: {fileID: 59000014016732522}
   - 136: {fileID: 136000013167002512}
+  - 65: {fileID: 65000011268309000}
+  - 114: {fileID: 114000012684225812}
+  - 114: {fileID: 114000011027792528}
   m_Layer: 12
   m_Name: link06
   m_TagString: Untagged
@@ -143,6 +161,9 @@ GameObject:
   - 54: {fileID: 54000014041448930}
   - 59: {fileID: 59000010162840714}
   - 136: {fileID: 136000014281316674}
+  - 65: {fileID: 65000013318843732}
+  - 114: {fileID: 114000011597298042}
+  - 114: {fileID: 114000013957656798}
   m_Layer: 12
   m_Name: link03
   m_TagString: Untagged
@@ -162,12 +183,13 @@ GameObject:
   - 23: {fileID: 23000012883720558}
   - 54: {fileID: 54000010115854116}
   - 59: {fileID: 59000010621952566}
+  - 114: {fileID: 114000011021948758}
   m_Layer: 12
   m_Name: PFAB_wall_chain001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4000010215970400
 Transform:
@@ -920,6 +942,517 @@ HingeJoint:
   m_BreakTorque: Infinity
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
+--- !u!65 &65000010131241954
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011038007462}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05832572, y: 0.41027626, z: 0.21065654}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000010675940888
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011293632296}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21056159, y: 0.40898144, z: 0.085892364}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000011268309000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013741114444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05832572, y: 0.41027626, z: 0.21065654}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000011869154610
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012661065426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05832572, y: 0.41027626, z: 0.21065654}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000012297545438
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013201965754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21056177, y: 0.41027626, z: 0.05835198}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000013318843732
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013973243712}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21056177, y: 0.41027626, z: 0.05835198}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000014251908948
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012290569960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21056177, y: 0.41027626, z: 0.05835198}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000011021948758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014063969316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 7
+  type: 1
+--- !u!114 &114000011027792528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013741114444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000011399819692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011293632296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000011597298042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013973243712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000011897923192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013201965754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000011913779672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012290569960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000012207948142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011293632296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000012454457346
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012661065426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000012684225812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013741114444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000013020411858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011038007462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000013048137624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013201965754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000013098848868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012290569960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000013957656798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013973243712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011021948758}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 830cb7b696fbda4498871304c4db480e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 29988
+  collidersToIgnore:
+  - {fileID: 136000011975062906}
+  - {fileID: 136000011397488838}
+  - {fileID: 136000014281316674}
+  - {fileID: 136000013813192556}
+  - {fileID: 136000010212640108}
+  - {fileID: 136000013167002512}
+  - {fileID: 136000013052290610}
+  constraints: []
+--- !u!114 &114000014016048558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011038007462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
+--- !u!114 &114000014119243730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012661065426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
 --- !u!136 &136000010212640108
 CapsuleCollider:
   m_ObjectHideFlags: 1

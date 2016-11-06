@@ -86,10 +86,10 @@ namespace Finsternis
             Vector2 maxBrushSize, 
             ref Rect brush)
         {
-            int modifier = (Dungeon.Random.value() <= 0.75 ? -1 : 1);
+            int modifier = (UnityEngine.Random.value <= 0.75 ? -1 : 1);
 
-            brush.x += Dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-            brush.y += Dungeon.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
+            brush.x += UnityEngine.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
+            brush.y += UnityEngine.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
 
             brush.x = Mathf.RoundToInt(brush.x);
             brush.y = Mathf.RoundToInt(brush.y);
@@ -119,8 +119,8 @@ namespace Finsternis
             //make sure a segment with the given dimensions won't go over the room bounds
             var minBrushSize = brushVariation.Min;
             var maxBrushSize = brushVariation.Max;
-            brush.width = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
-            brush.height = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
+            brush.width = Mathf.RoundToInt (UnityEngine.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
+            brush.height = Mathf.RoundToInt(UnityEngine.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
 
             Rect brushPerimeter = new Rect(brush);
             Vector2 offset = corridorDirection.YX();

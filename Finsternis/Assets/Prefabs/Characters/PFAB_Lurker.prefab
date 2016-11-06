@@ -817,9 +817,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &65000010244586858
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -893,6 +893,7 @@ MonoBehaviour:
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
+  damageType: 0
 --- !u!114 &114000011460988776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -919,11 +920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcfb4c44fed84e40a87abe613c42512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAttack:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.CharController+AttackEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   onLock:
     m_PersistentCalls:
       m_Calls: []
@@ -1032,6 +1028,7 @@ MonoBehaviour:
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
+  damageType: 0
 --- !u!114 &114000013491772252
 MonoBehaviour:
   m_ObjectHideFlags: 1

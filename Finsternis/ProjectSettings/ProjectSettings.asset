@@ -97,14 +97,8 @@ PlayerSettings:
   bundleIdentifier: com.Company.ProductName
   bundleVersion: 1.0
   preloadedAssets:
-  - {fileID: 2800000, guid: d3e32ea2f29d7ae45aa876b1132cd759, type: 3}
-  - {fileID: 2800000, guid: 7bcfa803b69f77741a4544eb3212be92, type: 3}
-  - {fileID: 2800000, guid: 25642048bb989544bb642b77cab80cba, type: 3}
-  - {fileID: 2800000, guid: d247da79bca8637468ba81ebf014d29f, type: 3}
-  - {fileID: 2800000, guid: 6e85db3bcdd6d2141ac5f06b773dcf9e, type: 3}
-  - {fileID: 2800000, guid: 233775dccd199464c9a8a711192d13d4, type: 3}
-  - {fileID: 2800000, guid: c16483fe1ad4b6b40835dcf7148936ec, type: 3}
-  - {fileID: 2800000, guid: 52930f0fbbf5262448807ddcc66222c8, type: 3}
+  - {fileID: 2800000, guid: 17968fa184d32aa4e8951b0f2c99ba41, type: 3}
+  - {fileID: 2800000, guid: 6791fc55e5286d84285ee1f68aa31885, type: 3}
   metroEnableIndependentInputSource: 0
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
@@ -194,7 +188,7 @@ PlayerSettings:
   - m_BuildTarget: Standalone
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: a6eeefab8a792864098644bda829fabc, type: 3}
+      m_Icon: {fileID: 2800000, guid: 2966c1da496b98947b1da3fb1a36e3f8, type: 3}
       m_Width: 1024
       m_Height: 1024
     - serializedVersion: 2
@@ -226,6 +220,12 @@ PlayerSettings:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 08000000
     m_Automatic: 0
+  - m_BuildTarget: LinuxStandaloneSupport
+    m_APIs: 1100000000000000
+    m_Automatic: 1
+  - m_BuildTarget: MacStandaloneSupport
+    m_APIs: 110000000000000010000000
+    m_Automatic: 1
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   wiiUTitleID: 0005000011000000
@@ -384,7 +384,8 @@ PlayerSettings:
   psp2UseDebugIl2cppLibs: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: DEBUG_DUNGEON_GEN
   metroPackageName: Finsternis
   metroPackageVersion: 
   metroCertificatePath: 

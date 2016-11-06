@@ -186,7 +186,7 @@
                 if (min == max)
                     return this[min];
 
-                return this[Dungeon.Random.IntRange(min, max)];
+                return this[UnityEngine.Random.Range(min, max)];
             }
         }
 

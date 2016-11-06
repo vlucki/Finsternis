@@ -16,10 +16,8 @@
         [SerializeField]
         private Transform originalTarget;
 
-        [SerializeField]
+        [SerializeField][Range(.01f, 10f)]
         private float tempTargetFocusTime = 0.3f;
-
-        private float timeFocusingTempTarget = 0;
 
         public UnityEvent OnTargetReached;
 
@@ -58,6 +56,7 @@
         public float distanceThreshold = 0.025f;
 
         private Vector3 memorizedOffset;
+        private Coroutine targetResetCoroutine;
 
         public Vector3 MemorizedOffset { get { return this.memorizedOffset; } }
         public Vector3 OriginalOffset { get { return this.originalOffset; } }
@@ -97,7 +96,13 @@
             if (this.originalTarget == null)
                 this.originalTarget = this.target;
             this.target = target;
-            timeFocusingTempTarget = 0;
+            this.StopCoroutine(this.targetResetCoroutine);
+            this.targetResetCoroutine = this.CallDelayed(this.tempTargetFocusTime, ResetTarget);
+        }
+
+        public void ResetTarget()
+        {
+            this.target = this.originalTarget;
         }
 
         public void MemorizeOffset(Vector3? offset = null)
@@ -132,16 +137,11 @@
             {
                 transform.position = idealPosition;
                 OnTargetReached.Invoke();
-                if (this.tempTargetFocusTime > 0 && FocusingTemporaryTarget())
-                    this.timeFocusingTempTarget += Time.deltaTime;
             }
             else
             {
                 transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
             }
-
-            if (timeFocusingTempTarget >= tempTargetFocusTime)
-                target = originalTarget;
 
             if (focusTarget && !(LockedRotationAxes.x && LockedRotationAxes.y && LockedRotationAxes.z))
             {

@@ -15,7 +15,9 @@ MonoBehaviour:
   prefab: {fileID: 192690, guid: def4ae95ec8083e40875473ef25091bb, type: 2}
   type: 1
   stackable: 0
-  stackWhiteList: []
+  stackWhiteList:
+  - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
+  - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
   restrictions:
   - above: 1
     below: 1

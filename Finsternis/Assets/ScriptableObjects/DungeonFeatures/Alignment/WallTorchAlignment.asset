@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea28fb3106c7fda418e7078eb2369350, type: 3}
   m_Name: WallTorchAlignment
   m_EditorClassIdentifier: 
-  yOffset: 2
-  offsetAmount: 0.4
+  yOffset: 2.25
+  offsetAmount: 0.375

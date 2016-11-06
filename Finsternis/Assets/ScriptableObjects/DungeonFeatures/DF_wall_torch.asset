@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_wall_torch
   m_EditorClassIdentifier: 
-  baseFrequency: 0.9
+  baseFrequency: 0.8
   prefab: {fileID: 1000012822760466, guid: dcffc6986646a5f42a130082e101a624, type: 2}
   type: 0
   stackable: 0
@@ -19,6 +19,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
   - {fileID: 11400000, guid: 5927b898af65c4d4d9e19f46b555c64f, type: 2}
   - {fileID: 11400000, guid: 0c81b5cdb11803a4bab16e42041f57cb, type: 2}
-  restrictions: []
+  restrictions:
+  - above: 2
+    below: 2
+    left: 2
+    right: 2
+    features:
+    - {fileID: 11400000, guid: 0dd543a5d1bb341448d421e2be3cd1a3, type: 2}
+    - {fileID: 11400000}
   alignment:
   - {fileID: 11400000, guid: eecbcf988f127194194cd14c70a6e8fc, type: 2}

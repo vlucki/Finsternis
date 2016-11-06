@@ -10,23 +10,28 @@ ModelImporter:
     100004: //RootNode
     100006: lateral
     100008: top
+    100010: wallSurface
     400000: polySurface1
     400002: polySurface2
     400004: //RootNode
     400006: lateral
     400008: top
+    400010: wallSurface
     2300000: polySurface1
     2300002: polySurface2
     2300004: lateral
     2300006: top
+    2300008: wallSurface
     3300000: polySurface1
     3300002: polySurface2
     3300004: lateral
     3300006: top
+    3300008: wallSurface
     4300000: polySurface1
     4300002: polySurface2
     4300004: lateral
     4300006: top
+    4300008: wallSurface
   materials:
     importMaterials: 1
     materialName: 0
