@@ -44,10 +44,13 @@
                     () => (--roomsToSpawn) > 0,
                     () => enemiesSpawned += SpawnEnemies(dungeon, goals)
                     );
-                Log.Info(this,
+
+#if LOG_INFO
+                Log.I(this,
                     "Managed to spawn {0} enemies, rooms ignored = {1}",
                     enemiesSpawned,
                     roomsToSpawn);
+#endif
             }
         }
 

@@ -47,7 +47,7 @@ public class InputRouter : MonoBehaviour
         {
             if (!control)
             {
-                Log.Warn(control, "Null control found. Did you forget to set something in the inspector?");
+                Log.W(control, "Null control found. Did you forget to set something in the inspector?");
                 return false;
             }
             if (!control.IsEnabled() || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))

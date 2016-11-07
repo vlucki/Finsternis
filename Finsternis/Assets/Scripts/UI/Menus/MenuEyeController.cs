@@ -49,7 +49,7 @@
             }
             catch (NullReferenceException ex)
             {
-                Log.Error(this, "Failed to find eye pupil.\n" + ex.Message);
+                Log.E(this, "Failed to find eye pupil.\n" + ex.Message);
             }
         }
 
@@ -109,7 +109,7 @@
             }
             else
             {
-                Log.Error(this, "No game object assigned as pupil");
+                Log.E(this, "No game object assigned as pupil");
             }
         }
 

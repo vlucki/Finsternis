@@ -43,7 +43,7 @@ namespace Finsternis
             damageHandler.Owner = user.Character;
 
             var movement = summonedFireball.GetComponent<MovementAction>();
-            movement.Direction = transform.forward;
+            movement.MovementDirection = transform.forward;
             summonedFireball.Activate();
 
             base.StartExecution();

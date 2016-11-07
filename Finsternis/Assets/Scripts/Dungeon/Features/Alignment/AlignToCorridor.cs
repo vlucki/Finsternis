@@ -19,7 +19,7 @@
             var corridor = dungeon[position] as Corridor;
             if (!corridor)
             {
-                Log.Error(this, "No corridor found at {0} when trying to align {1}", position, gObject);
+                Log.E(this, "No corridor found at {0} when trying to align {1}", position, gObject);
                 return;
             }
             var direction = corridor.Direction;

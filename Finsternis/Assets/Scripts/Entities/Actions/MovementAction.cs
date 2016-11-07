@@ -30,7 +30,11 @@
 
         private EntityAttribute cachedSpeed;
 
-        private Vector3 direction;
+        private Vector3 movementDirection;
+
+        private Vector3 facingDirection;
+
+        public bool ShouldFaceDirection { get; set; }
 
         private EntityAttribute Speed
         {
@@ -39,10 +43,20 @@
 
         public Vector3 Velocity { get { return this.rbody.velocity; } }
 
-        public Vector3 Direction
+        public Vector3 MovementDirection
         {
-            get { return this.direction; }
-            set { this.direction = value.normalized; }
+            get { return this.movementDirection; }
+            set {
+                this.movementDirection = value.normalized;
+                if(ShouldFaceDirection)
+                    this.facingDirection = this.movementDirection;
+            }
+        }
+
+        public Vector3 FacingDirection
+        {
+            get { return this.facingDirection; }
+            set { this.facingDirection = value.normalized; }
         }
 
         public Rigidbody Rbody { get { return this.rbody; } }
@@ -50,19 +64,20 @@
         protected override void Awake()
         {
             base.Awake();
+            this.ShouldFaceDirection = true;
             this.rbody = GetComponent<Rigidbody>();
         }
 
-        void Update()
+        void LateUpdate()
         {
-            if (!this.direction.IsZero() && transform.forward != this.direction)
+            if (!this.facingDirection.IsZero() && transform.forward != this.facingDirection)
                 UpdateRotation();
         }
 
         private void UpdateRotation()
         {
             Quaternion rot = transform.rotation;
-            rot.SetLookRotation(this.direction, transform.up);
+            rot.SetLookRotation(this.facingDirection, transform.up);
 
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -72,8 +87,8 @@
 
         void FixedUpdate()
         {
-            if (!this.direction.IsZero())
-                Move(Direction);
+            if (!this.movementDirection.IsZero())
+                Move(MovementDirection);
             else if (!this.Velocity.IsZero())
                 Move(-Velocity.WithY(0).normalized);
         }

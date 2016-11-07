@@ -122,7 +122,7 @@ namespace Finsternis
             }
             else
             {
-                SetDirection(characterMovement.Direction);
+                SetDirection(characterMovement.MovementDirection);
             }
         }
 

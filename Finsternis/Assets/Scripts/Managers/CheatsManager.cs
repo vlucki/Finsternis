@@ -130,7 +130,7 @@ namespace Finsternis
             }
             else
             {
-                Log.Warn(this, "or so it would be if there existed a player to die.");
+                Log.W(this, "or so it would be if there existed a player to die.");
             }
         }
 
@@ -181,7 +181,7 @@ namespace Finsternis
             }
             else
             {
-                Log.Warn(this, "is what I would say to the player, if there was one....");
+                Log.W(this, "is what I would say to the player, if there was one....");
             }
         }
 
@@ -200,7 +200,7 @@ namespace Finsternis
             }
             else
             {
-                Log.Warn(this, "and out of player....");
+                Log.W(this, "and out of player....");
             }
         }
 

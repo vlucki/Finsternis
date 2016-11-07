@@ -128,7 +128,7 @@ namespace Finsternis
                         msg += "Position was null";
                     else if (dungeon[cell].Theme == null)
                         msg += "No theme set for cell " + dungeon[cell];
-                    Log.Error(this, msg);
+                    Log.E(this, msg);
                     throw ex;
                 }
             }

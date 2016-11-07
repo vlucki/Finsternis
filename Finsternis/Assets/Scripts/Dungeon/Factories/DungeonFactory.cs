@@ -99,10 +99,11 @@ namespace Finsternis
             Dungeon dungeon = dungeonGO.AddComponent<Dungeon>();
             if (seed != null)
                 dungeon.Seed = (int)seed;
-#if LOG_INFO || DEBUG_DUNGEON_GEN
+
+#if DEBUG_DUNGEON_GEN && LOG_INFO
             else
             {
-                Log.Info(this, "debug mode enabled, setting seed to 0");
+                Log.I(this, "debug mode enabled, setting seed to 0");
                 dungeon.Seed = 0;
             }
 #endif

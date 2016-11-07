@@ -97,6 +97,8 @@ ModelImporter:
     400086: right_arm_manipulator1
     400088: tophead
     400090: torso
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: corpo
     7400000: A_idle01_balthazar
     7400002: A_atk_fireball_begin_balthazar
@@ -735,7 +737,7 @@ ModelImporter:
       name: A_atk_teleport_begin_balthazar
       takeName: Take 001
       firstFrame: 260
-      lastFrame: 265
+      lastFrame: 263
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1094,7 +1096,7 @@ ModelImporter:
     - serializedVersion: 16
       name: A_atk_teleport_execute_balthazar
       takeName: Take 001
-      firstFrame: 265
+      firstFrame: 264
       lastFrame: 270
       wrapMode: 0
       orientationOffsetY: 0
@@ -1214,7 +1216,7 @@ ModelImporter:
     - serializedVersion: 16
       name: A_atk_teleport_finish_balthazar
       takeName: Take 001
-      firstFrame: 270
+      firstFrame: 271
       lastFrame: 280
       wrapMode: 0
       orientationOffsetY: 0

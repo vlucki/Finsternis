@@ -224,7 +224,7 @@
                 dungeon = dungeonManager.CurrentDungeon;
                 if (!dungeon)
                 {
-                    Log.Error(this, "There was no dungeon ready for a new level to begin!");
+                    Log.E(this, "There was no dungeon ready for a new level to begin!");
                     dungeonManager.CreateDungeon();
                 }
             }
@@ -276,7 +276,10 @@
         #region Events
         public void TriggerGlobalEvent(string eventName, params object[] parameters)
         {
-            Log.Info(this, "Triggering event {0}", eventName);
+#if LOG_INFO
+            Log.I(this, "Triggering event {0}", eventName);
+#endif
+
             List<Callback> callbacks;
             if(globalEvents.TryGetValue(eventName, out callbacks))
             {
@@ -319,6 +322,6 @@
                 callbacks.RemoveAll(callback => callback.owner.Equals(owner));
             }
         }
-        #endregion
+#endregion
     }
 }

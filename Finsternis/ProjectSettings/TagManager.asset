@@ -11,6 +11,7 @@ TagManager:
   - MessageManager
   - Message
   - AudioManager
+  - SkyCamera
   layers:
   - Default
   - TransparentFX

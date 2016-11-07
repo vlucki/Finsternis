@@ -90,7 +90,7 @@ namespace Finsternis
             }
             catch (Exception e)
             {
-                Log.Error(this, "Exception thrown when initializing controller for character!");
+                Log.E(this, "Exception thrown when initializing controller for character!");
                 throw e;
             }
         }
@@ -160,7 +160,7 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.Direction = (characterMovement.Direction.WithX(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithX(amount));
             }
         }
 
@@ -168,7 +168,7 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.Direction = (characterMovement.Direction.WithZ(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithZ(amount));
             }
         }
 
@@ -176,13 +176,13 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.Direction = (direction.WithY(0));
+                characterMovement.MovementDirection = (direction.WithY(0));
             }
         }
 
         public bool ShouldWalk()
         {
-            return !characterMovement.Direction.IsZero();
+            return !characterMovement.MovementDirection.IsZero();
         }
 
         protected virtual bool CanAct()
@@ -223,7 +223,7 @@ namespace Finsternis
             if (!CanAct())
             {
 #if UNITY_EDITOR
-                Log.Warn(this, " can't attack right now");
+                Log.W(this, " can't attack right now");
 #endif
                 return;
             }
@@ -258,17 +258,17 @@ namespace Finsternis
         {
             if (this.equippedSkills == null)
             {
-                Log.Error(this, "Variable 'equippedSkills' not initialized.");
+                Log.E(this, "Variable 'equippedSkills' not initialized.");
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
-                Log.Error(this, "Invalid skill slot: {0}", slot);
+                Log.E(this, "Invalid skill slot: {0}", slot);
                 return false;
             }
             else if (checkForEmptySlot && !this.equippedSkills[slot])
             {
-                Log.Warn(this, "No skill equipped in slot {0}", slot);
+                Log.W(this, "No skill equipped in slot {0}", slot);
                 return false;
             }
             return true;
@@ -278,7 +278,7 @@ namespace Finsternis
         {
             this.isLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
-            characterMovement.Direction = (characterMovement.Direction.OnlyY());
+            characterMovement.MovementDirection = (characterMovement.MovementDirection.OnlyY());
             onLock.Invoke();
         }
 
@@ -318,7 +318,7 @@ namespace Finsternis
         protected virtual void CharacterController_death()
         {
             characterAnimator.SetBool(CharController.DyingBool, true);
-            characterMovement.Direction = Vector3.zero;
+            characterMovement.MovementDirection = Vector3.zero;
         }
 
 #if UNITY_EDITOR

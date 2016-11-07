@@ -18,7 +18,9 @@
 
         private void OnExit(GameObject go)
         {
-            UnityQuery.Log.Info(this, "{0} exiting deathzone", go);
+#if LOG_INFO
+            UnityQuery.Log.I(this, "{0} exiting deathzone", go);
+#endif
             GameManager.Instance.Kill(go);
         }
     }

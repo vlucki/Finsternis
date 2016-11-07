@@ -71,7 +71,7 @@ namespace Finsternis
             optionsContainer.GetComponentsInChildren<MenuButtonController>(this.options);
 #if UNITY_EDITOR
             if (this.options.Count <= 0)
-                Log.Warn(this, "Not a single option found on the menu.");
+                Log.W(this, "Not a single option found on the menu.");
             else
 #endif
             if (this.options.Count > 1)

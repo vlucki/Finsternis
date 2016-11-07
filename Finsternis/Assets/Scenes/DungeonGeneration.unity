@@ -2762,7 +2762,6 @@ GameObject:
   - 224: {fileID: 783717789}
   - 222: {fileID: 783717796}
   - 114: {fileID: 783717795}
-  - 114: {fileID: 783717794}
   - 225: {fileID: 783717793}
   - 95: {fileID: 783717792}
   - 114: {fileID: 783717791}
@@ -2811,15 +2810,15 @@ MonoBehaviour:
   OnTransitionStarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 783717794}
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 2038061818}
+        m_MethodName: DisableTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Disable Controls
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
@@ -2846,7 +2845,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Toggle Controls
+          m_StringArgument: Enable Controls
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2038061818}
@@ -2892,7 +2891,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Toggle Controls
+          m_StringArgument: Enable Controls
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2038061818}
@@ -2911,15 +2910,15 @@ MonoBehaviour:
   OnTransitionEnded:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 783717794}
-        m_MethodName: set_enabled
-        m_Mode: 6
+      - m_Target: {fileID: 2038061818}
+        m_MethodName: EnableTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Disable Controls
           m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: Finsternis.Transition+TransitionEvent, Assembly-CSharp, Version=0.0.0.0,
@@ -2955,40 +2954,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &783717794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 783717788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b39e28ca464d4ef42b113b8813806f02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggers:
-  - name: Close
-    enabled: 1
-    toggleOnly: 1
-    controls:
-    - {fileID: 11400000, guid: 823d23e07cf394c41872d38dc96814ff, type: 2}
-    - {fileID: 11400000, guid: ccb84e579757abe488d3642e3b0c2e0e, type: 2}
-    onAxisActive:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 783717790}
-          m_MethodName: Begin
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
 --- !u!114 &783717795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8559,7 +8524,7 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  - name: Toggle Controls
+  - name: Enable Controls
     enabled: 1
     toggleOnly: 1
     controls:
@@ -8568,6 +8533,27 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 783717791}
+          m_MethodName: Begin
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - name: Disable Controls
+    enabled: 0
+    toggleOnly: 1
+    controls:
+    - {fileID: 11400000, guid: 823d23e07cf394c41872d38dc96814ff, type: 2}
+    onAxisActive:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 783717790}
           m_MethodName: Begin
           m_Mode: 1
           m_Arguments:
@@ -8877,7 +8863,7 @@ Prefab:
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: onGenerationEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}

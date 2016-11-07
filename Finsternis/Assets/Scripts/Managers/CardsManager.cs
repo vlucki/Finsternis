@@ -32,13 +32,13 @@
         {
             if (this.cardNames == null || this.cardNames.Count == 0)
             {
-                Log.Error(this, "No names attatched to manager. Aborting card generation.");
+                Log.E(this, "No names attatched to manager. Aborting card generation.");
                 return;
             }
 
             if(this.cardFactory == null)
             {
-                Log.Error(this, "No card factory found. Aborting card generation.");
+                Log.E(this, "No card factory found. Aborting card generation.");
                 return;
             }
             while((--quantity) >= 0)

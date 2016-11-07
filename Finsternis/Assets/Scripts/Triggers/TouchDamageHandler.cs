@@ -43,7 +43,7 @@ namespace Finsternis
                 owner = GetComponentInParent<Entity>();
                 if (!owner)
                 {
-                    Log.Error(this, "Touch damage handler needs an owner!");
+                    Log.E(this, "Touch damage handler needs an owner!");
                     this.DestroyNow();
                     return false;
                 }

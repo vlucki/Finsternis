@@ -4,6 +4,7 @@
     using System.Collections;
     using UnityEngine.Events;
     using UnityEngine.Experimental.Director;
+    using UnityQuery;
 
     public class AttackController : StateMachineBehaviour
     {
@@ -12,35 +13,61 @@
         {
             if (stateInfo.IsTag("Execution"))
             {
-                Debug.Log("Starting skill execution");
+#if LOG_INFO
+                Log.I(this, "Starting skill execution");
+#endif
+
                 var controller = animator.GetComponent<CharController>();
-                controller.ActiveSkill.StartExecution();
+                if (controller.ActiveSkill)
+                    controller.ActiveSkill.StartExecution();
+
+#if LOG_INFO || LOG_WARN
+                else
+                    Log.W(this, "Cannot start execution when skill is not active!");
+#endif
             }
+#if LOG_INFO
             else if (stateInfo.IsTag("End"))
             {
                 Debug.Log("Last skill phase");
-            }
-        }
 
-        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex, AnimatorControllerPlayable controller)
-        {
-            base.OnStateUpdate(animator, stateInfo, layerIndex, controller);
-            Debug.Log(stateInfo);
+            }
+#endif
+
         }
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (stateInfo.IsTag("Execution"))
             {
-                Debug.Log("Ending skill execution");
+#if LOG_INFO
+                Log.I(this, "Ending skill execution");
+#endif
+
                 var controller = animator.GetComponent<CharController>();
-                controller.ActiveSkill.EndExecution();
+                if (controller.ActiveSkill)
+                    controller.ActiveSkill.EndExecution();
+
+#if LOG_INFO || LOG_WARN
+                else
+                    Log.W(this, "Cannot end execution when skill is not active!");
+#endif
             }
             else if (stateInfo.IsTag("End"))
             {
-                Debug.Log("Ending skill");
+#if LOG_INFO
+                Log.I(this, "Ending skill");
+#endif
+
                 var controller = animator.GetComponent<CharController>();
-                controller.ActiveSkill.End();
+                if (controller.ActiveSkill)
+                    controller.ActiveSkill.End();
+
+#if LOG_INFO || LOG_WARN
+                else
+                    Log.W(this, "Cannot end inactive skill!");
+#endif
+
             }
         }
     }

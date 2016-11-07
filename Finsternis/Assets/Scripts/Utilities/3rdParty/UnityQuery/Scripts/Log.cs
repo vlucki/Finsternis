@@ -12,47 +12,53 @@ namespace UnityQuery
     {
         #region Public Methods and Operators
 
-        public static void Error(Object context, string s)
+        #region error
+        public static void E(Object context, string s)
         {
             Debug.LogError(s.ToLogString(context), context);
         }
 
-        public static void Error(Object context, string s, params object[] args)
+        public static void E(Object context, string s, params object[] args)
         {
             Debug.LogErrorFormat(context, s.ToLogString(context), args);
         }
+        #endregion
 
-        public static void Info(Object context, bool condition, string s)
+        #region info
+        public static void I(Object context, bool condition, string s)
         {
             if(condition)
                 Debug.Log(s.ToLogString(context), context);
         }
 
-        public static void Info(Object context, string s)
+        public static void I(Object context, string s)
         {
             Debug.Log(s.ToLogString(context), context);
         }
 
-        public static void Info(Object context, string s, params object[] args)
+        public static void I(Object context, string s, params object[] args)
         {
             Debug.LogFormat(context, s.ToLogString(context), args);
         }
 
-        public static void Info(Object context, bool condition, string s, params object[] args)
+        public static void I(Object context, bool condition, string s, params object[] args)
         {
             if(condition)
                 Debug.LogFormat(context, s.ToLogString(context), args);
         }
+        #endregion
 
-        public static void Warn(Object context, string s)
+        #region warn
+        public static void W(Object context, string s)
         {
             Debug.LogWarning(s.ToLogString(context), context);
         }
 
-        public static void Warn(Object context, string s, params object[] args)
+        public static void W(Object context, string s, params object[] args)
         {
             Debug.LogWarningFormat(context, s.ToLogString(context), args);
         }
+        #endregion
 
         public static string WithFrame(this string s)
         {

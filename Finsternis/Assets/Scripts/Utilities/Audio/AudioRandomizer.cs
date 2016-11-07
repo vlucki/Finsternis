@@ -17,7 +17,7 @@
             if (this.player)
                 this.player.Play(clips.GetRandom(Random.Range));
             else
-                Log.Error(this, "No player found!");
+                Log.E(this, "No player found!");
         }
     }
 }
