@@ -117,10 +117,12 @@ namespace Finsternis
             {
                 GameManager.Instance.Kill(GameManager.Instance.Player.gameObject);
             }
+#if LOG_INFO || LOG_WARN
             else
             {
                 Log.W(this, "or so it would be if there existed a player to die.");
             }
+#endif
         }
 
         private void KillEnemies()
@@ -168,10 +170,12 @@ namespace Finsternis
             {
                 this.cardsManager.GivePlayerCard(amount);
             }
+#if LOG_INFO || LOG_WARN
             else
             {
                 Log.W(this, "is what I would say to the player, if there was one....");
             }
+#endif
         }
 
         private void TogglePlayerCollision()
@@ -187,10 +191,12 @@ namespace Finsternis
                 if (rbd)
                     rbd.useGravity = coll.enabled;
             }
+#if LOG_INFO || LOG_WARN
             else
             {
                 Log.W(this, "and out of player....");
             }
+#endif
         }
 
         private void CheckExecutedCommand(params object[] parameters)

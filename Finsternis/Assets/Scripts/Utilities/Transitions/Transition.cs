@@ -49,8 +49,10 @@
 
             if (isActiveAndEnabled)
                 StartCoroutine(_Begin());
+#if LOG_INFO || LOG_WARN
             else
                 Log.W(this, "Cannot start transition with innactive game object!");
+#endif
         }
 
         public void End()

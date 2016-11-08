@@ -69,7 +69,8 @@ namespace Finsternis
         public void LoadOptions(GameObject optionsContainer)
         {
             optionsContainer.GetComponentsInChildren<MenuButtonController>(this.options);
-#if UNITY_EDITOR
+
+#if LOG_INFO || LOG_WARN
             if (this.options.Count <= 0)
                 Log.W(this, "Not a single option found on the menu.");
             else

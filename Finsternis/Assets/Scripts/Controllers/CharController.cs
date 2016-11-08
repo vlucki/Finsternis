@@ -222,7 +222,7 @@ namespace Finsternis
         {
             if (!CanAct())
             {
-#if UNITY_EDITOR
+#if LOG_INFO || LOG_WARN
                 Log.W(this, " can't attack right now");
 #endif
                 return;
@@ -268,7 +268,9 @@ namespace Finsternis
             }
             else if (checkForEmptySlot && !this.equippedSkills[slot])
             {
+#if LOG_INFO || LOG_WARN
                 Log.W(this, "No skill equipped in slot {0}", slot);
+#endif
                 return false;
             }
             return true;

@@ -150,7 +150,8 @@
             Coroutine transition;
             if (this.transitions.TryGetValue(source, out transition))
             {
-                this.StopCoroutine(transition);
+                if(transition != null)
+                    this.StopCoroutine(transition);
                 this.transitions.Remove(source);
             }
         }
