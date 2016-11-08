@@ -160,11 +160,19 @@ namespace Finsternis
             var featuresList = dungeon.GetFeaturesAt(dungeonPos);
             if (featuresList != null)
             {
+                int count = 1;
+                DungeonFeature lastFeature = null;
                 foreach (var feature in featuresList)
                 {
+                    if(feature != lastFeature)
+                    {
+                        lastFeature = feature;
+                        count = 1;
+                    }
                     if (feature.Type == DungeonFeature.FeatureType.REPLACEMENT)
                         replacement = feature;
-                    MakeFeature(feature, new Vector2(cellX, cellY)).transform.SetParent(cell.transform);
+                    MakeFeature(feature, new Vector2(cellX, cellY), count).transform.SetParent(cell.transform);
+                    count++;
                 }
             }
 
@@ -177,7 +185,7 @@ namespace Finsternis
             return cell;
         }
 
-        private GameObject MakeFeature(DungeonFeature feature, Vector2 position)
+        private GameObject MakeFeature(DungeonFeature feature, Vector2 position, int count)
         {
             GameObject featureGO =
                 (GameObject)Instantiate(
@@ -187,8 +195,7 @@ namespace Finsternis
             if (!feature.Alignment.IsNullOrEmpty())
             {
                 feature.Alignment.ForEach(
-                    alignment => alignment.Align(this.dungeon, this.cellScale, position, featureGO)
-                    );
+                    alignment => alignment.Align(this.dungeon, this.cellScale, position, featureGO, count));
             }
 
             return featureGO;

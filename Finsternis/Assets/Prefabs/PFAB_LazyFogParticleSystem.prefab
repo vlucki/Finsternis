@@ -22,7 +22,7 @@ GameObject:
   - 198: {fileID: 198000013941801294}
   - 199: {fileID: 199000011030497038}
   m_Layer: 0
-  m_Name: LazyFogParticleSystem
+  m_Name: PFAB_LazyFogParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

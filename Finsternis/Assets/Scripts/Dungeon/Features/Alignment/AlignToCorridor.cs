@@ -14,7 +14,7 @@
         [SerializeField]
         private bool perpendicular = false;
 
-        public override void Align(Dungeon dungeon, Vector3 dungeonScale, Vector2 position, GameObject gObject)
+        public override void Align(Dungeon dungeon, Vector3 dungeonScale, Vector2 position, GameObject gObject, int count = 0)
         {
             var corridor = dungeon[position] as Corridor;
             if (!corridor)
@@ -23,15 +23,21 @@
                 return;
             }
             var direction = corridor.Direction;
-            if(direction.y != 0)
+            bool nearStart = position.Distance(corridor[0]) >= position.Distance(corridor.End);
+            if(count > 1 && corridor.Length == 1)
             {
-                if(position.Distance(corridor[0]) > position.Distance(corridor.End))
+                nearStart = false;
+            }
+
+            if (direction.y != 0)
+            {
+                if(nearStart)
                     gObject.transform.Rotate(Vector3.up, 180);
 
             }
             else
             {
-                if (position.Distance(corridor[0]) > position.Distance(corridor.End))
+                if (nearStart)
                     gObject.transform.Rotate(Vector3.up, 90);
                 else
                     gObject.transform.Rotate(Vector3.up, -90);

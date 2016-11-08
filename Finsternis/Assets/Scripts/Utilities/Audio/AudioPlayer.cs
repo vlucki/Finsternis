@@ -12,6 +12,8 @@
 
         protected AudioManager Manager { get; private set; }
 
+        public void SetGroup(AudioMixerGroup group) { this.group = group; }
+
         protected virtual void Awake()
         {
             var managerObj = GameObject.FindGameObjectWithTag("AudioManager");

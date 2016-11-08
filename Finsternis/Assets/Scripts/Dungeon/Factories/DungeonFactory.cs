@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -91,7 +92,7 @@ namespace Finsternis
         /// Core method for dungeon generation.
         /// </summary>
         /// <param name="seed">The seed to be used for the pseudo-random number generator.</param>
-        public void Generate(int? seed = null)
+        public IEnumerator Generate(int? seed = null)
         {
             GameObject dungeonGO = new GameObject(dungeonName);
 
@@ -136,14 +137,24 @@ namespace Finsternis
                 roomCount = GenerateRooms(dungeon, hangingRooms, hangingCorridors, maxRoomSize, roomCount);
             }
 
+            yield return null;
+
             if (!this.allowDeadEnds)
                 ConnectLeftoverCorridors(dungeon, hangingCorridors);
 
+            yield return null;
+
             CleanUp(dungeon);
+
+            yield return null;
 
             DefineThemes(dungeon);
 
+            yield return null;
+
             AddFeatures(dungeon);
+
+            yield return null;
 
             AddExit(dungeon);
 

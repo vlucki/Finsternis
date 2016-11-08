@@ -5,6 +5,7 @@
     using System;
     using UnityQuery;
     using System.Collections.Generic;
+    using UnityEngine.Audio;
 
     public class SFXPlayer : AudioPlayer
     {
@@ -22,7 +23,7 @@
         private EffectType type = EffectType.GLOBAL;
 
         private List<AudioSource> activeSources;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -57,9 +58,10 @@
                 follow.Disable();
                 source.spatialBlend = 0;
             }
-
+            source.clip = clip;
             source.gameObject.SetActive(true);
-            source.PlayOneShot(clip);
+            source.Stop();
+            source.Play();
         }
 
         private bool MayPlayAnotherClip()

@@ -11,30 +11,30 @@
     public class DungeonManager : MonoBehaviour
     {
         [SerializeField]
-        private DungeonFactory _dFactory;
+        private DungeonFactory dungeonFactory;
 
         [SerializeField]
-        private DungeonDrawer _dDrawer;
+        private DungeonDrawer dungeonDrawer;
 
-        private Dungeon _currentDungeon;
+        private Dungeon currentDungeon;
 
-        public DungeonFactory Factory { get { return _dFactory; } }
+        public DungeonFactory Factory { get { return this.dungeonFactory; } }
 
-        public DungeonDrawer Drawer { get { return _dDrawer; } }
+        public DungeonDrawer Drawer { get { return this.dungeonDrawer; } }
 
-        public Dungeon CurrentDungeon { get { return _currentDungeon; } }
+        public Dungeon CurrentDungeon { get { return this.currentDungeon; } }
 
         void Awake()
         {
-            if (!_dDrawer || !_dFactory)
+            if (!dungeonDrawer || !dungeonFactory)
             {
-                _dDrawer = GetComponent<DungeonDrawer>();
-                _dFactory = GetComponent<DungeonFactory>();
+                dungeonDrawer = GetComponent<DungeonDrawer>();
+                dungeonFactory = GetComponent<DungeonFactory>();
             }
-            _dFactory.onGenerationEnd.AddListener((dungeon) =>
+            dungeonFactory.onGenerationEnd.AddListener((dungeon) =>
             {
                 GameManager.Instance.ClearedDungeons++;
-                _currentDungeon = dungeon;
+                currentDungeon = dungeon;
 
                 dungeon.OnGoalCleared.AddListener(() =>
                 {
@@ -59,7 +59,8 @@
             {
                 d.gameObject.DestroyNow();
             }
-            _dFactory.Generate(seed);
+
+            StartCoroutine(this.dungeonFactory.Generate(seed));
         }
     }
 }

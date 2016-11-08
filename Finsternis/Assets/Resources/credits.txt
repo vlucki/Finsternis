@@ -30,7 +30,7 @@ Trabalho de Conclusão de Curso
 
 
 
-<b>- FINSTERNIS -</b>
+<b><size=50>- FINSTERNIS -</size></b>
 
 
 
@@ -39,44 +39,22 @@ Trabalho de Conclusão de Curso
 
 
 
-<b>MECÂNICA E AMBIENTAÇÃO</b>
+<b>INTEGRANTES</b>
 
 
-Lucas Keven
+Dreiky Fraga (Mecânica, Modelagem 3D, Rigging e Animação de personagens)
 
-Victor Portela Diniz Lucki
+Lucas Keven (Mecânica, Modelagem 3D, Design de Interface)
 
-
-
-<b>INTERFACE</b>
-
-
-Lucas Keven
-
-Victor Portela Diniz Lucki
-
-
-
-<b>MODELAGEM 3D</b>
-
-
-Dreiky Fraga
-
-Lucas Keven
-
-Victor Portela Diniz Lucki
-
-
-
-<b>PROGRAMAÇÃO</b>
-
-
-Victor Portela Diniz Lucki
+Victor Portela Diniz Lucki (Áudio, Mecânica, Modelagem 3D, Programação)
 
 
 
 
 
+<b>ORIENTAÇÃO</b>
 
-
-
+Prof. Alexandre Braga
+Prof. Deborah Magnani
+Prof. David de Oliveira Lemes
+Prof. Mario Fontes

@@ -159,7 +159,7 @@
 
         public void SpawnPlayerAtEntrance(GameObject playerPrefab)
         {
-            SpawnPlayer(playerPrefab, this.dungeonManager.GetComponent<DungeonDrawer>().GetEntrancePosition().WithY(0.5f));
+            SpawnPlayer(playerPrefab, this.dungeonManager.Drawer.GetEntrancePosition().WithY(0.5f));
         }
 
         private void CreateDungeon()
@@ -246,7 +246,7 @@
                 cameraHolder.transform.rotation = Quaternion.Euler(90, 0, 0);
                 cameraHolder.GetComponentInChildren<GlobalFog>().Dissipate(3);
                 cameraHolder.transform.position = 
-                    this.dungeonManager.GetComponent<DungeonDrawer>().GetWorldPosition(
+                    this.dungeonManager.Drawer.GetWorldPosition(
                         dungeon.GetCenter()).WithY(130);
             }
 

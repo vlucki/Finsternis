@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Name: DoorAlignment
   m_EditorClassIdentifier: 
   offsetAmount: 0.25
+  extra: 2

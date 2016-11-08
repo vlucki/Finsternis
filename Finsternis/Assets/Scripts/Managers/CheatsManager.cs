@@ -8,22 +8,6 @@ namespace Finsternis
 {
     public class CheatsManager : MonoBehaviour
     {
-        //public enum CheatCodes
-        //{
-        //    ISEXIT = 0,
-        //    ISDIE = 1,
-        //    ISWIN = 2,
-        //    ISNEXT = 3,
-        //    ISPURGE = 4,
-        //    ISCARD = 5,
-        //    IDCLIP = 6,
-        //    ISSKYCAM = 7,
-        //    ISRD = 8
-        //}
-
-        //private CheatCodes currentCode;
-        //private CheatCodes lastCode;
-
         private string storedCode;
         private string currentCode;
         private string lastCode;
@@ -48,9 +32,15 @@ namespace Finsternis
         private CardsManager cardsManager;
         private int storedValue;
 
-        void Awake()
+        void Start()
         {
-            //codes = Enum.GetNames(typeof(CheatCodes));
+            GameManager.Instance.DungeonManager.Factory.onGenerationEnd.AddListener(PositionSkyCam);
+        }
+
+        private void PositionSkyCam(Dungeon dungeon)
+        {
+            var center = GameManager.Instance.DungeonManager.Drawer.GetWorldPosition(dungeon.GetCenter() + Vector2.one / 2);
+            this.skyCamera.transform.position = center.WithY(150);
         }
 
         void Update()
@@ -84,7 +74,6 @@ namespace Finsternis
                         if (code.Equals(this.storedCode))
                         {
                             print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + this.storedCode);
-                            //this.currentCode = (CheatCodes)codeToExecute;
                             this.currentCode = this.storedCode;
                             CheckExecutedCommand();
                             ResetInputs();
@@ -243,45 +232,6 @@ namespace Finsternis
                     return;
             }
             this.lastCode = this.currentCode;
-            //this.lastCode = this.currentCode;
-
-            //switch (this.currentCode)
-            //{
-            //    case CheatCodes.ISEXIT:
-            //        UnlockExits();
-            //        break;
-            //    case CheatCodes.ISDIE:
-            //        KillPlayer();
-            //        break;
-            //    case CheatCodes.ISWIN:
-            //        print("Victorious reign");
-            //        GameManager.Instance.Win();
-            //        break;
-            //    case CheatCodes.ISNEXT:
-            //        print("I pass");
-            //        GameManager.Instance.DungeonManager.CreateDungeon(
-            //            (this.storedValue == - 1)? null : (int?)this.storedValue);
-            //        break;
-            //    case CheatCodes.ISPURGE:
-            //        KillEnemies();
-            //        break;
-            //    case CheatCodes.ISCARD:
-            //        SummonCard(Mathf.Max(1, this.storedValue));
-            //        break;
-            //    case CheatCodes.IDCLIP:
-            //        TogglePlayerCollision();
-            //        break;
-            //    case CheatCodes.ISSKYCAM:
-            //        ToggleSkyCam();
-            //        break;
-            //    case CheatCodes.ISRD:
-            //        this.currentCode = this.lastCode;
-            //        this.CheckExecutedCommand(parameters);
-            //        return;
-            //    default:
-            //        return;
-            //}
-            //this.lastCode = this.currentCode;
         }
 
         private void ToggleSkyCam()

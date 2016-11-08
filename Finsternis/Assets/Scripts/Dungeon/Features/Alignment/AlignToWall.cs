@@ -14,7 +14,7 @@
         [Range(0, 1)]
         private float offsetAmount = 0.25f;
 
-        public override void Align(Dungeon dungeon, Vector3 dungeonScale, Vector2 position, GameObject gObject)
+        public override void Align(Dungeon dungeon, Vector3 dungeonScale, Vector2 position, GameObject gObject, int count = 0)
         {
             var walls = dungeon.GetNeighbours(position, false, Dungeon.wall);
             if (walls.IsNullOrEmpty())

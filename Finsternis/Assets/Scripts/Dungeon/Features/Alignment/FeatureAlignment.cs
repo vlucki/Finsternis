@@ -8,6 +8,7 @@ using UnityEngine;
             Dungeon dungeon,
             Vector3 dungeonScale,
             Vector2 position, 
-            GameObject gObject);
+            GameObject gObject,
+            int count = 0);
     }
 }
