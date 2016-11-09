@@ -68,7 +68,7 @@ namespace Finsternis
                     DestroyImmediate(d.gameObject);
             }
 
-            System.Collections.IEnumerator generation = tgt.Generate(seed);
+            System.Collections.IEnumerator generation = tgt._Generate(seed);
             while (generation.MoveNext());
 
             tgt.GetComponent<DungeonDrawer>().Draw(FindObjectOfType<Dungeon>());

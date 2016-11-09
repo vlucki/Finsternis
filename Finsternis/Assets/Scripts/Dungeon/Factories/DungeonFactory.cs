@@ -33,7 +33,7 @@ namespace Finsternis
         private int dungeonHeight = 20;
 
         [SerializeField]
-        [Range(2, 1000)] //at least one starting point and one exit
+        [Range(2, 99)] //at least one starting point and one exit
         private int totalRooms = 5;
 
         [Tooltip("How many times should it try to carve a room before stoping")]
@@ -76,6 +76,11 @@ namespace Finsternis
         
         public const string SEED_KEY = "LastSeed";
 
+        public void SetRoomCount(int amount)
+        {
+            this.totalRooms = Mathf.Clamp(amount, 2, 99);
+        }
+
         /// <summary>
         /// Initializes every field, ensuring they have consistent values.
         /// </summary>
@@ -88,11 +93,17 @@ namespace Finsternis
             this.minimumCorridorLength = Mathf.Clamp(this.minimumCorridorLength, 0, this.maximumCorridorLength);
         }
 
+        public void Generate(int? seed = null)
+        {
+            this.StopCoroutine(_Generate(seed));
+            this.StartCoroutine(_Generate(seed));
+        }
+
         /// <summary>
         /// Core method for dungeon generation.
         /// </summary>
         /// <param name="seed">The seed to be used for the pseudo-random number generator.</param>
-        public IEnumerator Generate(int? seed = null)
+        public IEnumerator _Generate(int? seed = null)
         {
             GameObject dungeonGO = new GameObject(dungeonName);
 

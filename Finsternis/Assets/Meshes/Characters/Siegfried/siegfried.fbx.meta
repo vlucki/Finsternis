@@ -60,6 +60,7 @@ ModelImporter:
     100104: sword01
     100106: top_head
     100108: sword1:pCube1
+    100110: pCube1
     400000: _UNKNOWN_REF_NODE_fosterParent1
     400002: abs
     400004: chest
@@ -115,13 +116,17 @@ ModelImporter:
     400104: sword01
     400106: top_head
     400108: sword1:pCube1
+    400110: pCube1
     2300000: sword01
     2300002: sword1:pCube1
+    2300004: pCube1
     3300000: sword01
     3300002: sword1:pCube1
+    3300004: pCube1
     4300000: Sieg_Polygono
     4300002: sword01
     4300004: sword1:pCube1
+    4300006: pCube1
     7400000: A_siegfried_idle
     7400002: A_siegfried_atk_punch_begin
     7400004: A_siegfried_atk_punch_execute

@@ -2,7 +2,7 @@
 using UnityEditor;
 using System;
 
-[CustomEditor(typeof(UnityEngine.Component), true, isFallback = true)]
+[CustomEditor(typeof(UnityEngine.Object), true, isFallback = true)]
 [CanEditMultipleObjects]
 public class QuickReorder : Editor
 {

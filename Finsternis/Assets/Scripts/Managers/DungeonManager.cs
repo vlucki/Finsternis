@@ -60,7 +60,7 @@
                 d.gameObject.DestroyNow();
             }
 
-            StartCoroutine(this.dungeonFactory.Generate(seed));
+            this.dungeonFactory.Generate(seed);
         }
     }
 }
