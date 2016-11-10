@@ -28,7 +28,7 @@ namespace UnityStandardAssets.ImageEffects
 
         [SerializeField]
         [Range(1, 1000)]
-        private float defaultStartDistance = 3;
+        private float accumulatedDistance = 3;
 
         [SerializeField]
         [Range(1, 1000)]
@@ -39,10 +39,7 @@ namespace UnityStandardAssets.ImageEffects
         
         private bool fading;
 
-        protected override void Start()
-        {
-            base.Start();
-        }
+        public float AccumulatedDistance { set { this.accumulatedDistance = value; } }
 
         public void SetFogStartDistance(float value)
         {
@@ -63,41 +60,41 @@ namespace UnityStandardAssets.ImageEffects
         public void Dissipate(float time)
         {
             this.StopAllCoroutines();
-            this.StartCoroutine(_Fade(time, this.dissipatedDistance));
-            this.StartCoroutine(_Toggle(false));
+            this.StartCoroutine(_Fade(time, this.dissipatedDistance, false));
         }
 
         public void Accumulate(float time)
         {
             this.StopAllCoroutines();
-            this.StartCoroutine(_Fade(time, this.defaultStartDistance));
-            this.StartCoroutine(_Toggle(true));
+            this.StartCoroutine(_Fade(time, this.accumulatedDistance, true));
         }
 
-        private IEnumerator _Toggle(bool enable)
-        {
-            if (enable)
-                this.distanceFog = true;
-            yield return new WaitWhile(() => fading);
-            if(!enable)
-                this.distanceFog = false;
-        }
-
-        private IEnumerator _Fade(float time, float target)
+        private IEnumerator _Fade(float time, float targetDistance, bool activate)
         {
             this.fading = true;
-            if (startDistance != target)
-            {
-                float elapsed = Time.deltaTime;
-                do
-                {
-                    startDistance = Mathf.Lerp(this.startDistance, target, elapsed / time);
-                    yield return null;
-                    elapsed += Time.deltaTime;
-                } while (time > elapsed && Mathf.Abs(target - startDistance) > .1f);
 
-                startDistance = target;
+            if (activate)
+                this.distanceFog = true;
+
+            if (startDistance != targetDistance)
+            {
+                if (time > 0)
+                {
+                    float elapsed = Time.deltaTime;
+                    do
+                    {
+                        startDistance = Mathf.Lerp(this.startDistance, targetDistance, elapsed / time);
+                        yield return null;
+                        elapsed += Time.deltaTime;
+                    } while (time > elapsed && Mathf.Abs(targetDistance - startDistance) > .1f);
+                }
+
+                startDistance = targetDistance;
             }
+
+            if (!activate)
+                this.distanceFog = false;
+
             this.fading = false;
         }
 

@@ -214,7 +214,7 @@
             this.player.transform.forward = -Vector3.forward;
             this.dungeonManager.CurrentDungeon.GetComponent<DeathZone>().Disable();
             clearedDungeons++;
-            this.CallDelayed(1, GoalReached() ? (Action)Win : (Action)this.dungeonManager.CreateDungeon);
+            this.CallDelayed(1, GoalReached() ? Win : (Action)this.dungeonManager.CreateDungeon);
         }
 
         private void BeginNewLevel(Dungeon dungeon)

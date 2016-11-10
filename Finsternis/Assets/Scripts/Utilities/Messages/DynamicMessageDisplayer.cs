@@ -3,50 +3,69 @@
     using UnityEngine;
     using UnityQuery;
     using System;
+    using System.Collections;
 
     public class DynamicMessageDisplayer : MessageDisplayer
     {
+        [Serializable]
+        public enum Mode { RANDOM = 1, CONSTANT = 2, PROGRESSIVE = 3 }
         [Serializable]
         public struct ForceDirection
         {
             public Vector3 min;
             public Vector3 max;
+            public Mode mode;
 
-            public ForceDirection(Vector3 min, Vector3 max)
+            public ForceDirection(Vector3 min, Vector3 max, Mode mode)
             {
                 this.min = min;
                 this.max = max;
+                this.mode = mode;
             }
         }
 
         [SerializeField]
-        private ForceDirection forceDirection;
-
-        void Awake()
-        {
-            this.forceDirection.min = this.forceDirection.min.normalized;
-            this.forceDirection.max = this.forceDirection.max.normalized;
-        }
+        private ForceDirection forceDirection = new ForceDirection(-Vector3.one, Vector3.one, Mode.RANDOM);
 
         protected override MessageController DisplayMessage()
         {
             Vector3 force = forceDirection.min;
-            if(this.forceDirection.min != this.forceDirection.max)
+            if (this.forceDirection.min != this.forceDirection.max && this.forceDirection.mode != Mode.PROGRESSIVE)
             {
                 var max = this.forceDirection.max;
                 force.x = UnityEngine.Random.Range(force.x, max.x);
                 force.y = UnityEngine.Random.Range(force.y, max.y);
                 force.z = UnityEngine.Random.Range(force.z, max.z);
             }
-            
-            return MessagesManager.Instance.ShowDynamicMessage(
-                transform.position + this.messageOffset, 
+
+            var msg = MessagesManager.Instance.ShowDynamicMessage(
+                transform.position + this.messageOffset,
                 this.messageText,
                 force,
                 this.messageGraphic,
                 this.duration);
+
+            if (this.forceDirection.mode != Mode.RANDOM)
+            {
+                StartCoroutine(_Update(force, msg));
+            }
+
+            return msg;
         }
 
+        private IEnumerator _Update(Vector3 force, MessageController msg)
+        {
+            var body = msg.GetComponent<Rigidbody>();
+            while (msg && msg.isActiveAndEnabled)
+            {
+                yield return Wait.F_UPD();
+                body.AddForce(force, ForceMode.Impulse);
+                if (this.forceDirection.mode == Mode.PROGRESSIVE && force != this.forceDirection.max)
+                {
+                    force = Vector3.Lerp(force, this.forceDirection.max, Time.fixedDeltaTime);
+                }
+            }
+        }
 
         void OnValidate()
         {

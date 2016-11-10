@@ -88,17 +88,18 @@
         {
             if (lastOption.optionLbl)
             {
-                UpdateLabel(lastOption.optionLbl, .2f);
+                UpdateLabel(lastOption.optionLbl, .2f, 30);
             }
 
-            UpdateLabel(currentOption.optionLbl, 1f);
+            UpdateLabel(currentOption.optionLbl, 1f, 40);
         }
 
-        private void UpdateLabel(Text label, float alpha)
+        private void UpdateLabel(Text label, float alpha, int fontSize)
         {
             var color = label.color;
             color.a = alpha;
             label.color = color;
+            label.fontSize = fontSize;
         }
     }
 }

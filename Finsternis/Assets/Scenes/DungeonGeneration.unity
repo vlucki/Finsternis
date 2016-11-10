@@ -789,7 +789,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: fede658d991eb4b4dbc4606a0084d755, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3733,13 +3733,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1789356853}
-        m_MethodName: Dissipate
+        m_MethodName: set_AccumulatedDistance
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0.5
+          m_FloatArgument: 30
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1789356853}
+        m_MethodName: Accumulate
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3748,6 +3759,17 @@ MonoBehaviour:
   OnTargetReached:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1789356853}
+        m_MethodName: set_AccumulatedDistance
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 4
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1789356853}
         m_MethodName: Accumulate
         m_Mode: 4
@@ -7304,7 +7326,7 @@ GameObject:
   - 114: {fileID: 1669544339}
   - 114: {fileID: 1669544338}
   m_Layer: 5
-  m_Name: BG
+  m_Name: Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8213,7 +8235,7 @@ MonoBehaviour:
   height: 1
   heightDensity: 0.001
   startDistance: 3
-  defaultStartDistance: 3
+  accumulatedDistance: 3
   dissipatedDistance: 160
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!114 &1789356854
@@ -9587,11 +9609,6 @@ MonoBehaviour:
   m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
---- !u!1 &2053195516 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012607476264, guid: 77bb4992b47214d43a8a253f910973f3,
-    type: 2}
-  m_PrefabInternal: {fileID: 11670185}
 --- !u!1001 &2137514734
 Prefab:
   m_ObjectHideFlags: 0
@@ -9612,7 +9629,7 @@ Prefab:
     - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
@@ -9622,7 +9639,7 @@ Prefab:
     - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4000012090428852, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}
       propertyPath: m_LocalPosition.x
@@ -9776,16 +9793,16 @@ Prefab:
         type: 2}
       propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2053195516}
+      objectReference: {fileID: 1789356853}
     - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: set_AccumulatedDistance
       objectReference: {fileID: 0}
     - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
       propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
         type: 2}
@@ -9821,6 +9838,91 @@ Prefab:
         type: 2}
       propertyPath: maximumCorridorLength
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_AccumulatedDistance
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1789356853}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1789356853}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Accumulate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011967736520, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onGenerationBegin.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1789356853}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Accumulate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013336403104, guid: 3becd43240d53b04c8db8a4d5dd0e755,
+        type: 2}
+      propertyPath: onDrawEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3becd43240d53b04c8db8a4d5dd0e755, type: 2}

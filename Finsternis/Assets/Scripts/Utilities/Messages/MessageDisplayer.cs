@@ -19,7 +19,7 @@
         [SerializeField][Tooltip("How long should this message be displayed (0 = indefinitely)")]
         protected float duration;
 
-        private MessageController displayedMessage;
+        protected MessageController displayedMessage;
         
         public void SetMessage(string message)
         {
