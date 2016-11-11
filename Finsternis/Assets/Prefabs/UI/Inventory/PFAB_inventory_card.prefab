@@ -195,7 +195,7 @@ GameObject:
   - 95: {fileID: 95000013351570102}
   - 225: {fileID: 225000010986370954}
   m_Layer: 5
-  m_Name: PFAB_inventory_card
+  m_Name: PFAB_card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,7 @@
 ﻿namespace Finsternis
 {
-    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using UnityQuery;
 
@@ -14,12 +15,17 @@
         protected Sprite messageGraphic;
 
         [SerializeField]
-        protected Vector3 messageOffset = Vector3.up;
+        private Vector3 messageOffset = Vector3.up;
+
+        [SerializeField]
+        private bool randomizeOffset = false;
 
         [SerializeField][Tooltip("How long should this message be displayed (0 = indefinitely)")]
         protected float duration;
 
         protected MessageController displayedMessage;
+
+        public Vector3 MessageOffset { get { return randomizeOffset ? Random.insideUnitSphere * (Random.value >= .5f ? 2 : -2): this.messageOffset; } }
         
         public void SetMessage(string message)
         {
@@ -30,6 +36,16 @@
         {
             if(objMessage)
                 this.messageText = objMessage.ToString();
+        }
+
+        public void LoadCardGraphic(Card card)
+        {
+            var sprites = Resources.LoadAll<Sprite>("Sprites/card_sprites");
+            var chosen = sprites.Where(sprite => sprite.name.ToLower().Contains(card.MainName.ToString().ToLower())).ToList<Sprite>();
+            if (!chosen.IsNullOrEmpty())
+            {
+                this.messageGraphic = chosen.GetRandom(Random.Range);
+            }
         }
 
         public void AppendMessage(string message)

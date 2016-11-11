@@ -1458,6 +1458,7 @@ MonoBehaviour:
   messageText: 
   messageGraphic: {fileID: 21300002, guid: c9a90110d66e58d4dbee469889456aa5, type: 3}
   messageOffset: {x: 0, y: 3, z: 0}
+  randomizeOffset: 1
   duration: 2
   forceDirection:
     min: {x: 0, y: 1, z: 0}
@@ -1683,8 +1684,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114000010093465424}
-        m_MethodName: ShowMessage
-        m_Mode: 1
+        m_MethodName: LoadCardGraphic
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1705,6 +1706,17 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114000013865656420}
+        m_MethodName: ShowMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000010093465424}
         m_MethodName: ShowMessage
         m_Mode: 1
         m_Arguments:
@@ -1972,6 +1984,7 @@ MonoBehaviour:
   messageText: 
   messageGraphic: {fileID: 0}
   messageOffset: {x: 0, y: 3, z: 0}
+  randomizeOffset: 0
   duration: 1
 --- !u!114 &114000014005836754
 MonoBehaviour:

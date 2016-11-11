@@ -39,7 +39,7 @@
             }
 
             var msg = MessagesManager.Instance.ShowDynamicMessage(
-                transform.position + this.messageOffset,
+                transform.position + this.MessageOffset,
                 this.messageText,
                 force,
                 this.messageGraphic,
@@ -51,6 +51,11 @@
             }
 
             return msg;
+        }
+
+        void Awake()
+        {
+            this.forceDirection.max = Vector3.Max(this.forceDirection.max, this.forceDirection.min);
         }
 
         private IEnumerator _Update(Vector3 force, MessageController msg)
@@ -67,10 +72,12 @@
             }
         }
 
+#if UNITY_EDITOR
         void OnValidate()
         {
-            this.forceDirection.max = Vector3.Max(this.forceDirection.max, this.forceDirection.min);
+            if (!UnityEditor.EditorApplication.isPlaying)
+                Awake();
         }
-
+#endif
     }
 }
