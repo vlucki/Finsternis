@@ -14,38 +14,119 @@
             DIVIDE = 20,
             MULTIPLY = 30
         }
-        
-        [SerializeField][ReadOnly]
-        private float valueChange;
+
+        [Serializable]
+        public struct RangeF
+        {
+            [SerializeField]
+            [Range(0, 30)]
+            public
+#if !UNITY_EDITOR
+                readonly
+#endif
+                float min;
+
+            [SerializeField]
+            [Range(0, 30)]
+            public 
+#if !UNITY_EDITOR
+                readonly
+#endif
+                float max;
+
+            public RangeF(float min, float max)
+            {
+                this.min = min;
+                this.max = Mathf.Max(min, max);
+            }
+        }
+
+        [SerializeField]
+        private EntityAttribute affectedAttribute;
 
         [Space(5)]
         [SerializeField]
         private ModifierType modifierType;
 
-        [Space(1)]
         [SerializeField]
-        private EntityAttribute affectedAttribute;
+        private RangeF valueChangeVariation;
+
+        [SerializeField]
+        [ReadOnly]
+        private float valueChange;
+
+#if UNITY_EDITOR
+        public void OnValidate()
+        {
+            this.SetRange(this.valueChangeVariation.min, this.valueChangeVariation.max);
+        }
+#endif
+
+        public RangeF ValueChangeVariation { get { return this.valueChangeVariation; } }
 
         public ModifierType TypeOfModifier { get { return this.modifierType; } }
-        
-        public string AttributeAlias {
-            get {
+
+        public string AttributeAlias
+        {
+            get
+            {
                 return this.affectedAttribute ? this.affectedAttribute.Alias : null;
-            } }
+            }
+        }
+
+        internal void SetRange(object v)
+        {
+            throw new NotImplementedException();
+        }
 
         public EntityAttribute AffectedAttribute { get { return this.affectedAttribute; } }
 
         public float ValueChange
         {
             get { return this.valueChange; }
-            set { this.valueChange = value; }
         }
 
-        public AttributeModifier(EntityAttribute affectedAttribute, float valueChange, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
+        public AttributeModifier(EntityAttribute affectedAttribute, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
         {
             this.affectedAttribute = affectedAttribute;
             this.modifierType = modifierType;
-            this.valueChange = valueChange;
+            UpdateName();
+        }
+
+        public void UpdateName()
+        {
+            this.name = affectedAttribute.name + ((modifierType == ModifierType.SUM || modifierType == ModifierType.MULTIPLY) ? " buff" : " debuff");
+        }
+
+        public void SetRange(float min, float max)
+        {
+            this.valueChangeVariation = new RangeF(min, max);
+            CalculateValue();
+        }
+
+        public void CalculateValue()
+        {
+            this.valueChange = UnityEngine.Random.Range(this.valueChangeVariation.min, this.valueChangeVariation.max + .1f);
+            int intValue = (int)this.valueChange;
+            int remainder = (int)((this.valueChange - intValue) * 10) % 10;
+            if (this.TypeOfModifier <= AttributeModifier.ModifierType.SUBTRACT)
+            {
+                if (remainder - 5 > 7)
+                {
+                    intValue++;
+                    remainder = 0;
+                }
+                else if (remainder - 5 > -2)
+                {
+                    remainder = 5;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+            }
+
+            this.valueChange = intValue + (float)remainder / 10;
         }
 
         public override string ToString()
@@ -59,69 +140,57 @@
 
         public string StringfyValue()
         {
-            string str = "";
+            string str;
 
             switch (this.modifierType)
             {
                 case ModifierType.SUM:
-                    str += "+";
+                    str = "+";
                     break;
                 case ModifierType.SUBTRACT:
-                    str += "-";
+                    str = "-";
                     break;
                 case ModifierType.DIVIDE:
-                    str += "/";
-                    break;
                 case ModifierType.MULTIPLY:
-                    str += "x";
+                    str = "x";
                     break;
+                default:
+                    return null;
             }
+            
 
-            return str + valueChange.ToString("n2");
-        }
-
-        /// <summary>
-        /// Compares the attribute modified and the type of modifier in question.
-        /// </summary>
-        /// <param name="other">The effect for comparison.</param>
-        /// <returns>0 if both effects act upon the same attribute and are the same type of modifier.</returns>
-        public override int CompareTo(Effect other)
-        {
-            int result = base.CompareTo(other);
-
-            if (result < 1)
+            if (this.modifierType <= ModifierType.SUBTRACT)
+                str += ValueChange.ToString("n2");
+            else if (this.modifierType == ModifierType.DIVIDE)
             {
-                AttributeModifier otherModifier = other as AttributeModifier;
-                if (otherModifier)
-                {
-                    result = this.AttributeAlias.CompareTo(otherModifier.AttributeAlias);
-                    if (result == 0)
-                    {
-                        result = this.TypeOfModifier.CompareTo(otherModifier.TypeOfModifier);
-                    }
-                }
+                str += (1 / ValueChange).ToString("n2");
+            }
+            else
+            {
+                str += ValueChange.ToString("n2");
             }
 
-            return result;
+            return str;
         }
 
         public override bool Merge(Effect other)
         {
             AttributeModifier otherModifier = other as AttributeModifier;
-            if (otherModifier)
+            if (otherModifier && otherModifier.AttributeAlias.Equals(this.AttributeAlias) && otherModifier.TypeOfModifier == this.TypeOfModifier)
             {
-                if (this.CompareTo(otherModifier) == 0)
-                {
+                if (this.modifierType > ModifierType.SUBTRACT)
+                    this.valueChange *= otherModifier.valueChange;
+                else
                     this.valueChange += otherModifier.valueChange;
-                    return true;
-                }
+                return true;
             }
             return false;
         }
 
         public override object Clone()
         {
-            AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.valueChange, this.TypeOfModifier, this.Name);
+            AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.TypeOfModifier, this.Name);
+            clone.valueChange = this.valueChange;
             if (this.constraints != null)
             {
                 constraints.ForEach(
@@ -130,5 +199,33 @@
             }
             return clone;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!base.Equals(obj))
+                return false;
+
+            var otherModifier = obj as AttributeModifier;
+
+            if (!otherModifier)
+                return false;
+
+            if (otherModifier.modifierType != this.modifierType)
+                return false;
+
+            if (otherModifier.valueChange != this.valueChange)
+                return false;
+
+            if (!otherModifier.affectedAttribute.Equals(this.affectedAttribute))
+                return false;
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode() ^ ((int)this.modifierType * 1069) ^ this.affectedAttribute.GetHashCode() ^ ((int)this.valueChange <= 1 ? 73 : (int)this.valueChange);
+        }
+
     }
 }

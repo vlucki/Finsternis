@@ -116,7 +116,7 @@ namespace Finsternis
             else
             {
                 Log.I(this, "debug mode enabled, setting seed to 0");
-                dungeon.Seed = 0;
+                dungeon.Seed = 2;
             }
 #endif
             Init(dungeon);

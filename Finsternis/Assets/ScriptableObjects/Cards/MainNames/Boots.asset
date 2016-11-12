@@ -13,15 +13,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 1
   isStackable: 0
-  rarity: 0.2629
+  rarity: 0.012898295
   effects:
-  - valueChange: 6.7
-    modifierType: 0
+  - name: Defense buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
       type: 2}
-  - valueChange: 2
-    modifierType: 30
+    modifierType: 0
+    valueChangeVariation:
+      min: 1
+      max: 3
+    valueChange: 1.5
+  - name: Speed buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
       type: 2}
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.2
+      max: 2
+    valueChange: 1.5
   prepositions: []
   flavourText: 
+  randomizeRange: 0

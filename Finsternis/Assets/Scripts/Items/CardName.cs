@@ -50,11 +50,9 @@
 
         private float ComputeRarity(Effect effect)
         {
-            //float value = 0.2f / Mathf.Max(1, effect.ConstraintsCount);
-            //value = ComputeConstraints(value, effect);
-            //value += ComputeAttributeModifiers( effect);
+            float value = ComputeConstraints(effect) * ComputeAttributeModifiers(effect);
 
-            return ComputeAttributeModifiers(effect);
+            return value;
         }
 
         private float ComputeAttributeModifiers(Effect effect)
@@ -63,31 +61,37 @@
             float value = 0;
             if (modifier && !modifier.AttributeAlias.IsNullOrEmpty())
             {
+                float multiplier = modifier.ValueChange / Mathf.Max(modifier.ValueChangeVariation.max, 1);
                 switch (modifier.TypeOfModifier)
                 {
                     case AttributeModifier.ModifierType.SUM:
-                        value = 0.075f;
+                        value = 0.1f * multiplier;
                         break;
                     case AttributeModifier.ModifierType.SUBTRACT:
-                        value = -0.075f;
+                        value = -0.1f * multiplier;
                         break;
                     case AttributeModifier.ModifierType.MULTIPLY:
-                        value = 0.2f;
+                        value = 0.3f * multiplier;
                         break;
                     case AttributeModifier.ModifierType.DIVIDE:
-                        value = -0.2f;
+                        value = -0.3f * multiplier;
                         break;
+                }
+                if (modifier.AffectedAttribute.HasMaximumValue)
+                {
+                    value *= 1 + modifier.ValueChange / modifier.AffectedAttribute.Max;
                 }
             }
             return value;
         }
 
-        private float ComputeConstraints(float value, Effect effect)
+        private float ComputeConstraints(Effect effect)
         {
+            float value = 1 / Mathf.Max(1, effect.ConstraintsCount);
             var timeConstraint = effect.GetConstraint<TimeConstraint>();
             if (timeConstraint != null)
             {
-                value *= 0.6f - Mathf.Clamp(0.5f / timeConstraint.Duration, 0.1f, 0.5f);
+                value *= 0.4f - Mathf.Clamp(0.1f * timeConstraint.Duration, 0.1f, 0.39f);
             }
             return value;
         }
@@ -112,7 +116,18 @@
 
         public override int GetHashCode()
         {
-            return Mathf.RoundToInt((this.name.GetHashCode() * 73 + this.Type.GetHashCode() * 919 + this.isStackable.GetHashCode()));
+            int hashCode = GetHashWithouthEffects();
+            this.effects.ForEach(effect => hashCode ^= effects.GetHashCode());
+            return hashCode;
+        }
+
+        private int GetHashWithouthEffects()
+        {
+            int hashCode = 13;
+            hashCode ^= this.name.GetHashCode() * 73;
+            hashCode ^= this.Type.GetHashCode() * 919;
+            hashCode *= this.effects.Count + this.isStackable.GetHashCode();
+            return hashCode;
         }
 
         public override string ToString()
@@ -137,63 +152,71 @@
         }
 
 #if UNITY_EDITOR
+
+        public bool randomizeRange;
         void OnValidate()
         {
-            Random.InitState(GetHashCode());
-            foreach(var effect in this.effects)
-            {
-                float min = 1f;
-                float max = 10f;
-                if (effect.TypeOfModifier > AttributeModifier.ModifierType.SUBTRACT)
-                {
-                    min = 1.1f;
-                    max = 5;
-                }
-                float value = Random.Range(min, max) * 100;
-                effect.ValueChange = (int)value / 100;
-                value %= 100;
-                value = (float)(5 * Mathf.RoundToInt(value / 5)) / 100f;
-                if (this.isStackable)
-                    value /= 2;
-                effect.ValueChange += value;
-                effect.ValueChange = (float)Math.Round(effect.ValueChange, 2, MidpointRounding.AwayFromZero);
-                
-            }
 
-            float rarity = 0.01f;
             float multiplier = 1;
             switch (this.Type)
             {
                 case NameType.PreName:
-                    rarity = 0.125f;
                     multiplier = 1.01f;
                     break;
                 case NameType.PostName:
-                    rarity = 0.3f;
                     multiplier = 1.02f;
                     break;
                 case NameType.MainName:
                     this.isStackable = false;
                     break;
             }
-            float[] effectsOfEachType = new float[4];
+            
             foreach (var effect in this.effects)
             {
-                effectsOfEachType[(int)(effect.TypeOfModifier)/10]++;
-                rarity *= (1 + ComputeRarity(effect)) * multiplier;
+                effect.OnValidate();
+
             }
 
-            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10] / effects.Count * 0.2f;
-            rarity -= effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10] / effects.Count * 0.2f;
-            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10] / effects.Count * 0.3f;
-            rarity += effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10] / effects.Count * 0.3f;
+            float rarity = 0.01f * multiplier;
+
+            int[] effectsOfEachType = new int[4];
+            
+
+
+            foreach (var effect in this.effects)
+            {
+                if (randomizeRange)
+                    RandomizeRange(effect);
+                float computedRarity = ComputeRarity(effect);
+                effectsOfEachType[(int)(effect.TypeOfModifier) / 10]++;
+                rarity *= (1 + computedRarity) * multiplier;
+                effect.UpdateName();
+            }
+
+            rarity += (effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10]) / 7 * .9f;
+
+
+            rarity -= (effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10]) / 7 * .9f;
 
             if (this.isStackable)
                 rarity *= 1.5f;
 
             this.rarity = Mathf.Abs(rarity);
 
-            
+
+        }
+
+        private void RandomizeRange(AttributeModifier effect)
+        {
+            Random.InitState(effect.TypeOfModifier.GetHashCode() ^ effect.AttributeAlias.GetHashCode() ^ this.name.GetHashCode());
+            float min = Random.Range(.5f, 10);
+            if (effect.TypeOfModifier > AttributeModifier.ModifierType.SUBTRACT)
+            {
+                min = Random.Range(.01f, 3);
+            }
+            effect.SetRange(min, Random.Range(min, min * Random.Range(1.5f, 3)));
         }
 #endif
     }

@@ -13,35 +13,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 0
   isStackable: 1
-  rarity: 0.49553818
+  rarity: 0.016576828
   effects:
-  - valueChange: 0
-    modifierType: 30
+  - name: Damage buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
       type: 2}
-  - valueChange: 0
-    modifierType: 10
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.3
+      max: 3
+    valueChange: 2.4
+  - name: Defense debuff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
       type: 2}
-  - valueChange: 0
-    modifierType: 0
+    modifierType: 10
+    valueChangeVariation:
+      min: 0.5
+      max: 4
+    valueChange: 2.5
+  - name: Intelligence buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 2
+      max: 4
+    valueChange: 3.5
+  - name: Magic buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 7
+      max: 13
+    valueChange: 12.5
+  - name: Speed buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 2
+      max: 5
+    valueChange: 2.5
+  - name: Strength buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16,
       type: 2}
-  - valueChange: 0
-    modifierType: 20
+    modifierType: 0
+    valueChangeVariation:
+      min: 3
+      max: 12
+    valueChange: 3
+  - name: Vitality debuff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14,
       type: 2}
+    modifierType: 20
+    valueChangeVariation:
+      min: 2
+      max: 10
+    valueChange: 7.4
   prepositions: []
   flavourText: Below lies all
+  randomizeRange: 0

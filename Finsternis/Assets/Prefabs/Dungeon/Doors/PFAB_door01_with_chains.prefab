@@ -4334,6 +4334,7 @@ MonoBehaviour:
       m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   attributes: []
+  initializationTable: {fileID: 0}
   onAttributeInitialized:
     m_PersistentCalls:
       m_Calls: []
@@ -4414,6 +4415,7 @@ MonoBehaviour:
   messageText: Press "E" to open
   messageGraphic: {fileID: 0}
   messageOffset: {x: 0, y: 2, z: 0}
+  randomizeOffset: 0
   duration: 0
 --- !u!114 &114000013425987296
 MonoBehaviour:

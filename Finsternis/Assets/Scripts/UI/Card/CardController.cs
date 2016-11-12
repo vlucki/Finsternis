@@ -22,7 +22,7 @@
 
         public Card Card { get { return this.stack.card; } }
         
-        void Awake() //don't initialize player on awake because it may have not been spawned yet
+        void Awake()
         {
             if(sprites == null)
             {
@@ -39,8 +39,20 @@
 
         void OnEnable()
         {
-            if(this.stack)
-                this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+            if (this.stack)
+            {
+                var player = GameManager.Instance.Player;
+                if (player)
+                {
+                    this.newCardLabel.enabled = player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+                }
+#if DEBUG
+                else
+                {
+                    Log.E(this, "Player missing!");
+                }
+#endif
+            }
         }
 
         public void LoadStack(CardStack c)
@@ -117,16 +129,28 @@
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
-            if (!GameManager.Instance.Player.GetComponent<Inventory>().IsEquipped(this.stack.card))
+            var player = GameManager.Instance.Player;
+            if (!player)
             {
-                var attr = GameManager.Instance.Player.Character.GetAttribute(modifier.AttributeAlias);
+#if DEBUG
+                Log.E(this, "Player missing!");
+#endif
+                return null;
+            }
+
+            if (!player.GetComponent<Inventory>().IsEquipped(this.stack.card))
+            {
+                var attr = player.Character.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
                     float modifiedValue = CalculateModifiedValue(modifier, attr);
+                    string valueStr = modifiedValue.ToString("n2");
+                    if ((int)modifiedValue / 10 == 0)
+                        valueStr = "0" + valueStr;
                     if (modifiedValue != attr.Value)
                     {
                         result += " (";
-                        result += modifiedValue.ToString("n2").Colorize(modifiedValue > attr.Value ? Color.green : Color.red);
+                        result += valueStr.Colorize(modifiedValue > attr.Value ? Color.green : Color.red);
                         result += ")";
                     }
                 }
@@ -148,10 +172,10 @@
                     result -= modifier.ValueChange;
                     break;
                 case AttributeModifier.ModifierType.DIVIDE:
-                    result += attribute.BaseValue / modifier.ValueChange;
+                    result = attribute.BaseValue / modifier.ValueChange;
                     break;
                 case AttributeModifier.ModifierType.MULTIPLY:
-                    result += attribute.BaseValue * modifier.ValueChange;
+                    result = attribute.BaseValue * modifier.ValueChange;
                     break;
             }
 

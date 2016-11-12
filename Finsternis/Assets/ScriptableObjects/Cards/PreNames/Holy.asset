@@ -13,35 +13,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 0
   isStackable: 0
-  rarity: 0.5056254
+  rarity: 0.9269645
   effects:
-  - valueChange: 0
-    modifierType: 0
+  - name: Damage buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 8
+      max: 12
+    valueChange: 10
+  - name: Defense buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 4
+      max: 8
+    valueChange: 4.5
+  - name: Intelligence buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
       type: 2}
-  - valueChange: 0
-    modifierType: 30
+    modifierType: 0
+    valueChangeVariation:
+      min: 3
+      max: 6
+    valueChange: 5
+  - name: Magic buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
-  - valueChange: 0
-    modifierType: 0
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.5
+      max: 3
+    valueChange: 2.5
+  - name: Speed buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 3
+      max: 9
+    valueChange: 8.5
+  - name: Strength buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16,
       type: 2}
-  - valueChange: 0
-    modifierType: 30
+    modifierType: 0
+    valueChangeVariation:
+      min: 7
+      max: 14
+    valueChange: 7
+  - name: Vitality buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14,
       type: 2}
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.5
+      max: 3
+    valueChange: 2.5
   prepositions: []
   flavourText: Transcend all
+  randomizeRange: 0

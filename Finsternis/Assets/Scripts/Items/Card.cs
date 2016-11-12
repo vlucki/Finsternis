@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityQuery;
+    using System.Linq;
 
     public class Card : ScriptableObject
     {
@@ -160,7 +161,14 @@
             var otherCard = o as Card;
             if (!otherCard)
                 return false;
+
             if (!otherCard.mainName.Equals(this.mainName))
+                return false;
+
+            if (otherCard.preNames.Count != this.preNames.Count || !otherCard.preNames.ContainsAll(this.preNames))
+                return false;
+
+            if (otherCard.postNames.Count != this.postNames.Count || !otherCard.postNames.ContainsAll(this.postNames))
                 return false;
 
             return true;
@@ -168,7 +176,10 @@
 
         public override int GetHashCode()
         {
-            return this.mainName.GetHashCode();
+            int hashCode = this.mainName.GetHashCode();
+            this.preNames.ForEach(name => hashCode ^= name.GetHashCode());
+            this.postNames.ForEach(name => hashCode ^= name.GetHashCode());
+            return hashCode;
         }
     }
 }

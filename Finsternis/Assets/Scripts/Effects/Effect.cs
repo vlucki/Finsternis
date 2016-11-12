@@ -3,14 +3,18 @@
     using System;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityQuery;
 
     [Serializable]
-    public abstract class Effect : IComparable<Effect>, ICloneable
+    public abstract class Effect : ICloneable
     {
+        [SerializeField][ReadOnly]
+        protected string name;
+
         [SerializeField]
         protected List<EffectConstraint> constraints;
 
-        public string Name { get; protected set; }
+        public string Name { get { return this.name; } }
 
         public int ConstraintsCount
         {
@@ -24,7 +28,7 @@
         {
             this.constraints = new List<EffectConstraint>();
             if (!string.IsNullOrEmpty(name))
-                this.Name = name;
+                this.name = name;
         }
 
         public static implicit operator bool(Effect e)
@@ -34,8 +38,6 @@
 
         public void AddConstraint(EffectConstraint constraint)
         {
-            //if (!constraint.AllowMultiple() && HasConstraint(constraint.GetType()))
-            //    return;
             if (!constraint.IsValid(this))
                 return;
             constraints.Add(constraint);
@@ -87,10 +89,37 @@
             return constraintsStr.Substring(0, constraintsStr.Length - 2);
         }
 
-        //Simply check if other effect is null
-        public virtual int CompareTo(Effect other)
+        public override bool Equals(object obj)
         {
-            return other ? 0 : 1;
+            if (obj == null)
+                return false;
+            var otherEffect = obj as Effect;
+            if (!otherEffect)
+                return false;
+
+            if (otherEffect.constraints.Count != this.constraints.Count)
+                return false;
+
+            if (!otherEffect.Name.Equals(this.Name))
+                return false;
+
+            for(int i = 0; i < this.constraints.Count; i++)
+            {
+                if (!this.constraints[i].Equals(otherEffect.constraints[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = this.Name.IsNullOrEmpty() ? 1 : this.Name.GetHashCode();
+            if (!this.constraints.IsNullOrEmpty())
+            {
+                this.constraints.ForEach(constraint => hashCode ^= 1549 * constraints.GetHashCode());
+            }
+            return hashCode;
         }
 
         public abstract bool Merge(Effect other);

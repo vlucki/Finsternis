@@ -59,13 +59,15 @@ namespace UnityStandardAssets.ImageEffects
 
         public void Dissipate(float time)
         {
-            this.StopAllCoroutines();
+            if(fading)
+                this.StopAllCoroutines();
             this.StartCoroutine(_Fade(time, this.dissipatedDistance, false));
         }
 
         public void Accumulate(float time)
         {
-            this.StopAllCoroutines();
+            if (fading)
+                this.StopAllCoroutines();
             this.StartCoroutine(_Fade(time, this.accumulatedDistance, true));
         }
 

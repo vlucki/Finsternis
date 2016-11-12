@@ -46,7 +46,7 @@ public class EntityAttributeDrawer : PropertyDrawer
     private GUIContent GetAttributeLabel(EntityAttribute attribute)
     {
         GUIContent label = new GUIContent(attribute.Alias + " (" + attribute.Value);
-        if (attribute.LimitMaximum)
+        if (attribute.HasMaximumValue)
             label.text += "/" + attribute.Max.ToString();
         label.text += ")";
         return label;

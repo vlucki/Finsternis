@@ -38,7 +38,7 @@
             base.InitializeAttribute(attributeIndex);
             if (attributes[attributeIndex].Alias.Equals("spd"))
             {
-                attributes[attributeIndex].SetValue(Random.Range(5, 9));
+                attributes[attributeIndex].SetBaseValue(Random.Range(5, 9));
             }
         }
 

@@ -12,17 +12,28 @@ MonoBehaviour:
   m_Name: Wisdom
   m_EditorClassIdentifier: 
   nameType: 2
-  isStackable: 0
-  rarity: 0.65263486
+  isStackable: 1
+  rarity: 0.022719868
   effects:
-  - valueChange: 0
-    modifierType: 0
+  - name: Intelligence buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
       type: 2}
-  - valueChange: 0
     modifierType: 30
+    valueChangeVariation:
+      min: 1.2
+      max: 2
+    valueChange: 1.7
+  - name: Magic buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 8
+      max: 15
+    valueChange: 10
   prepositions:
   - of
   flavourText: knowledge
+  randomizeRange: 0

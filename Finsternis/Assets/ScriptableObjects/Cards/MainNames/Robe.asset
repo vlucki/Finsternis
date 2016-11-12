@@ -13,19 +13,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 1
   isStackable: 0
-  rarity: 0.012422968
+  rarity: 0.012178116
   effects:
-  - valueChange: 0
-    modifierType: 0
+  - name: Defense buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 0.5
+      max: 2
+    valueChange: 1.5
+  - name: Intelligence buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
       type: 2}
-  - valueChange: 0
     modifierType: 0
+    valueChangeVariation:
+      min: 1
+      max: 3
+    valueChange: 1.5
+  - name: Magic buff
+    constraints: []
     affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
       type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 2
+      max: 4
+    valueChange: 2.5
   prepositions: []
   flavourText: 
+  randomizeRange: 0

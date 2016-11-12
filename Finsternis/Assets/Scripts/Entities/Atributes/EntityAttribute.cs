@@ -77,52 +77,19 @@
 
         public int IntValue { get { return (int)Value; } }
 
-        public bool LimitMaximum
+        public bool HasMaximumValue
         {
             get
             {
                 return (this.constraints & ValueConstraint.MAX) == ValueConstraint.MAX;
             }
-            set
-            {
-                if (value != LimitMaximum)
-                {
-                    if (value)
-                    {
-                        this.constraints |= ValueConstraint.MAX;
-                        this.max = this.baseValue;
-                    }
-                    else
-                    {
-                        this.constraints ^= ValueConstraint.MAX;
-                        this.max = 0;
-                    }
-                }
-            }
         }
 
-        public bool LimitMinimum
+        public bool HasMinimumValue
         {
             get
             {
                 return (this.constraints & ValueConstraint.MIN) == ValueConstraint.MIN;
-            }
-            set
-            {
-                if (value != LimitMinimum)
-                {
-                    if (value)
-                    {
-                        this.constraints |= ValueConstraint.MIN;
-                        this.min = this.baseValue;
-                    }
-                    else
-                    {
-                        this.constraints ^= ValueConstraint.MIN;
-                        this.min = 0;
-                    }
-                }
-
             }
         }
 
@@ -162,7 +129,7 @@
                     valueToChange += this.baseValue / modifier.ValueChange;
                     break;
                 case AttributeModifier.ModifierType.MULTIPLY:
-                    valueToChange += this.baseValue / modifier.ValueChange;
+                    valueToChange += this.baseValue * modifier.ValueChange;
                     break;
             }
 
@@ -170,21 +137,28 @@
         }
 
         /// <summary>
-        /// Changes the value of this attribute, respecting the minimum and maximum if they exist.
+        /// Changes the base value of this attribute, updating the minimum and maximum if they exist.
         /// </summary>
         /// <param name="newValue">The new value of the attribute.</param>
         public void SetBaseValue(float newValue)
         {
-            newValue = EnforceLimits(newValue);
-
             if (this.baseValue != newValue)
             {
                 this.baseValue = newValue;
+                if (HasMinimumValue)
+                    this.min = Mathf.Min(this.min, this.baseValue);
+                if (HasMaximumValue)
+                    this.max = Mathf.Max(this.max, this.baseValue);
+
                 RecalculateFullValue();
             }
         }
 
-        public void SetValue(float newValue)
+        /// <summary>
+        /// Changed the final value of this attribute, respecting the minimum and maximum if they exist.
+        /// </summary>
+        /// <param name="newValue">The new value of the attribute.</param>
+        private void SetValue(float newValue)
         {
             valueInitialized = true;
 
@@ -199,10 +173,10 @@
 
         private float EnforceLimits(float rawValue)
         {
-            if (LimitMinimum)
+            if (HasMinimumValue)
                 rawValue = Mathf.Max(this.min, rawValue);
 
-            if (LimitMaximum)
+            if (HasMaximumValue)
                 rawValue = Mathf.Min(this.max, rawValue);
 
             return rawValue;
@@ -234,13 +208,13 @@
         /// <returns>True if the minimum value changed.</returns>
         public bool SetMin(float newMin, bool updateMax = false)
         {
-            LimitMinimum = true;
+            this.constraints |= ValueConstraint.MIN;
 
             bool result = this.min != newMin;
 
             this.min = newMin;
 
-            if (LimitMaximum && this.min > this.max)
+            if (HasMaximumValue && this.min > this.max)
             {
                 if (updateMax)
                     this.max = this.min;
@@ -260,13 +234,13 @@
         /// <param name="updateMin">Should the minimum value be updated if the new maximum is smaller than it?</param>
         public bool SetMax(float newMax, bool updateMin = false)
         {
-            LimitMaximum = true;
+            this.constraints |= ValueConstraint.MAX;
 
             bool result = this.max != newMax;
 
             this.max = newMax;
 
-            if (LimitMinimum && this.max < this.min)
+            if (HasMinimumValue && this.max < this.min)
             {
                 if (updateMin)
                     this.min = this.max;
@@ -303,31 +277,7 @@
                     break;
             }
         }
-
-        /// <summary>
-        /// Shorthand for the Add method.
-        /// </summary>
-        /// <param name="attribute">The attribute that should have its value increased.</param>
-        /// <param name="amount">How much to add.</param>
-        /// <returns>The attribute passed, after calling Add(amount) on it.</returns>
-        public static EntityAttribute operator +(EntityAttribute attribute, float amount)
-        {
-            attribute.Add(amount);
-            return attribute;
-        }
-
-        /// <summary>
-        /// Shorthand for the Subtract method.
-        /// </summary>
-        /// <param name="attribute">The attribute that should have its value decreased.</param>
-        /// <param name="amount">How much to subtract.</param>
-        /// <returns>The attribute passed, after calling Subtract(amount) on it.</returns>
-        public static EntityAttribute operator -(EntityAttribute attribute, float amount)
-        {
-            attribute.Subtract(amount);
-            return attribute;
-        }
-
+        
         public void Subtract(float value)
         {
             SetValue(Value - value);
@@ -348,6 +298,27 @@
             return toStr;
         }
 
+        public override bool Equals(object o)
+        {
+            EntityAttribute other = o as EntityAttribute;
+            if (!other)
+                return false;
+
+            return other.alias.Equals(this.name) && (this.HasMinimumValue == other.HasMinimumValue) && (this.HasMaximumValue == other.HasMaximumValue);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 13;
+            hashCode *= this.name.GetHashCode() ^ this.alias.GetHashCode();
+
+            if (HasMaximumValue)
+                hashCode *= Mathf.CeilToInt(max);
+            if (HasMinimumValue)
+                hashCode *= Mathf.CeilToInt(Mathf.Max(1, min));
+
+            return hashCode;
+        }
 #if UNITY_EDITOR
 
         float lastMin;
@@ -356,10 +327,10 @@
 
         void OnValidate()
         {
-            if (LimitMinimum || lastMin != this.min)
+            if (HasMinimumValue || lastMin != this.min)
                 SetMin(this.min);
 
-            if (LimitMaximum || lastMax != this.max)
+            if (HasMaximumValue || lastMax != this.max)
                 SetMax(this.max);
 
             SetBaseValue(this.baseValue);

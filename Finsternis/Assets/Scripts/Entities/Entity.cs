@@ -78,7 +78,7 @@
                     UnityEngine.Random.InitState(this.name.GetHashCode() + attribute.name.GetHashCode());
                     int value = Mathf.CeilToInt(Mathf.Max(attribute.Min, UnityEngine.Random.Range(influence.range.min, influence.range.max)));
 
-                    if (attribute.LimitMaximum)
+                    if (attribute.HasMaximumValue)
                     {
                         attribute.SetMax(value);
                     }
