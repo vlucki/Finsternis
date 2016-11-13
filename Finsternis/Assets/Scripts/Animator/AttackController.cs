@@ -1,9 +1,6 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
-    using UnityEngine.Events;
-    using UnityEngine.Experimental.Director;
     using UnityQuery;
 
     public class AttackController : StateMachineBehaviour

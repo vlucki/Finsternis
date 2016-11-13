@@ -532,6 +532,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010840888726}
   - 137: {fileID: 137000013759913240}
+  - 114: {fileID: 114000013180961704}
   m_Layer: 9
   m_Name: corpo
   m_TagString: Untagged
@@ -1479,7 +1480,7 @@ MonoBehaviour:
   startUpTime: 0.3
   castTime: 0.6
   endTime: 0.2
-  cooldownTime: 1
+  cooldownTime: 0.5
   onBegin:
     m_PersistentCalls:
       m_Calls:
@@ -1770,6 +1771,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114000012916953546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1904,6 +1910,21 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
+--- !u!114 &114000013180961704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012485592382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b00abd99ceaeb4c815ad2b1ad0b448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0.2689655, b: 0, a: 1}
+  numberOfFlashes: 4
+  flashFadeInTime: 0.2
+  flashFadeOutTime: 0.3
 --- !u!114 &114000013232726630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1943,6 +1964,11 @@ MonoBehaviour:
       PublicKeyToken=null
   onExecutionEnd:
     m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnd:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114000014202934784}
         m_MethodName: Unlock
@@ -1955,11 +1981,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onEnd:
-    m_PersistentCalls:
-      m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onCoolDownEnd:
@@ -2044,8 +2065,24 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013180961704}
+        m_MethodName: DoFlash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   fallSpeedThreshold: -0.2
-  fallingStateChecks: 3
+  fallingStateChecks: 4
   fallingStateCheckCount: 0
   skills:
   - {fileID: 114000013232726630}

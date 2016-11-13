@@ -1453,14 +1453,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceObjectTag: MainCamera
   distanceThreshold: 20
-  componentsToToggle:
-  - {fileID: 1000011293632296}
-  - {fileID: 1000012661065426}
-  - {fileID: 1000013973243712}
-  - {fileID: 1000011038007462}
-  - {fileID: 1000012290569960}
-  - {fileID: 1000013741114444}
-  - {fileID: 1000013201965754}
 --- !u!114 &114000014119243730
 MonoBehaviour:
   m_ObjectHideFlags: 1

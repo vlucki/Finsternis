@@ -35,6 +35,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010300895018}
   - 137: {fileID: 137000013105593796}
+  - 114: {fileID: 114000010001222900}
   m_Layer: 9
   m_Name: polySurface2
   m_TagString: Untagged
@@ -240,6 +241,8 @@ GameObject:
   - 114: {fileID: 114000013332447426}
   - 114: {fileID: 114000012480000234}
   - 65: {fileID: 65000011687628890}
+  - 114: {fileID: 114000013013584826}
+  - 114: {fileID: 114000010501127544}
   m_Layer: 9
   m_Name: PFAB_Beholder
   m_TagString: Enemy
@@ -257,6 +260,7 @@ GameObject:
   - 4: {fileID: 4000011895452214}
   - 33: {fileID: 33000013985216126}
   - 23: {fileID: 23000012257531462}
+  - 114: {fileID: 114000012387807194}
   m_Layer: 9
   m_Name: polySurface1
   m_TagString: Untagged
@@ -745,7 +749,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012345338928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.24, y: 0, z: -1.34}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -944,6 +948,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010001222900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010415923122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b00abd99ceaeb4c815ad2b1ad0b448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  numberOfFlashes: 4
+  flashFadeInTime: 0.2
+  flashFadeOutTime: 0.3
 --- !u!114 &114000010472643726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -977,6 +996,21 @@ MonoBehaviour:
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
   damageType: 0
+--- !u!114 &114000010501127544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012345338928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114000013013584826}
+  clips:
+  - {fileID: 8300000, guid: 28abba4cb4b238749ba24ba007425728, type: 3}
+  - {fileID: 8300000, guid: 9467c30d75e8fc4458a939536b080780, type: 3}
 --- !u!114 &114000011405039278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1023,11 +1057,37 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 54000012934047690}
+        m_MethodName: set_useGravity
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   invincibilityTime: 1
   invincible: 0
+--- !u!114 &114000012387807194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b00abd99ceaeb4c815ad2b1ad0b448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  numberOfFlashes: 4
+  flashFadeInTime: 0.2
+  flashFadeOutTime: 0.3
 --- !u!114 &114000012480000234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1043,6 +1103,20 @@ MonoBehaviour:
   speedMultiplier: 3
   turningSpeed: 3.5
   modeWhenApplyingForce: 5
+--- !u!114 &114000013013584826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012345338928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxSimultaneousClips: 10
+  type: 1
 --- !u!114 &114000013332447426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1055,6 +1129,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000010501127544}
+        m_MethodName: PlayRandom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114000013790254882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1074,6 +1164,33 @@ MonoBehaviour:
   onUnlock:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000012387807194}
+        m_MethodName: DoFlash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000010001222900}
+        m_MethodName: DoFlash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fallSpeedThreshold: -0.2

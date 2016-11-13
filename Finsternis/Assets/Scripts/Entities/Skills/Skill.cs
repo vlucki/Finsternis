@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using System.Collections;
     using UnityEngine;
     using UnityQuery;
@@ -43,7 +44,7 @@
 
         protected CharController user;
 
-        private float timeDisabled;
+        private float timeStarted;
 
         public string Name { get { return this.name; } }
         public bool Using { get; private set; }
@@ -60,6 +61,7 @@
         {
             Using = true;
             Casting = true;
+            this.timeStarted = Time.timeSinceLevelLoad;
 
             onBegin.Invoke(this);
 
@@ -87,20 +89,30 @@
 
         public virtual void End()
         {
-            Using = false;
             user.Controller.SetFloat(CharController.AttackSpeed, 1);
 
             if (cooldownTime > 0)
                 StartCoroutine(_Cooldown());
             
             onEnd.Invoke(this);
+            Using = false;
         }
 
         public bool MayUse()
         {
-            return !Using;
+            if (Using)
+                CheckElapsedTime();
+            return !Using && !CoolingDown;
         }
-        
+
+        /// <summary>
+        /// Sometimes the "end" method of a skill is not called. This ensures the skill is not treated as if it's still being used in such cases.
+        /// </summary>
+        private void CheckElapsedTime()
+        {
+            Using = (Time.timeSinceLevelLoad - this.timeStarted) > (this.startUpTime + this.castTime + this.endTime);
+        }
+
         private IEnumerator _Cooldown()
         {
             CoolingDown = true;
@@ -111,19 +123,6 @@
 
             if (onCoolDownEnd)
                 onCoolDownEnd.Invoke(this);
-        }
-
-        protected virtual void OnDisable()
-        {
-            StopAllCoroutines();
-            this.timeDisabled = Time.timeSinceLevelLoad;
-        }
-
-        protected virtual void OnEnable()
-        {
-            lastUsed -= (Time.timeSinceLevelLoad - this.timeDisabled);
-            if (CoolingDown)
-                StartCoroutine(_Cooldown());
         }
     }
 }

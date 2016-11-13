@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityQuery;
 
 namespace Finsternis
@@ -9,6 +10,9 @@ namespace Finsternis
     {
         [SerializeField]
         private EntityAttribute baseDamage;
+
+        public UnityEvent onExecute;
+
         private DamageInfo dmgInfo;
 
         public DamageInfo DamageInfo
@@ -57,14 +61,21 @@ namespace Finsternis
         /// <param name="targets">One or more entities that will have damage applied to them.</param>
         public void Execute(DamageInfo.DamageType damageType, float extraDamage, params IInteractable[] targets)
         {
-            if(targets == null || targets.Length < 1)
-                throw new ArgumentException("Cannot execute the attack logic without a target.");
+            if (targets == null || targets.Length < 1)
+            {
+#if DEBUG
+                Log.E(this, "Cannot execute the attack logic without a target.");
+#endif
+                return;
+            }
 
             float totalDamage = (baseDamage ? baseDamage.Value : 0) + extraDamage;
 
             dmgInfo = new DamageInfo(damageType, totalDamage, agent);
             foreach (Entity target in targets)
                 target.Interact(this);
+
+            this.onExecute.Invoke();
         }
     }
 }

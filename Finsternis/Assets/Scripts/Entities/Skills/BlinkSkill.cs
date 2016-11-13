@@ -52,6 +52,7 @@ namespace Finsternis
                 }
                 else
                 {
+                    user.Controller.SetTrigger("stopAttack");
                     End();
                 }
             }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System;
 using UnityQuery;
 using System.Collections.Generic;
 
@@ -12,9 +11,6 @@ namespace Finsternis
     public class CharController : MonoBehaviour
     {
 
-        [Serializable]
-        public class AttackEvent : UnityEvent<int> { }
-
         public static readonly int AttackTrigger;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;
@@ -24,9 +20,9 @@ namespace Finsternis
         public static readonly int HitType;
         public static readonly int SpeedFloat;
 
-        //public AttackEvent onAttack;
         public UnityEvent onLock;
         public UnityEvent onUnlock;
+        public UnityEvent onHit;
 
         protected Character character;
 
@@ -84,33 +80,25 @@ namespace Finsternis
 
         public virtual void Start()
         {
-            try
+            character.onDeath.AddListener(() =>
             {
-                character.onDeath.AddListener(CharacterController_death);
-            }
-            catch (Exception e)
-            {
-                Log.E(this, "Exception thrown when initializing controller for character!");
-                throw e;
-            }
+                characterAnimator.SetBool(CharController.DyingBool, true);
+                characterMovement.MovementDirection = Vector3.zero;
+            });
         }
 
         public virtual void Update()
         {
-            if (this.ActiveSkill)
-                return;
-
             if (!IsDead() && !IsDying())
             {
                 if (this.isLocked)
                 {
-                    if (!this.waitingForDelay && !IsFalling())
+                    if (!this.waitingForDelay && !IsFalling() && !ActiveSkill)
                         Unlock();
                 }
-
-                if (IsFalling())
+                else if (IsFalling())
                     Lock();
-                else if(CanAct())
+                else
                     this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
 
             }
@@ -180,11 +168,6 @@ namespace Finsternis
             }
         }
 
-        public bool ShouldWalk()
-        {
-            return !characterMovement.MovementDirection.IsZero();
-        }
-
         protected virtual bool CanAct()
         {
             return this.isActiveAndEnabled && !this.isLocked;
@@ -216,6 +199,7 @@ namespace Finsternis
 
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
+            onHit.Invoke();
         }
 
         public virtual void Attack(float slot = 0)
@@ -234,6 +218,8 @@ namespace Finsternis
             if (this.equippedSkills[(int)slot].MayUse())
             {
                 this.Controller.SetTrigger(AttackTrigger);
+                if (ActiveSkill)
+                    ActiveSkill.End();
                 ActiveSkill = this.equippedSkills[(int)slot];
                 ActiveSkill.onEnd.AddListener(SkillCastEnd);
                 ActiveSkill.Begin();
@@ -250,7 +236,7 @@ namespace Finsternis
         {
             if (!ValidateSkillSlot(slot, false))
                 return;
-            
+
             equippedSkills[slot] = skill;
         }
 
@@ -317,12 +303,6 @@ namespace Finsternis
             onUnlock.Invoke();
         }
 
-        protected virtual void CharacterController_death()
-        {
-            characterAnimator.SetBool(CharController.DyingBool, true);
-            characterMovement.MovementDirection = Vector3.zero;
-        }
-
 #if UNITY_EDITOR
         void OnValidate()
         {
@@ -346,7 +326,7 @@ namespace Finsternis
                     this.equippedSkills[i] = null;
                 else
                 {
-                    for(int j = 0; j < 4; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         if (i != j && this.equippedSkills[i] == this.equippedSkills[j])
                             this.equippedSkills[j] = null;
