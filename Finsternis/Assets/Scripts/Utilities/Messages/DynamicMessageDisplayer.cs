@@ -63,7 +63,7 @@
             var body = msg.GetComponent<Rigidbody>();
             while (msg && msg.isActiveAndEnabled)
             {
-                yield return Wait.F_UPD();
+                yield return Wait.Fixed();
                 body.AddForce(force, ForceMode.Impulse);
                 if (this.forceDirection.mode == Mode.PROGRESSIVE && force != this.forceDirection.max)
                 {

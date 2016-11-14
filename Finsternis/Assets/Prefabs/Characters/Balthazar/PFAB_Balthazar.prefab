@@ -381,6 +381,7 @@ GameObject:
   - 114: {fileID: 114000010465340118}
   - 114: {fileID: 114000013865656420}
   - 114: {fileID: 114000010093465424}
+  - 114: {fileID: 114000013697861390}
   m_Layer: 9
   m_Name: PFAB_Balthazar
   m_TagString: Player
@@ -1787,9 +1788,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8f0e59f41391e4e9952626c5ecc4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 8
-  targetMarkerPrefab: {fileID: 1000013002944568, guid: 8bd9590e4c2aa9d488f259c93bbc6e8b,
-    type: 2}
+  detectionRange: 5
+  persistenceRange: 10
+  tagToConsider: Enemy
+  ignoreObstacles: 0
+  onTargetChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013697861390}
+        m_MethodName: SetTarget
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000013109680362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1991,6 +2009,19 @@ MonoBehaviour:
   fireballPrefab: {fileID: 150224, guid: 1927eef4cd3be8546a35f2994f881ecf, type: 2}
   summonPoint: {fileID: 4000012879183366}
   summonOffset: 0.3
+--- !u!114 &114000013697861390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011578542928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97fd9597a2b06924ebc02b4f439428fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMarkerPrefab: {fileID: 1000013002944568, guid: 8bd9590e4c2aa9d488f259c93bbc6e8b,
+    type: 2}
 --- !u!114 &114000013865656420
 MonoBehaviour:
   m_ObjectHideFlags: 1

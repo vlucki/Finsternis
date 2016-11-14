@@ -50,15 +50,25 @@
 
         private Dictionary<string, List<Callback>> globalEvents;
 
+        private List<MessageController> messagePool;
+
         private int clearedDungeons;
 
-        private List<MessageController> messagePool;
+        private CardsManager cardsManager;
 
         public static GameManager Instance { get { return instance; } }
 
         public CharController Player { get { return this.player; } }
 
         public DungeonManager DungeonManager { get { return this.dungeonManager; } }
+
+        public CardsManager CardsManager
+        {
+            get {
+                if (!this.cardsManager) this.cardsManager = FindObjectOfType<CardsManager>();
+                return this.cardsManager;
+            }
+        }
 
         public int ClearedDungeons
         {

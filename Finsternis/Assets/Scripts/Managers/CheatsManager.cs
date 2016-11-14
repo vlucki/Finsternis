@@ -27,9 +27,7 @@ namespace Finsternis
 
         [SerializeField]
         private Camera skyCamera;
-
-        [SerializeField]
-        private CardsManager cardsManager;
+        
         private int storedValue;
 
         void Start()
@@ -168,7 +166,7 @@ namespace Finsternis
             }
             if (GameManager.Instance.Player)
             {
-                this.cardsManager.GivePlayerCard(amount);
+                GameManager.Instance.CardsManager.GivePlayerCard(amount);
             }
 #if LOG_INFO || LOG_WARN
             else

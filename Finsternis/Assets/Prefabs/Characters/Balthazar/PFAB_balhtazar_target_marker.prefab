@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000010333359560}
   - 23: {fileID: 23000012829925288}
   m_Layer: 0
-  m_Name: Marker
+  m_Name: PFAB_balhtazar_target_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

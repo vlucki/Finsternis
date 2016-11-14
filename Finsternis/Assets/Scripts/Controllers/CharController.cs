@@ -267,6 +267,8 @@ namespace Finsternis
             this.isLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.MovementDirection = (characterMovement.MovementDirection.OnlyY());
+            foreach (var action in this.GetComponentsInChildren<EntityAction>())
+                action.Disable();
             onLock.Invoke();
         }
 
@@ -298,6 +300,9 @@ namespace Finsternis
                 this.StopCoroutine(this.unlockDelayedCall);
                 this.waitingForDelay = false;
             }
+
+            foreach (var action in this.GetComponentsInChildren<EntityAction>())
+                action.Enable();
 
             this.isLocked = false;
             onUnlock.Invoke();

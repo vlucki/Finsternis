@@ -48,7 +48,7 @@
 
             if (LastInteraction && LastInteraction.Agent.Equals(GameManager.Instance.Player.Character))
             {
-                FindObjectOfType<CardsManager>().GivePlayerCard(cardsToGive);
+                GameManager.Instance.CardsManager.GivePlayerCard(cardsToGive);
             }
             interactable = false;
             this.animator.SetTrigger("Open");

@@ -34,7 +34,7 @@
 
         private Vector3 facingDirection;
 
-        public bool ShouldFaceDirection { get; set; }
+        public bool ShouldFaceMovementDirection { get; set; }
 
         private EntityAttribute Speed
         {
@@ -48,7 +48,7 @@
             get { return this.movementDirection; }
             set {
                 this.movementDirection = value.normalized;
-                if(ShouldFaceDirection)
+                if(ShouldFaceMovementDirection)
                     this.facingDirection = this.movementDirection;
             }
         }
@@ -64,7 +64,7 @@
         protected override void Awake()
         {
             base.Awake();
-            this.ShouldFaceDirection = true;
+            this.ShouldFaceMovementDirection = true;
             this.rbody = GetComponent<Rigidbody>();
         }
 
