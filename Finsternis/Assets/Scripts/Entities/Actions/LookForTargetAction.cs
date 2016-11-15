@@ -25,9 +25,12 @@
 
         [SerializeField]
         private string tagToConsider = "Enemy";
+        
+        [SerializeField]
+        private LayerMask obstaclesLayer;
 
         [SerializeField]
-        private bool ignoreObstacles = false;
+        private LayerMask targetsLayer;
 
         public TargetChangedEvent onTargetChanged;
 
@@ -107,13 +110,13 @@
                 var dist = this.transform.position.WithY(0).Distance(this.currentTarget.transform.position.WithY(0));
                 if (dist > this.persistenceRange)
                     SetTarget(null);
-                else if(!ignoreObstacles) //check if there's anything obtructing the view of the target
+                else if(this.obstaclesLayer != 0) //check if there's anything obtructing the view of the target
                 {
                     var origin = transform.position.WithY(1) + transform.forward;
                     if (Physics.SphereCast(
                         new Ray(origin, transform.forward),
                         .3f, dist,
-                        1 << (1 ^ (LayerMask.NameToLayer("Entity")))))
+                        this.obstaclesLayer))
                     {
                         SetTarget(null);
                     }
@@ -123,7 +126,7 @@
 
         protected virtual void FindTargets()
         {
-            var collidersInRange = new List<Collider>(Physics.OverlapSphere(transform.position, this.detectionRange, 1 << LayerMask.NameToLayer("Entity")));
+            var collidersInRange = new List<Collider>(Physics.OverlapSphere(transform.position, this.detectionRange, this.targetsLayer));
             this.entitiesInRange.Clear();
             var closest = this.currentTarget;
 

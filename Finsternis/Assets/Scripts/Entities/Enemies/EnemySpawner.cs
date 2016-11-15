@@ -97,11 +97,17 @@
 
         private void SpawnEnemyOfType(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
+            HashSet<Vector2> usedCells = new HashSet<Vector2>();
             do
             {
-                Vector2 cell = room.GetRandomCell() + Vector2.one / 2; //center enemy on cell
-                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(1f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
-                enemy.name = goal.enemy.name;
+                Vector2 cell = room.GetRandomCell();
+
+                //Try to avoid spawning enemies on top of eachother (since physics tend to throw them all over the place)
+                Loop.Do(() => usedCells.Contains(cell),
+                    () => cell = room.GetRandomCell(), room.CellCount);
+                usedCells.Add(cell);
+                cell += Vector2.one / 2; //center enemy on cell
+                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(.1f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
                 enemy.transform.SetParent(parent);
                 enemy.GetComponent<EnemyChar>().onDeath.AddListener(goal.EnemyKilled);
             } while (--amount > 0);

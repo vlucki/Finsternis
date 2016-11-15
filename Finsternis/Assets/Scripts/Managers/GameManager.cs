@@ -234,7 +234,9 @@
                 dungeon = dungeonManager.CurrentDungeon;
                 if (!dungeon)
                 {
-                    Log.E(this, "There was no dungeon ready for a new level to begin!");
+#if DEBUG
+                    Log.W(this, "There was no dungeon ready for a new level to begin!");
+#endif
                     dungeonManager.CreateDungeon();
                 }
             }

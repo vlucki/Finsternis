@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
+  m_Name: DF_barrel01
+  m_EditorClassIdentifier: 
+  baseFrequency: 0.2
+  prefab: {fileID: 1000010388842794, guid: 43f019d53fc4aa9439fff3e7991eec83, type: 2}
+  type: 0
+  stackable: 0
+  stackWhiteList:
+  - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
+  restrictions:
+  - above: 1
+    below: 1
+    left: 1
+    right: 1
+    features:
+    - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
+    - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
+  alignment: []

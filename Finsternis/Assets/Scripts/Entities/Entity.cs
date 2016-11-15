@@ -30,6 +30,9 @@
 
         #region variables
         [SerializeField]
+        private new string name;
+
+        [SerializeField]
         protected bool interactable = true;
 
         [SerializeField]
@@ -53,6 +56,12 @@
         public GeneralEntityEvents EntityEvents { get { return this.entityEvents; } }
 
         public EntityAttribute this[int index] { get { return this.attributes[index]; } }
+
+        protected virtual void Awake()
+        {
+            if (!this.name.IsNullOrEmpty())
+                base.name = this.name;
+        }
 
         protected virtual void Start()
         {

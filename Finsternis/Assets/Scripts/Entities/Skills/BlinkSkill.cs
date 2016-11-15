@@ -95,7 +95,10 @@ namespace Finsternis
 
         private Vector3 GetBlinkDirection()
         {
-            Vector3 blinkDirection = transform.forward;
+            Vector3 blinkDirection = this.user.Movement.LastMovementDirection;
+
+            if (blinkDirection.IsZero())
+                blinkDirection = transform.forward;
 
             return blinkDirection;
         }

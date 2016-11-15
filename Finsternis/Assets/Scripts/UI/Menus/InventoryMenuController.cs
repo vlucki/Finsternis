@@ -32,8 +32,12 @@
 
             Transform equippedPanel = transform.Find("EquippedPanel");
             visibleEquippedCards = GetCards(equippedPanel);
+
             if (!GetInventory())
+
+#if DEBUG
                 Log.E(this, "Could not find player inventory!");
+#endif
         }
 
         private GameObject[] GetCards(Transform cardsPanel)

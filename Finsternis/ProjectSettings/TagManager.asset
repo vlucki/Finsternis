@@ -24,7 +24,7 @@ TagManager:
   - Floor
   - Entity
   - Wall
-  - Invisible
+  - 
   - Props
   - Dungeon
   - DynamicNotifications
@@ -44,7 +44,7 @@ TagManager:
   - 
   - 
   - 
-  - locked
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
 
 public class LoadingScreenController : MonoBehaviour {
 
@@ -18,11 +18,11 @@ public class LoadingScreenController : MonoBehaviour {
            StartCoroutine(_Load(SceneManager.LoadSceneAsync(sceneToLoad)));     
 	}
 
-    private IEnumerator<float> _Load(AsyncOperation loadScene)
+    private IEnumerator _Load(AsyncOperation loadScene)
     {
         while (!loadScene.isDone)
         {
-            yield return 0f;
+            yield return null;
         }
 
         SceneManager.UnloadScene(loadingScreenScene);

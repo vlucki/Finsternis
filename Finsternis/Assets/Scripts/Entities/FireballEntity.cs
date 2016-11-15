@@ -26,8 +26,9 @@
             explosionTrigger = Animator.StringToHash("Explode");
         }
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             this.movement = GetComponent<MovementAction>();
             this.animator = GetComponent<Animator>();
             this.explosionEvent = GetComponent<ShakeCameraEvent>();

@@ -32,6 +32,8 @@
         [SerializeField]
         private bool reactToOcclusion = true;
 
+        private int wallLayer;
+
         public bool ReactToOcclusion {
             get {return this.reactToOcclusion; }
             set { this.reactToOcclusion = value; }
@@ -44,6 +46,9 @@
             shaking = false;
             if (GameManager.Instance)
                 GameManager.Instance.SubscribeToEvent("ShakeCamera", this, OnCameraShake);
+
+
+            this.wallLayer = 1 << LayerMask.NameToLayer("Wall");
         }
 
         void FixedUpdate()
@@ -58,7 +63,7 @@
             if (reactToOcclusion && WouldBeOccluded(out hit))
             {
                 float distanceDampening = 1f - hit.distance / maxDistanceForOcclusion;
-                this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2 + Vector3.forward * 3) * distanceDampening);
+                this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2.5f + Vector3.forward * 4f) * distanceDampening);
                 occlusionHappened = true;
             }
 
@@ -69,13 +74,12 @@
 
         private bool WouldBeOccluded(out RaycastHit hit)
         {
-            Vector3 origin = this.follow.Target.position + this.follow.Target.transform.forward / 10;
-            int mask = 1 << LayerMask.NameToLayer("Wall");
+            Vector3 origin = this.follow.Target.position;
             
             Ray ray = new Ray(origin + Vector3.up / 2, origin.Towards(origin+this.follow.OriginalOffset));
-            float radius = 0.5f;
+            float radius = 0.25f;
 
-            return (Physics.SphereCast(ray, radius, out hit, maxDistanceForOcclusion, mask)) ;
+            return (Physics.SphereCast(ray, radius, out hit, maxDistanceForOcclusion, wallLayer)) ;
         }
 
         private void FinishedInterpolating()
@@ -138,8 +142,9 @@
             float amplitude = this.shakeAmplitude;
             while (shakeTime > 0)
             {
-                yield return Wait.Sec(1 / this.shakeFrequency);
-                shakeTime -= Time.deltaTime + 1 / this.shakeFrequency;
+                float waitTime = 1 / this.shakeFrequency;
+                yield return Wait.Sec(waitTime);
+                shakeTime -= Time.deltaTime + waitTime;
 
                 Vector3 shakeOffset = Random.insideUnitSphere / 10;
 

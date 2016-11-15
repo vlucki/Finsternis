@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2380742}
   - 65: {fileID: 6535084}
   - 114: {fileID: 11497344}
+  - 54: {fileID: 54000013535085056}
   m_Layer: 8
   m_Name: spike06
   m_TagString: Untagged
@@ -31,6 +32,7 @@ GameObject:
   - 23: {fileID: 2396256}
   - 65: {fileID: 6516854}
   - 114: {fileID: 11428858}
+  - 54: {fileID: 54000011710109446}
   m_Layer: 8
   m_Name: spike03
   m_TagString: Untagged
@@ -50,6 +52,7 @@ GameObject:
   - 23: {fileID: 2379858}
   - 65: {fileID: 6501698}
   - 114: {fileID: 11427810}
+  - 54: {fileID: 54000011830952808}
   m_Layer: 8
   m_Name: spike08
   m_TagString: Untagged
@@ -69,6 +72,7 @@ GameObject:
   - 23: {fileID: 2327182}
   - 65: {fileID: 6514954}
   - 114: {fileID: 11494892}
+  - 54: {fileID: 54000013929273862}
   m_Layer: 8
   m_Name: spike09
   m_TagString: Untagged
@@ -88,6 +92,7 @@ GameObject:
   - 23: {fileID: 2321342}
   - 65: {fileID: 6566052}
   - 114: {fileID: 11496768}
+  - 54: {fileID: 54000010874160020}
   m_Layer: 8
   m_Name: spike07
   m_TagString: Untagged
@@ -107,6 +112,7 @@ GameObject:
   - 23: {fileID: 2372950}
   - 65: {fileID: 6506210}
   - 114: {fileID: 11402970}
+  - 54: {fileID: 54000011079414664}
   m_Layer: 8
   m_Name: spike010
   m_TagString: Untagged
@@ -126,6 +132,7 @@ GameObject:
   - 23: {fileID: 2393114}
   - 65: {fileID: 6556750}
   - 114: {fileID: 11461624}
+  - 54: {fileID: 54000013125975118}
   m_Layer: 8
   m_Name: spike011
   m_TagString: Untagged
@@ -145,6 +152,7 @@ GameObject:
   - 23: {fileID: 2326978}
   - 65: {fileID: 6553554}
   - 114: {fileID: 11437900}
+  - 54: {fileID: 54000011711212456}
   m_Layer: 8
   m_Name: spike02
   m_TagString: Untagged
@@ -164,6 +172,7 @@ GameObject:
   - 23: {fileID: 2365612}
   - 65: {fileID: 6596790}
   - 114: {fileID: 11409298}
+  - 54: {fileID: 54000013786805726}
   m_Layer: 8
   m_Name: spike012
   m_TagString: Untagged
@@ -183,6 +192,7 @@ GameObject:
   - 23: {fileID: 2373666}
   - 65: {fileID: 6515064}
   - 114: {fileID: 11424448}
+  - 54: {fileID: 54000013636895386}
   m_Layer: 8
   m_Name: spike04
   m_TagString: Untagged
@@ -202,6 +212,7 @@ GameObject:
   - 23: {fileID: 2383008}
   - 65: {fileID: 6503764}
   - 114: {fileID: 11450488}
+  - 54: {fileID: 54000011652545574}
   m_Layer: 8
   m_Name: spike05
   m_TagString: Untagged
@@ -242,6 +253,7 @@ GameObject:
   - 23: {fileID: 2345430}
   - 65: {fileID: 6511966}
   - 114: {fileID: 11464508}
+  - 54: {fileID: 54000010599326742}
   m_Layer: 8
   m_Name: spike01
   m_TagString: Untagged
@@ -1064,7 +1076,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b41377ccbbe11114db4fad551ef6500e, type: 3}
   m_Controller: {fileID: 9100000, guid: 1a3429a467c85bc49a716a31c28799c7, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -1118,6 +1130,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11404476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1130,6 +1143,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 0}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &11409298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1177,6 +1195,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11424448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1224,6 +1243,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11427810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1271,6 +1291,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11428858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1318,6 +1339,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11437900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1365,6 +1387,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11449388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,13 +1399,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d46e44eadd1ba249af7594ad1520775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+  name: 
   interactable: 1
+  interactionConstraints: []
+  entityEvents:
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    onEnable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   attributes: []
+  initializationTable: {fileID: 0}
   onAttributeInitialized:
     m_PersistentCalls:
       m_Calls: []
@@ -1437,6 +1474,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11461624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1484,6 +1522,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11464508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1531,6 +1570,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11494892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1578,6 +1618,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11496768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1625,6 +1666,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11497344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1672,6 +1714,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -1683,3 +1726,183 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 193676}
   m_IsPrefabParent: 1
+--- !u!54 &54000010599326742
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198194}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000010874160020
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131282}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011079414664
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136362}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011652545574
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186806}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011710109446
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117428}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011711212456
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165656}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011830952808
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119740}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013125975118
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151020}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013535085056
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117370}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013636895386
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184488}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013786805726
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165750}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013929273862
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129334}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

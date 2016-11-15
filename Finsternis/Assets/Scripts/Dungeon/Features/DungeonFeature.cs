@@ -136,6 +136,9 @@
 
         public override bool Equals(object o)
         {
+            if (!this)
+                return false;
+
             if (o == null)
                 return false;
             DungeonFeature f = o as DungeonFeature;
@@ -159,7 +162,9 @@
 
         public override int GetHashCode()
         {
-            return this.type.GetHashCode() + this.name.GetHashCode() * 3 + this.prefab.GetHashCode() * 77;
+            if (!this)
+                return 13;
+            return this.type.GetHashCode() + (this.name.IsNullOrEmpty() ? 113 : this.name.GetHashCode()) * 3 + (!this.prefab ? 917 : this.prefab.GetHashCode()) * 77;
         }
         #endregion
     }

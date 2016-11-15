@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,9 @@ namespace Finsternis
 {
     public class DungeonDrawer : MonoBehaviour
     {
+        [Serializable]
+        public class DrawingEndEvent : CustomEvent<Dungeon> { }
+
         [SerializeField]
         private Dungeon dungeon;
 
@@ -28,7 +32,7 @@ namespace Finsternis
 
         [Header("Events")]
         public UnityEvent onDrawBegin;
-        public UnityEvent onDrawEnd;
+        public DrawingEndEvent onDrawEnd;
 
         private HashSet<Vector2> drawnWalls;
 
@@ -39,6 +43,7 @@ namespace Finsternis
 
         public void Draw(Dungeon dungeon)
         {
+            StopAllCoroutines();
             onDrawBegin.Invoke();
             this.dungeon = dungeon;
             Clear();
@@ -55,12 +60,28 @@ namespace Finsternis
             dungeon.gameObject.AddComponent<DeathZone>();
 
             this.drawnWalls = new HashSet<Vector2>();
+
+#if UNITY_EDITOR
+            if (!UnityEditor.EditorApplication.isPlaying)
+            {
+                var gen = _Draw(dungeon);
+                while (gen.MoveNext())
+                    ;
+            }
+            else
+#endif
+                StartCoroutine(_Draw(dungeon));
+        }
+
+        private IEnumerator _Draw(Dungeon dungeon)
+        {
             GameObject rooms = new GameObject("ROOMS");
             rooms.transform.SetParent(this.dungeon.transform);
 
-            foreach (Room room in this.dungeon.Rooms)
+            foreach (Room room in dungeon.Rooms)
             {
                 MakeSection(room).transform.SetParent(rooms.transform);
+                yield return null;
             }
 
             GameObject corridors = new GameObject("CORRIDORS");
@@ -69,8 +90,11 @@ namespace Finsternis
             foreach (Corridor corridor in this.dungeon.Corridors)
             {
                 MakeSection(corridor).transform.SetParent(corridors.transform);
+                yield return null;
             }
-            onDrawEnd.Invoke();
+
+
+            onDrawEnd.Invoke(dungeon);
         }
 
         private void Clear()
@@ -128,8 +152,9 @@ namespace Finsternis
                         msg += "Position was null";
                     else if (dungeon[cell].Theme == null)
                         msg += "No theme set for cell " + dungeon[cell];
+#if DEBUG
                     Log.E(this, msg);
-                    throw ex;
+#endif
                 }
             }
 

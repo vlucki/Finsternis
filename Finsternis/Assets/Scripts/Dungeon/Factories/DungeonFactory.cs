@@ -112,10 +112,12 @@ namespace Finsternis
             if (seed != null)
                 dungeon.Seed = (int)seed;
 
-#if DEBUG_DUNGEON_GEN && LOG_INFO
+#if DEBUG_DUNGEON_GEN
             else
             {
+#if LOG_INFO
                 Log.I(this, "debug mode enabled, setting seed to 0");
+#endif
                 dungeon.Seed = 2;
             }
 #endif

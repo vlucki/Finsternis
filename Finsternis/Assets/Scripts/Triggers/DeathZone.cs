@@ -22,6 +22,8 @@
             UnityQuery.Log.I(this, "{0} exiting deathzone", go);
 #endif
             GameManager.Instance.Kill(go);
+            foreach (var renderer in go.GetComponentsInChildren<Renderer>())
+                renderer.enabled = false;
         }
     }
 }

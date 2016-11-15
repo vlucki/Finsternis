@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using UnityQuery;
 using System.Collections.Generic;
+using System;
 
 namespace Finsternis
 {
@@ -54,6 +55,7 @@ namespace Finsternis
 
         public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
+        public MovementAction Movement { get { return characterMovement; } }
         public Animator Controller { get { return characterAnimator; } }
         public Skill[] EquippedSkills { get { return this.equippedSkills; } }
         public Skill ActiveSkill { get; private set; }
@@ -80,14 +82,16 @@ namespace Finsternis
 
         public virtual void Start()
         {
-            character.onDeath.AddListener(() =>
-            {
-                characterAnimator.SetBool(CharController.DyingBool, true);
-                characterMovement.MovementDirection = Vector3.zero;
-            });
+            character.onDeath.AddListener(OnCharacterDeath);
         }
 
-        public virtual void Update()
+        protected virtual void OnCharacterDeath()
+        {
+            characterAnimator.SetBool(CharController.DyingBool, true);
+            characterMovement.MovementDirection = Vector3.zero;
+        }
+
+        private void Update()
         {
             if (!IsDead() && !IsDying())
             {
@@ -99,9 +103,14 @@ namespace Finsternis
                 else if (IsFalling())
                     Lock();
                 else
-                    this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
+                    DoUpdate();
 
             }
+        }
+
+        protected virtual void DoUpdate()
+        {
+            this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
         }
 
         /// <summary>
@@ -194,7 +203,7 @@ namespace Finsternis
 
         public virtual void Hit(int type = 0)
         {
-            if (this.character.Invincible)
+            if (this.character.Invincible || this.character.Dead)
                 return;
 
             this.characterAnimator.SetInteger(HitType, type);
@@ -244,12 +253,16 @@ namespace Finsternis
         {
             if (this.equippedSkills == null)
             {
+#if DEBUG
                 Log.E(this, "Variable 'equippedSkills' not initialized.");
+#endif
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
+#if DEBUG
                 Log.E(this, "Invalid skill slot: {0}", slot);
+#endif
                 return false;
             }
             else if (checkForEmptySlot && !this.equippedSkills[slot])

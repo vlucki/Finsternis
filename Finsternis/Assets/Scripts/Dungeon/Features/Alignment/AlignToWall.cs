@@ -19,7 +19,9 @@
             var walls = dungeon.GetNeighbours(position, false, Dungeon.wall);
             if (walls.IsNullOrEmpty())
             {
+#if DEBUG
                 Log.E(this, "Could not find any wall around {0} to align {1}", position, gObject);
+#endif
                 return;
             }
             var wall = walls.GetRandom(UnityEngine.Random.Range);

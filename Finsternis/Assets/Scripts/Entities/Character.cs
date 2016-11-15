@@ -3,6 +3,7 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.Events;
+    using UnityQuery;
 
     public class Character : Entity
     {
@@ -99,11 +100,7 @@
         private IEnumerator _TickInvincibility(float remainingTime)
         {
             this.invincible = true;
-            while (remainingTime > 0)
-            {
-                remainingTime-= Time.deltaTime;
-                yield return null;
-            }
+            yield return Wait.Sec(remainingTime);
             this.invincible = false;
         }
     }

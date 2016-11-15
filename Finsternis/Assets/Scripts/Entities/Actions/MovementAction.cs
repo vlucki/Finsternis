@@ -47,11 +47,15 @@
         {
             get { return this.movementDirection; }
             set {
+                if (this.movementDirection != this.LastMovementDirection)
+                    this.LastMovementDirection = this.movementDirection;
                 this.movementDirection = value.normalized;
                 if(ShouldFaceMovementDirection)
                     this.facingDirection = this.movementDirection;
             }
         }
+
+        public Vector3 LastMovementDirection { get; private set; }
 
         public Vector3 FacingDirection
         {

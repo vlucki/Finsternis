@@ -24,6 +24,7 @@ MonoBehaviour:
   spawnDensityModifier: 1
   floorDecorations:
   - {fileID: 11400000, guid: 0dd543a5d1bb341448d421e2be3cd1a3, type: 2}
+  - {fileID: 11400000, guid: 85712b9a683aa444b9d4d23c4d79f1e5, type: 2}
   wallDecorations:
   - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
   exits:

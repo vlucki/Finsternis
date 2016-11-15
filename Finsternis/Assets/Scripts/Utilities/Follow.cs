@@ -94,7 +94,12 @@
             SetTarget(GameManager.Instance.Player.transform);
         }
 
-        public void SetTarget(Transform target, bool setAsOriginal = true)
+        public void SetTarget(Transform target)
+        {
+            SetTarget(target, true);
+        }
+
+        public void SetTarget(Transform target, bool setAsOriginal)
         {
             if(setAsOriginal) this.originalTarget = target;
             this.target = target;

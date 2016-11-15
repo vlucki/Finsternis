@@ -44,7 +44,7 @@
             if (this.type != EffectType.GLOBAL)
             {
                 source.transform.SetParent(this.transform);
-                source.transform.position = Vector3.zero;
+                source.transform.localPosition = Vector3.zero;
                 source.transform.SetParent(null);
                 source.spatialBlend = 1;
                 if (this.type == EffectType.LOCAL)

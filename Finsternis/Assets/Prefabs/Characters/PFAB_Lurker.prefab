@@ -223,6 +223,8 @@ GameObject:
   - 114: {fileID: 114000011811933878}
   - 114: {fileID: 114000011460988776}
   - 114: {fileID: 114000013491772252}
+  - 114: {fileID: 114000013245861026}
+  - 114: {fileID: 114000011898097906}
   m_Layer: 9
   m_Name: PFAB_Lurker
   m_TagString: Enemy
@@ -729,8 +731,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011908864442}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3849803, y: -1.6197768e-17, z: 0.7294826}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.37, y: 0, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -855,7 +857,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c0fea78dc5adca444811c7995bbae54e, type: 3}
   m_Controller: {fileID: 22100000, guid: d0ea15b52449a9346840b3425adcbc11, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -887,7 +889,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 13604
   collidersToIgnore: []
-  constraints: []
+  constraints:
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
@@ -921,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 8.5
+  baseVelocityMultiplier: 8
   speedMultiplier: 2.5
   turningSpeed: 2
   modeWhenApplyingForce: 5
@@ -965,20 +968,17 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  skills: []
+  skills:
+  - {fileID: 114000011898097906}
   equippedSkills:
+  - {fileID: 114000011898097906}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  aggroRange: 2
-  _wanderCycle: 1
+  wanderCycle: 1
   wanderFrequency: 0.5
-  ignoreWalls: 0
-  reach: 0.5
-  target: {fileID: 0}
+  reach: 2
   interestPersistence: 2
-  ragdoll: {fileID: 0}
 --- !u!114 &114000011818615346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -990,6 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d8a24df48414749a3f6a41312ebd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Lurker
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -1025,11 +1026,113 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000011811933878}
+        m_MethodName: LockAndDisable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 54000011223061086}
+        m_MethodName: set_isKinematic
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 136000013030091710}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   invincibilityTime: 1
   invincible: 0
+  cardsToGive:
+    minCardsToGive: 1
+    maxCardsToGive: 4
+--- !u!114 &114000011898097906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011908864442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c7d5aba3d05604f91713efae11688c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Swipe
+  startUpTime: 1
+  castTime: 1
+  endTime: 1
+  cooldownTime: 0.5
+  onBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011811933878}
+        m_MethodName: Lock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011811933878}
+        m_MethodName: Unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onCoolDownEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  hitboxes:
+  - {fileID: 1000013569627868}
+  - {fileID: 1000011341317898}
 --- !u!114 &114000012206476248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1055,7 +1158,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 13604
   collidersToIgnore: []
-  constraints: []
+  constraints:
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
@@ -1063,6 +1167,31 @@ MonoBehaviour:
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
   damageType: 0
+--- !u!114 &114000013245861026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011908864442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8f0e59f41391e4e9952626c5ecc4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 4
+  persistenceRange: 10
+  tagToConsider: Player
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 5120
+  targetsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  onTargetChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000013491772252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1075,6 +1204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!136 &136000013030091710
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3330160}
   - 23: {fileID: 2354014}
   - 65: {fileID: 6573164}
+  - 54: {fileID: 54000011399836564}
   m_Layer: 8
   m_Name: rightDoor
   m_TagString: Untagged
@@ -29,6 +30,7 @@ GameObject:
   - 33: {fileID: 3305978}
   - 23: {fileID: 2368350}
   - 65: {fileID: 6566700}
+  - 54: {fileID: 54000010018218976}
   m_Layer: 8
   m_Name: leftDoor
   m_TagString: Untagged
@@ -284,7 +286,6 @@ MonoBehaviour:
     m_Bits: 0
   collidersToIgnore: []
   constraints: []
-  cameraHolder: {fileID: 0}
   onExitCrossed:
     m_PersistentCalls:
       m_Calls: []
@@ -301,3 +302,33 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 192690}
   m_IsPrefabParent: 1
+--- !u!54 &54000010018218976
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187748}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011399836564
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108642}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

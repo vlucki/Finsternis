@@ -25,7 +25,6 @@ GameObject:
   - 59: {fileID: 59000011263967292}
   - 136: {fileID: 136000013813192556}
   - 65: {fileID: 65000010131241954}
-  - 114: {fileID: 114000014016048558}
   - 114: {fileID: 114000013020411858}
   m_Layer: 12
   m_Name: link04
@@ -48,7 +47,6 @@ GameObject:
   - 59: {fileID: 59000011599865090}
   - 136: {fileID: 136000011975062906}
   - 65: {fileID: 65000010675940888}
-  - 114: {fileID: 114000012207948142}
   - 114: {fileID: 114000011399819692}
   m_Layer: 12
   m_Name: link01
@@ -71,7 +69,6 @@ GameObject:
   - 59: {fileID: 59000010995801814}
   - 136: {fileID: 136000010212640108}
   - 65: {fileID: 65000014251908948}
-  - 114: {fileID: 114000013098848868}
   - 114: {fileID: 114000011913779672}
   m_Layer: 12
   m_Name: link05
@@ -94,7 +91,6 @@ GameObject:
   - 59: {fileID: 59000011446751760}
   - 136: {fileID: 136000011397488838}
   - 65: {fileID: 65000011869154610}
-  - 114: {fileID: 114000014119243730}
   - 114: {fileID: 114000012454457346}
   m_Layer: 12
   m_Name: link02
@@ -116,7 +112,6 @@ GameObject:
   - 54: {fileID: 54000013401270518}
   - 136: {fileID: 136000013052290610}
   - 65: {fileID: 65000012297545438}
-  - 114: {fileID: 114000011897923192}
   - 114: {fileID: 114000013048137624}
   m_Layer: 12
   m_Name: link07
@@ -139,7 +134,6 @@ GameObject:
   - 59: {fileID: 59000014016732522}
   - 136: {fileID: 136000013167002512}
   - 65: {fileID: 65000011268309000}
-  - 114: {fileID: 114000012684225812}
   - 114: {fileID: 114000011027792528}
   m_Layer: 12
   m_Name: link06
@@ -162,7 +156,6 @@ GameObject:
   - 59: {fileID: 59000010162840714}
   - 136: {fileID: 136000014281316674}
   - 65: {fileID: 65000013318843732}
-  - 114: {fileID: 114000011597298042}
   - 114: {fileID: 114000013957656798}
   m_Layer: 12
   m_Name: link03
@@ -1039,7 +1032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 7
+  maxSimultaneousClips: 1
   type: 1
 --- !u!114 &114000011027792528
 MonoBehaviour:
@@ -1131,34 +1124,6 @@ MonoBehaviour:
   - {fileID: 136000013167002512}
   - {fileID: 136000013052290610}
   constraints: []
---- !u!114 &114000011597298042
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013973243712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
---- !u!114 &114000011897923192
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013201965754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!114 &114000011913779672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1204,20 +1169,6 @@ MonoBehaviour:
   - {fileID: 136000013167002512}
   - {fileID: 136000013052290610}
   constraints: []
---- !u!114 &114000012207948142
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011293632296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!114 &114000012454457346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1263,20 +1214,6 @@ MonoBehaviour:
   - {fileID: 136000013167002512}
   - {fileID: 136000013052290610}
   constraints: []
---- !u!114 &114000012684225812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013741114444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!114 &114000013020411858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1367,20 +1304,6 @@ MonoBehaviour:
   - {fileID: 136000013167002512}
   - {fileID: 136000013052290610}
   constraints: []
---- !u!114 &114000013098848868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012290569960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!114 &114000013957656798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1426,20 +1349,6 @@ MonoBehaviour:
   - {fileID: 136000013167002512}
   - {fileID: 136000013052290610}
   constraints: []
---- !u!114 &114000014016048558
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011038007462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!114 &114000014024249256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1453,20 +1362,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceObjectTag: MainCamera
   distanceThreshold: 20
---- !u!114 &114000014119243730
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012661065426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
-  type: 1
 --- !u!136 &136000010212640108
 CapsuleCollider:
   m_ObjectHideFlags: 1

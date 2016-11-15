@@ -22,12 +22,12 @@ GameObject:
   - 33: {fileID: 33000011893781752}
   - 23: {fileID: 23000012395520022}
   - 65: {fileID: 65000014100477998}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: lateral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1000012127244084
 GameObject:
@@ -38,12 +38,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013345673002}
   - 95: {fileID: 95000010105248388}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PFAB_Wall03a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1000012772999054
 GameObject:
@@ -60,7 +60,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4000010615916690
 Transform:

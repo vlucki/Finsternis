@@ -27,7 +27,7 @@ namespace Finsternis
 
         [SerializeField]
         private Camera skyCamera;
-        
+
         private int storedValue;
 
         void Start()
@@ -43,55 +43,52 @@ namespace Finsternis
 
         void Update()
         {
-            if (SceneManager.GetActiveScene().name.Equals("DungeonGeneration"))
+            string latestInput = Input.inputString.ToUpper();
+
+            if (this.lastFrameInput.IsNullOrEmpty() || !this.lastFrameInput.Equals(latestInput))
+                this.lastFrameInput = latestInput;
+            else
+                this.lastFrameInput = null;
+
+            if (this.lastFrameInput.IsNullOrEmpty())
+                return;
+
+            int value = 0;
+            if (int.TryParse(latestInput, out value))
             {
-                string latestInput = Input.inputString.ToUpper();
+                this.storedValue = 10 * Mathf.Max(this.storedValue, 0) + value;
 
-                if (this.lastFrameInput.IsNullOrEmpty() || !this.lastFrameInput.Equals(latestInput))
-                    this.lastFrameInput = latestInput;
-                else
-                    this.lastFrameInput = null;
-
-                if (this.lastFrameInput.IsNullOrEmpty())
-                    return;
-
-                int value = 0;
-                if (int.TryParse(latestInput, out value))
+                return;
+            }
+            else
+            {
+                this.storedCode += latestInput;
+                bool inputMatchesAny = false;
+                for (int codeToExecute = 0; codeToExecute < codes.Length; codeToExecute++)
                 {
-                    this.storedValue = 10 * Mathf.Max(this.storedValue, 0) + value;
-
-                    return;
-                }
-                else
-                {
-                    this.storedCode += latestInput;
-                    bool inputMatchesAny = false;
-                    for (int codeToExecute = 0; codeToExecute < codes.Length; codeToExecute++)
+                    string code = codes[codeToExecute];
+                    if (code.Equals(this.storedCode))
                     {
-                        string code = codes[codeToExecute];
-                        if (code.Equals(this.storedCode))
-                        {
-                            print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + this.storedCode);
-                            this.currentCode = this.storedCode;
-                            CheckExecutedCommand();
-                            ResetInputs();
-                            return;
-                        }
-                        else if (this.codes[codeToExecute].StartsWith(storedCode))
-                        {
-                            return;
-                        }
-                        else if (this.codes[codeToExecute].StartsWith(lastFrameInput))
-                        {
-                            inputMatchesAny = true;
-                        }
-                    }
-
-                    if (inputMatchesAny)
-                        this.storedCode = latestInput;
-                    else
+                        print("EXECUTING CHEAT CODE #" + codeToExecute + ": " + this.storedCode);
+                        this.currentCode = this.storedCode;
+                        CheckExecutedCommand();
                         ResetInputs();
+                        return;
+                    }
+                    else if (this.codes[codeToExecute].StartsWith(storedCode))
+                    {
+                        return;
+                    }
+                    else if (this.codes[codeToExecute].StartsWith(lastFrameInput))
+                    {
+                        inputMatchesAny = true;
+                    }
                 }
+
+                if (inputMatchesAny)
+                    this.storedCode = latestInput;
+                else
+                    ResetInputs();
             }
         }
 

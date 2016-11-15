@@ -1,23 +1,41 @@
 ﻿namespace Finsternis
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityQuery;
 
     public class PhysicalAttack : Skill
     {
         [SerializeField]
-        private GameObject hitbox;
+        private GameObject[] hitboxes;
 
-        private Collider[] hitboxColliders;
-        private TouchDamageHandler damageHandler;
+        private List<Collider> hitboxColliders;
+        private List<TouchDamageHandler> damageHandlers;
 
         protected override void Awake()
         {
             base.Awake();
 
-            hitboxColliders = hitbox.GetComponents<Collider>();
-            damageHandler = hitbox.GetComponent<TouchDamageHandler>();
+            hitboxColliders = new List<Collider>();
+            damageHandlers = new List<TouchDamageHandler>();
+
+            foreach (var hitBox in hitboxes)
+            {
+                var colliders = hitBox.GetComponents<Collider>();
+                if (!colliders.IsNullOrEmpty())
+                {
+                    hitboxColliders.AddRange(colliders);
+                }
+
+                var handlers = hitBox.GetComponents<TouchDamageHandler>();
+                if (!handlers.IsNullOrEmpty())
+                {
+                    damageHandlers.AddRange(handlers);
+                }
+            }
+
+            ToggleHitbox(false);
         }
 
         public override void StartExecution()
@@ -34,9 +52,8 @@
 
         private void ToggleHitbox(bool enabled)
         {
-            foreach (var col in hitboxColliders)
-                col.enabled = enabled;
-            this.damageHandler.enabled = enabled;
+            this.hitboxColliders.ForEach(col => col.enabled = enabled);
+            this.damageHandlers.ForEach(handler => handler.enabled = enabled);
         }
     }
 }

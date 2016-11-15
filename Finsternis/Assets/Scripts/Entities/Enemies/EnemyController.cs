@@ -1,60 +1,88 @@
 ﻿namespace Finsternis
 {
+    using System;
+    using System.Collections;
     using UnityEngine;
     using UnityQuery;
     using Random = UnityEngine.Random;
 
-    [RequireComponent(typeof(EnemyChar))]
+    [RequireComponent(typeof(EnemyChar), typeof(LookForTargetAction))]
     public class EnemyController : CharController
     {
         [SerializeField]
         [Range(1, 50)]
-        private float aggroRange = 2f;
-
-        [SerializeField]
-        [Range(1, 50)]
-        private float _wanderCycle = 1f;
+        private float wanderCycle = 1f;
 
         [SerializeField]
         [Range(0, 1)]
         private float wanderFrequency = 0.5f;
 
         [SerializeField]
-        private bool ignoreWalls = false;
-
-        [SerializeField]
         [Range(0, 10)]
         private float reach = 0.5f;
 
         [SerializeField]
-        private GameObject target;
-
-        [SerializeField]
         private float interestPersistence = 2f;
 
-        private float timeSinceLastSawTarget = 0;
-        private float timeSinceLastWander = 0;
+        private LookForTargetAction lookForTarget;
 
-        private Vector3 targetLocation;
+        private Coroutine wanderingRoutine;
 
-        private bool hasTarget;
+        bool wandering;
 
         public override void Awake()
         {
             base.Awake();
-            target = GameObject.FindGameObjectWithTag("Player");
+            this.lookForTarget = GetComponent<LookForTargetAction>();
+            this.lookForTarget.Activate();
         }
-        private void Wander()
+
+        protected override void OnCharacterDeath()
         {
-            timeSinceLastWander += Time.deltaTime;
-            if (timeSinceLastWander >= _wanderCycle)
+            base.OnCharacterDeath();
+            this.lookForTarget.Deactivate();
+        }
+
+        protected override void DoUpdate()
+        {
+            base.DoUpdate();
+            if (this.lookForTarget && this.lookForTarget.CurrentTarget)
+            {
+                TrackTarget();
+            }
+            else if(this.wanderingRoutine == null)
+            {
+                this.wanderingRoutine = StartCoroutine(_Wander());
+            }
+        }
+
+        private void TrackTarget()
+        {
+            var tgtPos = this.lookForTarget.CurrentTarget.transform.position;
+            bool inRange = tgtPos.Distance(this.transform.position) <= this.reach;
+            if (inRange)
+                Attack();
+            else
+                SetDirection(tgtPos - this.transform.position);
+        }
+
+        private IEnumerator _Wander()
+        {
+            while (!this.lookForTarget.CurrentTarget)
             {
                 SetDirection(GetWanderingDirection());
-                timeSinceLastWander = 0;
+                yield return Wait.Sec(this.wanderCycle);
             }
-            else
+
+            this.wanderingRoutine = null;
+        }
+
+        private IEnumerator _CheckTarget()
+        {
+            while (!this.lookForTarget.CurrentTarget)
             {
-                SetDirection(characterMovement.MovementDirection);
+                SetDirection(GetWanderingDirection());
+                yield return Wait.Sec(this.wanderCycle);
             }
         }
 
@@ -72,112 +100,6 @@
 
             return dir;
         }
-
-
-        //public override void Update()
-        //{
-        //    base.Update();
-        //    if (!IsDead())
-        //    {
-        //        if (!IsDying())
-        //        {
-
-        //            bool canSeeTarget = LookForTarget();
-        //            if (!hasTarget)
-        //                hasTarget = canSeeTarget;
-        //            else if (!canSeeTarget)
-        //            {
-        //                timeSinceLastSawTarget += Time.deltaTime;
-        //                hasTarget = (timeSinceLastSawTarget >= interestPersistence); //stop trying to go towards the target
-        //                if (target.GetComponent<CharController>().IsDead())
-        //                {
-        //                    hasTarget = false;
-        //                }
-        //            }
-
-        //            if (CanAct())
-        //            {
-        //                if (canSeeTarget && CheckRange())
-        //                {
-        //                    float angle = Vector3.Angle(transform.forward, (target.transform.position - transform.position));
-
-        //                    if (angle < 30f)
-        //                    {
-        //                        Attack();
-        //                    }
-        //                }
-        //                else if (hasTarget && transform.position != targetLocation - GetOffset(targetLocation))
-        //                {
-        //                    SetDirection((target.transform.position - transform.position).normalized);
-        //                }
-        //                else
-        //                {
-        //                    hasTarget = canSeeTarget;
-        //                }
-
-        //            }
-
-        //            if (!canSeeTarget && !hasTarget)
-        //            {
-        //                timeSinceLastSawTarget = 0;
-        //                Wander();
-        //            }
-
-        //        }
-        //    }
-        //    if (GetComponent<Collider>().enabled && (IsDead() || IsDying()))
-        //    {
-        //        foreach (var c in GetComponentsInChildren<Collider>())
-        //            c.enabled = false;
-        //        GetComponent<Collider>().enabled = false;
-        //        GetComponent<Rigidbody>().isKinematic = true;
-        //        if (ragdoll)
-        //        {
-        //            Instantiate(ragdoll, transform.position, transform.rotation);
-        //            Destroy(gameObject);
-        //            gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
-
-        //private bool CheckRange()
-        //{
-        //    return this.targetLocation.Distance(transform.position) <= this.reach;
-        //}
-
-        //private bool LookForTarget()
-        //{
-        //    bool canSeeTarget = false;
-        //    if (!this.target)
-        //        return false;
-
-        //    if (!ignoreWalls)
-        //    {
-        //        RaycastHit hit;
-        //        if (Physics.Raycast(
-        //            transform.position + Vector3.up,
-        //            this.target.transform.position - transform.position,
-        //            out hit,
-        //            aggroRange))
-        //        {
-        //            canSeeTarget = this.target.Equals(hit.collider.gameObject);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        canSeeTarget = transform.position.Distance(target.transform.position) <= aggroRange;
-        //    }
-        //    if (canSeeTarget)
-        //        this.targetLocation = target.transform.position;
-        //    return canSeeTarget;
-        //}
-
-        //private Vector3 GetOffset(Vector3 position)
-        //{
-        //    Vector3 offset = (transform.position - position).normalized * reach;
-        //    offset.y = 0;
-        //    return offset;
-        //}
 
     }
 }

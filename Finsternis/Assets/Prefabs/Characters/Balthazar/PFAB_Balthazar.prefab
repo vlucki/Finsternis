@@ -1425,25 +1425,25 @@ TrailRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: 0.2
-  m_StartWidth: 0.1
-  m_EndWidth: 0.2
+  m_Time: 0.3
+  m_StartWidth: 0
+  m_EndWidth: 1
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
       rgba: 4294967295
     m_Color[1]:
       serializedVersion: 2
-      rgba: 3368601800
+      rgba: 3367288270
     m_Color[2]:
       serializedVersion: 2
-      rgba: 2526451350
+      rgba: 2524874915
     m_Color[3]:
       serializedVersion: 2
-      rgba: 1684300900
+      rgba: 1682397810
     m_Color[4]:
       serializedVersion: 2
-      rgba: 842150450
+      rgba: 840573750
   m_MinVertexDistance: 0.3
   m_Autodestruct: 0
 --- !u!114 &114000010093465424
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   startUpTime: 0.3
   castTime: 0.6
   endTime: 0.2
-  cooldownTime: 0.5
+  cooldownTime: 0.25
   onBegin:
     m_PersistentCalls:
       m_Calls:
@@ -1620,6 +1620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Balthazar
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -1791,7 +1792,12 @@ MonoBehaviour:
   detectionRange: 5
   persistenceRange: 10
   tagToConsider: Enemy
-  ignoreObstacles: 0
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 5120
+  targetsLayer:
+    serializedVersion: 2
+    m_Bits: 512
   onTargetChanged:
     m_PersistentCalls:
       m_Calls:

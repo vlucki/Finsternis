@@ -1315,7 +1315,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013550264276}
-  m_LocalRotation: {x: -0.2750112, y: 0.7101828, z: -0.6323205, w: -0.14205697}
+  m_LocalRotation: {x: -0.27501118, y: 0.7101827, z: -0.63232046, w: -0.14205696}
   m_LocalPosition: {x: 0.12316096, y: 0.11709311, z: -0.0149521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1769,6 +1769,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114000011007400096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1810,6 +1815,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   fallSpeedThreshold: -0.2
@@ -1935,7 +1945,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  skillOverrideController: {fileID: 0}
   hitbox: {fileID: 1000011239698170}
 --- !u!114 &114000012337673650
 MonoBehaviour:
@@ -2103,6 +2112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Siegfried
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -2157,10 +2167,12 @@ MonoBehaviour:
   messageText: 
   messageGraphic: {fileID: 21300002, guid: c9a90110d66e58d4dbee469889456aa5, type: 3}
   messageOffset: {x: 0, y: 1, z: 0}
+  randomizeOffset: 0
   duration: 2
   forceDirection:
     min: {x: -0.5, y: 3, z: -0.5}
     max: {x: 0.5, y: 4, z: 0.5}
+    mode: 1
 --- !u!114 &114000014247053550
 MonoBehaviour:
   m_ObjectHideFlags: 1

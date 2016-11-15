@@ -47,12 +47,6 @@
 
         public Entity Owner { get; private set; }
 
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-
         public string Alias
         {
             get { return this.alias; }

@@ -171,8 +171,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013928724808}
-  - 135: {fileID: 135000010805056252}
-  - 114: {fileID: 114000010472643726}
   m_Layer: 9
   m_Name: corpo_olho
   m_TagString: Untagged
@@ -234,7 +232,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012976453252}
   - 95: {fileID: 95000013943945114}
-  - 135: {fileID: 135000010942280056}
   - 54: {fileID: 54000012934047690}
   - 114: {fileID: 114000013790254882}
   - 114: {fileID: 114000011405039278}
@@ -243,6 +240,9 @@ GameObject:
   - 65: {fileID: 65000011687628890}
   - 114: {fileID: 114000013013584826}
   - 114: {fileID: 114000010501127544}
+  - 114: {fileID: 114000010616428166}
+  - 114: {fileID: 114000012114631288}
+  - 135: {fileID: 135000010862920324}
   m_Layer: 9
   m_Name: PFAB_Beholder
   m_TagString: Enemy
@@ -261,6 +261,12 @@ GameObject:
   - 33: {fileID: 33000013985216126}
   - 23: {fileID: 23000012257531462}
   - 114: {fileID: 114000012387807194}
+  - 64: {fileID: 64000012142469172}
+  - 114: {fileID: 114000010309733666}
+  - 114: {fileID: 114000010746474134}
+  - 135: {fileID: 135000012101430770}
+  - 64: {fileID: 64000013516079832}
+  - 64: {fileID: 64000012206388794}
   m_Layer: 9
   m_Name: polySurface1
   m_TagString: Untagged
@@ -751,7 +757,7 @@ Transform:
   m_GameObject: {fileID: 1000012345338928}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.24, y: 0, z: -1.34}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013928724808}
@@ -919,6 +925,42 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!64 &64000012142469172
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 0}
+--- !u!64 &64000012206388794
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 0}
+--- !u!64 &64000013516079832
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 0}
 --- !u!65 &65000011687628890
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -941,7 +983,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 05efb6f14a863a640a7ed4c7eaa3ee59, type: 3}
   m_Controller: {fileID: 22100000, guid: af40d287181065040bd178b1aaa1b8e4, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -963,12 +1005,12 @@ MonoBehaviour:
   numberOfFlashes: 4
   flashFadeInTime: 0.2
   flashFadeOutTime: 0.3
---- !u!114 &114000010472643726
+--- !u!114 &114000010309733666
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011793509206}
+  m_GameObject: {fileID: 1000012405632454}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
@@ -986,9 +1028,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 2147497252
+    m_Bits: 9216
   collidersToIgnore: []
-  constraints: []
+  constraints:
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
   owner: {fileID: 0}
   impactMultiplier: {x: 1, y: 1}
   modeOnImpact: 2
@@ -1011,6 +1054,65 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 28abba4cb4b238749ba24ba007425728, type: 3}
   - {fileID: 8300000, guid: 9467c30d75e8fc4458a939536b080780, type: 3}
+--- !u!114 &114000010616428166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012345338928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8f0e59f41391e4e9952626c5ecc4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 4
+  persistenceRange: 10
+  tagToConsider: Player
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 5120
+  targetsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  onTargetChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &114000010746474134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 9216
+  collidersToIgnore: []
+  constraints:
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage: []
+  attributesThatInfluenceImpact: []
+  damageType: 0
 --- !u!114 &114000011405039278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1022,6 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d8a24df48414749a3f6a41312ebd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: Beholder
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -1058,8 +1161,30 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 65000011687628890}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000013790254882}
+        m_MethodName: LockAndDisable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 54000012934047690}
-        m_MethodName: set_useGravity
+        m_MethodName: set_isKinematic
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1069,10 +1194,89 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 135000010862920324}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  invincibilityTime: 1
+  invincibilityTime: 0.5
   invincible: 0
+  cardsToGive:
+    minCardsToGive: 1
+    maxCardsToGive: 4
+--- !u!114 &114000012114631288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012345338928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c7d5aba3d05604f91713efae11688c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Eye Bash
+  startUpTime: 1
+  castTime: 1
+  endTime: 1
+  cooldownTime: 0.2
+  onBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013790254882}
+        m_MethodName: Lock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionStart:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onExecutionEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000013790254882}
+        m_MethodName: Unlock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onCoolDownEnd:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Skill+SkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  hitboxes:
+  - {fileID: 1000012405632454}
 --- !u!114 &114000012387807194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1099,7 +1303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 9
+  baseVelocityMultiplier: 9.5
   speedMultiplier: 3
   turningSpeed: 3.5
   modeWhenApplyingForce: 5
@@ -1196,44 +1400,41 @@ MonoBehaviour:
   fallSpeedThreshold: -0.2
   fallingStateChecks: 3
   fallingStateCheckCount: 0
-  skills: []
+  skills:
+  - {fileID: 114000012114631288}
   equippedSkills:
+  - {fileID: 114000012114631288}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  aggroRange: 2
-  _wanderCycle: 1
+  wanderCycle: 1
   wanderFrequency: 0.5
-  ignoreWalls: 0
-  reach: 0.5
-  target: {fileID: 0}
+  reach: 1
   interestPersistence: 5
-  ragdoll: {fileID: 0}
---- !u!135 &135000010805056252
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011793509206}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Center: {x: 0, y: 1.6, z: 0.3}
---- !u!135 &135000010942280056
+--- !u!135 &135000010862920324
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012345338928}
-  m_Material: {fileID: 13400000, guid: 381d14b867e82254ba02b7c0b26ab2ba, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.6
-  m_Center: {x: 0, y: 1.61, z: 0}
+  m_Center: {x: 0, y: 1.6, z: 0}
+--- !u!135 &135000012101430770
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012405632454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.36812094
+  m_Center: {x: -0.0062526464, y: 0.5922265, z: 0.39209855}
 --- !u!137 &137000013105593796
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

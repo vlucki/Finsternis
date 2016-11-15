@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using System;
 using System.Collections;
+using UnityQuery;
 
 namespace Finsternis
 {
@@ -20,8 +21,9 @@ namespace Finsternis
 
         protected AttackAction attack;
 
-        protected void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             entitiesInContact = new HashSet<Entity>();
             if (!attack)
                 attack = GetComponent<AttackAction>();
@@ -29,11 +31,11 @@ namespace Finsternis
 
         public virtual IEnumerator _OnContinuousTouch(Entity e)
         {
-            yield return 0f;
+            yield return Wait.Fixed();
             while (entitiesInContact.Contains(e))
             {
                 attack.Execute(DamageInfo.DamageType.physical, damageModifierOnStay, e);
-                yield return null;
+                yield return Wait.Fixed();
             }
         }
 

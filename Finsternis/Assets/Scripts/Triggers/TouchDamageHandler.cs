@@ -43,7 +43,9 @@ namespace Finsternis
                 owner = GetComponentInParent<Entity>();
                 if (!owner)
                 {
+#if DEBUG
                     Log.E(this, "Touch damage handler needs an owner!");
+#endif
                     this.DestroyNow();
                     return false;
                 }
@@ -98,8 +100,7 @@ namespace Finsternis
                     if (controller)
                         controller.Hit();
                 }
-
-                //float strBonus = str ? str.Value * 0.5f : 0;
+                
                 AttackAction attack = owner.GetComponent<AttackAction>();
 
                 if (attack)
@@ -134,8 +135,7 @@ namespace Finsternis
                 Vector3 dir = other.transform.position - transform.position;
                 dir.y = 0;
                 dir.Normalize();
-
-                // float strModifier = str ? str.Value : 1;
+                
                 float impactModifier = 1 + GetAttributesInfluence(this.attributesThatInfluenceImpact);
                 body.AddForce((dir * multiplier.x + Vector3.up * multiplier.y) * impactModifier, modeOnImpact);
             }

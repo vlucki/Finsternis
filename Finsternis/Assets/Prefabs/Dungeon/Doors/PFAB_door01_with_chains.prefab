@@ -4286,7 +4286,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9f4160c1c96840b46aa9c75a0b37a201, type: 3}
   m_Controller: {fileID: 9100000, guid: 87c1579b8518f354e8b8268089228368, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -4304,6 +4304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f602eebf3a264db2a68aa26fbe3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   interactable: 1
   interactionConstraints: []
   entityEvents:

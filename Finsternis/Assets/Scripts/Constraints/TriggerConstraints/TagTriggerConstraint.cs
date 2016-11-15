@@ -25,10 +25,7 @@
         
         public override bool Check(Trigger t, Collider c)
         {
-            if(this.mode == Mode.WHITELIST)
-                return tags.Contains(c.tag);
-            else
-                return !tags.Contains(c.tag);
+            return tags.Contains(c.tag) == (this.mode == Mode.WHITELIST);
         }
 
     }

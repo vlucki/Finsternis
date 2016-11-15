@@ -30,8 +30,9 @@
 
         public OpeneableEvts OpeneableEvents { get { return this.openeableEvents; } }
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             locks = new List<Lock>();
             GetComponents<Lock>(locks);
             foreach (Lock l in locks)

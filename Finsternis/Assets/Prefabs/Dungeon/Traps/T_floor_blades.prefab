@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2320486}
   - 65: {fileID: 6597158}
   - 114: {fileID: 11410828}
+  - 54: {fileID: 54000011446462548}
   m_Layer: 8
   m_Name: blade01
   m_TagString: Untagged
@@ -31,6 +32,7 @@ GameObject:
   - 23: {fileID: 2368962}
   - 65: {fileID: 6561528}
   - 114: {fileID: 11496398}
+  - 54: {fileID: 54000010629696394}
   m_Layer: 8
   m_Name: blade03
   m_TagString: Untagged
@@ -71,6 +73,7 @@ GameObject:
   - 23: {fileID: 2352290}
   - 65: {fileID: 6510280}
   - 114: {fileID: 11423866}
+  - 54: {fileID: 54000013606567600}
   m_Layer: 8
   m_Name: blade02
   m_TagString: Untagged
@@ -335,7 +338,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a0c0f888ef83091429f0ce1aaac07013, type: 3}
   m_Controller: {fileID: 9100000, guid: 1035b4f1e3eff7b44a62731ea1e6724b, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -354,6 +357,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: {fileID: 0}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &11410828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,6 +409,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11421364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -412,13 +421,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d46e44eadd1ba249af7594ad1520775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+  name: 
   interactable: 1
+  interactionConstraints: []
+  entityEvents:
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    onEnable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   attributes: []
+  initializationTable: {fileID: 0}
   onAttributeInitialized:
     m_PersistentCalls:
       m_Calls: []
@@ -473,6 +496,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!114 &11496398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,6 +544,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5408
   collidersToIgnore: []
+  constraints: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -531,3 +556,48 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178118}
   m_IsPrefabParent: 1
+--- !u!54 &54000010629696394
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175028}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000011446462548
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105052}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013606567600
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 192258}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
