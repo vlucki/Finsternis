@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 2
   isStackable: 1
-  rarity: 0.015966304
+  rarity: 0.016699325
   effects:
   - name: Intelligence debuff
     constraints: []
@@ -22,17 +22,17 @@ MonoBehaviour:
     modifierType: 10
     valueChangeVariation:
       min: 1
-      max: 5
-    valueChange: 4
+      max: 4
+    valueChange: 1.5
   - name: Speed buff
     constraints: []
     affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
       type: 2}
     modifierType: 0
     valueChangeVariation:
-      min: 1
-      max: 5
-    valueChange: 4.5
+      min: 2
+      max: 4
+    valueChange: 3.5
   prepositions:
   - of
   flavourText: terror

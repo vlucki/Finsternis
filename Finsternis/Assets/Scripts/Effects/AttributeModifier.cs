@@ -18,21 +18,11 @@
         [Serializable]
         public struct RangeF
         {
-            [SerializeField]
             [Range(0, 30)]
-            public
-#if !UNITY_EDITOR
-                readonly
-#endif
-                float min;
-
-            [SerializeField]
+            public float min;
+            
             [Range(0, 30)]
-            public 
-#if !UNITY_EDITOR
-                readonly
-#endif
-                float max;
+            public float max;
 
             public RangeF(float min, float max)
             {
@@ -54,13 +44,6 @@
         [SerializeField]
         [ReadOnly]
         private float valueChange;
-
-#if UNITY_EDITOR
-        public void OnValidate()
-        {
-            this.SetRange(this.valueChangeVariation.min, this.valueChangeVariation.max);
-        }
-#endif
 
         public RangeF ValueChangeVariation { get { return this.valueChangeVariation; } }
 
@@ -186,46 +169,5 @@
             }
             return false;
         }
-
-        public override object Clone()
-        {
-            AttributeModifier clone = new AttributeModifier(this.affectedAttribute, this.TypeOfModifier, this.Name);
-            clone.valueChange = this.valueChange;
-            if (this.constraints != null)
-            {
-                constraints.ForEach(
-                    constraint => clone.AddConstraint(EffectConstraint.Instantiate(constraint))
-                    );
-            }
-            return clone;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (!base.Equals(obj))
-                return false;
-
-            var otherModifier = obj as AttributeModifier;
-
-            if (!otherModifier)
-                return false;
-
-            if (otherModifier.modifierType != this.modifierType)
-                return false;
-
-            if (otherModifier.valueChange != this.valueChange)
-                return false;
-
-            if (!otherModifier.affectedAttribute.Equals(this.affectedAttribute))
-                return false;
-
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode() ^ ((int)this.modifierType * 1069) ^ this.affectedAttribute.GetHashCode() ^ ((int)this.valueChange <= 1 ? 73 : (int)this.valueChange);
-        }
-
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameType: 2
   isStackable: 0
-  rarity: 0.010794149
+  rarity: 0.011132279
   effects:
   - name: Damage buff
     constraints: []
@@ -21,9 +21,9 @@ MonoBehaviour:
       type: 2}
     modifierType: 0
     valueChangeVariation:
-      min: 1
-      max: 4
-    valueChange: 1.5
+      min: 2
+      max: 5
+    valueChange: 3.5
   prepositions:
   - of
   flavourText: fate

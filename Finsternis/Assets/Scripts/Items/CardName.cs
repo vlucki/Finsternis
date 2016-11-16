@@ -96,40 +96,6 @@
             return value;
         }
 
-        public override bool Equals(object o)
-        {
-            if (o == null)
-                return false;
-
-            CardName name = o as CardName;
-            if (!name)
-                return false;
-
-            if (!name.name.Equals(this.name))
-                return false;
-
-            if (!name.Type.Equals(this.Type))
-                return false;
-
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = GetHashWithouthEffects();
-            this.effects.ForEach(effect => hashCode ^= effects.GetHashCode());
-            return hashCode;
-        }
-
-        private int GetHashWithouthEffects()
-        {
-            int hashCode = 13;
-            hashCode ^= this.name.GetHashCode() * 73;
-            hashCode ^= this.Type.GetHashCode() * 919;
-            hashCode *= this.effects.Count + this.isStackable.GetHashCode();
-            return hashCode;
-        }
-
         public override string ToString()
         {
             return this.name;
@@ -170,17 +136,17 @@
                     this.isStackable = false;
                     break;
             }
-            
+
             foreach (var effect in this.effects)
             {
-                effect.OnValidate();
+                effect.SetRange(effect.ValueChangeVariation.min, effect.ValueChangeVariation.max);
 
             }
 
             float rarity = 0.01f * multiplier;
 
             int[] effectsOfEachType = new int[4];
-            
+
 
 
             foreach (var effect in this.effects)
@@ -210,13 +176,38 @@
 
         private void RandomizeRange(AttributeModifier effect)
         {
-            Random.InitState(effect.TypeOfModifier.GetHashCode() ^ effect.AttributeAlias.GetHashCode() ^ this.name.GetHashCode());
+            Random.InitState(effect.TypeOfModifier.GetHashCode() ^ effect.AttributeAlias.GetHashCode() ^ effect.AffectedAttribute.name.GetHashCode() ^ this.name.GetHashCode());
             float min = Random.Range(.5f, 10);
             if (effect.TypeOfModifier > AttributeModifier.ModifierType.SUBTRACT)
             {
                 min = Random.Range(.01f, 3);
             }
-            effect.SetRange(min, Random.Range(min, min * Random.Range(1.5f, 3)));
+            min = GetValue(min);
+            var max = GetValue(min * Random.Range(1.5f, 4f));
+            effect.SetRange(min, GetValue(Random.Range(min, max)));
+        }
+
+        public float GetValue(float rawValue)
+        {
+            int intValue = (int)rawValue;
+            int remainder = (int)((rawValue - intValue) * 10) % 10;
+
+            if (remainder - 5 > 7)
+            {
+                intValue++;
+                remainder = 0;
+            }
+            else if (remainder - 5 > -2)
+            {
+                remainder = 5;
+            }
+            else
+            {
+                remainder = 0;
+            }
+
+
+            return intValue + (float)remainder / 10;
         }
 #endif
     }

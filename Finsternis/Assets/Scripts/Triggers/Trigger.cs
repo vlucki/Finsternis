@@ -22,7 +22,11 @@
         [SerializeField]
         private List<TriggerConstraint> constraints;
 
-        protected new Collider collider;
+        protected
+#if UNITY_EDITOR
+            new
+#endif
+            Collider collider;
 
         protected virtual void Awake()
         {

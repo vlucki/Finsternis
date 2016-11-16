@@ -8,17 +8,9 @@
         [System.Serializable]
         public struct RangeI
         {
-            public
-#if !UNITY_EDITOR
-                readonly 
-#endif
-                int minCardsToGive;
+            public int minCardsToGive;
 
-            public
-#if !UNITY_EDITOR
-                readonly 
-#endif
-                int maxCardsToGive;
+            public int maxCardsToGive;
         
             public RangeI(int min, int max)
             {

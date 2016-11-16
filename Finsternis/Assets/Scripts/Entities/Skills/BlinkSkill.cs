@@ -23,7 +23,11 @@ namespace Finsternis
         [SerializeField]
         private LayerMask blockingLayers;
 
-        private new Collider collider;
+        private
+#if UNITY_EDITOR 
+            new
+#endif
+            Collider collider;
 
         protected override void Awake()
         {

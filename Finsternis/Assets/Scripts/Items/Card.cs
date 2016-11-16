@@ -127,7 +127,7 @@
             Effect match = this.effects.Find(effect => effect.Merge(effectToAdd));
             if (!match)
             {
-                this.effects.Add((Effect)effectToAdd.Clone());
+                this.effects.Add(effectToAdd);
             }
         }
 
