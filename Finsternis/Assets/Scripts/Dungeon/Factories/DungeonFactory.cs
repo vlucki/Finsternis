@@ -95,7 +95,6 @@ namespace Finsternis
 
         public void Generate(int? seed = null)
         {
-            this.StopCoroutine(_Generate(seed));
             this.StartCoroutine(_Generate(seed));
         }
 

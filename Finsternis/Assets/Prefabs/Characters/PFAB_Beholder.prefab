@@ -171,6 +171,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013928724808}
+  - 114: {fileID: 114000013675602364}
   m_Layer: 9
   m_Name: corpo_olho
   m_TagString: Untagged
@@ -239,10 +240,10 @@ GameObject:
   - 114: {fileID: 114000012480000234}
   - 65: {fileID: 65000011687628890}
   - 114: {fileID: 114000013013584826}
-  - 114: {fileID: 114000010501127544}
   - 114: {fileID: 114000010616428166}
   - 114: {fileID: 114000012114631288}
   - 135: {fileID: 135000010862920324}
+  - 114: {fileID: 114000013442624232}
   m_Layer: 9
   m_Name: PFAB_Beholder
   m_TagString: Enemy
@@ -261,12 +262,9 @@ GameObject:
   - 33: {fileID: 33000013985216126}
   - 23: {fileID: 23000012257531462}
   - 114: {fileID: 114000012387807194}
-  - 64: {fileID: 64000012142469172}
   - 114: {fileID: 114000010309733666}
-  - 114: {fileID: 114000010746474134}
   - 135: {fileID: 135000012101430770}
-  - 64: {fileID: 64000013516079832}
-  - 64: {fileID: 64000012206388794}
+  - 54: {fileID: 54000014026957868}
   m_Layer: 9
   m_Name: polySurface1
   m_TagString: Untagged
@@ -918,49 +916,28 @@ Rigidbody:
   m_GameObject: {fileID: 1000012345338928}
   serializedVersion: 2
   m_Mass: 60
-  m_Drag: 1
+  m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
---- !u!64 &64000012142469172
-MeshCollider:
+--- !u!54 &54000014026957868
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012405632454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 0}
---- !u!64 &64000012206388794
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012405632454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 0}
---- !u!64 &64000013516079832
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012405632454}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65000011687628890
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1039,21 +1016,6 @@ MonoBehaviour:
   attributesThatInfluenceDamage: []
   attributesThatInfluenceImpact: []
   damageType: 0
---- !u!114 &114000010501127544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012345338928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 114000013013584826}
-  clips:
-  - {fileID: 8300000, guid: 28abba4cb4b238749ba24ba007425728, type: 3}
-  - {fileID: 8300000, guid: 9467c30d75e8fc4458a939536b080780, type: 3}
 --- !u!114 &114000010616428166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1079,40 +1041,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000010746474134
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012405632454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 9216
-  collidersToIgnore: []
-  constraints:
-  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
-  owner: {fileID: 0}
-  impactMultiplier: {x: 1, y: 1}
-  modeOnImpact: 2
-  ignoreOthersFromOwner: 1
-  attributesThatInfluenceDamage: []
-  attributesThatInfluenceImpact: []
-  damageType: 0
 --- !u!114 &114000011405039278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1320,7 +1248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
   maxSimultaneousClips: 10
-  type: 1
+  type: 2
 --- !u!114 &114000013332447426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1336,7 +1264,7 @@ MonoBehaviour:
   onExecute:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000010501127544}
+      - m_Target: {fileID: 114000013675602364}
         m_MethodName: PlayRandom
         m_Mode: 1
         m_Arguments:
@@ -1349,6 +1277,37 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114000013442624232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012345338928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114000013013584826}
+  clips:
+  - {fileID: 8300000, guid: eac8be65753f9bc429175e99e1573adb, type: 3}
+  - {fileID: 8300000, guid: deed008db8ff9bf44aa4b3543d496ab3, type: 3}
+  - {fileID: 8300000, guid: 89ed618ea62b0e54e895be6642eba092, type: 3}
+--- !u!114 &114000013675602364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011793509206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba76490b6b327d742beefaa4e5758383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114000013013584826}
+  clips:
+  - {fileID: 8300000, guid: 28abba4cb4b238749ba24ba007425728, type: 3}
+  - {fileID: 8300000, guid: 9467c30d75e8fc4458a939536b080780, type: 3}
 --- !u!114 &114000013790254882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1409,7 +1368,7 @@ MonoBehaviour:
   - {fileID: 0}
   wanderCycle: 1
   wanderFrequency: 0.5
-  reach: 1
+  reach: 1.2
   interestPersistence: 5
 --- !u!135 &135000010862920324
 SphereCollider:
@@ -1430,7 +1389,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012405632454}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.36812094

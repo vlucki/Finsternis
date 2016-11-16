@@ -54,6 +54,8 @@
 
         public void CreateDungeon(int? seed)
         {
+            this.Drawer.StopAllCoroutines();
+            this.Factory.StopAllCoroutines();
             Dungeon d = CurrentDungeon;
             if (d)
             {
