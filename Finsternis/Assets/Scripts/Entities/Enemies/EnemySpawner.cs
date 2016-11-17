@@ -1,6 +1,7 @@
 ﻿namespace Finsternis
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityQuery;
@@ -32,6 +33,18 @@
             if (enemiesHolder)
                 Destroy(enemiesHolder);
 
+            StopAllCoroutines();
+            StartCoroutine(_Spawn(dungeon));
+        }
+
+        private IEnumerator _Spawn(Dungeon dungeon)
+        {
+            if (!GameManager.Instance.Player)
+                yield return new WaitWhile(() => !GameManager.Instance.Player);
+
+            if(!dungeon)
+                yield break;
+
             baseEnemyDensity = 0.01f + Random.value / 10;
             enemiesHolder = new GameObject("Enemies");
 
@@ -51,6 +64,7 @@
                     enemiesSpawned,
                     roomsToSpawn);
 #endif
+                yield return null;
             }
         }
 

@@ -151,7 +151,7 @@
             return this.originalTarget != this.target;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (!this.target)
                 return;
