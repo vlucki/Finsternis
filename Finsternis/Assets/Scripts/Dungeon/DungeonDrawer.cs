@@ -41,6 +41,11 @@ namespace Finsternis
             return new Vector3(dungeonPosition.x * cellScale.x, 0, -dungeonPosition.y * cellScale.z);
         }
 
+        public Vector2 GetDungeonPosition(Vector3 worldPosition)
+        {
+            return new Vector2((int)(worldPosition.x / cellScale.x), (int)(-worldPosition.z / cellScale.z));
+        }
+
         public void Draw(Dungeon dungeon)
         {
             StopAllCoroutines();
@@ -53,10 +58,10 @@ namespace Finsternis
             this.dungeon.gameObject.SetLayer("Ignore Raycast");
             var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
             deathZoneBorders.isTrigger = true;
-            Vector3 dungeonCenter = GetWorldPosition(new Vector2(this.dungeon.Width, this.dungeon.Height) / 2);
+            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vector2.one/2);
 
-            deathZoneBorders.center = dungeonCenter.WithY(this.cellScale.y / 2);
-            deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 10, (this.dungeon.Height + 2) * this.cellScale.z);
+            deathZoneBorders.center = dungeonCenter;
+            deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 30, (this.dungeon.Height + 2) * this.cellScale.z);
             dungeon.gameObject.AddComponent<DeathZone>();
 
             this.drawnWalls = new HashSet<Vector2>();
@@ -147,13 +152,20 @@ namespace Finsternis
                 }
                 catch (NullReferenceException ex)
                 {
+#if DEBUG
                     string msg = "Failed to creat wall for cell " + cell.ToString("0") + "\n";
                     if (!dungeon[cell])
                         msg += "Position was null";
                     else if (dungeon[cell].Theme == null)
                         msg += "No theme set for cell " + dungeon[cell];
-#if DEBUG
                     Log.E(this, msg);
+#endif
+                }
+                catch (IndexOutOfRangeException ex)
+                {
+#if DEBUG
+                    string msg = "Failed to creat wall for cell {0}\nPosition was out of bounds";
+                    Log.E(this, msg, cell.ToString("0"));
 #endif
                 }
             }
@@ -203,11 +215,21 @@ namespace Finsternis
 
             if (!replacement)
             {
-                var floor = cell.AddChild(dungeon[dungeonPos].Theme.GetRandomFloor());
-                floor.transform.Rotate(Vector3.up, Random.Range(0, 4) * 90);
+                try
+                {
+                    var floor = cell.AddChild(dungeon[dungeonPos].Theme.GetRandomFloor());
+                    floor.transform.Rotate(Vector3.up, Random.Range(0, 4) * 90);
+                }
+                catch (IndexOutOfRangeException ex)
+                {
+#if DEBUG
+                    string msg = "Failed to creat wall for cell {0}\nPosition was out of bounds";
+                    Log.E(this, msg, dungeonPos.ToString("0"));
+#endif
+                }
             }
 
-            return cell;
+                return cell;
         }
 
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position, int count)

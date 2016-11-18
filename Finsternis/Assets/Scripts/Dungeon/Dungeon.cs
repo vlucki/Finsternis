@@ -37,6 +37,8 @@ namespace Finsternis
         private List<Corridor> corridors;
         private DungeonSection[,] dungeonGrid;
 
+        private Vector2 bottomRightCorner;
+
         private int remainingGoals;
 
         public int RemainingGoals { get { return this.remainingGoals; } }
@@ -67,7 +69,6 @@ namespace Finsternis
             {
                 if (customSeed)
                 {
-                    //random = new DungeonRandom(value);
                     UnityEngine.Random.InitState(value);
                     this.seed = value;
                 }
@@ -122,37 +123,44 @@ namespace Finsternis
         public List<Corridor> Corridors { get { return corridors; } }
         public List<Room> Rooms { get { return rooms; } }
 
-        public Vector2 GetCenter()
+        public void FitGridToSections()
         {
-            Vector2 farthesCell = Vector2.zero;
+            bottomRightCorner = Vector2.zero;
             for(int col = 0; col < this.Width; col++)
             {
                 for (int row = 0; row < this.Height; row++)
                 {
                     if (this[col, row])
                     {
-                        if (col > farthesCell.y)
-                            farthesCell.y = col;
-                        if (row > farthesCell.x)
-                            farthesCell.x = row;
+                        if (row > bottomRightCorner.y)
+                            bottomRightCorner.y = row;
+                        if (col > bottomRightCorner.x)
+                            bottomRightCorner.x = col;
                     }
                 }
             }
 
-            return farthesCell / 2;
+            var newGrid = new DungeonSection[(int)bottomRightCorner.x + 1, (int)bottomRightCorner.y + 1];
+            for (int col = 0; col < newGrid.GetLength(0); col++)
+            {
+                for (int row = 0; row < newGrid.GetLength(1); row++)
+                {
+                    newGrid[col, row] = this[col, row];
+                }
+            }
+
+            this.dungeonGrid = newGrid;
+        }
+
+        public Vector2 GetCenter()
+        {
+            return new Vector2(this.Width, this.Height) / 2;
         }
 
         public UnityEvent OnGoalCleared;
 
         public void Init(int width, int height)
         {
-            //if (Dungeon.Random == null)
-            //{
-            //    if (customSeed)
-            //        random = new DungeonRandom(this.seed);
-            //    else
-            //        random = new DungeonRandom();
-            //}
             if(customSeed)
                 UnityEngine.Random.InitState(this.seed);
 

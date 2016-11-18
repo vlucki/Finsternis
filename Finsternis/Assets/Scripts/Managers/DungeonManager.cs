@@ -10,11 +10,18 @@
     [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
     public class DungeonManager : MonoBehaviour
     {
+        [Serializable]
+        public class DungeonClearedEvent : CustomEvent<int> { }
+
         [SerializeField]
         private DungeonFactory dungeonFactory;
 
         [SerializeField]
         private DungeonDrawer dungeonDrawer;
+
+        public DungeonClearedEvent onDungeonCleared;
+
+        private int dungeonsCleared;
 
         private Dungeon currentDungeon;
 
@@ -40,11 +47,22 @@
                 {
                     if (dungeon.RemainingGoals <= 0)
                     {
-                        Exit e = FindObjectOfType<Exit>();
-                        e.Unlock();
+                        var exits = GameObject.FindGameObjectsWithTag("Exit");
+                        foreach (var eGO in exits)
+                        {
+                            var e = eGO.GetComponent<Exit>();
+                            e.Unlock();
+                            e.onExitCrossed.AddListener(exit => DungeonCleared());
+                        }
                     }
                 });
             });
+        }
+
+        private void DungeonCleared()
+        {
+            this.dungeonsCleared++;
+            this.onDungeonCleared.Invoke(this.dungeonsCleared);
         }
 
         public void CreateDungeon()

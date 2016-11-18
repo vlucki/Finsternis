@@ -1155,7 +1155,7 @@ MonoBehaviour:
   startUpTime: 1
   castTime: 1
   endTime: 1
-  cooldownTime: 0.3
+  cooldownTime: 1
   onBegin:
     m_PersistentCalls:
       m_Calls:

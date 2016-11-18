@@ -356,6 +356,8 @@ namespace Finsternis
 
             foreach (var room in dungeon.Rooms)
                 dungeon.MarkCells(room);
+
+            dungeon.FitGridToSections();
         }
 
         /// <summary>

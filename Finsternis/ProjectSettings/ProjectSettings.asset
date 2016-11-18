@@ -395,7 +395,7 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: LOG_INFO
+    1: 
   metroPackageName: Finsternis
   metroPackageVersion: 
   metroCertificatePath: 

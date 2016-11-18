@@ -2,7 +2,7 @@
 {
     using UnityEngine;
 
-    [RequireComponent(typeof(Character))]
+    [RequireComponent(typeof(Entity))]
     public abstract class EntityAction : MonoBehaviour
     {
         protected Entity agent;

@@ -21,7 +21,7 @@
         [Tooltip("The max velocity granted by Speed attribute")]
         private float speedMultiplier = 3f;
 
-        [Range(1, 10)]
+        [Range(1, 100)]
         [SerializeField]
         private float turningSpeed = 2;
 

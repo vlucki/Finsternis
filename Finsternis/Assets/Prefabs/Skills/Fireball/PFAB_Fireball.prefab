@@ -54,6 +54,7 @@ GameObject:
   - 108: {fileID: 108000012896329518}
   - 114: {fileID: 114000012614010864}
   - 114: {fileID: 114000010622212884}
+  - 114: {fileID: 114000012537757418}
   m_Layer: 9
   m_Name: PFAB_Fireball
   m_TagString: Untagged
@@ -182,7 +183,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!95 &9545300
 Animator:
@@ -5703,14 +5704,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150224}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   baseVelocityMultiplier: 2
   speedMultiplier: 5
-  turningSpeed: 5
+  turningSpeed: 10
   modeWhenApplyingForce: 2
 --- !u!114 &114000011756219920
 MonoBehaviour:
@@ -5723,6 +5724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964cd818260e50c41a2e5b436f78e2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -5744,6 +5746,7 @@ MonoBehaviour:
   attributes:
   - {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
   - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  initializationTable: {fileID: 0}
   onAttributeInitialized:
     m_PersistentCalls:
       m_Calls: []
@@ -5781,6 +5784,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114000012537757418}
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onExplode:
@@ -5809,6 +5823,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114000012537757418}
+        m_MethodName: Deactivate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &114000011914851888
@@ -5827,6 +5852,31 @@ MonoBehaviour:
   shakeAmplitude: 20
   shakeFrequency: 20
   compoundShaking: 1
+--- !u!114 &114000012537757418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8f0e59f41391e4e9952626c5ecc4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 20
+  persistenceRange: 2
+  tagToConsider: Enemy
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 5376
+  targetsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  onTargetChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000012614010864
 MonoBehaviour:
   m_ObjectHideFlags: 1

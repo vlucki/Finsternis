@@ -1789,8 +1789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8f0e59f41391e4e9952626c5ecc4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
-  persistenceRange: 10
+  detectionRange: 8
+  persistenceRange: 12
   tagToConsider: Enemy
   obstaclesLayer:
     serializedVersion: 2
@@ -2057,7 +2057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseVelocityMultiplier: 9.75
   speedMultiplier: 3
-  turningSpeed: 3
+  turningSpeed: 8
   modeWhenApplyingForce: 5
 --- !u!114 &114000014202934784
 MonoBehaviour:
