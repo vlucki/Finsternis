@@ -8,6 +8,9 @@
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class MenuController : MonoBehaviour
     {
+        [Serializable]
+        public class MenuEvent : CustomEvent<MenuController> { }
+
         #region variables
         private EventSystem evtSystem;
         protected UnityEvent onFinishedToggling;
@@ -21,8 +24,8 @@
         public UnityEvent OnBeganOpening;
         public UnityEvent OnBeganClosing;
 
-        public UnityEvent OnOpen;
-        public UnityEvent OnClose;
+        public MenuEvent OnOpen;
+        public MenuEvent OnClose;
         #endregion
 
         #region Properties
@@ -60,28 +63,33 @@
             if (this.keepPlayerLocked)
             {
                 if (!GameManager.Instance.Player)
-                    GameManager.Instance.OnPlayerSpawned.AddListener(AddPlayerCheck);
+                    GameManager.Instance.onPlayerSpawned.AddListener(AddPlayerCheck);
                 else
-                    AddPlayerCheck();
+                    AddPlayerCheck(GameManager.Instance.Player);
             }
         }
 
-        private void AddPlayerCheck()
+        private void AddPlayerCheck(CharController player)
         {
-            GameManager.Instance.Player.onUnlock.AddListener(LockPlayerBack);
+            GameManager.Instance.onPlayerSpawned.RemoveListener(AddPlayerCheck);
+            player.onUnlock.AddListener(LockPlayerBack);
         }
 
-        private void LockPlayerBack()
+        private void LockPlayerBack(CharController player)
         {
-            if ((this.IsOpen || this.IsOpening) && !GameManager.Instance.Player.IsLocked)
-                GameManager.Instance.Player.Lock();
+            if (this.IsOpen || this.IsOpening)
+                player.Lock();
         }
 
         void OnDestroy()
         {
-            GameManager.Instance.OnPlayerSpawned.RemoveListener(AddPlayerCheck);
+            GameManager.Instance.onPlayerSpawned.RemoveListener(AddPlayerCheck);
         }
 
+        /// <summary>
+        /// Opens the menu if it's closed or close it if it's open.
+        /// </summary>
+        /// <param name="immediately">Wheter BeginOpening/Closing should be skipped or not.</param>
         public void Toggle(bool immediately = false)
         {
             if (!IsOpen)
@@ -101,19 +109,23 @@
         }
 
         /// <summary>
-        /// Opens the menu
+        /// Sets the menu up for being opened, activating its game object.
         /// </summary>
         public virtual void BeginOpening()
         {
+            this.gameObject.SetActive(true);
+
+            if (this.IsOpen)
+                return;
+
             if (this.keepPlayerLocked && GameManager.Instance.Player)
                 GameManager.Instance.Player.Lock();
             IsOpening = true;
-            gameObject.SetActive(true);
             this.OnBeganOpening.Invoke();
         }
 
         /// <summary>
-        /// Closes the menu
+        /// Sets the menu up for being closed.
         /// </summary>
         public virtual void BeginClosing()
         {
@@ -121,20 +133,29 @@
             this.CanvasGroup.interactable = false;
         }
 
+        /// <summary>
+        /// Opens the menus
+        /// </summary>
         public virtual void Open()
         {
+            if (this.IsOpen)
+                return;
+
             IsOpening = false;
             IsOpen = true;
             this.CanvasGroup.interactable = true;
             SkipCloseEvent = false;
-            OnOpen.Invoke();
+            OnOpen.Invoke(this);
         }
 
+        /// <summary>
+        /// Closes the menu and deactivate its gameobject.
+        /// </summary>
         public virtual void Close()
         {
             IsOpen = false;
             if (!SkipCloseEvent)
-                OnClose.Invoke();
+                OnClose.Invoke(this);
             gameObject.SetActive(false);
 
             if (this.keepPlayerLocked && GameManager.Instance.Player)

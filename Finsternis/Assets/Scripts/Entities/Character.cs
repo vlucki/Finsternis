@@ -77,17 +77,19 @@
                 return;
 
             float finalDamage = info.Amount;
-            if (info.Type == DamageInfo.DamageType.physical)
+            switch (info.Type)
             {
-                finalDamage -= this.defense.Value * 0.9f;
-            }
-            else
-            {
-                var inteligence = GetAttribute("int");
-                if (inteligence)
-                {
-                    finalDamage -= (this.defense.Value / 5 + inteligence.Value / 2);
-                }
+                case DamageInfo.DamageType.physical:
+                    finalDamage -= this.defense.Value * 0.9f;
+                    break;
+                case DamageInfo.DamageType.magical:
+                    var inteligence = GetAttribute("int");
+                    if (inteligence)
+                    {
+                        finalDamage -= (this.defense.Value / 5 + inteligence.Value / 2);
+                    }
+                    break;
+
             }
 
             finalDamage = Mathf.Max(0, finalDamage);

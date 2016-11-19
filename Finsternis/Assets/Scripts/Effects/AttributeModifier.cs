@@ -78,7 +78,9 @@
 
         public void UpdateName()
         {
-            this.name = affectedAttribute.name + ((modifierType == ModifierType.SUM || modifierType == ModifierType.MULTIPLY) ? " buff" : " debuff");
+            if (this.affectedAttribute)
+                this.name = affectedAttribute.name;
+            this.name += ((modifierType == ModifierType.SUM || modifierType == ModifierType.MULTIPLY) ? " buff" : " debuff");
         }
 
         public void SetRange(float min, float max)

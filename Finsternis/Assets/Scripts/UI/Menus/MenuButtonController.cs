@@ -23,8 +23,7 @@
         private Text label;
         private Vector3 targetScale;
         private float targetLabelAlpha;
-
-        public Button Button { get; private set; }
+        
         public bool IsSelected { get; private set; }
 
         protected override void Awake()

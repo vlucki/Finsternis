@@ -17,9 +17,6 @@ public class InputControl : ScriptableObject
     [AxesName][SerializeField]
     private string axis;
 
-    [NonSerialized]
-    private bool enabled = true;
-
     [SerializeField]
     private ThresholdTypeEnum thresholdType = ThresholdTypeEnum.DIFFERENT_THAN;
 
@@ -30,6 +27,9 @@ public class InputControl : ScriptableObject
     [Range(0, 10)]
     [SerializeField]
     private float repeatDelay = 0f;
+
+    [SerializeField]
+    private bool enabled = true;
 
     public string Axis
     {
@@ -66,7 +66,11 @@ public class InputControl : ScriptableObject
     /// <summary>
     /// Unmodified value from the axis.
     /// </summary>
-    public float AxisValue { get { return Input.GetAxis(Axis); } }
+    public float AxisValue {
+        get {
+            float axisValue = Input.GetAxis(Axis);
+            return axisValue;
+        } }
 
     /// <summary>
     /// Returns false if the axis value is 0, true otherwise.

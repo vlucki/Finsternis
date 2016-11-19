@@ -6,7 +6,8 @@
         public enum DamageType
         {
             physical = 0,
-            magical = 10
+            magical = 10,
+            absolute = 20
         }
 
         private DamageType type;

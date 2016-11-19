@@ -8,15 +8,25 @@ ModelImporter:
     100000: //RootNode
     100002: Barril
     100004: Parte _de_cima
+    100006: body
+    100008: top
     400000: //RootNode
     400002: Barril
     400004: Parte _de_cima
+    400006: body
+    400008: top
     2300000: Barril
     2300002: Parte _de_cima
+    2300004: body
+    2300006: top
     3300000: Barril
     3300002: Parte _de_cima
+    3300004: body
+    3300006: top
     4300000: Parte _de_cima
     4300002: Barril
+    4300004: top
+    4300006: body
   materials:
     importMaterials: 1
     materialName: 1

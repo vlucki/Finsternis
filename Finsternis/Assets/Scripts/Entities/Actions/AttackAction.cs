@@ -24,14 +24,14 @@ namespace Finsternis
         {
             base.Awake();
 
-            if (baseDamage)
+            if (this.baseDamage)
             {
                 agent.onAttributeInitialized.AddListener(
                     attribute =>
                     {
                         if (attribute.Alias.Equals(baseDamage.Alias))
                         {
-                            baseDamage = attribute;
+                            this.baseDamage = attribute;
                         }
                     }
                     );
@@ -69,9 +69,10 @@ namespace Finsternis
                 return;
             }
 
-            float totalDamage = (baseDamage ? baseDamage.Value : 0) + extraDamage;
+            float totalDamage = (this.baseDamage ? this.baseDamage.Value : 0) + extraDamage;
 
-            dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+            this.dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+
             foreach (Entity target in targets)
                 target.Interact(this);
 

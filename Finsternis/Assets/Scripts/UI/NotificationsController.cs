@@ -17,12 +17,11 @@
 
         void Awake()
         {
-            GameManager.Instance.OnPlayerSpawned.AddListener(Init);
+            GameManager.Instance.onPlayerSpawned.AddListener(Init);
         }
 
-        void Init()
+        void Init(CharController player)
         {
-            var player = GameManager.Instance.Player;
             if (!notificationCanvas)
                 notificationCanvas = FindObjectOfType<Canvas>();
             Inventory i = player.GetComponent<Inventory>();

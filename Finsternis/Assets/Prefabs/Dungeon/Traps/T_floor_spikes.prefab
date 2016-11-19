@@ -11,8 +11,8 @@ GameObject:
   - 33: {fileID: 3316734}
   - 23: {fileID: 2380742}
   - 65: {fileID: 6535084}
-  - 114: {fileID: 11497344}
   - 54: {fileID: 54000013535085056}
+  - 114: {fileID: 114000010114958366}
   m_Layer: 8
   m_Name: spike06
   m_TagString: Untagged
@@ -31,8 +31,8 @@ GameObject:
   - 33: {fileID: 3300330}
   - 23: {fileID: 2396256}
   - 65: {fileID: 6516854}
-  - 114: {fileID: 11428858}
   - 54: {fileID: 54000011710109446}
+  - 114: {fileID: 114000011599047332}
   m_Layer: 8
   m_Name: spike03
   m_TagString: Untagged
@@ -51,8 +51,8 @@ GameObject:
   - 33: {fileID: 3318702}
   - 23: {fileID: 2379858}
   - 65: {fileID: 6501698}
-  - 114: {fileID: 11427810}
   - 54: {fileID: 54000011830952808}
+  - 114: {fileID: 114000012498295824}
   m_Layer: 8
   m_Name: spike08
   m_TagString: Untagged
@@ -71,8 +71,8 @@ GameObject:
   - 33: {fileID: 3341382}
   - 23: {fileID: 2327182}
   - 65: {fileID: 6514954}
-  - 114: {fileID: 11494892}
   - 54: {fileID: 54000013929273862}
+  - 114: {fileID: 114000010599067938}
   m_Layer: 8
   m_Name: spike09
   m_TagString: Untagged
@@ -91,8 +91,8 @@ GameObject:
   - 33: {fileID: 3340574}
   - 23: {fileID: 2321342}
   - 65: {fileID: 6566052}
-  - 114: {fileID: 11496768}
   - 54: {fileID: 54000010874160020}
+  - 114: {fileID: 114000012598657666}
   m_Layer: 8
   m_Name: spike07
   m_TagString: Untagged
@@ -111,8 +111,8 @@ GameObject:
   - 33: {fileID: 3381686}
   - 23: {fileID: 2372950}
   - 65: {fileID: 6506210}
-  - 114: {fileID: 11402970}
   - 54: {fileID: 54000011079414664}
+  - 114: {fileID: 114000013788552760}
   m_Layer: 8
   m_Name: spike010
   m_TagString: Untagged
@@ -131,8 +131,8 @@ GameObject:
   - 33: {fileID: 3366706}
   - 23: {fileID: 2393114}
   - 65: {fileID: 6556750}
-  - 114: {fileID: 11461624}
   - 54: {fileID: 54000013125975118}
+  - 114: {fileID: 114000012116073890}
   m_Layer: 8
   m_Name: spike011
   m_TagString: Untagged
@@ -151,8 +151,8 @@ GameObject:
   - 33: {fileID: 3307486}
   - 23: {fileID: 2326978}
   - 65: {fileID: 6553554}
-  - 114: {fileID: 11437900}
   - 54: {fileID: 54000011711212456}
+  - 114: {fileID: 114000012428306198}
   m_Layer: 8
   m_Name: spike02
   m_TagString: Untagged
@@ -171,8 +171,8 @@ GameObject:
   - 33: {fileID: 3314778}
   - 23: {fileID: 2365612}
   - 65: {fileID: 6596790}
-  - 114: {fileID: 11409298}
   - 54: {fileID: 54000013786805726}
+  - 114: {fileID: 114000010267618638}
   m_Layer: 8
   m_Name: spike012
   m_TagString: Untagged
@@ -191,8 +191,8 @@ GameObject:
   - 33: {fileID: 3379558}
   - 23: {fileID: 2373666}
   - 65: {fileID: 6515064}
-  - 114: {fileID: 11424448}
   - 54: {fileID: 54000013636895386}
+  - 114: {fileID: 114000010829213904}
   m_Layer: 8
   m_Name: spike04
   m_TagString: Untagged
@@ -211,8 +211,8 @@ GameObject:
   - 33: {fileID: 3349914}
   - 23: {fileID: 2383008}
   - 65: {fileID: 6503764}
-  - 114: {fileID: 11450488}
   - 54: {fileID: 54000011652545574}
+  - 114: {fileID: 114000011921821024}
   m_Layer: 8
   m_Name: spike05
   m_TagString: Untagged
@@ -232,8 +232,8 @@ GameObject:
   - 23: {fileID: 2309520}
   - 95: {fileID: 9575590}
   - 65: {fileID: 6522632}
-  - 114: {fileID: 11449388}
-  - 114: {fileID: 11404476}
+  - 114: {fileID: 114000011287831198}
+  - 114: {fileID: 114000011344058438}
   m_Layer: 8
   m_Name: T_floor_spikes
   m_TagString: Untagged
@@ -252,8 +252,8 @@ GameObject:
   - 33: {fileID: 3350990}
   - 23: {fileID: 2345430}
   - 65: {fileID: 6511966}
-  - 114: {fileID: 11464508}
   - 54: {fileID: 54000010599326742}
+  - 114: {fileID: 114000012096239968}
   m_Layer: 8
   m_Name: spike01
   m_TagString: Untagged
@@ -1083,638 +1083,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11402970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11404476
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamage: {fileID: 0}
-  onExecute:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
---- !u!114 &11409298
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11424448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 184488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11427810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11428858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11437900
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 165656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11449388
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 193676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d46e44eadd1ba249af7594ad1520775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: 
-  interactable: 1
-  interactionConstraints: []
-  entityEvents:
-    onInteraction:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    onEnable:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    onDisable:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  attributes: []
-  initializationTable: {fileID: 0}
-  onAttributeInitialized:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  damageModifierOnTouch: 2
-  damageModifierOnStay: 1
---- !u!114 &11450488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11461624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 151020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11464508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 198194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11494892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11496768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
---- !u!114 &11497344
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnTouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11449388}
-        m_MethodName: OnExit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 5408
-  collidersToIgnore: []
-  constraints: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -1906,3 +1274,651 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114000010114958366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000010267618638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000010599067938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000010829213904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000011287831198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d46e44eadd1ba249af7594ad1520775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Floor Spikes
+  interactable: 1
+  interactionConstraints: []
+  entityEvents:
+    onInteraction:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    onEnable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    onDisable:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Finsternis.Entity+EntityEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  attributes:
+  - {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  initializationTable: {fileID: 11400000, guid: 748c6bd84870a5246ba8cc8cb2b13b20,
+    type: 2}
+  onAttributeInitialized:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Entity+AttributeInitializedEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDeactivated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &114000011344058438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDamage: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &114000011599047332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000011921821024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000012096239968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000012116073890
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000012428306198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 165656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000012498295824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000012598657666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20
+--- !u!114 &114000013788552760
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  layersToIgnore:
+    serializedVersion: 2
+    m_Bits: 4294966783
+  collidersToIgnore:
+  - {fileID: 6511966}
+  - {fileID: 6553554}
+  - {fileID: 6516854}
+  - {fileID: 6515064}
+  - {fileID: 6503764}
+  - {fileID: 6535084}
+  - {fileID: 6566052}
+  - {fileID: 6501698}
+  - {fileID: 6514954}
+  - {fileID: 6506210}
+  - {fileID: 6556750}
+  - {fileID: 6596790}
+  constraints: []
+  owner: {fileID: 0}
+  impactMultiplier: {x: 1, y: 1}
+  modeOnImpact: 2
+  ignoreOthersFromOwner: 1
+  attributesThatInfluenceDamage:
+  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+    influenceType: 0
+    attributeMultiplier: 1
+  attributesThatInfluenceImpact: []
+  damageType: 20

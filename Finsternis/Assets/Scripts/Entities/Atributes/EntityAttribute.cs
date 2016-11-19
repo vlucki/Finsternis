@@ -291,28 +291,7 @@
                 toStr = alias + ": " + toStr;
             return toStr;
         }
-
-        public override bool Equals(object o)
-        {
-            EntityAttribute other = o as EntityAttribute;
-            if (!other)
-                return false;
-
-            return other.alias.Equals(this.name) && (this.HasMinimumValue == other.HasMinimumValue) && (this.HasMaximumValue == other.HasMaximumValue);
-        }
-
-        public override int GetHashCode()
-        {
-            int hashCode = 13;
-            hashCode *= this.name.GetHashCode() ^ this.alias.GetHashCode();
-
-            if (HasMaximumValue)
-                hashCode *= Mathf.CeilToInt(max);
-            if (HasMinimumValue)
-                hashCode *= Mathf.CeilToInt(Mathf.Max(1, min));
-
-            return hashCode;
-        }
+        
 #if UNITY_EDITOR
 
         float lastMin;

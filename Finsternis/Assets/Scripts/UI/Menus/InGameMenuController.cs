@@ -41,7 +41,7 @@ namespace Finsternis
             this.options = new List<MenuButtonController>();
             this.eyeController = GetComponentInChildren<MenuEyeController>();
 
-            OnOpen.AddListener(() =>
+            OnOpen.AddListener(menu =>
             {
                 if (!lastSelected)
                     lastSelected = options[0];
@@ -93,9 +93,11 @@ namespace Finsternis
                 if (rightOption >= this.options.Count)
                     rightOption = 0;
 
-                Navigation n = options[i].navigation;
+                Navigation n = new Navigation();
+                n.mode = Navigation.Mode.Explicit;
                 n.selectOnRight = options[rightOption];
                 n.selectOnLeft = options[leftOption];
+                options[i].navigation = n;
                 options[i].OnSelectionChanged.RemoveListener(UpdateSelectedButton);
                 options[i].OnSelectionChanged.AddListener(UpdateSelectedButton);
             }

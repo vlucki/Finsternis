@@ -6,6 +6,8 @@
 
     public class CardsManager : MonoBehaviour
     {
+        public UnityEngine.Events.UnityEvent onCardGivenToPlayer;
+
         [SerializeField]
         private List<CardName> cardNames;
 
@@ -47,6 +49,8 @@
             }
             while((--quantity) >= 0)
                 PlayerInventory.AddCard(this.cardFactory.MakeCard());
+
+            onCardGivenToPlayer.Invoke();
         }
     }
 }

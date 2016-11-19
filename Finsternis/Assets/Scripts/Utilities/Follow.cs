@@ -1,9 +1,7 @@
 ﻿namespace Finsternis {
     using UnityEngine;
-    using System.Collections;
     using UnityEngine.Events;
     using UnityQuery;
-    using System;
 
     public class Follow : MonoBehaviour
     {
@@ -80,18 +78,18 @@
             memorizedOffset = offset;
             originalTarget = target;
             if(GameManager.Instance)
-                GameManager.Instance.OnPlayerSpawned.AddListener(Init);
+                GameManager.Instance.onPlayerSpawned.AddListener(Init);
         }
 
         void OnDestroy()
         {
             if (GameManager.Instance)
-                GameManager.Instance.OnPlayerSpawned.RemoveListener(Init);
+                GameManager.Instance.onPlayerSpawned.RemoveListener(Init);
         }
 
-        private void Init()
+        private void Init(CharController player)
         {
-            SetTarget(GameManager.Instance.Player.transform);
+            SetTarget(player.transform);
         }
 
         public void SetTarget(Transform target)

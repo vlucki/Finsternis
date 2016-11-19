@@ -58,7 +58,7 @@ namespace Finsternis
             this.dungeon.gameObject.SetLayer("Ignore Raycast");
             var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
             deathZoneBorders.isTrigger = true;
-            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vector2.one/2);
+            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vector2.one / 2);
 
             deathZoneBorders.center = dungeonCenter;
             deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 30, (this.dungeon.Height + 2) * this.cellScale.z);
@@ -153,19 +153,19 @@ namespace Finsternis
                 catch (NullReferenceException ex)
                 {
 #if DEBUG
-                    string msg = "Failed to creat wall for cell " + cell.ToString("0") + "\n";
+                    string msg = "{0}\nFailed to creat wall for cell {1}\n";
                     if (!dungeon[cell])
                         msg += "Position was null";
                     else if (dungeon[cell].Theme == null)
-                        msg += "No theme set for cell " + dungeon[cell];
-                    Log.E(this, msg);
+                        msg += "No theme set for " + dungeon[cell];
+                    Log.E(this, msg, ex, cell.ToString("0"));
 #endif
                 }
                 catch (IndexOutOfRangeException ex)
                 {
 #if DEBUG
-                    string msg = "Failed to creat wall for cell {0}\nPosition was out of bounds";
-                    Log.E(this, msg, cell.ToString("0"));
+                    string msg = "{0}\nFailed to creat wall for cell {1}\nPosition was out of bounds";
+                    Log.E(this, msg, ex, cell.ToString("0"));
 #endif
                 }
             }
@@ -201,7 +201,7 @@ namespace Finsternis
                 DungeonFeature lastFeature = null;
                 foreach (var feature in featuresList)
                 {
-                    if(feature != lastFeature)
+                    if (feature != lastFeature)
                     {
                         lastFeature = feature;
                         count = 1;
@@ -215,21 +215,25 @@ namespace Finsternis
 
             if (!replacement)
             {
+                GameObject floor;
                 try
                 {
-                    var floor = cell.AddChild(dungeon[dungeonPos].Theme.GetRandomFloor());
-                    floor.transform.Rotate(Vector3.up, Random.Range(0, 4) * 90);
+                    floor = cell.AddChild(dungeon[dungeonPos].Theme.GetRandomFloor());
                 }
                 catch (IndexOutOfRangeException ex)
                 {
+                    floor = cell.AddChild(GameObject.CreatePrimitive(PrimitiveType.Quad));
+                    floor.transform.rotation = Quaternion.Euler(90, 0, 0);
 #if DEBUG
-                    string msg = "Failed to creat wall for cell {0}\nPosition was out of bounds";
-                    Log.E(this, msg, dungeonPos.ToString("0"));
+                    string msg = "{0}\nFailed to creat wall for cell {1}\nPosition was out of bounds";
+                    Log.E(this, msg, ex, dungeonPos.ToString("0"));
 #endif
                 }
+
+                floor.transform.Rotate(Vector3.up, Random.Range(0, 4) * 90, Space.World);
             }
 
-                return cell;
+            return cell;
         }
 
         private GameObject MakeFeature(DungeonFeature feature, Vector2 position, int count)

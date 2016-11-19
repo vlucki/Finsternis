@@ -11,7 +11,8 @@ namespace Finsternis
     [RequireComponent(typeof(Character), typeof(MovementAction), typeof(Animator))]
     public class CharController : MonoBehaviour
     {
-
+        [Serializable]
+        public class CharControllerEvent : CustomEvent<CharController> { }
         public static readonly int AttackTrigger;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;
@@ -21,9 +22,9 @@ namespace Finsternis
         public static readonly int HitType;
         public static readonly int SpeedFloat;
 
-        public UnityEvent onLock;
-        public UnityEvent onUnlock;
-        public UnityEvent onHit;
+        public CharControllerEvent onLock;
+        public CharControllerEvent onUnlock;
+        public CharControllerEvent onHit;
 
         protected Character character;
 
@@ -208,7 +209,7 @@ namespace Finsternis
 
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
-            onHit.Invoke();
+            onHit.Invoke(this);
         }
 
         public virtual void Attack(float slot = 0)
@@ -282,7 +283,7 @@ namespace Finsternis
             characterMovement.MovementDirection = (characterMovement.MovementDirection.OnlyY());
             foreach (var action in this.GetComponentsInChildren<EntityAction>())
                 action.Disable();
-            onLock.Invoke();
+            onLock.Invoke(this);
         }
 
         public void LockAndDisable()
@@ -318,7 +319,7 @@ namespace Finsternis
                 action.Enable();
 
             this.isLocked = false;
-            onUnlock.Invoke();
+            onUnlock.Invoke(this);
         }
 
 #if UNITY_EDITOR

@@ -4,16 +4,15 @@
     using UnityEngine.SceneManagement;
     using System;
     using UnityQuery;
-    using System.Collections;
-    using UnityEngine.Events;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityStandardAssets.ImageEffects;
 
     [AddComponentMenu("Finsternis/Game Manager")]
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
+        [Serializable]
+        public class PlayerSpawnedEvent : CustomEvent<CharController> { }
 
         [SerializeField]
         public struct Callback
@@ -45,7 +44,7 @@
         [SerializeField][SceneSelection]
         private string mainGameName = "DungeonGeneration";
 
-        public UnityEvent OnPlayerSpawned;
+        public PlayerSpawnedEvent onPlayerSpawned;
         #endregion
 
         private Dictionary<string, List<Callback>> globalEvents;
@@ -164,7 +163,7 @@
                 this.CallDelayed(2, GameOver);
             });
             this.CallDelayed(1, this.player.GetComponent<InputRouter>().Enable);
-            OnPlayerSpawned.Invoke();
+            onPlayerSpawned.Invoke(this.player);
         }
 
         public void SpawnPlayerAtEntrance(GameObject playerPrefab)

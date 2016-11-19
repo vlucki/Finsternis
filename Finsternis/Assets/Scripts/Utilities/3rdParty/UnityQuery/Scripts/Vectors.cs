@@ -166,12 +166,6 @@ namespace UnityQuery
             return new Vector3(v.x, v.y, v.z + value);
         }
 
-        public static bool Compare(this Vector3 v, Vector3 other)
-        {
-            return Mathf.Approximately(v.x, other.x) && Mathf.Approximately(v.y, other.y) && Mathf.Approximately(v.z, other.z);
-
-        }
-
         public static bool Compare(this Vector2 v, float x, float y, bool approximate = false)
         {
             if (approximate)
