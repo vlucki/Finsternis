@@ -105,8 +105,8 @@
                 Init();
                 if (!LoadSavedGame())
                 {
+                    Resources.FindObjectsOfTypeAll<CharacterSelectionMenu>()[0].BeginOpening();
                     CreateDungeon();
-                    FindObjectOfType<CharacterSelectionMenu>().BeginOpening();
                 }
             }
         }

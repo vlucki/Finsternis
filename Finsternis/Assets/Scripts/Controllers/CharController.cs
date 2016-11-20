@@ -9,7 +9,7 @@ namespace Finsternis
     [AddComponentMenu("Finsternis/Char Controller")]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Character), typeof(MovementAction), typeof(Animator))]
-    public class CharController : MonoBehaviour
+    public class CharController : CustomBehaviour
     {
         [Serializable]
         public class CharControllerEvent : CustomEvent<CharController> { }
@@ -53,6 +53,7 @@ namespace Finsternis
         private bool isLocked;
         private bool waitingForDelay;
         private Coroutine unlockDelayedCall;
+        private List<EntityAction> actions;
 
         public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
@@ -73,12 +74,18 @@ namespace Finsternis
             SpeedFloat = Animator.StringToHash("speed");
         }
 
-        public virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
+            this.transform = base.transform;
             this.isLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
             character = GetComponent<Character>();
+
+            this.actions = new List<EntityAction>();
+            this.GetComponentsInChildren<EntityAction>(this.actions);
         }
 
         public virtual void Start()
@@ -281,7 +288,7 @@ namespace Finsternis
             this.isLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
             characterMovement.MovementDirection = (characterMovement.MovementDirection.OnlyY());
-            foreach (var action in this.GetComponentsInChildren<EntityAction>())
+            foreach (var action in this.actions)
                 action.Disable();
             onLock.Invoke(this);
         }
@@ -304,6 +311,12 @@ namespace Finsternis
             this.unlockDelayedCall = this.CallDelayed(delay, Unlock);
         }
 
+        public void EnableAndUnlock()
+        {
+            this.Enable();
+            this.Unlock();
+        }
+
         public void Unlock()
         {
             if (!this.isActiveAndEnabled)
@@ -315,7 +328,7 @@ namespace Finsternis
                 this.waitingForDelay = false;
             }
 
-            foreach (var action in this.GetComponentsInChildren<EntityAction>())
+            foreach (var action in this.actions)
                 action.Enable();
 
             this.isLocked = false;

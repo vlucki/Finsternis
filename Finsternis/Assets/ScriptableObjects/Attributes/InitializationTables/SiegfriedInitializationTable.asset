@@ -18,8 +18,8 @@ MonoBehaviour:
       max: 10
   - attribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
     range:
-      min: 3
-      max: 6
+      min: 4
+      max: 8
   - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
     range:
       min: 3
@@ -38,5 +38,5 @@ MonoBehaviour:
       max: 12
   - attribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
     range:
-      min: 10
-      max: 13
+      min: 12
+      max: 18

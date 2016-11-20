@@ -53,33 +53,33 @@
 
         [SerializeField][Range(1, 50)]
         private int maxSFXSources = 10;
+        
+        private AudioClip lastBGS;
+
+        /// <summary>
+        /// Similar to an "Undo" command, replays the last if any, and discards it. If there was no last BGS, it simply stops the one currently played, if any.
+        /// </summary>
+        internal void ReplayLastBGS()
+        {
+            if (this.lastBGS)
+            {
+                var last = this.lastBGS;
+                PlayBGS(this.lastBGS);
+                this.lastBGS = null;
+            }
+            else
+            {
+                AudioSource activeBGS = this.BGS.A.isPlaying ? this.BGS.A : this.BGS.B.isPlaying ? this.BGS.B : null;
+                if (activeBGS)
+                {
+                    this.FadeOut(activeBGS);
+                }
+            }
+        }
 
         private Dictionary<AudioSource, Coroutine> transitions;
 
         private List<AudioSource> sfxSourcesPool;
-
-#if DEBUG
-        [Header("Debug only")]
-        public AudioClip toPlayA;
-        public AudioClip toPlayB;
-        [Range(1, 20)]
-        public float delay = 10;
-
-        void Start()
-        {
-            PlayBGM(toPlayA);
-            this.CallDelayed(delay, TestXFade, toPlayB);
-        }
-
-        private void TestXFade(AudioClip clip)
-        {
-            PlayBGM(clip);
-            if(clip == toPlayA)
-                this.CallDelayed(delay, TestXFade, toPlayB);
-            else
-                this.CallDelayed(delay, TestXFade, toPlayA);
-        }
-#endif
         void Awake()
         {
             this.transitions = new Dictionary<AudioSource, Coroutine>();

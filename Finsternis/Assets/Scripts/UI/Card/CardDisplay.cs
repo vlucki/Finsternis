@@ -6,7 +6,7 @@
     using UnityEngine.UI;
     using UnityQuery;
 
-    public class CardController : MonoBehaviour
+    public class CardDisplay : MonoBehaviour
     {
         private Image cardImage;
         private Text cardNameField;

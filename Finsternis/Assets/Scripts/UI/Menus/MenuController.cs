@@ -6,7 +6,7 @@
     using UnityEngine.EventSystems;
 
     [RequireComponent(typeof(CanvasGroup))]
-    public abstract class MenuController : MonoBehaviour
+    public abstract class MenuController : CustomBehaviour
     {
         [Serializable]
         public class MenuEvent : CustomEvent<MenuController> { }
@@ -57,8 +57,9 @@
 
         #region methods
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             onFinishedToggling = new UnityEvent();
             if (this.keepPlayerLocked)
             {

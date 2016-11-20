@@ -14,8 +14,7 @@ namespace Finsternis
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            animator.GetComponent<CharController>().enabled = true;
-            animator.GetComponent<CharController>().Unlock();
+            animator.GetComponent<CharController>().EnableAndUnlock();
         }
     }
 }

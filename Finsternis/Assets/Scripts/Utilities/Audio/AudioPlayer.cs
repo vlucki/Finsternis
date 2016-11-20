@@ -1,12 +1,10 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
     using UnityEngine.Audio;
 
-    public abstract class AudioPlayer : MonoBehaviour
+    public abstract class AudioPlayer : CustomBehaviour
     {
-
         [SerializeField]
         protected AudioMixerGroup group;
 
@@ -14,8 +12,10 @@
 
         public void SetGroup(AudioMixerGroup group) { this.group = group; }
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             var managerObj = GameObject.FindGameObjectWithTag("AudioManager");
             if (managerObj)
             {

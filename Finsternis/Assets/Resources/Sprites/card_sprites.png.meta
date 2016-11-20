@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6791fc55e5286d84285ee1f68aa31885
-timeCreated: 1477387751
+timeCreated: 1479679629
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,11 @@ TextureImporter:
     21300008: Cape
     21300010: Boots
     21300012: Tome
+    21300014: Gauntlet
+    21300016: Gauntlet2
+    21300018: Ring
+    21300020: Amulet
+    21300022: Amulet2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,96 +65,161 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cape2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 400
-        height: 400
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
       name: Robe
       rect:
         serializedVersion: 2
         x: 0
-        y: 401
-        width: 400
-        height: 400
-      alignment: 9
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Chainmail
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 0
-        width: 400
-        height: 400
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: Staff
       rect:
         serializedVersion: 2
-        x: 401
-        y: 401
-        width: 400
-        height: 400
-      alignment: 9
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: Cape
       rect:
         serializedVersion: 2
-        x: 802
-        y: 0
-        width: 400
-        height: 400
-      alignment: 9
+        x: 512
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Gauntlet
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     - serializedVersion: 2
       name: Boots
       rect:
         serializedVersion: 2
-        x: 802
-        y: 401
-        width: 400
-        height: 400
-      alignment: 9
+        x: 1024
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Chainmail
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     - serializedVersion: 2
       name: Tome
       rect:
         serializedVersion: 2
-        x: 1203
+        x: 256
         y: 0
-        width: 400
-        height: 400
-      alignment: 9
+        width: 256
+        height: 256
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cape2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Gauntlet2
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Ring
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Amulet
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Amulet2
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

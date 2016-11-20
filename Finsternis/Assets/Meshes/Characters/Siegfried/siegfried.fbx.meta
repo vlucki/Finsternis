@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 65dbd64e65456f5438e0f2a5df3ff48f
-timeCreated: 1478437941
+guid: 6cc9f233b94eeea458b9ef41769f6714
+timeCreated: 1479657221
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,146 +9,86 @@ ModelImporter:
     100002: abs
     100004: chest
     100006: l_ankle
-    100008: l_ankleControl
-    100010: l_arm_IK
-    100012: l_armManip
-    100014: l_armPVManip
-    100016: l_ballControl
-    100018: l_elbow
-    100020: l_fingers
-    100022: l_footManip
-    100024: l_heelControl
-    100026: l_innershoulder
-    100028: l_knee
-    100030: l_leg_IK
-    100032: l_legtop
-    100034: l_shoulder
-    100036: l_thumb
-    100038: l_thumbtop
-    100040: l_toeControl
-    100042: l_toefingers
-    100044: l_topfingers
-    100046: l_toptoefinger
-    100048: l_wrist
-    100050: MasterNode
-    100052: neck
-    100054: pelvis
-    100056: r_ankle
-    100058: r_ankleControl
-    100060: r_arm_IK
-    100062: r_armManip
-    100064: r_armPVManip
-    100066: r_ballControl
-    100068: r_elbow
-    100070: r_fingers
-    100072: r_footManip
-    100074: r_heelControl
-    100076: r_innershoulder
-    100078: r_knee
-    100080: r_leg_IK
-    100082: r_legtop
-    100084: r_shoulder
-    100086: r_thumb
-    100088: r_thumbtop
-    100090: r_toeControl
-    100092: r_toefingers
-    100094: r_topfingers
-    100096: r_toptoefinger
-    100098: r_wrist
-    100100: Sieg_Polygono
-    100102: //RootNode
-    100104: sword01
-    100106: top_head
-    100108: sword1:pCube1
-    100110: pCube1
+    100008: l_elbow
+    100010: l_fingers
+    100012: l_innershoulder
+    100014: l_knee
+    100016: l_legtop
+    100018: l_shoulder
+    100020: l_thumb
+    100022: l_toefingers
+    100024: l_wrist
+    100026: MasterNode
+    100028: neck
+    100030: pelvis
+    100032: r_ankle
+    100034: r_elbow
+    100036: r_fingers
+    100038: r_innershoulder
+    100040: r_knee
+    100042: r_legtop
+    100044: r_shoulder
+    100046: r_thumb
+    100048: r_toefingers
+    100050: r_wrist
+    100052: //RootNode
+    100054: Sieg_Polygono
+    100056: sword1:pCube1
     400000: _UNKNOWN_REF_NODE_fosterParent1
     400002: abs
     400004: chest
     400006: l_ankle
-    400008: l_ankleControl
-    400010: l_arm_IK
-    400012: l_armManip
-    400014: l_armPVManip
-    400016: l_ballControl
-    400018: l_elbow
-    400020: l_fingers
-    400022: l_footManip
-    400024: l_heelControl
-    400026: l_innershoulder
-    400028: l_knee
-    400030: l_leg_IK
-    400032: l_legtop
-    400034: l_shoulder
-    400036: l_thumb
-    400038: l_thumbtop
-    400040: l_toeControl
-    400042: l_toefingers
-    400044: l_topfingers
-    400046: l_toptoefinger
-    400048: l_wrist
-    400050: MasterNode
-    400052: neck
-    400054: pelvis
-    400056: r_ankle
-    400058: r_ankleControl
-    400060: r_arm_IK
-    400062: r_armManip
-    400064: r_armPVManip
-    400066: r_ballControl
-    400068: r_elbow
-    400070: r_fingers
-    400072: r_footManip
-    400074: r_heelControl
-    400076: r_innershoulder
-    400078: r_knee
-    400080: r_leg_IK
-    400082: r_legtop
-    400084: r_shoulder
-    400086: r_thumb
-    400088: r_thumbtop
-    400090: r_toeControl
-    400092: r_toefingers
-    400094: r_topfingers
-    400096: r_toptoefinger
-    400098: r_wrist
-    400100: Sieg_Polygono
-    400102: //RootNode
-    400104: sword01
-    400106: top_head
-    400108: sword1:pCube1
-    400110: pCube1
-    2300000: sword01
-    2300002: sword1:pCube1
-    2300004: pCube1
-    3300000: sword01
-    3300002: sword1:pCube1
-    3300004: pCube1
+    400008: l_elbow
+    400010: l_fingers
+    400012: l_innershoulder
+    400014: l_knee
+    400016: l_legtop
+    400018: l_shoulder
+    400020: l_thumb
+    400022: l_toefingers
+    400024: l_wrist
+    400026: MasterNode
+    400028: neck
+    400030: pelvis
+    400032: r_ankle
+    400034: r_elbow
+    400036: r_fingers
+    400038: r_innershoulder
+    400040: r_knee
+    400042: r_legtop
+    400044: r_shoulder
+    400046: r_thumb
+    400048: r_toefingers
+    400050: r_wrist
+    400052: //RootNode
+    400054: Sieg_Polygono
+    400056: sword1:pCube1
+    2300000: sword1:pCube1
+    3300000: sword1:pCube1
     4300000: Sieg_Polygono
-    4300002: sword01
-    4300004: sword1:pCube1
-    4300006: pCube1
-    7400000: A_siegfried_idle
-    7400002: A_siegfried_atk_punch_begin
-    7400004: A_siegfried_atk_punch_execute
-    7400006: A_siegfried_atk_punch_end
-    7400008: A_siegfried_walk
-    7400010: A_siegfried_atk_slash01_begin
-    7400012: A_siegfried_atk_slash01_execute
-    7400014: A_siegfried_atk_slash01_finnish
-    7400016: A_siegfried_atk_slash02_begin
-    7400018: A_siegfried_atk_slash02_execute
-    7400020: A_siegfried_atk_slash02_finnish
-    7400022: A_siegfried_atk_slash03_begin
-    7400024: A_siegfried_atk_slash03_execute
-    7400026: A_siegfried_atk_slash03_end
-    7400028: A_siegfried_hit
-    7400030: A_siegfried_death
+    4300002: sword1:pCube1
+    7400000: A_idle01_siegfried
+    7400002: A_walk_siegfried
+    7400004: A_death01_siegfried
+    7400006: A_atk_vertical_swing_begin_siegfried
+    7400008: A_atk_vertical_swing_execute_siegfried
+    7400010: A_atk_vertical_swing_end_siegfried
+    7400012: A_atk_horizontal_swing_begin_siegfried
+    7400014: A_atk_horizontal_swing_execute_siegfried
+    7400016: A_atk_horizontal_swing_end_siegfried
+    7400018: A_atk_stab_begin_siegfried
+    7400020: A_atk_stab_execute_siegfried
+    7400022: A_atk_stab_end_siegfried
+    7400024: A_hit01_siegfried
+    7400026: A_atk_ground_bash_begin_siegfried
+    7400028: A_atk_ground_bash_execute_siegfried
+    7400030: A_atk_ground_bash_end_siegfried
     9500000: //RootNode
     13700000: Sieg_Polygono
   materials:
     importMaterials: 1
     materialName: 1
-    materialSearch: 0
+    materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -167,10 +107,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_siegfried_idle
+      name: A_idle01_siegfried
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 36
+      firstFrame: 2
+      lastFrame: 35
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -178,142 +118,6 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_punch_begin
-      takeName: Take 001
-      firstFrame: 41
-      lastFrame: 50
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -333,24 +137,6 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
@@ -367,15 +153,9 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
         weight: 1
@@ -387,11 +167,7 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
         weight: 1
@@ -401,8 +177,6 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
@@ -411,307 +185,15 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
         weight: 1
-      - path: sword01
+      - path: sword1:pCube1
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: A_siegfried_atk_punch_execute
-      takeName: Take 001
-      firstFrame: 51
-      lastFrame: 60
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_punch_end
-      takeName: Take 001
-      firstFrame: 61
-      lastFrame: 75
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_walk
+      name: A_walk_siegfried
       takeName: Take 001
       firstFrame: 90
       lastFrame: 114
@@ -722,142 +204,6 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash01_begin
-      takeName: Take 001
-      firstFrame: 172
-      lastFrame: 183
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -877,24 +223,6 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
@@ -911,15 +239,9 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
         weight: 1
@@ -931,11 +253,7 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
         weight: 1
@@ -945,8 +263,6 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
@@ -955,1259 +271,15 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
         weight: 1
-      - path: sword01
+      - path: sword1:pCube1
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: A_siegfried_atk_slash01_execute
-      takeName: Take 001
-      firstFrame: 183
-      lastFrame: 192
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash01_finnish
-      takeName: Take 001
-      firstFrame: 192
-      lastFrame: 200
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash02_begin
-      takeName: Take 001
-      firstFrame: 200
-      lastFrame: 207
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash02_execute
-      takeName: Take 001
-      firstFrame: 208
-      lastFrame: 215
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash02_finnish
-      takeName: Take 001
-      firstFrame: 216
-      lastFrame: 225
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash03_begin
-      takeName: Take 001
-      firstFrame: 225
-      lastFrame: 228
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash03_execute
-      takeName: Take 001
-      firstFrame: 229
-      lastFrame: 240
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_atk_slash03_end
-      takeName: Take 001
-      firstFrame: 241
-      lastFrame: 250
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_hit
-      takeName: Take 001
-      firstFrame: 251
-      lastFrame: 264
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
-        weight: 1
-      - path: sword01
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: A_siegfried_death
+      name: A_death01_siegfried
       takeName: Take 001
       firstFrame: 120
       lastFrame: 160
@@ -2237,23 +309,91 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_arm_IK
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armManip
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_armPVManip
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_footManip/l_heelControl/l_toeControl/l_ballControl/l_ankleControl
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/l_leg_IK
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_vertical_swing_begin_siegfried
+      takeName: Take 001
+      firstFrame: 172
+      lastFrame: 181
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
         weight: 1
@@ -2271,15 +411,9 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers/l_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb/l_thumbtop
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck/top_head
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
         weight: 1
@@ -2291,11 +425,7 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers/r_topfingers
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb/r_thumbtop
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
         weight: 1
@@ -2305,7 +435,91 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers/l_toptoefinger
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_vertical_swing_execute_siegfried
+      takeName: Take 001
+      firstFrame: 182
+      lastFrame: 192
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
         weight: 1
@@ -2315,33 +529,959 @@ ModelImporter:
         weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
         weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers/r_toptoefinger
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_arm_IK
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_armPVManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_footManip/r_heelControl/r_toeControl/r_ballControl/r_ankleControl
-        weight: 1
-      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/r_leg_IK
-        weight: 1
       - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
         weight: 1
-      - path: sword01
+      - path: sword1:pCube1
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_vertical_swing_end_siegfried
+      takeName: Take 001
+      firstFrame: 193
+      lastFrame: 203
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_horizontal_swing_begin_siegfried
+      takeName: Take 001
+      firstFrame: 201
+      lastFrame: 206
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_horizontal_swing_execute_siegfried
+      takeName: Take 001
+      firstFrame: 207
+      lastFrame: 216
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_horizontal_swing_end_siegfried
+      takeName: Take 001
+      firstFrame: 217
+      lastFrame: 224
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_stab_begin_siegfried
+      takeName: Take 001
+      firstFrame: 225
+      lastFrame: 230
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_stab_execute_siegfried
+      takeName: Take 001
+      firstFrame: 231
+      lastFrame: 240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_stab_end_siegfried
+      takeName: Take 001
+      firstFrame: 241
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_hit01_siegfried
+      takeName: Take 001
+      firstFrame: 250
+      lastFrame: 264
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_ground_bash_begin_siegfried
+      takeName: Take 001
+      firstFrame: 267
+      lastFrame: 283
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_ground_bash_execute_siegfried
+      takeName: Take 001
+      firstFrame: 284
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_ground_bash_end_siegfried
+      takeName: Take 001
+      firstFrame: 301
+      lastFrame: 320
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/l_innershoulder/l_shoulder/l_elbow/l_wrist/l_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/neck
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_fingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/abs/chest/r_innershoulder/r_shoulder/r_elbow/r_wrist/r_thumb
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/l_legtop/l_knee/l_ankle/l_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/MasterNode/pelvis/r_legtop/r_knee/r_ankle/r_toefingers
+        weight: 1
+      - path: _UNKNOWN_REF_NODE_fosterParent1/Sieg_Polygono
+        weight: 1
+      - path: sword1:pCube1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

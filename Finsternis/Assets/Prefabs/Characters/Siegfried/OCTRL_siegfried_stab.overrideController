@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: OCTRL_siegfried
+  m_Name: OCTRL_siegfried_stab
   m_Controller: {fileID: 9100000, guid: 9701d7ce90c022542b82418301fd0fbb, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 20d107cb4dfb2ae409285d5483f099b6, type: 2}
@@ -21,8 +21,8 @@ AnimatorOverrideController:
   - m_OriginalClip: {fileID: 7400000, guid: d77ac6b7a085b4b4fb43ac784576af65, type: 2}
     m_OverrideClip: {fileID: 7400024, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: e948d03d57995c04f8be8b6d48a671d1, type: 2}
-    m_OverrideClip: {fileID: 7400012, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
+    m_OverrideClip: {fileID: 7400018, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 036786910aea82d41b1965f12645b288, type: 2}
-    m_OverrideClip: {fileID: 7400016, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
+    m_OverrideClip: {fileID: 7400022, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 5dd485eaeaa1e0f48833ace4c7a42c6a, type: 2}
-    m_OverrideClip: {fileID: 7400014, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}
+    m_OverrideClip: {fileID: 7400020, guid: 6cc9f233b94eeea458b9ef41769f6714, type: 3}

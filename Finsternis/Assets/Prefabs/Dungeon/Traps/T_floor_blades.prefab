@@ -431,7 +431,7 @@ MonoBehaviour:
   - {fileID: 6561528}
   constraints: []
   owner: {fileID: 0}
-  impactMultiplier: {x: 1, y: 1}
+  impactMultiplier: {x: 3, y: 0}
   modeOnImpact: 2
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage:
@@ -470,7 +470,7 @@ MonoBehaviour:
   - {fileID: 6561528}
   constraints: []
   owner: {fileID: 0}
-  impactMultiplier: {x: 1, y: 1}
+  impactMultiplier: {x: 3, y: 0}
   modeOnImpact: 2
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage:
@@ -526,7 +526,7 @@ MonoBehaviour:
   - {fileID: 6561528}
   constraints: []
   owner: {fileID: 0}
-  impactMultiplier: {x: 1, y: 1}
+  impactMultiplier: {x: 3, y: 0}
   modeOnImpact: 2
   ignoreOthersFromOwner: 1
   attributesThatInfluenceDamage:

@@ -378,10 +378,11 @@ GameObject:
   - 114: {fileID: 114000014005836754}
   - 114: {fileID: 114000011464325068}
   - 114: {fileID: 114000012916953546}
-  - 114: {fileID: 114000010465340118}
   - 114: {fileID: 114000013865656420}
   - 114: {fileID: 114000010093465424}
   - 114: {fileID: 114000013697861390}
+  - 114: {fileID: 114000012500581902}
+  - 114: {fileID: 114000010465340118}
   m_Layer: 9
   m_Name: PFAB_Balthazar
   m_TagString: Player
@@ -767,8 +768,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011578542928}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.71, y: 0, z: -0.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1594,7 +1595,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0.5, z: 0}
   blockingLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
 --- !u!114 &114000010465340118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1606,8 +1607,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
   group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
-  maxSimultaneousClips: 10
+  maxDistance: 10
+  maxSimultaneousClips: 5
   type: 2
 --- !u!114 &114000010772638696
 MonoBehaviour:
@@ -1659,7 +1662,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  invincibilityTime: 1
+  invincibilityTime: 2
   invincible: 0
 --- !u!114 &114000011170435340
 MonoBehaviour:
@@ -1761,6 +1764,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0.3
+--- !u!114 &114000012500581902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011578542928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbd4d49ff052e041aef2d7032b44e60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  group: {fileID: 24300001, guid: bc531bee25fe99045a4bad91748928a7, type: 2}
+  health: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
+  healthPercentageThreshold: 0.5
+  lowHealthAlert: {fileID: 8300000, guid: 6d19b33f4af97d8428d59bfd505b9123, type: 3}
 --- !u!114 &114000012510893494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2070,6 +2089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e63472012b142d4a84cf9787c874748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
   onLock:
     m_PersistentCalls:
       m_Calls:
@@ -2084,8 +2104,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.CharController+CharControllerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onUnlock:
     m_PersistentCalls:
       m_Calls:
@@ -2100,8 +2120,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.CharController+CharControllerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   onHit:
     m_PersistentCalls:
       m_Calls:
@@ -2116,8 +2136,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.CharController+CharControllerEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   fallSpeedThreshold: -0.2
   fallingStateChecks: 4
   fallingStateCheckCount: 0

@@ -80,6 +80,12 @@
             ShowMessage();
         }
 
+        public void ShowMessage(string str)
+        {
+            SetMessage(str);
+            ShowMessage();
+        }
+
         public void ShowMessage()
         {
             if (!this.isActiveAndEnabled || this.messageText.IsNullOrEmpty())

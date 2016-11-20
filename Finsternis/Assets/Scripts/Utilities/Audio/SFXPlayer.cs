@@ -16,10 +16,13 @@
             LOCAL = 2
         }
 
-        [SerializeField][Range(1, 20)]
-        private int maxSimultaneousClips = 10;
+        [SerializeField, Range(1, 30)]
+        private float maxDistance = 10;
 
-        [SerializeField][Tooltip("GLOBAL = listen everywhere, WORLD = play at transform.position, LOCAL = play at transform.position and follow object around")]
+        [SerializeField, Range(1, 15)]
+        private int maxSimultaneousClips = 7;
+
+        [SerializeField, Tooltip("GLOBAL = listen everywhere, WORLD = play at transform.position, LOCAL = play at transform.position and follow object around")]
         private EffectType type = EffectType.GLOBAL;
 
         private List<AudioSource> activeSources;
@@ -27,12 +30,14 @@
         protected override void Awake()
         {
             base.Awake();
-            this.activeSources = new List<AudioSource>(10);
+            this.activeSources = new List<AudioSource>(maxSimultaneousClips);
         }
 
         public override void Play(AudioClip clip)
         {
             if (!MayPlayAnotherClip())
+                return;
+            if (this.type != EffectType.GLOBAL && this.transform.position.Distance(GameManager.Instance.Player.transform.position) > this.maxDistance)
                 return;
 
             var source = this.Manager.GetFreeSFXSource();
@@ -60,8 +65,11 @@
             }
             source.clip = clip;
             source.gameObject.SetActive(true);
-            source.Stop();
-            source.Play();
+            if (source.gameObject.activeInHierarchy)
+            {
+                source.Stop();
+                source.Play();
+            }
         }
 
         private bool MayPlayAnotherClip()

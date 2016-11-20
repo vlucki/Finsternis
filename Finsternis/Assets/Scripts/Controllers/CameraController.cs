@@ -1,6 +1,5 @@
 ﻿namespace Finsternis {
     using UnityEngine;
-    using System.Collections.Generic;
     using System.Collections;
     using UnityQuery;
 
@@ -24,6 +23,9 @@
         [SerializeField][Range(1, 100)]
         private float maxDistanceForOcclusion = 5f;
 
+        [SerializeField, Range(.01f, 1), Tooltip("1 = every fixed update")]
+        private float occlusionTestFrequency = .5f;
+
         private bool shaking;
         
         private Vector3 lastTarget;
@@ -32,7 +34,10 @@
         [SerializeField]
         private bool reactToOcclusion = true;
 
+        private float elapsedSinceLastCheck;
+
         private int wallLayer;
+        private bool occlusionHappened;
 
         public bool ReactToOcclusion {
             get {return this.reactToOcclusion; }
@@ -58,18 +63,33 @@
             if (!this.follow.Target)
                 return;
 
-            RaycastHit hit;
-            bool occlusionHappened = false;
-            if (reactToOcclusion && WouldBeOccluded(out hit))
-            {
-                float distanceDampening = 1f - hit.distance / maxDistanceForOcclusion;
-                this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2.5f + Vector3.forward * 4f) * distanceDampening);
-                occlusionHappened = true;
-            }
+            if (reactToOcclusion)
+                UpdateOcclusion();
 
             if (!this.shaking)
-                this.follow.ResetOffset(!occlusionHappened);
+                this.follow.ResetOffset(!this.occlusionHappened);
 
+        }
+
+        private void UpdateOcclusion()
+        {
+            RaycastHit hit;
+            if (elapsedSinceLastCheck > Time.fixedDeltaTime / this.occlusionTestFrequency)
+            {
+                elapsedSinceLastCheck = 0;
+                if (WouldBeOccluded(out hit))
+                {
+                    float distanceDampening = 1f - hit.distance / maxDistanceForOcclusion;
+                    this.follow.MemorizeOffset(this.follow.OriginalOffset + (Vector3.up * 2.5f + Vector3.forward * 4f) * distanceDampening);
+                    this.occlusionHappened = true;
+                }
+                else
+                {
+                    this.occlusionHappened = false;
+                }
+            }
+            else
+                this.elapsedSinceLastCheck += Time.fixedDeltaTime;
         }
 
         private bool WouldBeOccluded(out RaycastHit hit)

@@ -7,17 +7,18 @@
 
     public class Card : ScriptableObject
     {
-        public enum RARITY : byte
+        public enum RARITY
         {
-            common = 0, //0000
-            uncommon = 1, //0001
-            rare = 2, //0010
-            legendary = 4, //0100
-            godlike = 8  //1000
+            unset = -1,
+            common = 0,
+            uncommon = 1,
+            rare = 2,
+            legendary = 4,
+            godlike = 8 
         };
 
         [SerializeField][ReadOnly]
-        private float rarity;
+        private float floatRarity;
 
         [SerializeField][ReadOnly]
         private int cost;
@@ -31,7 +32,14 @@
         private CardName mainName;
         private List<CardName> postNames;
 
-        public RARITY Rarity { get { return (RARITY)(Mathf.RoundToInt(this.rarity * (int)RARITY.godlike)); } }
+        private RARITY rarity = RARITY.unset;
+
+        public RARITY Rarity {
+            get {
+                if(this.rarity == RARITY.unset)
+                    this.rarity = (RARITY)(Mathf.RoundToInt(this.floatRarity * (int)RARITY.godlike));
+                return this.rarity;
+            } }
 
         public int Cost { get { return this.cost; } }
 
@@ -41,6 +49,7 @@
 
         public Card()
         {
+            this.cost = Random.Range(1, 3); //set base cost
             this.effects = new List<Effect>();
             this.preNames = new List<CardName>();
             this.postNames = new List<CardName>();
@@ -81,7 +90,8 @@
         public void AppendName(CardName name)
         {
             AddName(name);
-            this.rarity += name.Rarity;
+            this.floatRarity += name.Rarity;
+            this.cost += Mathf.CeilToInt(name.Rarity * 10);
             AddEffects(name.Effects);
         }
 

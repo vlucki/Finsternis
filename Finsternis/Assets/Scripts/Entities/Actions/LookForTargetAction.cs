@@ -84,7 +84,7 @@
         {
             while (true)
             {
-                yield return Wait.Fixed();
+                yield return Wait.Sec(.2f);
 
                 UpdateCurrentTarget();
 
@@ -109,13 +109,15 @@
             {
                 var dist = this.transform.position.WithY(0).Distance(this.currentTarget.transform.position.WithY(0));
                 if (dist > this.persistenceRange)
+                {
                     SetTarget(null);
-                else if(this.obstaclesLayer != 0) //check if there's anything obtructing the view of the target
+                    return;
+                }
+                else if (this.obstaclesLayer != 0) //check if there's anything obtructing the view of the target
                 {
                     var origin = transform.position.WithY(1) + transform.forward;
-                    if (Physics.SphereCast(
-                        new Ray(origin, transform.forward),
-                        .3f, dist,
+                    if (Physics.Raycast(
+                        new Ray(origin, transform.forward), dist,
                         this.obstaclesLayer))
                     {
                         SetTarget(null);

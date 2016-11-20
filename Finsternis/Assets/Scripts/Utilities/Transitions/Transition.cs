@@ -6,7 +6,7 @@
     using System.Collections;
     using UnityQuery;
 
-    public abstract class Transition : MonoBehaviour
+    public abstract class Transition : CustomBehaviour
     {
         [System.Serializable]
         public class TransitionEvent : CustomEvent<Transition> { }

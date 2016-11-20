@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityQuery;
 
@@ -32,15 +33,20 @@ public class InputRouter : MonoBehaviour
             {
                 if (ShouldTrigger(control))
                 {
-                    lastTriggered = Time.timeSinceLevelLoad;
+                    Activate();
                     onAxisActive.Invoke(control.Value);
-                    active = true;
                 }
                 else if (!control.BooleanValue)
                 {
                     active = false;
                 }
             });
+        }
+
+        public void Activate()
+        {
+            lastTriggered = Time.timeSinceLevelLoad;
+            active = true;
         }
 
         private bool ShouldTrigger(InputControl control)
@@ -108,6 +114,13 @@ public class InputRouter : MonoBehaviour
                 if (trigger.enabled)
                     trigger.Trigger();
         }
+    }
+
+    public void SetTriggerActive(string name)
+    {
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.Activate();
     }
 
     public void DisableTrigger(string name)

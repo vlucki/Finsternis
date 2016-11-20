@@ -30,7 +30,7 @@
 
         bool wandering;
 
-        public override void Awake()
+        protected override void Awake()
         {
             base.Awake();
             this.lookForTarget = GetComponent<LookForTargetAction>();
