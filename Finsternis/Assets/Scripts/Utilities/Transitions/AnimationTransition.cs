@@ -18,8 +18,10 @@
 
         public float Duration { get { return this.duration; } }
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             this.animator = GetComponent<Animator>();
             this.animator.enabled = false;
 

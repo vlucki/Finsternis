@@ -48,7 +48,7 @@ namespace Finsternis
         private List<Skill> skills;
 
         [SerializeField]
-        private Skill[] equippedSkills = new Skill[4];
+        private Skill[] equippedSkills = new Skill[5];
 
         private bool isLocked;
         private bool waitingForDelay;
@@ -78,7 +78,6 @@ namespace Finsternis
         {
             base.Awake();
 
-            this.transform = base.transform;
             this.isLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
@@ -88,8 +87,9 @@ namespace Finsternis
             this.GetComponentsInChildren<EntityAction>(this.actions);
         }
 
-        public virtual void Start()
+        protected override void Start()
         {
+            base.Start();
             character.onDeath.AddListener(OnCharacterDeath);
         }
 
@@ -344,15 +344,15 @@ namespace Finsternis
         private void ValidateSkills()
         {
             GetComponents<Skill>(this.skills);
-            if (this.equippedSkills.Length != 4)
+            if (this.equippedSkills.Length != 5)
             {
                 var tmp = this.equippedSkills;
-                this.equippedSkills = new Skill[4];
-                for (int i = 0; i < tmp.Length && i < 4; i++)
+                this.equippedSkills = new Skill[5];
+                for (int i = 0; i < tmp.Length && i < this.equippedSkills.Length; i++)
                     this.equippedSkills[i] = tmp[i];
             }
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < this.equippedSkills.Length; i++)
             {
                 if (!this.skills.Contains(this.equippedSkills[i]))
                     this.equippedSkills[i] = null;

@@ -1,6 +1,5 @@
 ﻿namespace Finsternis
 {
-    using System.Collections.Generic;
     using UnityEngine;
     using UnityQuery;
 

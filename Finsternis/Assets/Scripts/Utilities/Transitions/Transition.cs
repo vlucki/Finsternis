@@ -33,8 +33,9 @@
 
         public bool Transitioning { get { return this.transitioning; } }
 
-        protected virtual void Start()
+        protected override void Start()
         {
+            base.Start();
             if (beginOnStart)
                 Begin();
         }

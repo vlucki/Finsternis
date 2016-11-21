@@ -154,6 +154,9 @@
             if (!f.name.Equals(this.name))
                 return false;
 
+            if (!f.prefab && this.prefab)
+                return false;
+
             if (!f.prefab.Equals(this.prefab))
                 return false;
 

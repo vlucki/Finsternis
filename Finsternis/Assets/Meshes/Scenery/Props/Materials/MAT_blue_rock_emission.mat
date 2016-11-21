@@ -9,7 +9,7 @@ Material:
   m_Name: MAT_blue_rock_emission
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_LightmapFlags: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -104,6 +104,9 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Power
+      second: 9.27
+    - first:
         name: _SmoothnessTextureChannel
       second: 0
     - first:
@@ -116,6 +119,9 @@ Material:
         name: _UVSec
       second: 0
     - first:
+        name: _WaveSpeed
+      second: 0.192
+    - first:
         name: _ZWrite
       second: 1
     m_Colors:
@@ -123,5 +129,8 @@ Material:
         name: _Color
       second: {r: 0, g: 0.7931032, b: 1, a: 1}
     - first:
+        name: _Emission
+      second: {r: 0, g: 0.79215693, b: 1, a: 0.772}
+    - first:
         name: _EmissionColor
-      second: {r: 0, g: 0.39686108, b: 0.5, a: 1}
+      second: {r: 0, g: 0.79215693, b: 1, a: 0.772}

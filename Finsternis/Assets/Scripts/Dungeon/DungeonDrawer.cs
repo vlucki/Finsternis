@@ -246,7 +246,7 @@ namespace Finsternis
             if (!feature.Alignment.IsNullOrEmpty())
             {
                 feature.Alignment.ForEach(
-                    alignment => alignment.Align(this.dungeon, this.cellScale, position, featureGO, count));
+                    alignment => { if (alignment) alignment.Align(this.dungeon, this.cellScale, position, featureGO, count); });
             }
 
             return featureGO;

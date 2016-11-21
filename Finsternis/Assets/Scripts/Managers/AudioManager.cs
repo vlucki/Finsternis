@@ -63,7 +63,6 @@
         {
             if (this.lastBGS)
             {
-                var last = this.lastBGS;
                 PlayBGS(this.lastBGS);
                 this.lastBGS = null;
             }

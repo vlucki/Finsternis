@@ -1,8 +1,6 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityEngine.UI;
-    using UnityQuery;
 
     public class StatsPanelController : MenuController
     {
@@ -10,8 +8,10 @@
         private GameObject displayPrefab;
         private bool initialized = false;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             if (GameManager.Instance.Player)
                 Init(GameManager.Instance.Player);
             else
