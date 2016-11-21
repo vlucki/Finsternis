@@ -10,7 +10,7 @@
         private EntityAttribute attribute;
 
         [SerializeField]
-        private Image image;
+        private Image[] images;
 
         void Awake()
         {
@@ -33,7 +33,8 @@
 
         private void UpdateDisplay(EntityAttribute attribute)
         {
-            this.image.fillAmount = attribute.Value / attribute.Max;
+            foreach(var image in this.images)
+                image.fillAmount = attribute.Value / attribute.Max;
         }
     }
 }

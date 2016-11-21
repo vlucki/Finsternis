@@ -49,10 +49,14 @@
 
         public Card()
         {
-            this.cost = Random.Range(1, 3); //set base cost
             this.effects = new List<Effect>();
             this.preNames = new List<CardName>();
             this.postNames = new List<CardName>();
+        }
+
+        void OnEnable()
+        {
+            this.cost = Random.Range(1, 3); //set base cost
         }
 
         #region Name String Creation

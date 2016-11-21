@@ -15,9 +15,13 @@
         protected override void Awake()
         {
             base.Awake();
-            GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+            
             this.image = transform.Find("Hotkey").GetComponent<Image>();
             this.skillNameTxt = transform.Find("Skillname").GetComponent<Text>();
+            if (!GameManager.Instance.Player)
+                GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+            else
+                GrabPlayer(GameManager.Instance.Player);
         }
 
         private void GrabPlayer(CharController player)

@@ -10,23 +10,23 @@
     {
         private List<MenuController> menus;
 
-        public UnityEvent onMenuOpened;
+        public UnityEvent onMenuActive;
         public UnityEvent onMenuClosed;
         public UnityEvent onEveryMenuClosed;
 
         void Awake()
         {
             this.menus = new List<MenuController>();
-            GetComponentsInChildren<MenuController>(this.menus);
-            foreach(var menu in this.menus)
+            foreach(Transform child in this.transform)
             {
-                menu.OnOpen.AddListener(MenuOpened);
+                var menu = child.GetComponent<MenuController>();
+                if (menu)
+                {
+                    this.menus.Add(menu);
+                    menu.OnClose.AddListener(MenuClosed);
+                    menu.OnBeganOpening.AddListener(onMenuActive.Invoke);
+                }
             }
-        }
-
-        private void MenuOpened(MenuController menu)
-        {
-            onMenuOpened.Invoke();
         }
 
 
