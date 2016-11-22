@@ -5,7 +5,7 @@
     using UnityEngine;
     using UnityQuery;
 
-    public class MessageDisplayer : MonoBehaviour
+    public class MessageDisplayer : CustomBehaviour
     {
 
         [SerializeField]

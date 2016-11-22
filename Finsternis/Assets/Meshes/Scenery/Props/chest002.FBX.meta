@@ -6,13 +6,28 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: bottom
+    100004: lock
+    100006: top
     400000: //RootNode
+    400002: bottom
+    400004: lock
+    400006: top
     2300000: //RootNode
+    2300002: bottom
+    2300004: lock
+    2300006: top
     3300000: //RootNode
+    3300002: bottom
+    3300004: lock
+    3300006: top
     4300000: treasurechest
+    4300002: lock
+    4300004: bottom
+    4300006: top
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 1
     materialSearch: 0
   animations:
     legacyGenerateAnimations: 4

@@ -1,0 +1,651 @@
+fileFormatVersion: 2
+guid: aef467f4b53e578468056501cfa37f4b
+timeCreated: 1479802733
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: end_tail
+    100002: Hunted
+    100004: Hunted_masternote
+    100006: l_arm
+    100008: l_arm_manip
+    100010: l_arm_polvector
+    100012: l_clavicule
+    100014: l_elbow
+    100016: l_fingel_tip
+    100018: l_finger
+    100020: l_IKHandle
+    100022: l_pinky
+    100024: l_pinky_tip
+    100026: l_thumb
+    100028: l_thumb_start
+    100030: l_thumb_tip
+    100032: l_wrist
+    100034: middle_tail
+    100036: //RootNode
+    100038: neck_h
+    100040: pelvis_h
+    100042: r_arm
+    100044: r_arm_manip
+    100046: r_arm_polvector
+    100048: r_clavicule
+    100050: r_elbow
+    100052: r_finger
+    100054: r_finger_tip
+    100056: r_IKHandle
+    100058: r_pinky
+    100060: r_pinky_tip
+    100062: r_thumb
+    100064: r_thumb_start
+    100066: r_thumb_tip
+    100068: r_wrist
+    100070: torso_h
+    400000: end_tail
+    400002: Hunted
+    400004: Hunted_masternote
+    400006: l_arm
+    400008: l_arm_manip
+    400010: l_arm_polvector
+    400012: l_clavicule
+    400014: l_elbow
+    400016: l_fingel_tip
+    400018: l_finger
+    400020: l_IKHandle
+    400022: l_pinky
+    400024: l_pinky_tip
+    400026: l_thumb
+    400028: l_thumb_start
+    400030: l_thumb_tip
+    400032: l_wrist
+    400034: middle_tail
+    400036: //RootNode
+    400038: neck_h
+    400040: pelvis_h
+    400042: r_arm
+    400044: r_arm_manip
+    400046: r_arm_polvector
+    400048: r_clavicule
+    400050: r_elbow
+    400052: r_finger
+    400054: r_finger_tip
+    400056: r_IKHandle
+    400058: r_pinky
+    400060: r_pinky_tip
+    400062: r_thumb
+    400064: r_thumb_start
+    400066: r_thumb_tip
+    400068: r_wrist
+    400070: torso_h
+    4300000: Hunted
+    7400000: A_idle01_hunted
+    7400002: A_walk_hunted
+    7400004: A_atk_hunted
+    7400006: A_hit01_hunted
+    7400008: A_death_hunted
+    9500000: //RootNode
+    13700000: Hunted
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_idle01_hunted
+      takeName: Take 001
+      firstFrame: 4
+      lastFrame: 78
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hunted
+        weight: 1
+      - path: Hunted_masternote
+        weight: 1
+      - path: Hunted_masternote/l_arm_manip
+        weight: 1
+      - path: Hunted_masternote/l_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/l_IKHandle
+        weight: 1
+      - path: Hunted_masternote/pelvis_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail/end_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger/l_fingel_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky/l_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb/l_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger/r_finger_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky/r_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb/r_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/r_arm_manip
+        weight: 1
+      - path: Hunted_masternote/r_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/r_IKHandle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_walk_hunted
+      takeName: Take 001
+      firstFrame: 81
+      lastFrame: 109
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hunted
+        weight: 1
+      - path: Hunted_masternote
+        weight: 1
+      - path: Hunted_masternote/l_arm_manip
+        weight: 1
+      - path: Hunted_masternote/l_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/l_IKHandle
+        weight: 1
+      - path: Hunted_masternote/pelvis_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail/end_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger/l_fingel_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky/l_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb/l_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger/r_finger_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky/r_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb/r_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/r_arm_manip
+        weight: 1
+      - path: Hunted_masternote/r_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/r_IKHandle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_atk_hunted
+      takeName: Take 001
+      firstFrame: 115
+      lastFrame: 151
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hunted
+        weight: 1
+      - path: Hunted_masternote
+        weight: 1
+      - path: Hunted_masternote/l_arm_manip
+        weight: 1
+      - path: Hunted_masternote/l_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/l_IKHandle
+        weight: 1
+      - path: Hunted_masternote/pelvis_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail/end_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger/l_fingel_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky/l_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb/l_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger/r_finger_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky/r_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb/r_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/r_arm_manip
+        weight: 1
+      - path: Hunted_masternote/r_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/r_IKHandle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_hit01_hunted
+      takeName: Take 001
+      firstFrame: 156
+      lastFrame: 179
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hunted
+        weight: 1
+      - path: Hunted_masternote
+        weight: 1
+      - path: Hunted_masternote/l_arm_manip
+        weight: 1
+      - path: Hunted_masternote/l_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/l_IKHandle
+        weight: 1
+      - path: Hunted_masternote/pelvis_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail/end_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger/l_fingel_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky/l_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb/l_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger/r_finger_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky/r_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb/r_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/r_arm_manip
+        weight: 1
+      - path: Hunted_masternote/r_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/r_IKHandle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: A_death_hunted
+      takeName: Take 001
+      firstFrame: 182
+      lastFrame: 210
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Hunted
+        weight: 1
+      - path: Hunted_masternote
+        weight: 1
+      - path: Hunted_masternote/l_arm_manip
+        weight: 1
+      - path: Hunted_masternote/l_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/l_IKHandle
+        weight: 1
+      - path: Hunted_masternote/pelvis_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/middle_tail/end_tail
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_finger/l_fingel_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_pinky/l_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/l_clavicule/l_elbow/l_arm/l_wrist/l_thumb_start/l_thumb/l_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_finger/r_finger_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_pinky/r_pinky_tip
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb
+        weight: 1
+      - path: Hunted_masternote/pelvis_h/torso_h/neck_h/r_clavicule/r_elbow/r_arm/r_wrist/r_thumb_start/r_thumb/r_thumb_tip
+        weight: 1
+      - path: Hunted_masternote/r_arm_manip
+        weight: 1
+      - path: Hunted_masternote/r_arm_polvector
+        weight: 1
+      - path: Hunted_masternote/r_IKHandle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

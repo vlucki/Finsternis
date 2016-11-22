@@ -36,5 +36,18 @@ public class CustomBehaviour : MonoBehaviour
     public void Destroy()
     {
         Destroy(this.gameObject);
-    }    
+    }
+
+    public void Remove()
+    {
+        Destroy(this);
+    }
+
+    public void RemoveAllBehaviours()
+    {
+        foreach(var behaviour in this.GetComponents<MonoBehaviour>())
+        {
+            Destroy(behaviour);
+        }
+    }
 }

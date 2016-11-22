@@ -10,7 +10,7 @@
 
     [SelectionBase]
     [DisallowMultipleComponent]
-    public abstract class Entity : MonoBehaviour, IInteractable, IEnumerable<EntityAttribute>
+    public abstract class Entity : CustomBehaviour, IInteractable, IEnumerable<EntityAttribute>
     {
         #region inner classes and structs
         [Serializable]
@@ -57,14 +57,16 @@
 
         public EntityAttribute this[int index] { get { return this.attributes[index]; } }
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (!this.name.IsNullOrEmpty())
                 base.name = this.name;
         }
 
-        protected virtual void Start()
+        protected override void Start()
         {
+            base.Start();
             for (int i = 0; i < attributes.Count; i++)
                 InitializeAttribute(i);
         }
@@ -149,8 +151,9 @@
             entityEvents.onDisable.Invoke(this);
         }
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             entityEvents.onEnable.Invoke(this);
         }
 

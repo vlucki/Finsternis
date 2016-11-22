@@ -875,6 +875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -940,6 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
+  deactivate: 0
   onLock:
     m_PersistentCalls:
       m_Calls: []
@@ -976,6 +979,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   wanderCycle: 1
   wanderFrequency: 0.5
   reach: 2
@@ -991,6 +995,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d8a24df48414749a3f6a41312ebd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   name: Lurker
   interactable: 1
   interactionConstraints: []
@@ -1145,6 +1151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls: []

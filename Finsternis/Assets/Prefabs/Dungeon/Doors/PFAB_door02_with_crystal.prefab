@@ -349,6 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7061a3ea573972a4592407d968b68324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls:
@@ -398,7 +400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f602eebf3a264db2a68aa26fbe3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  transform: {fileID: 0}
+  deactivate: 0
+  name: Glowing Crystal Door
   interactable: 1
   interactionConstraints:
   - {fileID: 11400000, guid: 2f578e7fd73b0254cb9751cd9d3b41d4, type: 2}
@@ -518,6 +522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e13c9cb59b720f4d8304db3d1cd016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   messageText: Press "E" to open
   messageGraphic: {fileID: 0}
   messageOffset: {x: 0, y: 2, z: 0}

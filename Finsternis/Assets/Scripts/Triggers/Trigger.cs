@@ -7,7 +7,7 @@
     using UnityEngine.Events;
 
     [RequireComponent(typeof(Collider))]
-    public class Trigger : MonoBehaviour
+    public class Trigger : CustomBehaviour
     {
         [Serializable]
         public class OnTriggerEvent : CustomEvent<GameObject> { }
@@ -28,8 +28,9 @@
 #endif
             Collider collider;
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (!collider)
                 collider = GetComponent<Collider>();
         }

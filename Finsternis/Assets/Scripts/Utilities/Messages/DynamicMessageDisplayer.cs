@@ -27,6 +27,12 @@
         [SerializeField]
         private ForceDirection forceDirection = new ForceDirection(-Vector3.one, Vector3.one, Mode.RANDOM);
 
+        protected override void Awake()
+        {
+            base.Awake();
+            this.forceDirection.max = Vector3.Max(this.forceDirection.max, this.forceDirection.min);
+        }
+
         protected override MessageController DisplayMessage()
         {
             Vector3 force = forceDirection.min;
@@ -53,10 +59,6 @@
             return msg;
         }
 
-        void Awake()
-        {
-            this.forceDirection.max = Vector3.Max(this.forceDirection.max, this.forceDirection.min);
-        }
 
         private IEnumerator _Update(Vector3 force, MessageController msg)
         {

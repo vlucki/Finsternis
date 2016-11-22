@@ -97,6 +97,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 986273454}
     m_Modifications:
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: enemies.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011232817658, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -145,6 +150,12 @@ Prefab:
       propertyPath: enemies.Array.data[1]
       value: 
       objectReference: {fileID: 1000012345338928, guid: e349ba598c8b58d4cacaffa8d1f85de3,
+        type: 2}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 1000012571075058, guid: 0260a624621d4df4f8c1288811cd0b61,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
@@ -9088,6 +9099,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c1a809392c65d41bfd62066ea0a74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls: []

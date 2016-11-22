@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
   m_Name: DF_chest002
   m_EditorClassIdentifier: 
-  baseFrequency: 0.3
-  prefab: {fileID: 1000011469356220, guid: 91e1aada83230d94bafe3f79e86ced97, type: 2}
+  baseFrequency: 0.5
+  prefab: {fileID: 1000010329611316, guid: 2cc65f94f5df20242ad37aa95bf41e6e, type: 2}
   type: 0
   stackable: 0
   stackWhiteList:
@@ -25,4 +25,6 @@ MonoBehaviour:
     features:
     - {fileID: 11400000, guid: 3aeec640135e0924099156e8065324f2, type: 2}
     - {fileID: 11400000, guid: 49f2e91a763234449a6e343a326bc30c, type: 2}
-  alignment: []
+    - {fileID: 11400000, guid: 0c71a7acbdb30c0408125f5cd1934bd9, type: 2}
+  alignment:
+  - {fileID: 11400000, guid: 68b43ca611906d744b95bcbfc83c875f, type: 2}
