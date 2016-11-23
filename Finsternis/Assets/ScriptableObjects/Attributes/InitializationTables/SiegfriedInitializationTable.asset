@@ -22,12 +22,12 @@ MonoBehaviour:
       max: 8
   - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
     range:
-      min: 3
-      max: 6
+      min: 4
+      max: 6.5
   - attribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
     range:
-      min: 3
-      max: 7
+      min: 5
+      max: 10
   - attribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
     range:
       min: 3

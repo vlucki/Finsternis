@@ -22,6 +22,8 @@
         [SerializeField]
         private List<TriggerConstraint> constraints;
 
+        private HashSet<Collider> collidersWithin;
+
         protected
 #if UNITY_EDITOR
             new
@@ -33,12 +35,14 @@
             base.Awake();
             if (!collider)
                 collider = GetComponent<Collider>();
+            this.collidersWithin = new HashSet<Collider>();
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (ShouldTrigger(other))
             {
+                this.collidersWithin.Add(other);
                 if (onEnter)
                     onEnter.Invoke(other.gameObject);
             }
@@ -46,7 +50,24 @@
 
         protected virtual void OnTriggerExit(Collider other)
         {
+            if (collidersWithin.Remove(other))
+            {
+                if (onExit)
+                    onExit.Invoke(other.gameObject);
+            }
+        }
+
+        protected void OnTriggerStay(Collider other)
+        {
             if (ShouldTrigger(other))
+            {
+                if (this.collidersWithin.Add(other))
+                {
+                    if (onEnter)
+                        onEnter.Invoke(other.gameObject);
+                }
+            }
+            else if (collidersWithin.Remove(other))
             {
                 if (onExit)
                     onExit.Invoke(other.gameObject);

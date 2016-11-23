@@ -76,8 +76,6 @@
             var attribute = Instantiate(attributes[attributeIndex]);
             attribute.name = attributes[attributeIndex].name;
             attribute.SetOwner(this);
-            if (onAttributeInitialized)
-                onAttributeInitialized.Invoke(attribute);
 
             attributes[attributeIndex] = attribute;
 
@@ -97,6 +95,8 @@
                     attribute.SetBaseValue(value);
                 }
             }
+            if (onAttributeInitialized)
+                onAttributeInitialized.Invoke(attribute);
         }
 
         public EntityAttribute GetAttribute(string alias)

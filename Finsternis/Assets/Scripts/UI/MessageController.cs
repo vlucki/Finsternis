@@ -7,7 +7,7 @@
     using System;
 
     [RequireComponent(typeof(FadeInTransition), typeof(FadeOutTransition))]
-    public class MessageController : MonoBehaviour
+    public class MessageController : CustomBehaviour
     {
         
         private Text messageField;
@@ -30,8 +30,9 @@
             set { this.messageGraphic.sprite = value; }
         }
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             this.messageField = GetComponentInChildren<Text>();
             this.messageGraphic = GetComponentInChildren<Image>();
             this.fadeIn = GetComponent<FadeInTransition>();

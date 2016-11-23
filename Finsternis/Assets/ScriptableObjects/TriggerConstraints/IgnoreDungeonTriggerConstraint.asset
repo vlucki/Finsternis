@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f8c98ed7410ca418cb87db8a1c4204, type: 3}
   m_Name: IgnoreDungeonTriggerConstraint
   m_EditorClassIdentifier: 
-  mode: 1
+  type: 1
   tags:
   - Dungeon

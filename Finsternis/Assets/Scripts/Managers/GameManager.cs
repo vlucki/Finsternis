@@ -75,6 +75,11 @@
             set { this.clearedDungeons = Mathf.Max(0, value); }
         }
 
+        public int DungeonsToClear
+        {
+            get { return this.dungeonsToClear; }
+        }
+
         void Awake()
         {
             Application.targetFrameRate = 60;

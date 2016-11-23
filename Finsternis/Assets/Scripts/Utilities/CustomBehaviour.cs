@@ -14,6 +14,8 @@ public class CustomBehaviour : MonoBehaviour
     [SerializeField]
     private DeactivateMethod deactivate = DeactivateMethod.NONE;
 
+    private Dictionary<Type, Component> componentCache;
+
     protected virtual void Awake()
     {
         this.transform = base.transform;
@@ -49,5 +51,23 @@ public class CustomBehaviour : MonoBehaviour
         {
             Destroy(behaviour);
         }
+    }
+
+    public void CacheComponent<T>(T component) where T : Component
+    {
+        if (this.componentCache == null)
+            this.componentCache = new Dictionary<Type, Component>();
+        this.componentCache[typeof(T)] = component;
+    }
+
+    public T GetCachedComponent<T>() where T : Component
+    {
+        if (this.componentCache != null)
+        {
+            Component component;
+            if (this.componentCache.TryGetValue(typeof(T), out component))
+                return component as T;
+        }
+        return null;
     }
 }

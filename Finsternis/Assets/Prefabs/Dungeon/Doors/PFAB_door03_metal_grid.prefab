@@ -287,6 +287,7 @@ MonoBehaviour:
   collidersToIgnore: []
   constraints:
   - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
+  - {fileID: 11400000, guid: cc7dcd581511fe0478bbe3b937c720b3, type: 2}
 --- !u!114 &114000012519277752
 MonoBehaviour:
   m_ObjectHideFlags: 1

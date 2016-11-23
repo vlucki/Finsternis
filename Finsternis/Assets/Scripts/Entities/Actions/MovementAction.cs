@@ -102,7 +102,7 @@
             if (!direction.IsZero())
                 this.rbody.AddForce(
                     direction *
-                    (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / this.Speed.Max),
+                    (this.baseVelocityMultiplier + this.speedMultiplier * this.Speed.Value / 100),
                     modeWhenApplyingForce);
         }
 

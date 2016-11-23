@@ -1458,15 +1458,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea70472a8e922114cbea017cfa9ae027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 4000010221855148}
+  deactivate: 0
   messageText: 
   messageGraphic: {fileID: 21300002, guid: c9a90110d66e58d4dbee469889456aa5, type: 3}
   messageOffset: {x: 0, y: 3, z: 0}
   randomizeOffset: 1
   duration: 2
   forceDirection:
-    min: {x: 0, y: 1, z: 0}
-    max: {x: 0, y: 5, z: 0}
-    mode: 3
+    min: {x: -2, y: 10, z: -2}
+    max: {x: 2, y: 15, z: 2}
+    mode: 1
 --- !u!114 &114000010186636824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1608,6 +1610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
+  deactivate: 0
   group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
   maxDistance: 10
   maxSimultaneousClips: 5
@@ -1623,6 +1626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7d47b285b1f2c4888ca06f6f63fbdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   name: Balthazar
   interactable: 1
   interactionConstraints: []
@@ -1763,7 +1768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 092b4a556bf48574ba5d88d378a3de95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0.3
+  range: 1
 --- !u!114 &114000012500581902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1776,6 +1781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
+  deactivate: 0
   group: {fileID: 24300001, guid: bc531bee25fe99045a4bad91748928a7, type: 2}
   health: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
   healthPercentageThreshold: 0.5
@@ -2058,6 +2064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e13c9cb59b720f4d8304db3d1cd016c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   messageText: 
   messageGraphic: {fileID: 0}
   messageOffset: {x: 0, y: 3, z: 0}
@@ -2090,6 +2098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
+  deactivate: 0
   onLock:
     m_PersistentCalls:
       m_Calls:
@@ -2147,6 +2156,7 @@ MonoBehaviour:
   equippedSkills:
   - {fileID: 114000013232726630}
   - {fileID: 114000010186636824}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!136 &136000012293342078

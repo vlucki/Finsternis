@@ -62,11 +62,16 @@
 
         private IEnumerator _Update(Vector3 force, MessageController msg)
         {
-            var body = msg.GetComponent<Rigidbody>();
+            var body = msg.GetCachedComponent<Rigidbody>();
+            if (!body)
+            {
+                body = msg.GetComponent<Rigidbody>();
+                msg.CacheComponent(body);
+            }
+            yield return Wait.Fixed();
             while (msg && msg.isActiveAndEnabled)
             {
-                yield return Wait.Fixed();
-                body.AddForce(force, ForceMode.Impulse);
+                body.AddForce(force, ForceMode.Acceleration);
                 if (this.forceDirection.mode == Mode.PROGRESSIVE && force != this.forceDirection.max)
                 {
                     force = Vector3.Lerp(force, this.forceDirection.max, Time.fixedDeltaTime);

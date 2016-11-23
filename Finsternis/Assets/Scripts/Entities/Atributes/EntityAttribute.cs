@@ -302,9 +302,13 @@
         {
             if (HasMinimumValue || lastMin != this.min)
                 SetMin(this.min);
+            else if (!HasMinimumValue)
+                this.min = 0;
 
             if (HasMaximumValue || lastMax != this.max)
                 SetMax(this.max);
+            else if (!HasMaximumValue)
+                this.max = 0;
 
             SetBaseValue(this.baseValue);
 

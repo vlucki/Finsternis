@@ -105,7 +105,7 @@
         private void PaintTexture(DungeonSection lastSection, DungeonSection currentSection)
         {
             var tex = this.image.texture as Texture2D;
-            if(lastSection)
+            if (lastSection)
                 UpdateMapSection(tex, lastSection, Color.gray);
             UpdateMapSection(tex, currentSection, Color.white);
             tex.Apply();

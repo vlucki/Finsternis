@@ -50,9 +50,19 @@
             {
                 dynamicMessagePool = new List<MessageController>();
             }
+
             MessageController ctrl = ShowMessage(this.dynamicMessagePool, this.dynamicMessagePrefab, position, message, graphic, duration);
+
             if (force != Vector3.zero)
-                ctrl.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+            {
+                var body = ctrl.GetCachedComponent<Rigidbody>();
+                if(!body)
+                {
+                    body = ctrl.GetComponent<Rigidbody>();
+                    ctrl.CacheComponent(body);
+                }
+               body.AddForce(force, ForceMode.Impulse);
+            }
 
             return ctrl;
         }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   alias: dmg
-  constraints: 0
+  constraints: 1
   baseValue: 1
-  min: 0
+  min: 0.5
   max: 0
   onValueChanged:
     m_PersistentCalls:
