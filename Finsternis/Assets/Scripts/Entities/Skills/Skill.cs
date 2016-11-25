@@ -16,20 +16,22 @@
         [SerializeField]
         private new string name;
 
+        [SerializeField, Range(0, 100)]
+        private float energyCost = 1;
+
         [SerializeField]
-        [Range(0, 100)]
+        private EntityAttribute energyAttribute;
+
+        [SerializeField, Range(0, 100)]
         protected float startUpTime = 1f;
         
-        [SerializeField]
-        [Range(0, 100)]
+        [SerializeField, Range(0, 100)]
         protected float castTime = 1f;
 
-        [SerializeField]
-        [Range(0, 100)]
+        [SerializeField, Range(0, 100)]
         protected float endTime = 1f;
 
-        [SerializeField]
-        [Range(0, 5)]
+        [SerializeField, Range(0, 100)]
         protected float cooldownTime = 0.5f;
 
         [Header("Skill phase events")]
@@ -38,6 +40,7 @@
         public SkillEvent onExecutionEnd;
         public SkillEvent onEnd;
         public SkillEvent onCoolDownEnd;
+
         [Space(20)]
 
         protected float lastUsed = 0;
@@ -55,6 +58,18 @@
         protected virtual void Awake()
         {
             user = GetComponent<CharController>();
+            if (this.energyAttribute)
+            {
+                user.Character.onAttributeInitialized.AddListener(attribute =>
+                {
+                    if (attribute.Alias.Equals(this.energyAttribute.Alias))
+                        this.energyAttribute = attribute;
+                });
+            }
+            else
+            {
+                this.energyCost = 0;
+            }
         }
 
         public virtual void Begin()
@@ -62,6 +77,7 @@
             Using = true;
             Casting = true;
             this.timeStarted = Time.timeSinceLevelLoad;
+            this.energyAttribute.Subtract(this.energyCost);
 
             onBegin.Invoke(this);
 
@@ -102,7 +118,8 @@
         {
             if (Using)
                 CheckElapsedTime();
-            return !Using && !CoolingDown;
+            return !Using && !CoolingDown && 
+                (this.energyCost == 0 || energyAttribute.Value >= this.energyCost);
         }
 
         /// <summary>
@@ -124,5 +141,14 @@
             if (onCoolDownEnd)
                 onCoolDownEnd.Invoke(this);
         }
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            if (this.energyAttribute && !this.energyAttribute.HasMaximumValue)
+                this.energyAttribute = null;
+        }
+#endif
+
     }
 }

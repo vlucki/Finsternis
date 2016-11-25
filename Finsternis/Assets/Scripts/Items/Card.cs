@@ -138,11 +138,20 @@
 
         public void AddEffect(Effect effectToAdd)
         {
-            Effect match = this.effects.Find(effect => effect.Merge(effectToAdd));
-            if (!match)
+            var modifier = effectToAdd as AttributeModifier;
+            if (modifier)
             {
-                this.effects.Add(effectToAdd);
+                if (this.effects.Find(effect =>
+                 {
+                     var modifierInList = effect as AttributeModifier;
+                     if (modifierInList && modifierInList.Merge(modifier))
+                         return true;
+                     return false;
+                 }))
+                    return;
+
             }
+            this.effects.Add(effectToAdd);
         }
 
         public void AddEffects(IEnumerable<AttributeModifier> effects)

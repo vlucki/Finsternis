@@ -11,8 +11,6 @@
     {
         private Animator anim;
 
-        public static readonly int LockedBool = Animator.StringToHash("locked");
-        public static readonly int OpenBool = Animator.StringToHash("open");
         private MessageController displayedTooltip;
 
         protected override void Awake()

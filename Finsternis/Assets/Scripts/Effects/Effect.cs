@@ -67,7 +67,7 @@
         /// Should this effect be taken in consideation?
         /// </summary>
         /// <returns>True if every constraint is valid</returns>
-        public bool ShouldBeActive()
+        public virtual bool ShouldBeActive()
         {
             return constraints.Find((constraint) => { return !constraint.IsValid(this); }) == null;
         }
@@ -88,7 +88,5 @@
 
             return constraintsStr.Substring(0, constraintsStr.Length - 2);
         }
-
-        public abstract bool Merge(Effect other);
     }
 }

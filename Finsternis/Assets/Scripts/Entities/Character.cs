@@ -33,9 +33,9 @@
             base.Start();
 
             if (!this.health)
-                throw new System.InvalidOperationException("Characters must have \"vit\" attribute!");
+                throw new System.InvalidOperationException("Characters must have \"health\"!");
             if (!this.defense)
-                throw new System.InvalidOperationException("Characters must have \"def\" attribute!");
+                throw new System.InvalidOperationException("Characters must have \"defense\"!");
 
             this.health.onValueChanged.AddListener(CheckHealth);
         }

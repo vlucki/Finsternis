@@ -30,4 +30,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}
   chests:
   - {fileID: 11400000, guid: 5927b898af65c4d4d9e19f46b555c64f, type: 2}
-  - {fileID: 11400000, guid: 0c81b5cdb11803a4bab16e42041f57cb, type: 2}

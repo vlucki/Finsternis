@@ -37,6 +37,8 @@ namespace Finsternis
 
         private void HealthChanged(EntityAttribute attribute)
         {
+
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60 + (10 * (1 - attribute.Value / attribute.Max));
             if (attribute.Value <= attribute.Max * this.healthPercentageThreshold)
             {
                 if (!alertPlaying)

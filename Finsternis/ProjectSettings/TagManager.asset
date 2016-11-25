@@ -12,6 +12,7 @@ TagManager:
   - Message
   - AudioManager
   - SkyCamera
+  - Chest
   layers:
   - Default
   - TransparentFX

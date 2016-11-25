@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.Events;
     using UnityQuery;
     using Random = UnityEngine.Random;
 
@@ -14,9 +15,9 @@
         public List<GameObject> enemies;
         public GameObject enemiesHolder;
 
-        [SerializeField]
-        [ReadOnly]
-        [Tooltip("Set during runtime, by the Dungeon's RNG.")]
+        public UnityEvent onFinishedSpawning;
+
+        [SerializeField, ReadOnly, Tooltip("Set during runtime, by the Dungeon's RNG.")]
         private float baseEnemyDensity = 0.1f;
 
         void Awake()
@@ -66,6 +67,7 @@
 #endif
                 yield return null;
             }
+            onFinishedSpawning.Invoke();
         }
 
         private int SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)

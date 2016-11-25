@@ -246,32 +246,7 @@
 
             return result;
         }
-
-        /// <summary>
-        /// Limits the attribute value to a given range.
-        /// </summary>
-        /// <param name="min">The minimum value of the attribute.</param>
-        /// <param name="max">The maximum value of the attribute.</param>
-        /// <param name="drivingLimit">
-        /// If the minimum value should push the maximum value up (0)
-        /// or if the maximum value should push the minimum value down (1)
-        /// </param>
-        public void LimitValue(float min, float max, int drivingLimit = 0)
-        {
-            drivingLimit = (int)Mathf.Clamp01(drivingLimit);
-            switch (drivingLimit)
-            {
-                case 0:
-                    this.min = min;
-                    this.max = Mathf.Max(min, max);
-                    break;
-                case 1:
-                    this.max = max;
-                    this.min = Mathf.Min(min, max);
-                    break;
-            }
-        }
-        
+                
         public void Subtract(float value)
         {
             SetValue(Value - value);

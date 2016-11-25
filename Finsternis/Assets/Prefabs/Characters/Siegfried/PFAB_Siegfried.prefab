@@ -1063,6 +1063,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Ground Bash
+  energyCost: 1
+  energyAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
   startUpTime: 0.3
   castTime: 0.75
   endTime: 0.4
@@ -1318,6 +1320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Stab
+  energyCost: 0.2
+  energyAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
   startUpTime: 0.3
   castTime: 0.75
   endTime: 0.4
@@ -1475,6 +1479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Vertical Slash
+  energyCost: 0.3
+  energyAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
   startUpTime: 0.3
   castTime: 0.75
   endTime: 0.4
@@ -1601,7 +1607,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7d5aba3d05604f91713efae11688c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Horizontal Slash
+  name: Broad Swipe
+  energyCost: 0.1
+  energyAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
   startUpTime: 0.3
   castTime: 0.75
   endTime: 0.4

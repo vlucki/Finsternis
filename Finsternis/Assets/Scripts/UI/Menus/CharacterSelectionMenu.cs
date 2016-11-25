@@ -59,7 +59,7 @@
 
             while (alphaDiff > threshold)
             {
-                button.transform.localScale = Vector3.Lerp(button.transform.localScale, finalScale, scaleInterpAmount);
+                transform.localScale = Vector3.Lerp(transform.localScale, finalScale, scaleInterpAmount);
                 canvas.alpha = Mathf.Lerp(canvas.alpha, targetAlpha, alphaInterpAmount);
                 if (canvas.alpha > targetAlpha)
                     alphaDiff = canvas.alpha - targetAlpha;

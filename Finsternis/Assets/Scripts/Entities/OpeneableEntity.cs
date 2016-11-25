@@ -6,6 +6,9 @@
 
     public class OpeneableEntity : Entity, IOpeneable
     {
+        public static readonly int LockedBool = Animator.StringToHash("locked");
+        public static readonly int OpenBool = Animator.StringToHash("open");
+
         [Serializable]
         public struct OpeneableEvts
         {

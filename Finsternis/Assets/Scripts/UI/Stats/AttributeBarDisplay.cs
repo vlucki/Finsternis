@@ -14,7 +14,10 @@
 
         void Awake()
         {
-            GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+            if (!GameManager.Instance.Player)
+                GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+            else
+                GrabPlayer(GameManager.Instance.Player);
         }
 
         private void GrabPlayer(CharController player)
@@ -33,8 +36,9 @@
 
         private void UpdateDisplay(EntityAttribute attribute)
         {
-            foreach(var image in this.images)
-                image.fillAmount = attribute.Value / attribute.Max;
+            float percentage = attribute.Value / attribute.Max;
+            foreach (var image in this.images)
+                image.fillAmount = percentage;
         }
     }
 }

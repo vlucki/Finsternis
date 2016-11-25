@@ -168,6 +168,15 @@
                 this.CallDelayed(2, GameOver);
             });
             this.CallDelayed(1, this.player.GetComponent<InputRouter>().Enable);
+            this.player.Character.onAttributeInitialized.AddListener(
+                attribute =>
+                {
+                    if (attribute.HasMaximumValue)
+                        new AttributeRegeneration(
+                            this.player.Character, 
+                            attribute, 
+                            AttributeRegeneration.RegenType.RELATIVE, .01f, .25f);
+                });
             onPlayerSpawned.Invoke(this.player);
         }
 

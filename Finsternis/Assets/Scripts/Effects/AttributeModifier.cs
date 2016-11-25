@@ -158,7 +158,7 @@
             return str;
         }
 
-        public override bool Merge(Effect other)
+        public bool Merge(Effect other)
         {
             AttributeModifier otherModifier = other as AttributeModifier;
             if (otherModifier && otherModifier.AttributeAlias.Equals(this.AttributeAlias) && otherModifier.TypeOfModifier == this.TypeOfModifier)

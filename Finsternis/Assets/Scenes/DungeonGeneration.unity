@@ -102,6 +102,11 @@ Prefab:
       propertyPath: enemies.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011232817658, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -157,6 +162,36 @@ Prefab:
       value: 
       objectReference: {fileID: 1000012571075058, guid: 0260a624621d4df4f8c1288811cd0b61,
         type: 2}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1506804901}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
+        type: 2}
+      propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
   m_IsPrefabParent: 0
@@ -7136,7 +7171,7 @@ MonoBehaviour:
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 0
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -9367,7 +9402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1506804902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9380,7 +9415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
-  deactivate: 0
+  deactivate: 2
   onEnter:
     m_PersistentCalls:
       m_Calls: []
