@@ -24,7 +24,7 @@
         [SerializeField]
         private bool invincible = false;
 
-        public bool Invincible { get { return this.invincible; } }
+        public bool Invincible { get { return this.invincible; } set { this.invincible = true; } }
 
         public bool Dead { get { return this.dead; } }
 
@@ -86,7 +86,7 @@
                     var inteligence = GetAttribute("int");
                     if (inteligence)
                     {
-                        finalDamage -= (this.defense.Value / 5 + inteligence.Value / 2);
+                        finalDamage -= (this.defense.Value * .2f + inteligence.Value *.5f);
                     }
                     break;
 

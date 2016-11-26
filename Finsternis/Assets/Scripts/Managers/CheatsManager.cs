@@ -37,7 +37,7 @@ namespace Finsternis
 
         private void PositionSkyCam(Dungeon dungeon)
         {
-            var center = GameManager.Instance.DungeonManager.Drawer.GetWorldPosition(dungeon.GetCenter() + Vector2.one / 2);
+            var center = GameManager.Instance.DungeonManager.Drawer.GetWorldPosition(dungeon.GetCenter() + Vectors.Half2);
             this.skyCamera.transform.position = center.WithY(150);
         }
 

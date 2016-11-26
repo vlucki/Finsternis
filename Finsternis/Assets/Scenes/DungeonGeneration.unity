@@ -105,7 +105,7 @@ Prefab:
     - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
         type: 2}
       propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011232817658, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
       propertyPath: m_LocalPosition.x
@@ -137,7 +137,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011232817658, guid: 77bb4992b47214d43a8a253f910973f3, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
         type: 2}
@@ -176,7 +176,7 @@ Prefab:
         type: 2}
       propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1506804901}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000013464049582, guid: 77bb4992b47214d43a8a253f910973f3,
         type: 2}
       propertyPath: onFinishedSpawning.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -895,7 +895,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 986273454}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!114 &95202681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6040,7 +6040,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012306362652, guid: 1e75bbe4798bf364482ded080a7e3a0c, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 82000013571580212, guid: 1e75bbe4798bf364482ded080a7e3a0c,
         type: 2}
@@ -7106,7 +7106,6 @@ Transform:
   - {fileID: 1270723578}
   - {fileID: 769769428}
   - {fileID: 975108877}
-  - {fileID: 1506804904}
   - {fileID: 95202680}
   - {fileID: 11670186}
   - {fileID: 1931372969}
@@ -9386,76 +9385,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: Finsternis.RoomCountController+RoomCountEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!1 &1506804901
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1506804904}
-  - 65: {fileID: 1506804903}
-  - 114: {fileID: 1506804902}
-  m_Layer: 2
-  m_Name: DeathZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1506804902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1506804901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20c1a809392c65d41bfd62066ea0a74c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform: {fileID: 0}
-  deactivate: 2
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Trigger+OnTriggerEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 4294966783
-  collidersToIgnore: []
-  constraints: []
---- !u!65 &1506804903
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1506804901}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 200, y: 30, z: 200}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1506804904
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1506804901}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 986273454}
-  m_RootOrder: 3
 --- !u!1 &1529774108
 GameObject:
   m_ObjectHideFlags: 0
@@ -10276,7 +10205,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010538775814, guid: 0fe7271ef1c2f2d4b88fbaa50a0407b7, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1000013893691156, guid: 0fe7271ef1c2f2d4b88fbaa50a0407b7, type: 2}
       propertyPath: m_TagString

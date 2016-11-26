@@ -96,7 +96,7 @@
         {
             Vector3 origin = this.follow.Target.position;
             
-            Ray ray = new Ray(origin + Vector3.up / 2, origin.Towards(origin+this.follow.OriginalOffset));
+            Ray ray = new Ray(origin + new Vector3(0, .5f, 0), origin.Towards(origin+this.follow.OriginalOffset));
             float radius = 0.25f;
 
             return (Physics.SphereCast(ray, radius, out hit, maxDistanceForOcclusion, wallLayer)) ;

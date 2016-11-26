@@ -27,7 +27,7 @@ namespace Finsternis
 
         [SerializeField]
         private List<DungeonGoal> goals;
-        
+
         private HashSet<RoomTheme> roomThemes;
         private HashSet<CorridorTheme> corridorThemes;
 
@@ -126,7 +126,7 @@ namespace Finsternis
         public void FitGridToSections()
         {
             bottomRightCorner = Vector2.zero;
-            for(int col = 0; col < this.Width; col++)
+            for (int col = 0; col < this.Width; col++)
             {
                 for (int row = 0; row < this.Height; row++)
                 {
@@ -154,14 +154,14 @@ namespace Finsternis
 
         public Vector2 GetCenter()
         {
-            return new Vector2(this.Width, this.Height) / 2;
+            return new Vector2(this.Width * .5f, this.Height * .5f);
         }
 
         public UnityEvent OnGoalCleared;
 
         public void Init(int width, int height)
         {
-            if(customSeed)
+            if (customSeed)
                 UnityEngine.Random.InitState(this.seed);
 
             this.dungeonGrid = new DungeonSection[width, height];
@@ -322,7 +322,7 @@ namespace Finsternis
             {
                 for (int j = -1; j < 2; j++)
                 {
-                    if (i == j || (!checkDiagonals && i+j == 0))
+                    if (i == j || (!checkDiagonals && i + j == 0))
                         continue;
 
                     Vector2 neighbourCell = center + new Vector2(i, j);
@@ -442,7 +442,7 @@ namespace Finsternis
         {
             string s = this.name;
 
-            for(int i = -1; i < this.Height; i++)
+            for (int i = -1; i < this.Height; i++)
             {
                 s += "\n|";
                 for (int j = -1; j < this.Width; j++)

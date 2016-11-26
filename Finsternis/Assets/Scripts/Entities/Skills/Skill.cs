@@ -77,7 +77,8 @@
             Using = true;
             Casting = true;
             this.timeStarted = Time.timeSinceLevelLoad;
-            this.energyAttribute.Subtract(this.energyCost);
+            if(this.energyCost > 0)
+                this.energyAttribute.Subtract(this.energyCost);
 
             onBegin.Invoke(this);
 

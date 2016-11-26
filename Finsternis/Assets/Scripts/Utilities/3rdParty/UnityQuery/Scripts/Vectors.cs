@@ -11,6 +11,17 @@ namespace UnityQuery
 
     public static class Vectors
     {
+        private static Vector2 half2;
+        public static Vector2 Half2
+        {
+            get
+            {
+                if (half2 == default(Vector2))
+                    half2 = new Vector2(.5f, .5f);
+                return half2;
+            }
+        }
+
         /// <summary>
         /// Calculates the angle between two Vector2.
         /// </summary>

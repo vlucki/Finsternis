@@ -117,7 +117,7 @@
         {
             HashSet<Vector2> usedCells = new HashSet<Vector2>();
             float dungeonProgress = (1f + GameManager.Instance.ClearedDungeons) / GameManager.Instance.DungeonsToClear;
-            
+            Vector2 half = Vectors.Half2;
             do
             {
                 Vector2 cell = room.GetRandomCell();
@@ -125,10 +125,15 @@
                 //Try to avoid spawning enemies on top of eachother (since physics tend to throw them all over the place)
                 Loop.Do(() => usedCells.Contains(cell),
                     () => cell = room.GetRandomCell(), room.CellCount);
+
                 usedCells.Add(cell);
-                cell += Vector2.one / 2; //center enemy on cell
-                GameObject enemy = ((GameObject)Instantiate(goal.enemy, drawer.GetWorldPosition(cell).WithY(.1f), Quaternion.Euler(0, Random.Range(0, 360), 0)));
-                enemy.transform.SetParent(parent);
+
+                cell += half; //center enemy on cell
+
+                GameObject enemy = ((GameObject)Instantiate(
+                    goal.enemy, drawer.GetWorldPosition(cell).WithY(.1f), 
+                    Quaternion.Euler(0, Random.Range(0, 360), 0), parent));
+
                 var enemyChar = enemy.GetComponent<EnemyChar>();
                 enemyChar.onDeath.AddListener(goal.EnemyKilled);
 

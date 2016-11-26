@@ -58,7 +58,7 @@ namespace Finsternis
             this.dungeon.gameObject.SetLayer("Ignore Raycast");
             var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
             deathZoneBorders.isTrigger = true;
-            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vector2.one / 2);
+            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vectors.Half2);
 
             deathZoneBorders.center = dungeonCenter;
             deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 30, (this.dungeon.Height + 2) * this.cellScale.z);
@@ -146,7 +146,7 @@ namespace Finsternis
                 {
                     var theme = dungeon[cell].Theme;
                     theme.GetRandomWall();
-                    var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + Vector2.one / 2), Quaternion.identity);
+                    var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + Vectors.Half2), Quaternion.identity);
                     wall.transform.forward = new Vector3(-wallOffset.x, 0, wallOffset.y);
                     return wall;
                 }
@@ -184,7 +184,7 @@ namespace Finsternis
         private GameObject MakeCell(int cellX, int cellY)
         {
             Vector2 dungeonPos = new Vector2(cellX, cellY);
-            Vector3 worldPos = GetWorldPosition(dungeonPos + Vector2.one / 2);
+            Vector3 worldPos = GetWorldPosition(dungeonPos + Vectors.Half2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
 
@@ -241,7 +241,7 @@ namespace Finsternis
             GameObject featureGO =
                 (GameObject)Instantiate(
                 feature.Prefab,
-                GetWorldPosition(position + Vector2.one / 2),
+                GetWorldPosition(position + Vectors.Half2),
                 feature.Prefab.transform.rotation);
             if (!feature.Alignment.IsNullOrEmpty())
             {
@@ -262,7 +262,7 @@ namespace Finsternis
             drawnWalls.Add(dungeonPos);
 
             GameObject wall = new GameObject("Wall (" + dungeonPos.ToString("0") + ")");
-            wall.transform.position = GetWorldPosition(dungeonPos + Vector2.one / 2);
+            wall.transform.position = GetWorldPosition(dungeonPos + Vectors.Half2);
             wall.layer = LayerMask.NameToLayer("Wall");
 
             return wall;
@@ -291,7 +291,7 @@ namespace Finsternis
 
         public Vector3 GetEntrancePosition()
         {
-            return GetWorldPosition(this.dungeon.Entrance + Vector2.one / 2);
+            return GetWorldPosition(this.dungeon.Entrance + Vectors.Half2);
         }
     }
 

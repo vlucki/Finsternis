@@ -857,7 +857,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010215177108}
-  m_LocalRotation: {x: -0.2750112, y: 0.7101828, z: -0.6323205, w: -0.14205697}
+  m_LocalRotation: {x: -0.27501118, y: 0.7101827, z: -0.63232046, w: -0.14205696}
   m_LocalPosition: {x: 0.12316096, y: 0.11709311, z: -0.0149521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1306,8 +1306,8 @@ MonoBehaviour:
   - {fileID: 114000012084550214}
   - {fileID: 114000012006707820}
   - {fileID: 114000011013378982}
-  - {fileID: 114000010716781832}
   - {fileID: 0}
+  - {fileID: 114000010716781832}
 --- !u!114 &114000011013378982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1801,6 +1801,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e281a9b07e24d154e8a5d722344f9d38, type: 2}
     - {fileID: 11400000, guid: f9450fddf781a634b85f28248a3c15a9, type: 2}
     - {fileID: 11400000, guid: 98fba4874565ebf42bf391106a23ae49, type: 2}
+    - {fileID: 11400000, guid: d2454c5551aabf04c93208861eab8939, type: 2}
     onAxisActive:
       m_PersistentCalls:
         m_Calls:
@@ -2027,7 +2028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 13
+  baseVelocityMultiplier: 15
   speedMultiplier: 4
   turningSpeed: 3
   modeWhenApplyingForce: 5

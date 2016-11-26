@@ -260,7 +260,7 @@
                 
                 Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-                Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vector2.one / 2).WithY(3);
+                Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vectors.Half2).WithY(3);
 
                 this.player.transform.position = pos;
 
