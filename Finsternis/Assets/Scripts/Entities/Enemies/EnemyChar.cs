@@ -14,7 +14,9 @@
             {
                 if (LastInteraction && LastInteraction.Agent && LastInteraction.Agent.CompareTag("Player"))
                 {
-                    GameManager.Instance.CardsManager.GivePlayerCard(Random.Range(cardsToGive.min, cardsToGive.max));
+                    var givenCards = Random.Range(cardsToGive.min, cardsToGive.max);
+                    GameManager.Instance.CardsManager.GivePlayerCard(givenCards);
+                    GameManager.Instance.Player.GetCachedComponent<Inventory>().AddPoints(Random.Range(givenCards, givenCards * 2));
                 }
             }
             base.Die();

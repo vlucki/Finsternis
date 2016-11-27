@@ -1,5 +1,6 @@
 ﻿namespace Finsternis
 {
+    using System;
     using UnityEngine;
     using UnityEngine.Audio;
 
@@ -15,6 +16,13 @@
         protected override void Awake()
         {
             base.Awake();
+            GetManager();
+        }
+
+        protected void GetManager()
+        {
+            if (this.Manager)
+                return;
 
             var managerObj = GameObject.FindGameObjectWithTag("AudioManager");
             if (managerObj)

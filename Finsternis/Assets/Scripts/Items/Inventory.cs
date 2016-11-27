@@ -46,6 +46,12 @@
                 UnequipCard(this.equippedCards[this.equippedCards.Count-1].card);
         }
 
+        public void AddPoints(int v)
+        {
+            if (v > 0)
+                this.allowedCardPoints += v;
+        }
+
         public List<CardStack> EquippedCards { get { return this.equippedCards; } }
         public List<CardStack> UnequippedCards { get { return this.unequippedCards; } }
         

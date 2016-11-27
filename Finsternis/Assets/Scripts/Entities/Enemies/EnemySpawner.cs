@@ -10,15 +10,24 @@
 
     public class EnemySpawner : MonoBehaviour
     {
-        public DungeonDrawer drawer;
-        public List<EntityAttribute> baseAttributes;
-        public List<GameObject> enemies;
-        public GameObject enemiesHolder;
+        [SerializeField]
+        private DungeonDrawer drawer;
+
+        [SerializeField]
+        private List<EntityAttribute> baseAttributes;
+
+        [SerializeField]
+        private List<GameObject> enemies;
+
+        [SerializeField]
+        private List<GameObject> bosses;
 
         public UnityEvent onFinishedSpawning;
 
         [SerializeField, ReadOnly, Tooltip("Set during runtime, by the Dungeon's RNG.")]
         private float baseEnemyDensity = 0.1f;
+
+        private GameObject enemiesHolder;
 
         void Awake()
         {
@@ -67,12 +76,15 @@
 #endif
                 yield return null;
             }
+
+            SpawnEnemyOfType(enemiesHolder.transform, dungeon[dungeon.Exit] as Room, MakeGoal(dungeon, goals, bosses[0]), 1);
+
             onFinishedSpawning.Invoke();
         }
 
         private int SpawnEnemies(Dungeon dungeon, List<KillEnemyGoal> goals)
         {
-            Room room = dungeon.GetRandomRoom(1);
+            Room room = dungeon.GetRandomRoom(1, dungeon.Rooms.Count - 2);
 
             int enemiesToSpawn = Mathf.CeilToInt(Random.value * room.CellCount * (room.Theme.SpawnDensityModifier * this.baseEnemyDensity));
             int enemiesSpawned = 0;
@@ -149,5 +161,15 @@
 
             } while (--amount > 0);
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (!this.enemies.IsNullOrEmpty())
+                this.enemies.RemoveAll(go => !go.GetComponent<EnemyChar>());
+            if (!this.bosses.IsNullOrEmpty())
+                this.bosses.RemoveAll(go => !go.GetComponent<EnemyChar>());
+        }
+#endif
     }
 }

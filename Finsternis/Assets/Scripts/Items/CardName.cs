@@ -124,13 +124,17 @@
         {
 
             float multiplier = 1;
+            float exponent = .4f;
+
             switch (this.Type)
             {
                 case NameType.PreName:
                     multiplier = 1.01f;
+                    exponent = .25f;
                     break;
                 case NameType.PostName:
                     multiplier = 1.02f;
+                    exponent = .1f;
                     break;
                 case NameType.MainName:
                     this.isStackable = false;
@@ -159,17 +163,17 @@
                 effect.UpdateName();
             }
 
-            rarity += (effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10]
-                        + effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10]) / 7 * .9f;
+            rarity += Mathf.Pow(.5f, (effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10]) / 7 * .9f);
 
 
-            rarity -= (effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10]
-                        + effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10]) / 7 * .9f;
+            rarity -= Mathf.Pow(.5f, (effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10]) / 7 * .9f);
 
             if (this.isStackable)
-                rarity *= 1.5f;
+                rarity *= -1 - Mathf.Log10(rarity);
 
-            this.rarity = Mathf.Abs(rarity);
+            this.rarity = Mathf.Clamp(Mathf.Pow(Mathf.Abs(rarity), exponent), .001f, 1);
 
 
         }

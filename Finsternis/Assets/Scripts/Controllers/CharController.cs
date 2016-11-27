@@ -344,6 +344,9 @@ namespace Finsternis
         private void ValidateSkills()
         {
             GetComponents<Skill>(this.skills);
+            if (this.skills.IsNullOrEmpty())
+                return;
+
             if (this.equippedSkills.Length != 5)
             {
                 var tmp = this.equippedSkills;

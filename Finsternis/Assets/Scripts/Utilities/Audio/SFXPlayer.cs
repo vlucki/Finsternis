@@ -40,6 +40,7 @@
             if (this.type != EffectType.GLOBAL && this.transform.position.Distance(GameManager.Instance.Player.transform.position) > this.maxDistance)
                 return;
 
+            GetManager();
             var source = this.Manager.GetFreeSFXSource();
             this.activeSources.Add(source);
             if (this.group)
@@ -74,7 +75,10 @@
 
         private bool MayPlayAnotherClip()
         {
-            this.activeSources.RemoveAll(source => !source || !source.gameObject.activeSelf);
+            if (this.activeSources != null)
+                this.activeSources.RemoveAll(source => !source || !source.gameObject.activeSelf);
+            else
+                this.activeSources = new List<AudioSource>();
 
             return this.activeSources.Count < this.maxSimultaneousClips;
         }

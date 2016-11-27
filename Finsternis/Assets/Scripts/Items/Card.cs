@@ -22,7 +22,7 @@
         private float floatRarity;
 
         [SerializeField][ReadOnly]
-        private int cost;
+        private int cost = -1;
 
         [SerializeField]
         private string description;
@@ -42,7 +42,14 @@
                 return this.rarity;
             } }
 
-        public int Cost { get { return this.cost; } }
+        public int Cost {
+            get
+            {
+                if (this.cost <= 0)
+                    this.cost = Mathf.CeilToInt(Mathf.Pow(30, this.floatRarity));
+                return this.cost;
+            }
+        }
 
         public string Description { get { return this.description; } }
 
@@ -53,11 +60,6 @@
             this.effects = new List<Effect>();
             this.preNames = new List<CardName>();
             this.postNames = new List<CardName>();
-        }
-
-        void OnEnable()
-        {
-            this.cost = Random.Range(1, 3); //set base cost
         }
 
         #region Name String Creation
@@ -96,7 +98,6 @@
         {
             AddName(name);
             this.floatRarity += name.Rarity;
-            this.cost += Mathf.CeilToInt(name.Rarity * 10);
             AddEffects(name.Effects);
         }
 
