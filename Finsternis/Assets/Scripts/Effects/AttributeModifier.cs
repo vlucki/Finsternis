@@ -171,5 +171,29 @@
             }
             return false;
         }
+
+        public float GetModifiedValue(float baseValue, float currentValue)
+        {
+            float modifiedValue = currentValue;
+
+            switch (this.TypeOfModifier)
+            {
+                case ModifierType.SUM:
+                    modifiedValue += this.ValueChange;
+                    break;
+                case ModifierType.SUBTRACT:
+                    modifiedValue -= this.ValueChange;
+                    break;
+                case ModifierType.DIVIDE:
+                    modifiedValue += baseValue / this.ValueChange;
+                    break;
+                case ModifierType.MULTIPLY:
+                    modifiedValue += baseValue * this.ValueChange;
+                    break;
+            }
+            if (modifiedValue < 0)
+                modifiedValue = 0;
+            return modifiedValue;
+        }
     }
 }

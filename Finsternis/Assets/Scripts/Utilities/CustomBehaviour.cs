@@ -47,27 +47,46 @@ public class CustomBehaviour : MonoBehaviour
 
     public void RemoveAllBehaviours()
     {
-        foreach(var behaviour in this.GetComponents<MonoBehaviour>())
+        foreach (var behaviour in this.GetComponents<MonoBehaviour>())
         {
             Destroy(behaviour);
         }
     }
 
-    public void CacheComponent<T>(T component) where T : Component
+    public T CacheComponent<T>() where T : Component
     {
+        if (CacheComponent<T>(GetComponent<T>()))
+            return GetCachedComponent<T>(false);
+
+        return null;
+    }
+
+    public bool CacheComponent<T>(T component) where T : Component
+    {
+        if (component == null)
+            return false;
+
         if (this.componentCache == null)
             this.componentCache = new Dictionary<Type, Component>();
         this.componentCache[typeof(T)] = component;
+        return true;
     }
 
-    public T GetCachedComponent<T>() where T : Component
+    public T GetCachedComponent<T>(bool cacheIfNotFound = true) where T : Component
     {
+        Component component = null;
         if (this.componentCache != null)
         {
-            Component component;
-            if (this.componentCache.TryGetValue(typeof(T), out component))
-                return component as T;
+            Type t = typeof(T);
+            this.componentCache.TryGetValue(t, out component);
         }
-        return null;
+        if (!component && cacheIfNotFound)
+        {
+            component = GetComponent<T>();
+            if (!CacheComponent<T>(component as T))
+                return null;
+        }
+
+        return component as T;
     }
 }

@@ -21,7 +21,7 @@
 
         public DungeonClearedEvent onDungeonCleared;
 
-        private int dungeonsCleared;
+        public int DungeonsCleared { get; private set; }
 
         private Dungeon currentDungeon;
 
@@ -40,7 +40,6 @@
             }
             dungeonFactory.onGenerationEnd.AddListener((dungeon) =>
             {
-                GameManager.Instance.ClearedDungeons++;
                 currentDungeon = dungeon;
 
                 dungeon.OnGoalCleared.AddListener(() =>
@@ -61,8 +60,8 @@
 
         private void DungeonCleared()
         {
-            this.dungeonsCleared++;
-            this.onDungeonCleared.Invoke(this.dungeonsCleared);
+            this.DungeonsCleared++;
+            this.onDungeonCleared.Invoke(this.DungeonsCleared);
         }
 
         public void CreateDungeon()
@@ -80,7 +79,7 @@
                 d.gameObject.DestroyNow();
             }
 
-            this.dungeonFactory.Generate(seed);
+            this.dungeonFactory.Generate(seed, this.DungeonsCleared > 0);
         }
     }
 }

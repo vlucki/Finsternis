@@ -107,7 +107,8 @@
         public void SetTemporaryTarget(Transform target)
         {
             SetTarget(target, false);
-            this.StopCoroutine(this.targetResetCoroutine);
+            if(this.targetResetCoroutine != null)
+                this.StopCoroutine(this.targetResetCoroutine);
             this.targetResetCoroutine = this.CallDelayed(this.tempTargetFocusTime, ResetTarget);
         }
 

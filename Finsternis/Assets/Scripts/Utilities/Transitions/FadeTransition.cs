@@ -21,10 +21,11 @@ namespace Finsternis
         {
             this.canvasGroup = GetComponent<CanvasGroup>();
             trigger = transitionType.ToString();
-            base.Awake();
 
             if (presetAlpha)
                 this.canvasGroup.alpha = (int)transitionType;
+
+            base.Awake();
         }
 
 #if UNITY_EDITOR

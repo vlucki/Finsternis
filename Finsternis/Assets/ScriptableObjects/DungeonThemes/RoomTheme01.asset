@@ -21,9 +21,10 @@ MonoBehaviour:
   walls:
   - {fileID: 11400000, guid: b6bf55d6f0f6f444291bf6717c33bedd, type: 2}
   - {fileID: 11400000, guid: 8df4557522a71ac49a5945ca9694c905, type: 2}
-  spawnDensityModifier: 1.2
+  spawnDensityModifier: 1
   floorDecorations:
   - {fileID: 11400000, guid: 85712b9a683aa444b9d4d23c4d79f1e5, type: 2}
+  - {fileID: 11400000, guid: 63fb89ee85fcbe146853800d55c3c2ee, type: 2}
   wallDecorations:
   - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
   exits:

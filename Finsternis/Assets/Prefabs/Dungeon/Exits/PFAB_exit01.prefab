@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad77cb53b86d894b9b6aacf5ccbf4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -283,9 +285,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   layersToIgnore:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294966783
   collidersToIgnore: []
-  constraints: []
+  constraints:
+  - {fileID: 11400000, guid: 7baa03a45f185404da83613692fa0050, type: 2}
   onExitCrossed:
     m_PersistentCalls:
       m_Calls: []

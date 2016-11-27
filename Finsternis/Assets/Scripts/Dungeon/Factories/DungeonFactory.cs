@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityQuery;
-
+using Random = UnityEngine.Random;
 namespace Finsternis
 {
     [DisallowMultipleComponent]
@@ -93,16 +93,16 @@ namespace Finsternis
             this.minimumCorridorLength = Mathf.Clamp(this.minimumCorridorLength, 0, this.maximumCorridorLength);
         }
 
-        public void Generate(int? seed = null)
+        public void Generate(int? seed = null, bool firstTime = false)
         {
-            this.StartCoroutine(_Generate(seed));
+            this.StartCoroutine(_Generate(seed, firstTime));
         }
 
         /// <summary>
         /// Core method for dungeon generation.
         /// </summary>
         /// <param name="seed">The seed to be used for the pseudo-random number generator.</param>
-        public IEnumerator _Generate(int? seed = null)
+        public IEnumerator _Generate(int? seed = null, bool firstTime = false)
         {
             GameObject dungeonGO = new GameObject(dungeonName);
 
@@ -111,14 +111,18 @@ namespace Finsternis
             if (seed != null)
                 dungeon.Seed = (int)seed;
 
-#if DEBUG_DUNGEON_GEN
-            else
+            else if (firstTime)
             {
+                var now = System.DateTime.UtcNow;
+                dungeon.Seed = now.Millisecond + now.Second * 1000 + now.Minute * 60000 + now.Hour * 3600000;
+            }
+#if DEBUG_DUNGEON_GEN
+
 #if LOG_INFO
                 Log.I(this, "debug mode enabled, setting seed to 0");
 #endif
                 dungeon.Seed = 2;
-            }
+
 #endif
             Init(dungeon);
 

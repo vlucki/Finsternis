@@ -78,7 +78,7 @@
             int enemiesSpawned = 0;
             int remainingEnemies = enemiesToSpawn;
 
-            int maxEnemyIndex = Mathf.Min(this.enemies.Count - 1, GameManager.Instance.ClearedDungeons + 1); //show more enemies at later dungeons
+            int maxEnemyIndex = Mathf.Min(this.enemies.Count - 1, GameManager.Instance.DungeonManager.DungeonsCleared + 1); //show more enemies at later dungeons
 
             Loop.Do(
                 () => remainingEnemies > 0,
@@ -116,7 +116,7 @@
         private void SpawnEnemyOfType(Transform parent, Room room, KillEnemyGoal goal, int amount)
         {
             HashSet<Vector2> usedCells = new HashSet<Vector2>();
-            float dungeonProgress = (1f + GameManager.Instance.ClearedDungeons) / GameManager.Instance.DungeonsToClear;
+            float dungeonProgress = (1f + GameManager.Instance.DungeonManager.DungeonsCleared) / GameManager.Instance.DungeonsToClear;
             Vector2 half = Vectors.Half2;
             do
             {

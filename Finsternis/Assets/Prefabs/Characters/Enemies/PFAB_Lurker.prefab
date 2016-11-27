@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416cd65c3fbc07340b18c3e0dd9ace39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseVelocityMultiplier: 8
+  baseVelocityMultiplier: 8.5
   speedMultiplier: 2.5
   turningSpeed: 2
   modeWhenApplyingForce: 5
@@ -1072,8 +1072,8 @@ MonoBehaviour:
   invincibilityTime: 1
   invincible: 0
   cardsToGive:
-    minCardsToGive: 1
-    maxCardsToGive: 4
+    min: 1
+    max: 4
 --- !u!114 &114000011898097906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1086,6 +1086,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Swipe
+  energyCost: 1
+  energyAttribute: {fileID: 0}
   startUpTime: 1.5
   castTime: 1
   endTime: 1

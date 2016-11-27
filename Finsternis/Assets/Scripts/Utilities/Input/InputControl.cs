@@ -14,7 +14,7 @@ public class InputControl : ScriptableObject
         ANY             = 0x111
     }
 
-    [AxesName][SerializeField]
+    [AxesName(true), SerializeField]
     private string axis;
 
     [SerializeField]
@@ -30,6 +30,8 @@ public class InputControl : ScriptableObject
 
     [SerializeField]
     private bool enabled = true;
+
+    private const string NO_AXIS = "None";
 
     public string Axis
     {
@@ -68,7 +70,11 @@ public class InputControl : ScriptableObject
     /// </summary>
     public float AxisValue {
         get {
-            float axisValue = Input.GetAxis(Axis);
+            float axisValue = 0;
+            if (!Axis.Equals(InputControl.NO_AXIS))
+                axisValue = Input.GetAxis(Axis);
+            else if (Input.anyKey)
+                axisValue = 1;
             return axisValue;
         } }
 

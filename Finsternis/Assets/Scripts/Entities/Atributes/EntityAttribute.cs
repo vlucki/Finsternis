@@ -103,31 +103,10 @@
             {
                 modifiers.ForEach(modifier =>
                 {
-                    newValue = ApplyModifier(modifier, newValue);
+                    newValue = modifier.GetModifiedValue(this.baseValue, newValue);
                 });
             }
             SetValue(newValue);
-        }
-
-        private float ApplyModifier(AttributeModifier modifier, float valueToChange)
-        {
-            switch (modifier.TypeOfModifier)
-            {
-                case AttributeModifier.ModifierType.SUM:
-                    valueToChange += modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.SUBTRACT:
-                    valueToChange -= modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.DIVIDE:
-                    valueToChange += this.baseValue / modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.MULTIPLY:
-                    valueToChange += this.baseValue * modifier.ValueChange;
-                    break;
-            }
-
-            return valueToChange;
         }
 
         /// <summary>
@@ -184,7 +163,7 @@
                     this.modifiers = new List<AttributeModifier>();
 
                 this.modifiers.Add(newModifier);
-                SetValue(ApplyModifier(newModifier, this.valueWithModifiers));
+                SetValue(newModifier.GetModifiedValue(this.baseValue, this.valueWithModifiers));
             }
         }
 

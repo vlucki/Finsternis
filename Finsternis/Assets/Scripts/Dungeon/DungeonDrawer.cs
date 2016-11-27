@@ -19,15 +19,7 @@ namespace Finsternis
         [Header("Scaling parameters")]
         [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
         public Vector3 cellScale = Vector3.one;
-        public float extraWallHeight = 3;
-
-        [Header("Materials")]
-        public Material defaultWallMaterial;
-        public PhysicMaterial defaultWallPhysicMaterial;
-        public Material defaultFloorMaterial;
-        public PhysicMaterial defaultFloorPhysicMaterial;
-        public Material corridorMaterial;
-
+        
         public GameObject[] exits;
 
         [Header("Events")]

@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using UnityQuery;
 
     [RequireComponent(typeof(Entity))]
     public class Inventory : MonoBehaviour
@@ -28,14 +29,21 @@
 
         private Entity owner;
 
-        private int totalEquippedCost;
+        private int allowedCardPoints = 10;
 
-        private int maximumCostAllowed = 10;
+        public int TotalEquippedCost { get; private set; }
 
-        public int MaximumCostAllowed
+        public int AllowedCardPoints
         {
-            get { return this.maximumCostAllowed; }
-            set { this.maximumCostAllowed = Mathf.Max(0, value); }
+            get { return this.allowedCardPoints; }
+        }
+
+        public void SetAllowedCardPoints(int value)
+        {
+            if (value >= 0)
+                this.allowedCardPoints = value;
+            while (this.allowedCardPoints < this.TotalEquippedCost && !this.equippedCards.IsNullOrEmpty())
+                UnequipCard(this.equippedCards[this.equippedCards.Count-1].card);
         }
 
         public List<CardStack> EquippedCards { get { return this.equippedCards; } }
@@ -73,12 +81,12 @@
 
         public bool EquipCard(Card card)
         {
-            if (this.totalEquippedCost + card.Cost >= maximumCostAllowed)
+            if (!CanEquip(card))
                 return false;
             
             StackCard(this.equippedCards, card);
 
-            this.totalEquippedCost += card.Cost;
+            this.TotalEquippedCost += card.Cost;
             ApplyCardEffects(card);
 
             onCardEquipped.Invoke(card);
@@ -184,6 +192,11 @@
         public bool IsEquipped(Card card)
         {
             return GetStack(this.equippedCards, card) != null;
+        }
+
+        internal bool CanEquip(Card card)
+        {
+            return this.allowedCardPoints >= this.TotalEquippedCost + card.Cost;
         }
     }
 }

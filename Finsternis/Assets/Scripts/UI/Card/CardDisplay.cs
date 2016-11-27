@@ -21,10 +21,10 @@
         private static Sprite[] sprites;
 
         public Card Card { get { return this.stack.card; } }
-        
+
         void Awake()
         {
-            if(sprites == null)
+            if (sprites == null)
             {
                 sprites = Resources.LoadAll<Sprite>("Sprites/card_sprites");
             }
@@ -77,29 +77,10 @@
             UpdateCardText();
         }
 
-        private void UpdateCardText()
-        {
-            this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
-            this.cardNameField.text = this.stack.card.name;
-            this.cardCostField.text = this.stack.card.Cost.ToString();
-            this.attributesNamesField.text = "";
-            this.attributesValuesField.text = "";
-
-            foreach (var effect in this.stack.card.GetEffects())
-            {
-                var modifier = effect as AttributeModifier;
-                if (modifier)
-                {
-                    Append(this.attributesNamesField, modifier.AttributeAlias);
-                    Append(this.attributesValuesField, GetValueWithComparison(modifier));
-                }
-            }
-        }
-
         private void UpdateCardImage()
         {
             this.cardImage.sprite = null;
-            
+
             List<Sprite> usableSprites = new List<Sprite>();
             foreach (var sprite in sprites)
             {
@@ -126,6 +107,57 @@
                 this.cardStackSize.text = "x" + this.stack.Count;
         }
 
+        private void UpdateCardText()
+        {
+            this.newCardLabel.enabled = GameManager.Instance.Player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+            this.cardNameField.text = this.stack.card.name;
+            this.cardCostField.text = this.stack.card.Cost.ToString();
+            this.attributesNamesField.text = "";
+            this.attributesValuesField.text = "";
+
+            var player = GameManager.Instance.Player;
+            if (player)
+            {
+                var effects = this.stack.card.GetEffects();
+                var compoundEffects = new Dictionary<EntityAttribute, float>();
+                foreach (var effect in effects)
+                {
+                    var modifier = effect as AttributeModifier;
+                    if (modifier)
+                    {
+                        var attrib = player.Character.GetAttribute(modifier.AttributeAlias);
+                        if (!compoundEffects.ContainsKey(attrib))
+                            compoundEffects[attrib] = attrib.Value;
+
+                        compoundEffects[attrib] = modifier.GetModifiedValue(attrib.BaseValue, compoundEffects[attrib]);
+                    }
+                }
+
+                foreach (var compoundEffect in compoundEffects)
+                {
+                    Append(this.attributesNamesField, compoundEffect.Key.Alias);
+                    Append(this.attributesValuesField, GetValueWithComparison(compoundEffect));
+                }
+            }
+
+        }
+
+        private string GetValueWithComparison(KeyValuePair<EntityAttribute, float> compoundEffect)
+        {
+            var difference = compoundEffect.Value - compoundEffect.Key.Value;
+            string result = difference.ToString("00.00");
+            if (difference > 0)
+            {
+                result = "+" + result + " (" + compoundEffect.Value.ToString("00.00").Colorize(Color.green) + ")";
+            }
+            else
+            {
+                result += " (" + compoundEffect.Value.ToString("00.00").Colorize(Color.red) + ")";
+            }
+
+            return result;
+        }
+
         private string GetValueWithComparison(AttributeModifier modifier)
         {
             string result = modifier.StringfyValue();
@@ -138,15 +170,13 @@
                 return null;
             }
 
-            if (!player.GetComponent<Inventory>().IsEquipped(this.stack.card))
+            if (!player.GetCachedComponent<Inventory>().IsEquipped(this.stack.card))
             {
                 var attr = player.Character.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
-                    float modifiedValue = CalculateModifiedValue(modifier, attr);
-                    string valueStr = modifiedValue.ToString("n2");
-                    if ((int)modifiedValue / 10 == 0)
-                        valueStr = "0" + valueStr;
+                    float modifiedValue = modifier.GetModifiedValue(attr.BaseValue, attr.Value);
+                    string valueStr = modifiedValue.ToString("00.00");
                     if (modifiedValue != attr.Value)
                     {
                         result += " (";
@@ -157,29 +187,6 @@
             }
 
             return result;
-        }
-
-        private float CalculateModifiedValue(AttributeModifier modifier, EntityAttribute attribute)
-        {
-            float result = attribute.Value;
-
-            switch (modifier.TypeOfModifier)
-            {
-                case AttributeModifier.ModifierType.SUM:
-                    result += modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.SUBTRACT:
-                    result -= modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.DIVIDE:
-                    result = attribute.BaseValue / modifier.ValueChange;
-                    break;
-                case AttributeModifier.ModifierType.MULTIPLY:
-                    result = attribute.BaseValue * modifier.ValueChange;
-                    break;
-            }
-
-            return Mathf.Max(result, 0); //no need to display negative values
         }
 
         private void Append(Text field, string text)

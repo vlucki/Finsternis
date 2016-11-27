@@ -18,6 +18,7 @@ MonoBehaviour:
   stackWhiteList:
   - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
   - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
+  - {fileID: 11400000}
   restrictions: []
   alignment:
   - {fileID: 11400000, guid: be33033502c1c584ea98457aa884b121, type: 2}

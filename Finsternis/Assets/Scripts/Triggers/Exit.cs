@@ -22,18 +22,13 @@
 
         public bool Triggered { get { return this.triggered; } }
 
-        public GameObject player { get { return GameManager.Instance.Player.gameObject; } }
-
         protected override void Awake()
         {
             base.Awake();
-            if (!onExitCrossed)
-                onExitCrossed = new ExitCrossedEvent();
-            onExitCrossed.AddListener(GameManager.Instance.EndCurrentLevel);
             this.mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             this.camFollow = this.mainCamera.transform.parent.GetComponent<Follow>();
             this.locked = true;
-
+            this.onExit.AddListener(OnExit);
             this.triggered = false;
         }
 
@@ -42,7 +37,7 @@
             if (!collider.enabled)
             {
                 collider.enabled = true;
-                this.camFollow.SetTarget(transform);
+                this.camFollow.SetTarget(transform, false);
                 this.camFollow.OnTargetReached.AddListener(BeginOpen);
             }
         }
@@ -55,24 +50,24 @@
         public void Open()
         {
             this.camFollow.OnTargetReached.RemoveListener(BeginOpen);
-            this.camFollow.SetTarget(this.player.transform);
+            this.camFollow.ResetTarget();
         }
 
         protected override void OnTriggerExit(Collider other)
         {
             if (this.triggered)
                 return;
-
             base.OnTriggerExit(other);
-            if (other.gameObject == this.player)
+        }
+
+        protected void OnExit(GameObject other)
+        {
+            if (other.transform.position.y < transform.position.y)
             {
-                if (other.transform.position.y < transform.position.y)
-                {
-                    this.triggered = true;
-                    collider.enabled = false;
-                    if (onExitCrossed)
-                        onExitCrossed.Invoke(this);
-                }
+                this.triggered = true;
+                collider.enabled = false;
+                if (onExitCrossed)
+                    onExitCrossed.Invoke(this);
             }
         }
     }

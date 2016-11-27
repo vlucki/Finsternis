@@ -35,14 +35,13 @@
         #region editor variables
 
         [SerializeField]
-        [Range(1, 99)]
-        private int dungeonsToClear = 13;
-
-        [SerializeField]
         private DungeonManager dungeonManager;
         
         [SerializeField][SceneSelection]
         private string mainGameName = "DungeonGeneration";
+
+        [SerializeField]
+        private int dungeonsToClear = 4;
 
         public PlayerSpawnedEvent onPlayerSpawned;
         #endregion
@@ -51,9 +50,8 @@
 
         private List<MessageController> messagePool;
 
-        private int clearedDungeons;
-
         private CardsManager cardsManager;
+
 
         public static GameManager Instance { get { return instance; } }
 
@@ -61,23 +59,14 @@
 
         public DungeonManager DungeonManager { get { return this.dungeonManager; } }
 
+        public int DungeonsToClear { get { return this.dungeonsToClear; } }
+
         public CardsManager CardsManager
         {
             get {
                 if (!this.cardsManager) this.cardsManager = FindObjectOfType<CardsManager>();
                 return this.cardsManager;
             }
-        }
-
-        public int ClearedDungeons
-        {
-            get { return this.clearedDungeons; }
-            set { this.clearedDungeons = Mathf.Max(0, value); }
-        }
-
-        public int DungeonsToClear
-        {
-            get { return this.dungeonsToClear; }
         }
 
         void Awake()
@@ -92,7 +81,6 @@
             globalEvents = new Dictionary<string, List<Callback>>();
             instance = this;
             DontDestroyOnLoad(gameObject);
-            this.clearedDungeons = 0;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
 #if !UNITY_EDITOR
@@ -129,13 +117,12 @@
 
         private void Init()
         {
-            this.clearedDungeons = 0;
-            this.dungeonsToClear = UnityEngine.Random.Range(1, 99);
             this.dungeonManager = FindObjectOfType<DungeonManager>();
             
             if (this.dungeonManager)
             {
-                this.dungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
+                this.dungeonManager.onDungeonCleared.AddListener(StartNextLevel);
+                this.DungeonManager.Factory.onGenerationEnd.AddListener(BeginNewLevel);
             }
         }
 
@@ -193,7 +180,6 @@
 
         private void GameOver()
         {
-            this.clearedDungeons = 0;
             DeleteSave();
             LoadScene("GameOver");
         }
@@ -207,9 +193,9 @@
 #endif
         }
 
-        public bool GoalReached()
+        public bool GoalReached(int clearedDungeons)
         {
-            return this.clearedDungeons >= this.dungeonsToClear;
+            return clearedDungeons >= this.dungeonsToClear;
         }
 
         public void Kill(GameObject obj)
@@ -231,13 +217,14 @@
         }
 
 
-        internal void EndCurrentLevel(Exit e)
+        public void StartNextLevel(int clearedDungeons)
         {
-            this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
+            this.player.GetCachedComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetCachedComponent<Rigidbody>().velocity.y, 0);
             this.player.transform.forward = -Vector3.forward;
-            this.dungeonManager.CurrentDungeon.GetComponent<DeathZone>().Disable();
-            clearedDungeons++;
-            this.CallDelayed(1, GoalReached() ? Win : (Action)this.dungeonManager.CreateDungeon);
+            this.dungeonManager.CurrentDungeon.GetCachedComponent<DeathZone>().Disable();
+            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(0);
+            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(99 * (1 + clearedDungeons) / dungeonsToClear);
+            this.CallDelayed(1, GoalReached(clearedDungeons) ? Win : (Action)this.dungeonManager.CreateDungeon);
         }
 
         private void BeginNewLevel(Dungeon dungeon)
@@ -283,14 +270,13 @@
 
         internal void NewGame()
         {
-            this.clearedDungeons = 0;
             DeleteSave();
             LoadScene("DungeonGeneration");
         }
 
         public void Win()
         {
-            NewGame();
+            LoadScene("Victory");
         }
 
         private void DeleteSave()

@@ -18,13 +18,13 @@
         [Serializable]
         public struct PerimeterRestriction
         {
-            [Range(0, 3)]
+            [Range(0, 10)]
             public int above;
-            [Range(0, 3)]
+            [Range(0, 10)]
             public int below;
-            [Range(0, 3)]
+            [Range(0, 10)]
             public int left;
-            [Range(0, 3)]
+            [Range(0, 10)]
             public int right;
             public List<DungeonFeature> features;
         }
@@ -90,6 +90,9 @@
 
         public bool IsPositionValid(Dungeon d, Vector2 pos)
         {
+            if (restrictions.IsNullOrEmpty())
+                return true;
+
             return !restrictions.Any(restriction =>
             {
                 if (restriction.above > 0)

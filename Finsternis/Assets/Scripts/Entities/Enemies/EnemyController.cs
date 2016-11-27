@@ -9,16 +9,13 @@
     [RequireComponent(typeof(EnemyChar), typeof(LookForTargetAction))]
     public class EnemyController : CharController
     {
-        [SerializeField]
-        [Range(1, 50)]
+        [SerializeField, Range(1, 50)]
         private float wanderCycle = 1f;
 
-        [SerializeField]
-        [Range(0, 1)]
+        [SerializeField, Range(0, 1)]
         private float wanderFrequency = 0.5f;
 
-        [SerializeField]
-        [Range(0, 10)]
+        [SerializeField, Range(0, 10)]
         private float reach = 0.5f;
 
         [SerializeField]
@@ -34,19 +31,23 @@
         {
             base.Awake();
             this.lookForTarget = GetComponent<LookForTargetAction>();
-            this.lookForTarget.Activate();
+            if(this.lookForTarget)
+                this.lookForTarget.Activate();
         }
 
         protected override void OnCharacterDeath()
         {
-            base.OnCharacterDeath();
-            this.lookForTarget.Deactivate();
+            if (this.lookForTarget)
+            {
+                base.OnCharacterDeath();
+                this.lookForTarget.Deactivate();
+            }
         }
 
         protected override void DoUpdate()
         {
             base.DoUpdate();
-            if (this.lookForTarget && this.lookForTarget.CurrentTarget)
+            if (this.lookForTarget && this.lookForTarget.isActiveAndEnabled && this.lookForTarget.CurrentTarget)
             {
                 TrackTarget();
             }
@@ -68,36 +69,41 @@
 
         private IEnumerator _Wander()
         {
-            while (!this.lookForTarget.CurrentTarget)
+            float elapsed = this.wanderCycle;
+            Vector3 direction = Vector3.zero;
+            while (!HasTarget())
             {
-                SetDirection(GetWanderingDirection());
-                yield return Wait.Sec(this.wanderCycle);
+                elapsed += Time.deltaTime;
+                if (elapsed >= this.wanderCycle)
+                {
+                    direction = (GetWanderingDirection());
+                    elapsed = 0;
+                }
+                SetDirection(direction);
+                yield return null;
             }
 
             this.wanderingRoutine = null;
         }
 
-        private IEnumerator _CheckTarget()
+        private bool HasTarget()
         {
-            while (!this.lookForTarget.CurrentTarget)
-            {
-                SetDirection(GetWanderingDirection());
-                yield return Wait.Sec(this.wanderCycle);
-            }
+            return this.lookForTarget && this.lookForTarget.CurrentTarget;
         }
 
         private Vector3 GetWanderingDirection()
         {
             Vector3 dir = Vector3.zero;
             float value = Random.value;
-            if (value > wanderFrequency)
+            if (value < wanderFrequency)
+            {
                 dir = new Vector3(Random.value * 10, 0, Random.value * 10);
 
-            if (Random.value > 0.5f)
-                dir.x *= -1;
-            if (Random.value > 0.5f)
-                dir.z *= -1;
-
+                if (Random.value > 0.5f)
+                    dir.x *= -1;
+                if (Random.value > 0.5f)
+                    dir.z *= -1;
+            }
             return dir;
         }
 

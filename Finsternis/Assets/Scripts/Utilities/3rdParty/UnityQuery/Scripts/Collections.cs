@@ -220,7 +220,7 @@ namespace UnityQuery
             else if (max < min)
                 max = min;
             
-            int random = (min == max ? min : randomFunction(min, count));
+            int random = (min == max ? min : randomFunction(min, max));
             if (random >= count)
                 return default(T);
 

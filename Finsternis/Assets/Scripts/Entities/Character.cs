@@ -24,7 +24,7 @@
         [SerializeField]
         private bool invincible = false;
 
-        public bool Invincible { get { return this.invincible; } set { this.invincible = true; } }
+        public bool Invincible { get { return this.invincible; } set { this.invincible = value; } }
 
         public bool Dead { get { return this.dead; } }
 

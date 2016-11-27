@@ -4,6 +4,7 @@
     using UnityEngine;
     using UnityQuery;
     using System.Linq;
+    using System.Collections.ObjectModel;
 
     public class Card : ScriptableObject
     {
@@ -160,7 +161,7 @@
                 AddEffect(e);
         }
 
-        public List<Effect> GetEffects() { return new List<Effect>(effects); }
+        public ReadOnlyCollection<Effect> GetEffects() { return effects.AsReadOnly(); }
 
         public override string ToString()
         {

@@ -370,6 +370,3 @@ MonoBehaviour:
   fadeInLerpAmount: 0.01
   fadeOutLerpAmount: 0.05
   maxSFXSources: 30
-  toPlayA: {fileID: 8300000, guid: a52335b88d454f94e8cd4a93917e45e2, type: 3}
-  toPlayB: {fileID: 8300000, guid: 2e001634770632b428633f86cf58a30d, type: 3}
-  delay: 5

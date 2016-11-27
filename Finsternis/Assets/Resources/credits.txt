@@ -1,4 +1,4 @@
-﻿<b><size=60>Pontifícia Universidade Católica de São Paulo</size></b>
+﻿<size=70>Pontifícia Universidade Católica de São Paulo</size>
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-<b>Curso Superior de Tecnologia em Jogos Digitais</b>
+<size=60>Curso Superior de Tecnologia em Jogos Digitais</size>
 
 
 
@@ -30,7 +30,7 @@ Trabalho de Conclusão de Curso
 
 
 
-<b><size=50>- FINSTERNIS -</size></b>
+<size=60>- FINSTERNIS -</size>
 
 
 
@@ -39,32 +39,51 @@ Trabalho de Conclusão de Curso
 
 
 
-<b>INTEGRANTES</b>
+<size=60>INTEGRANTES</size>
 
 
-Dreiky Fraga (Mecânica, Modelagem 3D, Rigging e Animação de personagens)
+Dreiky Fraga 
 
-Lucas Keven (Mecânica, Modelagem 3D, Design de Interface)
-
-Victor Portela Diniz Lucki (Áudio, Mecânica, Modelagem 3D, Programação)
-
-
-
+Rigging e Animação de personagens
+Modelagem 3D (personagens e cenário)
+Mecânica
+Texturização
 
 
-<b>ORIENTAÇÃO</b>
+Lucas Keven
+
+Design de Interfaces
+Modelagem 3D (cenário)
+Mecânica
+
+
+Victor Portela Diniz Lucki
+
+Programação
+Mecânica
+Modelagem 3D (personagens e cenário)
+Rigging e Animação de personagens
+Áudio
+
+
+
+
+
+<size=60>ORIENTAÇÃO</size>
 
 Prof. Alexandre Braga
 Prof. Deborah Magnani
 Prof. David de Oliveira Lemes
 Prof. Mario Fontes
+Prof. Reinaldo Ramos
 
 
 
 
-<b>ÁUDIO ADICIONAL</b>
+<size=60>ÁUDIO</size>
 
 Sonniss Limited. (sonniss.com)
 
-Balthazar teleport - LloydEvans09 (freesound.org)
-Beholder wings - ani_music (freesound.org)
+- (freesound.org) -
+LloydEvans09
+ani_music

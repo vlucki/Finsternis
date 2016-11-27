@@ -44,7 +44,7 @@ GameObject:
   - 114: {fileID: 114000010129223882}
   - 114: {fileID: 114000012790174110}
   m_Layer: 12
-  m_Name: PFAB_door03_metal_grid
+  m_Name: PFAB_door03_metal_gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

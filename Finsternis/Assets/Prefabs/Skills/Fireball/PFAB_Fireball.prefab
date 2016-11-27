@@ -142,7 +142,7 @@ MeshRenderer:
   m_GameObject: {fileID: 150224}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -213,6 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3600b6c7c50e36a46929a3b34c834c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   onEnter:
     m_PersistentCalls:
       m_Calls:
@@ -263,7 +265,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19810448
 ParticleSystem:
@@ -5695,6 +5697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   group: {fileID: 243000013119537490, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
   maxDistance: 20
   maxSimultaneousClips: 20
@@ -5725,6 +5729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 964cd818260e50c41a2e5b436f78e2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
   name: 
   interactable: 1
   interactionConstraints: []

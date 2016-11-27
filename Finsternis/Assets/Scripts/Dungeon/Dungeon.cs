@@ -8,7 +8,7 @@ using UnityQuery;
 namespace Finsternis
 {
 
-    public class Dungeon : MonoBehaviour
+    public class Dungeon : CustomBehaviour
     {
 
         public const Type wall = null;
@@ -43,24 +43,6 @@ namespace Finsternis
 
         public int RemainingGoals { get { return this.remainingGoals; } }
 
-        public int AvailableCardPoints { get { return this.availableCardPoints; } }
-
-        public void AddPoints(int points)
-        {
-            if (points <= 0)
-                return;
-
-            this.availableCardPoints += points;
-        }
-
-        public bool UsePoints(int points)
-        {
-            if (points >= 0 || this.availableCardPoints < points)
-                return false;
-
-            this.availableCardPoints -= points;
-            return true;
-        }
 
         public int Seed
         {
