@@ -210,7 +210,7 @@ namespace Finsternis
                     break;
                 case "ISNEXT":
                     print("I pass");
-                    GameManager.Instance.StartNextLevel(GameManager.Instance.DungeonManager.DungeonsCleared);
+                    GameManager.Instance.DungeonManager.ClearDungeon();
                     break;
                 case "ISPURGE":
                     KillEnemies();

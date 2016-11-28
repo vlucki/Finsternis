@@ -42,7 +42,7 @@
             {
                 currentDungeon = dungeon;
 
-                dungeon.OnGoalCleared.AddListener(() =>
+                dungeon.onDungeonCleared.AddListener(() =>
                 {
                     if (dungeon.RemainingGoals <= 0)
                     {
@@ -51,14 +51,18 @@
                         {
                             var e = eGO.GetComponent<Exit>();
                             e.Unlock();
-                            e.onExitCrossed.AddListener(exit => DungeonCleared());
+                            e.onExitCrossed.AddListener(exit =>
+                            {
+                                this.Factory.SetRoomCount(Mathf.CeilToInt(this.Factory.TotalRooms * 1.1f));
+                                ClearDungeon();
+                            });
                         }
                     }
                 });
             });
         }
 
-        private void DungeonCleared()
+        internal void ClearDungeon()
         {
             this.DungeonsCleared++;
             this.onDungeonCleared.Invoke(this.DungeonsCleared);

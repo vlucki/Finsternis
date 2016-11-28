@@ -63,4 +63,19 @@ public class TextSetter : MonoBehaviour
     {
         this.text.text = s;
     }
+
+    public void AppendText(string s)
+    {
+        this.text.text += s;
+    }
+
+    public void AppendText(int i)
+    {
+        AppendText(i.ToString());
+    }
+
+    public void ClearText()
+    {
+        this.text.text = String.Empty;
+    }
 }

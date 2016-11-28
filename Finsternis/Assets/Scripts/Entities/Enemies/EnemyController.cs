@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using UnityEngine;
+    using UnityEngine.Events;
     using UnityQuery;
     using Random = UnityEngine.Random;
 
@@ -20,6 +21,8 @@
 
         [SerializeField]
         private float interestPersistence = 2f;
+
+        public UnityEvent onPlayerFound;
 
         private LookForTargetAction lookForTarget;
 
@@ -82,8 +85,8 @@
                 SetDirection(direction);
                 yield return null;
             }
-
             this.wanderingRoutine = null;
+            onPlayerFound.Invoke();
         }
 
         private bool HasTarget()

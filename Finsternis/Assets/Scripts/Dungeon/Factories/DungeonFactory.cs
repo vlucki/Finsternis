@@ -76,9 +76,11 @@ namespace Finsternis
         
         public const string SEED_KEY = "LastSeed";
 
+        public int TotalRooms { get { return this.totalRooms; } }
+
         public void SetRoomCount(int amount)
         {
-            this.totalRooms = Mathf.Clamp(amount, 2, 99);
+            this.totalRooms = Mathf.Clamp(amount, 2, 999);
         }
 
         /// <summary>
@@ -116,14 +118,7 @@ namespace Finsternis
                 var now = System.DateTime.UtcNow;
                 dungeon.Seed = now.Millisecond + now.Second * 1000 + now.Minute * 60000 + now.Hour * 3600000;
             }
-#if DEBUG_DUNGEON_GEN
 
-#if LOG_INFO
-                Log.I(this, "debug mode enabled, setting seed to 0");
-#endif
-                dungeon.Seed = 2;
-
-#endif
             Init(dungeon);
 
             onGenerationBegin.Invoke();

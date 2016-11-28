@@ -45,29 +45,35 @@
 
         private GameObject[] GetCards(Transform cardsPanel)
         {
+            var cards = cardsPanel.GetComponentsInChildren<CardDisplay>(true);
             return new GameObject[]
             {
-                cardsPanel.FindDescendant("TopCard").gameObject,
-                cardsPanel.FindDescendant("SelectedCard").gameObject,
-                cardsPanel.FindDescendant("BottomCard").gameObject
+                cards[0].gameObject,
+                cards[2].gameObject,
+                cards[1].gameObject
 
             };
         }
 
         private Inventory GetInventory()
         {
-            if (!this.inventory)
-            {
-                this.inventory = GameManager.Instance.Player.GetComponent<Inventory>();
-            }
             if (this.inventory)
+                return this.inventory;
+            else
             {
-                this.inventory.onCardAdded.AddListener(card => UpdateUnequippedDisplay());
-                this.inventory.onCardRemoved.AddListener(card => UpdateUnequippedDisplay());
-                this.inventory.onCardEquipped.AddListener(card => UpdateEquippedDisplay());
-                this.inventory.onCardUnequipped.AddListener(card => UpdateEquippedDisplay());
+                if (!this.inventory)
+                {
+                    this.inventory = GameManager.Instance.Player.GetComponent<Inventory>();
+                }
+                if (this.inventory)
+                {
+                    this.inventory.onCardAdded.AddListener(card => UpdateUnequippedDisplay());
+                    this.inventory.onCardRemoved.AddListener(card => UpdateUnequippedDisplay());
+                    this.inventory.onCardEquipped.AddListener(card => UpdateEquippedDisplay());
+                    this.inventory.onCardUnequipped.AddListener(card => UpdateEquippedDisplay());
+                }
+                return this.inventory;
             }
-            return this.inventory;
         }
 
         public override void BeginOpening()
@@ -75,10 +81,11 @@
             base.BeginOpening();
 
             if (!GetInventory())
-
-#if DEBUG
-                Log.E(this, "Could not find player inventory!");
-#endif
+            {
+                StopAllCoroutines();
+                BeginClosing();
+                return;
+            }
 
             UpdateUnequippedDisplay();
 
@@ -110,6 +117,8 @@
 
         private void UpdateCostLabel()
         {
+            if (!this.inventory)
+                return;
             this.usedPointsText.text = this.inventory.TotalEquippedCost + " / " + this.inventory.AllowedCardPoints;
         }
 
@@ -153,7 +162,7 @@
 
         void UpdateUnequippedDisplay()
         {
-            if (!this.isActiveAndEnabled)
+            if (!this.inventory || this.visibleUnequippedCards == null)
                 return;
 
             this.unequippedSelection = UpdateSelection(this.inventory.UnequippedCards, this.visibleUnequippedCards, this.unequippedSelection);
@@ -163,7 +172,7 @@
 
         void UpdateEquippedDisplay()
         {
-            if (!this.isActiveAndEnabled)
+            if (!this.inventory || this.visibleEquippedCards == null)
                 return;
 
             this.equippedSelection = UpdateSelection(this.inventory.EquippedCards, this.visibleEquippedCards, this.equippedSelection);

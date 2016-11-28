@@ -223,7 +223,7 @@
             this.player.transform.forward = -Vector3.forward;
             this.dungeonManager.CurrentDungeon.GetCachedComponent<DeathZone>().Disable();
             this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(0);
-            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(Mathf.CeilToInt(dungeonsToClear * (1 + clearedDungeons) / dungeonsToClear));
+            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(Mathf.CeilToInt(this.dungeonsToClear * (1 + clearedDungeons) / this.dungeonsToClear));
             this.CallDelayed(1, GoalReached(clearedDungeons) ? Win : (Action)this.dungeonManager.CreateDungeon);
         }
 

@@ -185,6 +185,7 @@
                 freeAudioSource.Stop();
             }
 
+            freeAudioSource.outputAudioMixerGroup = this.audioMixers.sfxMixer.outputAudioMixerGroup;
             return freeAudioSource;
         }
         

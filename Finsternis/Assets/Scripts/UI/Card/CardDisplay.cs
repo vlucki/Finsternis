@@ -18,11 +18,20 @@
 
         private CardStack stack;
 
+
         private static Sprite[] sprites;
+        private bool initialized;
+        private bool displayUpdatePending;
 
         public Card Card { get { return this.stack.card; } }
 
         void Awake()
+        {
+            if (!this.initialized)
+                Init();
+        }
+
+        private void Init()
         {
             if (sprites == null)
             {
@@ -35,6 +44,7 @@
             this.newCardLabel = transform.FindDescendant("NewCardLabel").GetComponent<Text>();
             this.attributesNamesField = transform.FindDescendant("AttributesNamesField").GetComponent<Text>();
             this.attributesValuesField = transform.FindDescendant("AttributesValuesField").GetComponent<Text>();
+            this.initialized = true;
         }
 
         void OnEnable()
@@ -44,7 +54,13 @@
                 var player = GameManager.Instance.Player;
                 if (player)
                 {
-                    this.newCardLabel.enabled = player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+                    if (!initialized)
+                        Init();
+                    if (displayUpdatePending)
+                    {
+                        this.newCardLabel.enabled = player.GetComponent<Inventory>().IsCardNew(this.stack.card);
+                        UpdateDisplay();
+                    }
                 }
 #if DEBUG
                 else
@@ -64,15 +80,24 @@
                 this.stack.onCardAdded.RemoveListener(UpdateStackSize);
                 this.stack.onCardRemoved.RemoveListener(UpdateStackSize);
             }
-
+            
             this.stack = c;
-
-            UpdateStackSize();
 
             this.stack.onCardAdded.AddListener(UpdateStackSize);
             this.stack.onCardRemoved.AddListener(UpdateStackSize);
 
+            this.displayUpdatePending = true;
 
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            if (!this.initialized)
+                return;
+
+            this.displayUpdatePending = false;
+            UpdateStackSize();
             UpdateCardImage();
             UpdateCardText();
         }

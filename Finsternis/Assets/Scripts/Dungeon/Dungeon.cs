@@ -11,6 +11,10 @@
 
         public const Type wall = null;
 
+        public delegate void DungeonCleared();
+
+        public UnityEvent onDungeonCleared;
+
         [SerializeField]
         private int seed;
 
@@ -38,7 +42,6 @@
         private int remainingGoals;
 
         public int RemainingGoals { get { return this.remainingGoals; } }
-
 
         public int Seed
         {
@@ -70,7 +73,7 @@
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                    return TreatAccessException(x, y, ex);
                 }
             }
             set
@@ -81,9 +84,19 @@
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                    TreatAccessException(x, y, ex);
                 }
             }
+        }
+
+        private DungeonSection TreatAccessException(int x, int y, IndexOutOfRangeException ex)
+        {
+#if DEBUG
+            throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+#else
+            Log.E(this, "Attempting to access a cell outside of dungeon! [{0};{1}]\n{2}", x, y, ex.StackTrace);
+            return null;
+#endif
         }
 
         public DungeonSection this[float x, float y]
@@ -135,8 +148,6 @@
             return new Vector2(this.Width * .5f, this.Height * .5f);
         }
 
-        public UnityEvent OnGoalCleared;
-
         public void Init(int width, int height)
         {
             if (customSeed)
@@ -149,8 +160,8 @@
             this.roomThemes = new HashSet<RoomTheme>();
             this.corridorThemes = new HashSet<CorridorTheme>();
 
-            if (OnGoalCleared == null)
-                OnGoalCleared = new UnityEvent();
+            if (onDungeonCleared == null)
+                onDungeonCleared = new UnityEvent();
         }
 
         public void AddCorridorTheme(CorridorTheme t)
@@ -198,7 +209,7 @@
                 (g) =>
                 {
                     remainingGoals--;
-                    OnGoalCleared.Invoke();
+                    onDungeonCleared.Invoke();
                 });
 
             remainingGoals++;

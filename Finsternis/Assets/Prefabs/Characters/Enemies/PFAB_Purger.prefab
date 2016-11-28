@@ -1276,6 +1276,7 @@ GameObject:
   - 114: {fileID: 114000010883997722}
   - 114: {fileID: 114000012098253132}
   - 114: {fileID: 114000013264983542}
+  - 114: {fileID: 114000011347741246}
   m_Layer: 9
   m_Name: PFAB_Purger
   m_TagString: Enemy
@@ -3410,7 +3411,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 54000013710182870}
         m_MethodName: set_isKinematic
         m_Mode: 6
         m_Arguments:
@@ -3421,12 +3422,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 136000012542396076}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000011347741246}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: a17390f78cf8fe04d89e8ee814adb65a,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3461,9 +3474,37 @@ MonoBehaviour:
     m_Bits: 512
   onTargetChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.LookForTargetAction+TargetChangedEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &114000011347741246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013581406872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914ee9aef7345cc4fb2f60cefa6d229e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  deactivate: 0
+  group: {fileID: 243000010017533048, guid: fbb621fc70daedf44bf1de114eb0e662, type: 2}
+  maxDistance: 15
+  maxSimultaneousClips: 7
+  type: 2
 --- !u!114 &114000011652764338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3491,9 +3532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashColor: {r: 1, g: 0, b: 0, a: 1}
-  numberOfFlashes: 10
-  flashFadeInTime: 0.1
-  flashFadeOutTime: 0.15
+  numberOfFlashes: 4
+  flashFadeInTime: 0.2
+  flashFadeOutTime: 0.3
 --- !u!114 &114000012098253132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3669,7 +3710,30 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   onHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000011347741246}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 3d412e22cae0c4d41b3a61772e65d0c5,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114000011850037054}
+        m_MethodName: DoFlash
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Finsternis.CharController+CharControllerEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   fallSpeedThreshold: -0.2
@@ -3684,9 +3748,26 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   wanderCycle: 1
-  wanderFrequency: 0.5
+  wanderFrequency: 0.75
   reach: 2
   interestPersistence: 6
+  onPlayerFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000011347741246}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 1078946e6dc6df64ab6be98900e76c51,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!135 &135000011599996122
 SphereCollider:
   m_ObjectHideFlags: 1

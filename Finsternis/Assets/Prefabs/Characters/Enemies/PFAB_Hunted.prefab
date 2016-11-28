@@ -790,7 +790,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010123356186}
-  m_LocalRotation: {x: -0.3477679, y: -0.60536426, z: -0.35663897, w: 0.6208063}
+  m_LocalRotation: {x: -0.34776786, y: -0.6053642, z: -0.35663894, w: 0.6208062}
   m_LocalPosition: {x: -0.17822762, y: 3.1086245e-17, z: -8.8817837e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1076,7 +1076,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012409799684}
-  m_LocalRotation: {x: 0.6053648, y: -0.34776652, z: 0.6208072, w: -0.3566378}
+  m_LocalRotation: {x: 0.60536474, y: -0.3477665, z: 0.6208071, w: -0.35663778}
   m_LocalPosition: {x: 0.045234997, y: 0.102341995, z: -0.352659}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1173,6 +1173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Shove
+  energyCost: 1
+  energyAttribute: {fileID: 0}
   startUpTime: 1
   castTime: 1
   endTime: 1
@@ -1305,6 +1307,23 @@ MonoBehaviour:
   wanderFrequency: 1
   reach: 1.2
   interestPersistence: 2
+  onPlayerFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114000010574645562}
+        m_MethodName: Play
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 0ade913564d512a4099423ef648ddc42,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114000012044075934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1318,7 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 0}
   deactivate: 0
-  name: Beholder
+  name: Hunted
   interactable: 1
   interactionConstraints: []
   entityEvents:
@@ -1404,8 +1423,8 @@ MonoBehaviour:
   invincibilityTime: 0.5
   invincible: 0
   cardsToGive:
-    minCardsToGive: 1
-    maxCardsToGive: 5
+    min: 1
+    max: 4
 --- !u!114 &114000012418853408
 MonoBehaviour:
   m_ObjectHideFlags: 1

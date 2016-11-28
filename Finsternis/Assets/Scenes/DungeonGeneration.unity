@@ -415,16 +415,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11425964, guid: e06ba4e2e31662842961e71d111944d8, type: 2}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 1000011578542928, guid: 65c8a0f35a6611a4285464649e0044ef,
-        type: 2}
-    - target: {fileID: 11425964, guid: e06ba4e2e31662842961e71d111944d8, type: 2}
-      propertyPath: messagePrefab
-      value: 
-      objectReference: {fileID: 1000013340979454, guid: f3389ac86cd67bc499a3fc01aba531c4,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e06ba4e2e31662842961e71d111944d8, type: 2}
   m_IsPrefabParent: 0
@@ -886,6 +876,10 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_FontSize
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
@@ -2769,6 +2763,10 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 95000013351570102, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
@@ -4526,6 +4524,10 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_FontSize
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
@@ -6496,6 +6498,10 @@ Prefab:
       propertyPath: m_FontData.m_FontSize
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
   m_IsPrefabParent: 0
@@ -7415,6 +7421,7 @@ GameObject:
   - 224: {fileID: 812503553}
   - 222: {fileID: 812503555}
   - 114: {fileID: 812503554}
+  - 114: {fileID: 812503556}
   m_Layer: 5
   m_Name: DungeonInfo
   m_TagString: Untagged
@@ -7468,6 +7475,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 812503552}
+--- !u!114 &812503556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 812503552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa52e70e80c626241997c0ae492932e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &816795678
 GameObject:
   m_ObjectHideFlags: 0
@@ -8563,6 +8581,10 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_FontSize
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
@@ -9850,6 +9872,10 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_FontSize
       value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014197497768, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a6db307182ee2a4bac5712edb71cbdb, type: 2}
@@ -11552,7 +11578,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: / 13
+  m_Text: 
 --- !u!222 &1399030725
 CanvasRenderer:
   m_ObjectHideFlags: 0
