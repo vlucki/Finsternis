@@ -5766,19 +5766,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541943248, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.2750112
+      value: -0.27501118
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541943248, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7101828
+      value: 0.7101827
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541943248, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.6323205
+      value: -0.63232046
       objectReference: {fileID: 0}
     - target: {fileID: 4000013541943248, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.14205697
+      value: -0.14205696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a12df8b8f5cde9b46a0666a6835a4f8b, type: 2}
@@ -7142,6 +7142,7 @@ GameObject:
   - 114: {fileID: 783717791}
   - 114: {fileID: 783717790}
   - 114: {fileID: 783717794}
+  - 114: {fileID: 783717797}
   m_Layer: 5
   m_Name: ControlsPanel
   m_TagString: Untagged
@@ -7376,7 +7377,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8afe66b5fb9283a489b4b7d5ce7be961, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1e0665b866bd7e4cb4ced91875ed411, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7390,6 +7391,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 783717788}
+--- !u!114 &783717797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 783717788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &812503552
 GameObject:
   m_ObjectHideFlags: 0

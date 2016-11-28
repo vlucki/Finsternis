@@ -1,18 +1,16 @@
 fileFormatVersion: 2
-guid: 17968fa184d32aa4e8951b0f2c99ba41
-timeCreated: 1477732107
+guid: c9a90110d66e58d4dbee469889456aa5
+timeCreated: 1477990250
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: eye_shape_0
-    21300002: eye_white_0
-    21300004: curve_right
-    21300006: curve_left
-    21300008: iris
+    21300000: BG_0
+    21300002: card_frame
+    21300004: card_background
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -58,70 +56,31 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: eye_shape_0
+      name: card_frame
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 106
         width: 512
-        height: 291
-      alignment: 9
+        height: 819
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: eye_white_0
+      name: card_background
       rect:
         serializedVersion: 2
-        x: 513
-        y: 0
-        width: 444
-        height: 239
-      alignment: 9
+        x: 512
+        y: 106
+        width: 512
+        height: 816
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: curve_right
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 292
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: curve_left
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 549
-        width: 256
-        height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: iris
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 806
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityQuery;
 
     public class Dungeon : CustomBehaviour
     {
@@ -30,8 +28,6 @@ namespace Finsternis
 
         private HashSet<RoomTheme> roomThemes;
         private HashSet<CorridorTheme> corridorThemes;
-
-        private int availableCardPoints = -1;
 
         private List<Room> rooms;
         private List<Corridor> corridors;

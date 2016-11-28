@@ -1,8 +1,6 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections.Generic;
-    using System;
     using UnityQuery;
 
     [RequireComponent(typeof(Animator))]

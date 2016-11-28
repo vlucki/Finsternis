@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: c9a90110d66e58d4dbee469889456aa5
-timeCreated: 1477990250
+guid: 3b9fb5cbb53349042b14d7dedf35aa12
+timeCreated: 1473070231
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: BG_0
-    21300002: card_frame
-    21300004: card_background
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -30,7 +27,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 1024
+  maxTextureSize: 2048
   textureSettings:
     filterMode: 2
     aniso: 16
@@ -41,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -54,33 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: card_frame
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 106
-        width: 512
-        height: 819
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: card_background
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 106
-        width: 512
-        height: 816
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
