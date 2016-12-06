@@ -11,7 +11,7 @@
         [SerializeField]
         private Color[] selectedSpritesColors;
 
-        private Button[] characterButtons;
+        private UnityEngine.UI.Button[] characterButtons;
 
         public void SetPlayer(GameObject prefab)
         {
@@ -21,7 +21,8 @@
 
         protected override void Awake()
         {
-            this.characterButtons = GetComponentsInChildren<Button>();
+            this.characterButtons = GetComponentsInChildren<UnityEngine.UI.Button>();
+            base.Awake();
         }
 
         public void Select(UnityEngine.EventSystems.BaseEventData data)

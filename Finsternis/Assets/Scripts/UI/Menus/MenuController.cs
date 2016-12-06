@@ -1,9 +1,11 @@
 ﻿namespace Finsternis
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.EventSystems;
+    using UnityEngine.UI;
 
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class MenuController : CustomBehaviour
@@ -11,25 +13,39 @@
         [Serializable]
         public class MenuEvent : CustomEvent<MenuController> { }
 
+        [Serializable]
+        public struct TransitionEvents
+        {
+            public UnityEvent onBeganOpening;
+            public UnityEvent onBeganClosing;
+            public MenuEvent  onOpen;
+            public MenuEvent  onClose;
+        }
+
         #region variables
         private EventSystem evtSystem;
-        protected UnityEvent onFinishedToggling;
         private CanvasGroup canvasGroup;
+        protected UnityEvent onFinishedToggling;
 
         [SerializeField]
         private bool keepPlayerLocked = true;
 
-        [Header("Transition events")]
-        [Space]
-        public UnityEvent OnBeganOpening;
-        public UnityEvent OnBeganClosing;
+        [SerializeField]
+        private TransitionEvents events;
 
-        public MenuEvent OnOpen;
-        public MenuEvent OnClose;
+        private Selectable s;
         #endregion
 
         #region Properties
-        protected EventSystem EvtSystem
+
+        public UnityEvent OnBeganOpening { get { return this.events.onBeganOpening; } }
+        public MenuEvent OnOpen { get { return this.events.onOpen; } }
+        public UnityEvent OnBeganClosing { get { return this.events.onBeganClosing; } }
+        public MenuEvent OnClose { get { return this.events.onClose; } }
+
+        public bool SkipCloseEvent { get; set; }
+
+        protected EventSystem EventSystem
         {
             get
             {
@@ -38,8 +54,6 @@
                 return this.evtSystem;
             }
         }
-
-        public bool SkipCloseEvent { get; set; }
 
         protected CanvasGroup CanvasGroup
         {
@@ -60,6 +74,11 @@
         protected override void Awake()
         {
             base.Awake();
+            this.s = gameObject.AddComponent<Selectable>();
+            var nav = new Navigation();
+            nav.mode = Navigation.Mode.None;
+            s.navigation = nav;
+
             onFinishedToggling = new UnityEvent();
             if (this.keepPlayerLocked)
             {
@@ -145,6 +164,7 @@
             IsOpening = false;
             IsOpen = true;
             this.CanvasGroup.interactable = true;
+            this.s.Select();
             SkipCloseEvent = false;
             OnOpen.Invoke(this);
         }

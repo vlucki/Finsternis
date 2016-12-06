@@ -8,7 +8,7 @@
     using UnityEngine.Events;
     using System.Collections;
 
-    public class MenuButtonController : Button
+    public class MenuButtonController : UnityEngine.UI.Button
     {
         [Serializable]
         public class SelectionChangedEvent : CustomEvent<bool, Selectable> { }

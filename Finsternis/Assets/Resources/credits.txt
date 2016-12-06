@@ -1,4 +1,4 @@
-﻿<size=70>Pontifícia Universidade Católica de São Paulo</size>
+﻿<size=65>Pontifícia Universidade Católica de São Paulo</size>
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-<size=60>Curso Superior de Tecnologia em Jogos Digitais</size>
+<size=55>Curso Superior de Tecnologia em Jogos Digitais</size>
 
 
 
@@ -30,7 +30,7 @@ Trabalho de Conclusão de Curso
 
 
 
-<size=60>- FINSTERNIS -</size>
+<size=55>- FINSTERNIS -</size>
 
 
 
@@ -39,7 +39,7 @@ Trabalho de Conclusão de Curso
 
 
 
-<size=60>INTEGRANTES</size>
+<size=55>INTEGRANTES</size>
 
 
 Dreiky Fraga 
@@ -69,7 +69,7 @@ Rigging e Animação de personagens
 
 
 
-<size=60>ORIENTAÇÃO</size>
+<size=55>ORIENTAÇÃO</size>
 
 Prof. Alexandre Braga
 Prof. Deborah Magnani
@@ -80,7 +80,7 @@ Prof. Reinaldo Ramos
 
 
 
-<size=60>ÁUDIO</size>
+<size=55>ÁUDIO</size>
 
 Sonniss Limited. (sonniss.com)
 
@@ -92,7 +92,39 @@ Michael Klier
 
 
 
-<size=60>AGRADECIMENTOS</size>
+<size=55>SCRIPTS DE TERCEIROS</size>
+
+UnityQuery - Nick Prühs
+SimpleLUT - Jeff Johnson
+Unity Standard Assets - Unity
+
+
+
+
+<size=55>FERRAMENTAS UTILIZADAS</size>
+
+Modelagem 3D e Animação
+Autodesk Maya 2015/2016, Blender 2.77a
+
+Edição de Imagem
+Adobe Photoshop CC, Adobe Ilustrator CC, Adobe InDesign CC
+
+Edição de Áudio
+Soundation, Audacity
+
+Edição e Gravação de Vídeo
+Adobe Premiere Pro CC, Open Broadcaster Software Studio
+
+Edição de Código
+Microsoft Visual Studio Community 2015
+
+Controle de Versão
+GitHub
+
+
+
+
+<size=55>AGRADECIMENTOS</size>
 
 Ana Carolina
 Caio Contó
@@ -108,3 +140,4 @@ Régis Baralti
 Seth Kugel
 Victor Knijnik
 Yuko Oda
+

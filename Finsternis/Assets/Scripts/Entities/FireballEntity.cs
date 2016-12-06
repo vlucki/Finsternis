@@ -69,6 +69,11 @@
             this.exploded = false;
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            Explode();
+        }
+
         void OnValidate()
         {
             this.activeTime = Mathf.Max(this.activeTime, 0);

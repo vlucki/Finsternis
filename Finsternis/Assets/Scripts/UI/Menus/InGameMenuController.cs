@@ -21,14 +21,13 @@ namespace Finsternis
         private ConfirmationDialogController confirmationDialog;
         
         private GameObject optionsContainer;
-        private List<MenuButtonController> options;
+        private List<GameObject> options;
         private Circle menuBounds;
         private MenuEyeController eyeController;
         private bool transitioning;
         private float targetPercentage;
 
-
-        private MenuButtonController lastSelected;
+        private GameObject lastSelected;
 
         private UnityAction showNewGameDialog;
         private UnityAction showExitGameDialog;
@@ -38,21 +37,18 @@ namespace Finsternis
             base.Awake();
             this.optionsContainer = transform.FindChild("OptionsContainer").gameObject;
             this.menuBounds = new Circle(GetComponent<RectTransform>().sizeDelta.Min() / 2, GetComponent<RectTransform>().anchoredPosition);
-            this.options = new List<MenuButtonController>();
-            this.eyeController = GetComponentInChildren<MenuEyeController>();
+            this.options = new List<GameObject>();
+            this.eyeController = GetComponentInChildren<MenuEyeController>(true);
 
             OnOpen.AddListener(menu =>
             {
                 if (!lastSelected)
                     lastSelected = options[0];
 
-                if (!lastSelected.IsSelected)
-                    lastSelected.Select();
+                if (EventSystem.currentSelectedGameObject != lastSelected)
+                    EventSystem.SetSelectedGameObject(lastSelected);
                 else
-                    eyeController.LookAt(lastSelected.gameObject);
-
-                if (EvtSystem.currentSelectedGameObject != lastSelected.gameObject)
-                    EvtSystem.SetSelectedGameObject(lastSelected.gameObject);
+                    eyeController.LookAt(lastSelected);
             });
 
             LoadOptions(optionsContainer);
@@ -68,7 +64,8 @@ namespace Finsternis
 
         public void LoadOptions(GameObject optionsContainer)
         {
-            optionsContainer.GetComponentsInChildren<MenuButtonController>(this.options);
+            foreach (Transform t in optionsContainer.transform)
+                this.options.Add(t.gameObject);
 
 #if LOG_INFO || LOG_WARN
             if (this.options.Count <= 0)
@@ -83,6 +80,7 @@ namespace Finsternis
 
         private void InitOptions()
         {
+            var options = this.optionsContainer.GetComponentsInChildren<Button>();
             for (int i = 0; i < this.options.Count; i++)
             {
                 int leftOption = i - 1;
@@ -98,14 +96,7 @@ namespace Finsternis
                 n.selectOnRight = options[rightOption];
                 n.selectOnLeft = options[leftOption];
                 options[i].navigation = n;
-                options[i].OnSelectionChanged.RemoveListener(UpdateSelectedButton);
-                options[i].OnSelectionChanged.AddListener(UpdateSelectedButton);
             }
-        }
-
-        private void UpdateSelectedButton(bool selected, Selectable button)
-        {
-            lastSelected = selected ? (MenuButtonController)button : lastSelected;
         }
 
         /// <summary>
@@ -174,33 +165,39 @@ namespace Finsternis
             }
         }
 
-        public void NewGame(bool askForConfirmation = true)
+        public void NewGame(bool immediately = true)
         {
 
-            if (askForConfirmation)
+            if (immediately)
+            {
+                GameManager.Instance.NewGame();
+            }
+            else
             {
                 SkipCloseEvent = true;
                 BeginClosing();
                 onFinishedToggling.AddListener(showNewGameDialog);
             }
-            else
-            {
-                GameManager.Instance.NewGame();
-            }
         }
 
-        public void Exit(bool askForConfirmation = true)
+        public void Exit(bool immediately = false)
         {
-            if (askForConfirmation)
+            if (immediately)
+            {
+                GameManager.Instance.Exit();
+            }
+            else
             {
                 SkipCloseEvent = true;
                 BeginClosing();
                 onFinishedToggling.AddListener(showExitGameDialog);
             }
-            else
-            {
-                GameManager.Instance.Exit();
-            }
+        }
+
+        public override void Close()
+        {
+            this.lastSelected = EventSystem.currentSelectedGameObject;
+            base.Close();
         }
 
         public void CloseAndThenOpen(MenuController menu)

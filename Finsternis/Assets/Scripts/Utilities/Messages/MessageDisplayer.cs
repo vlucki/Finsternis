@@ -40,7 +40,7 @@
 
         public void LoadCardGraphic(Card card)
         {
-            var sprites = Resources.LoadAll<Sprite>("Sprites/card_sprites");
+            var sprites = Resources.LoadAll<Sprite>("Sprites/SPRITESHEET_cards");
             var chosen = sprites.Where(sprite => sprite.name.ToLower().Contains(card.MainName.ToString().ToLower())).ToList<Sprite>();
             if (!chosen.IsNullOrEmpty())
             {

@@ -35,7 +35,7 @@
         {
             if (sprites == null)
             {
-                sprites = Resources.LoadAll<Sprite>("Sprites/card_sprites");
+                sprites = Resources.LoadAll<Sprite>("Sprites/SPRITESHEET_cards");
             }
             this.cardImage = transform.FindDescendant("CardImage").GetComponent<Image>();
             this.cardNameField = transform.FindDescendant("CardNameField").GetComponent<Text>();

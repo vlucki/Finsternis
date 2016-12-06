@@ -6,12 +6,6 @@ using System.Collections;
 public class LoadingScreenController : MonoBehaviour {
 
     public static string sceneToLoad;
-    private string loadingScreenScene;
-
-    void Awake()
-    {
-        loadingScreenScene = SceneManager.GetActiveScene().name;
-    }
 
 	void Start () {
         if(!string.IsNullOrEmpty(sceneToLoad))
@@ -24,7 +18,5 @@ public class LoadingScreenController : MonoBehaviour {
         {
             yield return null;
         }
-
-        SceneManager.UnloadScene(loadingScreenScene);
     }
 }
