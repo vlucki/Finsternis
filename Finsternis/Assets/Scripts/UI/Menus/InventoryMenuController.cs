@@ -29,18 +29,22 @@
         private int equippedSelection = -1;
 
         private Inventory inventory;
+        private bool equippedDisplayUpdatePending;
+        private bool unequippedDisplayUpdatePending;
 
         protected override void Awake()
         {
             base.Awake();
 
             Transform unequippedPanel = transform.Find("UnequippedPanel");
-            visibleUnequippedCards = GetCards(unequippedPanel);
-            unequippedControls = unequippedPanel.Find("Controls").gameObject;
+            this.visibleUnequippedCards = GetCards(unequippedPanel);
+            this.unequippedControls = unequippedPanel.Find("Controls").gameObject;
+            this.unequippedControls.Deactivate();
 
             Transform equippedPanel = transform.Find("EquippedPanel");
-            visibleEquippedCards = GetCards(equippedPanel);
-            equippedControls = equippedPanel.Find("Controls").gameObject;
+            this.visibleEquippedCards = GetCards(equippedPanel);
+            this.equippedControls = equippedPanel.Find("Controls").gameObject;
+            this.equippedControls.Deactivate();
         }
 
         private GameObject[] GetCards(Transform cardsPanel)
@@ -87,9 +91,11 @@
                 return;
             }
 
-            UpdateUnequippedDisplay();
+            if(this.unequippedDisplayUpdatePending)
+                UpdateUnequippedDisplay();
 
-            UpdateEquippedDisplay();
+            if(this.equippedDisplayUpdatePending)
+                UpdateEquippedDisplay();
 
             UpdateCostLabel();
         }
@@ -162,8 +168,13 @@
 
         void UpdateUnequippedDisplay()
         {
-            if (!this.inventory || this.visibleUnequippedCards == null)
+            if (!this.inventory || this.visibleEquippedCards == null || !this.isActiveAndEnabled)
+            {
+                this.unequippedDisplayUpdatePending = true;
                 return;
+            }
+
+            this.unequippedDisplayUpdatePending = false;
 
             this.unequippedSelection = UpdateSelection(this.inventory.UnequippedCards, this.visibleUnequippedCards, this.unequippedSelection);
 
@@ -172,9 +183,13 @@
 
         void UpdateEquippedDisplay()
         {
-            if (!this.inventory || this.visibleEquippedCards == null)
+            if (!this.inventory || this.visibleEquippedCards == null || !this.isActiveAndEnabled)
+            {
+                this.equippedDisplayUpdatePending = true;
                 return;
+            }
 
+            this.equippedDisplayUpdatePending = false;
             this.equippedSelection = UpdateSelection(this.inventory.EquippedCards, this.visibleEquippedCards, this.equippedSelection);
 
             UpdateControlsDisplay(this.equippedControls, this.inventory.EquippedCards.Count, this.equippedSelection);

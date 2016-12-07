@@ -43,7 +43,9 @@
             if (value >= 0)
                 this.allowedCardPoints = value;
             while (this.allowedCardPoints < this.TotalEquippedCost && !this.equippedCards.IsNullOrEmpty())
-                UnequipCard(this.equippedCards[this.equippedCards.Count-1].card);
+            {
+                UnequipCard(this.equippedCards[this.equippedCards.Count - 1].card);
+            }
         }
 
         public void AddPoints(int v)
@@ -93,7 +95,7 @@
             StackCard(this.equippedCards, card);
 
             this.TotalEquippedCost += card.Cost;
-            ApplyCardEffects(card);
+            UpdateCardEffects(card);
 
             onCardEquipped.Invoke(card);
 
@@ -107,16 +109,19 @@
             {
                 if (stack.RemoveCard())
                     equippedCards.Remove(stack);
-                else
-                    AddCard(card);
+
+                this.TotalEquippedCost -= card.Cost;
+                UpdateCardEffects(card, false);
+                AddCard(card);
 
                 onCardUnequipped.Invoke(card);
+
                 return true;
             }
             return false;
         }
 
-        private void ApplyCardEffects(Card card)
+        private void UpdateCardEffects(Card card, bool addingNewEffects = true)
         {
             foreach (var effect in card.GetEffects())
             {
@@ -126,7 +131,10 @@
                     var attrib = owner.GetAttribute(attributeModifier.AttributeAlias);
                     if (attrib)
                     {
-                        attrib.AddModifier(attributeModifier);
+                        if (addingNewEffects)
+                            attrib.AddModifier(attributeModifier);
+                        else
+                            attrib.RemoveModifier(attributeModifier);
                     }
                 }
             }
