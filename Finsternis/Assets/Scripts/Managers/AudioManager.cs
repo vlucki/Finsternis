@@ -83,34 +83,37 @@
         {
             this.transitions = new Dictionary<AudioSource, Coroutine>();
             this.sfxSourcesPool = new List<AudioSource>(this.maxSFXSources);
-            SetBGMVolume(PlayerPrefs.GetFloat("bgmVolume", 1));
-            SetSFXVolume(PlayerPrefs.GetFloat("sfxVolume", 1));
+        }
+
+        private void Start()
+        {
+            SetBGMVolume(PlayerPrefs.GetFloat("bgmVolume", 0));
+            SetSFXVolume(PlayerPrefs.GetFloat("sfxVolume", 0));
         }
 
         public void SetBGMVolume(float value)
         {
-            if (value > 1)
-                value /= 100;
+            value = Mathf.Clamp(value, -80, 20);
             SetVolume(this.audioMixers.bgmMixer, value);
             PlayerPrefs.SetFloat("bgmVolume", value);
         }
 
         public void SetBGSVolume(float value)
         {
+            value = Mathf.Clamp(value, -80, 20);
             SetVolume(this.audioMixers.bgsMixer, value);
         }
 
         public void SetSFXVolume(float value)
         {
-            if (value > 1)
-                value /= 100;
+            value = Mathf.Clamp(value, -80, 20);
             SetVolume(this.audioMixers.sfxMixer, value);
             PlayerPrefs.SetFloat("sfxVolume", value);
         }
 
         private void SetVolume(AudioMixer mixer, float value)
         {
-            mixer.SetFloat("MasterVolume", -80 * (1 - value));
+            mixer.SetFloat("MasterVolume", value);
         }
 
         #region play methods

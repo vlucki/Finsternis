@@ -1,13 +1,13 @@
 ﻿namespace Finsternis
 {
     using System;
-    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
 
-    [RequireComponent(typeof(CanvasGroup))]
+    [RequireComponent(typeof(CanvasGroup), typeof(Selectable))]
+    [DisallowMultipleComponent]
     public abstract class MenuController : CustomBehaviour
     {
         [Serializable]
@@ -22,9 +22,8 @@
             public MenuEvent  onClose;
         }
 
-        #region variables
+        #region Variables
         private EventSystem evtSystem;
-        private CanvasGroup canvasGroup;
         protected UnityEvent onFinishedToggling;
 
         [SerializeField]
@@ -32,8 +31,6 @@
 
         [SerializeField]
         private TransitionEvents events;
-
-        private Selectable s;
         #endregion
 
         #region Properties
@@ -55,15 +52,9 @@
             }
         }
 
-        protected CanvasGroup CanvasGroup
-        {
-            get
-            {
-                if (!this.canvasGroup)
-                    this.canvasGroup = GetComponent<CanvasGroup>();
-                return this.canvasGroup;
-            }
-        }
+        public CanvasGroup CanvasGroup { get { return GetCachedComponent<CanvasGroup>(true); } }
+
+        public Selectable Selectable { get { return GetCachedComponent<Selectable>(true); } }
 
         public bool IsOpening { get; private set; }
         public bool IsOpen { get; private set; }
@@ -74,10 +65,9 @@
         protected override void Awake()
         {
             base.Awake();
-            this.s = gameObject.AddComponent<Selectable>();
             var nav = new Navigation();
             nav.mode = Navigation.Mode.None;
-            s.navigation = nav;
+            Selectable.navigation = nav;
 
             onFinishedToggling = new UnityEvent();
             if (this.keepPlayerLocked)
@@ -151,6 +141,7 @@
         {
             this.OnBeganClosing.Invoke();
             this.CanvasGroup.interactable = false;
+            this.Selectable.interactable = false;
         }
 
         /// <summary>
@@ -164,7 +155,8 @@
             IsOpening = false;
             IsOpen = true;
             this.CanvasGroup.interactable = true;
-            this.s.Select();
+            this.Selectable.interactable = true;
+            this.Selectable.Select();
             SkipCloseEvent = false;
             OnOpen.Invoke(this);
         }

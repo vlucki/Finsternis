@@ -14,8 +14,8 @@
 
             var sliders = this.GetComponentsInChildren<Slider>(true);
 
-            sliders[0].value = PlayerPrefs.GetFloat("bgmVolume", 1) * 100;
-            sliders[1].value = PlayerPrefs.GetFloat("sfxVolume", 1) * 100;
+            sliders[0].value = PlayerPrefs.GetFloat("bgmVolume", 0);
+            sliders[1].value = PlayerPrefs.GetFloat("sfxVolume", 0);
         }
     }
 }

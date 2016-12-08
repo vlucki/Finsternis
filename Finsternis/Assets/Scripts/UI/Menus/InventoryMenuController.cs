@@ -39,12 +39,12 @@
             Transform unequippedPanel = transform.Find("UnequippedPanel");
             this.visibleUnequippedCards = GetCards(unequippedPanel);
             this.unequippedControls = unequippedPanel.Find("Controls").gameObject;
-            this.unequippedControls.Deactivate();
+            this.unequippedDisplayUpdatePending = true;
 
             Transform equippedPanel = transform.Find("EquippedPanel");
             this.visibleEquippedCards = GetCards(equippedPanel);
             this.equippedControls = equippedPanel.Find("Controls").gameObject;
-            this.equippedControls.Deactivate();
+            this.equippedDisplayUpdatePending = true;
         }
 
         private GameObject[] GetCards(Transform cardsPanel)
@@ -264,7 +264,7 @@
         {
             var unequipped = this.inventory.UnequippedCards;
 
-            if (unequipped.Count == 0 && !this.inventory.CanEquip(unequipped[this.unequippedSelection].card))
+            if (unequipped.Count == 0 || !this.inventory.CanEquip(unequipped[this.unequippedSelection].card))
                 return;
 
             if (askForConfirmation)
@@ -273,8 +273,8 @@
                 input.Disable();
                 confirmationDialog.Show(
                     "Equipped cards remain so until the end of the floor.",
-                    () => { input.Enable(); EquipSelected(false); },
-                    () => { input.Enable(); },
+                    () => { input.Enable(); EquipSelected(false); this.Selectable.Select(); },
+                    () => { input.Enable(); this.Selectable.Select(); },
                     "Equip!",
                     "Cancel");
             }
