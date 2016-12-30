@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityQuery;
 
@@ -9,15 +10,11 @@ public class InputRouter : MonoBehaviour
     public class InputTrigger
     {
         [System.Serializable]
-        public class AxisInputEvent : UnityEvent<float>
-        {
-            public static implicit operator bool(AxisInputEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class AxisInputEvent : CustomEvent<float> { }
 
         public string name;
+
+        public bool enabled = true;
 
         [Tooltip("If true, will wait for the input to stop firing before triggering again.")]
         public bool toggleOnly = false;
@@ -25,7 +22,6 @@ public class InputRouter : MonoBehaviour
         public InputControl[] controls;
 
         public AxisInputEvent onAxisActive;
-
 
         private bool active;
 
@@ -37,9 +33,8 @@ public class InputRouter : MonoBehaviour
             {
                 if (ShouldTrigger(control))
                 {
-                    lastTriggered = Time.timeSinceLevelLoad;
+                    Activate();
                     onAxisActive.Invoke(control.Value);
-                    active = true;
                 }
                 else if (!control.BooleanValue)
                 {
@@ -48,14 +43,22 @@ public class InputRouter : MonoBehaviour
             });
         }
 
+        public void Activate()
+        {
+            lastTriggered = Time.timeSinceLevelLoad;
+            active = true;
+        }
+
         private bool ShouldTrigger(InputControl control)
         {
             if (!control)
             {
-                Log.Warn(control, "Null control found. Did you forget to set something in the inspector?");
+#if LOG_INFO || LOG_WARN
+                Log.W(control, "Null control found. Did you forget to set something in the inspector?");
+#endif
                 return false;
             }
-            if (!control.Enabled || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))
+            if (!control.IsEnabled() || (active && toggleOnly) || (active && Time.timeSinceLevelLoad - lastTriggered < control.RepeatDelay))
                 return false;
 
             float value = control.AxisValue;
@@ -89,7 +92,14 @@ public class InputRouter : MonoBehaviour
 
         internal void SetControlState(string axis, bool enabled)
         {
-            System.Array.ForEach(controls, (control) => { if (control.Axis.Equals(axis)) control.Enabled = enabled; });
+            System.Array.ForEach(controls, (control) =>
+            {
+                if (control.Axis.Equals(axis))
+                {
+                    if (!(enabled && control.IsEnabled()))
+                        control.Toggle(); //if the control stat does not match the desired one, toggle it
+                }
+            });
         }
     }
 
@@ -100,17 +110,42 @@ public class InputRouter : MonoBehaviour
     {
         if (this.triggers != null && this.triggers.Length > 0)
         {
-            foreach(var trigger in this.triggers) trigger.Trigger();
+            foreach (var trigger in this.triggers)
+                if (trigger.enabled)
+                    trigger.Trigger();
         }
     }
 
-    public void Disable(string axis)
+    public void SetTriggerActive(string name)
     {
-        foreach (var trigger in this.triggers) trigger.SetControlState(axis, false);
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.Activate();
     }
 
-    public void Enable(string axis)
+    public void DisableTrigger(string name)
     {
-        foreach (var trigger in this.triggers) trigger.SetControlState(axis, true);
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.enabled = false;
+    }
+
+    public void EnableTrigger(string name)
+    {
+        foreach (var trigger in this.triggers)
+            if (trigger.name.Equals(name))
+                trigger.enabled = true;
+    }
+
+    public void DisableAxis(string axis)
+    {
+        foreach (var trigger in this.triggers)
+            trigger.SetControlState(axis, false);
+    }
+
+    public void EnableAxis(string axis)
+    {
+        foreach (var trigger in this.triggers)
+            trigger.SetControlState(axis, true);
     }
 }

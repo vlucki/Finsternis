@@ -11,5 +11,13 @@
             transitionType = FadeType.FadeIn;
             base.Awake();
         }
+
+#if UNITY_EDITOR
+        protected override void OnValidate()
+        {
+            transitionType = FadeType.FadeIn;
+            base.OnValidate();
+        }
+#endif
     }
 }

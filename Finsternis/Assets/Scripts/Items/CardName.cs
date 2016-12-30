@@ -1,84 +1,218 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
-
-public class CardName : ScriptableObject
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using System.Collections.Generic;
+    using UnityQuery;
+    using System;
+    using Random = UnityEngine.Random;
 
-    public enum NameType { PreName = 0, MainName = 1, PostName = 2 }
-
-    public bool IsStackable { get; private set; }
-
-    private List<Effect> effects;
-
-    public float Rarity { get; private set; }
-
-    public List<string> prepositions;
-
-    public List<Effect> Effects { get { return effects; } }
-
-    public NameType Type { get; private set; }
-
-    public void Init(string name, NameType type, bool stackable = true)
-    {        
-        this.name = name;
-        this.Type = type;
-        this.IsStackable = stackable; 
-        this.effects = new List<Effect>();
-        this.prepositions = new List<string>();
-    }
-
-    public void AddEffect(Effect effect)
+    [CreateAssetMenu(fileName = "Card Name", menuName = "Finsternis/Cards/Card Name")]
+    public class CardName : ScriptableObject
     {
-        UnityEngine.Assertions.Assert.IsNotNull(this.effects);
 
-        effects.Add(effect);
-        Rarity += ComputeRarity(effect);
-    }
+        public enum NameType { PreName = 0, MainName = 1, PostName = 2 }
 
-    private float ComputeRarity(Effect effect)
-    {
-        float value = 1; //start at maximum
-        var timeConstraint = effect.GetConstraint<TimeConstraint>();
-        if(timeConstraint != null)
+        [SerializeField]
+        private NameType nameType;
+
+        [SerializeField]
+        private bool isStackable = false;
+
+        [SerializeField]
+        [ReadOnly]
+        private float rarity;
+
+        [SerializeField]
+        private List<AttributeModifier> effects;
+
+        [SerializeField]
+        private List<string> prepositions;
+
+        [SerializeField]
+        private string flavourText;
+
+        public List<AttributeModifier> Effects { get { return this.effects; } }
+
+        public float Rarity { get { return this.rarity; } }
+
+        public bool IsStackable { get { return this.isStackable; } }
+
+        public NameType Type { get { return this.nameType; } }
+
+        public string FlavourText { get { return this.flavourText; } }
+
+        public int PrepositionsCount { get { return this.prepositions.Count; } }
+
+        public string GetPreposition(int index)
         {
-            value -= Mathf.Clamp(0.5f/timeConstraint.Duration, 0, 0.5f);
+            return this.prepositions[index];
         }
 
-        AttributeModifier modifier = effect as AttributeModifier;
-
-        if (modifier)
+        private float ComputeRarity(Effect effect)
         {
-            value += (modifier.ValueChange / 100); //negative modifiers decrease the rarity
+            float value = ComputeConstraints(effect) * ComputeAttributeModifiers(effect);
+
+            return value;
         }
 
-        return Mathf.Clamp01(value);
-    }
+        private float ComputeAttributeModifiers(Effect effect)
+        {
+            AttributeModifier modifier = effect as AttributeModifier;
+            float value = 0;
+            if (modifier && !modifier.AttributeAlias.IsNullOrEmpty())
+            {
+                float multiplier = modifier.ValueChange / Mathf.Max(modifier.ValueChangeVariation.max, 1);
+                switch (modifier.TypeOfModifier)
+                {
+                    case AttributeModifier.ModifierType.SUM:
+                        value = 0.1f * multiplier;
+                        break;
+                    case AttributeModifier.ModifierType.SUBTRACT:
+                        value = -0.1f * multiplier;
+                        break;
+                    case AttributeModifier.ModifierType.MULTIPLY:
+                        value = 0.3f * multiplier;
+                        break;
+                    case AttributeModifier.ModifierType.DIVIDE:
+                        value = -0.3f * multiplier;
+                        break;
+                }
+                if (modifier.AffectedAttribute.HasMaximumValue)
+                {
+                    value *= 1 + modifier.ValueChange / modifier.AffectedAttribute.Max;
+                }
+            }
+            return value;
+        }
 
-    public override bool Equals(object o)
-    {
-        if (o == null)
-            return false;
+        private float ComputeConstraints(Effect effect)
+        {
+            float value = 1 / Mathf.Max(1, effect.ConstraintsCount);
+            var timeConstraint = effect.GetConstraint<TimeConstraint>();
+            if (timeConstraint != null)
+            {
+                value *= 0.4f - Mathf.Clamp(0.1f * timeConstraint.Duration, 0.1f, 0.39f);
+            }
+            return value;
+        }
 
-        CardName name = o as CardName;
-        if (!name)
-            return false;
+        public override string ToString()
+        {
+            return this.name;
+        }
 
-        if (!name.name.Equals(this.name))
-            return false;
+        public string ToString(int prepositionIndex)
+        {
+            string s = "";
+            if (this.PrepositionsCount > 0)
+            {
+                if (prepositionIndex >= 0)
+                    s = GetPreposition(prepositionIndex);
+                else
+                    s = this.prepositions.GetRandom(Random.Range);
+                s += " ";
+            }
+            s += this.name;
 
-        if (!name.Type.Equals(this.Type))
-            return false;
+            return s;
+        }
 
-        if (name.Rarity != this.Rarity)
-            return false;
+#if UNITY_EDITOR
 
-        return true;
-    }
+        public bool randomizeRange;
+        void OnValidate()
+        {
 
-    public override int GetHashCode()
-    {
-        return Mathf.RoundToInt((1+this.Rarity) * (this.name.GetHashCode() + this.Type.GetHashCode()));
+            float multiplier = 1;
+            float exponent = .4f;
+
+            switch (this.Type)
+            {
+                case NameType.PreName:
+                    multiplier = 1.01f;
+                    exponent = .25f;
+                    break;
+                case NameType.PostName:
+                    multiplier = 1.02f;
+                    exponent = .1f;
+                    break;
+                case NameType.MainName:
+                    this.isStackable = false;
+                    break;
+            }
+
+            foreach (var effect in this.effects)
+            {
+                effect.SetRange(effect.ValueChangeVariation.min, effect.ValueChangeVariation.max);
+
+            }
+
+            float rarity = 0.01f * multiplier;
+
+            int[] effectsOfEachType = new int[4];
+
+
+
+            foreach (var effect in this.effects)
+            {
+                if (randomizeRange)
+                    RandomizeRange(effect);
+                float computedRarity = ComputeRarity(effect);
+                effectsOfEachType[(int)(effect.TypeOfModifier) / 10]++;
+                rarity *= (1 + computedRarity) * multiplier;
+                effect.UpdateName();
+            }
+
+            rarity += Mathf.Pow(.5f, (effectsOfEachType[(int)AttributeModifier.ModifierType.SUM / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.MULTIPLY / 10]) / 7 * .9f);
+
+
+            rarity -= Mathf.Pow(.5f, (effectsOfEachType[(int)AttributeModifier.ModifierType.SUBTRACT / 10]
+                        + effectsOfEachType[(int)AttributeModifier.ModifierType.DIVIDE / 10]) / 7 * .9f);
+
+            if (this.isStackable)
+                rarity *= -1 - Mathf.Log10(rarity);
+
+            this.rarity = Mathf.Clamp(Mathf.Pow(Mathf.Abs(rarity), exponent), .001f, 1);
+
+
+        }
+
+        private void RandomizeRange(AttributeModifier effect)
+        {
+            Random.InitState(effect.TypeOfModifier.GetHashCode() ^ effect.AttributeAlias.GetHashCode() ^ effect.AffectedAttribute.name.GetHashCode() ^ this.name.GetHashCode());
+            float min = Random.Range(.5f, 10);
+            if (effect.TypeOfModifier > AttributeModifier.ModifierType.SUBTRACT)
+            {
+                min = Random.Range(.01f, 3);
+            }
+            min = GetValue(min);
+            var max = GetValue(min * Random.Range(1.5f, 4f));
+            effect.SetRange(min, GetValue(Random.Range(min, max)));
+        }
+
+        public float GetValue(float rawValue)
+        {
+            int intValue = (int)rawValue;
+            int remainder = (int)((rawValue - intValue) * 10) % 10;
+
+            if (remainder - 5 > 7)
+            {
+                intValue++;
+                remainder = 0;
+            }
+            else if (remainder - 5 > -2)
+            {
+                remainder = 5;
+            }
+            else
+            {
+                remainder = 0;
+            }
+
+
+            return intValue + (float)remainder / 10;
+        }
+#endif
     }
 }
-

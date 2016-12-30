@@ -67,10 +67,10 @@ ModelImporter:
     3300000: polySurface1
     4300000: polySurface1
     4300002: polySurface2
-    7400000: Idle_Beholder
-    7400002: Attack_Beholder
-    7400004: Hit_Beholder
-    7400006: Death_Beholder
+    7400000: A_idle01_beholder
+    7400002: A_atk_beholder
+    7400004: A_hit01_beholder
+    7400006: A_death_beholder
     9500000: //RootNode
     13700000: polySurface2
   materials:
@@ -80,7 +80,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleRotations: 1
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
@@ -95,10 +95,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle_Beholder
+      name: A_idle01_beholder
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 20
+      firstFrame: 1
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -117,7 +117,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.13068932
+        functionName: PlayRandom
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -179,9 +186,9 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Attack_Beholder
+      name: A_atk_beholder
       takeName: Take 001
       firstFrame: 24
       lastFrame: 40
@@ -265,11 +272,11 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Hit_Beholder
+      name: A_hit01_beholder
       takeName: Take 001
-      firstFrame: 45
+      firstFrame: 41
       lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
@@ -351,12 +358,12 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     - serializedVersion: 16
-      name: Death_Beholder
+      name: A_death_beholder
       takeName: Take 001
-      firstFrame: 60
-      lastFrame: 100
+      firstFrame: 63
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -437,7 +444,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

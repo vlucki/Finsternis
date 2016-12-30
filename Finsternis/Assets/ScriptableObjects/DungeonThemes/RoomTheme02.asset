@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed140621b52dee34d8c00705f8d4a857, type: 3}
+  m_Name: RoomTheme02
+  m_EditorClassIdentifier: 
+  tags: []
+  floorPrefabs:
+  - {fileID: 1000013382294214, guid: a3c29c92b09df004690f45178a7fa74a, type: 2}
+  - {fileID: 1000011703553910, guid: b30382e07031e3140873d91395066179, type: 2}
+  - {fileID: 1000010630379764, guid: 0e6fb1e6ab0285e48ae03cff6db70a9e, type: 2}
+  - {fileID: 1000012739368024, guid: 900a5c981c596254ca37c297851ac8e7, type: 2}
+  - {fileID: 1000012666600144, guid: 020ecace1add6414aa056f9eaacba529, type: 2}
+  walls:
+  - {fileID: 11400000, guid: d20e3c6673401b3489b827492a488cbd, type: 2}
+  - {fileID: 11400000, guid: 51d294411053fd54894db96d0c2398cd, type: 2}
+  spawnDensityModifier: 0.9
+  floorDecorations:
+  - {fileID: 11400000, guid: 0dd543a5d1bb341448d421e2be3cd1a3, type: 2}
+  - {fileID: 11400000, guid: ba47146b744ab5e4f95a4d334ecc37b9, type: 2}
+  - {fileID: 11400000, guid: 260db92ed1c5c614caf7429f82e74724, type: 2}
+  - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
+  - {fileID: 11400000, guid: 4cf9e8f5ff6d29943af035e0e12ce116, type: 2}
+  - {fileID: 11400000, guid: 9fda981878abf184a8dc84dbfa736cc7, type: 2}
+  - {fileID: 11400000, guid: 63fb89ee85fcbe146853800d55c3c2ee, type: 2}
+  wallDecorations:
+  - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
+  exits:
+  - {fileID: 11400000, guid: ec22a3aadc666344ebac91a44e018e29, type: 2}
+  chests:
+  - {fileID: 11400000, guid: 5927b898af65c4d4d9e19f46b555c64f, type: 2}

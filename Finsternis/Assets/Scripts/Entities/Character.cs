@@ -3,6 +3,7 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.Events;
+    using UnityQuery;
 
     public class Character : Entity
     {
@@ -11,37 +12,41 @@
 
         public UnityEvent onDeath;
 
-        private EntityAttribute cachedHealth;
-        private EntityAttribute cachedDefense;
-
-        private EntityAttribute health
-        {
-            get { return this.cachedHealth ?? (this.cachedHealth = GetAttribute("hp", true)); }
-        }
-
-        private EntityAttribute defense
-        {
-            get { return this.cachedDefense ?? (this.cachedDefense = GetAttribute("def", true)); }
-        }
-
+        private EntityAttribute health;
+        private EntityAttribute defense;
+        
         private bool dead;
 
         [SerializeField]
-        [Range(0, 5)]
-        private float invincibiltyTime = 1f;
+        [Range(0, 10)]
+        private float invincibilityTime = 1;
 
         [SerializeField]
         private bool invincible = false;
 
-        public bool Invincible { get { return this.invincible; } }
+        public bool Invincible { get { return this.invincible; } set { this.invincible = value; } }
 
         public bool Dead { get { return this.dead; } }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            if (!this.health)
+                throw new System.InvalidOperationException("Characters must have \"health\"!");
+            if (!this.defense)
+                throw new System.InvalidOperationException("Characters must have \"defense\"!");
+
+            this.health.onValueChanged.AddListener(CheckHealth);
+        }
 
         protected override void InitializeAttribute(int attributeIndex)
         {
             base.InitializeAttribute(attributeIndex);
-            if (attributes[attributeIndex].Alias.Equals("hp"))
-                attributes[attributeIndex].onValueChanged.AddListener(CheckHealth);
+            if (this[attributeIndex].Alias == "vit")
+                this.health = this[attributeIndex];
+            else if (this[attributeIndex].Alias == "def")
+                this.defense = this[attributeIndex];
         }
 
         public virtual void CheckHealth(EntityAttribute health)
@@ -59,34 +64,45 @@
 
         public override void Interact(EntityAction action)
         {
-            if (interactable)
-            {
-                base.Interact(action);
-                if (!Dead && action is AttackAction)
-                {
-                    ReceiveDamage(((AttackAction)action).DamageInfo);
-                }
-            }
+            if (!interactable)
+                return;
+            base.Interact(action);
+            if (!this.dead && action is AttackAction)
+                ReceiveDamage(((AttackAction)action).DamageInfo);
         }
 
         protected virtual void ReceiveDamage(DamageInfo info)
         {
-            if (!this.invincible)
+            if (this.invincible)
+                return;
+
+            float finalDamage = info.Amount;
+            switch (info.Type)
             {
-                this.health.Subtract(Mathf.Max(0, info.Amount - this.defense.Value));
-                if (!Dead)
-                    StartCoroutine(_TickInvincibility(this.invincibiltyTime));
+                case DamageInfo.DamageType.physical:
+                    finalDamage -= this.defense.Value * 0.9f;
+                    break;
+                case DamageInfo.DamageType.magical:
+                    var inteligence = GetAttribute("int");
+                    if (inteligence)
+                    {
+                        finalDamage -= (this.defense.Value * .2f + inteligence.Value *.5f);
+                    }
+                    break;
+
             }
+
+            finalDamage = Mathf.Max(0, finalDamage);
+
+            this.health.Subtract(finalDamage);
+            if (!Dead)
+                StartCoroutine(_TickInvincibility(this.invincibilityTime));
         }
 
-        private IEnumerator _TickInvincibility(float remainingInvincibility)
+        private IEnumerator _TickInvincibility(float remainingTime)
         {
             this.invincible = true;
-            while (remainingInvincibility > 0)
-            {
-                remainingInvincibility -= Time.deltaTime;
-                yield return null;
-            }
+            yield return Wait.Sec(remainingTime);
             this.invincible = false;
         }
     }

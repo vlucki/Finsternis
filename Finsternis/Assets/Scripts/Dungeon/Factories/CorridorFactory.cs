@@ -29,7 +29,7 @@ namespace Finsternis
         /// <returns>True if a corridor was created without any intersections.</returns>
         public static bool CarveCorridor(Dungeon dungeon, Room room, Vector2 direction, Vector2 minMaxCorridorLength, Vector2 minRoomDimensions, out Corridor corridor)
         {
-            corridor = Corridor.CreateInstance(new Rect(), direction);
+            corridor = Corridor.CreateInstance(new Rect(), direction, dungeon);
 
             if (!CanFitCorridor(dungeon, direction, room.Bounds, minMaxCorridorLength))
             {
@@ -45,7 +45,7 @@ namespace Finsternis
                 corridorStart = room.GetRandomCell();
 
                 //move the corridor starting point outside the room
-                while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && room.ContainsCell(corridorStart))
+                while (corridorStart.x < dungeon.Width && corridorStart.y < dungeon.Height && room.Contains(corridorStart))
                     corridorStart += direction;
 
                 Vector2 offsetA = corridorStart + sideOffset;
@@ -85,10 +85,10 @@ namespace Finsternis
                 return false;
 
             //move the end of the corridor to the very edge of the room bounds (on the direction the corridor should go)
-            while ((direction.x != 0 && corridor.LastCell.x < room.Bounds.xMax) || (direction.y != 0 && corridor.LastCell.y < room.Bounds.yMax))
+            while ((direction.x != 0 && corridor.End.x < room.Bounds.xMax) || (direction.y != 0 && corridor.End.y < room.Bounds.yMax))
                 corridor.Length++;
 
-            corridor.Length += Mathf.CeilToInt(Dungeon.Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
+            corridor.Length += Mathf.CeilToInt(Random.Range(minMaxCorridorLength.x, minMaxCorridorLength.y));
 
             if (corridor.Length == 0)
             {

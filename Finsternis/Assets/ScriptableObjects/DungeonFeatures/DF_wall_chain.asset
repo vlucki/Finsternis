@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
+  m_Name: DF_wall_chain
+  m_EditorClassIdentifier: 
+  baseFrequency: 0.1
+  prefab: {fileID: 1000014063969316, guid: 9ed9ea639f80927499a97fa5ee3a546d, type: 2}
+  type: 0
+  stackable: 0
+  stackWhiteList:
+  - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
+  - {fileID: 11400000, guid: b7dba5a59fec37440ad4b90fa8297e8b, type: 2}
+  - {fileID: 11400000, guid: ec22a3aadc666344ebac91a44e018e29, type: 2}
+  - {fileID: 11400000, guid: ba47146b744ab5e4f95a4d334ecc37b9, type: 2}
+  - {fileID: 11400000, guid: 260db92ed1c5c614caf7429f82e74724, type: 2}
+  - {fileID: 11400000, guid: 9fda981878abf184a8dc84dbfa736cc7, type: 2}
+  - {fileID: 11400000, guid: 4cf9e8f5ff6d29943af035e0e12ce116, type: 2}
+  restrictions: []
+  alignment:
+  - {fileID: 11400000, guid: 7da6a7f903c074d459662d1c924674bd, type: 2}

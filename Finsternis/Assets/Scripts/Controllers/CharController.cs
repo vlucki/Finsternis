@@ -1,22 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using System;
 using UnityQuery;
 using System.Collections.Generic;
+using System;
 
 namespace Finsternis
 {
     [AddComponentMenu("Finsternis/Char Controller")]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Character), typeof(MovementAction), typeof(Animator))]
-    public class CharController : MonoBehaviour
+    public class CharController : CustomBehaviour
     {
-
         [Serializable]
-        public class AttackEvent : UnityEvent<int> { }
-
+        public class CharControllerEvent : CustomEvent<CharController> { }
         public static readonly int AttackTrigger;
-        public static readonly int AttackSlot;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;
         public static readonly int DeadBool;
@@ -25,11 +22,12 @@ namespace Finsternis
         public static readonly int HitType;
         public static readonly int SpeedFloat;
 
-        public AttackEvent onAttack;
-        public UnityEvent onLock;
-        public UnityEvent onUnlock;
+        public CharControllerEvent onLock;
+        public CharControllerEvent onUnlock;
+        public CharControllerEvent onHit;
 
         protected Character character;
+
         protected Animator characterAnimator;
         protected MovementAction characterMovement;
 
@@ -46,167 +44,153 @@ namespace Finsternis
         [ReadOnly]
         private int fallingStateCheckCount;
 
-        [SerializeField][ReadOnly]
-        private bool couldBeFalling = false;
-
-        [Range(0, 1)]
-        [SerializeField]
-        private float turningSpeed = 0.05f;
-
         [SerializeField]
         private List<Skill> skills;
 
         [SerializeField]
-        private Skill[] equippedSkills = new Skill[4];
+        private Skill[] equippedSkills = new Skill[5];
 
-        private bool actionsLocked;
-        private float unlockDelay;
+        private bool isLocked;
         private bool waitingForDelay;
+        private Coroutine unlockDelayedCall;
+        private List<EntityAction> actions;
 
-        public bool ActionsLocked { get { return this.actionsLocked; } }
+        public bool IsLocked { get { return this.isLocked; } }
         public Character Character { get { return character; } }
+        public MovementAction Movement { get { return characterMovement; } }
+        public Animator Controller { get { return characterAnimator; } }
+        public Skill[] EquippedSkills { get { return this.equippedSkills; } }
+        public Skill ActiveSkill { get; private set; }
 
         static CharController()
         {
             AttackTrigger = Animator.StringToHash("attack");
-            AttackSlot    = Animator.StringToHash("attackSlot");
-            AttackSpeed   = Animator.StringToHash("attackSpeed");
-            DyingBool     = Animator.StringToHash("dying");
-            DeadBool      = Animator.StringToHash("dead");
-            FallingBool   = Animator.StringToHash("falling");
-            HitTrigger    = Animator.StringToHash("hit");
-            HitType       = Animator.StringToHash("hitType");
-            SpeedFloat    = Animator.StringToHash("speed");
+            AttackSpeed = Animator.StringToHash("attackSpeed");
+            DyingBool = Animator.StringToHash("dying");
+            DeadBool = Animator.StringToHash("dead");
+            FallingBool = Animator.StringToHash("falling");
+            HitTrigger = Animator.StringToHash("hit");
+            HitType = Animator.StringToHash("hitType");
+            SpeedFloat = Animator.StringToHash("speed");
         }
 
-        public virtual void Awake()
+        protected override void Awake()
         {
-            this.actionsLocked = false;
+            base.Awake();
+
+            this.isLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
-            character         = GetComponent<Character>();
+            character = GetComponent<Character>();
+
+            this.actions = new List<EntityAction>();
+            this.GetComponentsInChildren<EntityAction>(this.actions);
         }
 
-        public virtual void Start()
+        protected override void Start()
         {
-            try
-            {
-                character.onDeath.AddListener(CharacterController_death);
-                Array.ForEach<Skill>(this.equippedSkills, (skill) => { if (skill) skill.Equip(); }); //make sure every skill that is equipped knows it
-
-            }
-            catch (Exception e)
-            {
-                Log.Error("Exception thrown when initializing controller for " + gameObject);
-                throw e;
-            }
+            base.Start();
+            character.onDeath.AddListener(OnCharacterDeath);
         }
 
-        public virtual void Update()
+        protected virtual void OnCharacterDeath()
+        {
+            characterAnimator.SetBool(CharController.DyingBool, true);
+            characterMovement.MovementDirection = Vector3.zero;
+        }
+
+        private void Update()
         {
             if (!IsDead() && !IsDying())
             {
-                if (this.waitingForDelay)
+                if (this.isLocked)
                 {
-                    if (this.unlockDelay > 0)
-                        this.unlockDelay -= Time.deltaTime;
-                    else
+                    if (!this.waitingForDelay && !IsFalling() && !ActiveSkill)
                         Unlock();
                 }
+                else if (IsFalling())
+                    Lock();
+                else
+                    DoUpdate();
 
-                if (!actionsLocked)
-                {
-                    UpdateRotation();
-                    characterAnimator.SetFloat(CharController.SpeedFloat, characterMovement.GetVelocityMagnitude());
-                }
             }
         }
 
-        private bool UpdateFallingState()
+        protected virtual void DoUpdate()
         {
-            bool wasFalling = this.couldBeFalling;
-            float fallingSpeed = GetComponent<Rigidbody>().velocity.y;
-            this.couldBeFalling = (fallingSpeed <= fallSpeedThreshold);
+            this.characterAnimator.SetFloat(CharController.SpeedFloat, this.characterMovement.GetVelocityMagnitude());
+        }
 
-            if (wasFalling == this.couldBeFalling)
-                if(this.fallingStateChecks > this.fallingStateCheckCount)
-                    this.fallingStateCheckCount++;
+        /// <summary>
+        /// Verifies wheter the character is falling.
+        /// </summary>
+        /// <returns>True if character is actually falling.</returns>
+        private bool ShouldUpdateFallingState()
+        {
+            bool wasFalling = IsFalling(); //stores current state
+            float fallingSpeed = this.characterMovement.Velocity.y;
+
+            //compares Y velocity to threshold to account for some variations due to how the physics engine work
+            bool couldBeFalling = (fallingSpeed <= this.fallSpeedThreshold);
+
+            //if the state is consistent (that is, the character was falling and, apparently, still is)
+            if (couldBeFalling)
+            {
+                if (this.fallingStateChecks > this.fallingStateCheckCount)
+                    this.fallingStateCheckCount++; //update the counter
+            }
             else
                 this.fallingStateCheckCount = 0;
 
+            //use the counter in order to define if the character is actually falling
+            //this is used in order to account for the tiny variations that may occur from frame to frame
+            //i.e. to avoid thinking a "physics hiccup" meant the character was falling
             bool isFallingNow = (this.fallingStateCheckCount == this.fallingStateChecks);
 
-            return isFallingNow;
+            return isFallingNow != wasFalling;
         }
 
         public virtual void FixedUpdate()
         {
-            if (!IsDead())
+            if (!this.ActiveSkill && !IsDead())
             {
-                if(UpdateFallingState())
+                if (ShouldUpdateFallingState())
                 {
-                    if (!this.couldBeFalling && this.actionsLocked && IsFalling() && !this.waitingForDelay)
-                    {
-                        characterAnimator.SetBool(CharController.FallingBool, false);
-                        Unlock();
-                    }
-                    else if (this.couldBeFalling && !this.actionsLocked)
-                    {
-                        Lock();
-                        characterAnimator.SetBool(CharController.FallingBool, true);
-                        characterAnimator.SetFloat(CharController.SpeedFloat, 0);
-                    }
+                    characterAnimator.SetBool(CharController.FallingBool, !IsFalling());
                 }
             }
         }
 
         public void SetXDirection(float amount)
         {
-            if (CanMove())
+            if (CanAct())
             {
-                characterMovement.Direction = (characterMovement.Direction.WithX(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithX(amount));
             }
         }
 
         public void SetZDirection(float amount)
         {
-            if (CanMove())
+            if (CanAct())
             {
-                characterMovement.Direction = (characterMovement.Direction.WithZ(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithZ(amount));
             }
         }
 
         protected virtual void SetDirection(Vector3 direction)
         {
-            if (CanMove())
+            if (CanAct())
             {
-                characterMovement.Direction = (direction.WithY(0));
+                characterMovement.MovementDirection = (direction.WithY(0));
             }
         }
 
-        private void UpdateRotation()
+        protected virtual bool CanAct()
         {
-            float currentVelocity = characterMovement.GetVelocityMagnitude();
-            if (currentVelocity <= 0.1f)
-                return;
-            transform.forward = Vector3.Slerp(
-                transform.forward, 
-                characterMovement.Velocity, 
-                turningSpeed);
+            return this.isActiveAndEnabled && !this.isLocked;
         }
 
-        protected virtual bool CanMove()
-        {
-            bool staggered = IsStaggered();
-            bool attacking = IsAttacking();
-
-            return !(this.actionsLocked || staggered || attacking);
-        }
-
-        public bool IsAttacking()
-        {
-            return characterAnimator.GetBool(CharController.AttackTrigger);
-        }
+        #region Shorthand for booleans in mecanim
 
         public bool IsDying()
         {
@@ -223,34 +207,24 @@ namespace Finsternis
             return characterAnimator.GetBool(CharController.FallingBool);
         }
 
-        public bool IsStaggered()
-        {
-            return characterAnimator.GetBool(CharController.HitTrigger);
-        }
+        #endregion
 
-        public bool ShouldWalk()
+        public virtual void Hit(int type = 0)
         {
-            return !characterMovement.Direction.IsZero();
-        }
-
-        public virtual void Hit(int type = 0, bool lockMovement = true)
-        {
-            if (this.character.Invincible)
+            if (this.character.Invincible || this.character.Dead)
                 return;
 
             this.characterAnimator.SetInteger(HitType, type);
             this.characterAnimator.SetTrigger(HitTrigger);
-
-            if (lockMovement)
-                Lock();
+            onHit.Invoke(this);
         }
 
         public virtual void Attack(float slot = 0)
         {
-            if (!CanAttack())
+            if (!CanAct())
             {
-#if UNITY_EDITOR
-                print(ToString() + " can't attack right now");
+#if LOG_INFO || LOG_WARN
+                Log.W(this, " can't attack right now");
 #endif
                 return;
             }
@@ -260,11 +234,19 @@ namespace Finsternis
 
             if (this.equippedSkills[(int)slot].MayUse())
             {
-                this.equippedSkills[(int)slot].Use();
-                characterAnimator.SetInteger(AttackSlot, (int)slot);
-                characterAnimator.SetTrigger(AttackTrigger);
-                onAttack.Invoke((int)slot);
+                this.Controller.SetTrigger(AttackTrigger);
+                if (ActiveSkill)
+                    ActiveSkill.End();
+                ActiveSkill = this.equippedSkills[(int)slot];
+                ActiveSkill.onEnd.AddListener(SkillCastEnd);
+                ActiveSkill.Begin();
             }
+        }
+
+        private void SkillCastEnd(Skill skill)
+        {
+            ActiveSkill = null;
+            skill.onEnd.RemoveListener(SkillCastEnd);
         }
 
         public void EquipSkill(Skill skill, int slot)
@@ -272,44 +254,49 @@ namespace Finsternis
             if (!ValidateSkillSlot(slot, false))
                 return;
 
-            if (equippedSkills[slot])
-                equippedSkills[slot].Unequip();
-
             equippedSkills[slot] = skill;
-            skill.Equip();
         }
 
         private bool ValidateSkillSlot(int slot, bool checkForEmptySlot = true)
         {
             if (this.equippedSkills == null)
             {
-                Log.Error("Variable 'equippedSkills' not initialized.");
+#if DEBUG
+                Log.E(this, "Variable 'equippedSkills' not initialized.");
+#endif
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
-                Log.Error("Invalid skill slot (" + slot + ")");
+#if DEBUG
+                Log.E(this, "Invalid skill slot: {0}", slot);
+#endif
                 return false;
             }
-            else if(checkForEmptySlot && !this.equippedSkills[slot])
+            else if (checkForEmptySlot && !this.equippedSkills[slot])
             {
-                Log.Warn("No skill equipped in slot " + slot);
+#if LOG_INFO || LOG_WARN
+                Log.W(this, "No skill equipped in slot {0}", slot);
+#endif
                 return false;
             }
             return true;
         }
 
-        public virtual bool CanAttack()
-        {
-            return !IsAttacking();
-        }
-
         public void Lock()
         {
-            this.actionsLocked = true;
+            this.isLocked = true;
             characterAnimator.SetFloat(CharController.SpeedFloat, 0);
-            characterMovement.Direction = (characterMovement.Direction.OnlyY());
-            onLock.Invoke();
+            characterMovement.MovementDirection = (characterMovement.MovementDirection.OnlyY());
+            foreach (var action in this.actions)
+                action.Disable();
+            onLock.Invoke(this);
+        }
+
+        public void LockAndDisable()
+        {
+            Lock();
+            this.Disable();
         }
 
         public void Lock(float duration)
@@ -321,20 +308,67 @@ namespace Finsternis
         public void UnlockWithDelay(float delay)
         {
             this.waitingForDelay = true;
-            unlockDelay = delay;
+            this.unlockDelayedCall = this.CallDelayed(delay, Unlock);
+        }
+
+        public void EnableAndUnlock()
+        {
+            this.Enable();
+            this.Unlock();
         }
 
         public void Unlock()
         {
-            this.waitingForDelay = false;
-            this.actionsLocked = false;
-            onUnlock.Invoke();
+            if (!this.isActiveAndEnabled)
+                return;
+
+            if (waitingForDelay)
+            {
+                this.StopCoroutine(this.unlockDelayedCall);
+                this.waitingForDelay = false;
+            }
+
+            foreach (var action in this.actions)
+                action.Enable();
+
+            this.isLocked = false;
+            onUnlock.Invoke(this);
         }
 
-        protected virtual void CharacterController_death()
+#if UNITY_EDITOR
+        void OnValidate()
         {
-            characterAnimator.SetBool(CharController.DyingBool, true);
-            characterMovement.Direction = Vector3.zero;
+            ValidateSkills();
         }
+
+        private void ValidateSkills()
+        {
+            GetComponents<Skill>(this.skills);
+            if (this.skills.IsNullOrEmpty())
+                return;
+
+            if (this.equippedSkills.Length != 5)
+            {
+                var tmp = this.equippedSkills;
+                this.equippedSkills = new Skill[5];
+                for (int i = 0; i < tmp.Length && i < this.equippedSkills.Length; i++)
+                    this.equippedSkills[i] = tmp[i];
+            }
+
+            for (int i = 0; i < this.equippedSkills.Length; i++)
+            {
+                if (!this.skills.Contains(this.equippedSkills[i]))
+                    this.equippedSkills[i] = null;
+                else
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (i != j && this.equippedSkills[i] == this.equippedSkills[j])
+                            this.equippedSkills[j] = null;
+                    }
+                }
+            }
+        }
+#endif
     }
 }

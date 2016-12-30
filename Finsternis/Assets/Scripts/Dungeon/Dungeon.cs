@@ -1,43 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityQuery;
 
-    public class DungeonRandom : MTRandom, IRandom
+    public class Dungeon : CustomBehaviour
     {
-        public DungeonRandom() : base()
-        {
-        }
 
-        public DungeonRandom(int seed) : base(seed) { }
+        public const Type wall = null;
 
-        public void SetSeed(int seed)
-        {
-            this._rand.init((uint)seed);
-        }
+        public delegate void DungeonCleared();
 
-        public void SetSeed(string seed)
-        {
-            SetSeed(seed.GetHashCode());
-        }
-    }
-
-    public class Dungeon : MonoBehaviour
-    {
-        private static IRandom random;
-
-        public static IRandom Random
-        {
-            get
-            {
-                if (random == null)
-                    random = new DungeonRandom();
-                return random;
-            }
-        }
+        public UnityEvent onDungeonCleared;
 
         [SerializeField]
         private int seed;
@@ -54,34 +30,18 @@ namespace Finsternis
         [SerializeField]
         private List<DungeonGoal> goals;
 
-        private int availableCardPoints = -1;
+        private HashSet<RoomTheme> roomThemes;
+        private HashSet<CorridorTheme> corridorThemes;
 
         private List<Room> rooms;
         private List<Corridor> corridors;
         private DungeonSection[,] dungeonGrid;
 
+        private Vector2 bottomRightCorner;
+
         private int remainingGoals;
 
         public int RemainingGoals { get { return this.remainingGoals; } }
-
-        public int AvailableCardPoints { get { return this.availableCardPoints; } }
-
-        public void AddPoints(int points)
-        {
-            if (points <= 0)
-                return;
-
-            this.availableCardPoints += points;
-        }
-
-        public bool UsePoints(int points)
-        {
-            if (points >= 0 || this.availableCardPoints < points)
-                return false;
-
-            this.availableCardPoints -= points;
-            return true;
-        }
 
         public int Seed
         {
@@ -90,7 +50,7 @@ namespace Finsternis
             {
                 if (customSeed)
                 {
-                    random = new DungeonRandom(value);
+                    UnityEngine.Random.InitState(value);
                     this.seed = value;
                 }
             }
@@ -113,7 +73,7 @@ namespace Finsternis
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                    return TreatAccessException(x, y, ex);
                 }
             }
             set
@@ -124,9 +84,19 @@ namespace Finsternis
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+                    TreatAccessException(x, y, ex);
                 }
             }
+        }
+
+        private DungeonSection TreatAccessException(int x, int y, IndexOutOfRangeException ex)
+        {
+#if DEBUG
+            throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
+#else
+            Log.E(this, "Attempting to access a cell outside of dungeon! [{0};{1}]\n{2}", x, y, ex.StackTrace);
+            return null;
+#endif
         }
 
         public DungeonSection this[float x, float y]
@@ -144,24 +114,74 @@ namespace Finsternis
         public List<Corridor> Corridors { get { return corridors; } }
         public List<Room> Rooms { get { return rooms; } }
 
-        public UnityEvent OnGoalCleared;
+        public void FitGridToSections()
+        {
+            bottomRightCorner = Vector2.zero;
+            for (int col = 0; col < this.Width; col++)
+            {
+                for (int row = 0; row < this.Height; row++)
+                {
+                    if (this[col, row])
+                    {
+                        if (row > bottomRightCorner.y)
+                            bottomRightCorner.y = row;
+                        if (col > bottomRightCorner.x)
+                            bottomRightCorner.x = col;
+                    }
+                }
+            }
+
+            var newGrid = new DungeonSection[(int)bottomRightCorner.x + 1, (int)bottomRightCorner.y + 1];
+            for (int col = 0; col < newGrid.GetLength(0); col++)
+            {
+                for (int row = 0; row < newGrid.GetLength(1); row++)
+                {
+                    newGrid[col, row] = this[col, row];
+                }
+            }
+
+            this.dungeonGrid = newGrid;
+        }
+
+        public Vector2 GetCenter()
+        {
+            return new Vector2(this.Width * .5f, this.Height * .5f);
+        }
 
         public void Init(int width, int height)
         {
-            if (Dungeon.Random == null)
-            {
-                if (customSeed)
-                    random = new DungeonRandom(this.seed);
-                else
-                    random = new DungeonRandom();
-            }
+            if (customSeed)
+                UnityEngine.Random.InitState(this.seed);
 
             this.dungeonGrid = new DungeonSection[width, height];
             this.corridors = new List<Corridor>();
             this.rooms = new List<Room>();
             this.goals = new List<DungeonGoal>();
-            if (OnGoalCleared == null)
-                OnGoalCleared = new UnityEvent();
+            this.roomThemes = new HashSet<RoomTheme>();
+            this.corridorThemes = new HashSet<CorridorTheme>();
+
+            if (onDungeonCleared == null)
+                onDungeonCleared = new UnityEvent();
+        }
+
+        public void AddCorridorTheme(CorridorTheme t)
+        {
+            corridorThemes.Add(t);
+        }
+
+        public void AddRoomTheme(RoomTheme t)
+        {
+            roomThemes.Add(t);
+        }
+
+        public CorridorTheme GetRandomCorridorTheme()
+        {
+            return this.corridorThemes.GetRandom(UnityEngine.Random.Range);
+        }
+
+        public RoomTheme GetRandomRoomTheme()
+        {
+            return this.roomThemes.GetRandom(UnityEngine.Random.Range);
         }
 
         public T GetGoal<T>() where T : DungeonGoal
@@ -189,16 +209,16 @@ namespace Finsternis
                 (g) =>
                 {
                     remainingGoals--;
-                    OnGoalCleared.Invoke();
+                    onDungeonCleared.Invoke();
                 });
 
             remainingGoals++;
             return goal;
         }
 
-        public Room GetRandomRoom()
+        public Room GetRandomRoom(int min = 0, int max = -1)
         {
-            return this.rooms[Random.IntRange(0, this.rooms.Count, false)];
+            return this.rooms.GetRandom(UnityEngine.Random.Range, min, max);
         }
 
         /// <summary>
@@ -274,13 +294,34 @@ namespace Finsternis
 
                     Vector2 neighbourCell = pos + new Vector2(i, j);
                     if (IsWithinDungeon(neighbourCell) && IsOfAnyType(neighbourCell, types))
+                    {
                         cellsFound++;
+                    }
                     if (requiredNumberOfMatches > 0 && cellsFound == requiredNumberOfMatches)
                         return cellsFound;
                 }
             }
-
             return cellsFound;
+        }
+
+        public List<Vector2> GetNeighbours(Vector2 center, bool checkDiagonals, params Type[] type)
+        {
+            List<Vector2> neighbours = new List<Vector2>();
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    if (i == j || (!checkDiagonals && i + j == 0))
+                        continue;
+
+                    Vector2 neighbourCell = center + new Vector2(i, j);
+                    if (type.Length == 0 || IsOfAnyType(neighbourCell, type))
+                    {
+                        neighbours.Add(neighbourCell);
+                    }
+                }
+            }
+            return neighbours;
         }
 
         /// <summary>
@@ -320,43 +361,20 @@ namespace Finsternis
         /// <summary>
         /// Checks if there is an instance of the provided type at a given coordinate.
         /// </summary>
-        /// <param name="cellX">The column to be checked.</param>
-        /// <param name="cellY">The row to be checked.</param>
-        /// <param name="type">The type to be considered.</param>
-        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
-        public bool IsOfType(float cellX, float cellY, Type type)
-        {
-            if (this[cellX, cellY])
-            {
-                if (this[cellX, cellY].GetType().Equals(type))
-                    return true;
-            }
-            else if (type == null) //Wall
-                return true;
-
-            return false;
-        }
-
-        /// <summary>
-        /// Checks if there is an instance of the provided type at a given coordinate.
-        /// </summary>
-        /// <param name="cell">The coordinates to be checked.</param>
+        /// <param name="cell">Position be checked.</param>
         /// <param name="type">The type to be considered.</param>
         /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
         public bool IsOfType(Vector2 cell, Type type)
         {
-            return IsOfType(cell.x, cell.y, type);
-        }
+            if (IsWithinDungeon(cell) && this[cell])
+            {
+                if (this[cell].GetType().Equals(type))
+                    return true;
+            }
+            else if (type == Dungeon.wall)
+                return true;
 
-        /// <summary>
-        /// Checks if there is an instance of the provided type at a given coordinate.
-        /// </summary>
-        /// <typeparam name="T">The type to be considered.</typeparam>
-        /// <param name="cell">The coordinates to be checked.</param>
-        /// <returns>True if there is a match between the provided type and the type of the object at the provided coordinates.</returns>
-        public bool IsOfType<T>(Vector2 cell)
-        {
-            return IsOfType(cell.x, cell.y, typeof(T));
+            return false;
         }
 
         /// <summary>
@@ -389,12 +407,61 @@ namespace Finsternis
             return false;
         }
 
-        public void MarkCells(DungeonSection section)
+        public List<DungeonFeature> GetFeaturesAt(Vector2 cell)
         {
+            List<DungeonFeature> features = null;
+
+            if (IsWithinDungeon(cell) && this[cell])
+                features = this[cell].GetFeaturesAt(cell);
+
+            return features;
+        }
+
+        public void MarkCells(DungeonSection section, DungeonSection[,] grid = null)
+        {
+            if (grid == null)
+                grid = this.dungeonGrid;
             foreach (Vector2 cell in section)
             {
-                this[cell] = section;
+                this.dungeonGrid[(int)cell.x, (int)cell.y] = section;
             }
+        }
+
+        public override string ToString()
+        {
+            string s = this.name;
+
+            for (int i = -1; i < this.Height; i++)
+            {
+                s += "\n|";
+                for (int j = -1; j < this.Width; j++)
+                {
+                    if (j >= 0 && i >= 0)
+                    {
+                        var cell = this[j, i];
+                        if (!cell)
+                            s += " 00 |";
+                        else if (cell is Corridor)
+                            s += " 11 |";
+                        else
+                            s += " 22 |";
+                    }
+                    else if (j < 0 && i < 0)
+                    {
+                        s += " - - |";
+                    }
+                    else if (j >= 0 && i < 0)
+                    {
+                        s += " " + j.ToString("D2") + " |";
+                    }
+                    else if (j < 0 && i >= 0)
+                    {
+                        s += " " + i.ToString("D2") + " |";
+                    }
+                }
+            }
+
+            return s;
         }
     }
 }

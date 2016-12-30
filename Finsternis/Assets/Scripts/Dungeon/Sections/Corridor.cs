@@ -1,78 +1,89 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityQuery;
+
     public class Corridor : DungeonSection
     {
-        private Vector2 _direction;
-        private int _length;
+        private Vector2 direction;
+        private int length;
 
-        public Vector2 Direction { get { return _direction; } set { _direction = value; } }
+        public Vector2 Direction { get { return this.direction; } set { this.direction = value; } }
         public override Rect Bounds
         {
             get { return bounds; }
             set
             {
                 bounds = value;
-                _length = Mathf.RoundToInt(Mathf.Max(bounds.size.x, bounds.size.y));
+                this.length = Mathf.RoundToInt(Mathf.Max(bounds.size.x, bounds.size.y));
             }
         }
 
         public int Length
         {
-            get { return _length; }
+            get { return this.length; }
 
             set
             {
                 if (value > 0)
                 {
-                    _length = value;
-                    bounds.size = new Vector2(value * _direction.x + _direction.y, value * _direction.y + _direction.x);
+                    this.length = value;
+                    bounds.size = new Vector2(value * this.direction.x + this.direction.y, value * this.direction.y + this.direction.x);
                 }
                 else
                 {
-                    _length = 0;
+                    this.length = 0;
                     bounds.size = Vector2.zero;
                 }
             }
         }
 
-        public Vector2 LastCell
+        public Vector2 End
         {
-            get { return _length > 0 ? this[Length - 1] : Position; }
+            get { return this.length > 0 ? this[Length - 1] : Position; }
         }
 
         public Vector2 this[int index]
         {
             get
             {
-                if (index < 0 || index >= _length)
-                    throw new System.ArgumentOutOfRangeException("index", "Trying to access a cell with index " + index + " within " + ToString());
-                return bounds.position + _direction * index;
+                if (index < 0 || index >= this.Length)
+                {
+#if DEBUG
+                    Log.E(this, "Trying to access a cell with index {0} within {1}", index, this);
+#endif
+                    index = Mathf.Clamp(index, 0, this.Length - 1);
+                }
+                return bounds.position + this.direction * index;
             }
         }
+        
+        public new CorridorTheme Theme { get { return base.Theme as CorridorTheme; } }
 
-        public static Corridor CreateInstance(Rect bounds, Vector2 direction)
+        public static Corridor CreateInstance(Rect bounds, Vector2 direction, Dungeon dungeon)
         {
-            Corridor c = CreateInstance<Corridor>(bounds);
-            c._direction = direction;
+            Corridor c = CreateInstance<Corridor>(bounds, dungeon);
+            c.direction = direction;
             return c;
         }
 
-        public static Corridor CreateInstance(Vector2 position, int length, Vector2 direction)
+        public static Corridor CreateInstance(Vector2 position, int length, Vector2 direction, Dungeon dungeon)
         {
-            return Corridor.CreateInstance(new Rect(position, direction * length + new Vector2(direction.y, direction.x)), direction);
+            return Corridor.CreateInstance(
+                new Rect(position, direction * length + new Vector2(direction.y, direction.x)), 
+                direction, dungeon);
         }
 
         public override string ToString()
         {
-            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + _length + "]";
+            return "Corridor[bounds:" + Bounds + "; direction:" + Direction + "; length: " + this.length + "]";
         }
 
         public override IEnumerator<Vector2> GetEnumerator()
         {
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < this.length; i++)
                 yield return this[i];
         }
 
@@ -90,8 +101,8 @@ namespace Finsternis
         public void RemoveFirst()
         {
             Rect newBounds = new Rect();
-            newBounds.position = Position + _direction;
-            newBounds.size = Size - _direction;
+            newBounds.position = Position + this.direction;
+            newBounds.size = Size - this.direction;
             Bounds = newBounds;
         }
 
@@ -103,26 +114,32 @@ namespace Finsternis
             Corridor[] result = new Corridor[2];
 
             if (index > 0)
-                result[0] = CreateInstance(bounds.position, index, _direction);
+            {
+                result[0] = CreateInstance(bounds.position, index, this.direction, this.Dungeon);
+                result[0].SetTheme(this.Theme);
+            }
 
-            if (index < _length - 1)
-                result[1] = CreateInstance(this[index + 1], _length - index - 1, _direction);
+            if (index < this.length - 1)
+            {
+                result[1] = CreateInstance(this[index + 1], this.length - index - 1, this.direction, this.Dungeon);
+                result[1].SetTheme(this.Theme);
+            }
 
             foreach (DungeonSection connection in connections)
             {
-                if (result[0] && connection.ContainsCell(Position - Direction))
-                    result[0].AddConnection(connection);
-                else if (result[1] && connection.ContainsCell(LastCell + Direction))
-                    result[1].AddConnection(connection);
+                if (result[0] && connection.Contains(Position - Direction))
+                    result[0].AddConnection(connection, true);
+                else if (result[1] && connection.Contains(End + Direction))
+                    result[1].AddConnection(connection, true);
 
                 connection.RemoveConnection(this);
             }
             return result;
         }
 
-        public override bool ContainsCell(Vector2 cell)
+        public override bool Contains(Vector2 cell)
         {
-            return cell.x >= X && cell.x <= LastCell.x && cell.y >= Y && cell.y <= LastCell.y;
+            return cell.x >= X && cell.x <= End.x && cell.y >= Y && cell.y <= End.y;
         }
 
         /// <summary>
@@ -137,7 +154,7 @@ namespace Finsternis
                 Position -= Direction;
                 Length++;
             }
-            else if (cell == LastCell + Direction)
+            else if (cell == End + Direction)
                 Length++;
             else
                 return false;
@@ -148,11 +165,32 @@ namespace Finsternis
 
         public override void RemoveCell(Vector2 cell)
         {
-            if (ContainsCell(cell))
+            if (Contains(cell))
             {
-                while (LastCell != cell)
+                while (End != cell)
                     Length--;
             }
         }
+
+        public override Vector2 GetRandomCell(params int[] constraints)
+        {
+            if (this.Length == 1)
+                return this[0];
+            else
+            {
+                int min = 0, max = this.Length;
+                if (constraints != null)
+                {
+                    min = Mathf.Max(constraints[0], 0);
+                    if (constraints.Length > 1)
+                        max = Mathf.Max(constraints[1], min);
+                }
+                if (min == max)
+                    return this[min];
+
+                return this[UnityEngine.Random.Range(min, max)];
+            }
+        }
+
     }
 }

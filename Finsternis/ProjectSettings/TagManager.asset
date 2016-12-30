@@ -7,6 +7,12 @@ TagManager:
   - Dungeon
   - Exit
   - Enemy
+  - Intro
+  - MessageManager
+  - Message
+  - AudioManager
+  - SkyCamera
+  - Chest
   layers:
   - Default
   - TransparentFX
@@ -19,11 +25,11 @@ TagManager:
   - Floor
   - Entity
   - Wall
-  - Invisible
   - 
-  - 
-  - 
-  - 
+  - Props
+  - Dungeon
+  - DynamicNotifications
+  - Features
   - 
   - 
   - 

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
+  m_Name: DF_candle
+  m_EditorClassIdentifier: 
+  baseFrequency: 0.5
+  prefab: {fileID: 1000013925747964, guid: 986adcb6a66734b41b7aa29cb699833e, type: 2}
+  type: 0
+  stackable: 1
+  stackWhiteList:
+  - {fileID: 11400000, guid: be393e6793cfccd4bbf5057b65abda35, type: 2}
+  - {fileID: 11400000, guid: 18537da2b97e6f745a7b963e191aff21, type: 2}
+  restrictions: []
+  alignment: []

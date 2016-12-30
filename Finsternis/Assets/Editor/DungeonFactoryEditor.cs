@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace Finsternis
 {
     [CustomEditor(typeof(DungeonFactory), true)]
     public class DungeonFactoryEditor : QuickReorder
     {
-        string seed = "0";
-        bool deleteExisting;
+        [SerializeField]
+        string seed;
+        [SerializeField]
+        bool deleteExisting = true;
 
         public override void OnInspectorGUI()
         {
@@ -21,42 +24,32 @@ namespace Finsternis
                 GUILayout.Space(15);
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Fixed seed:", GUILayout.MaxWidth(70));
-                seed = GUILayout.TextField(seed, GUILayout.ExpandWidth(false), GUILayout.MinWidth(40), GUILayout.Width(40), GUILayout.MaxWidth(100));
+                seed = GUILayout.TextField(seed ?? "", GUILayout.ExpandWidth(false), GUILayout.MinWidth(40), GUILayout.Width(40), GUILayout.MaxWidth(100));
                 GUILayout.Space(10);
                 GUIStyle toggleStyle = new GUIStyle(EditorStyles.toggle);
                 if (deleteExisting)
                     toggleStyle.fontStyle = FontStyle.Bold;
                 deleteExisting = GUILayout.Toggle(deleteExisting, "Delete Existing?", toggleStyle, GUILayout.MaxWidth(125));
-                if (GUILayout.Button("Generate"))
+                GUILayout.BeginVertical();
+                if (GUILayout.Button("Load Seed", EditorStyles.miniButton))
                 {
-                    bool seedFound = false;
-                    int dungeonSeed = 0;
-                    if (!int.TryParse(seed, out dungeonSeed))
-                    {
-                        if (PlayerPrefs.HasKey(DungeonFactory.SEED_KEY))
-                        {
-                            dungeonSeed = PlayerPrefs.GetInt(DungeonFactory.SEED_KEY, 0);
-                            seedFound = true;
-                        }
-                    }
-                    else
-                    {
-                        seedFound = true;
-                    }
-                    if (deleteExisting)
-                    {
-                        Dungeon d = FindObjectOfType<Dungeon>();
-                        if (d)
-                            DestroyImmediate(d.gameObject);
-                    }
-
-                    if (seedFound)
-                        tgt.Generate(dungeonSeed);
-                    else
-                        tgt.Generate();
-
-                    tgt.GetComponent<DungeonDrawer>().Draw(FindObjectOfType<Dungeon>());
+                    seed = PlayerPrefs.GetInt(DungeonFactory.SEED_KEY, 0).ToString();
                 }
+                if (GUILayout.Button("Generate", EditorStyles.miniButton))
+                {
+                    int dungeonSeed = 0;
+                    bool seedFound = int.TryParse(seed, out dungeonSeed);
+
+                    GenerateDungeon(seedFound ? (int?)dungeonSeed : null, tgt);
+                }
+                else
+                if (GUILayout.Button("Generate Random", EditorStyles.miniButton))
+                {
+                    int dungeonSeed = UnityEngine.Random.Range(0, int.MaxValue);
+
+                    GenerateDungeon((int?)dungeonSeed, tgt);
+                }
+                GUILayout.EndVertical();
                 GUILayout.EndHorizontal();
                 GUILayout.Space(5);
                 GUILayout.EndVertical();
@@ -64,6 +57,21 @@ namespace Finsternis
             EditorGUILayout.Space();
             EditorGUILayout.Space();
             DrawDefaultInspector();
+        }
+
+        private void GenerateDungeon(int? seed, DungeonFactory tgt)
+        {
+            if (deleteExisting)
+            {
+                Dungeon d = FindObjectOfType<Dungeon>();
+                if (d)
+                    DestroyImmediate(d.gameObject);
+            }
+
+            System.Collections.IEnumerator generation = tgt._Generate(seed);
+            while (generation.MoveNext());
+
+            tgt.GetComponent<DungeonDrawer>().Draw(FindObjectOfType<Dungeon>());
         }
     }
 }

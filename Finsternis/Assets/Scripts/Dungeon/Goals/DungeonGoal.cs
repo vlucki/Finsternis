@@ -9,13 +9,7 @@ namespace Finsternis
     public abstract class DungeonGoal : MonoBehaviour
     {
         [Serializable]
-        public class GoalReachedEvent : UnityEvent<DungeonGoal>
-        {
-            public static implicit operator bool(GoalReachedEvent evt)
-            {
-                return evt != null;
-            }
-        }
+        public class GoalReachedEvent : CustomEvent<DungeonGoal> { }
 
         [SerializeField]
         public GoalReachedEvent onGoalReached;

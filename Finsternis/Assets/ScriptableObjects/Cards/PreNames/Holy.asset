@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f99fc1fff2c344a8c7265d0ccab11a, type: 3}
+  m_Name: Holy
+  m_EditorClassIdentifier: 
+  nameType: 0
+  isStackable: 0
+  rarity: 0.9265809
+  effects:
+  - name: Damage buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 5
+      max: 7.5
+    valueChange: 6
+  - name: Defense buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 3
+      max: 8
+    valueChange: 3.5
+  - name: Intelligence buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 9
+      max: 18.5
+    valueChange: 12.5
+  - name: Magic buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
+      type: 2}
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.2
+      max: 1.5
+    valueChange: 1.5
+  - name: Speed buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 2
+      max: 5
+    valueChange: 2.5
+  - name: Strength buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 9
+      max: 11.5
+    valueChange: 9
+  - name: Vitality buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14,
+      type: 2}
+    modifierType: 30
+    valueChangeVariation:
+      min: 1.5
+      max: 2
+    valueChange: 1.8
+  prepositions: []
+  flavourText: Transcend all
+  randomizeRange: 0

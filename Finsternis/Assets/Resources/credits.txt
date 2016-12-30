@@ -1,4 +1,4 @@
-﻿<b>Pontifícia Universidade Católica de São Paulo</b>
+﻿<size=65>Pontifícia Universidade Católica de São Paulo</size>
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-curso Superior de Tecnologia em Jogos Digitais
+<size=55>Curso Superior de Tecnologia em Jogos Digitais</size>
 
 
 
@@ -30,7 +30,7 @@ Trabalho de Conclusão de Curso
 
 
 
-- FINSTERNIS -
+<size=55>- FINSTERNIS -</size>
 
 
 
@@ -39,43 +39,105 @@ Trabalho de Conclusão de Curso
 
 
 
-<b>PROGRAMAÇÃO</b>
+<size=55>INTEGRANTES</size>
 
 
-Victor Portela Diniz Lucki
+Dreiky Fraga 
 
-
-
-
-
-
-
-
-
-
-
-
-<b>MODELAGEM 3D</b>
-
-Dreiky Fraga
-
-Victor Portela Diniz Lucki
-
-
-
-
-
-
-
-
-
-
-
-
-<b>INTERFACE</b>
-
+Rigging e Animação de personagens
+Modelagem 3D (personagens e cenário)
+Mecânica
+Texturização
 
 
 Lucas Keven
 
+Design de Interfaces
+Modelagem 3D (cenário)
+Mecânica
+
+
 Victor Portela Diniz Lucki
+
+Programação
+Mecânica
+Modelagem 3D (personagens e cenário)
+Rigging e Animação de personagens
+Áudio
+
+
+
+
+
+<size=55>ORIENTAÇÃO</size>
+
+Prof. Alexandre Braga
+Prof. Deborah Magnani
+Prof. David de Oliveira Lemes
+Prof. Mario Fontes
+Prof. Reinaldo Ramos
+
+
+
+
+<size=55>ÁUDIO</size>
+
+Sonniss Limited. (sonniss.com)
+
+- (freesound.org) -
+LloydEvans09
+ani_music
+Michael Klier
+
+
+
+
+<size=55>SCRIPTS DE TERCEIROS</size>
+
+UnityQuery - Nick Prühs
+SimpleLUT - Jeff Johnson
+Unity Standard Assets - Unity
+
+
+
+
+<size=55>FERRAMENTAS UTILIZADAS</size>
+
+Modelagem 3D e Animação
+Autodesk Maya 2015/2016, Blender 2.77a
+
+Edição de Imagem
+Adobe Photoshop CC, Adobe Ilustrator CC, Adobe InDesign CC
+
+Edição de Áudio
+Soundation, Audacity
+
+Edição e Gravação de Vídeo
+Adobe Premiere Pro CC, Open Broadcaster Software Studio
+
+Edição de Código
+Microsoft Visual Studio Community 2015
+
+Controle de Versão
+GitHub
+
+
+
+
+<size=55>AGRADECIMENTOS</size>
+
+Ana Carolina
+Caio Contó
+Carol Merlo
+Eric Hinojosa
+Fábio Musarra
+Fernanda Gonnella
+Joaquim Moreno
+Julio Souza
+Luís Carlos Petry
+Nelson Botega
+Régis Baralti
+Seth Kugel
+Victor Knijnik
+Yuko Oda
+

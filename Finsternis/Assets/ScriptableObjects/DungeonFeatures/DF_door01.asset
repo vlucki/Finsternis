@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c54d34af722b54883042c6c542a41f, type: 3}
+  m_Name: DF_door01
+  m_EditorClassIdentifier: 
+  baseFrequency: 1
+  prefab: {fileID: 101268, guid: 43e52f631e8208a49bc13ea4d899ae18, type: 2}
+  type: 0
+  stackable: 1
+  stackWhiteList:
+  - {fileID: 11400000, guid: 958492b6ad8ef634d9810cc753a915d8, type: 2}
+  restrictions: []
+  alignment:
+  - {fileID: 11400000, guid: 687976c0eb65082439c1ba1504d920a6, type: 2}

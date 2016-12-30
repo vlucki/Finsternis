@@ -10,8 +10,12 @@
     public class SceneLoader : MonoBehaviour
     {
 
+        [SerializeField]
         [SceneSelection]
-        public string defaultScene;
+        private string defaultScene;
+
+        [SerializeField]
+        private UnityEngine.UI.Image imageToFill;
 
         public UnityEvent OnAdditiveSceneLoaded;
 
@@ -44,7 +48,14 @@
         {
             var asyncOperation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             while (!asyncOperation.isDone)
+            {
+                if (this.imageToFill)
+                    this.imageToFill.fillAmount = asyncOperation.progress;
                 yield return null;
+            }
+
+            if (this.imageToFill)
+                this.imageToFill.fillAmount = 1;
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
             OnAdditiveSceneLoaded.Invoke();

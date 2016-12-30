@@ -1,13 +1,18 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityQuery;
 
 namespace Finsternis
 {
-
     [UnityEngine.DisallowMultipleComponent]
     public class AttackAction : EntityAction
     {
-        private EntityAttribute damage;
+        [SerializeField]
+        private EntityAttribute baseDamage;
+
+        public UnityEvent onExecute;
+
         private DamageInfo dmgInfo;
 
         public DamageInfo DamageInfo
@@ -18,15 +23,19 @@ namespace Finsternis
         protected override void Awake()
         {
             base.Awake();
-            agent.onAttributeInitialized.AddListener(
-                attribute => 
-                {
-                    if (attribute.Alias.Equals("dmg"))
+
+            if (this.baseDamage)
+            {
+                agent.onAttributeInitialized.AddListener(
+                    attribute =>
                     {
-                        damage = attribute;
+                        if (attribute.Alias.Equals(baseDamage.Alias))
+                        {
+                            this.baseDamage = attribute;
+                        }
                     }
-                }
-                );
+                    );
+            }
         }
 
         public void Execute(params IInteractable[] targets)
@@ -52,14 +61,22 @@ namespace Finsternis
         /// <param name="targets">One or more entities that will have damage applied to them.</param>
         public void Execute(DamageInfo.DamageType damageType, float extraDamage, params IInteractable[] targets)
         {
-            if(targets == null || targets.Length < 1)
-                throw new ArgumentException("Cannot execute the attack logic without a target.");
+            if (targets == null || targets.Length < 1)
+            {
+#if DEBUG
+                Log.E(this, "Cannot execute the attack logic without a target.");
+#endif
+                return;
+            }
 
-            float totalDamage = (damage ? damage.Value : 0) + extraDamage;
+            float totalDamage = (this.baseDamage ? this.baseDamage.Value : 0) + extraDamage;
 
-            dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+            this.dmgInfo = new DamageInfo(damageType, totalDamage, agent);
+
             foreach (Entity target in targets)
                 target.Interact(this);
+
+            this.onExecute.Invoke();
         }
     }
 }

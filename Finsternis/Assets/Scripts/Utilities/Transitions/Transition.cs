@@ -6,21 +6,23 @@
     using System.Collections;
     using UnityQuery;
 
-    public abstract class Transition : MonoBehaviour
+    public abstract class Transition : CustomBehaviour
     {
         [System.Serializable]
-        public class TransitionEvent : UnityEvent<Transition>
-        {
-            public static implicit operator bool(TransitionEvent evt)
-            { return evt != null; }
-        }
+        public class TransitionEvent : CustomEvent<Transition> { }
 
-        public bool skippable = true;
+        [SerializeField]
+        protected bool skippable = true;
 
-        public bool beginOnAwake = false;
+        [SerializeField]
+        protected bool beginOnStart = false;
+
+        [SerializeField]
+        private bool enableOnBegin = false;
 
         [Range(0, 5)]
         public float waitBeforeStart = 0f;
+
         [Range(0, 5)]
         public float waitBeforeEnding = 0f;
 
@@ -31,20 +33,33 @@
 
         public bool Transitioning { get { return this.transitioning; } }
 
-        protected virtual void Awake()
+        protected override void Start()
         {
-            if (beginOnAwake)
+            base.Start();
+            if (beginOnStart)
                 Begin();
         }
 
         public void Begin()
         {
-            StartCoroutine(_Begin());
+            if (this.enableOnBegin)
+            {
+                this.gameObject.Activate();
+                this.Enable();
+            }
+
+            if (isActiveAndEnabled)
+                StartCoroutine(_Begin());
+#if LOG_INFO || LOG_WARN
+            else
+                Log.W(this, "Cannot start transition with innactive game object!");
+#endif
         }
 
         public void End()
         {
-            StartCoroutine(_End());
+            if(isActiveAndEnabled)
+                StartCoroutine(_End());
         }
 
         private IEnumerator _Begin()
@@ -52,7 +67,7 @@
             if (!this.transitioning)
             {
                 if (waitBeforeStart > 0)
-                    yield return Yields.Seconds(waitBeforeStart);
+                    yield return Wait.Sec(waitBeforeStart);
                 this.transitioning = true;
                 OnTransitionStarted.Invoke(this);
             }
@@ -64,7 +79,7 @@
             {
                 this.transitioning = false;
                 if (waitBeforeEnding > 0)
-                    yield return Yields.Seconds(waitBeforeEnding);
+                    yield return Wait.Sec(waitBeforeEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }
@@ -76,6 +91,11 @@
                 this.transitioning = false;
                 OnTransitionEnded.Invoke(this);
             }
+        }
+
+        protected virtual void OnDisable()
+        {
+            this.transitioning = false;
         }
 
     }

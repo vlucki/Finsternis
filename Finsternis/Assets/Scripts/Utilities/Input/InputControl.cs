@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "InputControl", menuName = "Finsternis/Input/Input", order = 1)]
 public class InputControl : ScriptableObject
@@ -13,11 +14,8 @@ public class InputControl : ScriptableObject
         ANY             = 0x111
     }
 
-    [AxesName][SerializeField]
+    [AxesName(true), SerializeField]
     private string axis;
-
-    [SerializeField]
-    private bool enabled = true;
 
     [SerializeField]
     private ThresholdTypeEnum thresholdType = ThresholdTypeEnum.DIFFERENT_THAN;
@@ -30,16 +28,15 @@ public class InputControl : ScriptableObject
     [SerializeField]
     private float repeatDelay = 0f;
 
+    [SerializeField]
+    private bool enabled = true;
+
+    private const string NO_AXIS = "None";
+
     public string Axis
     {
         get { return this.axis; }
         set { this.axis = value; }
-    }
-
-    public bool Enabled
-    {
-        get { return this.enabled; }
-        set { this.enabled = value; }
     }
 
     public ThresholdTypeEnum ThresholdType
@@ -60,12 +57,27 @@ public class InputControl : ScriptableObject
         set { this.repeatDelay = value; }
     }
 
+    /// <summary>
+    /// Value of this control. By default, it will be the same as the AxisValue.
+    /// </summary>
     public virtual float Value
     {
         get { return AxisValue; }
     }
 
-    public float AxisValue { get { return Input.GetAxis(Axis); } }
+    /// <summary>
+    /// Unmodified value from the axis.
+    /// </summary>
+    public float AxisValue {
+        get {
+            float axisValue = 0;
+            if (!Axis.Equals(InputControl.NO_AXIS))
+                axisValue = Input.GetAxis(Axis);
+            else if (Input.anyKey)
+                axisValue = 1;
+            return axisValue;
+        } }
+
     /// <summary>
     /// Returns false if the axis value is 0, true otherwise.
     /// </summary>
@@ -86,6 +98,14 @@ public class InputControl : ScriptableObject
             return 0;
         }
     }
+
+    public bool IsEnabled() { return this.enabled; }
+
+    public void Enable() { this.enabled = true; }
+
+    public void Disable() { this.enabled = false; }
+
+    public void Toggle() { this.enabled = !this.enabled; }
 
 #if UNITY_EDITOR
 

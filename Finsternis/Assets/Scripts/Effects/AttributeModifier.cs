@@ -1,106 +1,199 @@
-﻿using System;
-using UnityEngine;
+﻿namespace Finsternis
+{
+    using System;
+    using UnityEngine;
 
-[System.Serializable]
-public class AttributeModifier : Effect
-{    
-    private float valueChange;
-
-    public enum ModifierType
+    [Serializable]
+    public class AttributeModifier : Effect
     {
-        Absolute = 0,
-        Relative = 10
-    }
-    
-    public ModifierType ChangeType { get; private set; }
+        [Serializable]
+        public enum ModifierType
+        {
+            SUM = 0,
+            SUBTRACT = 10,
+            DIVIDE = 20,
+            MULTIPLY = 30
+        }
 
-    public string AttributeAlias { get; private set; }
+        [Serializable]
+        public struct RangeF
+        {
+            [Range(0, 30)]
+            public float min;
+            
+            [Range(0, 30)]
+            public float max;
 
-    public float ValueChange
-    {
-        get { return this.valueChange; }
-        set { this.valueChange = value == 0 ? this.valueChange : value; }
-    }
+            public RangeF(float min, float max)
+            {
+                this.min = min;
+                this.max = Mathf.Max(min, max);
+            }
+        }
 
-    public AttributeModifier(string atributeAlias, float valueChange, ModifierType modifierType = ModifierType.Absolute, string name = null) : base(name)
-    {
-        this.AttributeAlias = atributeAlias;
-        this.valueChange = valueChange;
-        this.ChangeType = modifierType;
-    }
+        [SerializeField]
+        private EntityAttribute affectedAttribute;
 
-    public override string ToString()
-    {
-        var str = base.ToString();
+        [Space(5)]
+        [SerializeField]
+        private ModifierType modifierType;
 
-        return str.Substring(0, str.Length) 
-            + ", attribute: '" + this.AttributeAlias
-            + "', amount: " + StringfyValue();
-    }
+        [SerializeField]
+        private RangeF valueChangeVariation;
 
-    public string StringfyValue()
-    {
-        string str = "";
+        [SerializeField]
+        [ReadOnly]
+        private float valueChange;
 
-        if (ChangeType == ModifierType.Relative)
-            str += "x";
-        else if (this.valueChange > 0)
-            str += "+"; 
+        public RangeF ValueChangeVariation { get { return this.valueChangeVariation; } }
 
-        return str + valueChange;
-    }
+        public ModifierType TypeOfModifier { get { return this.modifierType; } }
 
-    /// <summary>
-    /// Compares the attribute modified and the type of modifier in question.
-    /// </summary>
-    /// <param name="other">The effect for comparison.</param>
-    /// <returns>0 if both effects act upon the same attribute and are the same type of modifier.</returns>
-    public override int CompareTo(Effect other)
-    {
-        int result = base.CompareTo(other);
+        public string AttributeAlias
+        {
+            get
+            {
+                return this.affectedAttribute ? this.affectedAttribute.Alias : null;
+            }
+        }
 
-        if (result < 1)
+        internal void SetRange(object v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EntityAttribute AffectedAttribute { get { return this.affectedAttribute; } }
+
+        public float ValueChange
+        {
+            get { return this.valueChange; }
+        }
+
+        public AttributeModifier(EntityAttribute affectedAttribute, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
+        {
+            this.affectedAttribute = affectedAttribute;
+            this.modifierType = modifierType;
+            UpdateName();
+        }
+
+        public void UpdateName()
+        {
+            if (this.affectedAttribute)
+                this.name = affectedAttribute.name;
+            this.name += ((modifierType == ModifierType.SUM || modifierType == ModifierType.MULTIPLY) ? " buff" : " debuff");
+        }
+
+        public void SetRange(float min, float max)
+        {
+            this.valueChangeVariation = new RangeF(min, max);
+            CalculateValue();
+        }
+
+        public void CalculateValue()
+        {
+            this.valueChange = UnityEngine.Random.Range(this.valueChangeVariation.min, this.valueChangeVariation.max + .1f);
+            int intValue = (int)this.valueChange;
+            int remainder = (int)((this.valueChange - intValue) * 10) % 10;
+            if (this.TypeOfModifier <= AttributeModifier.ModifierType.SUBTRACT)
+            {
+                if (remainder - 5 > 7)
+                {
+                    intValue++;
+                    remainder = 0;
+                }
+                else if (remainder - 5 > -2)
+                {
+                    remainder = 5;
+                }
+                else
+                {
+                    remainder = 0;
+                }
+            }
+
+            this.valueChange = intValue + (float)remainder / 10;
+        }
+
+        public override string ToString()
+        {
+            var str = base.ToString();
+
+            return str.Substring(0, str.Length)
+                + ", attribute: '" + this.AttributeAlias
+                + "', amount: " + StringfyValue();
+        }
+
+        public string StringfyValue()
+        {
+            string str;
+
+            switch (this.modifierType)
+            {
+                case ModifierType.SUM:
+                    str = "+";
+                    break;
+                case ModifierType.SUBTRACT:
+                    str = "-";
+                    break;
+                case ModifierType.DIVIDE:
+                case ModifierType.MULTIPLY:
+                    str = "x";
+                    break;
+                default:
+                    return null;
+            }
+            
+
+            if (this.modifierType <= ModifierType.SUBTRACT)
+                str += ValueChange.ToString("n2");
+            else if (this.modifierType == ModifierType.DIVIDE)
+            {
+                str += (1 / ValueChange).ToString("n2");
+            }
+            else
+            {
+                str += ValueChange.ToString("n2");
+            }
+
+            return str;
+        }
+
+        public bool Merge(Effect other)
         {
             AttributeModifier otherModifier = other as AttributeModifier;
-            if (otherModifier)
+            if (otherModifier && otherModifier.AttributeAlias.Equals(this.AttributeAlias) && otherModifier.TypeOfModifier == this.TypeOfModifier)
             {
-                result = this.AttributeAlias.CompareTo(otherModifier.AttributeAlias);
-                if (result == 0)
-                {
-                    result = this.ChangeType.CompareTo(otherModifier.ChangeType);
-                }
-            }
-        }
-
-        return result;
-    }
-
-    public override bool Merge(Effect other)
-    {
-        AttributeModifier otherModifier = other as AttributeModifier;
-        if (otherModifier)
-        {
-            if(this.CompareTo(otherModifier) == 0)
-            {
-                this.valueChange += otherModifier.valueChange;
+                if (this.modifierType > ModifierType.SUBTRACT)
+                    this.valueChange *= otherModifier.valueChange;
+                else
+                    this.valueChange += otherModifier.valueChange;
                 return true;
             }
+            return false;
         }
-        return false;
-    }
 
-    public override object Clone()
-    {
-        AttributeModifier clone = new AttributeModifier(this.AttributeAlias, this.valueChange, this.ChangeType, this.Name);
-        constraints.ForEach(
-            constraint => {
-                ICloneable cloneable = constraint as ICloneable;
-                if (cloneable != null)
-                    clone.AddConstraint((IConstraint)(cloneable.Clone())); //try to make a deep copy of the constraint list
-                else
-                    clone.AddConstraint(constraint); //fallback, if the ICloneable interface is not implemented by the constraint
-                }
-            );
-        return clone;
+        public float GetModifiedValue(float baseValue, float currentValue)
+        {
+            float modifiedValue = currentValue;
+
+            switch (this.TypeOfModifier)
+            {
+                case ModifierType.SUM:
+                    modifiedValue += this.ValueChange;
+                    break;
+                case ModifierType.SUBTRACT:
+                    modifiedValue -= this.ValueChange;
+                    break;
+                case ModifierType.DIVIDE:
+                    modifiedValue += baseValue / this.ValueChange;
+                    break;
+                case ModifierType.MULTIPLY:
+                    modifiedValue += baseValue * this.ValueChange;
+                    break;
+            }
+            if (modifiedValue < 0)
+                modifiedValue = 0;
+            return modifiedValue;
+        }
     }
 }

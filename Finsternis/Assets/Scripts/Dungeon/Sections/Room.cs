@@ -1,43 +1,37 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityQuery;
+
     public class Room : DungeonSection
     {
-        private List<Vector2> _cells;
-        private IRandom random;
+        private List<Vector2> cells;
 
-        private bool _locked;
+        private bool locked;
 
-        public bool Locked { get { return _locked; } }
+        public bool Locked { get { return this.locked; } }
 
-        public int CellCount { get { return _cells.Count; } }
+        public int CellCount { get { return this.cells.Count; } }
 
-        public static Room CreateInstance(Vector2 position, IRandom random)
+        public new RoomTheme Theme { get { return base.Theme as RoomTheme; } }
+
+        public static Room CreateInstance(Vector2 position, Dungeon dungeon)
         {
-            Room r = CreateInstance<Room>(new Rect(position, Vector2.zero));
-            r._cells = new List<Vector2>();
-            r.random = random;
+            Room r = CreateInstance<Room>(new Rect(position, Vector2.zero), dungeon);
+            r.cells = new List<Vector2>();
             return r;
         }
 
-        public static Room CreateInstance(Rect bounds, IRandom random)
-        {
-            Room r = CreateInstance<Room>(bounds);
-            r._cells = new List<Vector2>();
-            r.random = random;
-            return r;
-        }
         public override string ToString()
         {
-            System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(_cells.ToString());
+            System.Text.StringBuilder builder = new System.Text.StringBuilder("Room[bounds: ").Append(Bounds).Append("; cells: ").Append(this.cells.ToString());
             return builder.ToString();
         }
 
         public override IEnumerator<Vector2> GetEnumerator()
         {
-            foreach (Vector2 cell in _cells)
+            foreach (Vector2 cell in this.cells)
                 yield return cell;
         }
 
@@ -53,7 +47,7 @@ namespace Finsternis
         {
             foreach (Room other in others)
             {
-                foreach (Vector2 cell in other._cells)
+                foreach (Vector2 cell in other.cells)
                     AddCell(cell);
                 foreach (DungeonSection section in other.connections)
                     AddConnection(section, true);
@@ -65,7 +59,7 @@ namespace Finsternis
 
         public void Lock()
         {
-            _locked = true;
+            this.locked = true;
         }
 
         public bool Overlaps(Room other)
@@ -81,34 +75,47 @@ namespace Finsternis
             return false;
         }
 
-        private bool Contains(Vector2 otherCell)
+        public override void SetTheme<T>(T theme)
         {
-            return Search(otherCell)[0] >= 0;
+            if (!(theme is RoomTheme))
+                return;
+            base.SetTheme<T>(theme);
         }
 
+        public void SetTheme(RoomTheme theme)
+        {
+            this.SetTheme<RoomTheme>(theme);
+        }
+
+        /// <summary>
+        /// Looks for a given cell within the room using a binary search
+        /// </summary>
+        /// <param name="otherCell">The cell being searched.</param>
+        /// <returns></returns>
         public int[] Search(Vector2 otherCell)
         {
             int[] result = { -1, -1 };
 
-            if (_cells.Count > 0)
+            if (this.cells.Count > 0)
             {
-                int l = 0;
-                int r = _cells.Count;
-                int m;
+                int leftBound = 0;
+                int rightBound = this.cells.Count;
+                int middle;
 
                 do
                 {
-                    m = (l + r) / 2;
-                    if (_cells[m] == otherCell)
-                        result[0] = m;
-                    else if (otherCell.y > _cells[m].y || (otherCell.y == _cells[m].y && otherCell.x > _cells[m].x))
-                        l = m + 1;
+                    middle = (leftBound + rightBound) / 2;
+                    Vector2 middleCell = this.cells[middle];
+                    if (this.cells[middle] == otherCell)
+                        result[0] = middle;
+                    else if (otherCell.y > middleCell.y || (otherCell.y == middleCell.y && otherCell.x > middleCell.x))
+                        leftBound = middle + 1;
                     else
-                        r = m;
-                } while (l < r && result[0] < 0);
+                        rightBound = middle;
+                } while (leftBound < rightBound && result[0] < 0);
 
 
-                result[1] = l;
+                result[1] = leftBound;
             }
             return result;
         }
@@ -120,8 +127,8 @@ namespace Finsternis
 
         public override bool AddCell(Vector2 otherCell)
         {
-            if (_cells.Count == 0)
-                _cells.Add(otherCell);
+            if (this.cells.Count == 0)
+                this.cells.Add(otherCell);
             else
             {
                 int[] result = Search(otherCell);
@@ -130,10 +137,10 @@ namespace Finsternis
 
                 int l = result[1];
 
-                if (l == _cells.Count)
-                    _cells.Add(otherCell);
+                if (l == this.cells.Count)
+                    this.cells.Add(otherCell);
                 else
-                    _cells.Insert(l, otherCell);
+                    this.cells.Insert(l, otherCell);
             }
 
             AdjustSize(otherCell);
@@ -153,7 +160,7 @@ namespace Finsternis
                 //if this cell was at the edge of the room
                 if (bounds.min.x == cell.x || bounds.min.y == cell.y || bounds.max.x == cell.x || bounds.max.y == cell.y)
                 {
-                    Vector2 newMin = _cells[0];
+                    Vector2 newMin = this.cells[0];
                     Vector2 newMax = newMin;
 
                     //iterate through the remaining cells and define the new bounds, if needed
@@ -171,14 +178,14 @@ namespace Finsternis
             }
         }
 
-        public Vector2 GetRandomCell()
+        public override Vector2 GetRandomCell(params int[] constraints)
         {
-            return _cells[this.random.IntRange(0, _cells.Count, false)];
+            return this.cells.GetRandom(UnityEngine.Random.Range);
         }
 
-        public override bool ContainsCell(Vector2 cell)
+        public override bool Contains(Vector2 cell)
         {
-            return bounds.Contains(cell) && Contains(cell);
+            return bounds.Contains(cell) && Search(cell)[0] >= 0;
         }
 
         internal void Disconnect()
@@ -193,10 +200,10 @@ namespace Finsternis
         {
             foreach (Vector2 cell in other)
             {
-                if  (  this.ContainsCell(new Vector2(cell.x - 1, cell.y))
-                    || this.ContainsCell(new Vector2(cell.x + 1, cell.y))
-                    || this.ContainsCell(new Vector2(cell.x, cell.y - 1))
-                    || this.ContainsCell(new Vector2(cell.x, cell.y + 1))
+                if (this.Contains(new Vector2(cell.x - 1, cell.y))
+                    || this.Contains(new Vector2(cell.x + 1, cell.y))
+                    || this.Contains(new Vector2(cell.x, cell.y - 1))
+                    || this.Contains(new Vector2(cell.x, cell.y + 1))
                     )
                 {
                     return true;
@@ -210,9 +217,9 @@ namespace Finsternis
             if (this.Overlaps(roomB))
                 return true;
 
-            if (   Position.x <= roomB.bounds.xMax 
+            if (Position.x <= roomB.bounds.xMax
                 && bounds.xMax >= roomB.Position.x
-                && Position.y <= roomB.bounds.yMax 
+                && Position.y <= roomB.bounds.yMax
                 && bounds.yMax >= roomB.Position.y)
                 return ContainsAdjacentCells(roomB);
 
@@ -221,7 +228,7 @@ namespace Finsternis
 
         public override void RemoveCell(Vector2 cell)
         {
-            _cells.Remove(cell);
+            this.cells.Remove(cell);
             AdjustSize(cell, true);
         }
     }

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f99fc1fff2c344a8c7265d0ccab11a, type: 3}
+  m_Name: Robe
+  m_EditorClassIdentifier: 
+  nameType: 1
+  isStackable: 0
+  rarity: 0.0119617665
+  effects:
+  - name: Defense buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 1
+      max: 2
+    valueChange: 1
+  - name: Intelligence buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 2
+      max: 4
+    valueChange: 3
+  - name: Magic buff
+    constraints: []
+    affectedAttribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f,
+      type: 2}
+    modifierType: 0
+    valueChangeVariation:
+      min: 1.5
+      max: 3
+    valueChange: 1.5
+  prepositions: []
+  flavourText: 
+  randomizeRange: 0

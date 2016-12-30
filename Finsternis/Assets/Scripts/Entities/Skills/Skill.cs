@@ -1,111 +1,155 @@
-﻿
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections;
+    using UnityEngine;
+    using UnityQuery;
     [RequireComponent(typeof(CharController))]
     public abstract class Skill : MonoBehaviour
     {
+        [System.Serializable]
+        public class SkillEvent : CustomEvent<Skill>
+        {
+        }
+
         [Header("General Skill attributes")]
+        [SerializeField]
+        private new string name;
+
+        [SerializeField, Range(0, 100)]
+        private float energyCost = 1;
 
         [SerializeField]
-        [Range(0, 100)]
-        protected float castTime = 0.2f;
+        private EntityAttribute energyAttribute;
 
-        [SerializeField]
-        [Range(0, 5)]
+        [SerializeField, Range(0, 100)]
+        protected float startUpTime = 1f;
+        
+        [SerializeField, Range(0, 100)]
+        protected float castTime = 1f;
+
+        [SerializeField, Range(0, 100)]
+        protected float endTime = 1f;
+
+        [SerializeField, Range(0, 100)]
         protected float cooldownTime = 0.5f;
 
-        [SerializeField]
-        protected bool lockDuringCast = true;
+        [Header("Skill phase events")]
+        public SkillEvent onBegin;
+        public SkillEvent onExecutionStart;
+        public SkillEvent onExecutionEnd;
+        public SkillEvent onEnd;
+        public SkillEvent onCoolDownEnd;
 
-        public UnityEvent onUse;
-        public UnityEvent onCoolDownEnd;
+        [Space(20)]
 
         protected float lastUsed = 0;
 
         protected CharController user;
 
-        private float timeDisabled;
-        private bool equipped;
+        private float timeStarted;
 
+        public string Name { get { return this.name; } }
+        public bool Using { get; private set; }
+        public bool Casting { get; private set; }
+        public bool Executing { get; private set; }
         public bool CoolingDown { get; private set; }
-        public bool LockDuringCast { get { return lockDuringCast; } }
-        public bool Equipped { get { return this.equipped; } }
 
         protected virtual void Awake()
         {
             user = GetComponent<CharController>();
-        }
-
-        public virtual void Use()
-        {
-            lastUsed = Time.timeSinceLevelLoad;
-            StartCoroutine(_BeginCasting());
-            if (onUse != null)
-                onUse.Invoke();
-        }
-
-        public virtual bool MayUse()
-        {
-            return !CoolingDown;
-        }
-
-        private IEnumerator _BeginCasting()
-        {
-
-            if (castTime > 0)
+            if (this.energyAttribute)
             {
-                if (lockDuringCast)
-                    user.Lock(castTime);
-                yield return Yields.Seconds(castTime);
+                user.Character.onAttributeInitialized.AddListener(attribute =>
+                {
+                    if (attribute.Alias.Equals(this.energyAttribute.Alias))
+                        this.energyAttribute = attribute;
+                });
             }
-
-            CastSkill();
+            else
+            {
+                this.energyCost = 0;
+            }
         }
 
-        protected virtual void CastSkill()
+        public virtual void Begin()
         {
+            Using = true;
+            Casting = true;
+            this.timeStarted = Time.timeSinceLevelLoad;
+            if(this.energyCost > 0)
+                this.energyAttribute.Subtract(this.energyCost);
+
+            onBegin.Invoke(this);
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.startUpTime);
+        }
+
+        public virtual void StartExecution()
+        {
+            Casting = false;
+            Executing = true;
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.castTime);
+
+            onExecutionStart.Invoke(this);
+        }
+
+        public virtual void EndExecution()
+        {
+            Executing = false;
+
+            user.Controller.SetFloat(CharController.AttackSpeed, 1 / this.endTime);
+
+            onExecutionEnd.Invoke(this);
+        }
+
+        public virtual void End()
+        {
+            user.Controller.SetFloat(CharController.AttackSpeed, 1);
+
             if (cooldownTime > 0)
                 StartCoroutine(_Cooldown());
+            
+            onEnd.Invoke(this);
+            Using = false;
+        }
+
+        public bool MayUse()
+        {
+            if (Using)
+                CheckElapsedTime();
+            return !Using && !CoolingDown && 
+                (this.energyCost == 0 || energyAttribute.Value >= this.energyCost);
+        }
+
+        /// <summary>
+        /// Sometimes the "end" method of a skill is not called. This ensures the skill is not treated as if it's still being used in such cases.
+        /// </summary>
+        private void CheckElapsedTime()
+        {
+            Using = (Time.timeSinceLevelLoad - this.timeStarted) > (this.startUpTime + this.castTime + this.endTime);
         }
 
         private IEnumerator _Cooldown()
         {
             CoolingDown = true;
 
-            yield return cooldownTime;
+            yield return Wait.Sec(cooldownTime);
 
             CoolingDown = false;
 
-            if (onCoolDownEnd != null)
-                onCoolDownEnd.Invoke();
+            if (onCoolDownEnd)
+                onCoolDownEnd.Invoke(this);
         }
 
-        public virtual void Equip()
+#if UNITY_EDITOR
+        void OnValidate()
         {
-            this.equipped = enabled = true;
+            if (this.energyAttribute && !this.energyAttribute.HasMaximumValue)
+                this.energyAttribute = null;
         }
+#endif
 
-        public virtual void Unequip()
-        {
-            this.equipped = enabled = false;
-        }
-
-        protected virtual void OnDisable()
-        {
-            StopAllCoroutines();
-            timeDisabled = Time.timeSinceLevelLoad;
-        }
-
-        protected virtual void OnEnable()
-        {
-            lastUsed -= (Time.timeSinceLevelLoad - timeDisabled);
-            if (CoolingDown)
-                StartCoroutine(_Cooldown());
-        }
     }
 }

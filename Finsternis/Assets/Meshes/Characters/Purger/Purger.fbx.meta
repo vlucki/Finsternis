@@ -1,0 +1,2486 @@
+fileFormatVersion: 2
+guid: 27aadf6de4053ed45b596089f4f21e0a
+timeCreated: 1480253453
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ankle_L
+    100002: ankle_R
+    100004: back_horn_end_L
+    100006: back_horn_end_R
+    100008: back_horn_L
+    100010: back_horn_R
+    100012: calf_L
+    100014: calf_R
+    100016: chest
+    100018: clavicle_L
+    100020: clavicle_R
+    100022: ctrl_all
+    100024: ctrl_back_horn_L
+    100026: ctrl_back_horn_R
+    100028: ctrl_clavicle_R
+    100030: ctrl_clavicle_R1
+    100032: ctrl_elbow_L
+    100034: ctrl_elbow_R
+    100036: ctrl_front_horn_L
+    100038: ctrl_front_horn_R
+    100040: ctrl_ik_arm_L
+    100042: ctrl_ik_arm_R
+    100044: ctrl_ik_leg_L
+    100046: ctrl_ik_leg_R
+    100048: ctrl_ik_tail
+    100050: ctrl_index_finger_base_L
+    100052: ctrl_index_finger_base_R
+    100054: ctrl_index_finger_middle_L
+    100056: ctrl_index_finger_middle_R
+    100058: ctrl_middle_horn_L
+    100060: ctrl_middle_horn_R
+    100062: ctrl_neck
+    100064: ctrl_second_finger_base_R
+    100066: ctrl_second_finger_base_R 1
+    100068: ctrl_second_finger_middle_L
+    100070: ctrl_second_finger_middle_R
+    100072: ctrl_thumb_base_L
+    100074: ctrl_thumb_base_R
+    100076: ctrl_thumb_middle_L
+    100078: ctrl_thumb_middle_R
+    100080: ctrl_torso_middle
+    100082: ctrl_waist
+    100084: ctrl_wrist_L
+    100086: ctrl_wrist_R
+    100088: elbow_L
+    100090: elbow_R
+    100092: femur_base_L
+    100094: femur_base_R
+    100096: finger01_base_L
+    100098: finger01_base_R
+    100100: finger01_end_L
+    100102: finger01_end_R
+    100104: finger01_middle_L
+    100106: finger01_middle_R
+    100108: finger02_base_L
+    100110: finger02_base_R
+    100112: finger02_end
+    100114: finger02_end 1
+    100116: finger02_middle_L
+    100118: finger02_middle_R
+    100120: foot_aim_L
+    100122: foot_aim_R
+    100124: foot_end_L
+    100126: foot_end_R
+    100128: front_horn_end_L
+    100130: front_horn_end_R
+    100132: front_horn_L
+    100134: front_horn_R
+    100136: hand_L
+    100138: hand_R
+    100140: head
+    100142: head_front
+    100144: ik_arm_L
+    100146: ik_arm_R
+    100148: ik_leg_L
+    100150: ik_leg_R
+    100152: ik_tail
+    100154: knee_ctrl_L
+    100156: knee_ctrl_R
+    100158: knee_L
+    100160: knee_R
+    100162: leg_bend_L
+    100164: leg_bend_R
+    100166: middle_horn_end_L
+    100168: middle_horn_end_R
+    100170: middle_horn_L
+    100172: middle_horn_R
+    100174: neck
+    100176: //RootNode
+    100178: PurgerMesh
+    100180: shoulder_L
+    100182: shoulder_R
+    100184: spine
+    100186: tail_connection
+    100188: tail_end
+    100190: tail_first_half
+    100192: tail_pole_vector
+    100194: tail_second_half
+    100196: thumb_base_L
+    100198: thumb_base_R
+    100200: thumb_end_L
+    100202: thumb_end_R
+    100204: thumb_middle_L
+    100206: thumb_middle_R
+    100208: torso_middle
+    100210: wrist_L
+    100212: wrist_R
+    400000: ankle_L
+    400002: ankle_R
+    400004: back_horn_end_L
+    400006: back_horn_end_R
+    400008: back_horn_L
+    400010: back_horn_R
+    400012: calf_L
+    400014: calf_R
+    400016: chest
+    400018: clavicle_L
+    400020: clavicle_R
+    400022: ctrl_all
+    400024: ctrl_back_horn_L
+    400026: ctrl_back_horn_R
+    400028: ctrl_clavicle_R
+    400030: ctrl_clavicle_R1
+    400032: ctrl_elbow_L
+    400034: ctrl_elbow_R
+    400036: ctrl_front_horn_L
+    400038: ctrl_front_horn_R
+    400040: ctrl_ik_arm_L
+    400042: ctrl_ik_arm_R
+    400044: ctrl_ik_leg_L
+    400046: ctrl_ik_leg_R
+    400048: ctrl_ik_tail
+    400050: ctrl_index_finger_base_L
+    400052: ctrl_index_finger_base_R
+    400054: ctrl_index_finger_middle_L
+    400056: ctrl_index_finger_middle_R
+    400058: ctrl_middle_horn_L
+    400060: ctrl_middle_horn_R
+    400062: ctrl_neck
+    400064: ctrl_second_finger_base_R
+    400066: ctrl_second_finger_base_R 1
+    400068: ctrl_second_finger_middle_L
+    400070: ctrl_second_finger_middle_R
+    400072: ctrl_thumb_base_L
+    400074: ctrl_thumb_base_R
+    400076: ctrl_thumb_middle_L
+    400078: ctrl_thumb_middle_R
+    400080: ctrl_torso_middle
+    400082: ctrl_waist
+    400084: ctrl_wrist_L
+    400086: ctrl_wrist_R
+    400088: elbow_L
+    400090: elbow_R
+    400092: femur_base_L
+    400094: femur_base_R
+    400096: finger01_base_L
+    400098: finger01_base_R
+    400100: finger01_end_L
+    400102: finger01_end_R
+    400104: finger01_middle_L
+    400106: finger01_middle_R
+    400108: finger02_base_L
+    400110: finger02_base_R
+    400112: finger02_end
+    400114: finger02_end 1
+    400116: finger02_middle_L
+    400118: finger02_middle_R
+    400120: foot_aim_L
+    400122: foot_aim_R
+    400124: foot_end_L
+    400126: foot_end_R
+    400128: front_horn_end_L
+    400130: front_horn_end_R
+    400132: front_horn_L
+    400134: front_horn_R
+    400136: hand_L
+    400138: hand_R
+    400140: head
+    400142: head_front
+    400144: ik_arm_L
+    400146: ik_arm_R
+    400148: ik_leg_L
+    400150: ik_leg_R
+    400152: ik_tail
+    400154: knee_ctrl_L
+    400156: knee_ctrl_R
+    400158: knee_L
+    400160: knee_R
+    400162: leg_bend_L
+    400164: leg_bend_R
+    400166: middle_horn_end_L
+    400168: middle_horn_end_R
+    400170: middle_horn_L
+    400172: middle_horn_R
+    400174: neck
+    400176: //RootNode
+    400178: PurgerMesh
+    400180: shoulder_L
+    400182: shoulder_R
+    400184: spine
+    400186: tail_connection
+    400188: tail_end
+    400190: tail_first_half
+    400192: tail_pole_vector
+    400194: tail_second_half
+    400196: thumb_base_L
+    400198: thumb_base_R
+    400200: thumb_end_L
+    400202: thumb_end_R
+    400204: thumb_middle_L
+    400206: thumb_middle_R
+    400208: torso_middle
+    400210: wrist_L
+    400212: wrist_R
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: PurgerMesh
+    7400000: A_idle01_purger
+    7400002: A_idle02_purger
+    7400004: A_idle03_purger
+    7400006: A_walk_purger
+    7400008: A_atk_purger_begin
+    7400010: A_atk_purger_execute
+    7400012: A_atk_purger_finnish
+    7400014: A_death_purger
+    7400016: A_hit_purger
+    9500000: //RootNode
+    13700000: PurgerMesh
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: A_idle01_purger
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_idle02_purger
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_idle03_purger
+      takeName: Take 001
+      firstFrame: 120
+      lastFrame: 220
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_walk_purger
+      takeName: Take 001
+      firstFrame: 240
+      lastFrame: 297
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_atk_purger_begin
+      takeName: Take 001
+      firstFrame: 300
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_atk_purger_execute
+      takeName: Take 001
+      firstFrame: 331
+      lastFrame: 355
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_atk_purger_finnish
+      takeName: Take 001
+      firstFrame: 356
+      lastFrame: 385
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_death_purger
+      takeName: Take 001
+      firstFrame: 390
+      lastFrame: 450
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: A_hit_purger
+      takeName: Take 001
+      firstFrame: 390
+      lastFrame: 400
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: ctrl_all
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_L
+        weight: 1
+      - path: ctrl_all/ctrl_elbow_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_index_finger_base_L/ctrl_index_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_second_finger_base_R/ctrl_second_finger_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_L/ctrl_wrist_L/ctrl_thumb_base_L/ctrl_thumb_middle_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_index_finger_base_R/ctrl_index_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_second_finger_base_R 1/ctrl_second_finger_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_arm_R/ctrl_wrist_R/ctrl_thumb_base_R/ctrl_thumb_middle_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/foot_aim_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_L/knee_ctrl_L
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/foot_aim_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_leg_R/knee_ctrl_R
+        weight: 1
+      - path: ctrl_all/ctrl_ik_tail
+        weight: 1
+      - path: ctrl_all/ctrl_waist
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_clavicle_R1
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_back_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_front_horn_R
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_L
+        weight: 1
+      - path: ctrl_all/ctrl_waist/ctrl_torso_middle/ctrl_neck/ctrl_middle_horn_R
+        weight: 1
+      - path: ctrl_all/tail_pole_vector
+        weight: 1
+      - path: ik_arm_L
+        weight: 1
+      - path: ik_arm_R
+        weight: 1
+      - path: ik_leg_L
+        weight: 1
+      - path: ik_leg_R
+        weight: 1
+      - path: ik_tail
+        weight: 1
+      - path: PurgerMesh
+        weight: 1
+      - path: spine
+        weight: 1
+      - path: spine/femur_base_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L
+        weight: 1
+      - path: spine/femur_base_L/knee_L/leg_bend_L/ankle_L/calf_L/foot_end_L
+        weight: 1
+      - path: spine/femur_base_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R
+        weight: 1
+      - path: spine/femur_base_R/knee_R/leg_bend_R/ankle_R/calf_R/foot_end_R
+        weight: 1
+      - path: spine/tail_connection
+        weight: 1
+      - path: spine/tail_connection/tail_first_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half
+        weight: 1
+      - path: spine/tail_connection/tail_first_half/tail_second_half/tail_end
+        weight: 1
+      - path: spine/torso_middle
+        weight: 1
+      - path: spine/torso_middle/chest
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger01_base_L/finger01_middle_L/finger01_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/finger02_base_L/finger02_middle_L/finger02_end
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_L/shoulder_L/elbow_L/wrist_L/hand_L/thumb_base_L/thumb_middle_L/thumb_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger01_base_R/finger01_middle_R/finger01_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/finger02_base_R/finger02_middle_R/finger02_end
+          1
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R
+        weight: 1
+      - path: spine/torso_middle/chest/clavicle_R/shoulder_R/elbow_R/wrist_R/hand_R/thumb_base_R/thumb_middle_R/thumb_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_L/back_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/back_horn_R/back_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_L/front_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/front_horn_R/front_horn_end_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/head_front
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_L/middle_horn_end_L
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R
+        weight: 1
+      - path: spine/torso_middle/chest/neck/head/middle_horn_R/middle_horn_end_R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2.5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

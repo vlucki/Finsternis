@@ -6,45 +6,45 @@ namespace Finsternis
 {
     public static class RoomFactory
     {
-        public static bool CarveRoom(Dungeon dungeon, Corridor corridor, Vector4 brushSizeVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
+        public static bool CarveRoom(Dungeon dungeon, Corridor corridor, BrushSizeVariation brushVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
         {
             Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
             Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
-            Vector2 minBrushSize = brushSizeVariation.XY();
-            Vector2 maxBrushSize = brushSizeVariation.ZW();
+            Vector2 minBrushSize = brushVariation.Min;
+            Vector2 maxBrushSize = brushVariation.Max;
 
-            Rect brush = new Rect(startingPosition, Vector2.zero);
+            Rect brushInUse = new Rect(startingPosition, Vector2.zero);
 
             //move the room one up or to the left so it aligns properly to the corridor
-            brush.x -= corridorDirection.y;
-            brush.y -= corridorDirection.x;
+            brushInUse.x -= corridorDirection.y;
+            brushInUse.y -= corridorDirection.x;
 
-            room = Room.CreateInstance(brush.position, Dungeon.Random);
+            room = Room.CreateInstance(brushInUse.position, dungeon);
 
-            if (brush.x < 0 || brush.y < 0
-                || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brush))
+            if (brushInUse.x < 0 || brushInUse.y < 0
+                || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brushInUse))
             {
                 return false;
             }
 
-            bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(brush.position, minBrushSize);
+            bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(brushInUse.position, minBrushSize);
 
             while (!corridorDirection.IsZero()
                     && !enoughSpaceForRoom //if the room is currently intersecting a corridor
-                    && ((corridorDirection.y != 0 && brush.x >= 0 && brush.x + minBrushSize.x - 1 > room.Bounds.x)  //and it can be moved to the left (orUp) 
-                    || (corridorDirection.x != 0 && brush.y >= 0 && brush.y + minBrushSize.y - 1 > room.Bounds.y))) //while still being attached to the corridor
+                    && ((corridorDirection.y != 0 && brushInUse.x >= 0 && brushInUse.x + minBrushSize.x - 1 > room.Bounds.x)  //and it can be moved to the left (orUp) 
+                    || (corridorDirection.x != 0 && brushInUse.y >= 0 && brushInUse.y + minBrushSize.y - 1 > room.Bounds.y))) //while still being attached to the corridor
             {
                 //move the room and check again
-                brush.x -= corridorDirection.y;
-                brush.y -= corridorDirection.x;
-                enoughSpaceForRoom = !dungeon.OverlapsCorridor(brush.position, minBrushSize);//!dungeon.SearchInArea(pos, minSize, CellType.corridor);
+                brushInUse.x -= corridorDirection.y;
+                brushInUse.y -= corridorDirection.x;
+                enoughSpaceForRoom = !dungeon.OverlapsCorridor(brushInUse.position, minBrushSize);//!dungeon.SearchInArea(pos, minSize, CellType.corridor);
             }
 
             if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
                 return false;
 
-            brush.x = Mathf.Clamp(brush.x, 0, dungeon.Width);
-            brush.y = Mathf.Clamp(brush.y, 0, dungeon.Height);
+            brushInUse.x = Mathf.Clamp(brushInUse.x, 0, dungeon.Width);
+            brushInUse.y = Mathf.Clamp(brushInUse.y, 0, dungeon.Height);
 
             bool roomCarved = false;
             //mark cells at random locations within the room, until the maximum tries is reached
@@ -52,24 +52,23 @@ namespace Finsternis
             {
 
                 if (CreateBrush(
-                    minBrushSize,
-                    maxBrushSize,
+                    brushVariation,
                     startingPosition,
                     corridorDirection,
                     dungeon,
                     room,
-                    ref brush))
+                    ref brushInUse))
                 {
-                    if (!brush.size.IsZero())
+                    if (!brushInUse.size.IsZero())
                     {
-                        if (!dungeon.OverlapsCorridor(brush.position, brush.size))
+                        if (!dungeon.OverlapsCorridor(brushInUse.position, brushInUse.size))
                         {
-                            if (AddCells(brush, dungeon, room) > 0)
+                            if (AddCells(brushInUse, dungeon, room) > 0)
                                 roomCarved = true;
                         }
                     }
                 }
-                MoveBrush(dungeon, startingPosition, corridorDirection, room, minBrushSize, maxBrushSize, ref brush);
+                MoveBrush(dungeon, startingPosition, corridorDirection, room, minBrushSize, maxBrushSize, ref brushInUse);
             }
 
             if (room.Position.x < 0 || room.Position.y < 0)
@@ -87,10 +86,10 @@ namespace Finsternis
             Vector2 maxBrushSize, 
             ref Rect brush)
         {
-            int modifier = (Dungeon.Random.value() <= 0.75 ? -1 : 1);
+            int modifier = (UnityEngine.Random.value <= 0.75 ? -1 : 1);
 
-            brush.x += Dungeon.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
-            brush.y += Dungeon.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
+            brush.x += UnityEngine.Random.Range(1f, brush.width * 0.75f) * modifier; //add some horizontal offset based off of the last calculated width
+            brush.y += UnityEngine.Random.Range(1f, brush.height * 0.75f) * modifier; //add some vertical offset based off of the last calculated height
 
             brush.x = Mathf.RoundToInt(brush.x);
             brush.y = Mathf.RoundToInt(brush.y);
@@ -110,8 +109,7 @@ namespace Finsternis
         }
 
         private static bool CreateBrush(
-            Vector2 minBrushSize,
-            Vector2 maxBrushSize,
+            BrushSizeVariation brushVariation,
             Vector2 startingPosition,
             Vector2 corridorDirection,
             Dungeon dungeon,
@@ -119,8 +117,10 @@ namespace Finsternis
             ref Rect brush)
         {
             //make sure a segment with the given dimensions won't go over the room bounds
-            brush.width = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
-            brush.height = Mathf.RoundToInt(Dungeon.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
+            var minBrushSize = brushVariation.Min;
+            var maxBrushSize = brushVariation.Max;
+            brush.width = Mathf.RoundToInt (UnityEngine.Random.Range(minBrushSize.x, maxBrushSize.x - Mathf.Min(0, brush.x - startingPosition.x)));
+            brush.height = Mathf.RoundToInt(UnityEngine.Random.Range(minBrushSize.y, maxBrushSize.y - Mathf.Min(0, brush.y - startingPosition.y)));
 
             Rect brushPerimeter = new Rect(brush);
             Vector2 offset = corridorDirection.YX();

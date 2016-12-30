@@ -3,68 +3,43 @@
     using UnityEngine;
     using UnityQuery;
     using System.Collections;
+    using System.Collections.Generic;
+    using System;
 
     [RequireComponent(typeof(Animator))]
-    public class Door : Entity
+    public class Door : OpeneableEntity
     {
         private Animator anim;
 
-        private static readonly int DoorLockedBool = Animator.StringToHash("locked");
-        private static readonly int DoorOpenedBool = Animator.StringToHash("opened");
+        private MessageController displayedTooltip;
 
         protected override void Awake()
         {
             base.Awake();
             anim = GetComponent<Animator>();
+            anim.SetBool(LockedBool, IsLocked);
         }
 
-        public bool IsLocked()
+        public override void Open()
         {
-            return anim.GetBool(DoorLockedBool);
-        }
+            base.Open();
 
-        public void Lock()
-        {
-            if (!anim.GetBool(DoorOpenedBool))
-                anim.SetBool(DoorLockedBool, true);
-        }
+            if (!IsOpen)
+                return;
 
-        public void Unlock()
-        {
-            anim.SetBool(DoorLockedBool, false);
-        }
-
-        private void CheckInteraction()
-        {
-            Open();
-        }
-
-        public override void Interact(EntityAction action)
-        {
-            base.Interact(action);
-            if(!IsLocked())
-                Open();
-        }
-
-        public void Open()
-        {
             int dir = (int)-transform.forward.z;
 
-            if (lastInteraction)
+            if (LastInteraction)
             {
-                Vector3 interactionSource = transform.position - lastInteraction.Agent.transform.position;
-                
-                dir = (transform.forward.GetAngle(interactionSource) < 90) ? -1 : 1;
+                Vector3 interactionSource = transform.position - LastInteraction.Agent.transform.position;
+
+                dir = (transform.forward.Angle(interactionSource) < 90) ? -1 : 1;
             }
             anim.SetInteger("direction", dir);
             anim.SetTrigger("opening");
-            StartCoroutine(_DisableCollider());
-        }
-
-        private IEnumerator _DisableCollider()
-        {
-            yield return Yields.Seconds(1);
-            GetComponent<Collider>().enabled = false;
+            var colliders = this.GetComponentsInParentsOrChildren<Collider>();
+            colliders.ForEach(collider => collider.enabled = false);
+            this.interactable = false;
         }
     }
 }

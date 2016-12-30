@@ -1,52 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using UnityEngine;
+    using UnityEngine.Events;
+
     [RequireComponent(typeof(Collider))]
-    public class Trigger : MonoBehaviour
+    public class Trigger : CustomBehaviour
     {
         [Serializable]
-        public class OnTriggerEvent : UnityEvent<GameObject> { }
+        public class OnTriggerEvent : CustomEvent<GameObject> { }
 
         public OnTriggerEvent onEnter;
         public OnTriggerEvent onExit;
 
-        public LayerMask ignoreLayers;
+        public LayerMask layersToIgnore;
         [SerializeField]
-        protected List<Collider> ignoreColliders;
+        protected List<Collider> collidersToIgnore;
 
-        protected new Collider collider;
+        [SerializeField]
+        private List<TriggerConstraint> constraints;
 
-        private GameObject _objectEntered;
-        private GameObject _objectExited;
+        private HashSet<Collider> collidersWithin;
 
-        public GameObject ObjectEntered { get { return _objectEntered; } }
-        public GameObject ObjectExited { get { return _objectExited; } }
+        protected
+#if UNITY_EDITOR
+            new
+#endif
+            Collider collider;
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             if (!collider)
                 collider = GetComponent<Collider>();
+            this.collidersWithin = new HashSet<Collider>();
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (ShouldTrigger(other))
             {
-                _objectEntered = other.gameObject;
-                onEnter.Invoke(_objectEntered);
+                this.collidersWithin.Add(other);
+                if (onEnter)
+                    onEnter.Invoke(other.gameObject);
             }
         }
 
         protected virtual void OnTriggerExit(Collider other)
         {
+            if (collidersWithin.Remove(other))
+            {
+                if (onExit)
+                    onExit.Invoke(other.gameObject);
+            }
+        }
+
+        protected void OnTriggerStay(Collider other)
+        {
             if (ShouldTrigger(other))
             {
-                _objectExited = other.gameObject;
-                onExit.Invoke(_objectExited);
+                if (this.collidersWithin.Add(other))
+                {
+                    if (onEnter)
+                        onEnter.Invoke(other.gameObject);
+                }
+            }
+            else if (collidersWithin.Remove(other))
+            {
+                if (onExit)
+                    onExit.Invoke(other.gameObject);
             }
         }
 
@@ -56,10 +80,13 @@ namespace Finsternis
                 return false;
 
             LayerMask otherLayer = 1 << other.gameObject.layer;
-            if ((otherLayer & ignoreLayers) == otherLayer)
+            if ((otherLayer & this.layersToIgnore) == otherLayer)
                 return false;
 
-            if (ignoreColliders != null && ignoreColliders.Contains(other))
+            if (this.collidersToIgnore != null && this.collidersToIgnore.Contains(other))
+                return false;
+
+            if (this.constraints != null && this.constraints.Any((constraint) => !constraint.Check(this, other)))
                 return false;
 
             return true;
@@ -70,8 +97,8 @@ namespace Finsternis
             if (obj && obj != gameObject)
             {
                 Collider c = obj.GetComponent<Collider>();
-                if (c && !ignoreColliders.Contains(c))
-                    ignoreColliders.Add(c);
+                if (c && !this.collidersToIgnore.Contains(c))
+                    this.collidersToIgnore.Add(c);
             }
         }
     }

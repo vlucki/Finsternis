@@ -1,125 +1,204 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.Events;
+﻿namespace Finsternis {
+    using UnityEngine;
+    using UnityEngine.Events;
+    using UnityQuery;
 
-public class Follow : MonoBehaviour
-{
-    [SerializeField]
-    private bool focusTarget = true;
-    [SerializeField]
-    private Transform target;
-    [SerializeField]
-    private Transform originalTarget;
-    [SerializeField]
-    private float tempTargetFocusTime = 0.3f;
-
-    private float timeFocusingTempTarget = 0;
-
-    public UnityEvent OnTargetReached;
-
-    [Header("Lock Rotation Axis")]
-    public bool x;
-    public bool y;
-    public bool z;
-
-    public Vector3 offset = Vector3.back + Vector3.up;
-
-    private Vector3 originalOffset;
-
-    [Range(0, 1)]
-    public float translationInterpolation = 0.1f;
-
-    [Range(0, 1)]
-    public float rotationInterpolation = 0.2f;
-
-    [Range(0,1)]
-    public float distanceThreshold = 0.025f;
-
-    private Vector3 memorizedOffset;
-
-    public Vector3 MemorizedOffset { get { return this.memorizedOffset; } }
-    public Vector3 OriginalOffset { get { return this.originalOffset; } }
-
-    public bool WasOffsetChanged { get { return offset == originalOffset; } }
-
-    public Transform Target { get { return this.target; } }
-
-    void Awake()
+    public class Follow : MonoBehaviour
     {
-        originalOffset = offset;
-        memorizedOffset = offset;
-        originalTarget = target;
-    }
 
-    public void SetTarget(Transform target)
-    {
-        this.originalTarget = target;
-        this.target = target;
-    }
-
-    public void SetTemporaryTarget(Transform target)
-    {
-        if (this.originalTarget == null)
-            this.originalTarget = this.target;
-        this.target = target;
-        timeFocusingTempTarget = 0;
-    }
-
-    public void MemorizeOffset(Vector3? offset = null)
-    {
-        if (offset == null)
-            offset = this.offset;
-        this.memorizedOffset = (Vector3)offset;
-    }
-
-    public void ResetOffset(bool toOriginal = false)
-    {
-        if (toOriginal)
-            this.offset = originalOffset;
-        else
-            this.offset = this.memorizedOffset;
-    }
-
-    public bool FocusingTemporaryTarget()
-    {
-        return this.originalTarget != this.target;
-    }
-    
-    void FixedUpdate()
-    {
-        if (!this.target)
-            return;
-        Vector3 idealPosition = this.target.position + offset;
-        float distance = Vector3.Distance(idealPosition, transform.position);
-
-        if (distance <= this.distanceThreshold)
+        [System.Serializable]
+        public struct AxesRotationLock
         {
-            transform.position = idealPosition;
-            OnTargetReached.Invoke();
-            if(this.tempTargetFocusTime > 0 && FocusingTemporaryTarget())
-                this.timeFocusingTempTarget += Time.deltaTime;
-        }
-        else
-        {
-            transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
+            public bool x;
+            public bool y;
+            public bool z;
+
+            public bool all { get { return x && y && z; } }
+
+            public AxesRotationLock(bool x, bool y, bool z)
+            {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+
+            public AxesRotationLock(bool xyz) : this(xyz, xyz, xyz)
+            {
+            }
         }
 
-        if (timeFocusingTempTarget >= tempTargetFocusTime)
-            target = originalTarget;
+        [SerializeField]
+        private Transform target;
 
-        if (focusTarget && !(x && y && z))
+        [SerializeField]
+        private Transform originalTarget;
+
+        [SerializeField][Range(.01f, 10f)]
+        private float tempTargetFocusTime = 0.3f;
+
+        public UnityEvent onTargetChanged;
+        public UnityEvent OnTargetReached;
+
+        [SerializeField]
+        private AxesRotationLock LockedRotationAxes = new AxesRotationLock(false);
+
+        [SerializeField]
+        private Vector3 offset = Vector3.back + Vector3.up;
+
+        private Vector3 originalOffset;
+
+        [SerializeField]
+        [Range(0, 1)]
+        private float translationInterpolation = 0.1f;
+
+        [SerializeField]
+        [Range(0, 1)]
+        private float rotationInterpolation = 0.2f;
+
+        [SerializeField]
+        [Range(0,1)]
+        private float distanceThreshold = 0.025f;
+
+        private bool justReachedTarged = false;
+        private Vector3 memorizedOffset;
+        private Coroutine targetResetCoroutine;
+
+        public Vector3 MemorizedOffset { get { return this.memorizedOffset; } }
+        public Vector3 OriginalOffset { get { return this.originalOffset; } }
+
+        public bool WasOffsetChanged { get { return offset == originalOffset; } }
+
+        public Transform Target { get { return this.target; } }
+
+        public float TranslationInterpolation { get { return this.translationInterpolation; } set { this.translationInterpolation = Mathf.Clamp01(value); } }
+
+        void Awake()
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            Vector3 rotation = transform.eulerAngles;
-            transform.forward = Vector3.Slerp(transform.forward, direction, this.rotationInterpolation);
-            Vector3 newRotation = transform.eulerAngles;
-            if (x)
-                newRotation.x = rotation.x;
-            if (y)
-                newRotation.y = rotation.y;
-            if (z)
-                newRotation.z = rotation.z;
-            transform.eulerAngles = newRotation;
+            originalOffset = offset;
+            memorizedOffset = offset;
+            originalTarget = target;
+            if(GameManager.Instance)
+                GameManager.Instance.onPlayerSpawned.AddListener(Init);
+        }
+
+        void OnDestroy()
+        {
+            if (GameManager.Instance)
+                GameManager.Instance.onPlayerSpawned.RemoveListener(Init);
+        }
+
+        private void Init(CharController player)
+        {
+            SetTarget(player.transform);
+        }
+
+        public void SetTarget(Transform target)
+        {
+            SetTarget(target, true);
+        }
+
+        public void SetTarget(Transform target, bool setAsOriginal)
+        {
+            if(setAsOriginal) this.originalTarget = target;
+            this.target = target;
+            onTargetChanged.Invoke();
+        }
+
+        public void SetTemporaryTarget(Transform target)
+        {
+            SetTarget(target, false);
+            if(this.targetResetCoroutine != null)
+                this.StopCoroutine(this.targetResetCoroutine);
+            this.targetResetCoroutine = this.CallDelayed(this.tempTargetFocusTime, ResetTarget);
+        }
+
+        public void ResetTarget()
+        {
+            this.target = this.originalTarget;
+        }
+
+        public void MemorizeOffset(Vector3? offset = null)
+        {
+            if (offset == null)
+                offset = this.offset;
+            this.memorizedOffset = (Vector3)offset;
+        }
+
+        public void SetOffsetX(float x)
+        {
+            MemorizeOffset(this.offset.WithX(x));
+        }
+        public void SetOffsetY(float y)
+        {
+            MemorizeOffset(this.offset.WithY(y));
+        }
+        public void SetOffsetZ(float z)
+        {
+            MemorizeOffset(this.offset.WithZ(z));
+        }
+
+        public void ResetOffset(bool toOriginal = false)
+        {
+            if (toOriginal)
+                this.offset = this.originalOffset;
+            else
+                this.offset = this.memorizedOffset;
+        }
+
+        public bool FocusingTemporaryTarget()
+        {
+            return this.originalTarget != this.target;
+        }
+
+        void FixedUpdate()
+        {
+            if (!this.target)
+                return;
+
+            MoveToTarget();
+            LookAtTarget();
+        }
+
+        private void MoveToTarget()
+        {
+            Vector3 idealPosition = this.target.position + offset;
+            if (transform.position != idealPosition)
+            {
+                float distance = idealPosition.Distance(transform.position);
+
+                if (distance <= this.distanceThreshold)
+                {
+                    if (!this.justReachedTarged)
+                    {
+                        this.justReachedTarged = true;
+                        transform.position = idealPosition;
+                        OnTargetReached.Invoke();
+                    }
+                }
+                else
+                {
+                    this.justReachedTarged = false;
+                    transform.position = Vector3.Slerp(transform.position, idealPosition, translationInterpolation);
+                }
+            }
+        }
+
+        private void LookAtTarget()
+        {
+            if (!LockedRotationAxes.all)
+            {
+                Vector3 direction = (target.position - transform.position).normalized;
+                Vector3 rotation = transform.eulerAngles;
+                transform.forward = Vector3.Slerp(transform.forward, direction, this.rotationInterpolation);
+                Vector3 newRotation = transform.eulerAngles;
+                if (LockedRotationAxes.x)
+                    newRotation.x = rotation.x;
+                if (LockedRotationAxes.y)
+                    newRotation.y = rotation.y;
+                if (LockedRotationAxes.z)
+                    newRotation.z = rotation.z;
+                transform.eulerAngles = newRotation;
+            }
         }
     }
 }
