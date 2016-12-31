@@ -4,7 +4,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityQuery;
+    using Extensions;
+    using EasyEditor;
 
     [RequireComponent(typeof(Entity))]
     public class Inventory : MonoBehaviour
@@ -12,11 +13,13 @@
         [Serializable]
         public class InventoryEvent : CustomEvent<Card> { }
 
+        [Inspector(group = "Events", foldable =true, groupDescription = "Events called when something changes in the inventory")]
         public InventoryEvent onCardAdded;
         public InventoryEvent onCardRemoved;
         public InventoryEvent onCardEquipped;
         public InventoryEvent onCardUnequipped;
 
+        [Inspector(group ="Cards")]
         [SerializeField]
         [ReadOnly]
         private List<CardStack> unequippedCards;

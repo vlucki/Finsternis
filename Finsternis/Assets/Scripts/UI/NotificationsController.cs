@@ -4,7 +4,7 @@
     using System;
     using System.Collections.Generic;
     using UnityEngine.UI;
-    using UnityQuery;
+    using Extensions;
 
     public class NotificationsController : MonoBehaviour {
         

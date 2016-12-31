@@ -3,7 +3,7 @@
     using System.Collections;
     using UnityEngine.Audio;
     using System;
-    using UnityQuery;
+    using Extensions;
     using System.Collections.Generic;
 
     public class AudioManager : MonoBehaviour

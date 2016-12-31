@@ -52,9 +52,9 @@
             }
         }
 
-        public CanvasGroup CanvasGroup { get { return GetCachedComponent<CanvasGroup>(true); } }
+        public CanvasGroup CanvasGroup { get { return GetComponent<CanvasGroup>(); } }
 
-        public Selectable Selectable { get { return GetCachedComponent<Selectable>(true); } }
+        public Selectable Selectable { get { return GetComponent<Selectable>(); } }
 
         public bool IsOpening { get; private set; }
         public bool IsOpen { get; private set; }
@@ -62,9 +62,8 @@
 
         #region methods
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             var nav = new Navigation();
             nav.mode = Navigation.Mode.None;
             Selectable.navigation = nav;

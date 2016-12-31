@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using Extensions;
     public static class CorridorFactory
     {
         private static bool CanFitCorridor(Dungeon dungeon, Vector2 direction, Rect roomBounds, Vector2 minMaxCorridorLength)

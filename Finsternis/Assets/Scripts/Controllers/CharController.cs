@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-using System.Collections.Generic;
-using System;
-
+﻿
 namespace Finsternis
 {
+    using UnityEngine;
+    using Extensions;
+    using System.Collections.Generic;
+    using System;
+
     [AddComponentMenu("Finsternis/Char Controller")]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Character), typeof(MovementAction), typeof(Animator))]
@@ -74,10 +74,8 @@ namespace Finsternis
             SpeedFloat = Animator.StringToHash("speed");
         }
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
-
             this.isLocked = false;
             characterMovement = GetComponent<MovementAction>();
             characterAnimator = GetComponent<Animator>();
@@ -87,9 +85,8 @@ namespace Finsternis
             this.GetComponentsInChildren<EntityAction>(this.actions);
         }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
             character.onDeath.AddListener(OnCharacterDeath);
         }
 
@@ -165,7 +162,7 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithX(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.Set(x: amount));
             }
         }
 
@@ -173,7 +170,7 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.MovementDirection = (characterMovement.MovementDirection.WithZ(amount));
+                characterMovement.MovementDirection = (characterMovement.MovementDirection.Set(z: amount));
             }
         }
 
@@ -181,7 +178,7 @@ namespace Finsternis
         {
             if (CanAct())
             {
-                characterMovement.MovementDirection = (direction.WithY(0));
+                characterMovement.MovementDirection = (direction.Set(y: 0));
             }
         }
 
@@ -224,7 +221,7 @@ namespace Finsternis
             if (!CanAct())
             {
 #if LOG_INFO || LOG_WARN
-                Log.W(this, " can't attack right now");
+                Debug.LogWarningFormat(this, " can't attack right now");
 #endif
                 return;
             }
@@ -262,21 +259,21 @@ namespace Finsternis
             if (this.equippedSkills == null)
             {
 #if DEBUG
-                Log.E(this, "Variable 'equippedSkills' not initialized.");
+                Debug.LogError("Variable 'equippedSkills' not initialized.", this);
 #endif
                 return false;
             }
             else if (slot > this.equippedSkills.Length || slot < 0)
             {
 #if DEBUG
-                Log.E(this, "Invalid skill slot: {0}", slot);
+                Debug.LogErrorFormat(this, "Invalid skill slot: {0}", slot);
 #endif
                 return false;
             }
             else if (checkForEmptySlot && !this.equippedSkills[slot])
             {
 #if LOG_INFO || LOG_WARN
-                Log.W(this, "No skill equipped in slot {0}", slot);
+                Debug.LogWarningFormat(this, "No skill equipped in slot {0}", slot);
 #endif
                 return false;
             }

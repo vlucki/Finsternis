@@ -8,10 +8,8 @@
         private GameObject displayPrefab;
         private bool initialized = false;
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             if (GameManager.Instance.Player)
                 Init(GameManager.Instance.Player);
             else

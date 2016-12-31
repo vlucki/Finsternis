@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System;
     using UnityEngine.UI;
-    using UnityQuery;
+    using Extensions;
 
     public class AttributeDisplay : MonoBehaviour
     {
@@ -25,8 +25,7 @@
 
         private List<AttributeMapping> mappedAttributes;
         [SerializeField]
-        private EntityAttribute observedAttribute;
-
+        private AttributeTemplate observedAttributeTemplate;
 
         [SerializeField]
         private Text attributeAliasLabel;
@@ -37,13 +36,15 @@
         [SerializeField]
         private Image attributeImage;
 
-        public void SetAttribute(EntityAttribute attribute)
+        private Attribute observedAttribute;
+
+        public void SetAttribute(Attribute attribute)
         {
             if (this.observedAttribute)
-                this.observedAttribute.onValueChanged.RemoveListener(AtttributeValueChanged);
+                this.observedAttribute.valueChangedEvent -= AtttributeValueChanged;
 
             this.observedAttribute = attribute;
-            this.observedAttribute.onValueChanged.AddListener(AtttributeValueChanged);
+            this.observedAttribute.valueChangedEvent += AtttributeValueChanged;
 
             this.attributeAliasLabel.text = this.observedAttribute.Alias;
             this.attributeValueLabel.text = this.observedAttribute.Value.ToString("n2");
@@ -63,7 +64,7 @@
 
         }
 
-        private void AtttributeValueChanged(EntityAttribute attribute)
+        private void AtttributeValueChanged(Attribute attribute)
         {
             this.attributeValueLabel.text = attribute.Value.ToString("n2");
         }

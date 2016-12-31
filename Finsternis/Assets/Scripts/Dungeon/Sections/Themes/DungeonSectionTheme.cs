@@ -2,7 +2,7 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
-    using UnityQuery;
+    using Extensions;
 
     public abstract class DungeonSectionTheme : ScriptableObject
     {

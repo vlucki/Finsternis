@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [CreateAssetMenu(fileName ="AlignToWall", menuName ="Finsternis/Features/Alignment/Align to Wall")]
     public class AlignToWall : FeatureAlignment
@@ -20,7 +20,7 @@
             if (walls.IsNullOrEmpty())
             {
 #if DEBUG
-                Log.E(this, "Could not find any wall around {0} to align {1}", position, gObject);
+                Debug.LogErrorFormat(this, "Could not find any wall around {0} to align {1}", position, gObject);
 #endif
                 return;
             }
@@ -35,7 +35,7 @@
 
             var offset = new Vector3(-direction.x, 0, direction.y);
             offset.Scale(dungeonScale);
-            gObject.transform.position += (offset * this.offsetAmount).WithY(this.yOffset);
+            gObject.transform.position += (offset * this.offsetAmount).Set(y: this.yOffset);
         }
     }
 }

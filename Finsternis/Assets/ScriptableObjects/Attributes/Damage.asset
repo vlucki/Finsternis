@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   alias: dmg
-  constraints: 1
+  constraints: 0
   baseValue: 1
-  min: 0.5
+  min: 0
   max: 0
-  onValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.EntityAttribute+AttributeValueChangedEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  modifiers: []

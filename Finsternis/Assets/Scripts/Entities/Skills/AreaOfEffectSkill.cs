@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class AreaOfEffectSkill : Skill
     {
@@ -15,30 +15,36 @@
         private LayerMask layersOfEffect;
 
         [SerializeField]
-        private EntityAttribute damageAttribute;
+        private AttributeTemplate damageAttributeTemplate;
 
         [SerializeField]
-        DamageInfo.DamageType damageType = DamageInfo.DamageType.physical;
+        AttackData.DamageType damageType = AttackData.DamageType.physical;
+
+        private Attribute damageAttribute;
 
         protected override void Awake()
         {
             base.Awake();
-            this.GetComponent<Character>().onAttributeInitialized.AddListener(attr => { if (attr.Alias.Equals(this.damageAttribute)) this.damageAttribute = attr; });
+            this.GetComponent<Character>().onAttributeInitialized.AddListener(
+                attribute => {
+                if (attribute.Alias.Equals(this.damageAttributeTemplate.Alias))
+                    this.damageAttribute = attribute;
+            });
         }
 
         public override void StartExecution()
         {
             base.StartExecution();
             Collider[] inRange = Physics.OverlapSphere(transform.position, range, layersOfEffect);
-            float extra = this.damageAttribute.Value * .1f;
+            float damage = this.damageAttribute.Value * 1.1f;
             float explosionRange = this.range * 3f;
             foreach (var col in inRange)
             {
                 if (col.CompareTag(tagToConsider))
                 {
-                    var enemy = col.GetComponentInParentsOrChildren<EnemyChar>();
-                    if (enemy)
-                        this.GetComponent<AttackAction>().Execute(this.damageType, extra, enemy);
+                    var atk = col.GetComponent<InteractionModule>();
+                    if (atk)
+                        atk.Interact(new AttackData(damage, GetComponent<Entity>(), this.damageType));
                     var body = col.GetComponentInParentsOrChildren<Rigidbody>();
                     if (body)
                     {

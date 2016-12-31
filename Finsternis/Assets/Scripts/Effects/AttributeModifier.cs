@@ -32,7 +32,7 @@
         }
 
         [SerializeField]
-        private EntityAttribute affectedAttribute;
+        private AttributeTemplate affectedAttribute;
 
         [Space(5)]
         [SerializeField]
@@ -62,14 +62,14 @@
             throw new NotImplementedException();
         }
 
-        public EntityAttribute AffectedAttribute { get { return this.affectedAttribute; } }
+        public AttributeTemplate AffectedAttribute { get { return this.affectedAttribute; } }
 
         public float ValueChange
         {
             get { return this.valueChange; }
         }
 
-        public AttributeModifier(EntityAttribute affectedAttribute, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
+        public AttributeModifier(AttributeTemplate affectedAttribute, ModifierType modifierType = ModifierType.SUM, string name = null) : base(name)
         {
             this.affectedAttribute = affectedAttribute;
             this.modifierType = modifierType;
@@ -172,7 +172,7 @@
             return false;
         }
 
-        public float GetModifiedValue(float baseValue, float currentValue)
+        public float GetModifiedValue(float currentValue, float maxValue = 0)
         {
             float modifiedValue = currentValue;
 
@@ -185,10 +185,10 @@
                     modifiedValue -= this.ValueChange;
                     break;
                 case ModifierType.DIVIDE:
-                    modifiedValue += baseValue / this.ValueChange;
+                    modifiedValue += maxValue / this.ValueChange;
                     break;
                 case ModifierType.MULTIPLY:
-                    modifiedValue += baseValue * this.ValueChange;
+                    modifiedValue += maxValue * this.ValueChange;
                     break;
             }
             if (modifiedValue < 0)

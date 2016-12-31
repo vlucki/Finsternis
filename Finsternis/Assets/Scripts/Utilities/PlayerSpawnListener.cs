@@ -7,9 +7,8 @@
     {
         public UnityEngine.Events.UnityEvent onPlayerSpawned;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             GameManager.Instance.onPlayerSpawned.AddListener(PlayerSpawned);
         }
 

@@ -20,9 +20,8 @@
         [SerializeField]
         private bool presetFill = false;
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             this.image = GetComponent<Image>();
             if (presetFill)
                 this.image.fillAmount = 1 - (int)transitionType;

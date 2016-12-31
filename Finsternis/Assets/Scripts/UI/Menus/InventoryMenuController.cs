@@ -4,7 +4,7 @@
     using System.Collections;
     using System;
     using System.Collections.Generic;
-    using UnityQuery;
+    using Extensions;
     using System.Linq;
     using UnityEngine.UI;
 
@@ -269,7 +269,7 @@
 
             if (askForConfirmation)
             {
-                var input = GetCachedComponent<InputRouter>();
+                var input = GetComponent<InputRouter>();
                 input.Disable();
                 confirmationDialog.Show(
                     "Equipped cards remain so until the end of the floor.",

@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [CreateAssetMenu(fileName = "AlignToCorridor", menuName = "Finsternis/Features/Alignment/Align to Corridor")]
     public class AlignToCorridor : FeatureAlignment
@@ -19,7 +19,7 @@
             if (!corridor)
             {
 #if DEBUG
-                Log.E(this, "No corridor found at {0} when trying to align {1}", position, gObject);
+                Debug.LogErrorFormat(this, "No corridor found at {0} when trying to align {1}", position, gObject);
 #endif
                 return;
             }

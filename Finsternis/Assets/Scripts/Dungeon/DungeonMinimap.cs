@@ -4,7 +4,7 @@
     using System.Collections;
     using UnityEngine.UI;
     using System;
-    using UnityQuery;
+    using Extensions;
     using System.Collections.Generic;
 
     [RequireComponent(typeof(RawImage))]
@@ -83,7 +83,7 @@
                 if (lastDungeonPos != currentDungeonPos)
                 {
 #if LOG_INFO
-                    Log.I(this, "Player dungeon position: {0}, last dungeon position: {1}, Explored sections {2}", 
+                    Debug.LogFormat(this, "Player dungeon position: {0}, last dungeon position: {1}, Explored sections {2}", 
                         currentDungeonPos, lastDungeonPos, this.exploredSections.SequenceToString());
 #endif
                     lastDungeonPos = currentDungeonPos;
@@ -92,13 +92,13 @@
                     {
                         if (this.exploredSections.Add(section) || lastSection != section)
                         {
-                            yield return Wait.Frame();
+                            yield return WaitHelpers.Frame();
                             PaintTexture(lastSection, section);
                             lastSection = section;
                         }
                     }
                 }
-                yield return Wait.Sec(.1f);
+                yield return WaitHelpers.Sec(.1f);
             }
         }
 

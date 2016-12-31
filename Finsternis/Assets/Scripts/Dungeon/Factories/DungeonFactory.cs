@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-using Random = UnityEngine.Random;
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using Extensions;
+
     [DisallowMultipleComponent]
     public class DungeonFactory : MonoBehaviour
     {
@@ -97,22 +97,12 @@ namespace Finsternis
 
         public void Generate(int? seed = null, bool firstTime = false)
         {
-            this.StartCoroutine(_Generate(seed, firstTime));
-        }
-
-        /// <summary>
-        /// Core method for dungeon generation.
-        /// </summary>
-        /// <param name="seed">The seed to be used for the pseudo-random number generator.</param>
-        public IEnumerator _Generate(int? seed = null, bool firstTime = false)
-        {
             GameObject dungeonGO = new GameObject(dungeonName);
 
             dungeonGO.tag = "Dungeon";
             Dungeon dungeon = dungeonGO.AddComponent<Dungeon>();
             if (seed != null)
                 dungeon.Seed = (int)seed;
-
             else if (firstTime)
             {
                 var now = System.DateTime.UtcNow;
@@ -137,7 +127,14 @@ namespace Finsternis
                 dungeon.Entrance = room.GetRandomCell();
             }
             else
+            {
+#if UNITY_EDITOR
                 throw new InvalidOperationException("Could not create a single room within the dungeon. Maybe it is too small and the room too big?");
+#else
+                Generate();
+                return;
+#endif
+            }
 
             int roomCount = 1;
             while (roomCount < this.totalRooms  //keep going until the desired number of rooms was generated
@@ -147,25 +144,15 @@ namespace Finsternis
 
                 roomCount = GenerateRooms(dungeon, hangingRooms, hangingCorridors, maxRoomSize, roomCount);
             }
-
-            yield return null;
-
+            
             if (!this.allowDeadEnds)
                 ConnectLeftoverCorridors(dungeon, hangingCorridors);
 
-            yield return null;
-
             CleanUp(dungeon);
-
-            yield return null;
 
             DefineThemes(dungeon);
 
-            yield return null;
-
             AddFeatures(dungeon);
-
-            yield return null;
 
             AddExit(dungeon);
 
@@ -173,6 +160,7 @@ namespace Finsternis
 
             if (onGenerationEnd)
                 onGenerationEnd.Invoke(dungeon);
+
         }
 
         private void AddExit(Dungeon dungeon)
@@ -181,8 +169,11 @@ namespace Finsternis
 
             dungeon.Exit = GetRandomCellWithBias(dungeon, r);
             var exit = r.GetTheme<RoomTheme>().GetRandomExit();
-            while (!AddFeature(dungeon, r, dungeon.Exit, exit))
-                dungeon.Exit = GetRandomCellWithBias(dungeon, r, UnityEngine.Random.Range(2, 20));
+            if(!Loop.Do(
+                () => !AddFeature(dungeon, r, dungeon.Exit, exit), 
+                () => dungeon.Exit = GetRandomCellWithBias(dungeon, r, 99)))
+                dungeon.Exit = r.GetRandomCell();
+            
         }
 
         private Vector2 GetRandomCellWithBias(Dungeon dungeon, Room r, int tries = 20)
@@ -233,6 +224,7 @@ namespace Finsternis
             foreach (Room room in dungeon.Rooms)
             {
                 Decorate(dungeon, room);
+
                 AddTreasures(dungeon, room);
             }
         }
@@ -283,6 +275,11 @@ namespace Finsternis
             if (corridor.Length > 2)
             {
                 var trap = corridor.Theme.GetRandomTrap();
+
+#if UNITY_EDITOR
+                Debug.LogFormat(corridor, "Adding trap {0} to corridor.", trap);
+#endif
+
                 AddFeature(dungeon, corridor, corridor.GetRandomCell(1, corridor.Length - 2), trap.feature, trap.frequencyModifier);
             }
         }
@@ -294,11 +291,20 @@ namespace Finsternis
         /// <param name="corridor">The corridor that will have doors added to it.</param>
         private void AddDoors(Dungeon dungeon, Corridor corridor)
         {
+
+#if UNITY_EDITOR
+            Debug.LogFormat(corridor, "Adding door to start of corridor.");
+#endif
+
             //try adding a door at the start of a corridor
             int index = 0;
             while (index < 2 && index < corridor.Length && !AddDoor(dungeon, corridor, corridor[index], -corridor.Direction))
                 index++;
 
+
+#if UNITY_EDITOR
+            Debug.LogFormat(corridor, "Adding door to end of corridor.");
+#endif
             //And then at the end
             index = corridor.Length -1;
             while (index >= 0 &&
@@ -701,7 +707,7 @@ namespace Finsternis
             {
                 Room room = hangingRooms.Dequeue();
                 if (!room)
-                    throw new Exception("Something went wrong. Expected a room, but fount " + room + " instead!");
+                    throw new Exception("Something went wrong. Expected a room, but found " + room + " instead!");
 
                 Corridor corridor;
                 for (int i = 0; i < 2; i++)

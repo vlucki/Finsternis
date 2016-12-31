@@ -9,7 +9,7 @@ namespace Finsternis
     using UnityEngine.EventSystems;
     #endregion
 
-    using UnityQuery;
+    using Extensions;
     using System.Collections;
     using System;
 
@@ -69,7 +69,7 @@ namespace Finsternis
 
 #if LOG_INFO || LOG_WARN
             if (this.options.Count <= 0)
-                Log.W(this, "Not a single option found on the menu.");
+                Debug.LogWarningFormat(this, "Not a single option found on the menu.");
             else
 #endif
             if (this.options.Count > 1)

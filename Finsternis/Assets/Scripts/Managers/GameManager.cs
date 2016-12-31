@@ -3,9 +3,10 @@
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using System;
-    using UnityQuery;
+    using Extensions;
     using System.Collections.Generic;
     using UnityStandardAssets.ImageEffects;
+    using System.Linq;
 
     [AddComponentMenu("Finsternis/Game Manager")]
     [DisallowMultipleComponent]
@@ -52,7 +53,6 @@
 
         private CardsManager cardsManager;
 
-
         public static GameManager Instance { get { return instance; } }
 
         public CharController Player { get { return this.player; } }
@@ -98,7 +98,6 @@
                 Init();
                 if (!LoadSavedGame())
                 {
-                    Resources.FindObjectsOfTypeAll<CharacterSelectionMenu>()[0].BeginOpening();
                     CreateDungeon();
                 }
             }
@@ -158,7 +157,7 @@
             this.player.Character.onAttributeInitialized.AddListener(
                 attribute =>
                 {
-                    if (attribute.HasMaximumValue)
+                    if (attribute.Constraints.Any(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX))
                         new AttributeRegeneration(
                             this.player.Character, 
                             attribute, 
@@ -169,7 +168,7 @@
 
         public void SpawnPlayerAtEntrance(GameObject playerPrefab)
         {
-            SpawnPlayer(playerPrefab, this.dungeonManager.Drawer.GetEntrancePosition().WithY(0.5f));
+            SpawnPlayer(playerPrefab, this.dungeonManager.Drawer.GetEntrancePosition().Set(y: 0.5f));
         }
 
         private void CreateDungeon()
@@ -203,11 +202,11 @@
             Entity e = obj.GetComponent<Entity>();
             if (e)
             {
-                EntityAttribute hp = e.GetAttribute("vit");
+                Attribute hp = e.GetAttribute("vit");
                 if (hp)
-                    hp.SetBaseValue(0);
+                    hp.Value = 0;
                 else
-                    e.Kill();
+                    e.DestroyNow();
                 return;
             }
             else
@@ -219,11 +218,22 @@
 
         public void StartNextLevel(int clearedDungeons)
         {
-            this.player.GetCachedComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetCachedComponent<Rigidbody>().velocity.y, 0);
+            this.player.GetComponent<Rigidbody>().velocity = new Vector3(0, this.player.GetComponent<Rigidbody>().velocity.y, 0);
             this.player.transform.forward = -Vector3.forward;
-            this.dungeonManager.CurrentDungeon.GetCachedComponent<DeathZone>().Disable();
-            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(0);
-            this.player.GetCachedComponent<Inventory>().SetAllowedCardPoints(Mathf.CeilToInt(this.dungeonsToClear * (1 + clearedDungeons) / this.dungeonsToClear));
+            this.dungeonManager.CurrentDungeon.GetComponent<DeathZone>().Disable();
+            this.player.GetComponent<Inventory>().SetAllowedCardPoints(0);
+            this.player.GetComponent<Inventory>().SetAllowedCardPoints(Mathf.CeilToInt(this.dungeonsToClear * 20 * (1 + clearedDungeons) / this.dungeonsToClear));
+            foreach (var attribute in this.player.Character)
+            {
+                AttributeConstraint maxValueConstraint = attribute.Constraints.FirstOrDefault(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX);
+                float newAttributeValue = attribute.Value * 2;
+                if (maxValueConstraint)
+                {
+                    maxValueConstraint.Value *= 2;
+                    newAttributeValue = maxValueConstraint.Value;
+                }
+                attribute.Value = newAttributeValue;
+            }
             this.CallDelayed(1, GoalReached(clearedDungeons) ? Win : (Action)this.dungeonManager.CreateDungeon);
         }
 
@@ -235,7 +245,7 @@
                 if (!dungeon)
                 {
 #if DEBUG
-                    Log.W(this, "There was no dungeon ready for a new level to begin!");
+                    Debug.LogWarningFormat(this, "There was no dungeon ready for a new level to begin!");
 #endif
                     dungeonManager.CreateDungeon();
                 }
@@ -247,7 +257,7 @@
                 
                 Vector3 currOffset = this.player.transform.position - cameraHolder.transform.position;
 
-                Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + Vectors.Half2).WithY(3);
+                Vector3 pos = this.dungeonManager.Drawer.GetWorldPosition(dungeon.Entrance + VectorExtensions.Half2).Set(y: 3);
 
                 this.player.transform.position = pos;
 
@@ -259,7 +269,7 @@
                 cameraHolder.GetComponentInChildren<GlobalFog>().Dissipate(3);
                 cameraHolder.transform.position = 
                     this.dungeonManager.Drawer.GetWorldPosition(
-                        dungeon.GetCenter()).WithY(130);
+                        dungeon.GetCenter()).Set(y: 130);
             }
 
             foreach(var evt in globalEvents)
@@ -288,7 +298,7 @@
         public void TriggerGlobalEvent(string eventName, params object[] parameters)
         {
 #if LOG_INFO
-            Log.I(this, "Triggering event {0}", eventName);
+            Debug.LogFormat(this, "Triggering event {0}", eventName);
 #endif
 
             List<Callback> callbacks;

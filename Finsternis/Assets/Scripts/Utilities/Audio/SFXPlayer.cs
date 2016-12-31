@@ -3,7 +3,7 @@
     using UnityEngine;
     using System.Collections;
     using System;
-    using UnityQuery;
+    using Extensions;
     using System.Collections.Generic;
     using UnityEngine.Audio;
 

@@ -3,7 +3,7 @@
     using UnityEngine;
     using System.Collections;
     using System;
-    using UnityQuery;
+    using Extensions;
 
     public class AttributeRegeneration : Effect
     {
@@ -15,7 +15,7 @@
         
         private float regenInterval = 1;
 
-        public AttributeRegeneration(Entity entity, EntityAttribute attribute, RegenType type, float amount, float interval)
+        public AttributeRegeneration(Entity entity, Attribute attribute, RegenType type, float amount, float interval)
         {
             this.regenType = type;
             this.regenAmount = amount;
@@ -23,17 +23,27 @@
             entity.StartCoroutine(_Regen(attribute));
         }
 
-        private IEnumerator _Regen(EntityAttribute attribute)
+        private IEnumerator _Regen(Attribute attribute)
         {
             while (ShouldBeActive())
             {
                 float amount = this.regenAmount;
                 if (this.regenType == RegenType.RELATIVE)
-                    amount *= attribute.Max;
+                {
+                    foreach(var constraint in attribute.Constraints)
+                    {
+                        if(constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
+                        {
+                            amount *= constraint.Value;
+                            break;
+                        }
 
-                attribute.Add(amount);
+                    }
+                }
+
+                attribute.Value += (amount);
                 if (this.regenInterval > 0)
-                    yield return Wait.Sec(this.regenInterval);
+                    yield return WaitHelpers.Sec(this.regenInterval);
                 else
                     yield return null;
             }

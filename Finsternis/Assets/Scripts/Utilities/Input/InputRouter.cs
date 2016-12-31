@@ -1,15 +1,13 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
 
 [DisallowMultipleComponent]
 public class InputRouter : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     public class InputTrigger
     {
-        [System.Serializable]
+        [Serializable]
         public class AxisInputEvent : CustomEvent<float> { }
 
         public string name;
@@ -18,7 +16,7 @@ public class InputRouter : MonoBehaviour
 
         [Tooltip("If true, will wait for the input to stop firing before triggering again.")]
         public bool toggleOnly = false;
-
+        
         public InputControl[] controls;
 
         public AxisInputEvent onAxisActive;
@@ -29,7 +27,7 @@ public class InputRouter : MonoBehaviour
 
         public void Trigger()
         {
-            System.Array.ForEach(controls, (control) =>
+            Array.ForEach(controls, (control) =>
             {
                 if (ShouldTrigger(control))
                 {
@@ -54,7 +52,7 @@ public class InputRouter : MonoBehaviour
             if (!control)
             {
 #if LOG_INFO || LOG_WARN
-                Log.W(control, "Null control found. Did you forget to set something in the inspector?");
+                Debug.LogWarningFormat(control, "Null control found. Did you forget to set something in the inspector?");
 #endif
                 return false;
             }

@@ -1,7 +1,7 @@
 ﻿namespace Finsternis {
     using UnityEngine;
     using System.Collections;
-    using UnityQuery;
+    using Extensions;
 
     public class CameraController : MonoBehaviour
     {
@@ -163,7 +163,7 @@
             while (shakeTime > 0)
             {
                 float waitTime = 1 / this.shakeFrequency;
-                yield return Wait.Sec(waitTime);
+                yield return WaitHelpers.Sec(waitTime);
                 shakeTime -= Time.deltaTime + waitTime;
 
                 Vector3 shakeOffset = Random.insideUnitSphere / 10;

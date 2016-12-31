@@ -12,31 +12,31 @@ MonoBehaviour:
   m_Name: SiegfriedInitializationTable
   m_EditorClassIdentifier: 
   influencedAttributes:
-  - attribute: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
+  - template: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
     range:
-      min: 4
-      max: 10
-  - attribute: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
+      min: 6
+      max: 12
+  - template: {fileID: 11400000, guid: 79090bdd60e6cb441ba70bf9075ba16f, type: 2}
     range:
-      min: 4
-      max: 8
-  - attribute: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
+      min: 8
+      max: 14
+  - template: {fileID: 11400000, guid: 51ef4fe1ecc79f8478f6ea3fcbc52271, type: 2}
     range:
       min: 4
       max: 6.5
-  - attribute: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
+  - template: {fileID: 11400000, guid: 8f3ac87bc46d43b4bbbf3ee669953f8f, type: 2}
     range:
-      min: 5
-      max: 10
-  - attribute: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
+      min: 0
+      max: 0
+  - template: {fileID: 11400000, guid: 7deea879a49139d44ad6febb6378d1c8, type: 2}
     range:
       min: 3
       max: 4
-  - attribute: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
+  - template: {fileID: 11400000, guid: 05e540ea2337fb742b26d83e39407a16, type: 2}
     range:
       min: 8
-      max: 12
-  - attribute: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
+      max: 13
+  - template: {fileID: 11400000, guid: e280ac7a58dfc1a4abe5be408db2de14, type: 2}
     range:
-      min: 12
-      max: 18
+      min: 20
+      max: 26

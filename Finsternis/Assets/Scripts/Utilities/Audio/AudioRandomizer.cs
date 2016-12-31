@@ -2,7 +2,7 @@
     using UnityEngine;
     using System.Collections;
     using System.Collections.Generic;
-    using UnityQuery;
+    using Extensions;
     
     public class AudioRandomizer : MonoBehaviour
     {
@@ -17,7 +17,7 @@
             if (this.player)
                 this.player.Play(clips.GetRandom(Random.Range));
             else
-                Log.E(this, "No player found!");
+                Debug.LogErrorFormat(this, "No player found!");
         }
     }
 }

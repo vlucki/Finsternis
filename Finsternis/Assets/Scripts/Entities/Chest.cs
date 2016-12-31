@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(Animator))]
     public class Chest : OpeneableEntity
@@ -39,24 +39,12 @@
             }
         }
 
-        public override void Interact(EntityAction action)
-        {
-            if(action is OpenAction)
-                base.Interact(action);
-        }
-
         public override void Open()
         {
             base.Open();
             if (!IsOpen)
                 return;
-
-            if (LastInteraction && LastInteraction.Agent.Equals(GameManager.Instance.Player.Character))
-            {
-                SetGlow(Color.black);
-                this.CallDelayed(1.75f, GameManager.Instance.CardsManager.GivePlayerCard, cardsToGive);
-            }
-            interactable = false;
+            
             this.animator.SetTrigger("opening");
         }
 

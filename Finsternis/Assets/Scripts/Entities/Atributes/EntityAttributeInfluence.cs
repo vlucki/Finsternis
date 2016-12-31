@@ -19,7 +19,7 @@
         }
 
         [SerializeField]
-        private EntityAttribute attribute;
+        private AttributeTemplate attributeTemplate;
 
         [SerializeField]
         private InfluenceType influenceType = InfluenceType.SUM;
@@ -28,15 +28,16 @@
         [Tooltip("By how much the attribute value should be multiplied before calculating its influence.")]
         private float attributeMultiplier = 1;
 
-        public EntityAttribute Attribute
+        public AttributeTemplate AttributeTemplate
         {
-            get { return this.attribute; }
-            set { this.attribute = value; }
+            get { return this.attributeTemplate; }
         }
+
+        public Attribute Attribute { get; set; }
 
         public float CalculateInfluencedValue(float valueToInfluece)
         {
-            float baseInfluence = this.attribute.Value * this.attributeMultiplier;
+            float baseInfluence = this.Attribute.Value * this.attributeMultiplier;
 
             valueToInfluece = CalculateInfluence(baseInfluence, valueToInfluece);
 

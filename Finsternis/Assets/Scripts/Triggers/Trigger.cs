@@ -30,9 +30,8 @@
 #endif
             Collider collider;
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             if (!collider)
                 collider = GetComponent<Collider>();
             this.collidersWithin = new HashSet<Collider>();

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [CreateAssetMenu(fileName = "DungeonFeature", menuName = "Finsternis/Dungeon/Features/Generic Feature", order = 0)]
     public class DungeonFeature : ScriptableObject
@@ -98,25 +98,25 @@
                 if (restriction.above > 0)
                 {
                     for(int i = 1; i <= restriction.above; i++)
-                        if (Check(d, pos.SumY(i), restriction))
+                        if (Check(d, pos.Add(y: i), restriction))
                             return true;
                 }
                 if (restriction.below > 0)
                 {
                     for (int i = 1; i <= restriction.below; i++)
-                        if (Check(d, pos.SumY(-i), restriction))
+                        if (Check(d, pos.Add(y: -i), restriction))
                         return true;
                 }
                 if (restriction.left > 0)
                 {
                     for (int i = 1; i <= restriction.left; i++)
-                        if (Check(d, pos.SumX(-i), restriction))
+                        if (Check(d, pos.Add(x: -i), restriction))
                         return true;
                 }
                 if (restriction.right > 0)
                 {
                     for (int i = 1; i <= restriction.right; i++)
-                        if (Check(d, pos.SumX(i), restriction))
+                        if (Check(d, pos.Add(x: i), restriction))
                         return true;
                 }
                 return false;

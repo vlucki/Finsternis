@@ -1,10 +1,9 @@
 ﻿namespace Finsternis
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
-    using UnityQuery;
+    using Extensions;
 
     public class CardDisplay : MonoBehaviour
     {
@@ -65,7 +64,7 @@
 #if DEBUG
                 else
                 {
-                    Log.E(this, "Player missing!");
+                    Debug.LogErrorFormat(this, "Player missing!");
                 }
 #endif
             }
@@ -144,7 +143,7 @@
             if (player)
             {
                 var effects = this.stack.card.GetEffects();
-                var compoundEffects = new Dictionary<EntityAttribute, float>();
+                var compoundEffects = new Dictionary<Attribute, float>();
                 foreach (var effect in effects)
                 {
                     var modifier = effect as AttributeModifier;
@@ -154,7 +153,7 @@
                         if (!compoundEffects.ContainsKey(attrib))
                             compoundEffects[attrib] = attrib.Value;
 
-                        compoundEffects[attrib] = modifier.GetModifiedValue(attrib.BaseValue, compoundEffects[attrib]);
+                        compoundEffects[attrib] = modifier.GetModifiedValue(attrib.Value, compoundEffects[attrib]);
                     }
                 }
 
@@ -167,7 +166,7 @@
 
         }
 
-        private string GetValueWithComparison(KeyValuePair<EntityAttribute, float> compoundEffect)
+        private string GetValueWithComparison(KeyValuePair<Attribute, float> compoundEffect)
         {
             var difference = compoundEffect.Value - compoundEffect.Key.Value;
             string result = difference.ToString("00.00");
@@ -190,17 +189,25 @@
             if (!player)
             {
 #if DEBUG
-                Log.E(this, "Player missing!");
+                Debug.LogErrorFormat(this, "Player missing!");
 #endif
                 return null;
             }
 
-            if (!player.GetCachedComponent<Inventory>().IsEquipped(this.stack.card))
+            if (!player.GetComponent<Inventory>().IsEquipped(this.stack.card))
             {
                 var attr = player.Character.GetAttribute(modifier.AttributeAlias);
                 if (attr)
                 {
-                    float modifiedValue = modifier.GetModifiedValue(attr.BaseValue, attr.Value);
+                    AttributeConstraint maxValueConstraint = null;
+                    foreach (var constraint in attr.Constraints)
+                    {
+                        if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
+                        {
+                            maxValueConstraint = constraint;
+                        }
+                    }
+                    float modifiedValue = modifier.GetModifiedValue(attr.Value, maxValueConstraint ? maxValueConstraint.Value : 0);
                     string valueStr = modifiedValue.ToString("00.00");
                     if (modifiedValue != attr.Value)
                     {

@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
     using System;
     using System.Collections;
 
@@ -27,9 +27,8 @@
         [SerializeField]
         private ForceDirection forceDirection = new ForceDirection(-Vector3.one, Vector3.one, Mode.RANDOM);
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             this.forceDirection.max = Vector3.Max(this.forceDirection.max, this.forceDirection.min);
         }
 
@@ -62,13 +61,12 @@
 
         private IEnumerator _Update(Vector3 force, MessageController msg)
         {
-            var body = msg.GetCachedComponent<Rigidbody>();
+            var body = msg.GetComponent<Rigidbody>();
             if (!body)
             {
-                body = msg.GetComponent<Rigidbody>();
-                msg.CacheComponent(body);
+                body = msg.gameObject.GetOrAddComponent<Rigidbody>();
             }
-            yield return Wait.Fixed();
+            yield return WaitHelpers.Fixed();
             while (msg && msg.isActiveAndEnabled)
             {
                 body.AddForce(force, ForceMode.Acceleration);

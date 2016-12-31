@@ -7,7 +7,7 @@ namespace Finsternis
     public class HealthAlert : AudioPlayer
     {
         [SerializeField]
-        private EntityAttribute health;
+        private AttributeTemplate healthTemplate;
 
         [SerializeField, Range(0, 1)]
         private float healthPercentageThreshold = .5f;
@@ -17,29 +17,41 @@ namespace Finsternis
 
         private Character character;
 
+        private new Camera camera;
+
         private bool alertPlaying = false;
+
+        private ValueConstraint maxHealth;
 
         protected override void Awake()
         {
             base.Awake();
             this.character = GetComponent<Character>();
             this.character.onAttributeInitialized.AddListener(GrabHealth);
+            this.camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         }
 
-        private void GrabHealth(EntityAttribute attribute)
+        private void GrabHealth(Attribute attribute)
         {
-            if (attribute.Alias.Equals(health.Alias))
+            if (attribute.Alias.Equals(healthTemplate.Alias))
             {
-                this.health = attribute;
-                this.health.onValueChanged.AddListener(HealthChanged);
+                attribute.valueChangedEvent += HealthChanged;
+                foreach(var constraint in attribute.Constraints)
+                {
+                    if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
+                    {
+                        this.maxHealth = constraint;
+                        break;
+                    }
+                }
             }
         }
 
-        private void HealthChanged(EntityAttribute attribute)
+        private void HealthChanged(Attribute attribute)
         {
 
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().fieldOfView = 60 + (10 * (1 - attribute.Value / attribute.Max));
-            if (attribute.Value <= attribute.Max * this.healthPercentageThreshold)
+            this.camera.fieldOfView = 60 + (10 * (1 - attribute.Value / maxHealth.Value));
+            if (attribute.Value <= maxHealth.Value* this.healthPercentageThreshold)
             {
                 if (!alertPlaying)
                 {

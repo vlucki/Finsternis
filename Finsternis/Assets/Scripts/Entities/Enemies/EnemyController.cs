@@ -4,7 +4,7 @@
     using System.Collections;
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityQuery;
+    using Extensions;
     using Random = UnityEngine.Random;
 
     [RequireComponent(typeof(EnemyChar), typeof(LookForTargetAction))]

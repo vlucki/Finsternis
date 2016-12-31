@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityQuery;
 
     public class CardsManager : MonoBehaviour
     {
@@ -35,7 +34,7 @@
             if (this.cardNames == null || this.cardNames.Count == 0)
             {
 #if DEBUG
-                Log.E(this, "No names attatched to manager. Aborting card generation.");
+                Debug.LogErrorFormat(this, "No names attatched to manager. Aborting card generation.");
 #endif
                 return;
             }
@@ -43,7 +42,7 @@
             if(this.cardFactory == null)
             {
 #if DEBUG
-                Log.E(this, "No card factory found. Aborting card generation.");
+                Debug.LogErrorFormat(this, "No card factory found. Aborting card generation.");
 #endif
                 return;
             }

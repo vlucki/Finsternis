@@ -19,25 +19,28 @@
             Buttons
         }
 
-        [SerializeField]
+        /// <summary>
+        /// Name of the horizontal axis for movement (if axis events are used).
+        /// </summary>
+        [SerializeField, AxesName]
         private string m_HorizontalAxis = "Horizontal";
 
         /// <summary>
         /// Name of the vertical axis for movement (if axis events are used).
         /// </summary>
-        [SerializeField]
+        [SerializeField, AxesName]
         private string m_VerticalAxis = "Vertical";
 
         /// <summary>
         /// Name of the submit button.
         /// </summary>
-        [SerializeField]
+        [SerializeField, AxesName]
         private string m_SubmitButton = "Submit";
 
         /// <summary>
         /// Name of the submit button.
         /// </summary>
-        [SerializeField]
+        [SerializeField, AxesName]
         private string m_CancelButton = "Cancel";
 
         [SerializeField]

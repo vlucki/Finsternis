@@ -3,7 +3,7 @@
     using UnityEngine;
     using UnityEngine.Events;
     using System;
-    using UnityQuery;
+    using Extensions;
 
     public class Exit : Trigger
     {

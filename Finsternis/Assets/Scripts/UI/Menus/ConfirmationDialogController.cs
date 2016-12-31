@@ -3,7 +3,7 @@
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
-    using UnityQuery;
+    using Extensions;
 
     public class ConfirmationDialogController : MenuController
     {

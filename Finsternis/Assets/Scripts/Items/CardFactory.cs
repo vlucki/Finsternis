@@ -5,7 +5,7 @@
     using System;
     using Random = UnityEngine.Random;
     using System.Linq;
-    using UnityQuery;
+    using Extensions;
 
     [Serializable]
     public class CardFactory

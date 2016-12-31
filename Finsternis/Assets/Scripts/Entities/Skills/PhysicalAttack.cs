@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class PhysicalAttack : Skill
     {

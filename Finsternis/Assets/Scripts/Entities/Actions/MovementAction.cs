@@ -1,9 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
-    using System;
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(Rigidbody))]
     [DisallowMultipleComponent]
@@ -28,7 +26,10 @@
         [SerializeField]
         private ForceMode modeWhenApplyingForce = ForceMode.Acceleration;
 
-        private EntityAttribute cachedSpeed;
+        [SerializeField]
+        private AttributeTemplate speedTemplate;
+
+        private Attribute cachedSpeed;
 
         private Vector3 movementDirection;
 
@@ -36,9 +37,19 @@
 
         public bool ShouldFaceMovementDirection { get; set; }
 
-        private EntityAttribute Speed
+        private Attribute Speed
         {
-            get { return this.cachedSpeed ?? (this.cachedSpeed = agent.GetAttribute("spd")); }
+            get
+            {
+                if (!this.speedTemplate)
+                {
+#if UNITY_EDITOR
+                    Debug.LogErrorFormat(this, "No speed template assigned to MovementActions!");
+#endif
+                    return null;
+                }
+                return this.cachedSpeed ?? (this.cachedSpeed = agent.GetAttribute(speedTemplate.Alias));
+            }
         }
 
         public Vector3 Velocity { get { return this.rbody.velocity; } }
@@ -46,11 +57,12 @@
         public Vector3 MovementDirection
         {
             get { return this.movementDirection; }
-            set {
+            set
+            {
                 if (this.movementDirection != this.LastMovementDirection)
                     this.LastMovementDirection = this.movementDirection;
                 this.movementDirection = value.normalized;
-                if(ShouldFaceMovementDirection)
+                if (ShouldFaceMovementDirection)
                     this.facingDirection = this.movementDirection;
             }
         }
@@ -67,6 +79,11 @@
 
         protected override void Awake()
         {
+            if (!this.Speed)
+            {
+                this.Disable();
+                return;
+            }
             base.Awake();
             this.ShouldFaceMovementDirection = true;
             this.rbody = GetComponent<Rigidbody>();
@@ -94,7 +111,7 @@
             if (!this.movementDirection.IsZero())
                 Move(MovementDirection);
             else if (!this.Velocity.IsZero())
-                Move(-Velocity.WithY(0).normalized);
+                Move(-Velocity.Set(y: 0).normalized);
         }
 
         private void Move(Vector3 direction)
@@ -111,7 +128,7 @@
             if (this.rbody)
             {
                 if (ignoreY)
-                    return Velocity.WithY(0).sqrMagnitude;
+                    return Velocity.Set(y: 0).sqrMagnitude;
                 else
                     return Velocity.sqrMagnitude;
             }

@@ -2,7 +2,7 @@
 {
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(Animator), typeof(MovementAction), typeof(ShakeCameraEvent))]
     public class FireballEntity : Entity
@@ -28,18 +28,18 @@
 
         protected override void Awake()
         {
+            this.onAttributeInitialized.AddListener(GrabSpeed);
             base.Awake();
             this.movement = GetComponent<MovementAction>();
             this.animator = GetComponent<Animator>();
             this.explosionEvent = GetComponent<ShakeCameraEvent>();
         }
 
-        protected override void InitializeAttribute(int attributeIndex)
+        protected void GrabSpeed(Attribute attribute)
         {
-            base.InitializeAttribute(attributeIndex);
-            if (attributes[attributeIndex].Alias.Equals("spd"))
+            if (attribute.Alias.Equals("spd"))
             {
-                attributes[attributeIndex].SetBaseValue(Random.Range(5, 9));
+                attribute.Value = (Random.Range(5, 9));
             }
         }
 

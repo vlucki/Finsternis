@@ -3,17 +3,13 @@
     using UnityEngine;
     using System.Collections;
     using System.Collections.Generic;
-
-    [RequireComponent(typeof(OpeneableEntity))]
-    public class Lock : MonoBehaviour
+    
+    public class Lock
     {
-        #region Custom events declaration
-        [System.Serializable]
-        public class UnlockableEvent : CustomEvent<Lock> { }
-        #endregion
 
         #region Events
-        public UnlockableEvent OnUnlock;
+        public delegate void UnlockDelegate(Lock l);
+        public event UnlockDelegate onUnlock;
         #endregion
 
         [SerializeField]
@@ -21,35 +17,23 @@
 
         private OpeneableEntity lockedEntity;
 
-        void Awake()
-        {
-            this.lockedEntity = GetComponent<OpeneableEntity>();
-            this.lockedEntity.EntityEvents.onInteraction.AddListener(TryUnlocking);
-        }
-
         private KeyCard key;
 
-        public void TryUnlocking()
-        {
-            if (Unlock())
-            {
-                OnUnlock.Invoke(this);
-            }
-        }
-
-       protected virtual bool Unlock()
+       public virtual bool Unlock(KeyCard key)
         {
             if (permanentLock)
                 return false;
-
-            var action = lockedEntity.LastInteraction as OpenAction;
-            if (!action || !action.KeyCard || action.KeyCard.UsedUp)
+            
+            if (key.UsedUp)
                 return false;
 
-            bool correctKey = action.KeyCard.Equals(this.key);
+            bool correctKey = key.Equals(this.key);
 
             if (correctKey)
-                action.KeyCard.Use();
+            {
+                key.Use();
+                onUnlock(this);
+            }
 
             return correctKey;
         }
@@ -61,7 +45,7 @@
             this.key = c;
         }
 
-        public void RemovePermaLock()
+        public void RemovePermanentLock()
         {
             this.permanentLock = false;
         }

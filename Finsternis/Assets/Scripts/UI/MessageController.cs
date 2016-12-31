@@ -3,7 +3,7 @@
     using UnityEngine;
     using System.Collections;
     using UnityEngine.UI;
-    using UnityQuery;
+    using Extensions;
     using System;
 
     [RequireComponent(typeof(FadeInTransition), typeof(FadeOutTransition))]
@@ -30,9 +30,8 @@
             set { this.messageGraphic.sprite = value; }
         }
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             this.messageField = GetComponentInChildren<Text>();
             this.messageGraphic = GetComponentInChildren<Image>();
             this.fadeIn = GetComponent<FadeInTransition>();

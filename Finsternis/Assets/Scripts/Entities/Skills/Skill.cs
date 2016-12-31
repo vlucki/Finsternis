@@ -1,9 +1,11 @@
 ﻿namespace Finsternis
 {
+    using EasyEditor;
     using System;
     using System.Collections;
+    using System.Linq;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
     [RequireComponent(typeof(CharController))]
     public abstract class Skill : MonoBehaviour
     {
@@ -12,7 +14,7 @@
         {
         }
 
-        [Header("General Skill attributes")]
+        [Inspector(group = "Basic attributes")]
         [SerializeField]
         private new string name;
 
@@ -20,8 +22,9 @@
         private float energyCost = 1;
 
         [SerializeField]
-        private EntityAttribute energyAttribute;
+        private AttributeTemplate energyAttributeTemplate;
 
+        [Inspector(group = "Phases duration", foldable = true)]
         [SerializeField, Range(0, 100)]
         protected float startUpTime = 1f;
         
@@ -34,20 +37,20 @@
         [SerializeField, Range(0, 100)]
         protected float cooldownTime = 0.5f;
 
-        [Header("Skill phase events")]
+        [Inspector(group = "Phases events", foldable = true)]
         public SkillEvent onBegin;
         public SkillEvent onExecutionStart;
         public SkillEvent onExecutionEnd;
         public SkillEvent onEnd;
         public SkillEvent onCoolDownEnd;
 
-        [Space(20)]
-
         protected float lastUsed = 0;
 
         protected CharController user;
 
         private float timeStarted;
+
+        private Attribute energyAttribute;
 
         public string Name { get { return this.name; } }
         public bool Using { get; private set; }
@@ -62,7 +65,7 @@
             {
                 user.Character.onAttributeInitialized.AddListener(attribute =>
                 {
-                    if (attribute.Alias.Equals(this.energyAttribute.Alias))
+                    if (attribute.Alias.Equals(this.energyAttributeTemplate.Alias))
                         this.energyAttribute = attribute;
                 });
             }
@@ -78,7 +81,7 @@
             Casting = true;
             this.timeStarted = Time.timeSinceLevelLoad;
             if(this.energyCost > 0)
-                this.energyAttribute.Subtract(this.energyCost);
+                this.energyAttribute.Value -= (this.energyCost);
 
             onBegin.Invoke(this);
 
@@ -135,7 +138,7 @@
         {
             CoolingDown = true;
 
-            yield return Wait.Sec(cooldownTime);
+            yield return WaitHelpers.Sec(cooldownTime);
 
             CoolingDown = false;
 
@@ -146,8 +149,8 @@
 #if UNITY_EDITOR
         void OnValidate()
         {
-            if (this.energyAttribute && !this.energyAttribute.HasMaximumValue)
-                this.energyAttribute = null;
+            if (this.energyAttributeTemplate && !this.energyAttributeTemplate.HasMaximumValue)
+                this.energyAttributeTemplate = null;
         }
 #endif
 

@@ -4,9 +4,8 @@
     using UnityEngine.UI;
 
     using System;
-    using System.Collections.Generic;
     using UnityEngine.EventSystems;
-    using UnityQuery;
+    using Extensions;
     using UnityEngine.Events;
     using System.Collections;
 
@@ -49,7 +48,7 @@
             }
             catch (NullReferenceException ex)
             {
-                Log.E(this, "Failed to find eye pupil.\n" + ex.Message);
+                Debug.LogErrorFormat(this, "Failed to find eye pupil.\n" + ex.Message);
             }
         }
 
@@ -109,7 +108,7 @@
             }
             else
             {
-                Log.E(this, "No game object assigned as pupil");
+                Debug.LogErrorFormat(this, "No game object assigned as pupil");
             }
         }
 

@@ -3,6 +3,9 @@
 
     public class KeyCard : Card
     {
+        public delegate void UseDelegate(KeyCard key);
+        public event UseDelegate onUse;
+
         private int uses = 1; //how many times this keycard may be used (-1 for infinitely usable)
 
         public bool UsedUp { get { return uses == 0; } }

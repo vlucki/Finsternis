@@ -2,7 +2,7 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
-    using UnityQuery;
+    using Extensions;
     using UnityEngine.Events;
     using System.Collections;
     using System;
@@ -84,7 +84,7 @@
         {
             while (true)
             {
-                yield return Wait.Sec(.2f);
+                yield return WaitHelpers.Sec(.2f);
 
                 UpdateCurrentTarget();
 
@@ -94,7 +94,7 @@
                 if (this.currentTarget)
                 {
                     this.movement.ShouldFaceMovementDirection = false;
-                    this.movement.FacingDirection = currentTarget.transform.position.WithY(0) - this.transform.position.WithY(0);
+                    this.movement.FacingDirection = currentTarget.transform.position.Set(y: 0) - this.transform.position.Set(y: 0);
                 }
             }
         }
@@ -107,7 +107,7 @@
             }
             else if (this.currentTarget)
             {
-                var dist = this.transform.position.WithY(0).Distance(this.currentTarget.transform.position.WithY(0));
+                var dist = this.transform.position.Set(y: 0).Distance(this.currentTarget.transform.position.Set(y: 0));
                 if (dist > this.persistenceRange)
                 {
                     SetTarget(null);
@@ -115,7 +115,7 @@
                 }
                 else if (this.obstaclesLayer != 0) //check if there's anything obtructing the view of the target
                 {
-                    var origin = transform.position.WithY(1) + transform.forward;
+                    var origin = transform.position.Set(y: 1) + transform.forward;
                     if (Physics.Raycast(
                         new Ray(origin, transform.forward), dist,
                         this.obstaclesLayer))

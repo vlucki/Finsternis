@@ -1,13 +1,8 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-
-using System;
-using System.Collections;
-using UnityQuery;
-using UnityEngine.Events;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using UnityEngine.Events;
+
     [RequireComponent(typeof(Animator))]
     public class TrapBehaviour : Entity
     {

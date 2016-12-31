@@ -55,13 +55,9 @@
 
             if (force != Vector3.zero)
             {
-                var body = ctrl.GetCachedComponent<Rigidbody>();
-                if(!body)
-                {
-                    body = ctrl.GetComponent<Rigidbody>();
-                    ctrl.CacheComponent(body);
-                }
-               body.AddForce(force, ForceMode.Impulse);
+                var body = ctrl.GetComponent<Rigidbody>();
+                if(body)
+                  body.AddForce(force, ForceMode.Impulse);
             }
 
             return ctrl;

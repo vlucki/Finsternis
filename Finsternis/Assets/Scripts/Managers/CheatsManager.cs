@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
-using System;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using Extensions;
+
     public class CheatsManager : MonoBehaviour
     {
         private string storedCode;
@@ -37,8 +34,8 @@ namespace Finsternis
 
         private void PositionSkyCam(Dungeon dungeon)
         {
-            var center = GameManager.Instance.DungeonManager.Drawer.GetWorldPosition(dungeon.GetCenter() + Vectors.Half2);
-            this.skyCamera.transform.position = center.WithY(150);
+            var center = GameManager.Instance.DungeonManager.Drawer.GetWorldPosition(dungeon.GetCenter() + VectorExtensions.Half2);
+            this.skyCamera.transform.position = center.Set(y: 150);
         }
 
         void Update()
@@ -115,7 +112,7 @@ namespace Finsternis
 #if LOG_INFO || LOG_WARN
             else
             {
-                Log.W(this, "or so it would be if there existed a player to die.");
+                Debug.LogWarningFormat(this, "or so it would be if there existed a player to die.");
             }
 #endif
         }
@@ -168,7 +165,7 @@ namespace Finsternis
 #if LOG_INFO || LOG_WARN
             else
             {
-                Log.W(this, "is what I would say to the player, if there was one....");
+                Debug.LogWarningFormat(this, "is what I would say to the player, if there was one....");
             }
 #endif
         }
@@ -189,7 +186,7 @@ namespace Finsternis
 #if LOG_INFO || LOG_WARN
             else
             {
-                Log.W(this, "and out of player....");
+                Debug.LogWarningFormat(this, "and out of player....");
             }
 #endif
         }
@@ -240,7 +237,7 @@ namespace Finsternis
             if (this.skyCamera.isActiveAndEnabled)
             {
                 float camY = this.storedValue > 0 ? this.storedValue : this.skyCamera.transform.position.y;
-                this.skyCamera.transform.position = this.skyCamera.transform.position.WithY(camY);
+                this.skyCamera.transform.position = this.skyCamera.transform.position.Set(y: camY);
             }
 
         }

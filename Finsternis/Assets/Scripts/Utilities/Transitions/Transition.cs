@@ -4,7 +4,7 @@
     using UnityEngine.Events;
     using System.Collections.Generic;
     using System.Collections;
-    using UnityQuery;
+    using Extensions;
 
     public abstract class Transition : CustomBehaviour
     {
@@ -33,9 +33,8 @@
 
         public bool Transitioning { get { return this.transitioning; } }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
             if (beginOnStart)
                 Begin();
         }
@@ -52,7 +51,7 @@
                 StartCoroutine(_Begin());
 #if LOG_INFO || LOG_WARN
             else
-                Log.W(this, "Cannot start transition with innactive game object!");
+                Debug.LogWarningFormat(this, "Cannot start transition with innactive game object!");
 #endif
         }
 
@@ -67,7 +66,7 @@
             if (!this.transitioning)
             {
                 if (waitBeforeStart > 0)
-                    yield return Wait.Sec(waitBeforeStart);
+                    yield return WaitHelpers.Sec(waitBeforeStart);
                 this.transitioning = true;
                 OnTransitionStarted.Invoke(this);
             }
@@ -79,7 +78,7 @@
             {
                 this.transitioning = false;
                 if (waitBeforeEnding > 0)
-                    yield return Wait.Sec(waitBeforeEnding);
+                    yield return WaitHelpers.Sec(waitBeforeEnding);
                 OnTransitionEnded.Invoke(this);
             }
         }

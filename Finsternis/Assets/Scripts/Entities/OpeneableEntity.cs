@@ -10,63 +10,48 @@
         public static readonly int OpenBool = Animator.StringToHash("open");
 
         [Serializable]
-        public struct OpeneableEvts
-        {
-            public EntityEvent onOpen;
-            public EntityEvent onClose;
-            public EntityEvent onLockRemoved;
-        }
+        public class OpeneableEvent : CustomEvent<IOpeneable> { }
 
-        [Header("OpeneableEntity fields")]
-        [Space]
-
-        [SerializeField]
-        private OpeneableEvts openeableEvents;
-
-        private bool isOpen;
+        [EasyEditor.Inspector(group = "OpeneableEntity", foldable = true)]
+        public OpeneableEvent onOpen;
+        public OpeneableEvent onClose;
 
         private List<Lock> locks;
 
-        public bool IsLocked { get { return this.locks.Count > 0; } }
+        public bool IsOpen { get; private set; }
 
-        public bool IsOpen { get { return this.isOpen; } }
+        public bool IsLocked { get { return locks.Count > 0; } }
 
-        public OpeneableEvts OpeneableEvents { get { return this.openeableEvents; } }
+        public System.Collections.ObjectModel.ReadOnlyCollection<Lock> Locks { get { return this.locks.AsReadOnly(); } }
 
         protected override void Awake()
         {
             base.Awake();
-            locks = new List<Lock>();
-            GetComponents<Lock>(locks);
-            foreach (Lock l in locks)
-            {
-                l.OnUnlock.AddListener(RemoveLock);
-            }
+            this.locks = new List<Lock>();
         }
 
-        private void RemoveLock(Lock removedLock)
+        public void AddLock(Lock newLock)
         {
-            locks.Remove(removedLock);
-            OpeneableEvents.onLockRemoved.Invoke(this);
-            Open();
+            this.locks.Add(newLock);
+            newLock.onUnlock += l => this.locks.Remove(l);
         }
 
         public virtual void Open()
         {
-            if (this.isOpen || IsLocked)
+            if (this.IsOpen || this.IsLocked)
                 return;
 
-            this.isOpen = true;
-            OpeneableEvents.onOpen.Invoke(this);
+            this.IsOpen = true;
+            onOpen.Invoke(this);
         }
 
         public virtual void Close()
         {
-            if (!this.isOpen)
+            if (!this.IsOpen)
                 return;
 
-            this.isOpen = false;
-            OpeneableEvents.onClose.Invoke(this);
+            this.IsOpen = false;
+            onClose.Invoke(this);
         }
     }
 }

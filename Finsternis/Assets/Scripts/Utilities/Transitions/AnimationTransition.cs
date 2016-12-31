@@ -2,7 +2,7 @@
 {
     using UnityEngine;
     using System.Collections;
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(Animator))]
     public class AnimationTransition : Transition
@@ -18,10 +18,8 @@
 
         public float Duration { get { return this.duration; } }
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
-
             this.animator = GetComponent<Animator>();
             this.animator.enabled = false;
 
@@ -50,7 +48,7 @@
             float elapsed = 0;
             while(Transitioning && elapsed <= duration)
             {
-                yield return Wait.Frame();
+                yield return WaitHelpers.Frame();
                 elapsed += Time.deltaTime;
             }
 

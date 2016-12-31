@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class FireballController : StateMachineBehaviour
     {

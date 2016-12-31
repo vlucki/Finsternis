@@ -3,7 +3,7 @@ namespace Finsternis
     using System;
     using System.Collections;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(CanvasGroup))]
     public abstract class FadeTransition : AnimationTransition

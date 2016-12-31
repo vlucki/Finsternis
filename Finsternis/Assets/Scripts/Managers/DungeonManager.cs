@@ -5,7 +5,7 @@
     using System;
     using System.Collections.Generic;
 
-    using UnityQuery;
+    using Extensions;
 
     [RequireComponent(typeof(DungeonFactory), typeof(DungeonDrawer))]
     public class DungeonManager : MonoBehaviour

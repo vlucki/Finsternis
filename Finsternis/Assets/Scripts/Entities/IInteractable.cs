@@ -2,6 +2,6 @@
 {
     public interface IInteractable
     {
-        void Interact(EntityAction action);
+        bool Interact(InteractionData action);
     }
 }

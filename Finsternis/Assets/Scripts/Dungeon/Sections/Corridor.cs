@@ -1,9 +1,7 @@
 ﻿namespace Finsternis
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityQuery;
 
     public class Corridor : DungeonSection
     {
@@ -52,7 +50,7 @@
                 if (index < 0 || index >= this.Length)
                 {
 #if DEBUG
-                    Log.E(this, "Trying to access a cell with index {0} within {1}", index, this);
+                    Debug.LogErrorFormat(this, "Trying to access a cell with index {0} within {1}", index, this);
 #endif
                     index = Mathf.Clamp(index, 0, this.Length - 1);
                 }
@@ -188,7 +186,7 @@
                 if (min == max)
                     return this[min];
 
-                return this[UnityEngine.Random.Range(min, max)];
+                return this[Random.Range(min, max)];
             }
         }
 

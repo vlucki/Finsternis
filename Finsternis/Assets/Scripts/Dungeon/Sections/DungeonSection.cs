@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public abstract class DungeonSection : ScriptableObject, IEnumerable<Vector2>
     {
@@ -147,22 +147,22 @@
             foreach(var cell in this)
             {
 
-                var up = cell.SumY(1);
+                var up = cell.Add(y: 1);
                 bool edgeCellFound = this.Dungeon.IsOfType(up, null);
 
                 if (!edgeCellFound)
                 {
-                    var down = cell.SumY(-1);
+                    var down = cell.Add(y: -1);
                     edgeCellFound = this.Dungeon.IsOfType(down, null);
                 }
                 if (!edgeCellFound)
                 {
-                    var left = cell.SumX(-1);
+                    var left = cell.Add(x: -1);
                     edgeCellFound = this.Dungeon.IsOfType(left, null);
                 }
                 if (!edgeCellFound)
                 {
-                    var right = cell.SumX(1);
+                    var right = cell.Add(x: 1);
                     edgeCellFound = this.Dungeon.IsOfType(right, null);
                 }
 

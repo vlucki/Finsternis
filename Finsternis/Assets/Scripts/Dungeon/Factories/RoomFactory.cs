@@ -1,13 +1,17 @@
-﻿using System;
-using UnityEngine;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using UnityEngine;
+    using Extensions;
+
     public static class RoomFactory
     {
         public static bool CarveRoom(Dungeon dungeon, Corridor corridor, BrushSizeVariation brushVariation, Vector2 maxRoomSize, int maxBrushStrokes, out Room room)
         {
+#if UNITY_EDITOR
+            Debug.LogFormat(dungeon, "Starting room carving");
+#endif
+
             Vector2 startingPosition = corridor ? corridor.Bounds.max : Vector2.zero;
             Vector2 corridorDirection = corridor ? corridor.Direction : Vector2.zero;
             Vector2 minBrushSize = brushVariation.Min;
@@ -21,19 +25,29 @@ namespace Finsternis
 
             room = Room.CreateInstance(brushInUse.position, dungeon);
 
+#if UNITY_EDITOR
+            Debug.LogFormat(dungeon, "Finished brush setup");
+            Debug.LogFormat(room, "Adjusting brush coordinates: {0}", brushInUse.position.ToString("00.000"));
+#endif
+
             if (brushInUse.x < 0 || brushInUse.y < 0
                 || !AdjustCoordinate(corridorDirection, minBrushSize, dungeon.Size, ref brushInUse))
             {
+                Debug.LogFormat(room, "Failed to adjust brush coordinates");
                 return false;
             }
 
             bool enoughSpaceForRoom = !dungeon.OverlapsCorridor(brushInUse.position, minBrushSize);
 
+            Debug.LogFormat(room, "Is there enough space for room? {0}", enoughSpaceForRoom ? "Yes" : "No");
+
+            
             while (!corridorDirection.IsZero()
                     && !enoughSpaceForRoom //if the room is currently intersecting a corridor
                     && ((corridorDirection.y != 0 && brushInUse.x >= 0 && brushInUse.x + minBrushSize.x - 1 > room.Bounds.x)  //and it can be moved to the left (orUp) 
                     || (corridorDirection.x != 0 && brushInUse.y >= 0 && brushInUse.y + minBrushSize.y - 1 > room.Bounds.y))) //while still being attached to the corridor
             {
+                Debug.LogFormat(room, "Not enough space for room... moving brush towards corridor direction [{0}]", corridorDirection);
                 //move the room and check again
                 brushInUse.x -= corridorDirection.y;
                 brushInUse.y -= corridorDirection.x;
@@ -41,16 +55,26 @@ namespace Finsternis
             }
 
             if (!enoughSpaceForRoom) //if a room with the minimum size possible would still intersect a corridor, stop trying to make it
+            {
+#if UNITY_EDITOR
+                Debug.LogWarningFormat(room, "Not enough space for room at end of {0}, stopping generation.", corridor);
+#endif
                 return false;
+            }
 
             brushInUse.x = Mathf.Clamp(brushInUse.x, 0, dungeon.Width);
             brushInUse.y = Mathf.Clamp(brushInUse.y, 0, dungeon.Height);
+
+            Debug.LogFormat(room, "Finished adjusting brush coordinates: {0}", brushInUse.position.ToString("00.000"));
+
+            Debug.LogFormat(room, "Starting room carving...");
 
             bool roomCarved = false;
             //mark cells at random locations within the room, until the maximum tries is reached
             for (int tries = 0; tries < maxBrushStrokes; tries++)
             {
-
+                Debug.LogFormat(room, "Step {0} of {1}", tries, maxBrushStrokes);
+                Debug.LogFormat(room, "Creating brush");
                 if (CreateBrush(
                     brushVariation,
                     startingPosition,
@@ -59,6 +83,7 @@ namespace Finsternis
                     room,
                     ref brushInUse))
                 {
+                    Debug.LogFormat(room, "Brush created: {0}", brushInUse);
                     if (!brushInUse.size.IsZero())
                     {
                         if (!dungeon.OverlapsCorridor(brushInUse.position, brushInUse.size))
@@ -128,28 +153,64 @@ namespace Finsternis
             brushPerimeter.max += offset;
 
             bool hadToExpandBrush = !room.Size.IsZero() && !room.Bounds.Overlaps(brushPerimeter);
+            var localBrush = brush;
             //make sure this new part will be connected to the room!
-            while (!corridorDirection.IsZero() && hadToExpandBrush && !dungeon.OverlapsCorridor(brush.position, brush.size))
+            if(!Loop.Do(() => !corridorDirection.IsZero() && hadToExpandBrush && !dungeon.OverlapsCorridor(localBrush.position, localBrush.size),
+                () =>
+                {
+                    localBrush.width += corridorDirection.y;
+                    localBrush.height += corridorDirection.x;
+                    hadToExpandBrush = !room.Bounds.Overlaps(localBrush);
+                }))
             {
-                brush.width += corridorDirection.y;
-                brush.height += corridorDirection.x;
-                hadToExpandBrush = !room.Bounds.Overlaps(brush);
+#if UNITY_EDITOR
+                Debug.LogWarningFormat(room, "Failed to create brush on first loop.");
+#endif
+                return false;
             }
 
+
+            //while (!corridorDirection.IsZero() && hadToExpandBrush && !dungeon.OverlapsCorridor(brush.position, brush.size))
+            //{
+            //    brush.width += corridorDirection.y;
+            //    brush.height += corridorDirection.x;
+            //    hadToExpandBrush = !room.Bounds.Overlaps(brush);
+            //}
+
+            if (hadToExpandBrush)
+                return false;
             //make sure this new part won't go over a corridor!
-            while (!corridorDirection.IsZero()
-                    && brush.width > minBrushSize.x
-                    && brush.height > minBrushSize.y
-                    && dungeon.OverlapsCorridor(brush.position, brush.size))
+            if (!Loop.Do(
+                () => !corridorDirection.IsZero()
+                       && localBrush.width > minBrushSize.x
+                       && localBrush.height > minBrushSize.y
+                       && dungeon.OverlapsCorridor(localBrush.position, localBrush.size),
+                () =>
+                {
+                    localBrush.width -= corridorDirection.y;
+                    localBrush.height -= corridorDirection.x;
+                }
+                ))
             {
-                if (hadToExpandBrush) //there's no point in reducing the brush if it had to be expanded to begin with!
-                    return false;
-                brush.width -= corridorDirection.y;
-                brush.height -= corridorDirection.x;
+#if UNITY_EDITOR
+                Debug.LogWarningFormat(room, "Failed to create brush on second loop.");
+#endif
+                return false;
             }
 
-            brush.width = Mathf.Min(brush.width, maxBrushSize.x);
-            brush.height = Mathf.Min(brush.height, maxBrushSize.y);
+            //while (!corridorDirection.IsZero()
+            //        && brush.width > minBrushSize.x
+            //        && brush.height > minBrushSize.y
+            //        && dungeon.OverlapsCorridor(brush.position, brush.size))
+            //{
+            //    if (hadToExpandBrush) //there's no point in reducing the brush if it had to be expanded to begin with!
+            //        return false;
+            //    brush.width -= corridorDirection.y;
+            //    brush.height -= corridorDirection.x;
+            //}
+
+            brush.width = Mathf.Min(localBrush.width, maxBrushSize.x);
+            brush.height = Mathf.Min(localBrush.height, maxBrushSize.y);
 
             return true;
 

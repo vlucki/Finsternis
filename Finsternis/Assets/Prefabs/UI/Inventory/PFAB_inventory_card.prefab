@@ -191,9 +191,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224000010702365784}
   - component: {fileID: 222000014174180826}
-  - component: {fileID: 114000010925416096}
   - component: {fileID: 95000013351570102}
   - component: {fileID: 225000010986370954}
+  - component: {fileID: 114000010925416096}
   m_Layer: 5
   m_Name: PFAB_inventory_card
   m_TagString: Untagged

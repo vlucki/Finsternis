@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     [CreateAssetMenu(fileName = "DirectionTriggerConstraint", menuName = "Finsternis/Triggers/Constraint/Direction")]
     public class FacingTriggerConstraint : TriggerConstraint

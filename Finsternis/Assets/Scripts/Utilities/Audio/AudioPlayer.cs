@@ -13,9 +13,8 @@
 
         public void SetGroup(AudioMixerGroup group) { this.group = group; }
 
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
             GetManager();
         }
 

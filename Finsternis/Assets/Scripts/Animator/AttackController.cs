@@ -1,7 +1,7 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class AttackController : StateMachineBehaviour
     {
@@ -11,7 +11,7 @@
             if (stateInfo.IsTag("Execution"))
             {
 #if LOG_INFO
-                Log.I(this, "Starting skill execution");
+                Debug.LogFormat(this, "Starting skill execution");
 #endif
 
                 var controller = animator.GetComponent<CharController>();
@@ -20,7 +20,7 @@
 
 #if LOG_INFO || LOG_WARN
                 else
-                    Log.W(this, "Cannot start execution when skill is not active!");
+                    Debug.LogWarningFormat(this, "Cannot start execution when skill is not active!");
 #endif
             }
 #if LOG_INFO
@@ -38,7 +38,7 @@
             if (stateInfo.IsTag("Execution"))
             {
 #if LOG_INFO
-                Log.I(this, "Ending skill execution");
+                Debug.LogFormat(this, "Ending skill execution");
 #endif
 
                 var controller = animator.GetComponent<CharController>();
@@ -47,13 +47,13 @@
 
 #if LOG_INFO || LOG_WARN
                 else
-                    Log.W(this, "Cannot end execution when skill is not active!");
+                    Debug.LogWarningFormat(this, "Cannot end execution when skill is not active!");
 #endif
             }
             else if (stateInfo.IsTag("End"))
             {
 #if LOG_INFO
-                Log.I(this, "Ending skill");
+                Debug.LogFormat(this, "Ending skill");
 #endif
 
                 var controller = animator.GetComponent<CharController>();
@@ -62,7 +62,7 @@
 
 #if LOG_INFO || LOG_WARN
                 else
-                    Log.W(this, "Cannot end inactive skill!");
+                    Debug.LogWarningFormat(this, "Cannot end inactive skill!");
 #endif
 
             }

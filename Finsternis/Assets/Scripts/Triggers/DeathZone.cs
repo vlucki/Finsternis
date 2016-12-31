@@ -6,9 +6,8 @@
 
     public class DeathZone : Trigger
     {
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             if (!onExit)
                 onExit = new OnTriggerEvent();
 
@@ -19,7 +18,7 @@
         private void OnExit(GameObject go)
         {
 #if LOG_INFO
-            UnityQuery.Log.I(this, "{0} exiting deathzone", go);
+            UnityQuery.Debug.LogFormat(this, "{0} exiting deathzone", go);
 #endif
             GameManager.Instance.Kill(go);
             foreach (var renderer in go.GetComponentsInChildren<Renderer>())

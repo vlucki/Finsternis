@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityQuery;
+    using Extensions;
     using Random = UnityEngine.Random;
 
     public class EnemySpawner : MonoBehaviour
@@ -14,7 +14,7 @@
         private DungeonDrawer drawer;
 
         [SerializeField]
-        private List<EntityAttribute> baseAttributes;
+        private List<AttributeTemplate> baseAttributes;
 
         [SerializeField]
         private List<GameObject> enemies;
@@ -69,7 +69,7 @@
                     );
 
 #if LOG_INFO
-                Log.I(this,
+                Debug.LogFormat(this,
                     "Managed to spawn {0} enemies, rooms ignored = {1}",
                     enemiesSpawned,
                     roomsToSpawn);
@@ -129,7 +129,7 @@
         {
             HashSet<Vector2> usedCells = new HashSet<Vector2>();
             float dungeonProgress = (1f + GameManager.Instance.DungeonManager.DungeonsCleared) / GameManager.Instance.DungeonsToClear;
-            Vector2 half = Vectors.Half2;
+            Vector2 half = VectorExtensions.Half2;
             do
             {
                 Vector2 cell = room.GetRandomCell();
@@ -143,7 +143,7 @@
                 cell += half; //center enemy on cell
 
                 GameObject enemy = ((GameObject)Instantiate(
-                    goal.enemy, drawer.GetWorldPosition(cell).WithY(.1f), 
+                    goal.enemy, drawer.GetWorldPosition(cell).Set(y: .1f), 
                     Quaternion.Euler(0, Random.Range(0, 360), 0), parent));
 
                 var enemyChar = enemy.GetComponent<EnemyChar>();
@@ -153,9 +153,16 @@
                 enemyChar.onAttributeInitialized.AddListener(
                     attribute =>
                     {
-                        if (attribute.HasMaximumValue)
-                            attribute.SetMax(attribute.Max * dungeonProgress);
-                        attribute.SetBaseValue(attribute.BaseValue * dungeonProgress);
+                        foreach (var constraint in attribute.Constraints)
+                        {
+                            if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
+                            {
+                                constraint.Value = (constraint.Value * (1 + dungeonProgress));
+                                attribute.Value = constraint.Value;
+                                return;
+                            }
+                        }
+                        attribute.Value *= 1 + dungeonProgress;
 
                     });
 

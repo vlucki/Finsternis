@@ -1,9 +1,9 @@
-﻿using System;
-using UnityEngine;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using System;
+    using UnityEngine;
+    using Extensions;
+
     [RequireComponent(typeof(Collider))]
     public class BlinkSkill : Skill
     {
@@ -91,7 +91,7 @@ namespace Finsternis
         {
             if(this.collider is CapsuleCollider)
             {
-                return this.collider.bounds.extents.WithY(0).sqrMagnitude;
+                return this.collider.bounds.extents.Set(y: 0).sqrMagnitude;
             }
 
             return 0.1f;

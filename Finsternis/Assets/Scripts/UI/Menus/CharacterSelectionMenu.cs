@@ -4,7 +4,7 @@
     using System.Collections;
     using UnityEngine.UI;
     using System;
-    using UnityQuery;
+    using Extensions;
 
     public class CharacterSelectionMenu : MenuController
     {

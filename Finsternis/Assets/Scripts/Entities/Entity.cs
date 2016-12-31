@@ -4,162 +4,98 @@
     using UnityEngine.Events;
     using System.Collections.Generic;
     using System;
-    using UnityQuery;
+    using Extensions;
     using System.Collections;
     using System.Linq;
+    using EasyEditor;
 
-    [SelectionBase]
-    [DisallowMultipleComponent]
-    public abstract class Entity : CustomBehaviour, IInteractable, IEnumerable<EntityAttribute>
+    [SelectionBase, DisallowMultipleComponent, RequireComponent(typeof(InteractionModule))]
+    public abstract class Entity : CustomBehaviour, IEnumerable<Attribute>
     {
-        #region inner classes and structs
+        #region EVENT CLASSES
         [Serializable]
-        public class AttributeInitializedEvent : CustomEvent<EntityAttribute> { }
-
-        [Serializable]
-        public class EntityEvent : CustomEvent<Entity> { }
-
-        [Serializable]
-        public struct GeneralEntityEvents
-        {
-            public UnityEvent onInteraction;
-            public EntityEvent onEnable;
-            public EntityEvent onDisable;
-        }
+        public class AttributeInitializedEvent : CustomEvent<Attribute> { }
         #endregion
 
-        #region variables
+        #region VARIABLES
         [SerializeField]
         private new string name;
 
-        [SerializeField]
-        protected bool interactable = true;
-
-        [SerializeField]
-        protected List<InteractionConstraint> interactionConstraints;
-
-        [SerializeField]
-        private GeneralEntityEvents entityEvents;
-
-        [SerializeField]
-        protected List<EntityAttribute> attributes;
-
-        [SerializeField]
+        [SerializeField, Inspector(rendererType = "InlineClassRenderer")]
         private AttributeInitializationTable initializationTable;
 
+        /// <summary>
+        /// Event invoked whenever an attribute is initialized. By default, it happens during execution of the Entity's Start method.
+        /// </summary>
         public AttributeInitializedEvent onAttributeInitialized;
+
+        protected Dictionary<string, Attribute> attributes;
+
         #endregion
 
+        public Attribute this[string alias] { get { return this.attributes[alias]; } }
 
-        public EntityAction LastInteraction { get; private set; }
-
-        public GeneralEntityEvents EntityEvents { get { return this.entityEvents; } }
-
-        public EntityAttribute this[int index] { get { return this.attributes[index]; } }
-
-        protected override void Awake()
+        protected virtual void Awake()
         {
-            base.Awake();
+            this.attributes = new Dictionary<string, Attribute>();
             if (!this.name.IsNullOrEmpty())
                 base.name = this.name;
         }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
-            for (int i = 0; i < attributes.Count; i++)
-                InitializeAttribute(i);
-        }
-
-        protected virtual void InitializeAttribute(int attributeIndex)
-        {
-            var attribute = Instantiate(attributes[attributeIndex]);
-            attribute.name = attributes[attributeIndex].name;
-            attribute.SetOwner(this);
-
-            attributes[attributeIndex] = attribute;
-
             if (this.initializationTable)
             {
-                var influence = this.initializationTable.GetInfluence(attribute.Alias);
-                if (influence.attribute)
+                foreach (var influence in this.initializationTable)
                 {
-                    UnityEngine.Random.InitState(this.name.GetHashCode() + attribute.name.GetHashCode());
-                    int value = Mathf.CeilToInt(Mathf.Max(attribute.Min, UnityEngine.Random.Range(influence.range.min, influence.range.max)));
-
-                    if (attribute.HasMaximumValue)
-                    {
-                        attribute.SetMax(value);
-                    }
-
-                    attribute.SetBaseValue(value);
+                    InitializeAttribute(influence);
                 }
             }
-            if (onAttributeInitialized)
+        }
+
+        protected virtual void InitializeAttribute(Influence influence)
+        {
+            Attribute attribute = null;
+            if (influence.template)
+            {
+                UnityEngine.Random.InitState(this.name.GetHashCode() + influence.template.Alias.GetHashCode());
+                int value = Mathf.CeilToInt(UnityEngine.Random.Range(influence.range.min, influence.range.max));
+                attribute = new Attribute(influence.template.Alias, value);
+
+                if (influence.template.HasMinimumValue)
+                    attribute.AddConstraint(new AttributeConstraint()
+                    { Type = AttributeConstraint.AttributeConstraintType.MIN, Value = influence.template.Min });
+
+                if (influence.template.HasMaximumValue)
+                    attribute.AddConstraint(new AttributeConstraint()
+                    { Type = AttributeConstraint.AttributeConstraintType.MAX, Value = influence.template.Max });
+                
+            }
+
+            if (attribute && onAttributeInitialized && AddAttribute(attribute))
                 onAttributeInitialized.Invoke(attribute);
         }
 
-        public EntityAttribute GetAttribute(string alias)
+        public bool AddAttribute(Attribute attribute)
         {
-            EntityAttribute attribute = attributes.Find(existingAttribute => existingAttribute.Alias.Equals(alias));
-            return attribute;
+            bool mayAddAttribute = !this.attributes.ContainsKey(attribute.Alias);
+            if (!mayAddAttribute)
+                this.attributes[attribute.Alias] = attribute;
+
+            return mayAddAttribute;
         }
 
-        public void AddAttribute(EntityAttribute attribute)
+        public Attribute GetAttribute(string alias)
         {
-            if (!attributes.Find(existingAttribute => existingAttribute.Alias.Equals(attribute.Alias)))
-            {
-                attributes.Add(attribute);
-                attribute.SetOwner(this);
-            }
+            Attribute result = null;
+            this.attributes.TryGetValue(alias, out result);
+
+            return result;
         }
 
-        /// <summary>
-        /// Interface to allow for interactions between entities
-        /// </summary>
-        /// <param name="action">The type of interaction that should take place (eg. Attack).</param>
-        public virtual void Interact(EntityAction action)
+        public IEnumerator<Attribute> GetEnumerator()
         {
-            if (!interactable)
-                return;
-
-            if (interactionConstraints != null)
-                if (interactionConstraints.Any((constraint) => !constraint.Check(action)))
-                    return;
-
-            LastInteraction = action;
-            entityEvents.onInteraction.Invoke();
-        }
-
-        public void Kill()
-        {
-            Destroy(gameObject);
-        }
-
-        public void DisableInteraction()
-        {
-            this.interactable = false;
-        }
-
-        public void EnableInteraction()
-        {
-            this.interactable = true;
-        }
-
-        protected virtual void OnDisable()
-        {
-            entityEvents.onDisable.Invoke(this);
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            entityEvents.onEnable.Invoke(this);
-        }
-
-        public IEnumerator<EntityAttribute> GetEnumerator()
-        {
-            return attributes.GetEnumerator();
+            return attributes.Values.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

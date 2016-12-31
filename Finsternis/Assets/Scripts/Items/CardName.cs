@@ -2,7 +2,7 @@
 {
     using UnityEngine;
     using System.Collections.Generic;
-    using UnityQuery;
+    using Extensions;
     using System;
     using Random = UnityEngine.Random;
 

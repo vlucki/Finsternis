@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class Room : DungeonSection
     {

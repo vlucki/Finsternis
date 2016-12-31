@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using UnityQuery;
+    using Extensions;
 
     public class MessageDisplayer : CustomBehaviour
     {

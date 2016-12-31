@@ -1,8 +1,11 @@
 ﻿namespace Finsternis {
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityQuery;
+    using Extensions;
 
+    /// <summary>
+    /// Makes game object follow a given transform.
+    /// </summary>
     public class Follow : MonoBehaviour
     {
 
@@ -126,15 +129,15 @@
 
         public void SetOffsetX(float x)
         {
-            MemorizeOffset(this.offset.WithX(x));
+            MemorizeOffset(this.offset.Set(x: x));
         }
         public void SetOffsetY(float y)
         {
-            MemorizeOffset(this.offset.WithY(y));
+            MemorizeOffset(this.offset.Set(y: y));
         }
         public void SetOffsetZ(float z)
         {
-            MemorizeOffset(this.offset.WithZ(z));
+            MemorizeOffset(this.offset.Set(z: z));
         }
 
         public void ResetOffset(bool toOriginal = false)

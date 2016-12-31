@@ -1,13 +1,14 @@
 ﻿namespace Finsternis
 {
+    using System.Linq;
     using UnityEngine;
     using UnityEngine.UI;
-    
+
     public class AttributeBarDisplay : MonoBehaviour
     {
 
         [SerializeField]
-        private EntityAttribute attribute;
+        private AttributeTemplate attributeTemplate;
 
         [SerializeField]
         private Image[] images;
@@ -26,19 +27,22 @@
             player.Character.onAttributeInitialized.AddListener(GrabAttribute);
         }
 
-        private void GrabAttribute(EntityAttribute attribute)
+        private void GrabAttribute(Attribute attribute)
         {
-            if (attribute.Alias.Equals(this.attribute.Alias))
+            if (this.attributeTemplate.Alias.Equals(attribute.Alias))
             {
-                attribute.onValueChanged.AddListener(UpdateDisplay);
+                attribute.valueChangedEvent += (UpdateDisplay);
             }
         }
 
-        private void UpdateDisplay(EntityAttribute attribute)
+        private void UpdateDisplay(Attribute attribute)
         {
-            float percentage = attribute.Value / attribute.Max;
+            float value = attribute.Value;
+            var maxValueConstraint = attribute.Constraints.FirstOrDefault(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX);
+            if (maxValueConstraint)
+                value /= maxValueConstraint.Value;
             foreach (var image in this.images)
-                image.fillAmount = percentage;
+                image.fillAmount = value;
         }
     }
 }

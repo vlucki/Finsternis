@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityQuery;
-using Random = UnityEngine.Random;
-
+﻿
 namespace Finsternis
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.Events;
+    using Extensions;
+    using Random = UnityEngine.Random;
     public class DungeonDrawer : MonoBehaviour
     {
         [Serializable]
@@ -19,7 +19,7 @@ namespace Finsternis
         [Header("Scaling parameters")]
         [Tooltip("Only affect walls and floors generated through primitives (not prefabs).")]
         public Vector3 cellScale = Vector3.one;
-        
+
         public GameObject[] exits;
 
         [Header("Events")]
@@ -50,7 +50,7 @@ namespace Finsternis
             this.dungeon.gameObject.SetLayer("Ignore Raycast");
             var deathZoneBorders = this.dungeon.gameObject.AddComponent<BoxCollider>();
             deathZoneBorders.isTrigger = true;
-            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + Vectors.Half2);
+            Vector3 dungeonCenter = GetWorldPosition(this.dungeon.GetCenter() + VectorExtensions.Half2);
 
             deathZoneBorders.center = dungeonCenter;
             deathZoneBorders.size = new Vector3((this.dungeon.Width + 2) * this.cellScale.x, this.cellScale.y * 30, (this.dungeon.Height + 2) * this.cellScale.z);
@@ -72,8 +72,7 @@ namespace Finsternis
 
         private IEnumerator _Draw(Dungeon dungeon)
         {
-            GameObject rooms = new GameObject("ROOMS");
-            rooms.transform.SetParent(this.dungeon.transform);
+            GameObject rooms = this.dungeon.gameObject.AddChild("ROOMS");
 
             foreach (Room room in dungeon.Rooms)
             {
@@ -81,8 +80,7 @@ namespace Finsternis
                 yield return null;
             }
 
-            GameObject corridors = new GameObject("CORRIDORS");
-            corridors.transform.SetParent(dungeon.transform);
+            GameObject corridors = dungeon.gameObject.AddChild("CORRIDORS");
 
             foreach (Corridor corridor in this.dungeon.Corridors)
             {
@@ -138,7 +136,7 @@ namespace Finsternis
                 {
                     var theme = dungeon[cell].Theme;
                     theme.GetRandomWall();
-                    var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + Vectors.Half2), Quaternion.identity);
+                    var wall = (GameObject)Instantiate(theme.GetRandomWall().GetLateral(), GetWorldPosition(wallPos + VectorExtensions.Half2), Quaternion.identity);
                     wall.transform.forward = new Vector3(-wallOffset.x, 0, wallOffset.y);
                     return wall;
                 }
@@ -150,14 +148,14 @@ namespace Finsternis
                         msg += "Position was null";
                     else if (dungeon[cell].Theme == null)
                         msg += "No theme set for " + dungeon[cell];
-                    Log.E(this, msg, ex, cell.ToString("0"));
+                    Debug.LogErrorFormat(this, msg, ex, cell.ToString("0"));
 #endif
                 }
                 catch (IndexOutOfRangeException ex)
                 {
 #if DEBUG
                     string msg = "{0}\nFailed to creat wall for cell {1}\nPosition was out of bounds";
-                    Log.E(this, msg, ex, cell.ToString("0"));
+                    Debug.LogErrorFormat(this, msg, ex, cell.ToString("0"));
 #endif
                 }
             }
@@ -176,7 +174,7 @@ namespace Finsternis
         private GameObject MakeCell(int cellX, int cellY)
         {
             Vector2 dungeonPos = new Vector2(cellX, cellY);
-            Vector3 worldPos = GetWorldPosition(dungeonPos + Vectors.Half2);
+            Vector3 worldPos = GetWorldPosition(dungeonPos + VectorExtensions.Half2);
 
             string name = "floor (" + cellX + ";" + cellY + ")";
 
@@ -218,7 +216,7 @@ namespace Finsternis
                     floor.transform.rotation = Quaternion.Euler(90, 0, 0);
 #if DEBUG
                     string msg = "{0}\nFailed to creat wall for cell {1}\nPosition was out of bounds";
-                    Log.E(this, msg, ex, dungeonPos.ToString("0"));
+                    Debug.LogErrorFormat(this, msg, ex, dungeonPos.ToString("0"));
 #endif
                 }
 
@@ -233,7 +231,7 @@ namespace Finsternis
             GameObject featureGO =
                 (GameObject)Instantiate(
                 feature.Prefab,
-                GetWorldPosition(position + Vectors.Half2),
+                GetWorldPosition(position + VectorExtensions.Half2),
                 feature.Prefab.transform.rotation);
             if (!feature.Alignment.IsNullOrEmpty())
             {
@@ -254,7 +252,7 @@ namespace Finsternis
             drawnWalls.Add(dungeonPos);
 
             GameObject wall = new GameObject("Wall (" + dungeonPos.ToString("0") + ")");
-            wall.transform.position = GetWorldPosition(dungeonPos + Vectors.Half2);
+            wall.transform.position = GetWorldPosition(dungeonPos + VectorExtensions.Half2);
             wall.layer = LayerMask.NameToLayer("Wall");
 
             return wall;
@@ -283,7 +281,7 @@ namespace Finsternis
 
         public Vector3 GetEntrancePosition()
         {
-            return GetWorldPosition(this.dungeon.Entrance + Vectors.Half2);
+            return GetWorldPosition(this.dungeon.Entrance + VectorExtensions.Half2);
         }
     }
 

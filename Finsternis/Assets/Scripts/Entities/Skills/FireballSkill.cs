@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityQuery;
-using System.Collections.Generic;
-using System;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using Extensions;
+    using System.Collections.Generic;
+
     public class FireballSkill : Skill
     {
         [Space(10, order = 0)]

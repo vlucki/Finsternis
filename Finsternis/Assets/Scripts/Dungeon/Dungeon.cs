@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityQuery;
+    using Extensions;
 
     public class Dungeon : CustomBehaviour
     {
@@ -94,7 +94,7 @@
 #if DEBUG
             throw new IndexOutOfRangeException("Attempting to access a cell outside of dungeon! [" + x + ";" + y + "]", ex);
 #else
-            Log.E(this, "Attempting to access a cell outside of dungeon! [{0};{1}]\n{2}", x, y, ex.StackTrace);
+            Debug.LogErrorFormat(this, "Attempting to access a cell outside of dungeon! [{0};{1}]\n{2}", x, y, ex.StackTrace);
             return null;
 #endif
         }

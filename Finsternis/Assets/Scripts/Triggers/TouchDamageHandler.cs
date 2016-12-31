@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
-using UnityQuery;
-
-namespace Finsternis
+﻿namespace Finsternis
 {
+    using UnityEngine;
+    using System.Collections.Generic;
+    using System;
+    using Extensions;
+
     public class TouchDamageHandler : Trigger
     {
         [SerializeField]
@@ -23,17 +23,17 @@ namespace Finsternis
         private List<EntityAttributeInfluence> attributesThatInfluenceImpact;
 
         [SerializeField]
-        private DamageInfo.DamageType damageType = DamageInfo.DamageType.physical;
+        private AttackData.DamageType damageType = AttackData.DamageType.physical;
 
-        public Entity Owner {
+        public Entity Owner
+        {
             get { return this.owner; }
             set { this.owner = value; }
         }
 
-        protected override void Start()
+        protected virtual void Start()
         {
-            base.Start();
-            if(ValidateOwner())
+            if (ValidateOwner())
                 onEnter.AddListener(DoCollide);
         }
 
@@ -45,7 +45,7 @@ namespace Finsternis
                 if (!owner)
                 {
 #if DEBUG
-                    Log.E(this, "Touch damage handler needs an owner!");
+                    Debug.LogErrorFormat(this, "Touch damage handler needs an owner!");
 #endif
                     this.DestroyNow();
                     return false;
@@ -56,17 +56,17 @@ namespace Finsternis
             return true;
         }
 
-        private void AttributeInitialized(EntityAttribute attributeInOwner)
+        private void AttributeInitialized(Attribute attributeInOwner)
         {
             for (int i = 0; i < this.attributesThatInfluenceDamage.Count || i < this.attributesThatInfluenceImpact.Count; i++)
             {
                 if (i < this.attributesThatInfluenceDamage.Count
-                    && this.attributesThatInfluenceDamage[i].Attribute.Alias.Equals(attributeInOwner.Alias))
+                    && this.attributesThatInfluenceDamage[i].AttributeTemplate.Alias.Equals(attributeInOwner.Alias))
                 {
                     this.attributesThatInfluenceDamage[i].Attribute = attributeInOwner; //replace default scriptable object with instance in owner
                 }
                 if (i < this.attributesThatInfluenceImpact.Count
-                    && this.attributesThatInfluenceImpact[i].Attribute.Alias.Equals(attributeInOwner.Alias))
+                    && this.attributesThatInfluenceImpact[i].AttributeTemplate.Alias.Equals(attributeInOwner.Alias))
                 {
                     this.attributesThatInfluenceImpact[i].Attribute = attributeInOwner; //replace default scriptable object with instance in owner
                 }
@@ -95,17 +95,20 @@ namespace Finsternis
 
             if (interactable != null)
             {
-                if (interactable is Entity)
+                //if (interactable is Entity)
+                //{
+                //    CharController controller = collidedObject.GetComponent<CharController>();
+                //    if (controller)
+                //        controller.Hit();
+                //}
+
+                if (interactable.Interact(new AttackData(GetAttributesInfluence(this.attributesThatInfluenceDamage), owner, this.damageType)))
                 {
                     CharController controller = collidedObject.GetComponent<CharController>();
                     if (controller)
                         controller.Hit();
                 }
-                
-                AttackAction attack = owner.GetComponent<AttackAction>();
 
-                if (attack)
-                    attack.Execute(this.damageType, GetAttributesInfluence(this.attributesThatInfluenceDamage), interactable);
             }
             SimulateImpact(collidedObject, impactMultiplier, true);
         }
@@ -136,7 +139,7 @@ namespace Finsternis
                 Vector3 dir = other.transform.position - transform.position;
                 dir.y = 0;
                 dir.Normalize();
-                
+
                 float impactModifier = 1 + GetAttributesInfluence(this.attributesThatInfluenceImpact);
                 body.AddForce((dir * multiplier.x + Vector3.up * multiplier.y) * impactModifier, modeOnImpact);
             }

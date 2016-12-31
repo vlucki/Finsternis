@@ -16,19 +16,19 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013904611460}
-  - 20: {fileID: 20000014146906026}
-  - 124: {fileID: 124000010816580732}
-  - 81: {fileID: 81000013238641174}
-  - 114: {fileID: 114000010543636938}
-  - 114: {fileID: 114000011714543352}
-  - 114: {fileID: 114000011076621716}
-  - 114: {fileID: 114000012458406380}
-  - 114: {fileID: 114000013208378390}
-  - 114: {fileID: 114000010190001058}
-  - 114: {fileID: 114000012178158984}
+  - component: {fileID: 4000013904611460}
+  - component: {fileID: 20000014146906026}
+  - component: {fileID: 124000010816580732}
+  - component: {fileID: 81000013238641174}
+  - component: {fileID: 114000010543636938}
+  - component: {fileID: 114000011714543352}
+  - component: {fileID: 114000011076621716}
+  - component: {fileID: 114000012458406380}
+  - component: {fileID: 114000013208378390}
+  - component: {fileID: 114000010190001058}
+  - component: {fileID: 114000012178158984}
   m_Layer: 0
   m_Name: FollowCamera
   m_TagString: MainCamera
@@ -45,10 +45,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000014146906026
 Camera:
   m_ObjectHideFlags: 1
@@ -108,6 +108,8 @@ MonoBehaviour:
   height: 1
   heightDensity: 0.001
   startDistance: 3
+  accumulatedDistance: 3
+  dissipatedDistance: 10
   fogShader: {fileID: 4800000, guid: 70d8568987ac0499f952b54c7c13e265, type: 3}
 --- !u!114 &114000010543636938
 MonoBehaviour:
@@ -125,6 +127,7 @@ MonoBehaviour:
   shakeFrequency: 20
   shakeAmplitude: 20
   maxDistanceForOcclusion: 5
+  occlusionTestFrequency: 0.5
   reactToOcclusion: 1
 --- !u!114 &114000011076621716
 MonoBehaviour:
@@ -185,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646b5bc27a658f447b1d929fd5ffbd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 5
+  mode: 0
   showGeneratedNormals: 0
   offsetScale: 0.2
   blurRadius: 18
