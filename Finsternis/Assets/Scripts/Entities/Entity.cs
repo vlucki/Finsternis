@@ -14,7 +14,7 @@
     {
         #region EVENT CLASSES
         [Serializable]
-        public class AttributeInitializedEvent : CustomEvent<Attribute> { }
+        public class AttributeInitializedEvent : Events.CustomEvent<Attribute> { }
         #endregion
 
         #region VARIABLES

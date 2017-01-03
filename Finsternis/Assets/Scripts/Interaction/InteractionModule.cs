@@ -2,23 +2,18 @@ namespace Finsternis
 {
     using UnityEngine;
 
-    [RequireComponent(typeof(Entity))]
-    public abstract class InteractionModule : MonoBehaviour
+    [RequireComponent(typeof(Entity)), DisallowMultipleComponent]
+    public class InteractionModule : MonoBehaviour
     {
-        public Entity LastInteractedWith { get; private set; }
+        public Entity LastInteraction { get; private set; }
 
-        [System.Serializable]
-        public class InteractionEvent : CustomEvent<InteractionData> { }
+        public delegate bool InteractionDelegate(InteractionData data);
+        public event InteractionDelegate onInteraction;
 
         public void Interact(InteractionData data)
         {
-            foreach(var i in GetComponents<Interaction>())
-            {
-                if (i.Interact(data))
-                {
-                    LastInteractedWith = data.Entity;
-                }
-            };
+            if(onInteraction(data))
+                LastInteraction = data.Entity;
         }
     }
 }

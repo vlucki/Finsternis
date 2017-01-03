@@ -10,7 +10,7 @@
     public abstract class Skill : MonoBehaviour
     {
         [System.Serializable]
-        public class SkillEvent : CustomEvent<Skill>
+        public class SkillEvent : Events.CustomEvent<Skill>
         {
         }
 

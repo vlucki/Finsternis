@@ -18,7 +18,7 @@
             DestroyObject(this.gameObject);
         }
 
-        public void RemoveBehaviour()
+        public void Remove()
         {
             this.DestroyNow();
         }

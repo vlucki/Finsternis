@@ -11,7 +11,7 @@ namespace Finsternis
     public class DungeonDrawer : MonoBehaviour
     {
         [Serializable]
-        public class DrawingEndEvent : CustomEvent<Dungeon> { }
+        public class DrawingEndEvent : Events.CustomEvent<Dungeon> { }
 
         [SerializeField]
         private Dungeon dungeon;

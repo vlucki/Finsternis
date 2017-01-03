@@ -9,12 +9,12 @@
 
         protected void Awake()
         {
-            GameManager.Instance.onPlayerSpawned.AddListener(PlayerSpawned);
+            GameManager.Instance.onPlayerSpawned += (PlayerSpawned);
         }
 
         private void PlayerSpawned(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(PlayerSpawned);
+            GameManager.Instance.onPlayerSpawned -= (PlayerSpawned);
             onPlayerSpawned.Invoke();
         }
     }

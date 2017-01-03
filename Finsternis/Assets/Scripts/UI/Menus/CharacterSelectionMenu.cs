@@ -2,16 +2,15 @@
 {
     using UnityEngine;
     using System.Collections;
-    using UnityEngine.UI;
-    using System;
     using Extensions;
+    using UnityEngine.UI;
 
     public class CharacterSelectionMenu : MenuController
     {
         [SerializeField]
         private Color[] selectedSpritesColors;
 
-        private UnityEngine.UI.Button[] characterButtons;
+        private Button[] characterButtons;
 
         public void SetPlayer(GameObject prefab)
         {
@@ -21,7 +20,7 @@
 
         protected override void Awake()
         {
-            this.characterButtons = GetComponentsInChildren<UnityEngine.UI.Button>();
+            this.characterButtons = GetComponentsInChildren<Button>();
             base.Awake();
         }
 

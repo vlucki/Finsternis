@@ -5,9 +5,9 @@
     [RequireComponent(typeof(OpeneableEntity))]
     public class OpenInteraction : Interaction
     {
-        public override bool Interact(InteractionData data)
+        protected override bool Interact(InteractionData data)
         {
-            if (!base.Interact(data))
+            if (!base.ValidadeInteractionType(data))
                 return false;
 
             OpenData oData = data as OpenData;

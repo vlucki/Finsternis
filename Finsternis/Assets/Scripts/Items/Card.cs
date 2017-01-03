@@ -46,7 +46,7 @@
             get
             {
                 if (this.cost <= 0)
-                    this.cost = Mathf.CeilToInt(Mathf.Pow(30, this.floatRarity));
+                    this.cost = Mathf.CeilToInt(30f.Pow(this.floatRarity));
                 return this.cost;
             }
         }

@@ -2,7 +2,7 @@
 {
     public class BehaviourEvent_Awake : CustomBehaviour
     {
-        public BehaviourEvent onAwake;
+        public Events.BehaviourEvent onAwake;
         public virtual void Awake()
         {
             onAwake.Invoke(this);

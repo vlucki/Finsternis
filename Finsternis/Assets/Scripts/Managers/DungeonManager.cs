@@ -11,7 +11,7 @@
     public class DungeonManager : MonoBehaviour
     {
         [Serializable]
-        public class DungeonClearedEvent : CustomEvent<int> { }
+        public class DungeonClearedEvent : Events.CustomEvent<int> { }
 
         [SerializeField]
         private DungeonFactory dungeonFactory;

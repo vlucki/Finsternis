@@ -16,14 +16,14 @@
         void Awake()
         {
             if (!GameManager.Instance.Player)
-                GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+                GameManager.Instance.onPlayerSpawned += (GrabPlayer);
             else
                 GrabPlayer(GameManager.Instance.Player);
         }
 
         private void GrabPlayer(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(GrabPlayer);
+            GameManager.Instance.onPlayerSpawned -= (GrabPlayer);
             player.Character.onAttributeInitialized.AddListener(GrabAttribute);
         }
 

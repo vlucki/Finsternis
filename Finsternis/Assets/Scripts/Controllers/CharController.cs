@@ -12,7 +12,7 @@ namespace Finsternis
     public class CharController : CustomBehaviour
     {
         [Serializable]
-        public class CharControllerEvent : CustomEvent<CharController> { }
+        public class CharControllerEvent : Events.CustomEvent<CharController> { }
         public static readonly int AttackTrigger;
         public static readonly int AttackSpeed;
         public static readonly int DyingBool;

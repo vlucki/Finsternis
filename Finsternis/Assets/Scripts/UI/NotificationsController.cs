@@ -17,7 +17,7 @@
 
         void Awake()
         {
-            GameManager.Instance.onPlayerSpawned.AddListener(Init);
+            GameManager.Instance.onPlayerSpawned += (Init);
         }
 
         void Init(CharController player)

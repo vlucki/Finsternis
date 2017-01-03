@@ -13,7 +13,7 @@
     {
 
         [Serializable]
-        public class DungeonGenerationEndEvent : CustomEvent<Dungeon> { }
+        public class DungeonGenerationEndEvent : Events.CustomEvent<Dungeon> { }
 
         public UnityEvent onGenerationBegin;
         public DungeonGenerationEndEvent onGenerationEnd;

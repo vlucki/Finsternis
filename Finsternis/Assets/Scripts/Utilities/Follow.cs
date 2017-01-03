@@ -81,13 +81,13 @@
             memorizedOffset = offset;
             originalTarget = target;
             if(GameManager.Instance)
-                GameManager.Instance.onPlayerSpawned.AddListener(Init);
+                GameManager.Instance.onPlayerSpawned += (Init);
         }
 
         void OnDestroy()
         {
             if (GameManager.Instance)
-                GameManager.Instance.onPlayerSpawned.RemoveListener(Init);
+                GameManager.Instance.onPlayerSpawned -= (Init);
         }
 
         private void Init(CharController player)

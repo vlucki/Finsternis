@@ -12,9 +12,6 @@
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
-        [Serializable]
-        public class PlayerSpawnedEvent : CustomEvent<CharController> { }
-
         [SerializeField]
         public struct Callback
         {
@@ -30,9 +27,6 @@
             }
         }
 
-        private static GameManager instance;
-        private CharController player;
-
         #region editor variables
 
         [SerializeField]
@@ -43,9 +37,14 @@
 
         [SerializeField]
         private int dungeonsToClear = 4;
-
-        public PlayerSpawnedEvent onPlayerSpawned;
         #endregion
+
+        private static GameManager instance;
+
+        private CharController player;
+
+        public delegate void PlayerSpawnedDelegate(CharController ctrl);
+        public event PlayerSpawnedDelegate onPlayerSpawned;
 
         private Dictionary<string, List<Callback>> globalEvents;
 
@@ -163,7 +162,7 @@
                             attribute, 
                             AttributeRegeneration.RegenType.RELATIVE, .01f, .25f);
                 });
-            onPlayerSpawned.Invoke(this.player);
+            onPlayerSpawned(this.player);
         }
 
         public void SpawnPlayerAtEntrance(GameObject playerPrefab)

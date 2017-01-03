@@ -13,18 +13,18 @@
             if (GameManager.Instance.Player)
                 Init(GameManager.Instance.Player);
             else
-                GameManager.Instance.onPlayerSpawned.AddListener(Init);
+                GameManager.Instance.onPlayerSpawned += (Init);
         }
 
         private void Init(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(Init);
+            GameManager.Instance.onPlayerSpawned -= (Init);
             if (initialized)
                 return;
             initialized = true;
             foreach (var attribute in player.Character)
             {
-                GameObject display = (GameObject)Instantiate(displayPrefab, transform);
+                GameObject display = Instantiate(displayPrefab, transform);
                 display.transform.localScale = Vector3.one;
                 display.GetComponent<AttributeDisplay>().SetAttribute(attribute);
             }

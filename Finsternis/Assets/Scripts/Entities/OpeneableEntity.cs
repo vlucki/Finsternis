@@ -10,7 +10,7 @@
         public static readonly int OpenBool = Animator.StringToHash("open");
 
         [Serializable]
-        public class OpeneableEvent : CustomEvent<IOpeneable> { }
+        public class OpeneableEvent : Events.CustomEvent<IOpeneable> { }
 
         [EasyEditor.Inspector(group = "OpeneableEntity", foldable = true)]
         public OpeneableEvent onOpen;

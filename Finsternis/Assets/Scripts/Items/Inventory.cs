@@ -11,7 +11,7 @@
     public class Inventory : MonoBehaviour
     {
         [Serializable]
-        public class InventoryEvent : CustomEvent<Card> { }
+        public class InventoryEvent : Events.CustomEvent<Card> { }
 
         [Inspector(group = "Events", foldable =true, groupDescription = "Events called when something changes in the inventory")]
         public InventoryEvent onCardAdded;

@@ -11,7 +11,7 @@
     public abstract class MenuController : CustomBehaviour
     {
         [Serializable]
-        public class MenuEvent : CustomEvent<MenuController> { }
+        public class MenuEvent : Events.CustomEvent<MenuController> { }
 
         [Serializable]
         public struct TransitionEvents
@@ -72,7 +72,7 @@
             if (this.keepPlayerLocked)
             {
                 if (!GameManager.Instance.Player)
-                    GameManager.Instance.onPlayerSpawned.AddListener(AddPlayerCheck);
+                    GameManager.Instance.onPlayerSpawned += (AddPlayerCheck);
                 else
                     AddPlayerCheck(GameManager.Instance.Player);
             }
@@ -80,7 +80,7 @@
 
         private void AddPlayerCheck(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(AddPlayerCheck);
+            GameManager.Instance.onPlayerSpawned -= (AddPlayerCheck);
             player.onUnlock.AddListener(LockPlayerBack);
         }
 
@@ -92,7 +92,7 @@
 
         void OnDestroy()
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(AddPlayerCheck);
+            GameManager.Instance.onPlayerSpawned -= (AddPlayerCheck);
         }
 
         /// <summary>

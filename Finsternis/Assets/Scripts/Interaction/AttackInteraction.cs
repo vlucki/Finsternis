@@ -43,9 +43,9 @@
             }
         }
 
-        public override bool Interact(InteractionData data)
+        protected override bool Interact(InteractionData data)
         {
-            if (!base.Interact(data))
+            if (!base.ValidadeInteractionType(data))
                 return false;
 
             AttackData atkData = data as AttackData;

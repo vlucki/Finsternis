@@ -15,14 +15,14 @@
             this.image = transform.Find("Hotkey").GetComponent<Image>();
             this.skillNameTxt = transform.Find("Skillname").GetComponent<Text>();
             if (!GameManager.Instance.Player)
-                GameManager.Instance.onPlayerSpawned.AddListener(GrabPlayer);
+                GameManager.Instance.onPlayerSpawned += (GrabPlayer);
             else
                 GrabPlayer(GameManager.Instance.Player);
         }
 
         private void GrabPlayer(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(GrabPlayer);
+            GameManager.Instance.onPlayerSpawned -= (GrabPlayer);
             this.skill = player.EquippedSkills[transform.GetSiblingIndex()];
             if (this.skill)
             {

@@ -9,7 +9,7 @@ namespace Finsternis
     public abstract class DungeonGoal : MonoBehaviour
     {
         [Serializable]
-        public class GoalReachedEvent : CustomEvent<DungeonGoal> { }
+        public class GoalReachedEvent : Events.CustomEvent<DungeonGoal> { }
 
         [SerializeField]
         public GoalReachedEvent onGoalReached;

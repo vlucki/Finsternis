@@ -11,7 +11,7 @@
     public class MenuButtonController : UnityEngine.UI.Button
     {
         [Serializable]
-        public class SelectionChangedEvent : CustomEvent<bool, Selectable> { }
+        public class SelectionChangedEvent : Events.CustomEvent<bool, Selectable> { }
 
         public SelectionChangedEvent OnSelectionChanged;
         [SerializeField]

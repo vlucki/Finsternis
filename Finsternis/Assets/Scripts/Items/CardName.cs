@@ -173,7 +173,7 @@
             if (this.isStackable)
                 rarity *= -1 - Mathf.Log10(rarity);
 
-            this.rarity = Mathf.Clamp(Mathf.Pow(Mathf.Abs(rarity), exponent), .001f, 1);
+            this.rarity = Mathf.Clamp(rarity.Abs().Pow(exponent), .001f, 1);
 
 
         }

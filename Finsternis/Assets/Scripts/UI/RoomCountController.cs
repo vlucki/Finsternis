@@ -39,7 +39,7 @@
         }
 
         [Serializable]
-        public class RoomCountEvent : CustomEvent<int> { }
+        public class RoomCountEvent : Events.CustomEvent<int> { }
 
         [SerializeField]
         private Option[] options;

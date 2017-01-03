@@ -8,7 +8,7 @@
     public class Exit : Trigger
     {
         [Serializable]
-        public class ExitCrossedEvent : CustomEvent<Exit> { }
+        public class ExitCrossedEvent : Events.CustomEvent<Exit> { }
 
         private bool locked;
 

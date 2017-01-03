@@ -27,7 +27,7 @@
             if (GameManager.Instance.Player)
                 SetPlayer(GameManager.Instance.Player);
             else
-                GameManager.Instance.onPlayerSpawned.AddListener(SetPlayer);
+                GameManager.Instance.onPlayerSpawned += (SetPlayer);
         }
 
         void OnEnable()
@@ -37,7 +37,7 @@
 
         public void SetPlayer(CharController player)
         {
-            GameManager.Instance.onPlayerSpawned.RemoveListener(SetPlayer);
+            GameManager.Instance.onPlayerSpawned -= (SetPlayer);
             this.player = player;
             StartUpdating();
         }

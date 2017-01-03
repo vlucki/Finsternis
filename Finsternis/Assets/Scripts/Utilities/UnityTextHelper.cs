@@ -8,7 +8,7 @@
 
         public static string Colorize(this string s, Color c)
         {
-            return "<color=#" + /*c.ToHex()*/ c.Encode() + ">" + s + "</color>";
+            return "<color=#" + c.Encode() + ">" + s + "</color>";
         }
 
         public static string SetSize(this string s, int size)

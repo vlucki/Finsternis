@@ -11,7 +11,7 @@
     public class LookForTargetAction : EntityAction
     {
         [System.Serializable]
-        public class TargetChangedEvent : CustomEvent<GameObject> { }
+        public class TargetChangedEvent : Events.CustomEvent<GameObject> { }
 
         [SerializeField]
         [Range(0, 50)]

@@ -1549,6 +1549,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011569739164, guid: 0d169698ce9d7db4e9d49e076610bcee,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d169698ce9d7db4e9d49e076610bcee, type: 2}
   m_IsPrefabParent: 0
@@ -3212,8 +3217,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: BehaviourEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
+    m_TypeName: Finsternis.Events.BehaviourEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &334640248
 GameObject:
   m_ObjectHideFlags: 0
@@ -6820,8 +6825,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &745108483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7247,8 +7252,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &783717795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12182,8 +12187,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &1506120511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15827,8 +15832,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &1827870798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16155,8 +16160,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - name: Change equipment selection
     enabled: 1
     toggleOnly: 1
@@ -16176,8 +16181,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - name: Close
     enabled: 1
     toggleOnly: 1
@@ -16197,8 +16202,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &1893797429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17426,8 +17431,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - name: Open Album
     enabled: 1
     toggleOnly: 1
@@ -17447,8 +17452,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - name: Open Controls
     enabled: 1
     toggleOnly: 1
@@ -17468,8 +17473,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-      m_TypeName: InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      m_TypeName: Finsternis.InputRouter+InputTrigger+AxisInputEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &2038061819
 MonoBehaviour:
   m_ObjectHideFlags: 0

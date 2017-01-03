@@ -328,16 +328,15 @@ GameObject:
   - component: {fileID: 54000011580949716}
   - component: {fileID: 135000013032272884}
   - component: {fileID: 114000012044075934}
+  - component: {fileID: 114000011657927302}
   - component: {fileID: 114000012418853408}
   - component: {fileID: 114000011504093536}
-  - component: {fileID: 114000011657927302}
   - component: {fileID: 114000010811724750}
   - component: {fileID: 114000010574645562}
-  - component: {fileID: 114145424340331728}
   m_Layer: 9
   m_Name: PFAB_Hunted
   m_TagString: Enemy
-  m_Icon: {fileID: -1944569537103914328, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -791,7 +790,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010123356186}
-  m_LocalRotation: {x: -0.3477679, y: -0.60536426, z: -0.35663897, w: 0.6208063}
+  m_LocalRotation: {x: -0.34776786, y: -0.6053642, z: -0.35663894, w: 0.6208062}
   m_LocalPosition: {x: -0.17822762, y: 3.1086245e-17, z: -8.8817837e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1077,7 +1076,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012409799684}
-  m_LocalRotation: {x: 0.6053648, y: -0.34776652, z: 0.6208072, w: -0.3566378}
+  m_LocalRotation: {x: 0.60536474, y: -0.3477665, z: 0.6208071, w: -0.35663778}
   m_LocalPosition: {x: 0.045234997, y: 0.102341995, z: -0.352659}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1333,13 +1332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Hunted
-  interactable: 1
-  interactionConstraints: []
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+InteractionEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   initializationTable: {fileID: 11400000, guid: 762f68297b531fd438bffa6c68b6b620,
     type: 2}
   onAttributeInitialized:
@@ -1471,23 +1463,6 @@ MonoBehaviour:
   numberOfFlashes: 4
   flashFadeInTime: 0.2
   flashFadeOutTime: 0.3
---- !u!114 &114145424340331728
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012571075058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamageTemplate: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
-  onExecute:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!135 &135000010116013104
 SphereCollider:
   m_ObjectHideFlags: 1

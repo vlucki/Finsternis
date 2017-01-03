@@ -9,7 +9,7 @@
     public abstract class Transition : CustomBehaviour
     {
         [System.Serializable]
-        public class TransitionEvent : CustomEvent<Transition> { }
+        public class TransitionEvent : Events.CustomEvent<Transition> { }
 
         [SerializeField]
         protected bool skippable = true;

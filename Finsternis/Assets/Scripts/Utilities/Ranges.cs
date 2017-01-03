@@ -13,4 +13,17 @@
             this.max = max;
         }
     }
+
+    [System.Serializable]
+    public struct RangeF
+    {
+        public float min;
+        public float max;
+
+        public RangeF(float min, float max)
+        {
+            this.min = min;
+            this.max = max;
+        }
+    }
 }

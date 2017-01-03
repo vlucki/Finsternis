@@ -8,9 +8,6 @@
     [Serializable]
     public class AttributeTemplate : ScriptableObject
     {
-        [Serializable]
-        public class AttributeValueChangedEvent : CustomEvent<AttributeTemplate> { }
-
         public enum ValueConstraint
         {
             NONE = 0, //0b0000

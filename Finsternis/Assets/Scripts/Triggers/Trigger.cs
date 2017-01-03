@@ -10,7 +10,7 @@
     public class Trigger : CustomBehaviour
     {
         [Serializable]
-        public class OnTriggerEvent : CustomEvent<GameObject> { }
+        public class OnTriggerEvent : Events.CustomEvent<GameObject> { }
 
         public OnTriggerEvent onEnter;
         public OnTriggerEvent onExit;

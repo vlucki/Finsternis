@@ -234,15 +234,14 @@ GameObject:
   - component: {fileID: 4000012976453252}
   - component: {fileID: 95000013943945114}
   - component: {fileID: 54000012934047690}
-  - component: {fileID: 114000013790254882}
-  - component: {fileID: 114000011405039278}
-  - component: {fileID: 114000013332447426}
-  - component: {fileID: 114000012480000234}
+  - component: {fileID: 135000010862920324}
   - component: {fileID: 65000011687628890}
+  - component: {fileID: 114000011405039278}
+  - component: {fileID: 114000013790254882}
+  - component: {fileID: 114000012480000234}
   - component: {fileID: 114000013013584826}
   - component: {fileID: 114000010616428166}
   - component: {fileID: 114000012114631288}
-  - component: {fileID: 135000010862920324}
   - component: {fileID: 114000013442624232}
   m_Layer: 9
   m_Name: PFAB_Beholder
@@ -1055,13 +1054,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Beholder
-  interactable: 1
-  interactionConstraints: []
-  onInteraction:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Finsternis.Entity+InteractionEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   initializationTable: {fileID: 11400000, guid: 762f68297b531fd438bffa6c68b6b620,
     type: 2}
   onAttributeInitialized:
@@ -1238,34 +1230,6 @@ MonoBehaviour:
   maxDistance: 10
   maxSimultaneousClips: 10
   type: 2
---- !u!114 &114000013332447426
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012345338928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d704f58c3416a1b45a42e4efd2028b04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamageTemplate: {fileID: 11400000, guid: bff1f47e640a96849801132c4fbd63fe, type: 2}
-  onExecute:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114000013675602364}
-        m_MethodName: PlayRandom
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114000013442624232
 MonoBehaviour:
   m_ObjectHideFlags: 1
