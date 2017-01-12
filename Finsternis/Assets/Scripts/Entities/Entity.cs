@@ -1,20 +1,17 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using UnityEngine.Events;
     using System.Collections.Generic;
-    using System;
     using Extensions;
     using System.Collections;
-    using System.Linq;
     using EasyEditor;
 
     [SelectionBase, DisallowMultipleComponent, RequireComponent(typeof(InteractionModule))]
-    public abstract class Entity : CustomBehaviour, IEnumerable<Attribute>
+    public abstract class Entity : CustomBehaviour, IEnumerable<EntityAttribute>
     {
         #region EVENT CLASSES
-        [Serializable]
-        public class AttributeInitializedEvent : Events.CustomEvent<Attribute> { }
+        [System.Serializable]
+        public class AttributeInitializedEvent : Events.CustomEvent<EntityAttribute> { }
         #endregion
 
         #region VARIABLES
@@ -29,15 +26,17 @@
         /// </summary>
         public AttributeInitializedEvent onAttributeInitialized;
 
-        protected Dictionary<string, Attribute> attributes;
+        protected Dictionary<string, EntityAttribute> attributes;
 
         #endregion
 
-        public Attribute this[string alias] { get { return this.attributes[alias]; } }
+        public EntityAttribute this[string alias] { get { return this.attributes[alias]; } }
+
+        public bool AttributesInitialized { get; protected set; }
 
         protected virtual void Awake()
         {
-            this.attributes = new Dictionary<string, Attribute>();
+            this.attributes = new Dictionary<string, EntityAttribute>();
             if (!this.name.IsNullOrEmpty())
                 base.name = this.name;
         }
@@ -51,32 +50,24 @@
                     InitializeAttribute(influence);
                 }
             }
+            this.AttributesInitialized = true;
         }
 
         protected virtual void InitializeAttribute(Influence influence)
         {
-            Attribute attribute = null;
+            EntityAttribute attribute = null;
             if (influence.template)
             {
+                attribute = influence.template.Copy();
                 UnityEngine.Random.InitState(this.name.GetHashCode() + influence.template.Alias.GetHashCode());
-                int value = Mathf.CeilToInt(UnityEngine.Random.Range(influence.range.min, influence.range.max));
-                attribute = new Attribute(influence.template.Alias, value);
-
-                if (influence.template.HasMinimumValue)
-                    attribute.AddConstraint(new AttributeConstraint()
-                    { Type = AttributeConstraint.AttributeConstraintType.MIN, Value = influence.template.Min });
-
-                if (influence.template.HasMaximumValue)
-                    attribute.AddConstraint(new AttributeConstraint()
-                    { Type = AttributeConstraint.AttributeConstraintType.MAX, Value = influence.template.Max });
-                
+                attribute.Value = Mathf.CeilToInt(UnityEngine.Random.Range(influence.range.min, influence.range.max));
             }
 
-            if (attribute && onAttributeInitialized && AddAttribute(attribute))
+            if (attribute && onAttributeInitialized)
                 onAttributeInitialized.Invoke(attribute);
         }
 
-        public bool AddAttribute(Attribute attribute)
+        public bool AddAttribute(EntityAttribute attribute)
         {
             bool mayAddAttribute = !this.attributes.ContainsKey(attribute.Alias);
             if (!mayAddAttribute)
@@ -85,15 +76,15 @@
             return mayAddAttribute;
         }
 
-        public Attribute GetAttribute(string alias)
+        public EntityAttribute GetAttribute(string alias)
         {
-            Attribute result = null;
+            EntityAttribute result = null;
             this.attributes.TryGetValue(alias, out result);
 
             return result;
         }
 
-        public IEnumerator<Attribute> GetEnumerator()
+        public IEnumerator<EntityAttribute> GetEnumerator()
         {
             return attributes.Values.GetEnumerator();
         }

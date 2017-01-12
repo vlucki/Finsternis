@@ -11,7 +11,7 @@
         [Serializable]
         public struct Modifier
         {
-            public AttributeTemplate attributeTemplate;
+            public EntityAttribute attributeTemplate;
             public float influenceAmount;
         }
 
@@ -23,23 +23,31 @@
         }
 
         [SerializeField]
-        private AttributeTemplate healthTemplate;
-        
+        private EntityAttribute health;
+
         [SerializeField]
         private List<TypeModifierRelation> damageModifiers;
-
-        private Attribute healthAttribute;
 
         protected override void Awake()
         {
             base.Awake();
-            if (!healthTemplate)
+            if (!health)
             {
                 this.DestroyNow();
 #if UNITY_EDITOR
                 Debug.LogErrorFormat(this, "NO HEALTH TEMPLATE DEFINED FOR Attack INTERACTION!");
 #endif
                 return;
+            }
+            this.entity.onAttributeInitialized.AddListener(GrabHealth);
+        }
+
+        private void GrabHealth(EntityAttribute attribute)
+        {
+            if (attribute.Alias.Equals(this.health.Alias))
+            {
+                this.health = attribute;
+                this.entity.onAttributeInitialized.RemoveListener(GrabHealth);
             }
         }
 
@@ -51,14 +59,12 @@
             AttackData atkData = data as AttackData;
             if (!atkData)
                 return false;
-
-            Attribute health = this.entity.GetAttribute(healthTemplate.Alias);
-            if (!health)
+            
+            if (!this.health) //this shouldn't happen... ever
                 return false;
 
             float finalDamageAmount = CalculateDamage(atkData);
             health.Value -= finalDamageAmount;
-
 
             return true;
         }

@@ -156,7 +156,7 @@
             this.player.Character.onAttributeInitialized.AddListener(
                 attribute =>
                 {
-                    if (attribute.Constraints.Any(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX))
+                    if (attribute.HasMaximumValue())
                         new AttributeRegeneration(
                             this.player.Character, 
                             attribute, 
@@ -201,7 +201,7 @@
             Entity e = obj.GetComponent<Entity>();
             if (e)
             {
-                Attribute hp = e.GetAttribute("vit");
+                EntityAttribute hp = e.GetAttribute("vit");
                 if (hp)
                     hp.Value = 0;
                 else
@@ -224,12 +224,11 @@
             this.player.GetComponent<Inventory>().SetAllowedCardPoints(Mathf.CeilToInt(this.dungeonsToClear * 20 * (1 + clearedDungeons) / this.dungeonsToClear));
             foreach (var attribute in this.player.Character)
             {
-                AttributeConstraint maxValueConstraint = attribute.Constraints.FirstOrDefault(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX);
                 float newAttributeValue = attribute.Value * 2;
-                if (maxValueConstraint)
+                if (attribute.HasMaximumValue())
                 {
-                    maxValueConstraint.Value *= 2;
-                    newAttributeValue = maxValueConstraint.Value;
+                    attribute.SetMax(attribute.Max * 2);
+                    newAttributeValue = attribute.Max;
                 }
                 attribute.Value = newAttributeValue;
             }

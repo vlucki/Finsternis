@@ -131,7 +131,7 @@
                 var attributeModifier = effect as AttributeModifier;
                 if (attributeModifier)
                 {
-                    var attrib = owner.GetAttribute(attributeModifier.AttributeAlias);
+                    var attrib = owner.GetAttribute(attributeModifier.ModifiedAttribute.Alias);
                     if (attrib)
                     {
                         if (addingNewEffects)

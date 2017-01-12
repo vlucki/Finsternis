@@ -12,14 +12,11 @@
         [Header("Character Specific Variables")]
 
         [SerializeField]
-        private AttributeTemplate healthTemplate;
+        private EntityAttribute health;
         [SerializeField]
-        private AttributeTemplate defenseTemplate;
+        private EntityAttribute defense;
 
         public UnityEvent onDeath;
-
-        private Attribute health;
-        private Attribute defense;
 
         private bool dead;
 
@@ -48,11 +45,11 @@
 #if UNITY_EDITOR
                 Debug.LogErrorFormat(this, "Characters must have \"health\"! Adding attribute manually");
 #endif
-                this.health = AddAttributeManually(this.healthTemplate, "hp", 10, 0, 10);
+                this.health = AddAttributeManually("hp", 10, 0, 10);
             }
 
 
-            this.health.valueChangedEvent += CheckHealth;
+            this.health.onValueChanged += CheckHealth;
 
             if (!this.defense)
             {
@@ -60,57 +57,33 @@
 #if UNITY_EDITOR
                 Debug.LogErrorFormat(this, "Characters must have \"defense\"! Adding attribute manually");
 #endif
-                this.defense = new Attribute(this.defenseTemplate.Alias, this.defenseTemplate.Value);
-                AddAttributeManually(this.defenseTemplate, "def", 1, 0, null);
+                //(this.defenseTemplate.Alias, this.defenseTemplate.Value);
+                this.defense = AddAttributeManually("def", 1, 0, null);
             }
         }
 
-        private Attribute AddAttributeManually(AttributeTemplate attributeTemplate, string alias, float baseValue, float? min, float? max)
+        private EntityAttribute AddAttributeManually(string alias, float fallbackBaseValue, float? fallbackMinValue, float? fallbackMaxValue)
         {
-            Attribute attribute = null;
-            if (attributeTemplate)
-            {
-                alias = attributeTemplate.Alias;
-                if (attributeTemplate.HasMinimumValue)
-                    min = attributeTemplate.Min;
-                if (attributeTemplate.HasMaximumValue)
-                    max = attributeTemplate.Max;
-                baseValue = attributeTemplate.Value;
-            }
+            EntityAttribute attribute = EntityAttribute.CreateInstance<EntityAttribute>();
+            if (fallbackMinValue.HasValue)
+                attribute.SetMin(fallbackMinValue.Value);
 
-#if UNITY_EDITOR
-            else
-                Debug.LogErrorFormat(this, "No template assigned for {0}! Adding attribute with hardcoded values - base: {1}, min: {2}, max: {3}!",
-                    alias, baseValue, min, max);
-#endif
-
-            attribute = new Attribute(alias, baseValue);
-            if (min != null)
-                attribute.AddConstraint(new AttributeConstraint()
-                {
-                    Type = AttributeConstraint.AttributeConstraintType.MIN,
-                    Value = (int)min
-                });
-            if (max != null)
-                attribute.AddConstraint(new AttributeConstraint()
-                {
-                    Type = AttributeConstraint.AttributeConstraintType.MAX,
-                    Value = (int)max
-                });
-
+            if (fallbackMaxValue.HasValue)
+                attribute.SetMax(fallbackMaxValue.Value);
+            
             AddAttribute(attribute);
             return attribute;
         }
 
-        protected void GrabAttributes(Attribute attribute)
+        protected void GrabAttributes(EntityAttribute attribute)
         {
-            if (attribute.Alias == this.healthTemplate.Alias)
+            if (attribute.Alias == this.health.Alias)
                 this.health = attribute;
-            else if (attribute.Alias == this.defenseTemplate.Alias)
+            else if (attribute.Alias == this.defense.Alias)
                 this.defense = attribute;
         }
 
-        public virtual void CheckHealth(Attribute health)
+        public virtual void CheckHealth(EntityAttribute health)
         {
             if (!this.dead && health.Value <= 0)
                 Die();

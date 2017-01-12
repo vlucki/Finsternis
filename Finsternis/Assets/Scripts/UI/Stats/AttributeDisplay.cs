@@ -24,8 +24,6 @@
         [SerializeField]
 
         private List<AttributeMapping> mappedAttributes;
-        [SerializeField]
-        private AttributeTemplate observedAttributeTemplate;
 
         [SerializeField]
         private Text attributeAliasLabel;
@@ -36,15 +34,15 @@
         [SerializeField]
         private Image attributeImage;
 
-        private Attribute observedAttribute;
+        private EntityAttribute observedAttribute;
 
-        public void SetAttribute(Attribute attribute)
+        public void SetAttribute(EntityAttribute attribute)
         {
             if (this.observedAttribute)
-                this.observedAttribute.valueChangedEvent -= AtttributeValueChanged;
+                this.observedAttribute.onValueChanged -= AtttributeValueChanged;
 
             this.observedAttribute = attribute;
-            this.observedAttribute.valueChangedEvent += AtttributeValueChanged;
+            this.observedAttribute.onValueChanged += AtttributeValueChanged;
 
             this.attributeAliasLabel.text = this.observedAttribute.Alias;
             this.attributeValueLabel.text = this.observedAttribute.Value.ToString("n2");
@@ -64,7 +62,7 @@
 
         }
 
-        private void AtttributeValueChanged(Attribute attribute)
+        private void AtttributeValueChanged(EntityAttribute attribute)
         {
             this.attributeValueLabel.text = attribute.Value.ToString("n2");
         }

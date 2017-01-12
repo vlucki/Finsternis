@@ -15,10 +15,19 @@
                 return false;
 
             OpeneableEntity thisEntity = GetComponent<OpeneableEntity>();
-            var keys = oData.Keys;
             if (thisEntity.IsLocked)
             {
-                
+                //go backwards since elements may be removed during iteration
+                for(int keyIndex = oData.Keys.Count; keyIndex >= 0; keyIndex--)
+                {
+                    KeyCard key = oData.Keys[keyIndex];
+                    for(int lockIndex = thisEntity.Locks.Count - 1; lockIndex >= 0; lockIndex--)
+                    {
+                        Lock l = thisEntity.Locks[lockIndex];
+                        if (l.Unlock(key) && key.UsedUp)
+                            break;
+                    };
+                }
             }
 
             return true;

@@ -8,14 +8,14 @@
     public class AttributeRegeneration : Effect
     {
         public enum RegenType { ABSOLUTE = 0, RELATIVE = 1 }
-        
+
         private RegenType regenType = RegenType.ABSOLUTE;
-        
+
         private float regenAmount;
-        
+
         private float regenInterval = 1;
 
-        public AttributeRegeneration(Entity entity, Attribute attribute, RegenType type, float amount, float interval)
+        public AttributeRegeneration(Entity entity, EntityAttribute attribute, RegenType type, float amount, float interval)
         {
             this.regenType = type;
             this.regenAmount = amount;
@@ -23,22 +23,14 @@
             entity.StartCoroutine(_Regen(attribute));
         }
 
-        private IEnumerator _Regen(Attribute attribute)
+        private IEnumerator _Regen(EntityAttribute attribute)
         {
             while (ShouldBeActive())
             {
                 float amount = this.regenAmount;
                 if (this.regenType == RegenType.RELATIVE)
                 {
-                    foreach(var constraint in attribute.Constraints)
-                    {
-                        if(constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
-                        {
-                            amount *= constraint.Value;
-                            break;
-                        }
-
-                    }
+                    amount *= attribute.Max;
                 }
 
                 attribute.Value += (amount);

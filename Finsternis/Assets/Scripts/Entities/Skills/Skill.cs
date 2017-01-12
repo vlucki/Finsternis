@@ -22,7 +22,7 @@
         private float energyCost = 1;
 
         [SerializeField]
-        private AttributeTemplate energyAttributeTemplate;
+        private EntityAttribute energyAttribute;
 
         [Inspector(group = "Phases duration", foldable = true)]
         [SerializeField, Range(0, 100)]
@@ -50,8 +50,6 @@
 
         private float timeStarted;
 
-        private Attribute energyAttribute;
-
         public string Name { get { return this.name; } }
         public bool Using { get; private set; }
         public bool Casting { get; private set; }
@@ -65,7 +63,7 @@
             {
                 user.Character.onAttributeInitialized.AddListener(attribute =>
                 {
-                    if (attribute.Alias.Equals(this.energyAttributeTemplate.Alias))
+                    if (attribute.Alias.Equals(this.energyAttribute.Alias))
                         this.energyAttribute = attribute;
                 });
             }
@@ -149,8 +147,8 @@
 #if UNITY_EDITOR
         void OnValidate()
         {
-            if (this.energyAttributeTemplate && !this.energyAttributeTemplate.HasMaximumValue)
-                this.energyAttributeTemplate = null;
+            if (this.energyAttribute && !this.energyAttribute.HasMaximumValue())
+                this.energyAttribute = null;
         }
 #endif
 

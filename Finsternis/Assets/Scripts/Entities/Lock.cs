@@ -1,9 +1,5 @@
 ﻿namespace Finsternis
 {
-    using UnityEngine;
-    using System.Collections;
-    using System.Collections.Generic;
-    
     public class Lock
     {
 
@@ -11,19 +7,16 @@
         public delegate void UnlockDelegate(Lock l);
         public event UnlockDelegate onUnlock;
         #endregion
-
-        [SerializeField]
+        
         private bool permanentLock = false;
-
-        private OpeneableEntity lockedEntity;
 
         private KeyCard key;
 
-       public virtual bool Unlock(KeyCard key)
+        public virtual bool Unlock(KeyCard key)
         {
             if (permanentLock)
                 return false;
-            
+
             if (key.UsedUp)
                 return false;
 

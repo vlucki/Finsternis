@@ -8,7 +8,7 @@
     {
 
         [SerializeField]
-        private AttributeTemplate attributeTemplate;
+        private EntityAttribute attributeTemplate;
 
         [SerializeField]
         private Image[] images;
@@ -27,20 +27,19 @@
             player.Character.onAttributeInitialized.AddListener(GrabAttribute);
         }
 
-        private void GrabAttribute(Attribute attribute)
+        private void GrabAttribute(EntityAttribute attribute)
         {
             if (this.attributeTemplate.Alias.Equals(attribute.Alias))
             {
-                attribute.valueChangedEvent += (UpdateDisplay);
+                attribute.onValueChanged += (UpdateDisplay);
             }
         }
 
-        private void UpdateDisplay(Attribute attribute)
+        private void UpdateDisplay(EntityAttribute attribute)
         {
             float value = attribute.Value;
-            var maxValueConstraint = attribute.Constraints.FirstOrDefault(c => c.Type == AttributeConstraint.AttributeConstraintType.MAX);
-            if (maxValueConstraint)
-                value /= maxValueConstraint.Value;
+            if (attribute.HasMaximumValue())
+                value /= attribute.Max;
             foreach (var image in this.images)
                 image.fillAmount = value;
         }

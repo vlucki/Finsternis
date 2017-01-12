@@ -1,28 +1,20 @@
 ﻿namespace Finsternis
 {
+    using Extensions;
     using System;
     using System.Collections.Generic;
-    using UnityEngine;
-    using Extensions;
+    using System.Collections.ObjectModel;
 
     [Serializable]
     public abstract class Effect
     {
-        [SerializeField][ReadOnly]
         protected string name;
 
-        [SerializeField]
         protected List<EffectConstraint> constraints;
 
         public string Name { get { return this.name; } }
 
-        public int ConstraintsCount
-        {
-            get
-            {
-                return (this.constraints != null ? this.constraints.Count : 0);
-            }
-        }
+        public ReadOnlyCollection<EffectConstraint> Constraints { get { return this.constraints.AsReadOnly(); } }
 
         public Effect(string name = null)
         {
@@ -74,19 +66,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + ((constraints != null && constraints.Count > 0) ? ", constraints: {" + StringfyConstraints() + "}" : "");
-        }
-
-        private string StringfyConstraints()
-        {
-            if (this.constraints.Count == 0)
-                return null;
-
-            string constraintsStr = null;
-
-            this.constraints.ForEach(constraint => constraintsStr += (constraint.ToString() + ","));
-
-            return constraintsStr.Substring(0, constraintsStr.Length - 2);
+            return base.ToString() + ((constraints != null && constraints.Count > 0) ? ", constraints: {" + this.constraints.SequenceToString() + "}" : "");
         }
     }
 }

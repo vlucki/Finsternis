@@ -47,7 +47,6 @@
             names.ForEach(name =>
             {
                 this.names[(int)name.Type].Add(name);
-                name.Effects.ForEach(effect => effect.CalculateValue());
             });
         }
 

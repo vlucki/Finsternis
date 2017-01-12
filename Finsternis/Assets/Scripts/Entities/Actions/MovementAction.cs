@@ -27,9 +27,9 @@
         private ForceMode modeWhenApplyingForce = ForceMode.Acceleration;
 
         [SerializeField]
-        private AttributeTemplate speedTemplate;
+        private EntityAttribute speedTemplate;
 
-        private Attribute cachedSpeed;
+        private EntityAttribute cachedSpeed;
 
         private Vector3 movementDirection;
 
@@ -37,7 +37,7 @@
 
         public bool ShouldFaceMovementDirection { get; set; }
 
-        private Attribute Speed
+        private EntityAttribute Speed
         {
             get
             {

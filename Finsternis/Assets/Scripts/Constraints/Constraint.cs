@@ -1,7 +1,6 @@
 ﻿namespace Finsternis
 {
     using UnityEngine;
-    using System.Collections;
 
     public abstract class Constraint : ScriptableObject
     {

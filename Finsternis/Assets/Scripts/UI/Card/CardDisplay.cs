@@ -143,13 +143,13 @@
             if (player)
             {
                 var effects = this.stack.card.GetEffects();
-                var compoundEffects = new Dictionary<Attribute, float>();
+                var compoundEffects = new Dictionary<EntityAttribute, float>();
                 foreach (var effect in effects)
                 {
                     var modifier = effect as AttributeModifier;
                     if (modifier)
                     {
-                        var attrib = player.Character.GetAttribute(modifier.AttributeAlias);
+                        var attrib = player.Character.GetAttribute(modifier.ModifiedAttribute.Alias);
                         if (!compoundEffects.ContainsKey(attrib))
                             compoundEffects[attrib] = attrib.Value;
 
@@ -166,7 +166,7 @@
 
         }
 
-        private string GetValueWithComparison(KeyValuePair<Attribute, float> compoundEffect)
+        private string GetValueWithComparison(KeyValuePair<EntityAttribute, float> compoundEffect)
         {
             var difference = compoundEffect.Value - compoundEffect.Key.Value;
             string result = difference.ToString("00.00");
@@ -196,18 +196,10 @@
 
             if (!player.GetComponent<Inventory>().IsEquipped(this.stack.card))
             {
-                var attr = player.Character.GetAttribute(modifier.AttributeAlias);
+                var attr = player.Character.GetAttribute(modifier.ModifiedAttribute.Alias);
                 if (attr)
                 {
-                    AttributeConstraint maxValueConstraint = null;
-                    foreach (var constraint in attr.Constraints)
-                    {
-                        if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
-                        {
-                            maxValueConstraint = constraint;
-                        }
-                    }
-                    float modifiedValue = modifier.GetModifiedValue(attr.Value, maxValueConstraint ? maxValueConstraint.Value : 0);
+                    float modifiedValue = modifier.GetModifiedValue(attr.Value, attr.HasMaximumValue() ? attr.Max : (float?)null);
                     string valueStr = modifiedValue.ToString("00.00");
                     if (modifiedValue != attr.Value)
                     {

@@ -15,19 +15,17 @@
         private LayerMask layersOfEffect;
 
         [SerializeField]
-        private AttributeTemplate damageAttributeTemplate;
+        private EntityAttribute damageAttribute;
 
         [SerializeField]
         AttackData.DamageType damageType = AttackData.DamageType.physical;
-
-        private Attribute damageAttribute;
 
         protected override void Awake()
         {
             base.Awake();
             this.GetComponent<Character>().onAttributeInitialized.AddListener(
                 attribute => {
-                if (attribute.Alias.Equals(this.damageAttributeTemplate.Alias))
+                if (attribute.Alias.Equals(this.damageAttribute.Alias))
                     this.damageAttribute = attribute;
             });
         }

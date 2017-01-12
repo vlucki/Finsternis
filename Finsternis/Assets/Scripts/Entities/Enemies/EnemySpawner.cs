@@ -14,7 +14,7 @@
         private DungeonDrawer drawer;
 
         [SerializeField]
-        private List<AttributeTemplate> baseAttributes;
+        private List<EntityAttribute> baseAttributes;
 
         [SerializeField]
         private List<GameObject> enemies;
@@ -153,14 +153,12 @@
                 enemyChar.onAttributeInitialized.AddListener(
                     attribute =>
                     {
-                        foreach (var constraint in attribute.Constraints)
+
+                        if (attribute.HasMaximumValue())
                         {
-                            if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
-                            {
-                                constraint.Value = (constraint.Value * (1 + dungeonProgress));
-                                attribute.Value = constraint.Value;
-                                return;
-                            }
+                            attribute.SetMax(attribute.Max * (1 + dungeonProgress));
+                            attribute.Value = attribute.Max;
+                            return;
                         }
                         attribute.Value *= 1 + dungeonProgress;
 

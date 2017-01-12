@@ -56,7 +56,7 @@
             return true;
         }
 
-        private void AttributeInitialized(Attribute attributeInOwner)
+        private void AttributeInitialized(EntityAttribute attributeInOwner)
         {
             for (int i = 0; i < this.attributesThatInfluenceDamage.Count || i < this.attributesThatInfluenceImpact.Count; i++)
             {

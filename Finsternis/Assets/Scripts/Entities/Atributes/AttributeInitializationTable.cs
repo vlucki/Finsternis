@@ -6,19 +6,10 @@
     using System.Collections;
 
     [Serializable]
-    public struct InfluenceRange
-    {
-        [Range(.5f, 999)]
-        public float min;
-        [Range(.5f, 999)]
-        public float max;
-    }
-
-    [Serializable]
     public struct Influence
     {
-        public AttributeTemplate template;
-        public InfluenceRange range;
+        public EntityAttribute template;
+        public RangeF range;
     }
 
     [CreateAssetMenu(fileName = "AttributeInitializationTable", menuName = "Attribute Initialization Table")]

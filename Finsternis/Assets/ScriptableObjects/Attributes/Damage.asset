@@ -11,8 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9cf45de36a92343b6188126a52bafd, type: 3}
   m_Name: Damage
   m_EditorClassIdentifier: 
-  alias: dmg
-  constraints: 0
+  alias: 646d67
   baseValue: 1
-  min: 0
-  max: 0
+  constraints: 1
+  valueBounds:
+    min: 0
+    max: 0
+  lastMin: 0
+  lastMax: 0
+  lastAlias: 646d67

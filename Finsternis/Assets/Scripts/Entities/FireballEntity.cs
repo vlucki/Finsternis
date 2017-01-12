@@ -35,7 +35,7 @@
             this.explosionEvent = GetComponent<ShakeCameraEvent>();
         }
 
-        protected void GrabSpeed(Attribute attribute)
+        protected void GrabSpeed(EntityAttribute attribute)
         {
             if (attribute.Alias.Equals("spd"))
             {

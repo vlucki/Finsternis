@@ -7,7 +7,7 @@ namespace Finsternis
     public class HealthAlert : AudioPlayer
     {
         [SerializeField]
-        private AttributeTemplate healthTemplate;
+        private EntityAttribute healthTemplate;
 
         [SerializeField, Range(0, 1)]
         private float healthPercentageThreshold = .5f;
@@ -21,8 +21,6 @@ namespace Finsternis
 
         private bool alertPlaying = false;
 
-        private ValueConstraint maxHealth;
-
         protected override void Awake()
         {
             base.Awake();
@@ -31,27 +29,19 @@ namespace Finsternis
             this.camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         }
 
-        private void GrabHealth(Attribute attribute)
+        private void GrabHealth(EntityAttribute attribute)
         {
             if (attribute.Alias.Equals(healthTemplate.Alias))
             {
-                attribute.valueChangedEvent += HealthChanged;
-                foreach(var constraint in attribute.Constraints)
-                {
-                    if (constraint.Type == AttributeConstraint.AttributeConstraintType.MAX)
-                    {
-                        this.maxHealth = constraint;
-                        break;
-                    }
-                }
+                attribute.onValueChanged += HealthChanged;
             }
         }
 
-        private void HealthChanged(Attribute attribute)
+        private void HealthChanged(EntityAttribute attribute)
         {
 
-            this.camera.fieldOfView = 60 + (10 * (1 - attribute.Value / maxHealth.Value));
-            if (attribute.Value <= maxHealth.Value* this.healthPercentageThreshold)
+            this.camera.fieldOfView = 60 + (10 * (1 - attribute.Value / attribute.Max));
+            if (attribute.Value <= attribute.Max * this.healthPercentageThreshold)
             {
                 if (!alertPlaying)
                 {
